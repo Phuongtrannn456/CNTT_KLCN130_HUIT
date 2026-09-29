@@ -370,7 +370,7 @@ const TopicRegistration = () => {
       )}
 
       {selectedClassId === 'KHOA_LUAN' && activeRegistrations.length > 0 && !registeredTopicId && (
-        <Card title="🏆 Các đề tài khóa luận bạn đang cạnh tranh" style={{ marginBottom: 24, border: '1px solid #1677ff', background: '#f0f5ff' }}>
+        <Card title="🏆 Các dự án STEM bạn đang cạnh tranh" style={{ marginBottom: 24, border: '1px solid #1677ff', background: '#f0f5ff' }}>
           <List
             dataSource={activeRegistrations}
             renderItem={reg => (
@@ -598,13 +598,13 @@ const TopicRegistration = () => {
                   <Text type="secondary">GV Hướng dẫn:</Text>
                   <Text strong style={{ marginLeft: 8 }}>{topic.GiangVienHuongDan?.HoTen || 'N/A'}</Text>
                   <br />
-                  <Text type="secondary">Sinh viên tối đa:</Text>
-                  <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongSinhVien || 1} SV</Tag>
+                  <Text type="secondary">Học sinh tối đa:</Text>
+                  <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongSinhVien || 1} HS</Tag>
                   <br />
                   {topic.LoaiDeTai === 'KhoaLuan' ? (
                     <>
                       <Text type="secondary">Loại đề tài:</Text>
-                      <Tag color="gold" style={{ marginLeft: 8, marginTop: 4 }}>📝 Khóa Luận</Tag>
+                      <Tag color="gold" style={{ marginLeft: 8, marginTop: 4 }}>📝 Dự Án STEM</Tag>
                     </>
                   ) : (
                     <>

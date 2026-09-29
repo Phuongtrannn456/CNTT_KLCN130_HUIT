@@ -1,12 +1,12 @@
 {
-  "name": "qlns-main",
+  "name": "cntt-klcn130-huit-web3-giao-duc-pho-thong",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["web3", "education", "blockchain", "ai", "huit"],
+  "author": "Phuongtrannn456",
   "license": "ISC",
-  "description": ""
+  "description": "Nền tảng Web3 & AI cho Giáo dục Phổ thông - Khóa luận cử nhân CNTT130 HUIT"
 }

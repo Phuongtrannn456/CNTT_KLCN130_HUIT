@@ -58,10 +58,10 @@ const StudentClassSelector = () => {
         onChange={setSelectedClassId}
         style={{ width: 350 }}
         dropdownMatchSelectWidth={false}
-        placeholder="Chọn lớp học hoặc khóa luận"
+        placeholder="Chọn lớp học hoặc dự án STEM"
       >
         <Option value="KHOA_LUAN" className="khoa-luan-option">
-          Khóa luận tốt nghiệp
+          Dự án STEM / Đề tài KHKT
         </Option>
         {myClasses.map((lop) => (
           <Option key={lop._id} value={lop._id}>
@@ -91,7 +91,7 @@ const LecturerClassSelector = () => {
       >
         <Option value="ALL">Tất cả các lớp</Option>
         <Option value="KHOA_LUAN" className="khoa-luan-option">
-          Khóa luận tốt nghiệp
+          Dự án STEM / Đề tài KHKT
         </Option>
         {myClasses.map((lop) => (
           <Option key={lop._id} value={lop._id}>

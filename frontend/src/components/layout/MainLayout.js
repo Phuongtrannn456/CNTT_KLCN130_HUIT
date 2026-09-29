@@ -78,28 +78,28 @@ const MainLayout = () => {
   }, [isAdmin, fetchPendingRequestsCount]);
 
   const studentMenuItems = [
-    { key: '/student', icon: <Monitor size={18} />, label: 'Dashboard Sinh Viên' },
-    { key: '/student/group', icon: <BookOpen size={18} />, label: 'Nhóm' },
-    { key: '/student/register', icon: <Award size={18} />, label: 'Đăng Ký Đề Tài' },
-    { key: '/student/upload', icon: <FileText size={18} />, label: 'Nộp Báo Cáo' },
+    { key: '/student', icon: <Monitor size={18} />, label: 'Dashboard Học Sinh' },
+    { key: '/student/group', icon: <BookOpen size={18} />, label: 'Nhóm Học Sinh' },
+    { key: '/student/register', icon: <Award size={18} />, label: 'Đăng Ký Dự Án' },
+    { key: '/student/upload', icon: <FileText size={18} />, label: 'Nộp Báo Cáo Dự Án' },
     { key: '/student/progress-log', icon: <CheckCircle size={18} />, label: 'Nhật Ký Tiến Độ' },
     { key: '/student/progress', icon: <UserIcon size={18} />, label: 'Kết Quả & Điểm' }
   ];
 
   const lecturerMenuItems = [
-    { key: '/lecturer', icon: <Monitor size={18} />, label: 'Dashboard Giảng Viên' },
-    { key: '/lecturer/topics', icon: <Award size={18} />, label: 'Quản Lý Đề Tài' },
+    { key: '/lecturer', icon: <Monitor size={18} />, label: 'Dashboard Giáo Viên' },
+    { key: '/lecturer/topics', icon: <Award size={18} />, label: 'Quản Lý Dự Án' },
     { key: '/lecturer/courses', icon: <BookOpen size={18} />, label: 'Quản Lý Môn Học' },
     { key: '/lecturer/classes', icon: <School size={18} />, label: 'Quản Lý Lớp Học' },
-    { key: '/lecturer/students', icon: <Users size={18} />, label: 'Quản Lý Sinh Viên' },
-    { key: '/lecturer/rubrics', icon: <ClipboardList size={18} />, label: 'Quản Lý Rubrics' },
+    { key: '/lecturer/students', icon: <Users size={18} />, label: 'Quản Lý Học Sinh' },
+    { key: '/lecturer/rubrics', icon: <ClipboardList size={18} />, label: 'Tiêu Chí Rubrics' },
     { key: '/lecturer/review', icon: <FileText size={18} />, label: 'Chấm Điểm (AI)' },
-    { key: '/lecturer/comparison', icon: <BarChart2 size={18} />, label: 'So Sánh AI vs GV' },
+    { key: '/lecturer/comparison', icon: <BarChart2 size={18} />, label: 'So Sánh AI & GV' },
     { key: '/lecturer/blockchain', icon: <ShieldCheck size={18} />, label: 'Đối Chiếu Blockchain' }
   ];
 
   const adminMenuItems = [
-    { key: '/admin', icon: <Monitor size={18} />, label: 'Dashboard Admin' },
+    { key: '/admin', icon: <Monitor size={18} />, label: 'Dashboard Quản Trị' },
     { 
       key: '/admin/requests', 
       icon: <Bell size={18} />, 
@@ -125,8 +125,8 @@ const MainLayout = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} theme="light">
-        <div style={{ height: 64, margin: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: collapsed ? 12 : 18, color: '#1677ff' }}>
-          {collapsed ? 'W3GV' : 'Web3 Giảng Viên'}
+        <div style={{ height: 64, margin: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: collapsed ? 12 : 16, color: '#1677ff' }}>
+          {collapsed ? 'W3PT' : 'Web3 Phổ Thông'}
         </div>
         <Menu
           theme="light"

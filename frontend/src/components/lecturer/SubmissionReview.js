@@ -636,7 +636,7 @@ const SubmissionReview = () => {
       render: (_, record) => {
         const isKL = record.topic?.LoaiDeTai === 'KhoaLuan';
         const classes = record.topic?.LopHoc || [];
-        const classNameStr = isKL ? '📝 Khóa Luận' : (classes.map(c => c.TenLopHoc || c.MaLopHoc).join(', ') || 'N/A');
+        const classNameStr = isKL ? '📝 Dự Án STEM' : (classes.map(c => c.TenLopHoc || c.MaLopHoc).join(', ') || 'N/A');
         const subjectName = isKL ? '—' : (record.topic?.MonHoc?.TenMonHoc || 'N/A');
         const lecturerName = record.topic?.GiangVienHuongDan?.HoTen || 'N/A';
         

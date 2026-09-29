@@ -40,11 +40,11 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
             }}
           >
             <SchoolIcon color="primary" sx={{ fontSize: 60, mx: 'auto', mb: 2 }} />
-            <Typography variant="h6" fontWeight="bold" gutterBottom>Sinh Viên</Typography>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>Học Sinh</Typography>
             <Box textAlign="left" mb={4} flexGrow={1} color="text.secondary">
-              <Typography variant="body2" sx={{ mb: 1 }}>• Đăng ký tham gia đề tài thi đấu</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>• Nộp báo cáo và cập nhật tiến độ</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>• Nhận gợi ý đề tài bằng AI</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>• Đăng ký tham gia dự án học tập / STEM</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>• Nộp báo cáo dự án và cập nhật tiến độ</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>• Nhận gợi ý dự án học tập bằng AI</Typography>
             </Box>
             <Button
               variant="outlined"
@@ -55,7 +55,7 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
               disabled={loading}
               sx={{ borderRadius: 8 }}
             >
-              Vào với tư cách Sinh Viên
+              Vào với tư cách Học Sinh
             </Button>
           </Paper>
         </Grid>
@@ -76,11 +76,11 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
             }}
           >
             <TeacherIcon color="success" sx={{ fontSize: 60, mx: 'auto', mb: 2 }} />
-            <Typography variant="h6" fontWeight="bold" gutterBottom>Giảng Viên</Typography>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>Giáo Viên</Typography>
             <Box textAlign="left" mb={4} flexGrow={1} color="text.secondary">
-              <Typography variant="body2" sx={{ mb: 1 }}>• Quản lý và tạo đề tài thi đấu</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>• Chấm điểm AI và thủ công</Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>• Ghi kết quả lên Blockchain</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>• Quản lý và tạo dự án học tập</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>• Đánh giá AI và chấm điểm thủ công</Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>• Ghi nhận kết quả lên Blockchain</Typography>
             </Box>
             <Button
               variant="contained"
@@ -91,7 +91,7 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
               disabled={loading}
               sx={{ borderRadius: 8 }}
             >
-              Vào với tư cách Giảng Viên
+              Vào với tư cách Giáo Viên
             </Button>
             {/* DISABLED: Admin approval flow
             {rejectedCountToday > 0 && (
@@ -106,10 +106,10 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
 
       {/* Modal Nhập thông tin Giảng viên */}
       <Dialog open={modalOpen} onClose={() => setModalOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 'bold' }}>Thông tin Giảng Viên</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 'bold' }}>Thông tin Giáo Viên</DialogTitle>
         <DialogContent dividers>
           <Typography variant="body2" color="text.secondary" mb={2}>
-            Vui lòng cung cấp thông tin để hoàn tất đăng ký Giảng viên.
+            Vui lòng cung cấp thông tin để hoàn tất đăng ký Giáo viên.
           </Typography>
           <TextField
             autoFocus
@@ -134,7 +134,7 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
           />
           <TextField
             margin="dense"
-            label="Chuyên Ngành"
+            label="Tổ Chuyên Môn / Môn Giảng Dạy"
             type="text"
             fullWidth
             variant="outlined"
@@ -151,7 +151,7 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
             disabled={!formData.hoTen || !formData.email || !formData.chuyenNganh || loading}
             startIcon={loading ? <CircularProgress size={20} /> : null}
           >
-            Đăng ký Giảng Viên
+            Đăng ký Giáo Viên
           </Button>
         </DialogActions>
       </Dialog>

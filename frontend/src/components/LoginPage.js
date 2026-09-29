@@ -109,7 +109,7 @@ function LoginPage() {
         if (qrData.startsWith('0x') && qrData.length === 42) {
           qrInfo = { walletAddress: qrData };
         } else {
-          throw new Error('Mã QR không hợp lệ. Vui lòng quét mã QR từ hệ thống Web3 Giảng Viên.');
+          throw new Error('Mã QR không hợp lệ. Vui lòng quét mã QR từ hệ thống Web3 Giáo Dục Phổ Thông.');
         }
       }
 
@@ -234,7 +234,7 @@ function LoginPage() {
       if (message.includes('user rejected')) {
         setError('Bạn đã từ chối yêu cầu kết nối.');
       } else if (message.includes('wallet not registered')) {
-        setError('Ví này chưa được đăng ký trong hệ thống. Vui lòng liên hệ Ban quản lý khoa hoặc Giảng viên để được phê duyệt.');
+        setError('Ví này chưa được đăng ký trong hệ thống. Vui lòng liên hệ Ban quản trị nhà trường hoặc Giáo viên để được hỗ trợ.');
       } else {
         setError(message);
       }
@@ -256,7 +256,7 @@ function LoginPage() {
       await authService.registerWithRole(tempWallet, STUDENT_ROLE);
       window.location.href = '/dashboard';
     } catch (err) {
-      setError(err.message || 'Lỗi khi đăng ký Sinh viên');
+      setError(err.message || 'Lỗi khi đăng ký Học sinh');
     } finally {
       setLoading(false);
     }
@@ -269,7 +269,7 @@ function LoginPage() {
       await authService.registerWithRole(tempWallet, LECTURER_ROLE, formData);
       window.location.href = '/dashboard';
     } catch (err) {
-      setError(err.message || 'Lỗi khi đăng ký Giảng viên');
+      setError(err.message || 'Lỗi khi đăng ký Giáo viên');
     } finally {
       setLoading(false);
     }
@@ -315,7 +315,7 @@ function LoginPage() {
     const isLecturer = user.role_id === LECTURER_ROLE;
     const isAdmin = user.role_id === ADMIN_ROLE;
     
-    const roleDisplayName = isAdmin ? 'Super Admin' : (isLecturer ? 'Giảng viên' : 'Sinh viên');
+    const roleDisplayName = isAdmin ? 'Ban Quản Trị' : (isLecturer ? 'Giáo viên' : 'Học sinh');
     
     return (
       <Container maxWidth="sm">
@@ -518,7 +518,7 @@ function LoginPage() {
                 mb: 1
               }}
             >
-              Web3 & AI Competition Platform
+              Web3 & AI - Giáo Dục Phổ Thông
             </AnimatedGradientText>
             <Typography
               variant={styles.subtitleVariant}
@@ -531,7 +531,7 @@ function LoginPage() {
                 lineHeight: 1.4
               }}
             >
-              Hệ thống quản lý khóa luận, chấm điểm tiến độ bằng AI & xác thực bất biến blockchain
+              Hệ thống quản lý dự án học tập, chấm điểm tiến độ bằng AI & xác thực bất biến Web3
             </Typography>
           </Box>
         </Fade>
@@ -729,7 +729,7 @@ function LoginPage() {
               fontSize: '0.85rem'
             }}
           >
-            © {new Date().getFullYear()} - Nền tảng học tập bất biến Web3 & AI Competition Platform.
+            © {new Date().getFullYear()} - Nền tảng dự án học tập Web3 & AI - Giáo Dục Phổ Thông.
           </Typography>
         </Fade>
       </Box>

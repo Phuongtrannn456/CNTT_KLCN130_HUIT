@@ -1,7 +1,7 @@
 {
-  "name": "web3giangvien-frontend",
+  "name": "web3-giao-duc-pho-thong-frontend",
   "version": "1.0.0",
-  "description": "Modern React frontend for Web3 GiangVien with MetaMask authentication",
+  "description": "Frontend React cho nền tảng Web3 Giáo Dục Phổ Thông",
   "main": "src/index.js",
   "scripts": {
     "start": "react-scripts start",
