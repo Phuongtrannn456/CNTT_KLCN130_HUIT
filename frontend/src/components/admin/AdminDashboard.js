@@ -96,7 +96,7 @@ const AdminDashboard = () => {
         <Col xs={24} sm={12}>
           <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
             <Statistic
-              title="Tổng số Giảng viên"
+              title="Tổng số Giáo viên"
               value={lecturers.length}
               prefix={<TeamOutlined style={{ color: '#1677ff' }} />}
               valueStyle={{ color: '#1677ff', fontWeight: 'bold' }}
@@ -117,10 +117,10 @@ const AdminDashboard = () => {
 
       <div style={{ background: '#fff', padding: 24, borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
         <Title level={5} style={{ marginBottom: 16 }}>
-          Danh sách Giảng viên đã duyệt ({lecturers.length})
+          Danh sách Giáo viên đã duyệt ({lecturers.length})
         </Title>
         {lecturers.length === 0 ? (
-          <Text type="secondary">Chưa có Giảng viên nào.</Text>
+          <Text type="secondary">Chưa có Giáo viên nào.</Text>
         ) : (
           <Table 
             columns={lecturerColumns} 

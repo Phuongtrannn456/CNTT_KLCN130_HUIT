@@ -43,7 +43,7 @@ const ProgressTracking = () => {
                 }
               }
             } catch (e) {
-              console.warn('Lỗi lấy điểm sinh viên:', e);
+              console.warn('Lỗi lấy điểm học sinh:', e);
             }
 
             try {
@@ -209,7 +209,7 @@ const ProgressTracking = () => {
                 message={regStatus === 'DaDuyet' ? 'Chưa nộp báo cáo' : 'Chờ duyệt đề tài'}
                 description={regStatus === 'DaDuyet'
                   ? 'Vui lòng nộp File Báo cáo PDF ở trang Nộp Báo Cáo. Sau khi nộp, PhoBERT AI sẽ tự động phân tích nội dung.'
-                  : 'Đề tài cần được Giảng viên duyệt trước. Sau đó bạn nộp Báo cáo và AI sẽ chấm tự động.'
+                  : 'Đề tài cần được Giáo viên duyệt trước. Sau đó bạn nộp Báo cáo và AI sẽ chấm tự động.'
                 }
                 type="info"
                 showIcon
@@ -258,7 +258,7 @@ const ProgressTracking = () => {
             <div style={{ minHeight: 60 }}>
               {finalGrade ? (
                 <div style={{ textAlign: 'left' }}>
-                  <Text strong style={{ display: 'block', color: '#1677ff' }}>Đánh giá Giảng Viên:</Text>
+                  <Text strong style={{ display: 'block', color: '#1677ff' }}>Đánh giá Giáo Viên:</Text>
                   {finalGrade.NhanXet && <Text italic type="secondary">"{finalGrade.NhanXet}"</Text>}
                   {finalGrade.TxHash && (
                     <div style={{ marginTop: 8 }}>
@@ -268,7 +268,7 @@ const ProgressTracking = () => {
                 </div>
               ) : (
                 <Text type="secondary">
-                  {aiResult ? 'Điểm dự đoán từ PhoBERT AI. GV chưa nhập điểm.' : 'Do Giảng Viên Quyết Định Cuối Cùng'}
+                  {aiResult ? 'Điểm dự đoán từ PhoBERT AI. GV chưa nhập điểm.' : 'Do Giáo Viên Quyết Định Cuối Cùng'}
                 </Text>
               )}
             </div>

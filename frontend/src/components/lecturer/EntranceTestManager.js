@@ -153,7 +153,7 @@ const EntranceTestManager = () => {
       render: (_, __, idx) => <Text strong>{idx + 1}</Text>
     },
     {
-      title: 'Nhóm / Sinh Viên',
+      title: 'Nhóm / Học Sinh',
       key: 'student',
       render: (_, r) => (
         <div>

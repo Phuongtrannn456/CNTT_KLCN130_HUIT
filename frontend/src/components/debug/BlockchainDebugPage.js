@@ -227,7 +227,7 @@ const BlockchainDebugPage = () => {
 
   const dbRecordColumns = [
     {
-      title: 'Sinh viên',
+      title: 'Học sinh',
       key: 'student',
       width: 190,
       render: (_, record) => (
@@ -430,7 +430,7 @@ const BlockchainDebugPage = () => {
                         <Text copyable>{topic.topicId}</Text>
                       </Descriptions.Item>
                       <Descriptions.Item label="Tên đề tài">{topic.data?.title || '-'}</Descriptions.Item>
-                      <Descriptions.Item label="Giảng viên">{topic.data?.advisorDID || '-'}</Descriptions.Item>
+                      <Descriptions.Item label="Giáo viên">{topic.data?.advisorDID || '-'}</Descriptions.Item>
                       <Descriptions.Item label="Deadline">{formatTimestamp(topic.data?.deadline)}</Descriptions.Item>
                       <Descriptions.Item label="Tồn tại">
                         <Tag color={topic.data?.exists ? 'green' : 'red'}>

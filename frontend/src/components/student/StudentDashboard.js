@@ -35,7 +35,7 @@ const StudentDashboard = () => {
 
       if (!user) return result;
 
-      // Lấy thông tin hồ sơ sinh viên
+      // Lấy thông tin hồ sơ học sinh
       try {
         const profile = await aiApiService.getStudentProfile(user.id);
         result.studentProfile = profile;
@@ -52,7 +52,7 @@ const StudentDashboard = () => {
           console.warn('Không lấy được lời mời lớp học:', e2);
         }
       } catch (e) {
-        console.warn('Không lấy được hồ sơ SV hoặc lời mời:', e);
+        console.warn('Không lấy được hồ sơ HS hoặc lời mời:', e);
       }
 
       if (selectedClassId) {
@@ -185,14 +185,14 @@ const StudentDashboard = () => {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Title level={2} style={{ margin: 0 }}>Dashboard Sinh Viên</Title>
+        <Title level={2} style={{ margin: 0 }}>Dashboard Học Sinh</Title>
       </div>
 
       {/* Cảnh báo cập nhật hồ sơ lần đầu */}
       {needsProfileUpdate ? (
         <Alert
           message="⚠️ Vui lòng cập nhật hồ sơ trước khi sử dụng hệ thống"
-          description="Bạn cần hoàn tất hồ sơ cá nhân (Họ tên, Mã SV, Email, Kỹ năng) trước khi được phép đăng ký đề tài."
+          description="Bạn cần hoàn tất hồ sơ cá nhân (Họ tên, Mã HS, Email, Kỹ năng) trước khi được phép đăng ký đề tài."
           type="warning"
           showIcon
           style={{ marginBottom: 24 }}
@@ -205,7 +205,7 @@ const StudentDashboard = () => {
       ) : (
         <Alert
           message="Hệ Thống Đã Sẵn Sàng"
-          description="Chào mừng bạn đến với mạng Web3 Hỗ trợ Đồ Án. Dữ liệu của bạn được đồng bộ trực tiếp với Blockchain Sepolia."
+          description="Chào mừng bạn đến với mạng Web3 Giáo Dục Phổ Thông. Dữ liệu dự án học tập của bạn được đồng bộ trực tiếp với Blockchain."
           type="info"
           showIcon
           style={{ marginBottom: 24 }}
@@ -217,7 +217,7 @@ const StudentDashboard = () => {
         <Alert
           key={inv._id}
           message={`📩 Bạn có lời mời tham gia nhóm Đề tài: ${inv.DeTai?.TenDeTai}`}
-          description={`Trưởng nhóm: ${inv.SinhVien?.HoTen} (${inv.SinhVien?.MaSV}). Bạn có muốn tham gia không?`}
+          description={`Trưởng nhóm: ${inv.SinhVien?.HoTen} (${inv.SinhVien?.MaSV}). Bạn có muốn tham gia dự án không?`}
           type="info"
           showIcon
           style={{ marginBottom: 24, border: '1px solid #1677ff', background: '#e6f4ff' }}
@@ -244,7 +244,7 @@ const StudentDashboard = () => {
               <span>Lời mời vào lớp: <strong>{inv.LopHoc?.TenLopHoc || inv.LopHoc?.MaLopHoc || '—'}</strong></span>
             </Space>
           }
-          description={`Môn học: ${inv.LopHoc?.MonHoc?.TenMonHoc || '—'} | Giảng viên: ${inv.GiangVien?.HoTen || '—'}`}
+          description={`Môn học: ${inv.LopHoc?.MonHoc?.TenMonHoc || '—'} | Giáo viên: ${inv.GiangVien?.HoTen || '—'}`}
           type="warning"
           showIcon
           style={{ marginBottom: 24, border: '1px solid #faad14', background: '#fffbe6' }}
@@ -274,7 +274,7 @@ const StudentDashboard = () => {
               <Text strong>{studentProfile?.HoTen || 'Chưa cập nhật'}</Text>
             </div>
             <div style={{ marginBottom: 8 }}>
-              <Text type="secondary">Mã SV: </Text>
+              <Text type="secondary">Mã HS: </Text>
               <Text strong>{studentProfile?.MaSV || 'Chưa cập nhật'}</Text>
             </div>
             <div style={{ marginBottom: 8 }}>
@@ -282,7 +282,7 @@ const StudentDashboard = () => {
               <Text>{studentProfile?.Email || 'Chưa cập nhật'}</Text>
             </div>
             <div style={{ marginBottom: 8 }}>
-              <Text type="secondary">Chuyên ngành: </Text>
+              <Text type="secondary">Khối lớp / Ban: </Text>
               <Text>{studentProfile?.ChuyenNganh || '—'}</Text>
             </div>
             <Divider style={{ margin: '12px 0' }} />
@@ -305,12 +305,12 @@ const StudentDashboard = () => {
         {/* Card 2: Trạng thái đồ án */}
         <Col xs={24} sm={12} lg={8}>
           <Card
-            title={<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><BookOpen size={18} style={{ color: '#52c41a', marginTop: 3 }} /><span>Trạng Thái Đồ Án</span></div>}
+            title={<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><BookOpen size={18} style={{ color: '#52c41a', marginTop: 3 }} /><span>Trạng Thái Dự Án</span></div>}
             bordered={false}
           >
             <Statistic
-              title="Đề Tài Hiện Tại"
-              value={registration ? (registration.TrangThai === 'DaDuyet' ? 'Đã Nhận Đề Tài' : 'Chờ Duyệt') : "Chưa Đăng Ký Đề Tài"}
+              title="Dự Án / Đề Tài Hiện Tại"
+              value={registration ? (registration.TrangThai === 'DaDuyet' ? 'Đã Nhận Dự Án' : 'Chờ Duyệt') : "Chưa Đăng Ký Dự Án"}
               valueStyle={{ color: registration?.TrangThai === 'DaDuyet' ? '#52c41a' : '#faad14', fontSize: 18, fontWeight: 'bold' }}
             />
             {registration && registration.DeTai && (
@@ -329,7 +329,7 @@ const StudentDashboard = () => {
           >
             {grade ? (
               <div>
-                <Statistic title="Điểm Giảng Viên (On-chain)" value={grade.Diem} precision={1} suffix="/ 10" valueStyle={{ color: '#eb2f96', fontWeight: 'bold' }} />
+                <Statistic title="Điểm Giáo Viên (On-chain)" value={grade.Diem} precision={1} suffix="/ 10" valueStyle={{ color: '#eb2f96', fontWeight: 'bold' }} />
 
                 {grade.AI_Score != null && (
                   <div style={{ marginTop: 8 }}>
@@ -347,7 +347,7 @@ const StudentDashboard = () => {
 
                 {grade.NhanXet && (
                   <div style={{ marginTop: 8, padding: 8, background: '#f6ffed', borderRadius: 6, borderLeft: '3px solid #52c41a' }}>
-                    <Text type="secondary" style={{ fontSize: 12 }}>Nhận xét GV: </Text>
+                    <Text type="secondary" style={{ fontSize: 12 }}>Nhận xét Giáo Viên: </Text>
                     <Text style={{ fontSize: 12 }}>{grade.NhanXet}</Text>
                   </div>
                 )}
@@ -375,7 +375,7 @@ const StudentDashboard = () => {
             ) : registration?.TrangThai === 'DaDuyet' ? (
               <div>
                 <Statistic title="Điểm Số On-chain" value="Chưa Tích Lũy" valueStyle={{ fontSize: 16, color: '#8c8c8c' }} />
-                <Paragraph style={{ marginTop: 8 }}><Text type="warning">Đang thực hiện đồ án</Text></Paragraph>
+                <Paragraph style={{ marginTop: 8 }}><Text type="warning">Đang thực hiện dự án</Text></Paragraph>
                 {progressCount > 0 && progressAverage != null && (
                   <Paragraph style={{ marginTop: 8 }}>
                     <Text type="secondary">Điểm quá trình TB: </Text>
@@ -406,14 +406,14 @@ const StudentDashboard = () => {
                   <div key={lop._id || idx} style={{ marginBottom: idx < myClasses.length - 1 ? 12 : 0 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Text strong style={{ color: '#722ed1' }}>{lop.TenLopHoc} ({lop.MaLopHoc})</Text>
-                      <Tag color="purple">{lop.siSo || 0} SV</Tag>
+                      <Tag color="purple">{lop.siSo || 0} HS</Tag>
                     </div>
                     <div style={{ fontSize: 13, marginTop: 4 }}>
                       <span style={{ color: '#8c8c8c' }}>Môn học: </span>
                       <Text>{lop.MonHoc?.TenMonHoc || '—'}</Text>
                     </div>
                     <div style={{ fontSize: 13, marginTop: 2 }}>
-                      <span style={{ color: '#8c8c8c' }}>Giảng viên: </span>
+                      <span style={{ color: '#8c8c8c' }}>Giáo viên: </span>
                       <Text>{lop.GiangVien?.HoTen || '—'}</Text>
                     </div>
                     {idx < myClasses.length - 1 && <Divider style={{ margin: '10px 0' }} />}
@@ -476,23 +476,23 @@ const StudentDashboard = () => {
 
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={12}>
-              <Form.Item name="MaSV" label="Mã Sinh Viên" rules={[{ required: true, message: 'Vui lòng nhập mã SV!' }]}>
-                <Input placeholder="20110001" size="large" />
+              <Form.Item name="MaSV" label="Mã Học Sinh" rules={[{ required: true, message: 'Vui lòng nhập mã học sinh!' }]}>
+                <Input placeholder="HS1001" size="large" />
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
-              <Form.Item name="GPA" label="GPA (Thang 10)" rules={[{ required: true, message: 'Vui lòng nhập điểm GPA!' }]}>
+              <Form.Item name="GPA" label="Điểm TB Học Tập (GPA)" rules={[{ required: true, message: 'Vui lòng nhập điểm GPA!' }]}>
                 <InputNumber min={0} max={10} step={0.1} style={{ width: '100%' }} size="large" placeholder="8.5" />
               </Form.Item>
             </Col>
           </Row>
 
           <Form.Item name="Email" label="Email" rules={[{ required: true, type: 'email', message: 'Email không hợp lệ!' }]}>
-            <Input placeholder="sv@huit.edu.vn" size="large" />
+            <Input placeholder="hocsinh@thpt.edu.vn" size="large" />
           </Form.Item>
 
-          <Form.Item name="ChuyenNganh" label="Chuyên Ngành">
-            <Input placeholder="Công nghệ phần mềm" size="large" />
+          <Form.Item name="ChuyenNganh" label="Khối Lớp / Chuyên Ban">
+            <Input placeholder="Khối 10 Tự Nhiên / STEM" size="large" />
           </Form.Item>
 
           <style>
@@ -508,17 +508,17 @@ const StudentDashboard = () => {
             <Select 
               mode="tags" 
               style={{ width: '100%' }} 
-              placeholder="React, Node.js, Python..." 
+              placeholder="Python, Khám phá STEM, Tư duy logic..." 
               size="large"
               popupClassName="skill-select-dropdown"
             >
-              <Select.Option value="React">React</Select.Option>
-              <Select.Option value="NodeJS">NodeJS</Select.Option>
               <Select.Option value="Python">Python</Select.Option>
-              <Select.Option value="Solidity">Solidity</Select.Option>
-              <Select.Option value="Machine Learning">Machine Learning</Select.Option>
-              <Select.Option value="Java">Java</Select.Option>
-              <Select.Option value="C#">C#</Select.Option>
+              <Select.Option value="Khám phá STEM">Khám phá STEM</Select.Option>
+              <Select.Option value="Tư duy logic">Tư duy logic</Select.Option>
+              <Select.Option value="Mạch Arduino / IoT">Mạch Arduino / IoT</Select.Option>
+              <Select.Option value="Lập trình Scratch">Lập trình Scratch</Select.Option>
+              <Select.Option value="Web3 Cơ Bản">Web3 Cơ Bản</Select.Option>
+              <Select.Option value="Thí nghiệm KHTN">Thí nghiệm KHTN</Select.Option>
             </Select>
           </Form.Item>
 

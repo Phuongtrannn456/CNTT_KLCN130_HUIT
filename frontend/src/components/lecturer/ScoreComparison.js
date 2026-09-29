@@ -275,7 +275,7 @@ const ScoreComparison = () => {
       return (
         <Card size="small" style={{ border: '1px solid #e8e8e8', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
           <div style={{ fontWeight: 'bold' }}>{data.fullName}</div>
-          <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Sản lượng: {data.count} sinh viên</div>
+          <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Số lượng: {data.count} học sinh</div>
           <div style={{ fontSize: 13, color: '#eb2f96', fontWeight: 'bold', marginTop: 4 }}>TB Điểm GV: {data.value}</div>
           <div style={{ fontSize: 11, color: '#1890ff', marginTop: 4 }}>Nhấp để lọc nhanh lớp này</div>
         </Card>
@@ -290,7 +290,7 @@ const ScoreComparison = () => {
       return (
         <Card size="small" style={{ border: '1px solid #e8e8e8', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
           <div style={{ fontWeight: 'bold', color: data.color }}>{data.name}</div>
-          <div style={{ fontSize: 13, fontWeight: 'bold', marginTop: 4 }}>Số lượng: {data.value} SV</div>
+          <div style={{ fontSize: 13, fontWeight: 'bold', marginTop: 4 }}>Số lượng: {data.value} HS</div>
           <div style={{ fontSize: 12, color: '#666' }}>Tỷ lệ: {Math.round((data.value / (displayStats.totalGraded || 1)) * 100)}%</div>
         </Card>
       );
@@ -308,7 +308,7 @@ const ScoreComparison = () => {
       render: (_, __, idx) => <Text type="secondary">{idx + 1}</Text>,
     },
     {
-      title: 'Sinh Viên',
+      title: 'Học Sinh',
       key: 'student',
       width: 140,
       render: (_, r) => (
@@ -431,7 +431,7 @@ const ScoreComparison = () => {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <Users size={20} color="#1677ff" />
-                  <Statistic title="Sinh viên" value={displayStats.totalGraded || 0} valueStyle={{ fontSize: 20 }} />
+                  <Statistic title="Học sinh" value={displayStats.totalGraded || 0} valueStyle={{ fontSize: 20 }} />
                 </div>
               </Card>
             </Col>
@@ -605,14 +605,14 @@ const ScoreComparison = () => {
       label: (
         <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <Users size={16} />
-          Chi Tiết Sinh Viên
+          Chi Tiết Học Sinh
         </span>
       ),
       children: (
         <div>
-          {/* Biểu đồ so sánh chi tiết sinh viên */}
+          {/* Biểu đồ so sánh chi tiết học sinh */}
           {studentChartData.length > 0 ? (
-            <Card title="Biểu Đồ So Sánh Chi Tiết Từng Sinh Viên" style={{ marginBottom: 24, borderRadius: '12px' }} size="small">
+            <Card title="Biểu Đồ So Sánh Chi Tiết Từng Học Sinh" style={{ marginBottom: 24, borderRadius: '12px' }} size="small">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={studentChartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -739,10 +739,10 @@ const ScoreComparison = () => {
   return (
     <div>
       <Title level={3} style={{ marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-        <BarChart2 size={24} /> Dashboard So Sánh Điểm AI vs Giảng Viên
+        <BarChart2 size={24} /> Dashboard So Sánh Điểm AI vs Giáo Viên
       </Title>
       <Paragraph type="secondary" style={{ marginBottom: 20 }}>
-        Dashboard phân tích và so sánh các đánh giá từ mô hình AI PhoBERT hỗ trợ giảng viên với điểm đánh giá thực tế của giảng viên.
+        Dashboard phân tích và so sánh các đánh giá từ mô hình AI PhoBERT hỗ trợ giáo viên với điểm đánh giá thực tế của giáo viên.
       </Paragraph>
 
       <Tabs 
@@ -763,7 +763,7 @@ const ScoreComparison = () => {
         {selectedRecord && (
           <div>
             <Descriptions column={1} bordered size="small" style={{ marginBottom: 16 }}>
-              <Descriptions.Item label="Sinh viên">
+              <Descriptions.Item label="Học sinh">
                 <Text strong>{selectedRecord.student?.HoTen}</Text> ({selectedRecord.student?.MaSV})
               </Descriptions.Item>
               <Descriptions.Item label="Đề tài">{selectedRecord.topic?.TenDeTai}</Descriptions.Item>

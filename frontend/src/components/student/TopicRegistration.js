@@ -173,8 +173,8 @@ const TopicRegistration = () => {
             <Text type="secondary">GV Hướng dẫn:</Text>
             <Text strong style={{ marginLeft: 8 }}>{topic.GiangVienHuongDan?.HoTen || 'N/A'}</Text>
             <br />
-            <Text type="secondary">Sinh viên tối đa:</Text>
-            <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongSinhVien || 1} SV</Tag>
+            <Text type="secondary">Học sinh tối đa:</Text>
+            <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongSinhVien || 1} HS</Tag>
             <br />
             <Text type="secondary">Môn học:</Text>
             <Space size={2} wrap style={{ marginLeft: 8, marginTop: 4 }}>
@@ -253,7 +253,7 @@ const TopicRegistration = () => {
           queryClient.invalidateQueries({ queryKey: ['topic-registration'] });
           const msg = topic.CoBaiTest
             ? 'Đăng ký thành công! Trưởng nhóm cần hoàn thành bài test đầu vào.'
-            : 'Đã gửi yêu cầu đăng ký đề tài thành công! Chờ Giảng viên duyệt.';
+            : 'Đã gửi yêu cầu đăng ký đề tài thành công! Chờ Giáo viên duyệt.';
           message.success(msg);
           if (topic.CoBaiTest) {
             setTimeout(() => navigate(`/student/entrance-test/${topic._id}`), 1500);
@@ -290,14 +290,14 @@ const TopicRegistration = () => {
 
   const handleInviteMember = async () => {
     if (!inviteMaSV) {
-      message.warning('Vui lòng nhập Mã Sinh viên cần mời.');
+      message.warning('Vui lòng nhập Mã Học sinh cần mời.');
       return;
     }
     setInviting(true);
     try {
       const deTaiId = fullRegistration.DeTai?._id || fullRegistration.DeTai;
       await aiApiService.inviteMember(deTaiId, inviteMaSV);
-      message.success(`Đã gửi lời mời đến sinh viên có mã ${inviteMaSV}`);
+      message.success(`Đã gửi lời mời đến học sinh có mã ${inviteMaSV}`);
       setInviteMaSV('');
       queryClient.invalidateQueries({ queryKey: ['topic-registration'] });
     } catch (err) {
@@ -430,10 +430,10 @@ const TopicRegistration = () => {
         <Card style={{ marginBottom: 24, border: '1px solid #91caff', background: '#e6f4ff' }}>
           <Space direction="vertical" style={{ width: '100%' }}>
             <Alert
-              message={registrationStatus === 'DaDuyet' ? 'Đề tài đã được Giảng viên Duyệt!' : 'Bạn đã đăng ký đề tài'}
+              message={registrationStatus === 'DaDuyet' ? 'Đề tài đã được Giáo viên Duyệt!' : 'Bạn đã đăng ký đề tài'}
               description={registrationStatus === 'DaDuyet'
-                ? 'Giảng viên đã phê duyệt đề tài của bạn. Bạn có thể tiến hành Nộp Báo Cáo.'
-                : 'Đề tài báo cáo của bạn đang chờ Giảng viên duyệt.'
+                ? 'Giáo viên đã phê duyệt đề tài của bạn. Bạn có thể tiến hành Nộp Báo Cáo.'
+                : 'Đề tài báo cáo của bạn đang chờ Giáo viên duyệt.'
               }
               type={registrationStatus === 'DaDuyet' ? 'success' : 'info'}
               showIcon
@@ -452,7 +452,7 @@ const TopicRegistration = () => {
                 message={testSubmitted ? "Bạn đã hoàn thành bài test" : "Đề tài yêu cầu Bài Test Đầu Vào"}
                 description={testSubmitted
                   ? "Kết quả bài test của bạn đang được xử lý. Vui lòng chờ hệ thống duyệt tự động."
-                  : "Giảng viên đã tạo bài test đầu vào. Bạn cần hoàn thành bài test để được duyệt đề tài."
+                  : "Giáo viên đã tạo bài test đầu vào. Bạn cần hoàn thành bài test để được duyệt đề tài."
                 }
                 type={testSubmitted ? 'info' : 'warning'}
                 showIcon
@@ -469,7 +469,7 @@ const TopicRegistration = () => {
               />
             )}
 
-            {/* Thông tin nhóm sinh viên */}
+            {/* Thông tin nhóm học sinh */}
             {fullRegistration.DeTai?.SoLuongSinhVien > 1 && (
               <div style={{ marginTop: 16, background: '#fff', padding: 16, borderRadius: 8 }}>
                 <Title level={5}>Thành Viên Nhóm ({fullRegistration.ThanhVien?.length || 1} / {fullRegistration.DeTai.SoLuongSinhVien})</Title>
@@ -502,7 +502,7 @@ const TopicRegistration = () => {
                       <Divider style={{ margin: '12px 0' }} />
                       <Space>
                         <Input
-                          placeholder="Nhập Mã Sinh Viên để mời"
+                          placeholder="Nhập Mã Học Sinh để mời"
                           value={inviteMaSV}
                           onChange={e => setInviteMaSV(e.target.value)}
                           style={{ width: 250 }}
@@ -568,7 +568,7 @@ const TopicRegistration = () => {
                         Đã chốt cho nhóm khác
                       </Button>
                     ) : (
-                      <Tooltip title={sizeMismatch ? `Đề tài cần ${topic.SoLuongSinhVien} SV, nhóm bạn có ${myNhom?.ThanhVien?.filter(tv => tv.TrangThai === 'DaChapNhan').length || 0}` : ''}>
+                      <Tooltip title={sizeMismatch ? `Đề tài cần ${topic.SoLuongSinhVien} HS, nhóm bạn có ${myNhom?.ThanhVien?.filter(tv => tv.TrangThai === 'DaChapNhan').length || 0}` : ''}>
                         <Button
                           type={topic.isRecommended ? 'primary' : 'default'}
                           icon={<CheckCircle size={16} />}
@@ -577,7 +577,7 @@ const TopicRegistration = () => {
                           disabled={disabled || sizeMismatch}
                           style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, width: '100%' }}
                         >
-                          {!myNhom ? 'Cần tạo nhóm' : sizeMismatch ? 'Số SV không khớp' : disabled ? 'Không khả dụng' : 'Đăng Ký'}
+                          {!myNhom ? 'Cần tạo nhóm' : sizeMismatch ? 'Số HS không khớp' : disabled ? 'Không khả dụng' : 'Đăng Ký'}
                         </Button>
                       </Tooltip>
                     )}

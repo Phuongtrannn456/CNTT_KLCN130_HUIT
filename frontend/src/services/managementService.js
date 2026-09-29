@@ -68,7 +68,7 @@ const managementService = {
     return res.data;
   },
 
-  // ===== SINH VIÊN =====
+  // ===== HỌC SINH =====
   async getAllSinhVien() {
     const res = await apiService.get('/sinhvien');
     return res.data;

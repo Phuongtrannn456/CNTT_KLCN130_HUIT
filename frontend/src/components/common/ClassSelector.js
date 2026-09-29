@@ -7,9 +7,9 @@ import { useLecturerClassContext } from '../../contexts/LecturerClassContext';
 
 const { Option } = Select;
 
-// Định nghĩa CSS styles premium riêng cho Khóa Luận - Tông màu trắng đen đồng nhất
+// Định nghĩa CSS styles premium riêng cho Dự án STEM / Đề tài KHKT - Tông màu trắng đen đồng nhất
 const customStyles = `
-  /* Style nổi bật, premium cho Option Khóa Luận trong danh sách dropdown */
+  /* Style nổi bật, premium cho Option Dự án STEM trong danh sách dropdown */
   .ant-select-dropdown .khoa-luan-option {
     font-weight: normal !important;
     color: #000000 !important;

@@ -232,7 +232,7 @@ const CourseManagement = () => {
                           )
                         },
                         {
-                          title: 'Giảng Viên Hướng Dẫn',
+                          title: 'Giáo Viên Hướng Dẫn',
                           key: 'giangVien',
                           width: 180,
                           render: (_, topicRecord) => {

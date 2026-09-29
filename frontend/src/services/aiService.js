@@ -39,13 +39,13 @@ const aiApiService = {
         return response.data;
     },
 
-    // Lấy thông tin sinh viên
+    // Lấy thông tin học sinh
     getStudentProfile: async (svId) => {
         const response = await axios.get(`${API_URL}/sinhvien/${svId}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
-    // Kiểm tra SV đã đăng ký đề tài nào chưa
+    // Kiểm tra HS đã đăng ký đề tài nào chưa
     getMyRegistration: async (svId, lopHocId) => {
         let query = '';
         if (lopHocId === 'KHOA_LUAN') {
@@ -57,7 +57,7 @@ const aiApiService = {
         return response.data;
     },
 
-    // Lấy tất cả đăng ký của 1 sinh viên
+    // Lấy tất cả đăng ký của 1 học sinh
     getMyRegistrations: async (svId) => {
         const response = await axios.get(`${API_URL}/dangky/sinhvien/${svId}/all`, { headers: getAuthHeaders() });
         return response.data;
@@ -167,16 +167,16 @@ const aiApiService = {
         return response.data;
     },
 
-    // === HỒ SƠ SINH VIÊN ===
+    // === HỒ SƠ HỌC SINH ===
 
-    // SV cập nhật hồ sơ cá nhân
+    // HS cập nhật hồ sơ cá nhân
     updateStudentProfile: async (svId, profileData) => {
         const response = await axios.put(`${API_URL}/sinhvien/${svId}/profile`, profileData, { headers: getAuthHeaders() });
         return response.data;
     },
 
-    // Tìm SV theo MaSV (cho chức năng mời vào nhóm)
-    // Nhóm Sinh Viên
+    // Tìm HS theo MaSV (cho chức năng mời vào nhóm)
+    // Nhóm Học Sinh
     inviteMember: async (deTaiId, maSV) => {
         const response = await axios.post(`${API_URL}/detai/${deTaiId}/invite`, { maSV }, { headers: getAuthHeaders() });
         return response.data;

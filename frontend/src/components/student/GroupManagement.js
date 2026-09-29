@@ -73,7 +73,7 @@ const GroupManagement = () => {
   // === Mời thành viên ===
   const handleInvite = async () => {
     if (!inviteMaSV.trim()) {
-      message.warning('Vui lòng nhập Mã Sinh Viên.');
+      message.warning('Vui lòng nhập Mã Học Sinh.');
       return;
     }
     setInviting(true);
@@ -217,7 +217,7 @@ const GroupManagement = () => {
           <Users size={28} style={{ marginRight: 8, verticalAlign: 'middle' }} />
           Nhóm Của Tôi
         </Title>
-        <Paragraph>Quản lý nhóm sinh viên trước khi đăng ký đề tài. Tạo nhóm, mời thành viên, chốt nhóm rồi đăng ký đề tài cạnh tranh.</Paragraph>
+        <Paragraph>Quản lý nhóm học sinh trước khi đăng ký dự án / đề tài. Tạo nhóm, mời thành viên, chốt nhóm rồi đăng ký đề tài cạnh tranh.</Paragraph>
       </Typography>
 
       {/* === LỜI MỜI ĐANG CHỜ === */}
@@ -375,7 +375,7 @@ const GroupManagement = () => {
               <Title level={5}><UserPlus size={16} style={{ marginRight: 6 }} />Mời Thành Viên</Title>
               <Space>
                 <Input
-                  placeholder="Nhập Mã Sinh Viên"
+                  placeholder="Nhập Mã Học Sinh"
                   value={inviteMaSV}
                   onChange={e => setInviteMaSV(e.target.value)}
                   onPressEnter={handleInvite}

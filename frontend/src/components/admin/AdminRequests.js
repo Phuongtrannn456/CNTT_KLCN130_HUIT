@@ -143,7 +143,7 @@ const AdminRequests = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchRequests();
-      message.success('Đã duyệt Giảng viên!');
+      message.success('Đã duyệt Giáo viên!');
       window.dispatchEvent(new CustomEvent('admin:refreshBadge'));
     } catch (err) {
       message.error(err.response?.data?.message || 'Có lỗi xảy ra');
@@ -326,7 +326,7 @@ const AdminRequests = () => {
       children: (
         <div style={{ background: '#fff', padding: 24, borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
           <Title level={5} style={{ marginBottom: 16 }}>
-            Yêu cầu cấp quyền Giảng viên đang chờ duyệt ({requests.length})
+            Yêu cầu cấp quyền Giáo viên đang chờ duyệt ({requests.length})
           </Title>
           {requests.length === 0 ? (
             <Text type="secondary">Không có yêu cầu nào đang chờ.</Text>
@@ -450,7 +450,7 @@ const AdminRequests = () => {
           </Button>
         ]}
       >
-        <div style={{ marginBottom: 16 }}>Vui lòng nhập lý do từ chối để Giảng viên biết:</div>
+        <div style={{ marginBottom: 16 }}>Vui lòng nhập lý do từ chối để Giáo viên biết:</div>
         <Input.TextArea
           autoFocus
           rows={4}
@@ -500,7 +500,7 @@ const AdminRequests = () => {
                 </Text>
               </Descriptions.Item>
               <Descriptions.Item label="Role yêu cầu">
-                <Tag color="blue">{detailData.requestedRole === 'LECTURER_ROLE' ? 'Giảng viên' : detailData.requestedRole}</Tag>
+                <Tag color="blue">{detailData.requestedRole === 'LECTURER_ROLE' ? 'Giáo viên' : detailData.requestedRole}</Tag>
               </Descriptions.Item>
               <Descriptions.Item label="Thời gian gửi">
                 {new Date(detailData.createdAt).toLocaleString('vi-VN')}

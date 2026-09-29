@@ -384,7 +384,7 @@ const ProgressLog = () => {
 
                         {item.NhanXetGV && (
                             <div style={{ marginTop: 16, padding: 12, background: '#f6ffed', borderRadius: 6, borderLeft: '4px solid #52c41a' }}>
-                                <Text strong style={{ color: '#389e0d' }}>Giảng viên nhận xét:</Text>
+                                <Text strong style={{ color: '#389e0d' }}>Giáo viên nhận xét:</Text>
                                 <Paragraph style={{ margin: '8px 0 0 0' }}>{item.NhanXetGV}</Paragraph>
                             </div>
                         )}
@@ -437,7 +437,7 @@ const ProgressLog = () => {
 
                                 {item.NhanXetGV && (
                                     <div style={{ marginTop: 16, padding: 12, background: '#f6ffed', borderRadius: 6, borderLeft: '4px solid #52c41a' }}>
-                                        <Text strong style={{ color: '#389e0d' }}>Giảng viên nhận xét:</Text>
+                                        <Text strong style={{ color: '#389e0d' }}>Giáo viên nhận xét:</Text>
                                         <Paragraph style={{ margin: '8px 0 0 0' }}>{item.NhanXetGV}</Paragraph>
                                     </div>
                                 )}

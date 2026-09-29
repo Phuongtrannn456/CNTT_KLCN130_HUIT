@@ -143,7 +143,7 @@ const ClassManagement = () => {
       );
       setAddSvModalVisible(true);
     } catch (err) {
-      message.error('Lỗi tải danh sách sinh viên');
+      message.error('Lỗi tải danh sách học sinh');
     }
   };
 
@@ -160,7 +160,7 @@ const ClassManagement = () => {
         if (found) {
           res = await managementService.inviteSinhVienToLop(detailData.lopHoc._id, found._id);
         } else {
-          message.warning('Không tìm thấy sinh viên với mã này');
+          message.warning('Không tìm thấy học sinh với mã này');
           return;
         }
       } else {
@@ -168,7 +168,7 @@ const ClassManagement = () => {
       }
 
       if (res.success) {
-        message.success(res.message || 'Đã gửi lời mời. Chờ sinh viên chấp nhận.');
+        message.success(res.message || 'Đã gửi lời mời. Chờ học sinh chấp nhận.');
         setAddSvModalVisible(false);
         setSelectedSvId(null);
         setSvSearchText('');
@@ -223,12 +223,12 @@ const ClassManagement = () => {
     try {
       const res = await managementService.removeSinhVienFromLop(detailData.lopHoc._id, svId);
       if (res.success) {
-        message.success('Đã xóa sinh viên khỏi lớp');
+        message.success('Đã xóa học sinh khỏi lớp');
         handleViewDetail({ _id: detailData.lopHoc._id });
         queryClient.invalidateQueries({ queryKey: ['classes'] });
       }
     } catch (err) {
-      message.error('Lỗi xóa sinh viên khỏi lớp');
+      message.error('Lỗi xóa học sinh khỏi lớp');
     }
   };
 
@@ -281,7 +281,7 @@ const ClassManagement = () => {
       render: (mh) => mh ? <Tag color="blue">{mh.MaMonHoc} — {mh.TenMonHoc}</Tag> : '—',
     },
     {
-      title: 'Giảng Viên',
+      title: 'Giáo Viên',
       dataIndex: 'GiangVien',
       key: 'GiangVien',
       render: (gv) => {
@@ -322,7 +322,7 @@ const ClassManagement = () => {
   // Bảng SV trong chi tiết lớp học
   const svColumns = [
     {
-      title: 'Mã SV',
+      title: 'Mã HS',
       dataIndex: 'MaSV',
       key: 'MaSV',
       width: 120,
@@ -338,13 +338,13 @@ const ClassManagement = () => {
       align: 'center',
       render: (val) => <Tag color={val >= 3.0 ? 'green' : val >= 2.0 ? 'orange' : 'red'}>{val?.toFixed(1) || '—'}</Tag>,
     },
-    { title: 'Chuyên Ngành', dataIndex: 'ChuyenNganh', key: 'ChuyenNganh', ellipsis: true },
+    { title: 'Khối Lớp / Ban', dataIndex: 'ChuyenNganh', key: 'ChuyenNganh', ellipsis: true },
     {
       title: '',
       key: 'remove',
       width: 50,
       render: (_, sv) => (
-        <Popconfirm title="Xóa sinh viên khỏi lớp?" onConfirm={() => handleRemoveSv(sv._id)} okText="Xóa" cancelText="Hủy" okButtonProps={{ danger: true }}>
+        <Popconfirm title="Xóa học sinh khỏi lớp?" onConfirm={() => handleRemoveSv(sv._id)} okText="Xóa" cancelText="Hủy" okButtonProps={{ danger: true }}>
           <Button type="text" icon={<UserMinus size={14} />} danger size="small" />
         </Popconfirm>
       ),
@@ -462,7 +462,7 @@ const ClassManagement = () => {
                 {detailData.lopHoc.MonHoc?.MaMonHoc} — {detailData.lopHoc.MonHoc?.TenMonHoc}
               </Descriptions.Item>
               <Descriptions.Item label="Sĩ Số">
-                {detailData.lopHoc.SinhVien?.length || 0} sinh viên
+                {detailData.lopHoc.SinhVien?.length || 0} học sinh
               </Descriptions.Item>
             </Descriptions>
 
@@ -473,7 +473,7 @@ const ClassManagement = () => {
                   key: 'sinhvien',
                   label: (
                     <Space>
-                      <span>Sinh Viên ({detailData.lopHoc.SinhVien?.length || 0})</span>
+                      <span>Học Sinh ({detailData.lopHoc.SinhVien?.length || 0})</span>
                       {pendingInvites.length > 0 && (
                         <Badge count={pendingInvites.length} size="small" style={{ backgroundColor: '#faad14' }} />
                       )}
@@ -484,22 +484,22 @@ const ClassManagement = () => {
                       <div style={{ marginBottom: 12, textAlign: 'right' }}>
                         <Space>
                           <Button type="primary" icon={<UserPlus size={14} />} onClick={handleOpenAddSv}>
-                            Mời Sinh Viên
+                            Mời Học Sinh
                           </Button>
                           <Button type="dashed" onClick={() => setImportModalVisible(true)}>
-                            Import Danh Sách SV
+                            Import Danh Sách HS
                           </Button>
                         </Space>
                       </div>
 
-                      {/* Bảng sinh viên đã trong lớp */}
+                      {/* Bảng học sinh đã trong lớp */}
                       <Table
                         columns={svColumns}
                         dataSource={detailData.lopHoc.SinhVien || []}
                         rowKey="_id"
                         pagination={false}
                         size="small"
-                        locale={{ emptyText: 'Chưa có sinh viên nào trong lớp' }}
+                        locale={{ emptyText: 'Chưa có học sinh nào trong lớp' }}
                       />
 
                       {/* Bảng lời mời đang chờ */}
@@ -553,7 +553,7 @@ const ClassManagement = () => {
                               )}
                               {dk.SinhVien && !dk.TruongNhom && (
                                 <div style={{ marginBottom: 4 }}>
-                                  <Text type="secondary">Sinh viên: </Text>
+                                  <Text type="secondary">Học sinh: </Text>
                                   <Tag>{dk.SinhVien.HoTen} ({dk.SinhVien.MaSV})</Tag>
                                 </div>
                               )}
@@ -601,9 +601,9 @@ const ClassManagement = () => {
         ) : null}
       </Modal>
 
-      {/* Modal Mời Sinh Viên (trước đây là Thêm) */}
+      {/* Modal Mời Học Sinh (trước đây là Thêm) */}
       <Modal
-        title="Mời Sinh Viên Vào Lớp"
+        title="Mời Học Sinh Vào Lớp"
         open={addSvModalVisible}
         onOk={handleInviteSv}
         onCancel={() => { setAddSvModalVisible(false); setSelectedSvId(null); setSvSearchText(''); }}
@@ -613,13 +613,13 @@ const ClassManagement = () => {
       >
         <div style={{ marginTop: 16 }}>
           <Alert
-            message="Sinh viên sẽ nhận được lời mời và cần chấp nhận trước khi được thêm vào lớp."
+            message="Học sinh sẽ nhận được lời mời và cần chấp nhận trước khi được thêm vào lớp."
             type="info"
             showIcon
             style={{ marginBottom: 12 }}
           />
           <Text type="secondary" style={{ marginBottom: 8, display: 'block' }}>
-            Tìm kiếm theo Mã SV, Họ tên hoặc Email (hoặc tự gõ Mã SV):
+            Tìm kiếm theo Mã HS, Họ tên hoặc Email (hoặc tự gõ Mã HS):
           </Text>
           <AutoComplete
             style={{ width: '100%' }}
@@ -639,16 +639,16 @@ const ClassManagement = () => {
               const sv = allSinhVien.find(s => s._id === value);
               if (sv) setSvSearchText(sv.MaSV);
             }}
-            placeholder="Gõ để tìm sinh viên..."
+            placeholder="Gõ để tìm học sinh..."
             allowClear
             onClear={() => { setSelectedSvId(null); setSvSearchText(''); }}
           />
         </div>
       </Modal>
 
-      {/* Modal Import Sinh Viên Hàng Loạt */}
+      {/* Modal Import Học Sinh Hàng Loạt */}
       <Modal
-        title="Import Lời Mời Sinh Viên"
+        title="Import Lời Mời Học Sinh"
         open={importModalVisible}
         onOk={handleImportSv}
         onCancel={() => { setImportModalVisible(false); setImportText(''); }}
@@ -657,7 +657,7 @@ const ClassManagement = () => {
       >
         <div style={{ marginTop: 16 }}>
           <Alert
-            message="Tất cả sinh viên trong danh sách sẽ nhận được lời mời và cần chấp nhận trước khi được thêm vào lớp."
+            message="Tất cả học sinh trong danh sách sẽ nhận được lời mời và cần chấp nhận trước khi được thêm vào lớp."
             type="info"
             showIcon
             style={{ marginBottom: 12 }}

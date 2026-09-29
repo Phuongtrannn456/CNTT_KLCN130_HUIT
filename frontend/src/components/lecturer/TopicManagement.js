@@ -206,7 +206,7 @@ const TopicManagement = () => {
         message.success('Cập nhật Đề tài thành công!');
       } else {
         await aiApiService.createTopic(topicData);
-        message.success('Tạo Đề tài thành công! Sinh viên đã có thể thấy trên hệ thống.');
+        message.success('Tạo Đề tài thành công! Học sinh đã có thể thấy trên hệ thống.');
       }
       setIsModalVisible(false);
       form.resetFields();
@@ -268,7 +268,7 @@ const TopicManagement = () => {
     setApprovingId(registrationId);
     try {
       await aiApiService.approveRegistration(registrationId, trangThai);
-      message.success(trangThai === 'DaDuyet' ? 'Đã duyệt sinh viên!' : 'Đã từ chối đăng ký.');
+      message.success(trangThai === 'DaDuyet' ? 'Đã duyệt học sinh!' : 'Đã từ chối đăng ký.');
       queryClient.invalidateQueries({ queryKey: ['topics'] });
       queryClient.invalidateQueries({ queryKey: ['registrations'] });
     } catch (err) {
@@ -357,7 +357,7 @@ const TopicManagement = () => {
       },
     },
     {
-      title: 'Giảng Viên',
+      title: 'Giáo Viên',
       key: 'giangVien',
       width: 145,
       render: (_, record) => {
@@ -367,7 +367,7 @@ const TopicManagement = () => {
       },
     },
     {
-      title: 'SV',
+      title: 'HS',
       key: 'soLuong',
       width: 55,
       align: 'center',
@@ -516,7 +516,7 @@ const TopicManagement = () => {
                       <Descriptions.Item label={<strong>Mã đề tài</strong>}>
                         <Tag color="blue">{record.MaDeTai}</Tag>
                       </Descriptions.Item>
-                      <Descriptions.Item label={<strong>Giảng viên hướng dẫn</strong>}>
+                      <Descriptions.Item label={<strong>Giáo viên hướng dẫn</strong>}>
                         <Text strong style={{ color: '#1677ff' }}>{record.GiangVienHuongDan?.HoTen || '—'}</Text>
                       </Descriptions.Item>
                       <Descriptions.Item label={<strong>Mô tả cốt lõi</strong>}>
@@ -550,8 +550,8 @@ const TopicManagement = () => {
                       <Descriptions.Item label={<strong>Hạn chót đăng ký</strong>}>
                         {record.Deadline ? new Date(record.Deadline).toLocaleString('vi-VN') : 'Không giới hạn'}
                       </Descriptions.Item>
-                      <Descriptions.Item label={<strong>Số lượng SV tối đa</strong>}>
-                        {record.SoLuongSinhVien || 1} SV ({record.SoLuongSinhVien > 1 ? 'Đề tài nhóm' : 'Đề tài cá nhân'})
+                      <Descriptions.Item label={<strong>Số lượng HS tối đa</strong>}>
+                        {record.SoLuongSinhVien || 1} HS ({record.SoLuongSinhVien > 1 ? 'Dự án nhóm' : 'Dự án cá nhân'})
                       </Descriptions.Item>
                     </Descriptions>
 
@@ -711,14 +711,14 @@ const TopicManagement = () => {
             <Input.TextArea rows={2} placeholder="Ngắn gọn 1-2 câu về mục tiêu đề tài..." />
           </Form.Item>
 
-          <Form.Item name="detailDescription" label="Mô tả chi tiết (dài, hiển thị khi SV xem chi tiết)">
+          <Form.Item name="detailDescription" label="Mô tả chi tiết (dài, hiển thị khi HS xem chi tiết)">
             <Input.TextArea rows={4} placeholder="Mô tả đầy đủ về đề tài, mục tiêu, phạm vi, phương pháp..." />
           </Form.Item>
 
           <Form.Item
             name="requires"
             label="Yêu cầu Kỹ năng / Stack (Dùng cho SBERT Matching)"
-            tooltip="Hệ thống AI sẽ dùng các từ khóa này để chấm điểm độ tương đồng với sinh viên."
+            tooltip="Hệ thống AI sẽ dùng các từ khóa này để chấm điểm độ tương đồng với học sinh."
           >
             <Select mode="tags" style={{ width: '100%' }} placeholder="React, Django, Python..." size="large" tokenSeparators={[',']}>
               <Option value="React">React</Option>
@@ -734,7 +734,7 @@ const TopicManagement = () => {
             <Form.Item
               name="lopHoc"
               label="Lớp học áp dụng"
-              tooltip="Chọn các lớp học mà đề tài này thuộc về. Chỉ SV trong lớp mới thấy đề tài."
+              tooltip="Chọn các lớp học mà đề tài này thuộc về. Chỉ HS trong lớp mới thấy đề tài."
             >
               <Select
                 mode="multiple"
@@ -749,8 +749,8 @@ const TopicManagement = () => {
           )}
 
           <div style={{ display: 'flex', gap: 16 }}>
-            <Form.Item name="soLuongSV" label="Số lượng Sinh viên" style={{ flex: 1 }}
-              tooltip="Số SV tối đa cho đề tài này. Mặc định 1 = cá nhân.">
+            <Form.Item name="soLuongSV" label="Số lượng Học sinh" style={{ flex: 1 }}
+              tooltip="Số HS tối đa cho đề tài này. Mặc định 1 = cá nhân.">
               <InputNumber min={1} style={{ width: '100%' }} size="large" placeholder="1" />
             </Form.Item>
 
@@ -761,12 +761,12 @@ const TopicManagement = () => {
 
           <div style={{ display: 'flex', gap: 16 }}>
             <Form.Item name="hanDangKy" label="Hạn đăng ký" style={{ flex: 1 }}
-              tooltip="Sau mốc này SV không thể đăng ký. Bỏ trống = dùng Deadline chung.">
+              tooltip="Sau mốc này HS không thể đăng ký. Bỏ trống = dùng Deadline chung.">
               <DatePicker showTime style={{ width: '100%' }} size="large" placeholder="Hạn chót đăng ký" />
             </Form.Item>
 
             <Form.Item name="hanNopBaoCao" label="Hạn nộp báo cáo" style={{ flex: 1 }}
-              tooltip="Sau mốc này SV không thể nộp báo cáo. Bỏ trống = dùng Deadline chung.">
+              tooltip="Sau mốc này HS không thể nộp báo cáo. Bỏ trống = dùng Deadline chung.">
               <DatePicker showTime style={{ width: '100%' }} size="large" placeholder="Hạn chót nộp báo cáo" />
             </Form.Item>
           </div>
@@ -816,7 +816,7 @@ const TopicManagement = () => {
             </Space>
             <Space>
               <Switch checked={hienThiChiTietChoSV} onChange={setHienThiChiTietChoSV} disabled={!suDungRubrics} />
-              <Text type={suDungRubrics ? undefined : 'secondary'}>Cho SV xem chi tiết điểm</Text>
+              <Text type={suDungRubrics ? undefined : 'secondary'}>Cho HS xem chi tiết điểm</Text>
             </Space>
           </div>
 

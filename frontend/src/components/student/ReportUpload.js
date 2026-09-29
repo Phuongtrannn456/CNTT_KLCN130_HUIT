@@ -206,7 +206,7 @@ const ReportUpload = () => {
         <Card bordered={false} style={{ borderRadius: 12, boxShadow: '0 4px 20px rgba(0,0,0,0.05)', border: '2px solid #52c41a' }}>
           <Alert
             message="Bạn đã nộp báo cáo thành công!"
-            description="File báo cáo đã được ghi nhận. Giảng viên sẽ xem và chấm điểm."
+            description="File báo cáo đã được ghi nhận. Giáo viên sẽ xem và chấm điểm."
             type="success" showIcon icon={<CheckCircle size={20} />}
             style={{ marginBottom: 16 }}
           />
@@ -251,7 +251,7 @@ const ReportUpload = () => {
       ) : (
         <Card bordered={false} style={{ borderRadius: 12, boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
           {!isApproved && registration && (
-            <Alert message="Đề tài chưa được duyệt" description="Bạn cần chờ Giảng viên duyệt đề tài trước khi nộp báo cáo." type="warning" showIcon style={{ marginBottom: 16 }} />
+            <Alert message="Đề tài chưa được duyệt" description="Bạn cần chờ Giáo viên duyệt đề tài trước khi nộp báo cáo." type="warning" showIcon style={{ marginBottom: 16 }} />
           )}
 
           {isGroupTopic && !isLeader ? (

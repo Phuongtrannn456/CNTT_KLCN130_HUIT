@@ -68,7 +68,7 @@ const PendingApproval = () => {
       await authService.registerWithRole(wallet, 'STUDENT_ROLE');
       navigate('/student');
     } catch (err) {
-      console.error('Lỗi khi vào bằng Sinh viên:', err);
+      console.error('Lỗi khi vào bằng Học sinh:', err);
       alert('Có lỗi xảy ra, vui lòng thử lại.');
     } finally {
       setLoading(false);
@@ -85,7 +85,7 @@ const PendingApproval = () => {
               <HourglassIcon color="primary" sx={{ fontSize: 80, mb: 2 }} />
               <Typography variant="h5" fontWeight="bold" gutterBottom>Đang chờ phê duyệt</Typography>
               <Typography variant="body1" color="text.secondary" mb={4}>
-                Yêu cầu cấp quyền Giảng viên của bạn đã được gửi. Vui lòng chờ Admin hệ thống xác nhận. Màn hình này sẽ tự động cập nhật khi có kết quả.
+                Yêu cầu cấp quyền Giáo viên của bạn đã được gửi. Vui lòng chờ Admin hệ thống xác nhận. Màn hình này sẽ tự động cập nhật khi có kết quả.
               </Typography>
               <CircularProgress />
             </>
@@ -96,7 +96,7 @@ const PendingApproval = () => {
               <CheckCircleIcon color="success" sx={{ fontSize: 80, mb: 2 }} />
               <Typography variant="h5" fontWeight="bold" gutterBottom color="success.main">Phê duyệt thành công!</Typography>
               <Typography variant="body1" color="text.secondary" mb={4}>
-                Chào mừng Giảng viên. Đang chuyển hướng vào hệ thống...
+                Chào mừng Giáo viên. Đang chuyển hướng vào hệ thống...
               </Typography>
               <CircularProgress color="success" />
             </>
@@ -115,7 +115,7 @@ const PendingApproval = () => {
                   Thử lại (Làm lại đơn)
                 </Button>
                 <Button variant="contained" color="primary" fullWidth onClick={handleJoinAsStudent} disabled={loading}>
-                  {loading ? <CircularProgress size={24} /> : 'Vào hệ thống với tư cách Sinh viên'}
+                  {loading ? <CircularProgress size={24} /> : 'Vào hệ thống với tư cách Học sinh'}
                 </Button>
               </Box>
             </>

@@ -24,7 +24,7 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
       </Typography>
 
       <Grid container spacing={4}>
-        {/* Sinh Viên Card */}
+        {/* Học Sinh Card */}
         <Grid item xs={12} md={6}>
           <Paper
             elevation={4}
@@ -60,7 +60,7 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
           </Paper>
         </Grid>
 
-        {/* Giảng Viên Card */}
+        {/* Giáo Viên Card */}
         <Grid item xs={12} md={6}>
           <Paper
             elevation={4}
@@ -104,7 +104,7 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
         </Grid>
       </Grid>
 
-      {/* Modal Nhập thông tin Giảng viên */}
+      {/* Modal Nhập thông tin Giáo viên */}
       <Dialog open={modalOpen} onClose={() => setModalOpen(false)} maxWidth="sm" fullWidth>
         <DialogTitle sx={{ fontWeight: 'bold' }}>Thông tin Giáo Viên</DialogTitle>
         <DialogContent dividers>

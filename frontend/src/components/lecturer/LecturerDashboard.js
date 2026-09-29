@@ -37,12 +37,12 @@ const LecturerDashboard = () => {
 
   return (
     <div>
-      <Title level={2}>Dashboard Giảng Viên</Title>
+      <Title level={2}>Dashboard Giáo Viên</Title>
       <Row gutter={[{ xs: 8, sm: 16 }, { xs: 8, sm: 16 }]} style={{ marginTop: 24 }}>
         <Col xs={24} sm={12} lg={8}>
           <Card bordered={false}>
             <Statistic
-              title="Tổng Đề Tài Quản Lý"
+              title="Tổng Dự Án Quản Lý"
               value={stats.topics}
               prefix={<BookOpen size={20} style={{ marginRight: 8, color: '#1677ff' }} />}
             />
@@ -51,7 +51,7 @@ const LecturerDashboard = () => {
         <Col xs={24} sm={12} lg={8}>
           <Card bordered={false}>
             <Statistic
-              title="Sinh Viên Đã Hướng Dẫn"
+              title="Học Sinh Đã Hướng Dẫn"
               value={stats.students}
               prefix={<Users size={20} style={{ marginRight: 8, color: '#52c41a' }} />}
             />

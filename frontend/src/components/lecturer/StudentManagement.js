@@ -19,14 +19,14 @@ const StudentManagement = () => {
         const res = await managementService.getSinhVienByGV(currentUser.id);
         return res?.data || [];
       } catch (err) {
-        message.error('Lỗi tải danh sách sinh viên');
+        message.error('Lỗi tải danh sách học sinh');
         return [];
       }
     },
     enabled: !!currentUser?.id,
   });
 
-  // Gộp theo sinh viên: 1 dòng per SV, gom nhiều lớp/môn/GV thành arrays
+  // Gộp theo học sinh: 1 dòng per HS, gom nhiều lớp/môn/GV thành arrays
   const groupedData = useMemo(() => {
     const map = {};
     rawData.forEach(item => {
@@ -67,7 +67,7 @@ const StudentManagement = () => {
 
   const columns = [
     {
-      title: 'Mã SV',
+      title: 'Mã HS',
       dataIndex: 'MaSV',
       key: 'MaSV',
       width: 120,
@@ -145,7 +145,7 @@ const StudentManagement = () => {
       },
     },
     {
-      title: 'Giảng Viên',
+      title: 'Giáo Viên',
       key: 'giangVien',
       render: (_, record) => {
         const classes = record.classes || [];
@@ -224,16 +224,16 @@ const StudentManagement = () => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <Title level={2} style={{ margin: 0 }}>
-          Quản Lý Sinh Viên
+          Quản Lý Học Sinh
         </Title>
-        <Text type="secondary">Tổng cộng: {groupedData.length} sinh viên (trong {rawData.length > 0 ? [...new Set(rawData.map(d => d.lopHoc?._id))].length : 0} lớp)</Text>
+        <Text type="secondary">Tổng cộng: {groupedData.length} học sinh (trong {rawData.length > 0 ? [...new Set(rawData.map(d => d.lopHoc?._id))].length : 0} lớp)</Text>
       </div>
 
       <Card bordered={false}>
         <div style={{ marginBottom: 16 }}>
           <Input
             prefix={<Search size={16} style={{ color: '#bfbfbf' }} />}
-            placeholder="Tìm kiếm theo Mã SV, Họ tên, Email, Chuyên ngành, Lớp, Môn, Ví..."
+            placeholder="Tìm kiếm theo Mã HS, Họ tên, Email, Khối lớp, Lớp, Môn, Ví..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             allowClear
@@ -245,7 +245,7 @@ const StudentManagement = () => {
           dataSource={filteredData}
           rowKey="_id"
           pagination={{ pageSize: 15, showSizeChanger: true, pageSizeOptions: ['10', '15', '30', '50'] }}
-          locale={{ emptyText: searchText ? 'Không tìm thấy sinh viên nào' : 'Chưa có sinh viên nào trong các lớp của bạn' }}
+          locale={{ emptyText: searchText ? 'Không tìm thấy học sinh nào' : 'Chưa có học sinh nào trong các lớp của bạn' }}
           scroll={{ x: 1400 }}
         />
       </Card>

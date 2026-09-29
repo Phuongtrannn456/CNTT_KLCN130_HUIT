@@ -347,7 +347,7 @@ const SubmissionReview = () => {
     setIsMinting(true);
     try {
       if (!selectedSubmission?.submission) {
-        message.error("Sinh viên chưa nộp bài, không thể chấm điểm!");
+        message.error("Học sinh chưa nộp bài, không thể chấm điểm!");
         return;
       }
 
@@ -603,7 +603,7 @@ const SubmissionReview = () => {
 
   const columns = [
     {
-      title: 'Nhóm / Sinh Viên',
+      title: 'Nhóm / Học Sinh',
       key: 'group',
       width: 220,
       render: (_, record) => {
@@ -867,7 +867,7 @@ const SubmissionReview = () => {
     <div style={{ background: '#fff', padding: 24, borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>
       <Title level={3} style={{ marginBottom: 24 }}>Duyệt Báo Cáo & Chấm Điểm</Title>
       <Paragraph type="secondary">
-        Sử dụng MetaMask để xác thực danh tính Giảng Viên trước khi chốt điểm. Mọi thay đổi sẽ được Audit công khai trên Mạng Blockchain Ethereum.
+        Sử dụng MetaMask để xác thực danh tính Giáo Viên trước khi chốt điểm. Mọi thay đổi sẽ được Audit công khai trên Mạng Blockchain Ethereum.
       </Paragraph>
 
       <Table
@@ -916,7 +916,7 @@ const SubmissionReview = () => {
           <div>
             <Title level={4}>{selectedSubmission.topic?.TenDeTai}</Title>
             <Text type="secondary" style={{ display: 'block', marginBottom: 8 }}>
-              Sinh viên: {selectedSubmission.student?.HoTen} ({selectedSubmission.student?.MaSV})
+              Học sinh: {selectedSubmission.student?.HoTen} ({selectedSubmission.student?.MaSV})
             </Text>
             <Text type="secondary" style={{ display: 'block', marginBottom: 24 }}>
               Nộp lúc: {new Date(selectedSubmission.submission?.NgayNop || selectedSubmission.submission?.createdAt).toLocaleString('vi-VN')}
@@ -954,7 +954,7 @@ const SubmissionReview = () => {
                       <Alert
                         type="warning"
                         message="Chưa trích xuất được nội dung bài làm từ file PDF nộp"
-                        description="Hệ thống PhoBERT AI sẽ chấm điểm dựa trên mô tả đề tài thay thế. Điểm đánh giá có thể không phản ánh chính xác bài làm thực tế của sinh viên."
+                        description="Hệ thống PhoBERT AI sẽ chấm điểm dựa trên mô tả đề tài thay thế. Điểm đánh giá có thể không phản ánh chính xác bài làm thực tế của học sinh."
                         showIcon
                       />
                     ) : (
@@ -962,7 +962,7 @@ const SubmissionReview = () => {
                         <Alert
                           type="success"
                           message={`Đã đọc thành công báo cáo PDF (${method === 'ocr' ? 'OCR quét ảnh' : 'văn bản native'})`}
-                          description={`Hệ thống đã đọc ${pageCount || '?'} trang bài làm thực tế của sinh viên. Đã sẵn sàng phân tích.`}
+                          description={`Hệ thống đã đọc ${pageCount || '?'} trang bài làm thực tế của học sinh. Đã sẵn sàng phân tích.`}
                           showIcon
                         />
                         {warnings.length > 0 && (
@@ -1149,7 +1149,7 @@ const SubmissionReview = () => {
               direction="vertical"
               current={aiAnalysis ? 2 : 1}
               items={[
-                { title: 'Sinh viên Nộp Hệ Thống (IPFS)', description: selectedSubmission.submission ? 'Đã nộp' : 'Chưa nộp' },
+                { title: 'Học sinh Nộp Hệ Thống (IPFS)', description: selectedSubmission.submission ? 'Đã nộp' : 'Chưa nộp' },
                 { title: 'PhoBERT AI Phân Tích', description: analyzing ? 'Đang gọi API cổng 8001...' : (aiAnalysis ? `Điểm gợi ý: ${aiAnalysis.score}` : 'Chờ xử lý') },
                 {
                   title: 'Nhập Điểm Chấm Thực Tế',
@@ -1182,7 +1182,7 @@ const SubmissionReview = () => {
                           <div>
                             <Alert
                               type={blockchainMeta.alertType}
-                              message={`Sinh viên đã được chấm điểm: ${selectedSubmission.grade?.Diem || score}`}
+                              message={`Học sinh đã được chấm điểm: ${selectedSubmission.grade?.Diem || score}`}
                               description={
                                 <Space direction="vertical" size={4} style={{ width: '100%' }}>
                                   <Space size={8} wrap>
@@ -1403,7 +1403,7 @@ const SubmissionReview = () => {
                           <Text>{item.NhanXetGV}</Text>
                         </div>
                       ) : (
-                        <Text type="secondary">Chưa có nhận xét của giảng viên.</Text>
+                        <Text type="secondary">Chưa có nhận xét của giáo viên.</Text>
                       )}
                       <Button type="primary" onClick={() => openWeeklyEvaluation(item)}>Đánh Giá Tuần</Button>
                     </Space>
@@ -1542,7 +1542,7 @@ const SubmissionReview = () => {
             {weeklyAiScore != null && (
               <Alert
                 type="info" showIcon style={{ marginBottom: 12 }}
-                message={`AI gợi ý: ${weeklyAiScore}/10 — chỉ tham khảo, giảng viên quyết định điểm cuối.`}
+                message={`AI gợi ý: ${weeklyAiScore}/10 — chỉ tham khảo, giáo viên quyết định điểm cuối.`}
               />
             )}
             {weeklyRubrics.map((criteria, idx) => (
