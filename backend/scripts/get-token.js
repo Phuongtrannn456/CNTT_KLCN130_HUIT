@@ -15,8 +15,8 @@
  *   4) Gọi POST /api/auth/verify để lấy JWT token
  *   5) In ra token + vai trò để dán vào Postman (Authorization: Bearer <token>)
  *
- * LƯU Ý: Ví phải đã được đăng ký trong DB (giảng viên/sinh viên).
- *  - Ví giảng viên mẫu đã seed sẵn: 0x3081F8965F007A78C1502b51DAC0bD54E6f6dBBF
+ * LƯU Ý: Ví phải đã được đăng ký trong DB (giáo viên/học sinh).
+ *  - Ví giáo viên mẫu đã seed sẵn: 0x3081F8965F007A78C1502b51DAC0bD54E6f6dBBF
  *    (chạy: node seed_lecturer.js để tạo). Dùng private key của chính ví này.
  */
 
@@ -56,7 +56,7 @@ async function main() {
 
   if (vData.needsRoleSelection) {
     console.error('\n⚠️  Ví này CHƯA được đăng ký trong hệ thống (cần chọn vai trò).');
-    console.error('    → Seed ví giảng viên (node seed_lecturer.js) hoặc đăng ký qua UI trước.');
+    console.error('    → Seed ví giáo viên (node seed_lecturer.js) hoặc đăng ký qua UI trước.');
     process.exit(1);
   }
   if (!vData.success || !vData.token) throw new Error('Verify thất bại: ' + JSON.stringify(vData));

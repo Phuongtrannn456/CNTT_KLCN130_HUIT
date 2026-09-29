@@ -1,5 +1,5 @@
 /**
- * gen-postman.js v4 — Smoke Test xanh thật cho CẢ Giảng viên VÀ Sinh viên
+ * gen-postman.js v4 — Smoke Test xanh thật cho CẢ Giáo viên VÀ Học sinh
  *
  *   node scripts/gen-postman.js
  *
@@ -95,7 +95,7 @@ const lecturerRequests = [
     test: createSaver('deTaiId'),
     body: json({
       MaDeTai: 'DT_SMOKE',
-      TenDeTai: 'Smoke Test - Hệ thống Web3 Giảng Viên',
+      TenDeTai: 'Smoke Test - Hệ thống Web3 Giáo Viên',
       MoTa: 'Đề tài tạo tự động khi kiểm thử',
       YeuCau: ['Web3', 'Blockchain', 'AI'],
       SoLuongSinhVien: 2,

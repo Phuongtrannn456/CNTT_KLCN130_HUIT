@@ -449,7 +449,7 @@ const GroupManagement = () => {
           </div>
           <Alert
             message="Lưu ý"
-            description="Số lượng thành viên phải khớp với yêu cầu SoLuongSinhVien của đề tài bạn muốn đăng ký."
+            description="Số lượng thành viên phải khớp với yêu cầu số lượng học sinh của dự án bạn muốn đăng ký."
             type="info"
             showIcon
           />

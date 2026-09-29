@@ -251,7 +251,7 @@ const EntranceTestManager = () => {
                   <Descriptions.Item label="Số câu">{baiTest.CauHoi?.length || 0}</Descriptions.Item>
                   <Descriptions.Item label="Ngưỡng đạt" span={2}>
                     <Tag color="blue" style={{ fontSize: 14 }}>≥ {baiTest.NguongDat || 75}%</Tag>
-                    <Text type="secondary" style={{ marginLeft: 8 }}>SV đạt ngưỡng sẽ được duyệt tự động</Text>
+                    <Text type="secondary" style={{ marginLeft: 8 }}>Học sinh đạt ngưỡng sẽ được duyệt tự động</Text>
                   </Descriptions.Item>
                 </Descriptions>
 
@@ -316,7 +316,7 @@ const EntranceTestManager = () => {
                 dataSource={results}
                 rowKey="_id"
                 pagination={false}
-                locale={{ emptyText: <Empty description="Chưa có SV nào nộp bài test" /> }}
+                locale={{ emptyText: <Empty description="Chưa có học sinh nào nộp bài test" /> }}
               />
             )
           }
@@ -334,7 +334,7 @@ const EntranceTestManager = () => {
             <Space>
               <Text>Ngưỡng đạt (auto-duyệt):</Text>
               <InputNumber value={nguongDat} onChange={setNguongDat} min={0} max={100} addonAfter="%" />
-              <Text type="secondary" style={{ fontSize: 12 }}>SV đạt ngưỡng này sẽ được duyệt tự động</Text>
+              <Text type="secondary" style={{ fontSize: 12 }}>Học sinh đạt ngưỡng này sẽ được duyệt tự động</Text>
             </Space>
 
             <Title level={5}>Câu Hỏi ({cauHoi.length})</Title>
@@ -373,7 +373,7 @@ const EntranceTestManager = () => {
                         { value: 'java', label: 'Java' },
                         { value: 'cpp', label: 'C++' }
                       ]} style={{ width: 150, marginBottom: 8 }} />
-                    <Text type="secondary" style={{ display: 'block', marginBottom: 4 }}>Đáp án mẫu (SBERT sẽ so sánh code SV với code này):</Text>
+                    <Text type="secondary" style={{ display: 'block', marginBottom: 4 }}>Đáp án mẫu (SBERT sẽ so sánh code học sinh với code này):</Text>
                     <Editor height="200px" language={q.NgonNgu} value={q.DapAnMau || ''}
                       onChange={v => updateCauHoi(idx, 'DapAnMau', v || '')}
                       theme="vs-dark" options={{ minimap: { enabled: false }, fontSize: 13 }} />

@@ -30,7 +30,7 @@ const customStyles = `
 
 const ClassSelector = () => {
   const user = authService.getCurrentUser();
-  const isLecturer = user?.role_id === 'LECTURER_ROLE';
+  const isTeacher = user?.role_id === 'TEACHER_ROLE';
   const isAdmin = user?.role_id === 'ADMIN_ROLE';
   
   if (!user || isAdmin) return null;
@@ -38,7 +38,7 @@ const ClassSelector = () => {
   return (
     <>
       <style>{customStyles}</style>
-      {isLecturer ? <LecturerClassSelector /> : <StudentClassSelector />}
+      {isTeacher ? <LecturerClassSelector /> : <StudentClassSelector />}
     </>
   );
 };
@@ -65,7 +65,7 @@ const StudentClassSelector = () => {
         </Option>
         {myClasses.map((lop) => (
           <Option key={lop._id} value={lop._id}>
-            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - GV: {lop.GiangVien?.HoTen || 'N/A'}
+            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lop.GiangVien?.HoTen || 'N/A'}
           </Option>
         ))}
       </Select>
@@ -95,7 +95,7 @@ const LecturerClassSelector = () => {
         </Option>
         {myClasses.map((lop) => (
           <Option key={lop._id} value={lop._id}>
-            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - GV: {lop.GiangVien?.HoTen || 'N/A'}
+            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lop.GiangVien?.HoTen || 'N/A'}
           </Option>
         ))}
       </Select>

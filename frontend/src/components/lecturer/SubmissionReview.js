@@ -535,7 +535,7 @@ const SubmissionReview = () => {
       setWeeklyRubrics(updated);
       setWeeklyScore(calcWeeklyScore(updated));
       setWeeklyAiScore(res.aiScore);
-      message.success(`AI gợi ý điểm tuần ${res.aiScore}/10 (chỉ tham khảo — GV có thể chỉnh lại)`);
+      message.success(`AI gợi ý điểm tuần ${res.aiScore}/10 (chỉ tham khảo — Giáo viên có thể chỉnh lại)`);
     } catch (err) {
       message.error(err.response?.data?.error || 'AI gợi ý điểm tuần thất bại');
     } finally {
@@ -694,7 +694,7 @@ const SubmissionReview = () => {
           const diff = gvScore - aiScore;
           return (
             <Space direction="vertical" size={0}>
-              <Text strong style={{ color: '#eb2f96' }}>GV: {gvScore}</Text>
+              <Text strong style={{ color: '#eb2f96' }}>Giáo viên: {gvScore}</Text>
               <Space size={4}>
                 <Text type="secondary" style={{ fontSize: 12 }}>AI: {aiScore}</Text>
                 {Math.abs(diff) < 0.1 ? (
@@ -736,7 +736,7 @@ const SubmissionReview = () => {
                 Chấm Điểm & Review
               </Button>
             ) : (
-              <Tag color="default" style={{ margin: 0 }}>Chờ SV nộp bài</Tag>
+              <Tag color="default" style={{ margin: 0 }}>Chờ HS nộp bài</Tag>
             )}
           </Space>
         );
@@ -756,7 +756,7 @@ const SubmissionReview = () => {
       )
     },
     {
-      title: 'Mã SV',
+      title: 'Mã HS',
       dataIndex: ['student', 'MaSV'],
       key: 'maSV'
     },
@@ -1242,7 +1242,7 @@ const SubmissionReview = () => {
                             )}
 
                             <Descriptions column={1} size="small" bordered style={{ background: '#fafafa', borderRadius: 8 }}>
-                              <Descriptions.Item label="Điểm GV chấm">
+                              <Descriptions.Item label="Điểm Giáo Viên chấm">
                                 <Text strong style={{ color: '#eb2f96', fontSize: 16 }}>{selectedSubmission.grade?.Diem || score}</Text>
                               </Descriptions.Item>
                               <Descriptions.Item label="Trạng thái Blockchain">
@@ -1399,7 +1399,7 @@ const SubmissionReview = () => {
                     <Space direction="vertical" style={{ width: '100%' }}>
                       {item.NhanXetGV ? (
                         <div style={{ padding: 8, background: '#f6ffed', borderRadius: 4 }}>
-                          <Text strong style={{ color: '#389e0d' }}>Nhận xét GV: </Text>
+                          <Text strong style={{ color: '#389e0d' }}>Nhận xét Giáo Viên: </Text>
                           <Text>{item.NhanXetGV}</Text>
                         </div>
                       ) : (

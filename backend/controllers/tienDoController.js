@@ -62,7 +62,7 @@ const assertGiangVienOwnsDeTai = async (deTaiId, giangVienId) => {
     }
 
     if (String(deTai.GiangVienHuongDan) !== String(giangVienId)) {
-        return { ok: false, error: 'Không phải giảng viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
+        return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
     }
 
     return { ok: true, deTai };
@@ -280,7 +280,7 @@ exports.getProgressBySinhVien = async (req, res) => {
         const { svId } = req.params;
         const { deTaiId } = req.query;
 
-        // Tìm xem sinh viên có thuộc nhóm nào có đề tài được duyệt không
+        // Tìm xem học sinh có thuộc nhóm nào có đề tài được duyệt không
         const queryDangKy = {
             TrangThai: 'DaDuyet',
             $or: [

@@ -29,7 +29,9 @@ const deTaiSchema = new mongoose.Schema({
   LopHoc: [{ type: mongoose.Schema.Types.ObjectId, ref: 'LopHoc' }],
   CoBaiTest: { type: Boolean, default: false },       // Có yêu cầu bài test cạnh tranh không
   TrangThai: { type: String, enum: ['MoDangKy', 'DaChot', 'HoanThanh'], default: 'MoDangKy' },
-  LoaiDeTai: { type: String, enum: ['MonHoc', 'KhoaLuan'], default: 'MonHoc' }
+  LoaiDeTai: { type: String, enum: ['MonHoc', 'KhoaLuan'], default: 'MonHoc' },
+  // === Mở rộng cho hệ thống K-12 (Giáo dục phổ thông) ===
+  KhoiLopYeuCau: [{ type: Number, min: 1, max: 12 }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('DeTai', deTaiSchema);

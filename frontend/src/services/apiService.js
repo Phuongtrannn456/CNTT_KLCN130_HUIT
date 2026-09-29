@@ -1,4 +1,4 @@
-import axios from 'axios';
+﻿import axios from 'axios';
 import authService from './authService';
 import io from 'socket.io-client';
 
@@ -97,17 +97,17 @@ class ApiService {
     });
 
     this.socket.on('connect', () => {
-      console.log('Connected to notification server');
+
       this.socket.emit('join', userDid);
     });
 
     this.socket.on('notification', (notification) => {
-      console.log('Received notification:', notification);
+
       this.notificationCallbacks.forEach(callback => callback(notification));
     });
 
     this.socket.on('disconnect', (reason) => {
-      console.log('Disconnected from notification server:', reason);
+
       // Don't automatically reconnect to avoid loops
     });
 

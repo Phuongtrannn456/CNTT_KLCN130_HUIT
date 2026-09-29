@@ -13,7 +13,7 @@ async function check() {
     console.log(`- ID: ${t._id}`);
     console.log(`  Mã đề tài: ${t.MaDeTai}`);
     console.log(`  Tên đề tài: ${t.TenDeTai}`);
-    console.log(`  Giảng viên hướng dẫn (ID): ${t.GiangVienHuongDan}`);
+    console.log(`  Giáo viên hướng dẫn (ID): ${t.GiangVienHuongDan}`);
     console.log(`  LoaiDeTai: ${t.LoaiDeTai}`);
   });
 

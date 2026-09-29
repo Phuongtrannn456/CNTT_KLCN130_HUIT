@@ -41,7 +41,7 @@ exports.createNhom = async (req, res) => {
     const existingNhom = await Nhom.findOne(nhomQuery);
 
     if (existingNhom) {
-      return res.status(400).json({ error: isKhoaLuan ? 'Bạn đã có nhóm khóa luận. Không thể tạo nhóm mới.' : 'Bạn đã có nhóm trong lớp này. Không thể tạo nhóm mới.' });
+      return res.status(400).json({ error: isKhoaLuan ? 'Bạn đã có nhóm dự án STEM. Không thể tạo nhóm mới.' : 'Bạn đã có nhóm trong lớp này. Không thể tạo nhóm mới.' });
     }
 
     const nhom = new Nhom({
@@ -149,7 +149,7 @@ exports.inviteMember = async (req, res) => {
 
     // Tìm SV được mời
     const svMoi = await SinhVien.findOne({ MaSV: maSV });
-    if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy sinh viên với Mã SV này.' });
+    if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã SV này.' });
 
     // MỚI: Nếu nhóm thuộc lớp → kiểm tra SV được mời phải thuộc cùng lớp
     if (nhom.LopHoc) {
@@ -157,7 +157,7 @@ exports.inviteMember = async (req, res) => {
       const lop = await LopHoc.findById(nhom.LopHoc);
       if (lop) {
         if (!lop.SinhVien.some(svId => svId.toString() === svMoi._id.toString())) {
-          return res.status(400).json({ error: 'Sinh viên được mời không thuộc lớp học của nhóm.' });
+          return res.status(400).json({ error: 'Học sinh được mời không thuộc lớp học của nhóm.' });
         }
       }
 
@@ -170,10 +170,10 @@ exports.inviteMember = async (req, res) => {
       };
       const existingNhom = await Nhom.findOne(existingNhomQuery);
       if (existingNhom) {
-        return res.status(400).json({ error: 'Sinh viên này đã ở trong nhóm khác của lớp này.' });
+        return res.status(400).json({ error: 'Học sinh này đã ở trong nhóm khác của lớp này.' });
       }
     } else {
-      // Với khóa luận: chỉ chặn nếu SV được mời đã sở hữu (được duyệt) một đề tài khóa luận rồi
+      // Với dự án STEM: chỉ chặn nếu SV được mời đã sở hữu (được duyệt) một đề tài dự án STEM rồi
       const DeTai = require('../models/DeTai');
       const DangKyDeTai = require('../models/DangKyDeTai');
       const khoaLuanTopics = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).select('_id');
@@ -189,7 +189,7 @@ exports.inviteMember = async (req, res) => {
         ]
       });
       if (wonReg) {
-        return res.status(400).json({ error: 'Sinh viên được mời đã sở hữu (được duyệt) một đề tài khóa luận.' });
+        return res.status(400).json({ error: 'Học sinh được mời đã sở hữu (được duyệt) một đề tài dự án STEM.' });
       }
     }
 
@@ -198,7 +198,7 @@ exports.inviteMember = async (req, res) => {
       tv => tv.SinhVien.toString() === svMoi._id.toString() && tv.TrangThai !== 'TuChoi'
     );
     if (alreadyInGroup) {
-      return res.status(400).json({ error: 'Sinh viên này đã có trong nhóm.' });
+      return res.status(400).json({ error: 'Học sinh này đã có trong nhóm.' });
     }
 
     nhom.ThanhVien.push({

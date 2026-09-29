@@ -14,7 +14,7 @@ function invalidateMonHocCache(gvId) {
   }
 }
 
-// Lấy danh sách môn học của giảng viên
+// Lấy danh sách môn học của giáo viên
 exports.getByGiangVien = async (req, res) => {
   try {
     const { gvId } = req.params;

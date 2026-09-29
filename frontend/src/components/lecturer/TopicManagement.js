@@ -441,12 +441,12 @@ const TopicManagement = () => {
               </span></Tooltip>
             )}
 
-            <Tooltip title={isOwner ? "Sửa" : "Bạn không phải GV hướng dẫn của đề tài này"}><span>
+            <Tooltip title={isOwner ? "Sửa" : "Bạn không phải Giáo viên hướng dẫn của dự án này"}><span>
               <Button type="text" size="small" icon={<Edit2 size={14} />}
                 disabled={!isOwner}
                 onClick={() => handleEdit(record)} style={{ height: 24, width: 24, padding: 0 }} />
             </span></Tooltip>
-            <Tooltip title={isOwner ? "Xóa" : "Bạn không phải GV hướng dẫn của đề tài này"}><span>
+            <Tooltip title={isOwner ? "Xóa" : "Bạn không phải Giáo viên hướng dẫn của dự án này"}><span>
               <Button type="text" danger size="small" icon={<Trash2 size={14} />}
                 disabled={!isOwner}
                 onClick={() => handleDelete(record._id)} style={{ height: 24, width: 24, padding: 0 }} />
@@ -542,7 +542,7 @@ const TopicManagement = () => {
                           {(record.LopHoc || []).map(lh => (
                             <span key={lh._id || lh}>
                               <Tag color="cyan">{lh.MaLopHoc}</Tag> 
-                              <Text type="secondary" style={{ fontSize: 12 }}>{lh.TenLopHoc} {lh.MonHoc?.TenMonHoc ? `(${lh.MonHoc.TenMonHoc})` : ''} - GV: {lh.GiangVien?.HoTen || 'N/A'}</Text>
+                              <Text type="secondary" style={{ fontSize: 12 }}>{lh.TenLopHoc} {lh.MonHoc?.TenMonHoc ? `(${lh.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lh.GiangVien?.HoTen || 'N/A'}</Text>
                             </span>
                           ))}
                         </div>
@@ -584,7 +584,7 @@ const TopicManagement = () => {
                       <Alert
                         message={
                           <span>
-                            <strong>Đề tài đã có chủ!</strong> Đã phê duyệt chính thức cho nhóm <strong>{approvedReg.Nhom?.TenNhom || `Nhóm của ${approvedReg.TruongNhom?.HoTen || approvedReg.SinhVien?.HoTen || 'N/A'}`}</strong> làm đề tài này.
+                            <strong>Dự án đã có nhóm đảm nhận!</strong> Đã phê duyệt chính thức cho nhóm <strong>{approvedReg.Nhom?.TenNhom || `Nhóm của ${approvedReg.TruongNhom?.HoTen || approvedReg.SinhVien?.HoTen || 'N/A'}`}</strong> thực hiện dự án này.
                           </span>
                         }
                         type="success"
@@ -593,7 +593,7 @@ const TopicManagement = () => {
                       />
                     ) : (
                       <Alert
-                        message="Đề tài này hiện chưa được giao cho nhóm nào chính thức (đang chờ duyệt)."
+                        message="Dự án này hiện chưa được giao cho nhóm nào chính thức (đang chờ duyệt)."
                         type="info"
                         showIcon
                         style={{ marginBottom: 16 }}
@@ -741,7 +741,7 @@ const TopicManagement = () => {
                 placeholder="Chọn lớp học..."
                 options={lopHocList.map(lh => ({
                   value: lh._id,
-                  label: `${lh.MaLopHoc} - ${lh.TenLopHoc}${lh.MonHoc?.TenMonHoc ? ` (${lh.MonHoc.TenMonHoc})` : ''} - GV: ${lh.GiangVien?.HoTen || 'N/A'}`
+                  label: `${lh.MaLopHoc} - ${lh.TenLopHoc}${lh.MonHoc?.TenMonHoc ? ` (${lh.MonHoc.TenMonHoc})` : ''} - Giáo viên: ${lh.GiangVien?.HoTen || 'N/A'}`
                 }))}
                 size="large"
               />

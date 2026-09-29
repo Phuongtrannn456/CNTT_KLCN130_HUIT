@@ -170,7 +170,7 @@ const TopicRegistration = () => {
           <Divider style={{ margin: '12px 0' }} />
 
           <div style={{ marginBottom: 16 }}>
-            <Text type="secondary">GV Hướng dẫn:</Text>
+            <Text type="secondary">Giáo viên hướng dẫn:</Text>
             <Text strong style={{ marginLeft: 8 }}>{topic.GiangVienHuongDan?.HoTen || 'N/A'}</Text>
             <br />
             <Text type="secondary">Học sinh tối đa:</Text>
@@ -410,7 +410,7 @@ const TopicRegistration = () => {
                   title={<Text strong style={{ fontSize: 15 }}>{reg.DeTai?.TenDeTai}</Text>}
                   description={
                     <div style={{ marginTop: 4 }}>
-                      <span>GV: {reg.DeTai?.GiangVienHuongDan?.HoTen || 'N/A'} • </span>
+                      <span>Giáo viên: {reg.DeTai?.GiangVienHuongDan?.HoTen || 'N/A'} • </span>
                       <span>Trạng thái: </span>
                       {reg.TrangThai === 'ChoTest' && <Tag color="volcano">Cần làm test</Tag>}
                       {reg.TrangThai === 'DangLamTest' && <Tag color="purple">Đang làm test</Tag>}
@@ -595,7 +595,7 @@ const TopicRegistration = () => {
                 bodyStyle={{ flexGrow: 1 }}
               >
                 <div style={{ marginBottom: 12 }}>
-                  <Text type="secondary">GV Hướng dẫn:</Text>
+                  <Text type="secondary">Giáo viên hướng dẫn:</Text>
                   <Text strong style={{ marginLeft: 8 }}>{topic.GiangVienHuongDan?.HoTen || 'N/A'}</Text>
                   <br />
                   <Text type="secondary">Học sinh tối đa:</Text>
@@ -603,7 +603,7 @@ const TopicRegistration = () => {
                   <br />
                   {topic.LoaiDeTai === 'KhoaLuan' ? (
                     <>
-                      <Text type="secondary">Loại đề tài:</Text>
+                      <Text type="secondary">Loại dự án:</Text>
                       <Tag color="gold" style={{ marginLeft: 8, marginTop: 4 }}>📝 Dự Án STEM</Tag>
                     </>
                   ) : (

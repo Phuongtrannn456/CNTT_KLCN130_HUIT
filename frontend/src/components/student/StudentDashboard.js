@@ -216,7 +216,7 @@ const StudentDashboard = () => {
       {invitations.length > 0 && invitations.map(inv => (
         <Alert
           key={inv._id}
-          message={`📩 Bạn có lời mời tham gia nhóm Đề tài: ${inv.DeTai?.TenDeTai}`}
+          message={`📩 Bạn có lời mời tham gia nhóm Dự án: ${inv.DeTai?.TenDeTai}`}
           description={`Trưởng nhóm: ${inv.SinhVien?.HoTen} (${inv.SinhVien?.MaSV}). Bạn có muốn tham gia dự án không?`}
           type="info"
           showIcon

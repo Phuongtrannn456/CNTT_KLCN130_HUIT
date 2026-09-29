@@ -52,7 +52,7 @@ async function seedTestsAndRubrics() {
       const test = new BaiTest({
         DeTai: topic._id,
         TieuDe: 'Bài Test Tuyển Chọn Nghiên Cứu Blockchain Sharding',
-        MoTa: 'Bài đánh giá kiến thức chuyên môn về Sharding, mật mã học blockchain và kỹ thuật kiểm thử hiệu năng dành cho sinh viên đăng ký đề tài.',
+        MoTa: 'Bài đánh giá kiến thức chuyên môn về Sharding, mật mã học blockchain và kỹ thuật kiểm thử hiệu năng dành cho học sinh đăng ký đề tài.',
         ThoiGianLam: 15,
         NguongDat: 70,
         CauHoi: [
@@ -84,7 +84,7 @@ async function seedTestsAndRubrics() {
             LoaiCauHoi: 'TracNghiem',
             NoiDung: 'Trong thuật toán đồng thuận PoS được tối ưu hóa cho Sharding, thuật ngữ "Committee" (Ủy ban) đại diện cho điều gì?',
             LuaChon: [
-              'A. Nhóm các giảng viên trong hội đồng bảo vệ khóa luận',
+              'A. Nhóm các giáo viên trong hội đồng bảo vệ dự án STEM',
               'B. Một tập hợp các validators được lựa chọn ngẫu nhiên và luân phiên để xác thực giao dịch cho một shard cụ thể',
               'C. Các máy đào chuyên dụng thực hiện giải thuật toán SHA-256',
               'D. Cơ quan quản lý trung tâm chịu trách nhiệm phân quyền ví người dùng'
@@ -140,7 +140,7 @@ async function seedTestsAndRubrics() {
     await BaiTest.deleteOne({ DeTai: topic02._id });
     const test02 = new BaiTest({
       DeTai: topic02._id,
-      TieuDe: 'Bài Test Tuyển Chọn Khóa Luận AI & Web3 NFT',
+      TieuDe: 'Bài Test Tuyển Chọn Dự Án STEM AI & Web3 NFT',
       MoTa: 'Bài kiểm tra kiến thức về các mô hình học máy ngôn ngữ, lập trình Web3 và thiết kế token Soulbound (SBT).',
       ThoiGianLam: 15,
       NguongDat: 70,
@@ -277,7 +277,7 @@ async function seedTestsAndRubrics() {
     console.log('⚠️ Không tìm thấy đề tài DT_KL_WALLET_01');
   }
 
-  console.log('\n🎉 Quá trình seed Bài Test và Rubrics cho 3 đề tài Khóa Luận hoàn tất!');
+  console.log('\n🎉 Quá trình seed Bài Test và Rubrics cho 3 đề tài Dự Án STEM hoàn tất!');
   await mongoose.disconnect();
 }
 

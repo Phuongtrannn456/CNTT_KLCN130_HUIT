@@ -171,7 +171,7 @@ exports.delete = async (req, res) => {
     }
 };
 
-// Sinh viên đăng ký đề tài (theo nhóm)
+// Học sinh đăng ký đề tài (theo nhóm)
 exports.registerTopic = async (req, res) => {
     try {
         const { nhomId } = req.body;
@@ -204,7 +204,7 @@ exports.registerTopic = async (req, res) => {
         const acceptedCount = nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan').length;
         if (deTai.SoLuongSinhVien !== acceptedCount) {
             return res.status(400).json({ 
-                error: `Đề tài yêu cầu ${deTai.SoLuongSinhVien} sinh viên, nhóm bạn có ${acceptedCount} thành viên.` 
+                error: `Đề tài yêu cầu ${deTai.SoLuongSinhVien} học sinh, nhóm bạn có ${acceptedCount} thành viên.` 
             });
         }
 
@@ -257,7 +257,7 @@ exports.registerTopic = async (req, res) => {
                 ]
             });
             if (wonReg) {
-                return res.status(400).json({ error: 'Một hoặc nhiều thành viên trong nhóm đã sở hữu (được duyệt) một đề tài khóa luận.' });
+                return res.status(400).json({ error: 'Một hoặc nhiều thành viên trong nhóm đã sở hữu (được duyệt) một đề tài dự án STEM.' });
             }
         } else {
             const existingReg = await DangKyDeTai.findOne({ 
@@ -291,7 +291,7 @@ exports.registerTopic = async (req, res) => {
         logger.info(`[TOPIC] Nhom ${nhomId} registered for topic ${deTaiId} | status=${trangThai}`);
         const msg = deTai.CoBaiTest 
             ? 'Đăng ký thành công! Trưởng nhóm cần hoàn thành bài test cạnh tranh.' 
-            : 'Đăng ký đề tài thành công! Chờ Giảng viên duyệt.';
+            : 'Đăng ký đề tài thành công! Chờ Giáo viên duyệt.';
         invalidateDeTaiCache();
         res.status(201).json({ message: msg, data: dangKy });
     } catch (err) {
@@ -300,7 +300,7 @@ exports.registerTopic = async (req, res) => {
     }
 };
 
-// Lấy đăng ký của 1 sinh viên (kiểm tra đã đăng ký đề tài nào chưa)
+// Lấy đăng ký của 1 học sinh (kiểm tra đã đăng ký đề tài nào chưa)
 exports.getMyRegistration = async (req, res) => {
     try {
         const svId = req.params.svId;
@@ -352,7 +352,7 @@ exports.getMyRegistration = async (req, res) => {
     }
 };
 
-// Lấy tất cả đăng ký của 1 sinh viên (để hiển thị danh sách đăng ký qua các lớp)
+// Lấy tất cả đăng ký của 1 học sinh (để hiển thị danh sách đăng ký qua các lớp)
 exports.getMyRegistrations = async (req, res) => {
     try {
         const svId = req.params.svId;
@@ -379,7 +379,7 @@ exports.getMyRegistrations = async (req, res) => {
     }
 };
 
-// Lấy tất cả đăng ký cho đề tài của 1 Giảng viên
+// Lấy tất cả đăng ký cho đề tài của 1 Giáo viên
 exports.getRegistrationsByLecturer = async (req, res) => {
     try {
         const gvId = req.params.gvId;
@@ -456,7 +456,7 @@ exports.getRegistrationsByLecturer = async (req, res) => {
     }
 };
 
-// Sinh viên hủy đăng ký
+// Học sinh hủy đăng ký
 exports.cancelRegistration = async (req, res) => {
     try {
         const { id } = req.params;
@@ -490,7 +490,7 @@ exports.cancelRegistration = async (req, res) => {
     }
 };
 
-// Giảng viên duyệt / từ chối đăng ký
+// Giáo viên duyệt / từ chối đăng ký
 exports.approveRegistration = async (req, res) => {
     try {
         const { id } = req.params;
@@ -507,7 +507,7 @@ exports.approveRegistration = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy đăng ký' });
         }
         if (giangVienId && String(dangKyHienTai.DeTai?.GiangVienHuongDan) !== String(giangVienId)) {
-            return res.status(403).json({ error: 'Không phải giảng viên hướng dẫn của đề tài này', code: 'KHONG_PHAI_GV_HUONG_DAN' });
+            return res.status(403).json({ error: 'Không phải giáo viên hướng dẫn của đề tài này', code: 'KHONG_PHAI_GV_HUONG_DAN' });
         }
 
         const updated = await DangKyDeTai.findByIdAndUpdate(id, { TrangThai: trangThai }, { new: true })
@@ -544,18 +544,18 @@ exports.approveRegistration = async (req, res) => {
 
 // --- MỜI NHÓM VÀ QUẢN LÝ NHÓM ---
 
-// Mời sinh viên vào nhóm (Trưởng nhóm thao tác)
+// Mời học sinh vào nhóm (Trưởng nhóm thao tác)
 exports.inviteMember = async (req, res) => {
     try {
         const { id } = req.params; // deTaiId
         const { maSV } = req.body;
         const jwtPayloadId = req.user.id; // Lấy từ token (nếu có user object)
 
-        // B1: Tìm Sinh viên được mời qua mã SV
+        // B1: Tìm Học sinh được mời qua mã SV
         const svMoi = await SinhVien.findOne({ MaSV: maSV });
-        if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy sinh viên với Mã SV này.' });
+        if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã SV này.' });
 
-        // B2: Kiểm tra sinh viên được mời đã đăng ký đề tài nào chưa
+        // B2: Kiểm tra học sinh được mời đã đăng ký đề tài nào chưa
         const existingReg = await DangKyDeTai.findOne({
             TrangThai: { $ne: 'TuChoi' },
             $or: [
@@ -565,7 +565,7 @@ exports.inviteMember = async (req, res) => {
         });
 
         if (existingReg) {
-            return res.status(400).json({ error: 'Sinh viên này đã ứng tuyển hoặc thao tác với 1 đề tài khác.' });
+            return res.status(400).json({ error: 'Học sinh này đã ứng tuyển hoặc thao tác với 1 đề tài khác.' });
         }
 
         // B3: Tìm phiếu đăng ký hiện tại của trưởng nhóm
@@ -577,7 +577,7 @@ exports.inviteMember = async (req, res) => {
         // B4: Kiểm tra giới hạn thành viên
         const deTaiObj = await DeTai.findById(id);
         if (dangKy.ThanhVien.length >= deTaiObj.SoLuongSinhVien) {
-             return res.status(400).json({ error: `Nhóm đã đủ số lượng, tối đa ${deTaiObj.SoLuongSinhVien} sinh viên.` });
+             return res.status(400).json({ error: `Nhóm đã đủ số lượng, tối đa ${deTaiObj.SoLuongSinhVien} học sinh.` });
         }
 
         // B5: Thêm vào nhóm (trạng thái DaMoi)
@@ -596,7 +596,7 @@ exports.inviteMember = async (req, res) => {
     }
 };
 
-// Lấy danh sách lời mời của 1 sinh viên
+// Lấy danh sách lời mời của 1 học sinh
 exports.getMyInvitations = async (req, res) => {
     try {
         const { svId } = req.params;
@@ -628,7 +628,7 @@ exports.respondToInvitation = async (req, res) => {
         );
 
         if (thanhVienIndex === -1) {
-            return res.status(400).json({ error: 'Không tìm thấy lời mời hợp lệ cho sinh viên này.' });
+            return res.status(400).json({ error: 'Không tìm thấy lời mời hợp lệ cho học sinh này.' });
         }
 
         if (accept) {

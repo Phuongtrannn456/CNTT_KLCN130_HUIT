@@ -64,7 +64,7 @@ const AdminDashboard = () => {
 
   const lecturerColumns = [
     {
-      title: 'Mã GV',
+      title: 'Mã Giáo Viên',
       dataIndex: 'MaGV',
       key: 'MaGV',
       render: (text) => <Tag color="blue">{text}</Tag>,

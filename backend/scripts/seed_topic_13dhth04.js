@@ -16,10 +16,10 @@ async function seed() {
   if (!lopHoc) {
     console.log('📝 Không tìm thấy lớp 13DHTH04, tiến hành tạo mới lớp học...');
     
-    // Tìm 1 giảng viên bất kỳ làm chủ nhiệm
+    // Tìm 1 giáo viên bất kỳ làm chủ nhiệm
     const gv = await GiangVien.findOne({});
     if (!gv) {
-      console.error('❌ Không tìm thấy Giảng viên nào trong DB để tạo lớp học!');
+      console.error('❌ Không tìm thấy Giáo viên nào trong DB để tạo lớp học!');
       process.exit(1);
     }
     
@@ -40,7 +40,7 @@ async function seed() {
       TenLopHoc: '13DHTH04 - Công nghệ phần mềm nâng cao',
       MonHoc: monHoc._id,
       GiangVien: gv._id,
-      SinhVien: [] // Có thể add sinh viên vào sau
+      SinhVien: [] // Có thể add học sinh vào sau
     });
     console.log('✅ Đã tạo mới lớp học thành công:', lopHoc);
   } else {
@@ -51,9 +51,9 @@ async function seed() {
   const topicsToCreate = [
     {
       MaDeTai: 'DT_13DHTH04_01',
-      TenDeTai: 'Phát triển dApp bình chọn phi tập trung cho Hội đồng sinh viên',
+      TenDeTai: 'Phát triển dApp bình chọn phi tập trung cho Hội đồng học sinh',
       MoTa: 'Ứng dụng cơ chế chữ ký mù (blind signature) và mã hóa đồng hình để bảo mật phiếu bầu on-chain.',
-      MoTaChiTiet: 'Hệ thống cho phép sinh viên bỏ phiếu bầu các đề xuất của nhà trường mà không làm lộ danh tính phiếu bầu, đồng thời kết quả được tính toán và xác minh công khai bằng Smart Contract.',
+      MoTaChiTiet: 'Hệ thống cho phép học sinh bỏ phiếu bầu các đề xuất của nhà trường mà không làm lộ danh tính phiếu bầu, đồng thời kết quả được tính toán và xác minh công khai bằng Smart Contract.',
       YeuCau: ['Solidity', 'React', 'Ethers.js', 'Cryptography'],
       Deadline: new Date(new Date().setDate(new Date().getDate() + 30)),
       HanDangKy: new Date(new Date().setDate(new Date().getDate() + 7)),
@@ -68,7 +68,7 @@ async function seed() {
     {
       MaDeTai: 'DT_13DHTH04_02',
       TenDeTai: 'Hệ thống cấp phát chứng chỉ số NFT tự động hóa bằng AI Oracles',
-      MoTa: 'Ứng dụng AI phân tích submissions kết quả nghiên cứu và tự động mint SBT (Soulbound Token) chứng nhận cho sinh viên.',
+      MoTa: 'Ứng dụng AI phân tích submissions kết quả nghiên cứu và tự động mint SBT (Soulbound Token) chứng nhận cho học sinh.',
       MoTaChiTiet: 'Nghiên cứu tích hợp FastAPI chấm điểm báo cáo với mạng lưới Blockchain, khi AI trả điểm trên 8.0 sẽ kích hoạt Smart Contract tự động mint SBT chứng chỉ vinh danh.',
       YeuCau: ['React', 'FastAPI', 'Web3.js', 'Hardhat', 'ERC-721'],
       Deadline: new Date(new Date().setDate(new Date().getDate() + 30)),

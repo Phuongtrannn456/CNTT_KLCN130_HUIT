@@ -199,7 +199,7 @@ const CourseManagement = () => {
               return (
                 <div style={{ padding: '12px 24px', background: '#fafafa', borderRadius: 8 }}>
                   <Typography.Title level={5} style={{ margin: '0 0 12px 0', color: '#1677ff', fontSize: '14px' }}>
-                    Danh Sách Đề Tài Thuộc Môn Học ({subjectTopics.length})
+                    Danh Sách Dự Án Thuộc Môn Học ({subjectTopics.length})
                   </Typography.Title>
                   {subjectTopics.length > 0 ? (
                     <Table
@@ -210,14 +210,14 @@ const CourseManagement = () => {
                       rowKey="_id"
                       columns={[
                         {
-                          title: 'Mã Đề Tài',
+                          title: 'Mã Dự Án',
                           dataIndex: 'MaDeTai',
                           key: 'MaDeTai',
                           width: 140,
                           render: (text) => <Tag color="blue">{text}</Tag>
                         },
                         {
-                          title: 'Tên Đề Tài',
+                          title: 'Tên Dự Án',
                           dataIndex: 'TenDeTai',
                           key: 'TenDeTai',
                           render: (text, topicRecord) => (

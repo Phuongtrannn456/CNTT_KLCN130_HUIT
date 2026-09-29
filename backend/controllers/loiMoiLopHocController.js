@@ -3,7 +3,7 @@ const LopHoc = require('../models/LopHoc');
 const SinhVien = require('../models/SinhVien');
 const logger = require('../config/logger');
 
-// Giảng viên mời 1 sinh viên vào lớp
+// Giáo viên mời 1 học sinh vào lớp
 exports.inviteSinhVien = async (req, res) => {
   try {
     const { lopId } = req.params;
@@ -21,7 +21,7 @@ exports.inviteSinhVien = async (req, res) => {
       sv = await SinhVien.findOne({ MaSV: maSV });
     }
     if (!sv) {
-      return res.status(404).json({ success: false, message: 'Không tìm thấy sinh viên' });
+      return res.status(404).json({ success: false, message: 'Không tìm thấy học sinh' });
     }
 
     // Tìm lớp học
@@ -32,21 +32,21 @@ exports.inviteSinhVien = async (req, res) => {
 
     // Kiểm tra SV đã có trong lớp chưa
     if (lopHoc.SinhVien.some(svId => svId.equals(sv._id))) {
-      return res.status(409).json({ success: false, message: 'Sinh viên đã có trong lớp này' });
+      return res.status(409).json({ success: false, message: 'Học sinh đã có trong lớp này' });
     }
 
     // Kiểm tra đã có lời mời pending chưa
     const existing = await LoiMoiLopHoc.findOne({ LopHoc: lopId, SinhVien: sv._id });
     if (existing) {
       if (existing.TrangThai === 'ChoChapNhan') {
-        return res.status(409).json({ success: false, message: 'Đã gửi lời mời cho sinh viên này rồi' });
+        return res.status(409).json({ success: false, message: 'Đã gửi lời mời cho học sinh này rồi' });
       }
       // Nếu đã từ chối trước đó → cho phép mời lại
       if (existing.TrangThai === 'TuChoi' || existing.TrangThai === 'DaChapNhan') {
         existing.TrangThai = 'ChoChapNhan';
         await existing.save();
         logger.info(`[LoiMoiLopHoc] Re-invited SV ${sv.MaSV} to class ${lopHoc.MaLopHoc}`);
-        return res.json({ success: true, message: 'Đã gửi lại lời mời cho sinh viên', data: existing });
+        return res.json({ success: true, message: 'Đã gửi lại lời mời cho học sinh', data: existing });
       }
     }
 
@@ -59,21 +59,21 @@ exports.inviteSinhVien = async (req, res) => {
     await loiMoi.save();
 
     logger.info(`[LoiMoiLopHoc] Invited SV ${sv.MaSV} to class ${lopHoc.MaLopHoc}`);
-    res.status(201).json({ success: true, message: 'Đã gửi lời mời. Chờ sinh viên chấp nhận.', data: loiMoi });
+    res.status(201).json({ success: true, message: 'Đã gửi lời mời. Chờ học sinh chấp nhận.', data: loiMoi });
   } catch (error) {
     logger.error(`[LoiMoiLopHoc] inviteSinhVien error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi gửi lời mời' });
   }
 };
 
-// Giảng viên mời batch sinh viên vào lớp
+// Giáo viên mời batch học sinh vào lớp
 exports.inviteBatch = async (req, res) => {
   try {
     const { lopId } = req.params;
     const { danhSachMaSV } = req.body;
 
     if (!danhSachMaSV || !Array.isArray(danhSachMaSV)) {
-      return res.status(400).json({ success: false, message: 'Danh sách mã sinh viên không hợp lệ' });
+      return res.status(400).json({ success: false, message: 'Danh sách mã học sinh không hợp lệ' });
     }
 
     const lopHoc = await LopHoc.findById(lopId);
@@ -140,7 +140,7 @@ exports.inviteBatch = async (req, res) => {
   }
 };
 
-// Sinh viên respond lời mời (chấp nhận / từ chối)
+// Học sinh respond lời mời (chấp nhận / từ chối)
 exports.respondToInvite = async (req, res) => {
   try {
     const { id } = req.params;
@@ -190,7 +190,7 @@ exports.respondToInvite = async (req, res) => {
   }
 };
 
-// Lấy danh sách lời mời của 1 lớp (cho giảng viên)
+// Lấy danh sách lời mời của 1 lớp (cho giáo viên)
 exports.getInvitesByLopHoc = async (req, res) => {
   try {
     const { lopId } = req.params;
@@ -206,7 +206,7 @@ exports.getInvitesByLopHoc = async (req, res) => {
   }
 };
 
-// Lấy danh sách lời mời lớp học của sinh viên (pending)
+// Lấy danh sách lời mời lớp học của học sinh (pending)
 exports.getMyClassInvites = async (req, res) => {
   try {
     const { svId } = req.params;
@@ -229,7 +229,7 @@ exports.getMyClassInvites = async (req, res) => {
   }
 };
 
-// Giảng viên hủy lời mời đang pending
+// Giáo viên hủy lời mời đang pending
 exports.cancelInvite = async (req, res) => {
   try {
     const { id } = req.params;

@@ -59,3 +59,17 @@
 - 100% giao diện người dùng frontend (toàn bộ các component Giáo viên, Học sinh, Admin, Auth, Debug) đã được thay thế sạch các từ ngữ cũ "Sinh viên" / "Giảng viên" / "Khóa luận tốt nghiệp" sang "Học sinh" / "Giáo viên" / "Dự án STEM & Đề tài KHKT".
 - Bảo toàn 100% tính tương thích ngược cho backend database schema và API routes cũ để các thành viên Nhi & Nguyên hoàn toàn không bị ảnh hưởng khi thực hiện các chức năng tiếp theo.
 - Nhánh `main` trên GitHub repository `https://github.com/Phuongtrannn456/CNTT_KLCN130_HUIT` đã được cập nhật hoàn tất trước thời hạn 20h ngày 29/09/2026.
+
+---
+
+## 5. Phase 2: Chuẩn Hóa Response Message (Backend)
+
+Tiếp tục lộ trình chuẩn hóa, vào chiều ngày 29/09/2026, toàn bộ các chuỗi phản hồi (response message, error message) hiển thị cho người dùng từ phía Backend (Node.js/Express) đã được cập nhật:
+- Chuyển đổi "Sinh viên" ➔ "Học sinh"
+- Chuyển đổi "Giảng viên" ➔ "Giáo viên" 
+- Chuyển đổi "Khóa luận" ➔ "Dự án STEM"
+
+**Phạm vi áp dụng (Phase 2):**
+- Thư mục `backend/controllers/` (authController, deTaiController, baoCaoController, v.v.)
+- Thư mục `backend/scripts/` và các Postman Collection dùng để test API.
+- Các rule tương thích ngược vẫn được tuân thủ nghiêm ngặt (không thay đổi field JSON, Model name, Schema hay Smart Contract variables).

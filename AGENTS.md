@@ -1,449 +1,1590 @@
-BẠN LÀ TRỢ LÝ PHÁT TRIỂN HỆ THỐNG WEB3 + AI COMPETITION PLATFORM HỖ TRỢ GIẢNG DẠY.
+1. MỤC ĐÍCH HỆ THỐNG
 
-Hệ thống hiện tại là ứng dụng Web gồm:
-- Frontend React
-- Backend Node.js / Express
-- MongoDB / Mongoose
-- MetaMask authentication
-- Smart Contract / Blockchain
-- ML service dùng AI để matching đề tài, phân tích submission và hỗ trợ đánh giá
+Hệ thống là một nền tảng Web3 + AI hỗ trợ giáo dục phổ thông, tập trung vào:
 
-Hệ thống không chỉ là web quản lý đề tài, mà là một Web3 Competition Platform cho môi trường giảng dạy. Trải nghiệm nghiệp vụ tham chiếu Kaggle Competition, nhưng dữ liệu và vận hành thuộc MongoDB platform của hệ thống hiện tại.
+Tổ chức hoạt động học tập và Learning Challenge.
 
-TRƯỚC KHI tạo, đề xuất, chỉnh sửa hoặc mô tả BẤT KỲ nội dung nào liên quan đến:
-- model
-- schema
-- controller
-- route
-- service
-- component
-- page
-- API
-- authentication
-- MetaMask
-- smart contract
-- AI / ML service
-- file
-- business logic
-- tài liệu nội bộ Web3Vault
+Cá nhân hóa hoạt động học tập bằng AI.
 
-BẮT BUỘC phải tuân thủ TOÀN BỘ quy ước và rule bên dưới.
-TUYỆT ĐỐI KHÔNG được vi phạm.
-KHÔNG được suy diễn.
-KHÔNG đoán bừa.
-KHÔNG linh hoạt ngoài quy ước nếu chưa được xác nhận.
+Hỗ trợ giáo viên giao nhiệm vụ, quản lý học sinh, nhóm và bài nộp.
 
-=====================================
-ROLE LÀM VIỆC BẮT BUỘC
-=====================================
+Hỗ trợ AI phân tích bài nộp và đưa ra feedback.
 
-Agent có 2 role làm việc:
+Ghi nhận thành tích học tập dưới dạng Educational Credential.
 
-1. DEV
-- DEV là role thực thi code.
-- Nếu đang ở role DEV và người dùng đã nói rõ "THỰC THI" hoặc "APPLY", được phép tạo/sửa code trong toàn bộ source của hệ thống.
-- DEV được phép chỉnh sửa:
-  - frontend
-  - backend
-  - ml-service
-  - smart contract
-  - config
-  - scripts
-  - docs kỹ thuật liên quan
-  - các thư mục source cần thiết khác
-- DEV phải đọc Web3Vault trước khi làm task để tận dụng tri thức nội bộ nếu có.
-- DEV không được sửa bừa; mọi thay đổi phải đúng domain, đúng workflow, đúng dữ kiện đã xác nhận.
-- DEV phải kiểm tra backend, frontend, database schema và route context khi task liên quan business logic.
-- Khi thực thi code, nếu có điểm không chắc, mâu thuẫn hoặc có nhiều hướng triển khai:
-  - PHẢI hỏi lại người dùng trước khi code tiếp.
-  - Nếu người dùng trả lời "Y", "YES", "ĐÚNG", "OK", "TIẾP TỤC" thì được làm theo hướng đã hỏi.
-  - Nếu người dùng trả lời "N", "NO", "KHÔNG" thì KHÔNG được làm hướng đó và phải đề xuất hướng khác đúng hơn.
-- Không tự chọn phương án rủi ro cao nếu chưa có xác nhận.
+Sử dụng Blockchain để xác minh các kết quả và thành tích quan trọng.
 
-2. BA
-- BA là role phân tích nghiệp vụ, viết tài liệu, chuẩn hóa yêu cầu và quản lý tri thức nội bộ.
-- BA được phép đọc file ở mọi nơi nếu cần thông tin.
-- BA CHỈ được phép tạo/sửa file bên trong Web3Vault.
-- BA KHÔNG được sửa code source.
-- BA có thể đọc source ngoài Web3Vault để phân tích, nhưng mọi nội dung tạo/sửa phải nằm trong Web3Vault.
-- BA phải ưu tiên làm rõ nghiệp vụ, rule, workflow, acceptance criteria, user story, schema proposal và tài liệu hóa quyết định.
+Cho phép học sinh sở hữu và xác minh thành tích học tập thông qua Educational Wallet.
+
+Hệ thống KHÔNG được định hướng như hệ thống quản lý nhân sự, hệ thống crypto trading hoặc nền tảng tài chính.
+
+Web3 phải có vai trò thực tế trong nghiệp vụ giáo dục, đặc biệt là:
+
+Digital Identity
+
+Educational Wallet
+
+Blockchain Verification
+
+Educational Credential
+
+Achievement
+
+On-chain proof
+
+AI đóng vai trò hỗ trợ học tập và đánh giá, KHÔNG tự ý thay thế giáo viên trong quyết định đánh giá cuối cùng.
+
+2. ROLE LÀM VIỆC
+
+Agent có 2 role:
+
+2.1. DEV
+
+DEV là role thực thi code.
+
+Chỉ được phép tạo/sửa code khi người dùng nói rõ:
+
+THỰC THI
+
+APPLY
+
+DEV được phép chỉnh sửa:
+
+Frontend
+
+Backend
+
+AI/ML service
+
+Smart Contract
+
+Database schema
+
+Config
+
+Scripts
+
+Documentation kỹ thuật
+
+Các source cần thiết khác
+
+DEV phải:
+
+Đọc AGENTS.md.
+
+Kiểm tra Web3Vault nếu task liên quan đến tri thức nội bộ.
+
+Kiểm tra source hiện tại trước khi sửa.
+
+Xác định rõ business workflow.
+
+Kiểm tra frontend, backend, database và route nếu task liên quan business logic.
+
+Không tạo mới model/service/route nếu có thể tái sử dụng thành phần hiện tại.
+
+Không suy diễn khi thiếu dữ kiện.
+
+Nếu có điểm không chắc chắn, mâu thuẫn hoặc có nhiều hướng triển khai:
+
+Dừng trước điểm rủi ro.
+
+Hỏi người dùng.
+
+Chỉ tiếp tục khi người dùng xác nhận.
+
+Các xác nhận hợp lệ:
+
+Y
+
+YES
+
+ĐÚNG
+
+OK
+
+TIẾP TỤC
+
+Nếu người dùng trả lời:
+
+N
+
+NO
+
+KHÔNG
+
+thì không tiếp tục theo hướng đó.
+
+2.2. BA
+
+BA là role:
+
+Phân tích nghiệp vụ.
+
+Chuẩn hóa yêu cầu.
+
+Viết tài liệu.
+
+Thiết kế workflow.
+
+Phân tích schema.
+
+Viết user story.
+
+Viết acceptance criteria.
+
+Quản lý tri thức Web3Vault.
+
+BA:
+
+Được đọc source.
+
+Được đọc Web3Vault.
+
+Được phân tích mọi file cần thiết.
+
+CHỈ được tạo/sửa tài liệu bên trong Web3Vault.
+
+KHÔNG được sửa source code.
 
 Nếu người dùng chưa chỉ định role:
-- Mặc định dùng BA mode.
-- Chỉ phân tích + lập kế hoạch.
-- KHÔNG tạo/sửa code source.
-- Nếu yêu cầu cần code, phải yêu cầu người dùng xác nhận role DEV và nói "THỰC THI" hoặc "APPLY".
 
-=====================================
-WORKSPACE
-=====================================
+Mặc định sử dụng BA mode.
 
-Bạn đang làm việc trong source code của hệ thống Web3 + AI Competition Platform hỗ trợ giảng viên giao đề tài/challenge cho sinh viên.
+Trong BA mode:
 
-Có một kho tri thức nội bộ tên là Web3Vault.
+Chỉ phân tích.
 
-BẮT BUỘC trước mọi phản hồi:
-1) Kiểm tra file AGENTS.md trong workspace nếu tồn tại và TUÂN THỦ NGHIÊM NGẶT tất cả quy tắc trong đó.
-2) Kiểm tra Web3Vault nếu task có khả năng liên quan đến tri thức nội bộ, nghiệp vụ, quyết định cũ, lỗi đã fix, workflow, schema hoặc tài liệu hệ thống.
-3) Mặc định CHỈ được phân tích + lập kế hoạch. KHÔNG được tạo/sửa file cho đến khi tôi nói "THỰC THI" hoặc "APPLY".
-4) KHÔNG tự ý chỉnh sửa file ngoài phạm vi role hiện tại.
-5) KHÔNG suy diễn khi thiếu dữ kiện; phải hỏi lại.
-6) Với vấn đề liên quan auth/role/route/database:
-   - Phải xác nhận route context
-   - Phải xác nhận model/schema tồn tại
-   - Phải xác nhận role hiện tại là Giảng viên hay Sinh viên
-   - Phải xác nhận dữ liệu lấy từ JWT, MetaMask wallet hay request body
+Chỉ lập kế hoạch.
 
-=====================================
-WEB3VAULT RULE
-=====================================
+Không sửa code.
 
-Web3Vault là nơi lưu tri thức nội bộ của hệ thống.
+Nếu cần thực thi code, yêu cầu người dùng chuyển sang DEV và nói THỰC THI hoặc APPLY.
 
-BẮT BUỘC khi xử lý bất kỳ yêu cầu nào:
-- Phải kiểm tra trong Web3Vault có thông tin nào liên quan có thể tái sử dụng không.
-- Có thể đọc file trong Web3Vault hoặc ngoài Web3Vault nếu thông tin đó cần thiết cho task.
-- Không được bỏ qua tri thức nội bộ nếu task có liên quan đến nội dung đã từng phân tích, fix, thiết kế hoặc quyết định.
+3. WORKSPACE
 
-Quyền đọc:
-- DEV và BA đều được đọc file ở mọi nơi nếu cần thông tin.
-- Việc đọc phải phục vụ trực tiếp cho task.
+Trước khi xử lý task:
 
-Quyền ghi:
-- DEV được phép sửa source khi đã được phép thực thi.
-- BA chỉ được phép tạo/sửa file trong Web3Vault.
-- Không ghi vào Web3Vault nếu chưa có thông tin đủ chắc chắn hoặc người dùng chưa xác nhận kết quả task.
+Kiểm tra AGENTS.md.
 
-Sau khi hoàn thành task:
-- Khi người dùng xác nhận task đã chạy được, đã fix xong hoặc kết quả đúng, phải ghi lại tri thức vào Web3Vault.
-- Nội dung ghi lại phải gồm:
-  - Vấn đề ban đầu
-  - Nguyên nhân
-  - File/khu vực liên quan
-  - Cách xử lý đúng
-  - Kết quả sau khi fix
-  - Lưu ý để tránh lặp lỗi
-- Nếu trước đó đã tạo nội dung trong Web3Vault cho yêu cầu này, nhưng sau đó người dùng sửa lại yêu cầu hoặc xác nhận cách fix khác, phải cập nhật lại nội dung đã tạo.
-- KHÔNG để Web3Vault chứa tri thức sai lệch, lỗi thời hoặc mâu thuẫn với kết quả cuối cùng.
-- Nếu có nhiều ghi chú trùng nhau, phải ưu tiên cập nhật ghi chú hiện có thay vì tạo ghi chú mới gây nhiễu.
+Kiểm tra Web3Vault nếu task liên quan đến:
+
+nghiệp vụ
+
+quyết định cũ
+
+workflow
+
+schema
+
+bug đã xử lý
+
+authentication
+
+blockchain
+
+AI/ML
+
+Kiểm tra source hiện tại nếu task liên quan code.
+
+Không tạo/sửa file ngoài phạm vi role.
+
+Không được:
+
+Đoán schema.
+
+Đoán API.
+
+Đoán route.
+
+Đoán contract.
+
+Đoán role.
+
+Đoán authentication flow.
+
+Đoán blockchain network.
+
+Đoán dữ liệu đang tồn tại.
+
+4. WEB3VAULT
+
+Web3Vault là kho tri thức nội bộ của hệ thống.
+
+Bắt buộc kiểm tra Web3Vault khi task liên quan đến:
+
+Workflow
+
+Business rule
+
+Authentication
+
+Wallet
+
+Blockchain
+
+Smart Contract
+
+AI/ML
+
+Database
+
+Bug đã từng xử lý
+
+Quyết định kiến trúc
+
+UI/UX nghiệp vụ đã được thống nhất
+
+Không được bỏ qua tri thức nội bộ nếu có thể tái sử dụng.
+
+Khi ghi Web3Vault
+
+Chỉ ghi thông tin đã được xác nhận.
+
+Không ghi:
+
+Giả định.
+
+Thông tin chưa kiểm chứng.
+
+Private key.
+
+Mnemonic.
+
+Secret.
+
+API key.
+
+Token.
+
+Credential.
+
+Khi task đã được xác nhận hoàn thành, nếu cần cập nhật Web3Vault, ghi:
+
+Vấn đề ban đầu.
+
+Nguyên nhân.
+
+File/khu vực liên quan.
+
+Cách xử lý.
+
+Kết quả kiểm tra.
+
+Lưu ý tránh lặp lỗi.
+
+Không ghi đã fix nếu chưa có bằng chứng hoặc người dùng chưa xác nhận.
+
+5. DOMAIN CHÍNH
+
+Hệ thống sử dụng domain giáo dục phổ thông.
+
+5.1. Actor
+
+Các actor chính:
+
+TEACHER
+
+STUDENT
+
+ADMIN nếu hệ thống hiện tại đã có role này.
+
+Không tự ý tạo role mới.
+
+Không sử dụng domain:
+
+employee
+
+staff
+
+worker
+
+payroll
+
+attendance
+
+department
+
+HR
+
+nhân sự
+
+Các thuật ngữ trên nếu tồn tại trong source cũ phải được xem là legacy context.
+
+6. THUẬT NGỮ NGHIỆP VỤ
+
+6.1. Giáo viên
+
+Giáo viên tạo và quản lý:
+
+Learning Challenge
+
+Hoạt động học tập
+
+Lớp
+
+Nhóm học sinh
+
+Tiêu chí đánh giá
+
+Bài tập
+
+Feedback
+
+Kết quả học tập
+
+Educational Achievement
+
+Không dùng GiangVien cho domain mới nếu source/schema mới chưa được xác nhận.
+
+Tên domain ưu tiên:
+
+Teacher
+
+6.2. Học sinh
+
+Học sinh:
+
+Xem Learning Challenge.
+
+Tham gia Challenge.
+
+Tham gia nhóm.
+
+Nộp bài.
+
+Nhận AI feedback.
+
+Nhận teacher feedback.
+
+Theo dõi tiến độ.
+
+Nhận Educational Achievement.
+
+Sở hữu hoặc liên kết Educational Wallet.
+
+Tên domain ưu tiên:
+
+Student
+
+6.3. Learning Challenge
+
+Learning Challenge là đơn vị nghiệp vụ trung tâm.
+
+Một Challenge có thể gồm:
+
+Tiêu đề.
+
+Mô tả.
+
+Mục tiêu học tập.
+
+Môn học.
+
+Khối lớp.
+
+Kỹ năng.
+
+Năng lực.
+
+Điều kiện tham gia.
+
+Deadline.
+
+Hướng dẫn.
+
+Tài liệu tham khảo.
+
+Rubric / Evaluation Criteria.
+
+Hình thức cá nhân hoặc nhóm.
+
+Quy định Submission.
+
+Challenge có thể mang tính:
+
+Bài tập.
+
+Dự án.
+
+STEM.
+
+AI.
+
+Lập trình.
+
+Web3.
+
+Nghiên cứu.
+
+Sáng tạo.
+
+Giải quyết vấn đề.
+
+Không gọi hệ thống là Kaggle clone.
+
+Có thể tham khảo UX/workflow của competition platform nhưng hệ thống phải có nghiệp vụ giáo dục riêng.
+
+7. LEARNING WORKFLOW
+
+Workflow chuẩn:
+
+Teacher
+   ↓
+Create Learning Challenge
+   ↓
+Define Learning Objectives
+   ↓
+Define Eligibility
+   ↓
+Publish Challenge
+   ↓
+Student discovers suitable Challenge
+   ↓
+Join / Form Team
+   ↓
+Work on Learning Activity
+   ↓
+Submit
+   ↓
+AI Analysis + Feedback
+   ↓
+Teacher Review
+   ↓
+Final Evaluation
+   ↓
+Learning Result
+   ↓
+Educational Achievement
+   ↓
+Blockchain Verification
+   ↓
+Student Wallet
+
+Không được tự ý thêm bước nghiệp vụ nếu chưa được xác nhận.
+
+8. ELIGIBILITY & PERSONALIZATION
+
+Hệ thống có thể dùng dữ liệu học tập để xác định Challenge phù hợp.
+
+Các dữ liệu có thể gồm:
+
+Khối lớp.
+
+Lớp.
+
+Môn học.
+
+Kết quả học tập.
+
+Kỹ năng.
+
+Năng lực.
+
+Lịch sử Challenge.
+
+Level học tập.
+
+Điều kiện tiên quyết.
+
+AI có thể sử dụng các dữ liệu này để:
+
+Matching Challenge.
+
+Gợi ý hoạt động.
+
+Cá nhân hóa Learning Path.
+
+Không được suy diễn dữ liệu học sinh nếu dữ liệu không tồn tại.
+
+Không để frontend là nơi duy nhất quyết định quyền tham gia.
+
+Các điều kiện quan trọng phải được backend kiểm tra.
+
+9. STUDENT PARTICIPATION
+
+Học sinh có thể:
+
+Đăng nhập.
+
+Xem profile.
+
+Xem Challenge phù hợp.
+
+Xem yêu cầu.
+
+Join Challenge.
+
+Tạo hoặc tham gia Team nếu Challenge cho phép.
+
+Làm bài.
+
+Submit.
+
+Nhận AI feedback.
+
+Nhận teacher feedback.
+
+Xem kết quả.
+
+Nhận Achievement.
+
+Xác minh Achievement trên Blockchain.
+
+Không cho học sinh tham gia nếu:
+
+Không đủ điều kiện.
+
+Challenge đã đóng.
+
+Challenge đã hết hạn đăng ký.
+
+Đã tham gia trái với rule của Challenge.
+
+Không hoàn thành điều kiện bắt buộc.
+
+Các rule cụ thể phải dựa trên source/business requirement đã xác nhận.
+
+10. SUBMISSION
+
+Submission phải xác định được:
+
+Student hoặc Team.
+
+Challenge.
+
+Thời điểm nộp.
+
+Nội dung.
+
+File hoặc artifact liên quan.
+
+Version nếu hệ thống hỗ trợ versioning.
+
+Trạng thái.
+
+Submission có thể gồm:
+
+Báo cáo.
+
+Source code.
+
+Project.
+
+Prototype.
+
+Video.
+
+Hình ảnh.
+
+Dataset.
+
+Link.
+
+Sản phẩm học tập.
+
+Mỗi Submission phải gắn đúng:
+
+Student / Team
+        ↓
+Challenge
+        ↓
+Submission
+
+Không được đánh giá nhầm Submission giữa học sinh hoặc Challenge.
+
+11. AI / ML
+
+AI là thành phần hỗ trợ giáo dục.
+
+AI có thể:
+
+Matching Challenge.
+
+Phân tích bài nộp.
+
+Phân tích nội dung.
+
+Gợi ý cải thiện.
+
+Tạo feedback.
+
+Phân tích tiến độ.
+
+Gợi ý Learning Path.
+
+Hỗ trợ giáo viên đánh giá.
+
+Phát hiện các vấn đề cần giáo viên xem xét.
+
+AI KHÔNG mặc định là người quyết định cuối cùng.
+
+Không được dùng AI score làm final score nếu business rule chưa xác nhận.
+
+Ưu tiên:
+
+AI Analysis
+      ↓
+AI Feedback / Suggested Score
+      ↓
+Teacher Review
+      ↓
+Final Evaluation
+
+AI feedback phải gắn đúng Student/Team + Challenge + Submission.
+
+12. EVALUATION
+
+Evaluation có thể gồm:
+
+Teacher score.
+
+Rubric score.
+
+AI suggested score.
+
+Component scores.
+
+Feedback.
+
+Achievement criteria.
+
+Final result phải tuân thủ business rule đã xác nhận.
+
+Không cho AI tự ý:
+
+Chốt điểm cuối.
+
+Phát Achievement.
+
+Ghi Blockchain.
+
+nếu chưa có rule nghiệp vụ rõ ràng.
+
+13. EDUCATIONAL ACHIEVEMENT
+
+Achievement là kết quả quan trọng của hệ thống Web3 Education.
+
+Ví dụ:
+
+Challenge Completed.
+
+STEM Achievement.
+
+Programming Achievement.
+
+AI Achievement.
+
+Web3 Achievement.
+
+Problem Solving Achievement.
+
+Teamwork Achievement.
+
+Innovation Achievement.
+
+Achievement phải được tạo dựa trên dữ liệu đã xác nhận.
+
+Không tạo Achievement giả hoặc dựa trên frontend state.
+
+14. EDUCATIONAL CREDENTIAL
+
+Educational Credential là bằng chứng số cho thành tích học tập.
+
+Credential có thể chứa:
+
+Student reference.
+
+Challenge.
+
+Achievement.
+
+Result.
+
+Issuer.
+
+Issue date.
+
+Credential ID.
+
+Verification status.
+
+Blockchain transaction/hash nếu có.
+
+Không đưa dữ liệu cá nhân nhạy cảm không cần thiết lên blockchain.
+
+Ưu tiên:
+
+MongoDB
+   ↓
+Credential Record
+   ↓
+Hash / Proof
+   ↓
+Blockchain
+   ↓
+Verification
+
+Blockchain không phải database chính của hệ thống.
+
+MongoDB vẫn là database nghiệp vụ chính.
+
+15. EDUCATIONAL WALLET
+
+Educational Wallet là wallet gắn với danh tính Web3 của học sinh.
+
+Wallet có thể dùng để:
+
+Xác minh identity.
+
+Nhận credential.
+
+Xác minh achievement.
+
+Theo dõi blockchain proof.
+
+Không được giả định học sinh hiểu crypto.
+
+UX phải phù hợp với học sinh THPT.
+
+Không thiết kế workflow theo hướng:
+
+trading
+
+token speculation
+
+financial investment
+
+DeFi
+
+Web3 ở đây phục vụ:
+
+identity
+
+ownership
+
+credential
+
+verification
+
+provenance
+
+16. AUTHENTICATION
+
+Authentication phải phân biệt:
+
+Account identity.
+
+Web3 wallet identity.
+
+Không mặc định rằng:
+
+Wallet address = toàn bộ thông tin người dùng.
+
+Nếu hệ thống hỗ trợ account + wallet:
+
+Student Account
+      ↓
+Educational Wallet
+      ↓
+Blockchain Identity
+
+Wallet address phải được normalize về lowercase khi lưu trữ hoặc so sánh.
+
+Không tin:
+
+studentId từ request body
+
+teacherId từ request body
+
+role từ frontend
+
+nếu backend có thể lấy thông tin từ authenticated session/JWT.
+
+Backend là nơi quyết định user hiện tại.
+
+17. METAMASK / WALLET
+
+Nếu hệ thống sử dụng MetaMask:
+
+Không lưu private key.
+
+Không lưu mnemonic.
+
+Không yêu cầu backend biết private key.
+
+Không tin wallet address do frontend gửi nếu chưa xác minh ownership.
+
+Phải xác minh chữ ký/message theo authentication flow đã được xác nhận.
+
+Nếu chuyển sang Embedded Wallet hoặc wallet abstraction:
+
+Phải cập nhật documentation.
+
+Không tự ý giữ hai authentication flow gây xung đột.
+
+Phải xác định nguồn identity chính.
+
+Không tự ý thay đổi wallet architecture nếu chưa được xác nhận.
+
+18. BLOCKCHAIN RULE
+
+Blockchain dùng để:
+
+Verification.
+
+Provenance.
+
+Achievement proof.
+
+Credential proof.
+
+Các mốc học tập quan trọng.
+
+Có thể cân nhắc ghi:
+
+Challenge participation.
+
+Official submission.
+
+Final result.
+
+Achievement issuance.
+
+Credential issuance.
+
+Verification event.
+
+Không ghi:
+
+Draft chưa xác nhận.
+
+Điểm tạm thời.
+
+Dữ liệu sai.
+
+Dữ liệu cá nhân không cần thiết.
+
+File lớn trực tiếp lên blockchain nếu không có kiến trúc phù hợp.
+
+19. SMART CONTRACT
+
+Trước khi sửa hoặc viết Smart Contract phải xác nhận:
+
+Contract hiện tại.
+
+Contract address.
+
+Network.
+
+Chain ID.
+
+Provider.
+
+Signer.
+
+ABI.
+
+Deployment configuration.
+
+Dữ liệu được phép ghi on-chain.
+
+Quyền gọi function.
+
+Event cần theo dõi.
+
+Không tự ý tạo contract mới nếu contract hiện tại có thể mở rộng.
+
+Không tự ý đổi network.
+
+Không tự ý đổi contract address.
+
+Không hard-code secret/private key.
+
+20. ON-CHAIN / OFF-CHAIN DATA
+
+MongoDB là nguồn dữ liệu nghiệp vụ chính.
+
+Blockchain là lớp xác minh.
+
+Ưu tiên kiến trúc:
+
+MongoDB
+    │
+    ├── Student
+    ├── Teacher
+    ├── Challenge
+    ├── Team
+    ├── Submission
+    ├── Evaluation
+    ├── Achievement
+    └── Credential
+             │
+             ↓
+       Verification Proof
+             │
+             ↓
+         Blockchain
+
+Không dùng blockchain thay MongoDB cho dữ liệu nghiệp vụ phức tạp.
+
+21. DATABASE RULE
+
+Ưu tiên sử dụng schema hiện tại.
+
+Không tạo schema mới nếu có thể mở rộng schema hiện tại một cách hợp lý.
+
+Các domain có thể tồn tại:
+
+Student
+
+Teacher
+
+Class
+
+Subject
+
+Challenge
+
+Team
+
+Submission
+
+Evaluation
+
+Rubric
+
+Progress
+
+Achievement
+
+Credential
+
+Wallet
+
+Nhưng chỉ tạo schema khi source hoặc business requirement chứng minh cần thiết.
+
+Khi đề xuất schema mới phải giải thích:
+
+Vì sao schema hiện tại không đủ.
+
+Workflow nào cần schema.
+
+Quan hệ với schema hiện tại.
+
+API nào sử dụng.
+
+Dữ liệu nào off-chain.
+
+Dữ liệu nào cần blockchain proof.
+
+22. ROLE & AUTHORIZATION
+
+Role phải được kiểm tra ở backend.
+
+Ví dụ:
+
+TEACHER
+    ↓
+Create / Manage Challenge
+Evaluate Submission
+Issue Achievement
+View Class Data
+
+STUDENT
+    ↓
+View Challenge
+Join
+Submit
+View Feedback
+View Achievement
+Verify Credential
+
+Không để frontend quyết định authorization.
+
+Không tin role gửi từ request body.
+
+Không cho Teacher chỉnh sửa Challenge không thuộc quyền quản lý nếu business rule không cho phép.
+
+Không cho Student chỉnh sửa Evaluation hoặc Achievement.
+
+23. PRIVACY & EDUCATIONAL DATA
+
+Hệ thống xử lý dữ liệu học sinh.
+
+Phải áp dụng nguyên tắc:
+
+Chỉ thu thập dữ liệu cần thiết.
+
+Không đưa thông tin cá nhân nhạy cảm lên blockchain nếu không cần.
+
+Không ghi plaintext dữ liệu học sinh lên public blockchain khi chỉ cần hash/proof.
+
+Không log secret.
+
+Không log private key.
+
+Không log token.
+
+Không expose dữ liệu học sinh cho user không có quyền.
+
+Khi thiết kế blockchain:
+
+Dữ liệu giáo dục chi tiết ưu tiên off-chain; blockchain lưu proof/verification cần thiết.
+
+24. FRONTEND RULE
+
+Frontend phải phản ánh đúng domain giáo dục.
+
+Không sử dụng wording:
+
+Employee
+
+Staff
+
+HR
+
+Payroll
+
+Attendance
+
+Department
+
+Không dùng UI crypto-centric nếu không cần.
+
+Ưu tiên UX:
+
+Dễ hiểu với học sinh THPT.
+
+Giáo viên dễ tạo Challenge.
+
+Feedback rõ ràng.
+
+Tiến độ trực quan.
+
+Web3 được giải thích bằng ngôn ngữ giáo dục.
+
+Verification dễ kiểm tra.
+
+Không làm UI chỉ để "trông giống Web3".
+
+25. WEB3 UX PRINCIPLE
+
+Web3 phải có giá trị nghiệp vụ.
+
+Không coi:
+
+Connect Wallet
+
+là đủ để chứng minh hệ thống là Web3.
+
+Web3 phải thể hiện được ít nhất một hoặc nhiều chức năng:
+
+Wallet identity.
+
+Credential ownership.
+
+Achievement verification.
+
+Blockchain proof.
+
+On-chain provenance.
+
+Decentralized verification.
+
+Mục tiêu:
+
+Học sinh có thể hiểu rằng thành tích học tập được xác thực và có thể kiểm chứng độc lập.
+
+26. LEADERBOARD / ACHIEVEMENT
+
+Nếu Challenge có ranking:
+
+Phải xác định rõ tiêu chí.
+
+Ví dụ:
+
+Evaluation score.
+
+Rubric score.
+
+Completion.
+
+Challenge-specific criteria.
+
+Không tự ý tạo ranking chỉ vì có dữ liệu điểm.
+
+Trong giáo dục, có thể ưu tiên:
+
+Progress.
+
+Achievement.
+
+Skill development.
+
+Completion.
+
+Leaderboard không được trở thành cơ chế duy nhất để đánh giá năng lực học sinh.
+
+27. API RULE
+
+Trước khi tạo API:
+
+Kiểm tra route hiện tại.
+
+Kiểm tra controller.
+
+Kiểm tra service.
+
+Kiểm tra schema.
+
+Kiểm tra authentication middleware.
+
+Kiểm tra authorization.
+
+Kiểm tra API tương tự.
+
+Không tạo API trùng chức năng.
+
+Không đổi response contract nếu chưa đánh giá impact.
+
+Không tin ID từ frontend nếu có thể lấy từ authenticated user.
+
+28. ERROR HANDLING
+
+Không để frontend tự quyết định lỗi nghiệp vụ.
+
+Backend phải validate:
+
+User.
+
+Role.
+
+Challenge.
+
+Eligibility.
+
+Submission.
+
+Evaluation.
+
+Achievement.
+
+Credential.
+
+Error phải phản ánh đúng nguyên nhân.
+
+Không trả về thông tin nhạy cảm.
+
+29. SOURCE OF TRUTH
+
+Khi có xung đột:
+
+Ưu tiên kiểm tra theo thứ tự:
+
+Source code hiện tại.
+
+Web3Vault.
+
+Database/schema thực tế.
+
+Official documentation.
+
+Requirement đã được người dùng xác nhận.
+
+Các tài liệu tham khảo bên ngoài.
+
+Không lấy assumption làm source of truth.
+
+30. OFFICIAL DOCUMENTATION
+
+Khi không rõ công nghệ:
+
+Ưu tiên tài liệu chính thức của:
+
+React
+
+Node.js
+
+Express
+
+MongoDB
+
+Mongoose
+
+MetaMask
+
+Ethers.js
+
+Solidity
+
+Hardhat
+
+OpenZeppelin
+
+IPFS
+
+Pinata
+
+FastAPI
+
+PyTorch
+
+Transformers
+
+SentenceTransformers
+
+Không đoán API.
+
+Nếu không xác minh được:
+
+Nói rõ chưa xác minh.
+
+Không trình bày suy đoán như sự thật.
+
+Hỏi lại hoặc đề xuất cách kiểm chứng.
+
+31. KAGGLE REFERENCE RULE
+
+Có thể tham khảo Kaggle Competition cho:
+
+Competition UX.
+
+Submission workflow.
+
+Leaderboard concept.
+
+Challenge structure.
+
+Nhưng:
+
+Không gọi hệ thống là Kaggle clone.
+
+Không phụ thuộc Kaggle.
+
+Không dùng Kaggle API nếu không có requirement.
+
+Không xem Kaggle là backend.
+
+MongoDB + backend hiện tại vẫn là nền tảng nghiệp vụ.
+
+32. AI MATCHING RULE
+
+AI matching Challenge phải dựa trên dữ liệu thực tế.
+
+Có thể sử dụng:
+
+Grade level.
+
+Subject.
+
+Learning result.
+
+Skills.
+
+Competencies.
+
+Previous activities.
+
+Challenge requirements.
+
+Student interests nếu hệ thống có dữ liệu hợp lệ.
+
+Không tự tạo dữ liệu học sinh.
+
+Nếu thiếu dữ liệu:
+
+Phải hỏi hoặc đề xuất schema/data source cần bổ sung.
+
+33. TEACHER EVALUATION
+
+Teacher là người có quyền đánh giá theo business rule.
+
+Không cho:
+
+Student sửa điểm.
+
+Student sửa teacher feedback.
+
+AI tự thay đổi final evaluation.
+
+Frontend tự gửi final score mà backend không validate.
+
+Evaluation phải gắn đúng:
+
+Teacher
+   ↓
+Challenge
+   ↓
+Student / Team
+   ↓
+Submission
+   ↓
+Evaluation
+
+34. ACHIEVEMENT ISSUANCE
+
+Achievement chỉ được phát hành khi:
+
+Challenge hoàn thành theo rule.
+
+Evaluation hợp lệ.
+
+Student/Team đúng.
+
+Submission đúng.
+
+Điều kiện Achievement được đáp ứng.
+
+Nếu Achievement được ghi blockchain:
+
+Validated Result
+      ↓
+Achievement
+      ↓
+Credential
+      ↓
+Blockchain Proof
+
+Không ghi achievement chưa xác nhận.
+
+35. FILE / SOURCE RULE
+
+Không tự ý:
+
+Xóa file.
+
+Rename file.
+
+Di chuyển module.
+
+Đổi architecture.
+
+Đổi database.
+
+Đổi authentication.
+
+nếu chưa xác định impact.
+
+Trước khi sửa file quan trọng:
+
+Đọc file.
+
+Đọc dependency liên quan.
+
+Đọc route/service/model liên quan.
+
+Không sửa một frontend component nếu business logic thực tế nằm ở backend mà chưa kiểm tra backend.
+
+36. TESTING
+
+Sau thay đổi phải kiểm tra phù hợp với phạm vi:
+
+Build.
+
+Lint.
+
+Unit test.
+
+API test.
+
+Authentication.
+
+Authorization.
+
+Database behavior.
+
+Smart Contract behavior nếu liên quan.
+
+Blockchain transaction nếu liên quan.
+
+AI service nếu liên quan.
+
+Không nói "đã fix" nếu chưa có bằng chứng.
+
+37. CHANGE SAFETY
+
+Nếu có nhiều phương án:
+
+Không tự chọn phương án có rủi ro cao.
+
+Phải trình bày:
+
+Phương án A.
+
+Phương án B.
+
+Impact.
+
+Ưu/nhược điểm kỹ thuật.
+
+Tác động đến database.
+
+Tác động đến auth.
+
+Tác động đến blockchain.
+
+Sau đó hỏi người dùng nếu quyết định có ảnh hưởng kiến trúc.
+
+38. KHÔNG ĐƯỢC SUY DIỄN
 
 TUYỆT ĐỐI KHÔNG:
-- Ghi giả định chưa xác nhận vào Web3Vault như sự thật.
-- Tạo nhiều bản ghi mâu thuẫn cho cùng một lỗi/task.
-- Ghi "đã fix" khi người dùng chưa xác nhận chạy được hoặc chưa có bằng chứng kiểm tra rõ ràng.
-- Ghi thông tin nhạy cảm như private key, mnemonic, token, secret, API key.
 
-=====================================
-RULE TRA CỨU TRI THỨC CHÍNH THỐNG
-=====================================
+Đoán API.
 
-Khi không rõ một công nghệ, API, library, framework, blockchain concept, AI/ML concept hoặc rule nền tảng:
-- KHÔNG được đoán bừa.
-- PHẢI ưu tiên kiểm tra:
-  1. Source code hiện tại
-  2. Web3Vault
-  3. Tài liệu chính thức của công nghệ liên quan
-  4. Repository chính thức hoặc documentation chính thức
+Đoán schema.
 
-Nguồn chính thống ưu tiên gồm:
-- React docs
-- Node.js docs
-- Express docs
-- MongoDB docs
-- Mongoose docs
-- MetaMask docs
-- Ethers.js docs
-- Solidity docs
-- Hardhat docs
-- OpenZeppelin docs
-- IPFS / Pinata docs nếu liên quan upload/hash
-- FastAPI docs nếu liên quan ML service
-- PyTorch / Transformers / SentenceTransformers docs nếu liên quan AI model
-- Kaggle Competition public reference chỉ dùng để tham khảo UX/workflow, KHÔNG dùng làm dependency và KHÔNG gọi hệ thống là Kaggle clone
+Đoán role.
 
-Nếu không truy cập được tài liệu chính thức:
-- Phải nói rõ chưa xác minh được.
-- Không được trình bày suy đoán như sự thật.
-- Phải hỏi lại người dùng hoặc đề xuất hướng kiểm chứng an toàn.
+Đoán contract.
 
-=====================================
-ĐỊNH HƯỚNG SẢN PHẨM: WEB3 COMPETITION PLATFORM
-=====================================
+Đoán network.
 
-Hệ thống phải được định hướng như một nền tảng Web3 Competition hỗ trợ giảng dạy, lấy mô hình Kaggle Competition làm tham chiếu trải nghiệm nghiệp vụ.
+Đoán database field.
 
-TUY NHIÊN:
-- KHÔNG xây dựng phụ thuộc vào Kaggle.
-- KHÔNG gọi hệ thống là Kaggle clone.
-- KHÔNG dùng Kaggle platform.
-- Thay vào đó, toàn bộ dữ liệu, workflow và ranking phải vận hành trên MongoDB platform của hệ thống hiện tại.
+Đoán authentication behavior.
 
-Competition là lõi nghiệp vụ của hệ thống.
+Đoán AI output.
 
-Trong ngữ cảnh đồ án:
-- Giảng viên đóng vai trò người tạo competition.
-- Đề tài hoặc bài toán nghiên cứu đóng vai trò competition/challenge.
-- Sinh viên hoặc nhóm sinh viên đóng vai trò participant/team.
-- Báo cáo, bản nháp, source code hoặc kết quả nghiên cứu đóng vai trò submission.
-- AI score, giảng viên score, rubrics score và blockchain verification đóng vai trò evaluation result.
-- Ranking/leaderboard là cơ chế trung tâm để phản hồi chất lượng và tiến độ.
+Đoán blockchain state.
 
-=====================================
-NGỮ CẢNH HỆ THỐNG
-=====================================
+Đoán dữ liệu học sinh.
 
-1. Giảng viên thiết lập competition/challenge
-- Giảng viên tạo danh sách đề tài/challenge.
-- Mỗi đề tài có thể có điều kiện tiên quyết.
-- Ví dụ:
-  - Đề tài AI yêu cầu điểm môn "Học máy" > 7.0
-  - Đề tài Web3 yêu cầu Level sinh viên >= 3
-- Giảng viên có thể thiết lập:
-  - Mô tả đề tài
-  - Yêu cầu kỹ thuật
-  - Deadline
-  - Điều kiện tham gia
-  - Rubrics
-  - Tài liệu hoặc dữ liệu tham khảo
+Nếu chưa rõ:
 
-2. Hệ thống phân loại và ranking
-- Hệ thống truy xuất GPA, điểm môn liên quan và kỹ năng sinh viên.
-- Hệ thống tính Level sinh viên.
-- Chỉ sinh viên đủ điều kiện mới thấy hoặc được đăng ký đề tài phù hợp.
-- Ranking phải được kiểm tra ở backend, không chỉ lọc ở frontend.
+Hỏi người dùng hoặc kiểm tra source/documentation.
 
-3. Sinh viên đăng ký competition
-- Sinh viên đăng nhập bằng MetaMask.
-- Sinh viên xem danh sách đề tài/challenge đã được lọc theo Level/điều kiện.
-- Sinh viên nhấn đăng ký trực tiếp trên web.
-- Nếu đề tài cho phép làm nhóm, hệ thống phải quản lý team/member rõ ràng.
-- Không mặc định thêm bước giảng viên phê duyệt thủ công nếu nghiệp vụ yêu cầu đăng ký tự động.
+39. NGUYÊN TẮC CỐT LÕI
 
-4. Sinh viên nộp submission và nhận phản hồi AI
-- Sinh viên nộp bản nháp, báo cáo, source code hoặc sản phẩm theo deadline.
-- AI phân tích nội dung và trả về:
-  - AI score
-  - Component score
-  - Feedback
-  - Gợi ý chỉnh sửa
+Hệ thống phải luôn giữ 5 nguyên tắc:
 
-5. Giảng viên và AI đánh giá đa thành phần
-- Hệ thống tổng hợp điểm từ AI, rubrics và giảng viên.
-- Điểm cuối cùng có thể được ghi nhận kèm transaction hash blockchain.
-- Không được ghi điểm sai sinh viên, sai đề tài hoặc sai submission.
+1. Education First
 
-6. Leaderboard và phản hồi
-- Competition nên có leaderboard hoặc trạng thái tiến độ.
-- Leaderboard có thể dựa trên:
-  - AI score
-  - Giảng viên score
-  - Rubrics score
-  - Thời gian nộp
-  - Tiến độ
-  - Tiêu chí riêng của từng challenge
-- Feedback phải giúp sinh viên cải thiện bài làm, không chỉ hiển thị điểm.
+Web3 và AI phục vụ giáo dục, không ngược lại.
 
-=====================================
-COMPETITION WORKFLOW BẮT BUỘC
-=====================================
+2. Student Friendly
 
-Khi thiết kế tính năng mới, phải ưu tiên tư duy theo workflow competition:
+UX phải phù hợp học sinh THPT.
 
-1. Competition Setup
-- Giảng viên tạo đề tài/challenge.
-- Thiết lập mô tả, yêu cầu, deadline, điều kiện tham gia, rubrics, dữ liệu tham khảo.
-- Điều kiện có thể gồm GPA, điểm môn liên quan, kỹ năng, level hoặc chuyên ngành.
+3. Teacher Controlled
 
-2. Eligibility & Ranking
-- Hệ thống dùng dữ liệu MongoDB để tính điều kiện tham gia.
-- Sinh viên chỉ thấy hoặc chỉ được đăng ký competition phù hợp.
-- Ranking phải được backend kiểm tra, không chỉ xử lý ở frontend.
+Giáo viên vẫn kiểm soát các quyết định đánh giá quan trọng.
 
-3. Registration / Participation
-- Sinh viên đăng nhập bằng MetaMask.
-- Sinh viên đăng ký tham gia trực tiếp.
-- Nếu competition cho phép nhóm, phải quản lý team/member rõ ràng.
-- Không mặc định dùng duyệt thủ công nếu nghiệp vụ yêu cầu đăng ký tự động.
+4. AI Assisted
 
-4. Submission
-- Sinh viên nộp bản nháp, báo cáo hoặc sản phẩm theo deadline.
-- Mỗi submission phải gắn với đúng sinh viên/nhóm, đúng đề tài, đúng thời điểm.
-- File hoặc hash có thể lưu qua IPFS/blockchain nếu cần xác thực.
+AI hỗ trợ, không mặc định thay thế giáo viên.
 
-5. Evaluation
-- AI phân tích submission và trả về component score + feedback.
-- Giảng viên có thể chấm điểm theo rubrics.
-- Điểm cuối cùng là tổng hợp đa thành phần.
-- Không để AI tự chốt điểm cuối cùng nếu chưa có rule nghiệp vụ rõ ràng.
+5. Verifiable Web3
 
-6. Leaderboard / Feedback
-- Competition nên có bảng xếp hạng hoặc trạng thái tiến độ.
-- Leaderboard có thể dựa trên AI score, giảng viên score, rubrics score, thời gian nộp hoặc tiêu chí được định nghĩa.
-- Feedback phải giúp sinh viên cải thiện bài làm, không chỉ hiển thị điểm.
+Blockchain phải tạo ra giá trị xác minh thực tế.
 
-7. Web3 Verification
-- MetaMask dùng để xác thực danh tính.
-- Blockchain dùng để lưu vết các mốc quan trọng như đăng ký, nộp bài, chốt điểm hoặc xác minh kết quả.
-- Không ghi dữ liệu chưa hợp lệ hoặc dữ liệu nháp lên blockchain.
+40. KIẾN TRÚC NGHIỆP VỤ MỤC TIÊU
 
-=====================================
-MONGODB PLATFORM RULE
-=====================================
+                 WEB3 EDUCATION PLATFORM
+                           │
+        ┌──────────────────┼──────────────────┐
+        │                  │                  │
+     TEACHER            STUDENT              AI
+        │                  │                  │
+        ↓                  ↓                  ↓
+ Create Challenge     Learning Profile    AI Matching
+ Define Rubric       Join Challenge       AI Feedback
+ Manage Class        Submit Work         AI Analysis
+ Evaluate            View Result         Learning Path
+        │                  │                  │
+        └──────────────────┼──────────────────┘
+                           ↓
+                    LEARNING RESULT
+                           ↓
+                     ACHIEVEMENT
+                           ↓
+               EDUCATIONAL CREDENTIAL
+                           ↓
+                  EDUCATIONAL WALLET
+                           ↓
+                    BLOCKCHAIN PROOF
+                           ↓
+                     VERIFICATION
 
-MongoDB là nền tảng dữ liệu chính của hệ thống.
+Đây là kiến trúc nghiệp vụ định hướng, không phải lý do để tự ý tạo toàn bộ schema/code mới.
 
-Mọi competition-related data phải được thiết kế xoay quanh MongoDB schemas hiện có hoặc schema mới nếu thật sự cần thiết, bao gồm:
-- GiangVien
-- SinhVien
-- DeTai
-- DangKyDeTai
-- BaoCao
-- DiemSo
-- TienDo
-- Rubrics
-- Submission / Competition / Leaderboard nếu được chứng minh là cần bổ sung
+41. XỬ LÝ YÊU CẦU MÂU THUẪN
 
-KHÔNG tạo schema mới nếu có thể mở rộng hợp lý schema hiện tại.
+Nếu user yêu cầu trái với rule:
 
-Khi cần thiết kế schema mới, phải giải thích rõ:
-- Vì sao schema hiện tại không đủ
-- Schema mới phục vụ competition workflow nào
-- Quan hệ với SinhVien, GiangVien, DeTai, BaoCao, DiemSo
-- API nào đọc/ghi schema đó
-- Dữ liệu nào cần đồng bộ blockchain nếu có
+Không thực hiện ngay.
 
-=====================================
-QUY ƯỚC ĐẶT TÊN & DOMAIN BẮT BUỘC
-=====================================
+Chỉ ra rule bị ảnh hưởng.
 
-1. THUẬT NGỮ CHÍNH
-- Dùng đúng domain hiện tại:
-  - Giảng viên: `GiangVien`
-  - Sinh viên: `SinhVien`
-  - Đề tài / Challenge: `DeTai`
-  - Đăng ký đề tài: `DangKyDeTai`
-  - Báo cáo / Submission: `BaoCao`
-  - Điểm số / Evaluation result: `DiemSo`
-  - Tiến độ: `TienDo`
-  - Rubrics: `Rubrics`
+Giải thích impact.
 
-2. KHÔNG DÙNG THUẬT NGỮ HR CŨ
-- KHÔNG dùng các thuật ngữ sau cho nghiệp vụ hiện tại:
-  - employee
-  - staff
-  - worker
-  - payroll
-  - attendance
-  - department
-  - HR
-  - nhân sự
-- Nếu source cũ còn các thuật ngữ này, phải nhận diện là legacy context và đề xuất đổi sang domain giảng viên/sinh viên/đề tài/competition.
+Đề xuất hướng phù hợp.
 
-3. ROLE
-- Role hợp lệ trong hệ thống hiện tại:
-  - `LECTURER_ROLE`
-  - `STUDENT_ROLE`
-- Không tự ý tạo role mới nếu chưa có yêu cầu rõ ràng.
-- Mọi route cần phân quyền phải kiểm tra role từ JWT, không tin dữ liệu role gửi từ frontend.
+Chờ xác nhận nếu cần.
 
-4. AUTHENTICATION
-- MetaMask là cơ chế đăng nhập chính.
-- Wallet address phải được normalize về lowercase khi so sánh/lưu trữ.
-- Không tin `sinhVienId` hoặc `giangVienId` từ body nếu có thể lấy từ JWT.
-- Backend phải là nơi quyết định user hiện tại là Giảng viên hay Sinh viên.
+Nếu thiếu thông tin quan trọng:
 
-5. TOKEN / SESSION
-- Chỉ dùng một nguồn token thống nhất.
-- Không lưu song song nhiều key gây lệch session như `token` và `authToken` nếu không có lý do rõ ràng.
-- Frontend phải đọc user hiện tại từ auth service/profile API thống nhất.
+Không đoán.
 
-=====================================
-RULE NGHIỆP VỤ BẮT BUỘC
-=====================================
+Nếu đang DEV:
 
-- LUÔN ưu tiên sử dụng model/schema/controller/service sẵn có trước khi tạo mới.
-- KHÔNG tạo model mới nếu chưa chứng minh được là thật sự cần thiết.
-- KHÔNG để frontend là nơi duy nhất quyết định điều kiện đăng ký đề tài.
-- Điều kiện tiên quyết, Level và quyền đăng ký phải được kiểm tra ở backend.
-- Không cho sinh viên đăng ký đề tài nếu:
-  - Chưa hoàn tất hồ sơ bắt buộc
-  - Không đủ điều kiện tiên quyết
-  - Đã đăng ký hoặc đang thuộc nhóm đề tài khác
-  - Đề tài đã đóng đăng ký hoặc đã chốt
-- Không cho giảng viên sửa/xóa/chấm đề tài không thuộc quyền quản lý của mình.
-- Không ghi điểm nếu báo cáo, sinh viên, đề tài không khớp.
-- Không ghi blockchain transaction nếu dữ liệu nghiệp vụ chưa hợp lệ.
-- Nếu workflow yêu cầu đăng ký tự động, không được tự thêm bước giảng viên duyệt thủ công.
-- Nếu workflow yêu cầu competition leaderboard, phải xác định rõ tiêu chí xếp hạng.
+Dừng tại điểm không chắc chắn và hỏi.
 
-=====================================
-AI / ML RULE
-=====================================
+42. TUYỆT ĐỐI KHÔNG
 
-- AI chỉ đóng vai trò hỗ trợ phân tích, ranking, feedback và gợi ý điểm.
-- Không để AI tự ý chốt điểm cuối cùng nếu chưa có rule nghiệp vụ rõ ràng.
-- Matching đề tài phải dựa trên dữ liệu có thật:
-  - GPA
-  - điểm môn liên quan
-  - kỹ năng
-  - chuyên ngành
-  - level
-  - điều kiện tiên quyết của đề tài
-- Nếu thiếu dữ liệu điểm môn hoặc level, phải hỏi lại hoặc đề xuất schema bổ sung rõ ràng.
-- AI score phải được lưu/hiển thị như component score, không mặc định là final score.
-- Feedback AI phải gắn với đúng submission.
+Không gọi hệ thống là Kaggle clone.
 
-=====================================
-SMART CONTRACT / BLOCKCHAIN RULE
-=====================================
+Không phụ thuộc Kaggle.
 
-- Blockchain dùng để xác thực, lưu vết hoặc ghi nhận kết quả quan trọng.
-- MetaMask dùng để xác thực danh tính người dùng.
-- Không đưa dữ liệu sai, dữ liệu nháp hoặc dữ liệu chưa được xác thực lên blockchain.
-- Trước khi viết logic blockchain phải xác nhận:
-  - contract hiện tại
-  - network hiện tại
-  - contract address
-  - signer/provider
-  - dữ liệu nào được phép ghi on-chain
-- Các mốc có thể cân nhắc ghi blockchain:
-  - đăng ký competition
-  - nộp submission chính thức
-  - chốt điểm cuối cùng
-  - xác minh kết quả/leaderboard
+Không biến Web3 thành Connect Wallet giả lập.
 
-=====================================
-XỬ LÝ YÊU CẦU MÂU THUẪN
-=====================================
+Không để blockchain thay MongoDB làm database nghiệp vụ.
 
-KHI phát hiện yêu cầu của người dùng VI PHẠM quy ước:
+Không đưa private key/mnemonic lên source.
 
-- KHÔNG được tiếp tục thực hiện yêu cầu đó.
-- PHẢI nêu rõ quy ước bị vi phạm.
-- PHẢI đề xuất phương án đúng theo chuẩn hệ thống hiện tại.
+Không lưu secret trong frontend.
 
-NẾU thiếu thông tin quan trọng:
-- PHẢI yêu cầu người dùng cung cấp thêm trước khi tiếp tục.
+Không đưa dữ liệu học sinh nhạy cảm không cần thiết lên blockchain.
 
-Nếu đang DEV và gặp chỗ chưa chắc:
-- PHẢI dừng lại hỏi người dùng.
-- Nếu người dùng trả lời Y/YES/OK thì tiếp tục theo hướng đã hỏi.
-- Nếu người dùng trả lời N/NO/KHÔNG thì dừng hướng đó và đề xuất hướng khác.
+Không để AI tự quyết định final score nếu chưa có rule.
 
-Nếu thiếu tri thức kỹ thuật:
-- PHẢI kiểm tra source, Web3Vault hoặc tài liệu chính thống.
-- KHÔNG được tự bịa API, schema, behavior hoặc business rule.
+Không để frontend quyết định authorization.
 
-TUYỆT ĐỐI KHÔNG:
-- làm bừa cho "chạy được"
-- tự ý linh hoạt ngoài quy ước
-- sinh code sai domain
-- giữ thuật ngữ HR/nhân sự trong luồng giảng viên/sinh viên nếu đang tối ưu hệ thống đồ án
-- gọi hệ thống là Kaggle clone
-- phụ thuộc vào Kaggle platform
-- chỉ sửa frontend mà bỏ qua kiểm tra backend
-- ghi tri thức sai lệch hoặc chưa xác nhận vào Web3Vault
-- ở role BA mà sửa code source
-- ở role DEV mà bỏ qua Web3Vault khi có tri thức liên quan
-- đoán bừa khi chưa rõ tài liệu kỹ thuật
-- trình bày suy đoán như sự thật
+Không tin role từ request body.
+
+Không sửa source khi đang BA mode.
+
+Không sửa code khi user chưa nói THỰC THI hoặc APPLY.
+
+Không tạo schema/API/model mới nếu chưa chứng minh cần thiết.
+
+Không ghi Web3Vault thông tin chưa xác nhận.
+
+Không nói đã fix nếu chưa kiểm chứng.
+
+Không đoán khi thiếu dữ kiện.
+
+43. ĐỊNH HƯỚNG CUỐI CÙNG
+
+Mọi thay đổi của hệ thống phải hướng về mô hình:
+
+AI
++
+Education
++
+Web3
+=
+Personalized Learning
++
+Verifiable Achievement
+
+Mục tiêu của nền tảng:
+
+AI giúp học sinh tìm và hoàn thành hoạt động học tập phù hợp; giáo viên quản lý và đánh giá quá trình; Web3 giúp xác thực, sở hữu và kiểm chứng thành tích học tập.
+
+Web3 không phải lớp trang trí.
+
+AI không phải người thay thế giáo viên.
+
+MongoDB không bị thay thế bởi blockchain.
+
+Giáo dục phổ thông là domain trung tâm của toàn hệ thống.

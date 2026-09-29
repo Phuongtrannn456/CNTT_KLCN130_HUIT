@@ -16,7 +16,7 @@ function invalidateLopHocCache(gvId) {
   }
 }
 
-// Lấy danh sách lớp học của giảng viên
+// Lấy danh sách lớp học của giáo viên
 exports.getByGiangVien = async (req, res) => {
   try {
     const { gvId } = req.params;
@@ -77,7 +77,7 @@ exports.getDetail = async (req, res) => {
     const filteredDangKys = dangKys.filter(dk => {
       // Kiểm tra trưởng nhóm có thuộc lớp không
       if (dk.TruongNhom && svIds.some(id => id.equals(dk.TruongNhom._id))) return true;
-      // Kiểm tra sinh viên đơn lẻ
+      // Kiểm tra học sinh đơn lẻ
       if (dk.SinhVien && svIds.some(id => id.equals(dk.SinhVien._id))) return true;
       // Kiểm tra thành viên nhóm
       if (dk.ThanhVien && dk.ThanhVien.some(tv =>
@@ -156,7 +156,7 @@ exports.update = async (req, res) => {
   }
 };
 
-// Thêm sinh viên vào lớp
+// Thêm học sinh vào lớp
 exports.addSinhVien = async (req, res) => {
   try {
     const { id } = req.params;
@@ -174,7 +174,7 @@ exports.addSinhVien = async (req, res) => {
       sv = await SinhVien.findOne({ MaSV: maSV });
     }
     if (!sv) {
-      return res.status(404).json({ success: false, message: 'Không tìm thấy sinh viên' });
+      return res.status(404).json({ success: false, message: 'Không tìm thấy học sinh' });
     }
     sinhVienId = sv._id;
 
@@ -185,7 +185,7 @@ exports.addSinhVien = async (req, res) => {
 
     // Kiểm tra SV đã có trong lớp chưa
     if (lopHoc.SinhVien.some(svId => svId.equals(sinhVienId))) {
-      return res.status(409).json({ success: false, message: 'Sinh viên đã có trong lớp này' });
+      return res.status(409).json({ success: false, message: 'Học sinh đã có trong lớp này' });
     }
 
     lopHoc.SinhVien.push(sinhVienId);
@@ -199,11 +199,11 @@ exports.addSinhVien = async (req, res) => {
     res.json({ success: true, data: updated });
   } catch (error) {
     logger.error(`[LopHoc] addSinhVien error: ${error.message}`);
-    res.status(500).json({ success: false, message: 'Lỗi thêm sinh viên vào lớp' });
+    res.status(500).json({ success: false, message: 'Lỗi thêm học sinh vào lớp' });
   }
 };
 
-// Xóa sinh viên khỏi lớp
+// Xóa học sinh khỏi lớp
 exports.removeSinhVien = async (req, res) => {
   try {
     const { id, svId } = req.params;
@@ -218,10 +218,10 @@ exports.removeSinhVien = async (req, res) => {
 
     logger.info(`[LopHoc] Removed SV ${svId} from class ${lopHoc.MaLopHoc}`);
     invalidateLopHocCache();
-    res.json({ success: true, message: 'Đã xóa sinh viên khỏi lớp' });
+    res.json({ success: true, message: 'Đã xóa học sinh khỏi lớp' });
   } catch (error) {
     logger.error(`[LopHoc] removeSinhVien error: ${error.message}`);
-    res.status(500).json({ success: false, message: 'Lỗi xóa sinh viên khỏi lớp' });
+    res.status(500).json({ success: false, message: 'Lỗi xóa học sinh khỏi lớp' });
   }
 };
 
@@ -244,14 +244,14 @@ exports.delete = async (req, res) => {
   }
 };
 
-// Import batch sinh viên vào lớp
+// Import batch học sinh vào lớp
 exports.importSinhVien = async (req, res) => {
   try {
     const { id } = req.params;
     const { danhSachMaSV } = req.body;
 
     if (!danhSachMaSV || !Array.isArray(danhSachMaSV)) {
-      return res.status(400).json({ success: false, message: 'Danh sách mã sinh viên không hợp lệ' });
+      return res.status(400).json({ success: false, message: 'Danh sách mã học sinh không hợp lệ' });
     }
 
     const lopHoc = await LopHoc.findById(id);
@@ -295,11 +295,11 @@ exports.importSinhVien = async (req, res) => {
     });
   } catch (error) {
     logger.error(`[LopHoc] importSinhVien error: ${error.message}`);
-    res.status(500).json({ success: false, message: 'Lỗi import sinh viên' });
+    res.status(500).json({ success: false, message: 'Lỗi import học sinh' });
   }
 };
 
-// Lấy lớp học của sinh viên
+// Lấy lớp học của học sinh
 exports.getBySinhVien = async (req, res) => {
   try {
     const { svId } = req.params;
@@ -316,11 +316,11 @@ exports.getBySinhVien = async (req, res) => {
     res.json({ success: true, data: result });
   } catch (error) {
     logger.error(`[LopHoc] getBySinhVien error: ${error.message}`);
-    res.status(500).json({ success: false, message: 'Lỗi lấy lớp học của sinh viên' });
+    res.status(500).json({ success: false, message: 'Lỗi lấy lớp học của học sinh' });
   }
 };
 
-// Lấy danh sách sinh viên thuộc các lớp của giảng viên (flat list kèm context lớp/môn/GV)
+// Lấy danh sách học sinh thuộc các lớp của giáo viên (flat list kèm context lớp/môn/GV)
 exports.getSinhVienByGiangVien = async (req, res) => {
   try {
     const { gvId } = req.params;
@@ -349,7 +349,7 @@ exports.getSinhVienByGiangVien = async (req, res) => {
     res.json({ success: true, data: flatList });
   } catch (error) {
     logger.error(`[LopHoc] getSinhVienByGiangVien error: ${error.message}`);
-    res.status(500).json({ success: false, message: 'Lỗi lấy danh sách sinh viên theo giảng viên' });
+    res.status(500).json({ success: false, message: 'Lỗi lấy danh sách học sinh theo giáo viên' });
   }
 };
 

@@ -50,7 +50,6 @@ const approveRequest = async (req, res) => {
     // Emit Socket
     const io = req.app.get('io');
     if (io) {
-      console.log(`Emitting approve to room: pending:${request.walletAddress.toLowerCase()}`);
       io.to(`pending:${request.walletAddress.toLowerCase()}`).emit('request_result', {
         success: true,
         status: 'approved',
@@ -96,7 +95,6 @@ const rejectRequest = async (req, res) => {
     // Emit Socket
     const io = req.app.get('io');
     if (io) {
-      console.log(`Emitting reject to room: pending:${request.walletAddress.toLowerCase()}`);
       io.to(`pending:${request.walletAddress.toLowerCase()}`).emit('request_result', {
         success: false,
         status: 'rejected',
@@ -200,7 +198,7 @@ const getAllLecturers = async (req, res) => {
     res.json({ success: true, lecturers });
   } catch (error) {
     console.error('getAllLecturers error:', error);
-    res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách Giảng viên.' });
+    res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách Giáo viên.' });
   }
 };
 

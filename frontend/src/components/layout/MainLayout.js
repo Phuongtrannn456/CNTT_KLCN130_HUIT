@@ -54,7 +54,7 @@ const MainLayout = () => {
     navigate('/');
   };
 
-  const isLecturer = currentUser?.role_id === 'LECTURER_ROLE';
+  const isTeacher = currentUser?.role_id === 'TEACHER_ROLE';
   const isAdmin = currentUser?.role_id === 'ADMIN_ROLE';
 
   useEffect(() => {
@@ -80,22 +80,22 @@ const MainLayout = () => {
   const studentMenuItems = [
     { key: '/student', icon: <Monitor size={18} />, label: 'Dashboard Học Sinh' },
     { key: '/student/group', icon: <BookOpen size={18} />, label: 'Nhóm Học Sinh' },
-    { key: '/student/register', icon: <Award size={18} />, label: 'Đăng Ký Dự Án' },
+    { key: '/student/challenges', icon: <Award size={18} />, label: 'Đăng Ký Dự Án' },
     { key: '/student/upload', icon: <FileText size={18} />, label: 'Nộp Báo Cáo Dự Án' },
     { key: '/student/progress-log', icon: <CheckCircle size={18} />, label: 'Nhật Ký Tiến Độ' },
     { key: '/student/progress', icon: <UserIcon size={18} />, label: 'Kết Quả & Điểm' }
   ];
 
-  const lecturerMenuItems = [
-    { key: '/lecturer', icon: <Monitor size={18} />, label: 'Dashboard Giáo Viên' },
-    { key: '/lecturer/topics', icon: <Award size={18} />, label: 'Quản Lý Dự Án' },
-    { key: '/lecturer/courses', icon: <BookOpen size={18} />, label: 'Quản Lý Môn Học' },
-    { key: '/lecturer/classes', icon: <School size={18} />, label: 'Quản Lý Lớp Học' },
-    { key: '/lecturer/students', icon: <Users size={18} />, label: 'Quản Lý Học Sinh' },
-    { key: '/lecturer/rubrics', icon: <ClipboardList size={18} />, label: 'Tiêu Chí Rubrics' },
-    { key: '/lecturer/review', icon: <FileText size={18} />, label: 'Chấm Điểm (AI)' },
-    { key: '/lecturer/comparison', icon: <BarChart2 size={18} />, label: 'So Sánh AI & GV' },
-    { key: '/lecturer/blockchain', icon: <ShieldCheck size={18} />, label: 'Đối Chiếu Blockchain' }
+  const teacherMenuItems = [
+    { key: '/teacher', icon: <Monitor size={18} />, label: 'Dashboard Giáo Viên' },
+    { key: '/teacher/challenges', icon: <Award size={18} />, label: 'Quản Lý Dự Án' },
+    { key: '/teacher/courses', icon: <BookOpen size={18} />, label: 'Quản Lý Môn Học' },
+    { key: '/teacher/classes', icon: <School size={18} />, label: 'Quản Lý Lớp Học' },
+    { key: '/teacher/students', icon: <Users size={18} />, label: 'Quản Lý Học Sinh' },
+    { key: '/teacher/rubrics', icon: <ClipboardList size={18} />, label: 'Tiêu Chí Rubrics' },
+    { key: '/teacher/review', icon: <FileText size={18} />, label: 'Chấm Điểm (AI)' },
+    { key: '/teacher/comparison', icon: <BarChart2 size={18} />, label: 'So Sánh AI & Giáo Viên' },
+    { key: '/teacher/blockchain', icon: <ShieldCheck size={18} />, label: 'Đối Chiếu Blockchain' }
   ];
 
   const adminMenuItems = [
@@ -112,7 +112,7 @@ const MainLayout = () => {
     }
   ];
 
-  const menuItems = isAdmin ? adminMenuItems : (isLecturer ? lecturerMenuItems : studentMenuItems);
+  const menuItems = isAdmin ? adminMenuItems : (isTeacher ? teacherMenuItems : studentMenuItems);
 
   const headerMenu = (
     <Menu items={[
@@ -145,7 +145,7 @@ const MainLayout = () => {
             items: [
               { key: 'wallet', label: `Ví: ${currentUser?.walletAddress?.substring(0, 6)}...` },
               { type: 'divider' },
-              { key: 'profile', icon: <UserIcon size={16} />, label: 'Hồ sơ cá nhân', onClick: () => navigate(isLecturer ? '/lecturer' : '/student') },
+              { key: 'profile', icon: <UserIcon size={16} />, label: 'Hồ sơ cá nhân', onClick: () => navigate(isTeacher ? '/teacher' : '/student') },
               { type: 'divider' },
               { key: 'logout', danger: true, icon: <LogOut size={16} />, label: 'Đăng xuất', onClick: handleLogout }
             ]

@@ -52,7 +52,7 @@ const CAC_VAI_TRO = [
   'Lập trình Frontend',
   'Nhà nghiên cứu',
   'Kỹ sư QA',
-  'Sinh viên Khóa luận',
+  'Học sinh Dự án STEM',
   'Trợ giảng',
   'Trợ lý nghiên cứu',
   'Kỹ sư DevOps',
@@ -122,7 +122,7 @@ function buildRecord(index) {
     ung_dung: ungDung,
     tom_tat_du_lieu: [
       'Bao gồm 4 nhóm dữ liệu: thông tin cá nhân, học tập, hiệu suất, nghiên cứu & hoạt động',
-      `Ví dụ sinh viên: ${duLieuGiaLap.thong_tin_ca_nhan.ma_nhan_vien}, khóa ${duLieuGiaLap.thong_tin_ca_nhan.phong_ban}, vai trò ${duLieuGiaLap.thong_tin_cong_viec.vi_tri_cong_viec}`,
+      `Ví dụ học sinh: ${duLieuGiaLap.thong_tin_ca_nhan.ma_nhan_vien}, khóa ${duLieuGiaLap.thong_tin_ca_nhan.phong_ban}, vai trò ${duLieuGiaLap.thong_tin_cong_viec.vi_tri_cong_viec}`,
     ].join('. ') + '.',
     accuracy: Number(accuracy.toFixed(4)),
     f1_score: Number(f1.toFixed(4)),

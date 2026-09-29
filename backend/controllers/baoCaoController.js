@@ -42,7 +42,7 @@ exports.uploadBaoCao = async (req, res) => {
         const requesterId = req.user?.id || sinhVienId;
 
         if (req.user?.id && sinhVienId && req.user.id !== sinhVienId) {
-            return res.status(403).json({ error: 'Bạn không có quyền nộp thay sinh viên khác.' });
+            return res.status(403).json({ error: 'Bạn không có quyền nộp thay học sinh khác.' });
         }
 
         const deTai = await DeTai.findById(deTaiId);

@@ -142,13 +142,13 @@ const ProgressTracking = () => {
           current={getCurrentStep()}
           items={[
             {
-              title: 'Đăng ký Đề tài',
+              title: 'Đăng ký Dự án',
               description: regStatus === 'DaDuyet' ? 'Đã phê duyệt' : (regStatus === 'ChoDuyet' ? 'Đang chờ duyệt' : 'Chưa đăng ký'),
               icon: <BookOpen size={24} />
             },
             {
               title: 'Nộp Báo cáo',
-              description: regStatus === 'DaDuyet' ? 'Sẵn sàng nộp' : 'Chờ duyệt đề tài',
+              description: regStatus === 'DaDuyet' ? 'Sẵn sàng nộp' : 'Chờ duyệt dự án',
               icon: <CheckCircle size={24} />
             },
             {
@@ -157,7 +157,7 @@ const ProgressTracking = () => {
               icon: <BrainCircuit size={24} color={aiResult ? '#1677ff' : undefined} />
             },
             {
-              title: 'GV Đánh Giá',
+              title: 'Giáo Viên Đánh Giá',
               description: finalGrade ? `Điểm: ${finalGrade.Diem}/10` : 'Chờ chấm điểm',
               icon: <Search size={24} color={finalGrade ? '#1677ff' : undefined} />
             },
@@ -268,7 +268,7 @@ const ProgressTracking = () => {
                 </div>
               ) : (
                 <Text type="secondary">
-                  {aiResult ? 'Điểm dự đoán từ PhoBERT AI. GV chưa nhập điểm.' : 'Do Giáo Viên Quyết Định Cuối Cùng'}
+                  {aiResult ? 'Điểm dự đoán từ PhoBERT AI. Giáo viên chưa nhập điểm.' : 'Do Giáo Viên Quyết Định Cuối Cùng'}
                 </Text>
               )}
             </div>

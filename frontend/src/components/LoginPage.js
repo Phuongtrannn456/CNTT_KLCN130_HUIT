@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import {
   Container, Box, Typography, Button, Paper, Alert,
   CircularProgress, Fade, Grow, Avatar, Chip, Link,
@@ -20,7 +20,7 @@ import authService from '../services/authService';
 
 // Role constants
 const STUDENT_ROLE = 'STUDENT_ROLE';
-const LECTURER_ROLE = 'LECTURER_ROLE';
+const TEACHER_ROLE = 'TEACHER_ROLE';
 const ADMIN_ROLE = 'ADMIN_ROLE';
 
 // --- Animated Gradient Text Component ---
@@ -48,7 +48,7 @@ function AnimatedGradientText({ children, sx }) {
 
 // --- Main LoginPage Component ---
 function LoginPage() {
-  console.log('LoginPage component rendered');
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isVerySmall = useMediaQuery(theme.breakpoints.down(400));
@@ -87,70 +87,70 @@ function LoginPage() {
       if (!account) {
         setIsAuthenticated(false);
         setUser(null);
-        setError('Ví đã bị ngắt kết nối. Vui lòng kết nối lại.');
+        setError('VÃ­ Ä‘Ã£ bá»‹ ngáº¯t káº¿t ná»‘i. Vui lÃ²ng káº¿t ná»‘i láº¡i.');
       }
     });
 
     authService.onChainChange(() => window.location.reload());
   }, []);
 
-  // QR Scan handler — quét QR trên PC, rồi xác thực MetaMask trên PC (giống frontend cũ)
+  // QR Scan handler â€” quÃ©t QR trÃªn PC, rá»“i xÃ¡c thá»±c MetaMask trÃªn PC (giá»‘ng frontend cÅ©)
   const handleQrScan = async (qrData) => {
     setScanningQr(true);
     setError('');
     setSuccess('');
     try {
-      // Parse QR data — QR chứa JSON với thông tin ví/người dùng
+      // Parse QR data â€” QR chá»©a JSON vá»›i thÃ´ng tin vÃ­/ngÆ°á»i dÃ¹ng
       let qrInfo;
       try {
         qrInfo = JSON.parse(qrData);
       } catch {
-        // Nếu QR không phải JSON, coi như là wallet address thuần
+        // Náº¿u QR khÃ´ng pháº£i JSON, coi nhÆ° lÃ  wallet address thuáº§n
         if (qrData.startsWith('0x') && qrData.length === 42) {
           qrInfo = { walletAddress: qrData };
         } else {
-          throw new Error('Mã QR không hợp lệ. Vui lòng quét mã QR từ hệ thống Web3 Giáo Dục Phổ Thông.');
+          throw new Error('MÃ£ QR khÃ´ng há»£p lá»‡. Vui lÃ²ng quÃ©t mÃ£ QR tá»« há»‡ thá»‘ng Web3 GiÃ¡o Dá»¥c Phá»• ThÃ´ng.');
         }
       }
 
-      // Validate QR data — cần có thông tin đủ để xác thực
+      // Validate QR data â€” cáº§n cÃ³ thÃ´ng tin Ä‘á»§ Ä‘á»ƒ xÃ¡c thá»±c
       if (!qrInfo.walletAddress && !qrInfo.wallet_address) {
-        throw new Error('QR code không chứa thông tin ví. Vui lòng kiểm tra lại mã QR.');
+        throw new Error('QR code khÃ´ng chá»©a thÃ´ng tin vÃ­. Vui lÃ²ng kiá»ƒm tra láº¡i mÃ£ QR.');
       }
 
       const qrWallet = (qrInfo.walletAddress || qrInfo.wallet_address).toLowerCase();
-      console.log('QR scanned wallet:', qrWallet);
 
-      // Kiểm tra MetaMask
+
+      // Kiá»ƒm tra MetaMask
       if (!authService.isMetaMaskInstalled()) {
-        setError('Vui lòng cài đặt ví MetaMask để tiếp tục.');
+        setError('Vui lÃ²ng cÃ i Ä‘áº·t vÃ­ MetaMask Ä‘á»ƒ tiáº¿p tá»¥c.');
         setGuideModalOpen(true);
         return;
       }
 
-      // Kết nối MetaMask trên PC
-      console.log('Connecting MetaMask...');
+      // Káº¿t ná»‘i MetaMask trÃªn PC
+
       await authService.initializeProvider();
       const walletAddress = await authService.getWalletAddress();
-      console.log('MetaMask wallet:', walletAddress);
+
       setConnectedWallet(walletAddress);
 
-      // Kiểm tra ví MetaMask khớp với QR
+      // Kiá»ƒm tra vÃ­ MetaMask khá»›p vá»›i QR
       if (walletAddress.toLowerCase() !== qrWallet) {
         throw new Error(
-          `Ví MetaMask đang kết nối (${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}) ` +
-          `không khớp với ví trong QR (${qrWallet.slice(0, 6)}...${qrWallet.slice(-4)}). ` +
-          `Vui lòng chuyển sang đúng ví hoặc quét lại mã QR.`
+          `VÃ­ MetaMask Ä‘ang káº¿t ná»‘i (${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}) ` +
+          `khÃ´ng khá»›p vá»›i vÃ­ trong QR (${qrWallet.slice(0, 6)}...${qrWallet.slice(-4)}). ` +
+          `Vui lÃ²ng chuyá»ƒn sang Ä‘Ãºng vÃ­ hoáº·c quÃ©t láº¡i mÃ£ QR.`
         );
       }
 
-      // Xác thực MetaMask (ký challenge)
-      console.log('Authenticating...');
+      // XÃ¡c thá»±c MetaMask (kÃ½ challenge)
+
       const result = await authService.authenticate();
       
       /* DISABLED: Admin approval flow
       if (result.isPending) {
-        setSuccess('Bạn đang có yêu cầu chờ duyệt. Đang chuyển hướng...');
+        setSuccess('Báº¡n Ä‘ang cÃ³ yÃªu cáº§u chá» duyá»‡t. Äang chuyá»ƒn hÆ°á»›ng...');
         setTimeout(() => {
           window.location.href = '/pending-approval';
         }, 1500);
@@ -162,11 +162,11 @@ function LoginPage() {
         setNeedsRoleSelection(true);
         setTempWallet(result.walletAddress);
         setRejectedCountToday(result.rejectedCountToday || 0);
-        setSuccess('Vui lòng chọn vai trò để tiếp tục.');
+        setSuccess('Vui lÃ²ng chá»n vai trÃ² Ä‘á»ƒ tiáº¿p tá»¥c.');
         return;
       }
 
-      setSuccess('Đăng nhập bằng QR thành công! Đang chuyển hướng...');
+      setSuccess('ÄÄƒng nháº­p báº±ng QR thÃ nh cÃ´ng! Äang chuyá»ƒn hÆ°á»›ng...');
       setIsAuthenticated(true);
       setUser(result.user);
 
@@ -174,9 +174,9 @@ function LoginPage() {
         window.location.href = '/dashboard';
       }, 2000);
     } catch (err) {
-      const message = err.message || 'Có lỗi xảy ra khi quét QR.';
+      const message = err.message || 'CÃ³ lá»—i xáº£y ra khi quÃ©t QR.';
       if (err.code === 4001) {
-        setError('Bạn đã từ chối kết nối MetaMask.');
+        setError('Báº¡n Ä‘Ã£ tá»« chá»‘i káº¿t ná»‘i MetaMask.');
       } else {
         setError(message);
       }
@@ -192,7 +192,7 @@ function LoginPage() {
     setSuccess('');
     try {
       if (!authService.isMetaMaskInstalled()) {
-        setError('Vui lòng cài đặt ví MetaMask để tiếp tục.');
+        setError('Vui lÃ²ng cÃ i Ä‘áº·t vÃ­ MetaMask Ä‘á»ƒ tiáº¿p tá»¥c.');
         setGuideModalOpen(true);
         return;
       }
@@ -205,7 +205,7 @@ function LoginPage() {
       
       /* DISABLED: Admin approval flow
       if (result.isPending) {
-        setSuccess('Bạn đang có yêu cầu chờ duyệt. Đang chuyển hướng...');
+        setSuccess('Báº¡n Ä‘ang cÃ³ yÃªu cáº§u chá» duyá»‡t. Äang chuyá»ƒn hÆ°á»›ng...');
         setTimeout(() => {
           window.location.href = '/pending-approval';
         }, 1500);
@@ -217,11 +217,11 @@ function LoginPage() {
         setNeedsRoleSelection(true);
         setTempWallet(result.walletAddress);
         setRejectedCountToday(result.rejectedCountToday || 0);
-        setSuccess('Vui lòng chọn vai trò để tiếp tục.');
+        setSuccess('Vui lÃ²ng chá»n vai trÃ² Ä‘á»ƒ tiáº¿p tá»¥c.');
         return;
       }
 
-      setSuccess('Đăng nhập thành công! Đang chuyển hướng đến dashboard...');
+      setSuccess('ÄÄƒng nháº­p thÃ nh cÃ´ng! Äang chuyá»ƒn hÆ°á»›ng Ä‘áº¿n dashboard...');
       setIsAuthenticated(true);
       setUser(result.user);
 
@@ -230,11 +230,11 @@ function LoginPage() {
         window.location.href = '/dashboard';
       }, 2000);
     } catch (err) {
-      const message = err.message || 'Có lỗi xảy ra, vui lòng thử lại.';
+      const message = err.message || 'CÃ³ lá»—i xáº£y ra, vui lÃ²ng thá»­ láº¡i.';
       if (message.includes('user rejected')) {
-        setError('Bạn đã từ chối yêu cầu kết nối.');
+        setError('Báº¡n Ä‘Ã£ tá»« chá»‘i yÃªu cáº§u káº¿t ná»‘i.');
       } else if (message.includes('wallet not registered')) {
-        setError('Ví này chưa được đăng ký trong hệ thống. Vui lòng liên hệ Ban quản trị nhà trường hoặc Giáo viên để được hỗ trợ.');
+        setError('VÃ­ nÃ y chÆ°a Ä‘Æ°á»£c Ä‘Äƒng kÃ½ trong há»‡ thá»‘ng. Vui lÃ²ng liÃªn há»‡ Ban quáº£n trá»‹ nhÃ  trÆ°á»ng hoáº·c GiÃ¡o viÃªn Ä‘á»ƒ Ä‘Æ°á»£c há»— trá»£.');
       } else {
         setError(message);
       }
@@ -256,7 +256,7 @@ function LoginPage() {
       await authService.registerWithRole(tempWallet, STUDENT_ROLE);
       window.location.href = '/dashboard';
     } catch (err) {
-      setError(err.message || 'Lỗi khi đăng ký Học sinh');
+      setError(err.message || 'Lá»—i khi Ä‘Äƒng kÃ½ Há»c sinh');
     } finally {
       setLoading(false);
     }
@@ -266,10 +266,10 @@ function LoginPage() {
     setLoading(true);
     setError('');
     try {
-      await authService.registerWithRole(tempWallet, LECTURER_ROLE, formData);
+      await authService.registerWithRole(tempWallet, TEACHER_ROLE, formData);
       window.location.href = '/dashboard';
     } catch (err) {
-      setError(err.message || 'Lỗi khi đăng ký Giáo viên');
+      setError(err.message || 'Lá»—i khi Ä‘Äƒng kÃ½ GiÃ¡o viÃªn');
     } finally {
       setLoading(false);
     }
@@ -312,10 +312,10 @@ function LoginPage() {
 
   // --- Logged In View ---
   if (isAuthenticated && user) {
-    const isLecturer = user.role_id === LECTURER_ROLE;
+    const isLecturer = user.role_id === TEACHER_ROLE;
     const isAdmin = user.role_id === ADMIN_ROLE;
     
-    const roleDisplayName = isAdmin ? 'Ban Quản Trị' : (isLecturer ? 'Giáo viên' : 'Học sinh');
+    const roleDisplayName = isAdmin ? 'Ban Quáº£n Trá»‹' : (isLecturer ? 'GiÃ¡o viÃªn' : 'Há»c sinh');
     
     return (
       <Container maxWidth="sm">
@@ -356,7 +356,7 @@ function LoginPage() {
                   mb: 1
                 }}
               >
-                Chào mừng {roleDisplayName}
+                ChÃ o má»«ng {roleDisplayName}
               </AnimatedGradientText>
               <Typography
                 variant="h5"
@@ -365,7 +365,7 @@ function LoginPage() {
                   fontWeight: 'bold'
                 }}
               >
-                {user.name || user.HoTen || 'Người dùng'}
+                {user.name || user.HoTen || 'NgÆ°á»i dÃ¹ng'}
               </Typography>
               
               {user.Email && (
@@ -382,7 +382,7 @@ function LoginPage() {
                 sx={{ width: '100%', mt: 2 }}
               >
                 <Chip
-                  label={`Ví: ${connectedWallet?.slice(0, 6)}...${connectedWallet?.slice(-4)}`}
+                  label={`VÃ­: ${connectedWallet?.slice(0, 6)}...${connectedWallet?.slice(-4)}`}
                   variant="outlined"
                   size={styles.chipSize}
                   sx={{
@@ -396,7 +396,7 @@ function LoginPage() {
                 />
                 
                 <Chip
-                  label={`Vai trò: ${roleDisplayName}`}
+                  label={`Vai trÃ²: ${roleDisplayName}`}
                   variant="outlined"
                   size={styles.chipSize}
                   color="primary"
@@ -404,7 +404,7 @@ function LoginPage() {
 
                 {!isLecturer && !isAdmin && user.MaSV && (
                   <Chip
-                    label={`Mã SV: ${user.MaSV}`}
+                    label={`MÃ£ SV: ${user.MaSV}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -412,7 +412,7 @@ function LoginPage() {
 
                 {isLecturer && user.MaGV && (
                   <Chip
-                    label={`Mã GV: ${user.MaGV}`}
+                    label={`MÃ£ GV: ${user.MaGV}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -420,7 +420,7 @@ function LoginPage() {
 
                 {user.ChuyenNganh && (
                   <Chip
-                    label={`Chuyên ngành: ${user.ChuyenNganh}`}
+                    label={`ChuyÃªn ngÃ nh: ${user.ChuyenNganh}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -428,7 +428,7 @@ function LoginPage() {
 
                 {!isLecturer && !isAdmin && typeof user.GPA === 'number' && (
                   <Chip
-                    label={`GPA tích lũy: ${user.GPA.toFixed(2)}`}
+                    label={`GPA tÃ­ch lÅ©y: ${user.GPA.toFixed(2)}`}
                     variant="outlined"
                     size={styles.chipSize}
                     color="success"
@@ -449,7 +449,7 @@ function LoginPage() {
                   variant="body2"
                   color="text.secondary"
                 >
-                  Đang chuyển hướng vào cổng đào tạo...
+                  Äang chuyá»ƒn hÆ°á»›ng vÃ o cá»•ng Ä‘Ã o táº¡o...
                 </Typography>
               </Box>
 
@@ -467,7 +467,7 @@ function LoginPage() {
                   }}
                   color="error"
                 >
-                  Đăng xuất
+                  ÄÄƒng xuáº¥t
                 </Button>
               </Box>
             </Paper>
@@ -518,7 +518,7 @@ function LoginPage() {
                 mb: 1
               }}
             >
-              Web3 & AI - Giáo Dục Phổ Thông
+              Web3 & AI - GiÃ¡o Dá»¥c Phá»• ThÃ´ng
             </AnimatedGradientText>
             <Typography
               variant={styles.subtitleVariant}
@@ -531,7 +531,7 @@ function LoginPage() {
                 lineHeight: 1.4
               }}
             >
-              Hệ thống quản lý dự án học tập, chấm điểm tiến độ bằng AI & xác thực bất biến Web3
+              Há»‡ thá»‘ng quáº£n lÃ½ dá»± Ã¡n há»c táº­p, cháº¥m Ä‘iá»ƒm tiáº¿n Ä‘á»™ báº±ng AI & xÃ¡c thá»±c báº¥t biáº¿n Web3
             </Typography>
           </Box>
         </Fade>
@@ -572,8 +572,8 @@ function LoginPage() {
           >
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
               <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
-                <Tab label="Ví MetaMask" />
-                <Tab label="Quét QR Code" />
+                <Tab label="VÃ­ MetaMask" />
+                <Tab label="QuÃ©t QR Code" />
               </Tabs>
             </Box>
 
@@ -591,10 +591,10 @@ function LoginPage() {
             {tabValue === 0 && (
               <>
                 <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
-                  Kết nối ví MetaMask
+                  Káº¿t ná»‘i vÃ­ MetaMask
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  Đăng nhập thông qua tiện ích mở rộng ví MetaMask trên trình duyệt của bạn.
+                  ÄÄƒng nháº­p thÃ´ng qua tiá»‡n Ã­ch má»Ÿ rá»™ng vÃ­ MetaMask trÃªn trÃ¬nh duyá»‡t cá»§a báº¡n.
                 </Typography>
 
                 <Button
@@ -625,7 +625,7 @@ function LoginPage() {
                     transition: 'all 0.2s'
                   }}
                 >
-                  {loading ? 'Đang xác thực...' : 'Đăng Nhập Bằng MetaMask'}
+                  {loading ? 'Äang xÃ¡c thá»±c...' : 'ÄÄƒng Nháº­p Báº±ng MetaMask'}
                 </Button>
 
                 <Box mt={3}>
@@ -641,7 +641,7 @@ function LoginPage() {
                     }}
                   >
                     <HelpIcon fontSize="small" />
-                    Chưa cài đặt ví? Xem hướng dẫn
+                    ChÆ°a cÃ i Ä‘áº·t vÃ­? Xem hÆ°á»›ng dáº«n
                   </Link>
                 </Box>
               </>
@@ -650,10 +650,10 @@ function LoginPage() {
             {tabValue === 1 && (
               <>
                 <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
-                  Đăng nhập bằng QR
+                  ÄÄƒng nháº­p báº±ng QR
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  Quét mã QR từ thẻ xác thực Web3 của bạn để đăng nhập nhanh chóng và an toàn.
+                  QuÃ©t mÃ£ QR tá»« tháº» xÃ¡c thá»±c Web3 cá»§a báº¡n Ä‘á»ƒ Ä‘Äƒng nháº­p nhanh chÃ³ng vÃ  an toÃ n.
                 </Typography>
 
                 <Button
@@ -676,7 +676,7 @@ function LoginPage() {
                     transition: 'all 0.2s'
                   }}
                 >
-                  {scanningQr ? 'Đang xử lý...' : 'Quét Mã QR'}
+                  {scanningQr ? 'Äang xá»­ lÃ½...' : 'QuÃ©t MÃ£ QR'}
                 </Button>
 
                 <Typography
@@ -684,7 +684,7 @@ function LoginPage() {
                   color="text.secondary"
                   sx={{ mt: 3, fontSize: '0.85rem' }}
                 >
-                  Sử dụng camera hoặc ảnh chứa mã QR từ thẻ xác thực blockchain của bạn.
+                  Sá»­ dá»¥ng camera hoáº·c áº£nh chá»©a mÃ£ QR tá»« tháº» xÃ¡c thá»±c blockchain cá»§a báº¡n.
                 </Typography>
               </>
             )}
@@ -699,23 +699,23 @@ function LoginPage() {
           maxWidth="sm"
           fullWidth
         >
-          <DialogTitle>Quét Mã QR Xác Thực</DialogTitle>
+          <DialogTitle>QuÃ©t MÃ£ QR XÃ¡c Thá»±c</DialogTitle>
           <DialogContent>
             <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
               <QrScanner
                 onScan={handleQrScan}
                 onError={(error) => {
                   console.error('QR scan error:', error);
-                  setError(error.message || 'Lỗi quét QR');
+                  setError(error.message || 'Lá»—i quÃ©t QR');
                 }}
               />
             </Box>
             <Typography variant="body2" color="text.secondary" align="center">
-              Hướng camera về phía mã QR hoặc upload ảnh chứa mã QR để quét
+              HÆ°á»›ng camera vá» phÃ­a mÃ£ QR hoáº·c upload áº£nh chá»©a mÃ£ QR Ä‘á»ƒ quÃ©t
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setQrScannerOpen(false)}>Đóng</Button>
+            <Button onClick={() => setQrScannerOpen(false)}>ÄÃ³ng</Button>
           </DialogActions>
         </Dialog>
 
@@ -729,7 +729,7 @@ function LoginPage() {
               fontSize: '0.85rem'
             }}
           >
-            © {new Date().getFullYear()} - Nền tảng dự án học tập Web3 & AI - Giáo Dục Phổ Thông.
+            Â© {new Date().getFullYear()} - Ná»n táº£ng dá»± Ã¡n há»c táº­p Web3 & AI - GiÃ¡o Dá»¥c Phá»• ThÃ´ng.
           </Typography>
         </Fade>
       </Box>

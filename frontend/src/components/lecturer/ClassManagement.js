@@ -354,7 +354,7 @@ const ClassManagement = () => {
   // Bảng lời mời pending
   const inviteColumns = [
     {
-      title: 'Mã SV',
+      title: 'Mã HS',
       key: 'MaSV',
       width: 120,
       render: (_, inv) => <Tag color="orange">{inv.SinhVien?.MaSV || '—'}</Tag>,
@@ -467,10 +467,10 @@ const ClassManagement = () => {
             </Descriptions>
 
             <Tabs
-              defaultActiveKey="sinhvien"
+              defaultActiveKey="hocsinh"
               items={[
                 {
-                  key: 'sinhvien',
+                  key: 'hocsinh',
                   label: (
                     <Space>
                       <span>Học Sinh ({detailData.lopHoc.SinhVien?.length || 0})</span>
@@ -525,11 +525,11 @@ const ClassManagement = () => {
                 },
                 {
                   key: 'nhom',
-                  label: `Nhóm & Đề Tài (${detailData.dangKys?.length || 0})`,
+                  label: `Nhóm & Dự Án (${detailData.dangKys?.length || 0})`,
                   children: (
                     <div>
                       {(!detailData.dangKys || detailData.dangKys.length === 0) ? (
-                        <Text type="secondary">Chưa có nhóm nào đăng ký đề tài.</Text>
+                        <Text type="secondary">Chưa có nhóm nào đăng ký dự án.</Text>
                       ) : (
                         <List
                           dataSource={detailData.dangKys}
@@ -540,7 +540,7 @@ const ClassManagement = () => {
                               title={
                                 <Space>
                                   <Users size={16} />
-                                  <Text strong>Đề tài: {dk.DeTai?.TenDeTai || dk.DeTai?.MaDeTai || '—'}</Text>
+                                  <Text strong>Dự án: {dk.DeTai?.TenDeTai || dk.DeTai?.MaDeTai || '—'}</Text>
                                   <Tag color={trangThaiColor[dk.TrangThai] || 'default'}>{dk.TrangThai}</Tag>
                                 </Space>
                               }
@@ -575,8 +575,8 @@ const ClassManagement = () => {
                   ),
                 },
                 {
-                  key: 'detai',
-                  label: `Đề Tài Môn (${detailData.deTais?.length || 0})`,
+                  key: 'duan',
+                  label: `Dự Án Môn (${detailData.deTais?.length || 0})`,
                   children: (
                     <Table
                       dataSource={detailData.deTais || []}
@@ -584,14 +584,14 @@ const ClassManagement = () => {
                       size="small"
                       pagination={false}
                       columns={[
-                        { title: 'Mã Đề Tài', dataIndex: 'MaDeTai', key: 'MaDeTai', render: (t) => <Tag>{t}</Tag> },
-                        { title: 'Tên Đề Tài', dataIndex: 'TenDeTai', key: 'TenDeTai' },
+                        { title: 'Mã Dự Án', dataIndex: 'MaDeTai', key: 'MaDeTai', render: (t) => <Tag>{t}</Tag> },
+                        { title: 'Tên Dự Án', dataIndex: 'TenDeTai', key: 'TenDeTai' },
                         {
                           title: 'Trạng Thái', dataIndex: 'TrangThai', key: 'TrangThai',
                           render: (t) => <Tag color={t === 'MoDangKy' ? 'green' : t === 'DaChot' ? 'orange' : 'blue'}>{t}</Tag>,
                         },
                       ]}
-                      locale={{ emptyText: 'Chưa có đề tài nào thuộc môn học này' }}
+                      locale={{ emptyText: 'Chưa có dự án nào thuộc môn học này' }}
                     />
                   ),
                 },
@@ -663,11 +663,11 @@ const ClassManagement = () => {
             style={{ marginBottom: 12 }}
           />
           <Text type="secondary" style={{ marginBottom: 8, display: 'block' }}>
-            Nhập danh sách Mã SV (phân cách bởi dấu phẩy, khoảng trắng hoặc xuống dòng):
+            Nhập danh sách Mã HS (phân cách bởi dấu phẩy, khoảng trắng hoặc xuống dòng):
           </Text>
           <Input.TextArea
             rows={6}
-            placeholder={"VD: SV001, SV002\nSV003 SV004"}
+            placeholder={"VD: HS001, HS002\nHS003 HS004"}
             value={importText}
             onChange={(e) => setImportText(e.target.value)}
           />

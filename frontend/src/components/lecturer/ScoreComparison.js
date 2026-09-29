@@ -96,10 +96,10 @@ const ScoreComparison = () => {
     return [...new Map(classFilteredComparisons.map(c => [c.topic?._id, c.topic])).values()];
   }, [classFilteredComparisons]);
 
-  // Data cho biểu đồ cột SV
+  // Data cho biểu đồ cột học sinh
   const studentChartData = useMemo(() => {
     return filteredData.map((c, idx) => ({
-      name: c.student?.HoTen?.split(' ').pop() || `SV${idx + 1}`,
+      name: c.student?.HoTen?.split(' ').pop() || `HS${idx + 1}`,
       fullName: c.student?.HoTen || 'N/A',
       maSV: c.student?.MaSV || 'N/A',
       topicName: c.topic?.TenDeTai || 'N/A',
@@ -148,7 +148,7 @@ const ScoreComparison = () => {
   const diffChartData = useMemo(() => {
     return [
       { name: 'Khớp (chênh lệch < 0.5)', value: displayStats.matchCount, color: '#52c41a' },
-      { name: 'GV chấm cao hơn', value: displayStats.gvHigherCount, color: '#eb2f96' },
+      { name: 'Giáo viên chấm cao hơn', value: displayStats.gvHigherCount, color: '#eb2f96' },
       { name: 'AI đề xuất cao hơn', value: displayStats.aiHigherCount, color: '#1677ff' },
     ].filter(d => d.value > 0);
   }, [displayStats]);
@@ -241,7 +241,7 @@ const ScoreComparison = () => {
 
   const getDiffTag = (diff) => {
     if (Math.abs(diff) < 0.5) return <Tag color="green">Khớp</Tag>;
-    if (diff > 0) return <Tag color="blue">GV +{diff}</Tag>;
+    if (diff > 0) return <Tag color="blue">Giáo viên +{diff}</Tag>;
     return <Tag color="orange">AI +{Math.abs(diff)}</Tag>;
   };
 
@@ -252,16 +252,16 @@ const ScoreComparison = () => {
       return (
         <Card size="small" style={{ border: '1px solid #d9d9d9', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
           <div style={{ fontWeight: 'bold', marginBottom: 4 }}>{data.fullName}</div>
-          <div style={{ fontSize: 12, color: '#666', marginBottom: 8 }}>MSSV: {data.maSV}</div>
+          <div style={{ fontSize: 12, color: '#666', marginBottom: 8 }}>Mã HS: {data.maSV}</div>
           <div style={{ fontSize: 12, marginBottom: 4 }}>
-            Đề tài: <span style={{ color: '#555' }}>{data.topicName}</span>
+            Dự án: <span style={{ color: '#555' }}>{data.topicName}</span>
           </div>
           <div style={{ display: 'flex', gap: 16, marginTop: 4 }}>
-            <span style={{ color: '#eb2f96', fontWeight: 'bold' }}>GV: {data['Điểm GV']}</span>
+            <span style={{ color: '#eb2f96', fontWeight: 'bold' }}>Giáo viên: {data['Điểm GV']}</span>
             <span style={{ color: '#1677ff', fontWeight: 'bold' }}>AI: {data['Điểm AI']}</span>
           </div>
           <div style={{ fontSize: 11, color: '#888', marginTop: 4 }}>
-            Chênh lệch: <Tag color={Math.abs(data.diff) < 0.5 ? 'green' : data.diff > 0 ? 'blue' : 'orange'} style={{ marginRight: 0, fontSize: 10 }}>{data.diff > 0 ? `GV +${data.diff}` : `AI +${Math.abs(data.diff)}`}</Tag>
+            Chênh lệch: <Tag color={Math.abs(data.diff) < 0.5 ? 'green' : data.diff > 0 ? 'blue' : 'orange'} style={{ marginRight: 0, fontSize: 10 }}>{data.diff > 0 ? `Giáo viên +${data.diff}` : `AI +${Math.abs(data.diff)}`}</Tag>
           </div>
         </Card>
       );
@@ -276,7 +276,7 @@ const ScoreComparison = () => {
         <Card size="small" style={{ border: '1px solid #e8e8e8', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
           <div style={{ fontWeight: 'bold' }}>{data.fullName}</div>
           <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>Số lượng: {data.count} học sinh</div>
-          <div style={{ fontSize: 13, color: '#eb2f96', fontWeight: 'bold', marginTop: 4 }}>TB Điểm GV: {data.value}</div>
+          <div style={{ fontSize: 13, color: '#eb2f96', fontWeight: 'bold', marginTop: 4 }}>TB Điểm Giáo Viên: {data.value}</div>
           <div style={{ fontSize: 11, color: '#1890ff', marginTop: 4 }}>Nhấp để lọc nhanh lớp này</div>
         </Card>
       );
@@ -347,7 +347,7 @@ const ScoreComparison = () => {
       }
     },
     {
-      title: 'Đề Tài',
+      title: 'Dự Án',
       key: 'topic',
       width: 220,
       render: (_, r) => (
@@ -365,7 +365,7 @@ const ScoreComparison = () => {
       render: (_, r) => <Text style={{ color: '#1677ff', fontWeight: 700, fontSize: 15 }}>{r.aiScore}</Text>,
     },
     {
-      title: <span style={{ whiteSpace: 'nowrap' }}>Điểm GV</span>,
+      title: <span style={{ whiteSpace: 'nowrap' }}>Điểm Giáo Viên</span>,
       key: 'gvScore',
       width: 80,
       align: 'center',
@@ -447,7 +447,7 @@ const ScoreComparison = () => {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <Award size={20} color="#eb2f96" />
-                  <Statistic title="TB Điểm GV" value={displayStats.avgGV || 0} precision={2} valueStyle={{ color: '#eb2f96', fontSize: 20 }} />
+                  <Statistic title="TB Điểm Giáo Viên" value={displayStats.avgGV || 0} precision={2} valueStyle={{ color: '#eb2f96', fontSize: 20 }} />
                 </div>
               </Card>
             </Col>
@@ -511,7 +511,7 @@ const ScoreComparison = () => {
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                   <TrendingUp size={20} color="#fa541c" />
-                  <Statistic title="GV cao hơn" value={displayStats.gvHigherCount || 0} valueStyle={{ color: '#fa541c', fontSize: 18 }} />
+                  <Statistic title="Giáo viên cao hơn" value={displayStats.gvHigherCount || 0} valueStyle={{ color: '#fa541c', fontSize: 18 }} />
                 </div>
               </Card>
             </Col>
@@ -536,7 +536,7 @@ const ScoreComparison = () => {
           {/* Biểu đồ tròn */}
           <Row gutter={[16, 16]}>
             <Col xs={24} lg={12}>
-              <Card title="TB Điểm GV Theo Lớp Học" size="small" style={{ borderRadius: '12px' }}>
+              <Card title="TB Điểm Giáo Viên Theo Lớp Học" size="small" style={{ borderRadius: '12px' }}>
                 {classChartData.length > 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <ResponsiveContainer width="100%" height={260}>
@@ -570,7 +570,7 @@ const ScoreComparison = () => {
               </Card>
             </Col>
             <Col xs={24} lg={12}>
-              <Card title="Phân Bố Mức Độ Chênh Lệch AI vs GV" size="small" style={{ borderRadius: '12px' }}>
+              <Card title="Phân Bố Mức Độ Chênh Lệch AI vs Giáo Viên" size="small" style={{ borderRadius: '12px' }}>
                 {diffChartData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={280}>
                     <PieChart>
@@ -631,13 +631,13 @@ const ScoreComparison = () => {
           <Card size="small" style={{ borderRadius: '12px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, marginBottom: 16 }}>
               <Space>
-                <Text strong>Lọc theo đề tài:</Text>
+                <Text strong>Lọc theo dự án:</Text>
                 <Select
                   value={topicFilter}
                   onChange={setTopicFilter}
                   style={{ width: 280 }}
                   options={[
-                    { value: 'all', label: 'Tất cả đề tài' },
+                    { value: 'all', label: 'Tất cả dự án' },
                     ...topicOptions.map(t => ({ value: t?._id, label: t?.TenDeTai || 'N/A' }))
                   ]}
                 />
@@ -675,7 +675,7 @@ const ScoreComparison = () => {
           <Row gutter={[16, 16]}>
             {/* Điểm TB theo đề tài */}
             <Col xs={24} lg={12}>
-              <Card title="So Sánh Điểm TB Theo Đề Tài / Bài Toán" size="small" style={{ borderRadius: '12px' }}>
+              <Card title="So Sánh Điểm TB Theo Dự Án / Bài Toán" size="small" style={{ borderRadius: '12px' }}>
                 {topicChartData.length > 0 ? (
                   <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={topicChartData} margin={{ top: 10, right: 30, left: 0, bottom: 10 }}>
@@ -687,12 +687,12 @@ const ScoreComparison = () => {
                         labelFormatter={(label, items) => items[0]?.payload?.fullName || label}
                       />
                       <Legend />
-                      <Bar dataKey="Điểm GV" fill="#eb2f96" radius={[3, 3, 0, 0]} />
+                      <Bar dataKey="Điểm GV" fill="#eb2f96" name="Điểm Giáo Viên" radius={[3, 3, 0, 0]} />
                       <Bar dataKey="Điểm AI" fill="#1677ff" radius={[3, 3, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
-                  <Empty description="Không có dữ liệu đề tài" style={{ padding: 40 }} />
+                  <Empty description="Không có dữ liệu dự án" style={{ padding: 40 }} />
                 )}
               </Card>
             </Col>
@@ -707,8 +707,8 @@ const ScoreComparison = () => {
                     <YAxis dataKey="name" type="category" fontSize={11} width={130} />
                     <RechartsTooltip />
                     <Legend />
-                    <Bar dataKey="gvCount" name="Số SV (GV chấm)" fill="#eb2f96" radius={[0, 3, 3, 0]} />
-                    <Bar dataKey="aiCount" name="Số SV (AI gợi ý)" fill="#1677ff" radius={[0, 3, 3, 0]} />
+                    <Bar dataKey="gvCount" name="Số HS (Giáo viên chấm)" fill="#eb2f96" radius={[0, 3, 3, 0]} />
+                    <Bar dataKey="aiCount" name="Số HS (AI gợi ý)" fill="#1677ff" radius={[0, 3, 3, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </Card>
@@ -723,7 +723,7 @@ const ScoreComparison = () => {
                   <PolarGrid />
                   <PolarAngleAxis dataKey="subject" fontSize={11} />
                   <PolarRadiusAxis angle={30} domain={[0, 10]} />
-                  <Radar name="Điểm GV" dataKey="Điểm GV" stroke="#eb2f96" fill="#eb2f96" fillOpacity={0.25} />
+                  <Radar name="Điểm Giáo Viên" dataKey="Điểm GV" stroke="#eb2f96" fill="#eb2f96" fillOpacity={0.25} />
                   <Radar name="Điểm AI" dataKey="Điểm AI" stroke="#1677ff" fill="#1677ff" fillOpacity={0.25} />
                   <Legend />
                   <RechartsTooltip />
@@ -766,8 +766,8 @@ const ScoreComparison = () => {
               <Descriptions.Item label="Học sinh">
                 <Text strong>{selectedRecord.student?.HoTen}</Text> ({selectedRecord.student?.MaSV})
               </Descriptions.Item>
-              <Descriptions.Item label="Đề tài">{selectedRecord.topic?.TenDeTai}</Descriptions.Item>
-              <Descriptions.Item label="Điểm GV">
+              <Descriptions.Item label="Dự án">{selectedRecord.topic?.TenDeTai}</Descriptions.Item>
+              <Descriptions.Item label="Điểm Giáo Viên">
                 <Text style={{ color: '#eb2f96', fontWeight: 700, fontSize: 18 }}>{selectedRecord.gvScore}</Text>
               </Descriptions.Item>
               <Descriptions.Item label="Điểm AI">
@@ -788,7 +788,7 @@ const ScoreComparison = () => {
             </Descriptions>
 
             {selectedRecord.feedback && (
-              <Card size="small" title="Nhận xét GV" style={{ marginBottom: 12, borderRadius: '8px' }}>
+              <Card size="small" title="Nhận xét Giáo Viên" style={{ marginBottom: 12, borderRadius: '8px' }}>
                 <Paragraph style={{ margin: 0 }}>{selectedRecord.feedback}</Paragraph>
               </Card>
             )}
@@ -812,7 +812,7 @@ const ScoreComparison = () => {
                     </div>
                     <Space size={16}>
                       <Text style={{ color: '#1677ff' }}>AI: {r.aiScore ?? '—'}</Text>
-                      <Text style={{ color: '#eb2f96' }}>GV: {r.gvScore ?? '—'}</Text>
+                      <Text style={{ color: '#eb2f96' }}>Giáo viên: {r.gvScore ?? '—'}</Text>
                       {r.aiScore != null && r.gvScore != null && (
                         getDiffTag(Math.round(((r.gvScore || 0) - (r.aiScore || 0)) * 100) / 100)
                       )}

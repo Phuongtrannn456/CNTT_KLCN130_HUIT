@@ -118,7 +118,7 @@ async function run() {
     const newTopic = new DeTai({
       MaDeTai: 'DT_BLOCKCHAIN_01',
       TenDeTai: 'Xây dựng Hệ Thống Bình Chọn Phi Tập Trung (Decentralized Voting) sử dụng Smart Contract',
-      MoTa: 'Nghiên cứu ứng dụng Blockchain Ethereum và Smart Contract để giải quyết bài toán bỏ phiếu bầu cử công bằng, minh bạch, chống gian lận. Sinh viên xây dựng DApp tích hợp ví MetaMask và hiển thị biểu đồ kết quả thời gian thực.',
+      MoTa: 'Nghiên cứu ứng dụng Blockchain Ethereum và Smart Contract để giải quyết bài toán bỏ phiếu bầu cử công bằng, minh bạch, chống gian lận. Học sinh xây dựng DApp tích hợp ví MetaMask và hiển thị biểu đồ kết quả thời gian thực.',
       YeuCau: ['ReactJS', 'Solidity', 'Ethers.js', 'MetaMask'],
       Deadline: new Date(new Date().setDate(new Date().getDate() + 30)),
       HanDangKy: new Date(new Date().setDate(new Date().getDate() + 15)),

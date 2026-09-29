@@ -63,7 +63,7 @@ exports.delete = async (req, res) => {
     }
 };
 
-// Sinh viên cập nhật hồ sơ cá nhân (bắt buộc lần đầu)
+// Học sinh cập nhật hồ sơ cá nhân (bắt buộc lần đầu)
 exports.updateProfile = async (req, res) => {
     try {
         const { id } = req.params;
@@ -108,7 +108,7 @@ exports.updateProfile = async (req, res) => {
             DaCapNhatHoSo: true
         }, { new: true });
 
-        if (!updated) return res.status(404).json({ error: 'Không tìm thấy sinh viên.' });
+        if (!updated) return res.status(404).json({ error: 'Không tìm thấy học sinh.' });
 
         invalidateSvCache();
         res.json({ message: 'Cập nhật hồ sơ thành công!', data: updated });
@@ -117,12 +117,12 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
-// Tìm sinh viên theo MaSV (dùng cho chức năng mời vào nhóm)
+// Tìm học sinh theo MaSV (dùng cho chức năng mời vào nhóm)
 exports.findByMaSV = async (req, res) => {
     try {
         const { maSV } = req.params;
         const sv = await SinhVien.findOne({ MaSV: maSV });
-        if (!sv) return res.status(404).json({ error: 'Không tìm thấy sinh viên với mã này.' });
+        if (!sv) return res.status(404).json({ error: 'Không tìm thấy học sinh với mã này.' });
         // Chỉ trả về thông tin cần thiết (không trả wallet)
         res.json({
             _id: sv._id,

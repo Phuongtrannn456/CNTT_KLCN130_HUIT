@@ -1,59 +1,60 @@
-# CNTT_KLCN130_HUIT - Nền Tảng Web3 Giáo Dục Phổ Thông
+# Web3 K-12 Education Platform
 
-Hệ thống hỗ trợ quản lý dự án học tập, chấm điểm tiến độ bằng AI và xác thực bất biến chứng nhận kết quả trên Blockchain (Web3) dành cho giáo dục phổ thông.
+Nền tảng Giáo dục K-12 tích hợp Blockchain và Trí tuệ Nhân tạo, được xây dựng trong khuôn khổ khóa luận KLCN130.
 
----
+## 🎯 Purpose
+Dự án hướng đến việc số hóa quy trình quản lý học tập (Learning Challenges), hỗ trợ giáo viên bằng AI (Phân tích, Gợi ý chấm điểm) và minh bạch hóa thành tích học sinh bằng chứng nhận Web3 (Educational Credentials) ghi trên Blockchain.
 
-## 📌 Phân Công Công Việc & Kế Hoạch Thực Hiện
+## 🏗 Architecture
+- **Frontend**: React.js (Ant Design)
+- **Backend**: Node.js + Express
+- **Database**: MongoDB (Mongoose)
+- **AI/ML Service**: FastAPI (SBERT, PhoBERT)
+- **Blockchain**: Solidity, Ethers.js, Hardhat (Local/Testnet)
+- Xem chi tiết tại `docs/ARCHITECTURE.md`.
 
-- **Phương**: Xây dựng base + giao diện mức cơ bản + Chức năng 5, 6, 7 *(Deadline: 20h Thứ 4, ngày 30/09/2026)*
-  - *Phần Base + Giao diện mức cơ bản bàn giao trước 20h Thứ 3, ngày 29/09/2026*
-- **Nhi**: Chức năng 1 + 4 *(Deadline: 20h Thứ 6, ngày 02/10/2026)*
-- **Nguyên**: Chức năng 2 + 3 *(Deadline: 20h Thứ 6, ngày 02/10/2026)*
+## 🚀 Tech Stack
+- Frontend: React 18, React Router v6, Axios.
+- Backend: Express, JsonWebToken, Ethers.js v6.
+- Blockchain: Solidity ^0.8.19, Hardhat.
 
----
+## 🔧 Installation & Running
+Tham khảo chi tiết tại `docs/DEPLOYMENT.md`.
 
-## 🚀 Kiến Trúc Hệ Thống
+1. **MongoDB**: Chạy service MongoDB localhost (port 27017).
+2. **Blockchain**:
+   ```bash
+   cd backend
+   npx hardhat node
+   npx hardhat run scripts/deploy.js --network localhost
+   ```
+3. **Backend**:
+   ```bash
+   cd backend
+   cp .env.example .env # Cấu hình biến môi trường
+   npm start
+   ```
+4. **Frontend**:
+   ```bash
+   cd frontend
+   npm start
+   ```
 
-1. **Frontend**: React.js, Ant Design, Material-UI, Ethers.js, Socket.IO Client.
-2. **Backend**: Node.js, Express, MongoDB (Mongoose), JWT, Web3 Authentication (MetaMask).
-3. **Smart Contract**: Solidity, Hardhat, Ethers.js (quản lý lưu vết tiến độ, bài nộp IPFS và chứng nhận điểm số).
-4. **AI / ML Service**: Python, FastAPI, PhoBERT (phân tích báo cáo), SBERT (gợi ý và so khớp năng lực học sinh với dự án).
-
----
-
-## 🛠️ Hướng Dẫn Cài Đặt & Chạy Thử Nghiệm
-
-### 1. Backend (Node.js API)
+## 🧪 Testing
 ```bash
 cd backend
-npm install
-npm run dev
-# Mặc định chạy tại http://localhost:5000
+node scripts/test_k12_api.js
+node scripts/test_phase3.js
+node scripts/test_phase4.js
+node scripts/test_phase5.js
+node scripts/test_phase5_1.js
 ```
 
-### 2. Frontend (React App)
-```bash
-cd frontend
-npm install
-npm start
-# Mặc định chạy tại http://localhost:3000
-```
-
-### 3. ML Service (AI Analysis & Matching)
-```bash
-cd ml-service
-python -m venv venv
-# Kích hoạt venv (Windows: .\venv\Scripts\activate | Linux: source venv/bin/activate)
-pip install -r requirements.txt
-python app.py
-# Mặc định chạy tại http://localhost:8000
-```
-
----
-
-## 👥 Vai Trò Người Dùng Trong Hệ Thống
-
-- **Giáo viên**: Thiết lập dự án học tập / đề tài STEM, quản lý lớp học và môn học, theo dõi tiến độ, chấm điểm bằng AI kết hợp thủ công và xác thực kết quả lên Blockchain.
-- **Học sinh**: Đăng nhập bằng ví Web3, cập nhật hồ sơ năng lực, đăng ký dự án theo nhóm hoặc cá nhân, nộp báo cáo và theo dõi phản hồi từ AI và Giáo viên.
-- **Ban Quản Trị**: Quản lý xét duyệt tài khoản và giám sát vận hành toàn trường.
+## 📖 Documentation
+- [Architecture](docs/ARCHITECTURE.md)
+- [API Reference](docs/API.md)
+- [Web3 Integration](docs/WEB3.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
+- [User Guide](docs/USER_GUIDE.md)
+- [Security Audit](docs/SECURITY.md)
+- [Known Issues](docs/KNOWN_ISSUES.md)

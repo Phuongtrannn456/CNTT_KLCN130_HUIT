@@ -238,7 +238,7 @@ const assertGiangVienOwnsDeTai = async (deTaiId, giangVienId) => {
     }
 
     if (String(deTai.GiangVienHuongDan) !== String(giangVienId)) {
-        return { ok: false, error: 'Không phải giảng viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
+        return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
     }
 
     return { ok: true, deTai };
@@ -272,7 +272,7 @@ exports.chamDiem = async (req, res) => {
         }
 
         if (String(baoCao.SinhVien) !== String(sinhVienId) || String(baoCao.DeTai) !== String(deTaiId)) {
-            return res.status(400).json({ error: 'Báo cáo không khớp sinh viên/đề tài', code: 'BAOCAO_KHONG_KHOP_SV' });
+            return res.status(400).json({ error: 'Báo cáo không khớp học sinh/đề tài', code: 'BAOCAO_KHONG_KHOP_SV' });
         }
 
         if (ownerCheck.deTai && ownerCheck.deTai.SuDungRubrics && (!rubricsResult || rubricsResult.length === 0)) {
@@ -389,7 +389,7 @@ exports.getDiemBySinhVien = async (req, res) => {
     }
 };
 
-// Bảng so sánh điểm AI vs GV cho tất cả SV của 1 giảng viên
+// Bảng so sánh điểm AI vs GV cho tất cả SV của 1 giáo viên
 exports.retryBlockchain = async (req, res) => {
     try {
         const giangVienId = req.user?.id || req.body.giangVienId;
