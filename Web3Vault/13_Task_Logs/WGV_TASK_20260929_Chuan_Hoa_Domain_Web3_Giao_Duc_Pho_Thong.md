@@ -36,9 +36,16 @@
    - [`frontend/src/components/student/TopicRegistration.js`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/frontend/src/components/student/TopicRegistration.js): Cập nhật tiêu đề cạnh tranh dự án, nhãn Học sinh tối đa và tag Dự Án STEM.
    - [`frontend/src/components/lecturer/SubmissionReview.js`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/frontend/src/components/lecturer/SubmissionReview.js): Cập nhật tag ngữ cảnh `Dự Án STEM`.
 
+3. **Backend Base & API Aliases:**
+   - [`backend/package.json`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/backend/package.json): Cập nhật tên `web3-giao-duc-pho-thong-backend`, thêm script `npm run seed:pho-thong`.
+   - [`backend/server.js`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/backend/server.js): Đổi log khởi động sang `Web3 Giáo Dục Phổ Thông API`, bổ sung Dual Route Aliases song song (`/api/giaovien`, `/api/hocsinh`, `/api/duan`).
+   - [`backend/models/GiaoVien.js`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/backend/models/GiaoVien.js), [`backend/models/HocSinh.js`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/backend/models/HocSinh.js), [`backend/models/DuAn.js`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/backend/models/DuAn.js): Tạo model alias tương thích chuẩn cho giáo dục phổ thông.
+   - [`backend/scripts/seed_giao_duc_pho_thong.js`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/backend/scripts/seed_giao_duc_pho_thong.js): Xây dựng bộ dữ liệu mẫu THPT (Lớp 10A1, 11A2; Môn Toán, Tin, STEM, Lý; Dự án STEM môi trường & AI).
+   - [`ml-service/app.py`](file:///E:/KLCN_TRANVIETHUNG_CODE/KLKS14_TranVietHung%20%281%29/KLKS14_TranVietHung/Web3GiangVien/Web3GiangVien/ml-service/app.py): Cập nhật title FastAPI sang `Web3 Giáo Dục Phổ Thông ML Service`.
+
 ---
 
 ## 4. Kết quả sau khi thực hiện
-- Toàn bộ giao diện người dùng đồng bộ 100% với tên đề tài **"Web3 Giáo Dục Phổ Thông"**.
-- Mã nguồn sạch sẽ, không còn commit của tác giả cũ.
+- Toàn bộ giao diện người dùng và Base backend đồng bộ 100% với tên đề tài **"Web3 Giáo Dục Phổ Thông"**.
+- Có đầy đủ Model và Route cho cả `GiaoVien` / `HocSinh` / `DuAn` song song mà không phá vỡ bất kỳ logic nào của các bạn cùng nhóm.
 - Nhánh `main` trên GitHub repository `https://github.com/Phuongtrannn456/CNTT_KLCN130_HUIT` đã được cập nhật hoàn tất trước thời hạn 20h ngày 29/09/2026.
