@@ -21,7 +21,7 @@ logger = setup_logging()
 # Khởi tạo slowapi Limiter
 limiter = Limiter(key_func=get_remote_address)
 
-app = FastAPI(title="Web3 GiangVien ML Service", version="1.0.0")
+app = FastAPI(title="Web3 Giáo Dục Phổ Thông ML Service", version="1.0.0")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 

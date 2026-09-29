@@ -195,7 +195,7 @@ app.post('/api/admin/approve/:id', ...requireAdmin, adminController.approveReque
 app.post('/api/admin/reject/:id', ...requireAdmin, adminController.rejectRequest);
 app.get('/api/admin/lecturers', ...requireAdmin, adminController.getAllLecturers);
 
-// 3. Sinh Viên
+// 3. Sinh Viên (và Alias: Học Sinh)
 app.get('/api/sinhvien', sinhVienController.getAll);
 app.get('/api/sinhvien/:id', sinhVienController.getById);
 app.post('/api/sinhvien', sinhVienController.create);
@@ -203,21 +203,42 @@ app.put('/api/sinhvien/:id', sinhVienController.update);
 app.put('/api/sinhvien/:id/profile', sinhVienController.updateProfile);
 app.get('/api/sinhvien/masv/:maSV', sinhVienController.findByMaSV);
 app.delete('/api/sinhvien/:id', sinhVienController.delete);
+// Alias Học Sinh
+app.get('/api/hocsinh', sinhVienController.getAll);
+app.get('/api/hocsinh/:id', sinhVienController.getById);
+app.post('/api/hocsinh', sinhVienController.create);
+app.put('/api/hocsinh/:id', sinhVienController.update);
+app.put('/api/hocsinh/:id/profile', sinhVienController.updateProfile);
+app.get('/api/hocsinh/mahs/:maSV', sinhVienController.findByMaSV);
+app.delete('/api/hocsinh/:id', sinhVienController.delete);
 
-// 4. Giảng Viên
+// 4. Giảng Viên (và Alias: Giáo Viên)
 app.get('/api/giangvien', giangVienController.getAll);
 app.get('/api/giangvien/:id', giangVienController.getById);
 app.post('/api/giangvien', giangVienController.create);
 app.put('/api/giangvien/:id', giangVienController.update);
 app.delete('/api/giangvien/:id', giangVienController.delete);
+// Alias Giáo Viên
+app.get('/api/giaovien', giangVienController.getAll);
+app.get('/api/giaovien/:id', giangVienController.getById);
+app.post('/api/giaovien', giangVienController.create);
+app.put('/api/giaovien/:id', giangVienController.update);
+app.delete('/api/giaovien/:id', giangVienController.delete);
 
-// 5. Đề Tài
+// 5. Đề Tài (và Alias: Dự Án)
 app.get('/api/detai', deTaiController.getAll);
 app.get('/api/detai/:id', deTaiController.getById);
 app.post('/api/detai', ...requireLecturer, deTaiController.create);
 app.put('/api/detai/:id', ...requireLecturer, deTaiController.update);
 app.delete('/api/detai/:id', ...requireLecturer, deTaiController.delete);
 app.post('/api/detai/:id/register', ...requireStudent, deTaiController.registerTopic);
+// Alias Dự Án
+app.get('/api/duan', deTaiController.getAll);
+app.get('/api/duan/:id', deTaiController.getById);
+app.post('/api/duan', ...requireLecturer, deTaiController.create);
+app.put('/api/duan/:id', ...requireLecturer, deTaiController.update);
+app.delete('/api/duan/:id', ...requireLecturer, deTaiController.delete);
+app.post('/api/duan/:id/register', ...requireStudent, deTaiController.registerTopic);
 
 // 5b. Đăng Ký Đề Tài (quản lý)
 app.get('/api/dangky/sinhvien/:svId/all', ...requireAuth, deTaiController.getMyRegistrations);
@@ -365,5 +386,5 @@ app.delete('/api/loimoi-lophoc/:id', ...requireLecturer, loiMoiLopHocController.
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  logger.info(`[SERVER] Web3 Giảng Viên API running on port ${PORT}`);
+  logger.info(`[SERVER] Web3 Giáo Dục Phổ Thông API running on port ${PORT}`);
 });
