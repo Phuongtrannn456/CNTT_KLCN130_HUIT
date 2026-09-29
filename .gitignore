@@ -1,0 +1,45 @@
+.cache/
+dist/
+build/
+node_modules/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.pyc
+*.pyo
+*.pyd
+
+# Dataset files (too large for GitHub)
+dataset/*.csv
+dataset/*.json
+dataset/*.joblib
+dataset/models/*.joblib
+dataset/models/*.json
+
+# Log files (auto-generated, không cần track)
+backend/logs/
+ml-service/logs/
+
+# Hardhat build artifacts & cache (auto-generated khi compile contract)
+backend/artifacts/
+backend/cache/
+
+# Local IDE / Assistant configs
+.claude/
+# VS Code Local History
+.history/
+
+# Documentation (local only)
+Document/
+Document/*
