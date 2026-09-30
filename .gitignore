@@ -48,3 +48,9 @@ Document/*
 venv/
 .venv/
 ml-service/venv/
+
+# Agent skills
+SKILL.md
+SKILL_*.md
+skills/
+.skills/
