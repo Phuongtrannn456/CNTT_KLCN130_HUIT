@@ -54,3 +54,14 @@ SKILL.md
 SKILL_*.md
 skills/
 .skills/
+
+# AI Agent Artifacts
+scratch/
+notes/
+tools/
+__dummy__
+AGENTS.md
+SKILL.md
+SKILL_WEB3GIANGVIEN.md
+.claude/
+
