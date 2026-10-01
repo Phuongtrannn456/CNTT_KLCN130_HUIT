@@ -6,13 +6,13 @@
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const mongoose = require('mongoose');
 
-const GiangVien = require('../models/GiangVien');
-const SinhVien = require('../models/SinhVien');
+const GiaoVien = require('../models/GiaoVien');
+const HocSinh = require('../models/HocSinh');
 const MonHoc = require('../models/MonHoc');
 const LopHoc = require('../models/LopHoc');
 const DeTai = require('../models/DeTai');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giangvien';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giaovien';
 
 async function seedGiaoDucPhoThong() {
   try {
@@ -40,20 +40,20 @@ async function seedGiaoDucPhoThong() {
     ];
 
     for (const t of teachers) {
-      await GiangVien.findOneAndUpdate({ MaGV: t.MaGV }, t, { upsert: true, new: true });
+      await GiaoVien.findOneAndUpdate({ MaGV: t.MaGV }, t, { upsert: true, new: true });
       console.log(`✓ Đã cập nhật Giáo viên: ${t.HoTen} (${t.ChuyenNganh})`);
     }
 
-    const gv1 = await GiangVien.findOne({ MaGV: 'GV_TOAN_01' });
-    const gv2 = await GiangVien.findOne({ MaGV: 'GV_STEM_02' });
+    const gv1 = await GiaoVien.findOne({ MaGV: 'GV_TOAN_01' });
+    const gv2 = await GiaoVien.findOne({ MaGV: 'GV_STEM_02' });
 
     // 2. Tạo Môn Học Phổ Thông
     console.log('\n--- 2. Tạo Môn học phổ thông ---');
     const subjects = [
-      { MaMonHoc: 'MH_TOAN', TenMonHoc: 'Toán Học Phổ Thông', SoTinChi: 4, MoTa: 'Chương trình Toán học phát triển tư duy logic và giải quyết vấn đề', GiangVien: gv1._id },
-      { MaMonHoc: 'MH_TIN', TenMonHoc: 'Tin Học & Lập Trình Cơ Bản', SoTinChi: 3, MoTa: 'Lập trình tư duy thuật toán, ứng dụng công nghệ số và Web3', GiangVien: gv1._id },
-      { MaMonHoc: 'MH_STEM', TenMonHoc: 'Hoạt Động Giáo Dục STEM', SoTinChi: 3, MoTa: 'Chế tạo mô hình ứng dụng khoa học kỹ thuật thực tiễn', GiangVien: gv2._id },
-      { MaMonHoc: 'MH_VATLY', TenMonHoc: 'Vật Lý Thực Nghiệm', SoTinChi: 3, MoTa: 'Khảo sát và thực nghiệm các định luật cơ học, điện từ học', GiangVien: gv2._id }
+      { MaMonHoc: 'MH_TOAN', TenMonHoc: 'Toán Học Phổ Thông', SoTinChi: 4, MoTa: 'Chương trình Toán học phát triển tư duy logic và giải quyết vấn đề', GiaoVien: gv1._id },
+      { MaMonHoc: 'MH_TIN', TenMonHoc: 'Tin Học & Lập Trình Cơ Bản', SoTinChi: 3, MoTa: 'Lập trình tư duy thuật toán, ứng dụng công nghệ số và Web3', GiaoVien: gv1._id },
+      { MaMonHoc: 'MH_STEM', TenMonHoc: 'Hoạt Động Giáo Dục STEM', SoTinChi: 3, MoTa: 'Chế tạo mô hình ứng dụng khoa học kỹ thuật thực tiễn', GiaoVien: gv2._id },
+      { MaMonHoc: 'MH_VATLY', TenMonHoc: 'Vật Lý Thực Nghiệm', SoTinChi: 3, MoTa: 'Khảo sát và thực nghiệm các định luật cơ học, điện từ học', GiaoVien: gv2._id }
     ];
 
     for (const s of subjects) {
@@ -71,7 +71,7 @@ async function seedGiaoDucPhoThong() {
         MaLopHoc: 'LOP_10A1',
         TenLopHoc: 'Lớp 10A1 - STEM Khoa Học Tự Nhiên',
         MonHoc: mhStem._id,
-        GiangVien: gv2._id,
+        GiaoVien: gv2._id,
         HocKy: 'Học kỳ 1 - 2026',
         NamHoc: '2026-2027',
         SiSoToiDa: 45
@@ -80,7 +80,7 @@ async function seedGiaoDucPhoThong() {
         MaLopHoc: 'LOP_11A2',
         TenLopHoc: 'Lớp 11A2 - Tin Học Ứng Dụng',
         MonHoc: mhTin._id,
-        GiangVien: gv1._id,
+        GiaoVien: gv1._id,
         HocKy: 'Học kỳ 1 - 2026',
         NamHoc: '2026-2027',
         SiSoToiDa: 45
@@ -99,7 +99,7 @@ async function seedGiaoDucPhoThong() {
     console.log('\n--- 4. Tạo Học sinh phổ thông mẫu ---');
     const students = [
       {
-        MaSV: 'HS_1001',
+        MaHS: 'HS_1001',
         HoTen: 'Lê Minh Khôi',
         Email: 'leminhkhoi.hs@thpt.edu.vn',
         GPA: 8.8,
@@ -113,7 +113,7 @@ async function seedGiaoDucPhoThong() {
         DaCapNhatHoSo: true
       },
       {
-        MaSV: 'HS_1102',
+        MaHS: 'HS_1102',
         HoTen: 'Phạm Thu Hà',
         Email: 'phamthuha.hs@thpt.edu.vn',
         GPA: 8.5,
@@ -129,16 +129,16 @@ async function seedGiaoDucPhoThong() {
     ];
 
     for (const st of students) {
-      await SinhVien.findOneAndUpdate({ MaSV: st.MaSV }, st, { upsert: true, new: true });
+      await HocSinh.findOneAndUpdate({ MaHS: st.MaHS }, st, { upsert: true, new: true });
       console.log(`✓ Đã cập nhật Học sinh: ${st.HoTen} (${st.ChuyenNganh})`);
     }
 
-    const hs1 = await SinhVien.findOne({ MaSV: 'HS_1001' });
-    const hs2 = await SinhVien.findOne({ MaSV: 'HS_1102' });
+    const hs1 = await HocSinh.findOne({ MaHS: 'HS_1001' });
+    const hs2 = await HocSinh.findOne({ MaHS: 'HS_1102' });
 
     // Thêm học sinh vào lớp học
-    await LopHoc.findByIdAndUpdate(lop10A1._id, { $addToSet: { DanhSachSinhVien: hs1._id } });
-    await LopHoc.findByIdAndUpdate(lop11A2._id, { $addToSet: { DanhSachSinhVien: hs2._id } });
+    await LopHoc.findByIdAndUpdate(lop10A1._id, { $addToSet: { DanhSachHocSinh: hs1._id } });
+    await LopHoc.findByIdAndUpdate(lop11A2._id, { $addToSet: { DanhSachHocSinh: hs2._id } });
 
     // 5. Tạo Dự Án Học Tập & Đề Tài STEM Mẫu
     console.log('\n--- 5. Tạo Dự án học tập & Đề tài STEM mẫu ---');
@@ -149,11 +149,11 @@ async function seedGiaoDucPhoThong() {
         MoTa: 'Thiết kế trạm cảm biến đo nồng độ bụi PM2.5, nhiệt độ, độ ẩm và ghi nhận dữ liệu định kỳ lên Blockchain phục vụ cộng đồng học sinh.',
         YeuCau: ['Cảm biến IoT', 'Python', 'Xác thực Web3', 'Báo cáo khoa học'],
         Deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        GiangVienHuongDan: gv2._id,
+        GiaoVienHuongDan: gv2._id,
         LopHoc: [lop10A1._id],
         MonHoc: mhStem._id,
         LoaiDeTai: 'MonHoc',
-        SoLuongSinhVien: 3,
+        SoLuongHocSinh: 3,
         TrangThai: 'MoDangKy'
       },
       {
@@ -162,11 +162,11 @@ async function seedGiaoDucPhoThong() {
         MoTa: 'Xây dựng mô hình thị giác máy tính nhận diện rác vô cơ, hữu cơ và rác tái chế nhằm giáo dục ý thức bảo vệ môi trường cho học sinh.',
         YeuCau: ['Computer Vision', 'Python', 'Tư duy STEM'],
         Deadline: new Date(Date.now() + 45 * 24 * 60 * 60 * 1000),
-        GiangVienHuongDan: gv1._id,
+        GiaoVienHuongDan: gv1._id,
         LopHoc: [lop11A2._id],
         MonHoc: mhTin._id,
         LoaiDeTai: 'MonHoc',
-        SoLuongSinhVien: 2,
+        SoLuongHocSinh: 2,
         TrangThai: 'MoDangKy'
       },
       {
@@ -175,9 +175,9 @@ async function seedGiaoDucPhoThong() {
         MoTa: 'Dự án nghiên cứu cấp trường phục vụ cuộc thi sáng tạo KHKT cấp phổ thông, lưu vết quá trình nghiên cứu của học sinh bất biến trên Blockchain.',
         YeuCau: ['Web3', 'ReactJS', 'Hợp đồng thông minh', 'Thuyết trình KHKT'],
         Deadline: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000),
-        GiangVienHuongDan: gv1._id,
+        GiaoVienHuongDan: gv1._id,
         LoaiDeTai: 'KhoaLuan',
-        SoLuongSinhVien: 2,
+        SoLuongHocSinh: 2,
         TrangThai: 'MoDangKy'
       }
     ];

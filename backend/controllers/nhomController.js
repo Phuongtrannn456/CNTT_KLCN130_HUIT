@@ -1,5 +1,5 @@
 const Nhom = require('../models/Nhom');
-const SinhVien = require('../models/SinhVien');
+const HocSinh = require('../models/HocSinh');
 const DangKyDeTai = require('../models/DangKyDeTai');
 const logger = require('../config/logger');
 
@@ -7,10 +7,10 @@ const logger = require('../config/logger');
 exports.createNhom = async (req, res) => {
   try {
     const { tenNhom, soLuong, lopHocId } = req.body;
-    const sinhVienId = req.user?.id || req.body.sinhVienId;
+    const hocSinhId = req.user?.id || req.body.hocSinhId;
 
-    if (!sinhVienId || !soLuong) {
-      return res.status(400).json({ error: 'Thiếu thông tin sinhVienId hoặc soLuong.' });
+    if (!hocSinhId || !soLuong) {
+      return res.status(400).json({ error: 'Thiếu thông tin hocSinhId hoặc soLuong.' });
     }
 
     const isKhoaLuan = lopHocId === 'KHOA_LUAN' || req.body.loaiDeTai === 'KhoaLuan';
@@ -19,7 +19,7 @@ exports.createNhom = async (req, res) => {
       const LopHoc = require('../models/LopHoc');
       const lop = await LopHoc.findById(lopHocId);
       if (!lop) return res.status(404).json({ error: 'Không tìm thấy lớp học.' });
-      if (!lop.SinhVien.some(sv => sv.toString() === sinhVienId.toString())) {
+      if (!lop.HocSinh.some(sv => sv.toString() === hocSinhId.toString())) {
         return res.status(400).json({ error: 'Bạn không thuộc lớp học này.' });
       }
     }
@@ -29,8 +29,8 @@ exports.createNhom = async (req, res) => {
     // (SV có thể ở nhiều nhóm ở các lớp khác nhau, nhưng chỉ 1 nhóm mỗi lớp)
     const nhomQuery = {
       $or: [
-        { TruongNhom: sinhVienId },
-        { 'ThanhVien.SinhVien': sinhVienId, 'ThanhVien.TrangThai': { $in: ['DaMoi', 'DaChapNhan'] } }
+        { TruongNhom: hocSinhId },
+        { 'ThanhVien.HocSinh': hocSinhId, 'ThanhVien.TrangThai': { $in: ['DaMoi', 'DaChapNhan'] } }
       ]
     };
     if (isKhoaLuan) {
@@ -47,9 +47,9 @@ exports.createNhom = async (req, res) => {
     const nhom = new Nhom({
       TenNhom: tenNhom || '',
       LopHoc: isKhoaLuan ? null : (lopHocId || undefined),
-      TruongNhom: sinhVienId,
+      TruongNhom: hocSinhId,
       ThanhVien: [{
-        SinhVien: sinhVienId,
+        HocSinh: hocSinhId,
         VaiTro: 'TruongNhom',
         TrangThai: 'DaChapNhan'
       }],
@@ -59,10 +59,10 @@ exports.createNhom = async (req, res) => {
     await nhom.save();
     const populated = await Nhom.findById(nhom._id)
       .populate('TruongNhom')
-      .populate('ThanhVien.SinhVien')
+      .populate('ThanhVien.HocSinh')
       .populate('LopHoc', 'MaLopHoc TenLopHoc');
 
-    logger.info(`[NHOM] Created group "${tenNhom || nhom._id}" by SV ${sinhVienId}, max=${soLuong}`);
+    logger.info(`[NHOM] Created group "${tenNhom || nhom._id}" by SV ${hocSinhId}, max=${soLuong}`);
     res.status(201).json({ message: 'Tạo nhóm thành công!', data: populated });
   } catch (err) {
     logger.error(`[NHOM] Create failed: ${err.message}`);
@@ -71,12 +71,12 @@ exports.createNhom = async (req, res) => {
 };
 
 // Lấy nhóm của 1 SV
-exports.getNhomBySinhVien = async (req, res) => {
+exports.getNhomByHocSinh = async (req, res) => {
   try {
-    const { svId } = req.params;
+    const { hsId } = req.params;
     const { lopHocId, loaiDeTai } = req.query;
     const query = {
-      'ThanhVien.SinhVien': svId,
+      'ThanhVien.HocSinh': hsId,
       'ThanhVien.TrangThai': { $in: ['DaMoi', 'DaChapNhan'] }
     };
     if (lopHocId === 'KHOA_LUAN' || loaiDeTai === 'KhoaLuan') {
@@ -86,7 +86,7 @@ exports.getNhomBySinhVien = async (req, res) => {
     }
     const nhom = await Nhom.findOne(query)
       .populate('TruongNhom')
-      .populate('ThanhVien.SinhVien')
+      .populate('ThanhVien.HocSinh')
       .populate('LopHoc', 'MaLopHoc TenLopHoc');
 
     res.json({ nhom: nhom || null });
@@ -96,15 +96,15 @@ exports.getNhomBySinhVien = async (req, res) => {
 };
 
 // Lấy tất cả nhóm của 1 SV
-exports.getAllNhomBySinhVien = async (req, res) => {
+exports.getAllNhomByHocSinh = async (req, res) => {
   try {
-    const { svId } = req.params;
+    const { hsId } = req.params;
     const nhoms = await Nhom.find({
-      'ThanhVien.SinhVien': svId,
+      'ThanhVien.HocSinh': hsId,
       'ThanhVien.TrangThai': { $in: ['DaMoi', 'DaChapNhan'] }
     })
       .populate('TruongNhom')
-      .populate('ThanhVien.SinhVien')
+      .populate('ThanhVien.HocSinh')
       .populate('LopHoc', 'MaLopHoc TenLopHoc');
 
     res.json({ nhoms });
@@ -118,7 +118,7 @@ exports.getNhomById = async (req, res) => {
   try {
     const nhom = await Nhom.findById(req.params.id)
       .populate('TruongNhom')
-      .populate('ThanhVien.SinhVien')
+      .populate('ThanhVien.HocSinh')
       .populate('LopHoc', 'MaLopHoc TenLopHoc');
 
     if (!nhom) return res.status(404).json({ error: 'Không tìm thấy nhóm.' });
@@ -128,7 +128,7 @@ exports.getNhomById = async (req, res) => {
   }
 };
 
-// Trưởng nhóm mời thành viên (qua MaSV)
+// Trưởng nhóm mời thành viên (qua MaHS)
 exports.inviteMember = async (req, res) => {
   try {
     const { id } = req.params;
@@ -148,7 +148,7 @@ exports.inviteMember = async (req, res) => {
     }
 
     // Tìm SV được mời
-    const svMoi = await SinhVien.findOne({ MaSV: maSV });
+    const svMoi = await HocSinh.findOne({ MaHS: maSV });
     if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã SV này.' });
 
     // MỚI: Nếu nhóm thuộc lớp → kiểm tra SV được mời phải thuộc cùng lớp
@@ -156,7 +156,7 @@ exports.inviteMember = async (req, res) => {
       const LopHoc = require('../models/LopHoc');
       const lop = await LopHoc.findById(nhom.LopHoc);
       if (lop) {
-        if (!lop.SinhVien.some(svId => svId.toString() === svMoi._id.toString())) {
+        if (!lop.HocSinh.some(hsId => hsId.toString() === svMoi._id.toString())) {
           return res.status(400).json({ error: 'Học sinh được mời không thuộc lớp học của nhóm.' });
         }
       }
@@ -165,7 +165,7 @@ exports.inviteMember = async (req, res) => {
       const existingNhomQuery = {
         _id: { $ne: id },
         LopHoc: nhom.LopHoc,
-        'ThanhVien.SinhVien': svMoi._id,
+        'ThanhVien.HocSinh': svMoi._id,
         'ThanhVien.TrangThai': { $in: ['DaMoi', 'DaChapNhan'] }
       };
       const existingNhom = await Nhom.findOne(existingNhomQuery);
@@ -183,9 +183,9 @@ exports.inviteMember = async (req, res) => {
         TrangThai: 'DaDuyet',
         DeTai: { $in: khoaLuanTopicIds },
         $or: [
-          { SinhVien: svMoi._id },
+          { HocSinh: svMoi._id },
           { TruongNhom: svMoi._id },
-          { 'ThanhVien.SinhVien': svMoi._id, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+          { 'ThanhVien.HocSinh': svMoi._id, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
         ]
       });
       if (wonReg) {
@@ -195,14 +195,14 @@ exports.inviteMember = async (req, res) => {
 
     // Check SV đã được mời vào nhóm này chưa
     const alreadyInGroup = nhom.ThanhVien.find(
-      tv => tv.SinhVien.toString() === svMoi._id.toString() && tv.TrangThai !== 'TuChoi'
+      tv => tv.HocSinh.toString() === svMoi._id.toString() && tv.TrangThai !== 'TuChoi'
     );
     if (alreadyInGroup) {
       return res.status(400).json({ error: 'Học sinh này đã có trong nhóm.' });
     }
 
     nhom.ThanhVien.push({
-      SinhVien: svMoi._id,
+      HocSinh: svMoi._id,
       VaiTro: 'ThanhVien',
       TrangThai: 'DaMoi'
     });
@@ -221,13 +221,13 @@ exports.respondToInvite = async (req, res) => {
   try {
     const { id } = req.params;
     const { accept } = req.body;
-    const sinhVienId = req.user?.id || req.body.sinhVienId;
+    const hocSinhId = req.user?.id || req.body.hocSinhId;
 
     const nhom = await Nhom.findById(id);
     if (!nhom) return res.status(404).json({ error: 'Không tìm thấy nhóm.' });
 
     const tvIndex = nhom.ThanhVien.findIndex(
-      tv => tv.SinhVien.toString() === sinhVienId && tv.TrangThai === 'DaMoi'
+      tv => tv.HocSinh.toString() === hocSinhId && tv.TrangThai === 'DaMoi'
     );
     if (tvIndex === -1) {
       return res.status(400).json({ error: 'Không tìm thấy lời mời hợp lệ.' });
@@ -237,7 +237,7 @@ exports.respondToInvite = async (req, res) => {
       // Check SV chưa ở nhóm khác TRONG CÙNG LỚP (double-check)
       const existingNhomQuery = {
         _id: { $ne: id },
-        'ThanhVien.SinhVien': sinhVienId,
+        'ThanhVien.HocSinh': hocSinhId,
         'ThanhVien.TrangThai': 'DaChapNhan'
       };
       if (nhom.LopHoc) {
@@ -250,12 +250,12 @@ exports.respondToInvite = async (req, res) => {
 
       nhom.ThanhVien[tvIndex].TrangThai = 'DaChapNhan';
       await nhom.save();
-      logger.info(`[NHOM] SV ${sinhVienId} accepted invite to group ${id}`);
+      logger.info(`[NHOM] SV ${hocSinhId} accepted invite to group ${id}`);
       res.json({ message: 'Đã chấp nhận gia nhập nhóm!' });
     } else {
       nhom.ThanhVien.splice(tvIndex, 1);
       await nhom.save();
-      logger.info(`[NHOM] SV ${sinhVienId} rejected invite to group ${id}`);
+      logger.info(`[NHOM] SV ${hocSinhId} rejected invite to group ${id}`);
       res.json({ message: 'Đã từ chối lời mời.' });
     }
   } catch (err) {
@@ -266,7 +266,7 @@ exports.respondToInvite = async (req, res) => {
 // Trưởng nhóm kick thành viên
 exports.kickMember = async (req, res) => {
   try {
-    const { id, svId } = req.params;
+    const { id, hsId } = req.params;
 
     const nhom = await Nhom.findById(id);
     if (!nhom) return res.status(404).json({ error: 'Không tìm thấy nhóm.' });
@@ -276,11 +276,11 @@ exports.kickMember = async (req, res) => {
     if (nhom.DaChot) return res.status(400).json({ error: 'Nhóm đã chốt, không thể xóa thành viên.' });
 
     // Không cho kick trưởng nhóm
-    if (nhom.TruongNhom.toString() === svId) {
+    if (nhom.TruongNhom.toString() === hsId) {
       return res.status(400).json({ error: 'Không thể xóa trưởng nhóm.' });
     }
 
-    const tvIndex = nhom.ThanhVien.findIndex(tv => tv.SinhVien.toString() === svId);
+    const tvIndex = nhom.ThanhVien.findIndex(tv => tv.HocSinh.toString() === hsId);
     if (tvIndex === -1) {
       return res.status(400).json({ error: 'Không tìm thấy thành viên này.' });
     }
@@ -288,7 +288,7 @@ exports.kickMember = async (req, res) => {
     nhom.ThanhVien.splice(tvIndex, 1);
     await nhom.save();
 
-    logger.info(`[NHOM] Kicked SV ${svId} from group ${id}`);
+    logger.info(`[NHOM] Kicked SV ${hsId} from group ${id}`);
     res.json({ message: 'Đã xóa thành viên khỏi nhóm.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -299,19 +299,19 @@ exports.kickMember = async (req, res) => {
 exports.leaveNhom = async (req, res) => {
   try {
     const { id } = req.params;
-    const sinhVienId = req.user?.id || req.body.sinhVienId;
+    const hocSinhId = req.user?.id || req.body.hocSinhId;
 
     const nhom = await Nhom.findById(id);
     if (!nhom) return res.status(404).json({ error: 'Không tìm thấy nhóm.' });
     if (nhom.DaChot) return res.status(400).json({ error: 'Nhóm đã chốt, không thể rời nhóm.' });
 
     // Trưởng nhóm không rời được (phải chuyển quyền hoặc xóa nhóm)
-    if (nhom.TruongNhom.toString() === sinhVienId) {
+    if (nhom.TruongNhom.toString() === hocSinhId) {
       return res.status(400).json({ error: 'Trưởng nhóm không thể rời nhóm. Hãy chuyển quyền trước hoặc xóa nhóm.' });
     }
 
     const tvIndex = nhom.ThanhVien.findIndex(
-      tv => tv.SinhVien.toString() === sinhVienId && tv.TrangThai === 'DaChapNhan'
+      tv => tv.HocSinh.toString() === hocSinhId && tv.TrangThai === 'DaChapNhan'
     );
     if (tvIndex === -1) {
       return res.status(400).json({ error: 'Bạn không phải thành viên của nhóm này.' });
@@ -320,7 +320,7 @@ exports.leaveNhom = async (req, res) => {
     nhom.ThanhVien.splice(tvIndex, 1);
     await nhom.save();
 
-    logger.info(`[NHOM] SV ${sinhVienId} left group ${id}`);
+    logger.info(`[NHOM] SV ${hocSinhId} left group ${id}`);
     res.json({ message: 'Đã rời nhóm thành công.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -331,8 +331,8 @@ exports.leaveNhom = async (req, res) => {
 exports.transferLeader = async (req, res) => {
   try {
     const { id } = req.params;
-    const { toSinhVienId } = req.body;
-    const fromSinhVienId = req.user?.id || req.body.fromSinhVienId;
+    const { toHocSinhId } = req.body;
+    const fromHocSinhId = req.user?.id || req.body.fromHocSinhId;
 
     const nhom = await Nhom.findById(id);
     if (!nhom) return res.status(404).json({ error: 'Không tìm thấy nhóm.' });
@@ -342,27 +342,27 @@ exports.transferLeader = async (req, res) => {
       return res.status(400).json({ error: 'Nhóm đã chốt, không thể chuyển quyền trưởng nhóm.' });
     }
 
-    if (nhom.TruongNhom.toString() !== fromSinhVienId) {
+    if (nhom.TruongNhom.toString() !== fromHocSinhId) {
       return res.status(403).json({ error: 'Chỉ trưởng nhóm mới có quyền chuyển.' });
     }
 
     // Check người nhận là thành viên đã chấp nhận
     const newLeader = nhom.ThanhVien.find(
-      tv => tv.SinhVien.toString() === toSinhVienId && tv.TrangThai === 'DaChapNhan'
+      tv => tv.HocSinh.toString() === toHocSinhId && tv.TrangThai === 'DaChapNhan'
     );
     if (!newLeader) {
       return res.status(400).json({ error: 'Người được chuyển quyền phải là thành viên đã chấp nhận.' });
     }
 
     // Đổi vai trò
-    nhom.TruongNhom = toSinhVienId;
+    nhom.TruongNhom = toHocSinhId;
     nhom.ThanhVien.forEach(tv => {
-      if (tv.SinhVien.toString() === toSinhVienId) tv.VaiTro = 'TruongNhom';
-      if (tv.SinhVien.toString() === fromSinhVienId) tv.VaiTro = 'ThanhVien';
+      if (tv.HocSinh.toString() === toHocSinhId) tv.VaiTro = 'TruongNhom';
+      if (tv.HocSinh.toString() === fromHocSinhId) tv.VaiTro = 'ThanhVien';
     });
     await nhom.save();
 
-    logger.info(`[NHOM] Leader transferred from ${fromSinhVienId} to ${toSinhVienId} in group ${id}`);
+    logger.info(`[NHOM] Leader transferred from ${fromHocSinhId} to ${toHocSinhId} in group ${id}`);
     res.json({ message: 'Đã chuyển quyền trưởng nhóm thành công!' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -429,14 +429,14 @@ exports.deleteNhom = async (req, res) => {
 // Lấy lời mời đang chờ của 1 SV
 exports.getPendingInvites = async (req, res) => {
   try {
-    const { svId } = req.params;
+    const { hsId } = req.params;
     const nhoms = await Nhom.find({
       'ThanhVien': {
-        $elemMatch: { SinhVien: svId, TrangThai: 'DaMoi' }
+        $elemMatch: { HocSinh: hsId, TrangThai: 'DaMoi' }
       }
     })
       .populate('TruongNhom')
-      .populate('ThanhVien.SinhVien');
+      .populate('ThanhVien.HocSinh');
 
     res.json(nhoms);
   } catch (err) {

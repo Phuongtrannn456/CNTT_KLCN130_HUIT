@@ -67,7 +67,7 @@ const CourseManagement = () => {
       } else {
         const res = await managementService.createMonHoc({
           ...values,
-          GiangVien: currentUser.id,
+          GiaoVien: currentUser.id,
         });
         if (res.success) {
           message.success('Tạo môn học thành công');
@@ -233,10 +233,10 @@ const CourseManagement = () => {
                         },
                         {
                           title: 'Giáo Viên Hướng Dẫn',
-                          key: 'giangVien',
+                          key: 'giaoVien',
                           width: 180,
                           render: (_, topicRecord) => {
-                            const gv = topicRecord.GiangVienHuongDan;
+                            const gv = topicRecord.GiaoVienHuongDan;
                             return <Text strong style={{ color: '#595959' }}>{gv?.HoTen || 'N/A'}</Text>;
                           }
                         },

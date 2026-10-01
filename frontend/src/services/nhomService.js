@@ -10,8 +10,8 @@ const getAuthHeaders = () => {
 
 const nhomService = {
   // Tạo nhóm mới
-  createNhom: async (sinhVienId, tenNhom, soLuong, lopHocId) => {
-    const data = { sinhVienId, tenNhom, soLuong, lopHocId };
+  createNhom: async (hocSinhId, tenNhom, soLuong, lopHocId) => {
+    const data = { hocSinhId, tenNhom, soLuong, lopHocId };
     if (lopHocId === 'KHOA_LUAN') {
       data.loaiDeTai = 'KhoaLuan';
     }
@@ -20,20 +20,20 @@ const nhomService = {
   },
 
   // Lấy nhóm của SV
-  getNhomBySinhVien: async (svId, lopHocId) => {
+  getNhomByHocSinh: async (hsId, lopHocId) => {
     let query = '';
     if (lopHocId === 'KHOA_LUAN') {
       query = '?loaiDeTai=KhoaLuan';
     } else if (lopHocId) {
       query = `?lopHocId=${lopHocId}`;
     }
-    const response = await axios.get(`${API_URL}/nhom/sinhvien/${svId}${query}`, { headers: getAuthHeaders() });
+    const response = await axios.get(`${API_URL}/nhom/hocsinh/${hsId}${query}`, { headers: getAuthHeaders() });
     return response.data;
   },
 
   // Lấy tất cả nhóm của SV
-  getAllNhomBySinhVien: async (svId) => {
-    const response = await axios.get(`${API_URL}/nhom/sinhvien/${svId}/all`, { headers: getAuthHeaders() });
+  getAllNhomByHocSinh: async (hsId) => {
+    const response = await axios.get(`${API_URL}/nhom/hocsinh/${hsId}/all`, { headers: getAuthHeaders() });
     return response.data;
   },
 
@@ -50,26 +50,26 @@ const nhomService = {
   },
 
   // Trả lời lời mời
-  respondToInvite: async (nhomId, sinhVienId, accept) => {
-    const response = await axios.post(`${API_URL}/nhom/${nhomId}/respond`, { sinhVienId, accept }, { headers: getAuthHeaders() });
+  respondToInvite: async (nhomId, hocSinhId, accept) => {
+    const response = await axios.post(`${API_URL}/nhom/${nhomId}/respond`, { hocSinhId, accept }, { headers: getAuthHeaders() });
     return response.data;
   },
 
   // Kick thành viên
-  kickMember: async (nhomId, svId) => {
-    const response = await axios.delete(`${API_URL}/nhom/${nhomId}/kick/${svId}`, { headers: getAuthHeaders() });
+  kickMember: async (nhomId, hsId) => {
+    const response = await axios.delete(`${API_URL}/nhom/${nhomId}/kick/${hsId}`, { headers: getAuthHeaders() });
     return response.data;
   },
 
   // Rời nhóm
-  leaveNhom: async (nhomId, sinhVienId) => {
-    const response = await axios.post(`${API_URL}/nhom/${nhomId}/leave`, { sinhVienId }, { headers: getAuthHeaders() });
+  leaveNhom: async (nhomId, hocSinhId) => {
+    const response = await axios.post(`${API_URL}/nhom/${nhomId}/leave`, { hocSinhId }, { headers: getAuthHeaders() });
     return response.data;
   },
 
   // Chuyển quyền trưởng nhóm
-  transferLeader: async (nhomId, fromSinhVienId, toSinhVienId) => {
-    const response = await axios.post(`${API_URL}/nhom/${nhomId}/transfer-leader`, { fromSinhVienId, toSinhVienId }, { headers: getAuthHeaders() });
+  transferLeader: async (nhomId, fromHocSinhId, toHocSinhId) => {
+    const response = await axios.post(`${API_URL}/nhom/${nhomId}/transfer-leader`, { fromHocSinhId, toHocSinhId }, { headers: getAuthHeaders() });
     return response.data;
   },
 
@@ -86,8 +86,8 @@ const nhomService = {
   },
 
   // Lấy lời mời đang chờ
-  getPendingInvites: async (svId) => {
-    const response = await axios.get(`${API_URL}/nhom/invites/${svId}`, { headers: getAuthHeaders() });
+  getPendingInvites: async (hsId) => {
+    const response = await axios.get(`${API_URL}/nhom/invites/${hsId}`, { headers: getAuthHeaders() });
     return response.data;
   }
 };

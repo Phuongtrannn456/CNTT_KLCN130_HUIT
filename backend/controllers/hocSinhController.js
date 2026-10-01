@@ -1,4 +1,4 @@
-const SinhVien = require('../models/SinhVien');
+const HocSinh = require('../models/HocSinh');
 
 // Cache cho getAll - TTL 30 giay
 let _svCache = { data: null, ts: 0 };
@@ -14,7 +14,7 @@ exports.getAll = async (req, res) => {
             return res.json(_svCache.data);
         }
 
-        const list = await SinhVien.find({});
+        const list = await HocSinh.find({});
         _svCache = { data: list, ts: Date.now() };
         res.json(list);
     } catch (err) {
@@ -24,7 +24,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        const item = await SinhVien.findById(req.params.id);
+        const item = await HocSinh.findById(req.params.id);
         if(!item) return res.status(404).json({ error: 'Not found' });
         res.json(item);
     } catch (err) {
@@ -34,7 +34,7 @@ exports.getById = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const newSV = new SinhVien(req.body);
+        const newSV = new HocSinh(req.body);
         await newSV.save();
         invalidateSvCache();
         res.status(201).json(newSV);
@@ -45,7 +45,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const updated = await SinhVien.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updated = await HocSinh.findByIdAndUpdate(req.params.id, req.body, { new: true });
         invalidateSvCache();
         res.json(updated);
     } catch (err) {
@@ -55,7 +55,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        await SinhVien.findByIdAndDelete(req.params.id);
+        await HocSinh.findByIdAndDelete(req.params.id);
         invalidateSvCache();
         res.json({ message: 'Deleted successfully' });
     } catch (err) {
@@ -67,10 +67,10 @@ exports.delete = async (req, res) => {
 exports.updateProfile = async (req, res) => {
     try {
         const { id } = req.params;
-        const { HoTen, MaSV, Email, GPA, ChuyenNganh, BangDiemKyNang } = req.body;
+        const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang } = req.body;
 
         // Validate fields cơ bản
-        if (!HoTen || !MaSV || !Email) {
+        if (!HoTen || !MaHS || !Email) {
             return res.status(400).json({ error: 'Họ tên, Mã SV và Email là bắt buộc.' });
         }
 
@@ -85,21 +85,21 @@ exports.updateProfile = async (req, res) => {
         // Auto-generate KyNang string array for backward compatibility
         const KyNang = BangDiemKyNang.map(item => item.TenKyNang).filter(Boolean);
 
-        // Kiểm tra trùng MaSV với SV khác
-        const duplicateMaSV = await SinhVien.findOne({ MaSV, _id: { $ne: id } });
-        if (duplicateMaSV) {
+        // Kiểm tra trùng MaHS với SV khác
+        const duplicateMaHS = await HocSinh.findOne({ MaHS, _id: { $ne: id } });
+        if (duplicateMaHS) {
             return res.status(400).json({ error: 'Mã SV đã tồn tại trong hệ thống.' });
         }
 
         // Kiểm tra trùng Email với SV khác
-        const duplicateEmail = await SinhVien.findOne({ Email, _id: { $ne: id } });
+        const duplicateEmail = await HocSinh.findOne({ Email, _id: { $ne: id } });
         if (duplicateEmail) {
             return res.status(400).json({ error: 'Email đã tồn tại trong hệ thống.' });
         }
 
-        const updated = await SinhVien.findByIdAndUpdate(id, {
+        const updated = await HocSinh.findByIdAndUpdate(id, {
             HoTen,
-            MaSV,
+            MaHS,
             Email,
             GPA: GPA || 0,
             ChuyenNganh: ChuyenNganh || '',
@@ -117,16 +117,16 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
-// Tìm học sinh theo MaSV (dùng cho chức năng mời vào nhóm)
-exports.findByMaSV = async (req, res) => {
+// Tìm học sinh theo MaHS (dùng cho chức năng mời vào nhóm)
+exports.findByMaHS = async (req, res) => {
     try {
         const { maSV } = req.params;
-        const sv = await SinhVien.findOne({ MaSV: maSV });
+        const sv = await HocSinh.findOne({ MaHS: maSV });
         if (!sv) return res.status(404).json({ error: 'Không tìm thấy học sinh với mã này.' });
         // Chỉ trả về thông tin cần thiết (không trả wallet)
         res.json({
             _id: sv._id,
-            MaSV: sv.MaSV,
+            MaHS: sv.MaHS,
             HoTen: sv.HoTen,
             Email: sv.Email,
             GPA: sv.GPA,

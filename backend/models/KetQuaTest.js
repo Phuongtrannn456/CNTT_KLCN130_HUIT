@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const ketQuaTestSchema = new mongoose.Schema({
   BaiTest: { type: mongoose.Schema.Types.ObjectId, ref: 'BaiTest', required: true },
   DeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DeTai', required: true },
-  SinhVien: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien', required: true },
+  HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   DangKyDeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DangKyDeTai' },
   Nhom: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },
   TraLoi: [{
@@ -23,6 +23,6 @@ const ketQuaTestSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Một SV chỉ nộp 1 lần cho 1 bài test
-ketQuaTestSchema.index({ BaiTest: 1, SinhVien: 1 }, { unique: true });
+ketQuaTestSchema.index({ BaiTest: 1, HocSinh: 1 }, { unique: true });
 
 module.exports = mongoose.model('KetQuaTest', ketQuaTestSchema);

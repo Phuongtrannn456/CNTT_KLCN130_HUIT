@@ -89,7 +89,7 @@ exports.getTestForStudent = async (req, res) => {
 // SV (trưởng nhóm) bắt đầu làm bài → ChoTest chuyển sang DangLamTest
 exports.startTest = async (req, res) => {
     try {
-        const sinhVienId = req.user?.id || req.body.sinhVienId;
+        const hocSinhId = req.user?.id || req.body.hocSinhId;
         const { nhomId } = req.body;
 
         const baiTest = await BaiTest.findById(req.params.id);
@@ -109,9 +109,9 @@ exports.startTest = async (req, res) => {
                 DeTai: baiTest.DeTai,
                 TrangThai: { $in: ['ChoTest', 'DangLamTest'] },
                 $or: [
-                    { SinhVien: sinhVienId },
-                    { TruongNhom: sinhVienId },
-                    { 'ThanhVien.SinhVien': sinhVienId }
+                    { HocSinh: hocSinhId },
+                    { TruongNhom: hocSinhId },
+                    { 'ThanhVien.HocSinh': hocSinhId }
                 ]
             });
         }
@@ -120,7 +120,7 @@ exports.startTest = async (req, res) => {
         }
 
         // #13: chỉ trưởng nhóm được làm/nộp bài test đại diện nhóm
-        if (String(dangKy.TruongNhom) !== String(sinhVienId)) {
+        if (String(dangKy.TruongNhom) !== String(hocSinhId)) {
             return res.status(403).json({ error: 'Chỉ trưởng nhóm được làm bài test đại diện cho nhóm.', code: 'KHONG_PHAI_TRUONG_NHOM' });
         }
 
@@ -230,13 +230,13 @@ async function resolveWaitingGroups(deTaiId, io) {
 exports.submitTest = async (req, res) => {
     try {
         const { nhomId, traLoi, thoiGianBatDau } = req.body;
-        const sinhVienId = req.user?.id || req.body.sinhVienId;
+        const hocSinhId = req.user?.id || req.body.hocSinhId;
         const baiTest = await BaiTest.findById(req.params.id);
         if (!baiTest) return res.status(404).json({ error: 'Không tìm thấy bài test.' });
         if (baiTest.TrangThai === 'DaDong') return res.status(400).json({ error: 'Bài test đã đóng.' });
 
         // Kiểm tra đã nộp chưa
-        const existingResult = await KetQuaTest.findOne({ BaiTest: baiTest._id, SinhVien: sinhVienId });
+        const existingResult = await KetQuaTest.findOne({ BaiTest: baiTest._id, HocSinh: hocSinhId });
         if (existingResult) return res.status(400).json({ error: 'Bạn đã nộp bài test này rồi.' });
 
         // === 1. GHI ThoiGianSubmit NGAY LẬP TỨC (trước khi AI chấm) ===
@@ -256,15 +256,15 @@ exports.submitTest = async (req, res) => {
                 DeTai: baiTest.DeTai,
                 TrangThai: { $in: ['ChoTest', 'DangLamTest'] },
                 $or: [
-                    { SinhVien: sinhVienId },
-                    { TruongNhom: sinhVienId },
-                    { 'ThanhVien.SinhVien': sinhVienId }
+                    { HocSinh: hocSinhId },
+                    { TruongNhom: hocSinhId },
+                    { 'ThanhVien.HocSinh': hocSinhId }
                 ]
             });
         }
 
         // #13: chỉ trưởng nhóm được nộp bài test đại diện cho cả nhóm
-        if (dangKy && String(dangKy.TruongNhom) !== String(sinhVienId)) {
+        if (dangKy && String(dangKy.TruongNhom) !== String(hocSinhId)) {
             return res.status(403).json({ error: 'Chỉ trưởng nhóm được nộp bài test đại diện cho nhóm.', code: 'KHONG_PHAI_TRUONG_NHOM' });
         }
 
@@ -321,7 +321,7 @@ exports.submitTest = async (req, res) => {
             const contractService = require('../services/thesisContractService');
             const scoreForChain = Math.round((tongDiem / diemToiDa) * 100);
             txHash = await contractService.submitTestResultOnChain(
-                baiTest.DeTai.toString(), sinhVienId, scoreForChain / 10
+                baiTest.DeTai.toString(), hocSinhId, scoreForChain / 10
             );
         } catch (bcErr) {
             logger.warn(`[TEST] Blockchain submit failed (non-blocking): ${bcErr.message}`);
@@ -331,7 +331,7 @@ exports.submitTest = async (req, res) => {
         const ketQua = await KetQuaTest.create({
             BaiTest: baiTest._id,
             DeTai: baiTest.DeTai,
-            SinhVien: sinhVienId,
+            HocSinh: hocSinhId,
             Nhom: nhomId || dangKy?.Nhom || null,
             DangKyDeTai: dangKy?._id || null,
             TraLoi: ketQuaTraLoi,
@@ -354,7 +354,7 @@ exports.submitTest = async (req, res) => {
                 // Không đạt ngưỡng → TuChoi
                 await DangKyDeTai.findByIdAndUpdate(dangKy._id, { TrangThai: 'TuChoi' });
                 competitionResult = 'rejected';
-                logger.info(`[TEST] REJECTED: ${sinhVienId} scored ${phanTram}% < ${nguongDat}%`);
+                logger.info(`[TEST] REJECTED: ${hocSinhId} scored ${phanTram}% < ${nguongDat}%`);
 
                 // Kiểm tra nhóm ChoDoi có thể claim winner
                 await resolveWaitingGroups(baiTest.DeTai, io);
@@ -370,11 +370,11 @@ exports.submitTest = async (req, res) => {
             } else {
                 // Đạt ngưỡng → tryClaimWinner (Hybrid)
                 competitionResult = await tryClaimWinner(dangKy._id, baiTest.DeTai, thoiGianSubmit, io);
-                logger.info(`[TEST] ${sinhVienId} scored ${phanTram}% >= ${nguongDat}% | competition=${competitionResult}`);
+                logger.info(`[TEST] ${hocSinhId} scored ${phanTram}% >= ${nguongDat}% | competition=${competitionResult}`);
             }
         }
 
-        logger.info(`[TEST] Student ${sinhVienId} submitted test | score=${tongDiem}/${diemToiDa} | txHash=${txHash || 'N/A'}`);
+        logger.info(`[TEST] Student ${hocSinhId} submitted test | score=${tongDiem}/${diemToiDa} | txHash=${txHash || 'N/A'}`);
 
         // === 6. TRẢ KẾT QUẢ ===
         const messageMap = {
@@ -405,7 +405,7 @@ exports.submitTest = async (req, res) => {
 exports.getTestResults = async (req, res) => {
     try {
         const results = await KetQuaTest.find({ BaiTest: req.params.id })
-            .populate('SinhVien', 'HoTen MaSV Email')
+            .populate('HocSinh', 'HoTen MaHS Email')
             .populate('Nhom', 'TenNhom')
             .sort({ TongDiem: -1 });
         res.json(results);
@@ -460,11 +460,11 @@ exports.deleteTest = async (req, res) => {
 // Kiểm tra SV đã làm test chưa
 exports.checkSubmitted = async (req, res) => {
     try {
-        const { deTaiId, sinhVienId } = req.params;
+        const { deTaiId, hocSinhId } = req.params;
         const baiTest = await BaiTest.findOne({ DeTai: deTaiId });
         if (!baiTest) return res.json({ hasTest: false });
 
-        const result = await KetQuaTest.findOne({ BaiTest: baiTest._id, SinhVien: sinhVienId })
+        const result = await KetQuaTest.findOne({ BaiTest: baiTest._id, HocSinh: hocSinhId })
             .populate('DangKyDeTai');
 
         let competitionResult = undefined;

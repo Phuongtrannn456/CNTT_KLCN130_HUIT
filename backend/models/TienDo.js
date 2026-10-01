@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const tienDoSchema = new mongoose.Schema({
     DeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DeTai', required: true },
-    SinhVien: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien', required: true },
+    HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
     Nhom: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },
     NoiDung: { type: String, required: true },
     PhanTramHoanThanh: { type: Number, default: 0, min: 0, max: 100 },
@@ -38,7 +38,7 @@ const tienDoSchema = new mongoose.Schema({
         DiemGV: { type: Number, min: 0 },
         NhanXetTieuChi: { type: String, default: '' }
     }],
-    GiangVienDanhGia: { type: mongoose.Schema.Types.ObjectId, ref: 'GiangVien' },
+    GiaoVienDanhGia: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien' },
     NgayDanhGia: { type: Date },
     LanNopLai: { type: Number, default: 0 },
     CanhBaoTienDo: [{ type: String }],
@@ -53,10 +53,10 @@ const tienDoSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 tienDoSchema.index(
-    { DeTai: 1, SinhVien: 1, TuanSo: 1, LanNopLai: 1 },
+    { DeTai: 1, HocSinh: 1, TuanSo: 1, LanNopLai: 1 },
     { unique: true, partialFilterExpression: { TuanSo: { $type: 'number' } } }
 );
-tienDoSchema.index({ DeTai: 1, SinhVien: 1, createdAt: -1 });
+tienDoSchema.index({ DeTai: 1, HocSinh: 1, createdAt: -1 });
 tienDoSchema.index({ DeTai: 1, Nhom: 1, TuanSo: 1 }, { sparse: true });
 
 module.exports = mongoose.model('TienDo', tienDoSchema);

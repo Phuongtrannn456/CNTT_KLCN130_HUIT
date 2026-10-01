@@ -19,7 +19,7 @@ const qrCodeSchema = new mongoose.Schema({
   role_model: {
     type: String,
     required: true,
-    enum: ['GiangVien', 'SinhVien']
+    enum: ['GiaoVien', 'HocSinh']
   },
   qr_hash: {
     type: String,

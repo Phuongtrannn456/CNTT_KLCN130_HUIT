@@ -5,8 +5,8 @@ require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // Require models to register in Mongoose
-const SinhVien = require('../models/SinhVien');
-const GiangVien = require('../models/GiangVien');
+const HocSinh = require('../models/HocSinh');
+const GiaoVien = require('../models/GiaoVien');
 const MonHoc = require('../models/MonHoc');
 const LopHoc = require('../models/LopHoc');
 const Nhom = require('../models/Nhom');
@@ -24,15 +24,15 @@ async function run() {
   console.log('Connected!');
 
   const svCodes = ['SVEDA301', 'SV4C2231', 'SV0A9E53'];
-  const students = await SinhVien.find({ MaSV: { $in: svCodes } });
-  const svIds = students.map(s => s._id);
+  const students = await HocSinh.find({ MaHS: { $in: svCodes } });
+  const hsIds = students.map(s => s._id);
 
   console.log('\n--- 1. Deleting Groups containing test students ---');
   // Find all groups containing these students
   const nhoms = await Nhom.find({
     $or: [
-      { TruongNhom: { $in: svIds } },
-      { 'ThanhVien.SinhVien': { $in: svIds } }
+      { TruongNhom: { $in: hsIds } },
+      { 'ThanhVien.HocSinh': { $in: hsIds } }
     ]
   });
   const nhomIds = nhoms.map(n => n._id);
@@ -43,9 +43,9 @@ async function run() {
   console.log('\n--- 2. Deleting Topic Registrations (DangKyDeTai) ---');
   const deleteRegResult = await DangKyDeTai.deleteMany({
     $or: [
-      { SinhVien: { $in: svIds } },
-      { TruongNhom: { $in: svIds } },
-      { 'ThanhVien.SinhVien': { $in: svIds } },
+      { HocSinh: { $in: hsIds } },
+      { TruongNhom: { $in: hsIds } },
+      { 'ThanhVien.HocSinh': { $in: hsIds } },
       { Nhom: { $in: nhomIds } }
     ]
   });
@@ -55,8 +55,8 @@ async function run() {
   const deleteKetQuaResult = await KetQuaTest.deleteMany({
     $or: [
       { Nhom: { $in: nhomIds } },
-      { SinhVien: { $in: svIds } },
-      { 'ThanhVien.SinhVien': { $in: svIds } }
+      { HocSinh: { $in: hsIds } },
+      { 'ThanhVien.HocSinh': { $in: hsIds } }
     ]
   });
   console.log(`Deleted ${deleteKetQuaResult.deletedCount} KetQuaTest records.`);
@@ -64,7 +64,7 @@ async function run() {
   console.log('\n--- 4. Deleting Submissions (BaoCao) ---');
   const deleteBaoCaoResult = await BaoCao.deleteMany({
     $or: [
-      { SinhVien: { $in: svIds } },
+      { HocSinh: { $in: hsIds } },
       { Nhom: { $in: nhomIds } }
     ]
   });
@@ -73,7 +73,7 @@ async function run() {
   console.log('\n--- 5. Deleting Grades (DiemSo) ---');
   const deleteDiemResult = await DiemSo.deleteMany({
     $or: [
-      { SinhVien: { $in: svIds } },
+      { HocSinh: { $in: hsIds } },
       { Nhom: { $in: nhomIds } }
     ]
   });
@@ -82,7 +82,7 @@ async function run() {
   console.log('\n--- 6. Deleting Progress logs (TienDo) ---');
   const deleteTienDoResult = await TienDo.deleteMany({
     $or: [
-      { SinhVien: { $in: svIds } },
+      { HocSinh: { $in: hsIds } },
       { Nhom: { $in: nhomIds } }
     ]
   });
@@ -123,10 +123,10 @@ async function run() {
       Deadline: new Date(new Date().setDate(new Date().getDate() + 30)),
       HanDangKy: new Date(new Date().setDate(new Date().getDate() + 15)),
       HanNopBaoCao: new Date(new Date().setDate(new Date().getDate() + 30)),
-      GiangVienHuongDan: gvId,
+      GiaoVienHuongDan: gvId,
       MonHoc: monHoc02Id,
       LopHoc: [lopHoc02Id],
-      SoLuongSinhVien: 2,
+      SoLuongHocSinh: 2,
       CoBaiTest: true,
       SuDungRubrics: true,
       Rubrics: [

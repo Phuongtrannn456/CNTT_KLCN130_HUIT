@@ -1,17 +1,17 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const DeTai = require('../models/DeTai');
-const GiangVien = require('../models/GiangVien');
+const GiaoVien = require('../models/GiaoVien');
 const DangKyDeTai = require('../models/DangKyDeTai');
 const BaiTest = require('../models/BaiTest');
-const SinhVien = require('../models/SinhVien');
+const HocSinh = require('../models/HocSinh');
 
 async function check() {
   await mongoose.connect(process.env.MONGODB_URI);
   console.log('Connected to MongoDB');
 
   // 1. List all thesis topics
-  const topics = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).populate('GiangVienHuongDan');
+  const topics = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).populate('GiaoVienHuongDan');
   console.log('\n--- ALL THESIS TOPICS ---');
   for (const deTai of topics) {
     const test = await BaiTest.findOne({ DeTai: deTai._id });
@@ -19,7 +19,7 @@ async function check() {
       _id: deTai._id,
       MaDeTai: deTai.MaDeTai,
       TenDeTai: deTai.TenDeTai,
-      GiangVienHuongDan: deTai.GiangVienHuongDan ? deTai.GiangVienHuongDan.HoTen : 'N/A',
+      GiaoVienHuongDan: deTai.GiaoVienHuongDan ? deTai.GiaoVienHuongDan.HoTen : 'N/A',
       CoBaiTest: deTai.CoBaiTest,
       HasTestRecord: !!test,
       TestTitle: test ? test.TieuDe : 'N/A'
@@ -27,7 +27,7 @@ async function check() {
   }
 
   // 2. Find Tran Minh Anh
-  const sv = await SinhVien.findOne({ HoTen: /Trần Minh Anh/i });
+  const sv = await HocSinh.findOne({ HoTen: /Trần Minh Anh/i });
   console.log('\n--- SINH VIEN DETAILS ---');
   if (sv) {
     console.log({
@@ -36,9 +36,9 @@ async function check() {
     });
 
     // 4. Find Registrations for this student
-    const regs = await DangKyDeTai.find({ SinhVien: sv._id }).populate({
+    const regs = await DangKyDeTai.find({ HocSinh: sv._id }).populate({
       path: 'DeTai',
-      populate: { path: 'GiangVienHuongDan' }
+      populate: { path: 'GiaoVienHuongDan' }
     });
     console.log('\n--- REGISTRATIONS FOR STUDENT ---');
     regs.forEach(r => {
@@ -48,7 +48,7 @@ async function check() {
         MaDeTai: r.DeTai ? r.DeTai.MaDeTai : 'N/A',
         TenDeTai: r.DeTai ? r.DeTai.TenDeTai : 'N/A',
         TrangThai: r.TrangThai,
-        GiangVien: r.DeTai && r.DeTai.GiangVienHuongDan ? r.DeTai.GiangVienHuongDan.HoTen : 'N/A'
+        GiaoVien: r.DeTai && r.DeTai.GiaoVienHuongDan ? r.DeTai.GiaoVienHuongDan.HoTen : 'N/A'
       });
     });
   } else {

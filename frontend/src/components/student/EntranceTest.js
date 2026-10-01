@@ -48,7 +48,7 @@ const EntranceTest = () => {
         baiTest: null
       };
       try {
-        const nhomRes = await nhomService.getNhomBySinhVien(user.id);
+        const nhomRes = await nhomService.getNhomByHocSinh(user.id);
         data.myNhom = nhomRes.nhom;
       } catch (e) { /* ignore */ }
 
@@ -169,7 +169,7 @@ const EntranceTest = () => {
       }
 
       const res = await aiApiService.submitBaiTest(baiTest._id, {
-        sinhVienId: user.id,
+        hocSinhId: user.id,
         nhomId: myNhom?._id || null,
         traLoi,
         thoiGianBatDau: startTime?.toISOString()

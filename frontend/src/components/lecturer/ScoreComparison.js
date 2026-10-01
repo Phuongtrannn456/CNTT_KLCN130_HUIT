@@ -101,7 +101,7 @@ const ScoreComparison = () => {
     return filteredData.map((c, idx) => ({
       name: c.student?.HoTen?.split(' ').pop() || `HS${idx + 1}`,
       fullName: c.student?.HoTen || 'N/A',
-      maSV: c.student?.MaSV || 'N/A',
+      maSV: c.student?.MaHS || 'N/A',
       topicName: c.topic?.TenDeTai || 'N/A',
       'Điểm GV': c.gvScore,
       'Điểm AI': c.aiScore,
@@ -314,7 +314,7 @@ const ScoreComparison = () => {
       render: (_, r) => (
         <Space direction="vertical" size={0}>
           <Text strong>{r.student?.HoTen || 'N/A'}</Text>
-          <Text type="secondary" style={{ fontSize: 11 }}>{r.student?.MaSV || ''}</Text>
+          <Text type="secondary" style={{ fontSize: 11 }}>{r.student?.MaHS || ''}</Text>
         </Space>
       ),
     },
@@ -764,7 +764,7 @@ const ScoreComparison = () => {
           <div>
             <Descriptions column={1} bordered size="small" style={{ marginBottom: 16 }}>
               <Descriptions.Item label="Học sinh">
-                <Text strong>{selectedRecord.student?.HoTen}</Text> ({selectedRecord.student?.MaSV})
+                <Text strong>{selectedRecord.student?.HoTen}</Text> ({selectedRecord.student?.MaHS})
               </Descriptions.Item>
               <Descriptions.Item label="Dự án">{selectedRecord.topic?.TenDeTai}</Descriptions.Item>
               <Descriptions.Item label="Điểm Giáo Viên">

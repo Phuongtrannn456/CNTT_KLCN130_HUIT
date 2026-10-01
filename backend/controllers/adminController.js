@@ -1,6 +1,6 @@
 const Admin = require('../models/Admin');
 const RoleRequest = require('../models/RoleRequest');
-const GiangVien = require('../models/GiangVien');
+const GiaoVien = require('../models/GiaoVien');
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 
@@ -30,19 +30,19 @@ const approveRequest = async (req, res) => {
     request.reviewedAt = new Date();
     await request.save();
 
-    // Create GiangVien
-    const newGiangVien = new GiangVien({
+    // Create GiaoVien
+    const newGiaoVien = new GiaoVien({
       MaGV: `GV${uuidv4().substring(0, 6).toUpperCase()}`,
       HoTen: request.hoTen,
       Email: request.email,
       ChuyenNganh: request.chuyenNganh,
       WalletAddress: request.walletAddress
     });
-    await newGiangVien.save();
+    await newGiaoVien.save();
 
     // Generate Token
     const token = jwt.sign(
-      { id: newGiangVien._id, walletAddress: newGiangVien.WalletAddress, role_id: 'LECTURER_ROLE' },
+      { id: newGiaoVien._id, walletAddress: newGiaoVien.WalletAddress, role_id: 'LECTURER_ROLE' },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
@@ -55,10 +55,10 @@ const approveRequest = async (req, res) => {
         status: 'approved',
         token,
         user: {
-          id: newGiangVien._id,
-          walletAddress: newGiangVien.WalletAddress,
+          id: newGiaoVien._id,
+          walletAddress: newGiaoVien.WalletAddress,
           role_id: 'LECTURER_ROLE',
-          name: newGiangVien.HoTen
+          name: newGiaoVien.HoTen
         }
       });
     }
@@ -194,7 +194,7 @@ const getRequestDetail = async (req, res) => {
 
 const getAllLecturers = async (req, res) => {
   try {
-    const lecturers = await GiangVien.find().sort({ createdAt: -1 });
+    const lecturers = await GiaoVien.find().sort({ createdAt: -1 });
     res.json({ success: true, lecturers });
   } catch (error) {
     console.error('getAllLecturers error:', error);

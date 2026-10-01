@@ -27,18 +27,18 @@ async function fixIndexes() {
       console.log('');
     });
 
-    // 2. Tìm index cũ DeTai_1_SinhVien_1 (unique, KHÔNG sparse)
+    // 2. Tìm index cũ DeTai_1_HocSinh_1 (unique, KHÔNG sparse)
     const oldIndex = indexes.find(idx => 
-      idx.name === 'DeTai_1_SinhVien_1' && idx.unique === true && !idx.sparse
+      idx.name === 'DeTai_1_HocSinh_1' && idx.unique === true && !idx.sparse
     );
 
     if (oldIndex) {
-      console.log('⚠️  Tìm thấy index CŨ cần drop: "DeTai_1_SinhVien_1" (unique, non-sparse)');
+      console.log('⚠️  Tìm thấy index CŨ cần drop: "DeTai_1_HocSinh_1" (unique, non-sparse)');
       console.log('   → Drop index này...');
-      await collection.dropIndex('DeTai_1_SinhVien_1');
+      await collection.dropIndex('DeTai_1_HocSinh_1');
       console.log('   ✅ Đã drop thành công!\n');
     } else {
-      console.log('ℹ️  Không tìm thấy index cũ "DeTai_1_SinhVien_1" (unique, non-sparse). OK!\n');
+      console.log('ℹ️  Không tìm thấy index cũ "DeTai_1_HocSinh_1" (unique, non-sparse). OK!\n');
     }
 
     // 3. Kiểm tra và tạo indexes mới (sparse)
@@ -59,16 +59,16 @@ async function fixIndexes() {
       }
     }
 
-    // Index cho SinhVien (backward compat, sparse)
+    // Index cho HocSinh (backward compat, sparse)
     try {
       await collection.createIndex(
-        { DeTai: 1, SinhVien: 1 }, 
-        { unique: true, sparse: true, name: 'DeTai_1_SinhVien_1_sparse' }
+        { DeTai: 1, HocSinh: 1 }, 
+        { unique: true, sparse: true, name: 'DeTai_1_HocSinh_1_sparse' }
       );
-      console.log('   ✅ Created: DeTai_1_SinhVien_1 (unique, sparse)');
+      console.log('   ✅ Created: DeTai_1_HocSinh_1 (unique, sparse)');
     } catch (e) {
       if (e.code === 85 || e.code === 86) {
-        console.log('   ℹ️  DeTai_1_SinhVien_1 đã tồn tại (có thể dạng khác), skip.');
+        console.log('   ℹ️  DeTai_1_HocSinh_1 đã tồn tại (có thể dạng khác), skip.');
       } else {
         console.log(`   ⚠️  Error: ${e.message}`);
       }

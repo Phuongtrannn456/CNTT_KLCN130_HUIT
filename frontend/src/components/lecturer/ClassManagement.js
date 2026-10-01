@@ -20,7 +20,7 @@ const ClassManagement = () => {
   const [detailData, setDetailData] = useState(null);
   const [detailLoading, setDetailLoading] = useState(false);
   const [addSvModalVisible, setAddSvModalVisible] = useState(false);
-  const [allSinhVien, setAllSinhVien] = useState([]);
+  const [allHocSinh, setAllHocSinh] = useState([]);
   const [selectedSvId, setSelectedSvId] = useState(null);
   const [svSearchOptions, setSvSearchOptions] = useState([]);
   const [form] = Form.useForm();
@@ -74,7 +74,7 @@ const ClassManagement = () => {
       } else {
         const res = await managementService.createLopHoc({
           ...values,
-          GiangVien: currentUser.id,
+          GiaoVien: currentUser.id,
         });
         if (res.success) message.success('Tạo lớp học thành công');
       }
@@ -125,12 +125,12 @@ const ClassManagement = () => {
   // Mở modal thêm SV → gửi lời mời thay vì add trực tiếp
   const handleOpenAddSv = async () => {
     try {
-      const res = await managementService.getAllSinhVien();
+      const res = await managementService.getAllHocSinh();
       const svList = Array.isArray(res) ? res : (res?.data || []);
-      setAllSinhVien(svList);
+      setAllHocSinh(svList);
       // Lọc ra SV chưa có trong lớp VÀ chưa có lời mời pending
-      const currentSvIds = (detailData?.lopHoc?.SinhVien || []).map(sv => sv._id);
-      const pendingSvIds = pendingInvites.map(inv => inv.SinhVien?._id);
+      const currentSvIds = (detailData?.lopHoc?.HocSinh || []).map(sv => sv._id);
+      const pendingSvIds = pendingInvites.map(inv => inv.HocSinh?._id);
       const excludeIds = [...currentSvIds, ...pendingSvIds];
       
       setSvSearchOptions(
@@ -138,7 +138,7 @@ const ClassManagement = () => {
           .filter(sv => !excludeIds.includes(sv._id))
           .map(sv => ({
             value: sv._id,
-            label: `${sv.MaSV} - ${sv.HoTen} (${sv.Email})`,
+            label: `${sv.MaHS} - ${sv.HoTen} (${sv.Email})`,
           }))
       );
       setAddSvModalVisible(true);
@@ -153,12 +153,12 @@ const ClassManagement = () => {
     try {
       let res;
       if (selectedSvId) {
-        res = await managementService.inviteSinhVienToLop(detailData.lopHoc._id, selectedSvId);
+        res = await managementService.inviteHocSinhToLop(detailData.lopHoc._id, selectedSvId);
       } else if (svSearchText.trim()) {
-        // Tìm SV theo MaSV rồi invite
-        const found = allSinhVien.find(sv => sv.MaSV === svSearchText.trim());
+        // Tìm SV theo MaHS rồi invite
+        const found = allHocSinh.find(sv => sv.MaHS === svSearchText.trim());
         if (found) {
-          res = await managementService.inviteSinhVienToLop(detailData.lopHoc._id, found._id);
+          res = await managementService.inviteHocSinhToLop(detailData.lopHoc._id, found._id);
         } else {
           message.warning('Không tìm thấy học sinh với mã này');
           return;
@@ -183,17 +183,17 @@ const ClassManagement = () => {
   const handleImportSv = async () => {
     if (!importText.trim() || !detailData?.lopHoc?._id) return;
     try {
-      const danhSachMaSV = importText
+      const danhSachMaHS = importText
         .split(/[\s,\n]+/)
         .map(s => s.trim())
         .filter(Boolean);
 
-      if (danhSachMaSV.length === 0) {
+      if (danhSachMaHS.length === 0) {
         message.warning('Danh sách trống');
         return;
       }
 
-      const res = await managementService.inviteBatchToLop(detailData.lopHoc._id, danhSachMaSV);
+      const res = await managementService.inviteBatchToLop(detailData.lopHoc._id, danhSachMaHS);
       if (res.success) {
         message.success(res.message || 'Import lời mời thành công');
         setImportModalVisible(false);
@@ -218,10 +218,10 @@ const ClassManagement = () => {
     }
   };
 
-  const handleRemoveSv = async (svId) => {
+  const handleRemoveSv = async (hsId) => {
     if (!detailData?.lopHoc?._id) return;
     try {
-      const res = await managementService.removeSinhVienFromLop(detailData.lopHoc._id, svId);
+      const res = await managementService.removeHocSinhFromLop(detailData.lopHoc._id, hsId);
       if (res.success) {
         message.success('Đã xóa học sinh khỏi lớp');
         handleViewDetail({ _id: detailData.lopHoc._id });
@@ -233,23 +233,23 @@ const ClassManagement = () => {
   };
 
   const handleSvSearch = (searchText) => {
-    const currentSvIds = (detailData?.lopHoc?.SinhVien || []).map(sv => sv._id);
-    const pendingSvIds = pendingInvites.map(inv => inv.SinhVien?._id);
+    const currentSvIds = (detailData?.lopHoc?.HocSinh || []).map(sv => sv._id);
+    const pendingSvIds = pendingInvites.map(inv => inv.HocSinh?._id);
     const excludeIds = [...currentSvIds, ...pendingSvIds];
 
-    const filtered = allSinhVien
+    const filtered = allHocSinh
       .filter(sv => !excludeIds.includes(sv._id))
       .filter(sv => {
         const text = searchText.toLowerCase();
         return (
-          sv.MaSV?.toLowerCase().includes(text) ||
+          sv.MaHS?.toLowerCase().includes(text) ||
           sv.HoTen?.toLowerCase().includes(text) ||
           sv.Email?.toLowerCase().includes(text)
         );
       })
       .map(sv => ({
         value: sv._id,
-        label: `${sv.MaSV} - ${sv.HoTen} (${sv.Email})`,
+        label: `${sv.MaHS} - ${sv.HoTen} (${sv.Email})`,
       }));
     setSvSearchOptions(filtered);
   };
@@ -282,8 +282,8 @@ const ClassManagement = () => {
     },
     {
       title: 'Giáo Viên',
-      dataIndex: 'GiangVien',
-      key: 'GiangVien',
+      dataIndex: 'GiaoVien',
+      key: 'GiaoVien',
       render: (gv) => {
         if (!gv) return '—';
         return <Text strong style={{ color: '#595959' }}>{gv.HoTen || gv.MaGV || '—'}</Text>;
@@ -323,8 +323,8 @@ const ClassManagement = () => {
   const svColumns = [
     {
       title: 'Mã HS',
-      dataIndex: 'MaSV',
-      key: 'MaSV',
+      dataIndex: 'MaHS',
+      key: 'MaHS',
       width: 120,
       render: (text) => <Tag>{text}</Tag>,
     },
@@ -355,20 +355,20 @@ const ClassManagement = () => {
   const inviteColumns = [
     {
       title: 'Mã HS',
-      key: 'MaSV',
+      key: 'MaHS',
       width: 120,
-      render: (_, inv) => <Tag color="orange">{inv.SinhVien?.MaSV || '—'}</Tag>,
+      render: (_, inv) => <Tag color="orange">{inv.HocSinh?.MaHS || '—'}</Tag>,
     },
     {
       title: 'Họ Tên',
       key: 'HoTen',
-      render: (_, inv) => inv.SinhVien?.HoTen || '—',
+      render: (_, inv) => inv.HocSinh?.HoTen || '—',
     },
     {
       title: 'Email',
       key: 'Email',
       ellipsis: true,
-      render: (_, inv) => <Text type="secondary">{inv.SinhVien?.Email || '—'}</Text>,
+      render: (_, inv) => <Text type="secondary">{inv.HocSinh?.Email || '—'}</Text>,
     },
     {
       title: 'Trạng Thái',
@@ -462,7 +462,7 @@ const ClassManagement = () => {
                 {detailData.lopHoc.MonHoc?.MaMonHoc} — {detailData.lopHoc.MonHoc?.TenMonHoc}
               </Descriptions.Item>
               <Descriptions.Item label="Sĩ Số">
-                {detailData.lopHoc.SinhVien?.length || 0} học sinh
+                {detailData.lopHoc.HocSinh?.length || 0} học sinh
               </Descriptions.Item>
             </Descriptions>
 
@@ -473,7 +473,7 @@ const ClassManagement = () => {
                   key: 'hocsinh',
                   label: (
                     <Space>
-                      <span>Học Sinh ({detailData.lopHoc.SinhVien?.length || 0})</span>
+                      <span>Học Sinh ({detailData.lopHoc.HocSinh?.length || 0})</span>
                       {pendingInvites.length > 0 && (
                         <Badge count={pendingInvites.length} size="small" style={{ backgroundColor: '#faad14' }} />
                       )}
@@ -495,7 +495,7 @@ const ClassManagement = () => {
                       {/* Bảng học sinh đã trong lớp */}
                       <Table
                         columns={svColumns}
-                        dataSource={detailData.lopHoc.SinhVien || []}
+                        dataSource={detailData.lopHoc.HocSinh || []}
                         rowKey="_id"
                         pagination={false}
                         size="small"
@@ -548,13 +548,13 @@ const ClassManagement = () => {
                               {dk.TruongNhom && (
                                 <div style={{ marginBottom: 4 }}>
                                   <Text type="secondary">Trưởng nhóm: </Text>
-                                  <Tag color="blue">{dk.TruongNhom.HoTen} ({dk.TruongNhom.MaSV})</Tag>
+                                  <Tag color="blue">{dk.TruongNhom.HoTen} ({dk.TruongNhom.MaHS})</Tag>
                                 </div>
                               )}
-                              {dk.SinhVien && !dk.TruongNhom && (
+                              {dk.HocSinh && !dk.TruongNhom && (
                                 <div style={{ marginBottom: 4 }}>
                                   <Text type="secondary">Học sinh: </Text>
-                                  <Tag>{dk.SinhVien.HoTen} ({dk.SinhVien.MaSV})</Tag>
+                                  <Tag>{dk.HocSinh.HoTen} ({dk.HocSinh.MaHS})</Tag>
                                 </div>
                               )}
                               {dk.ThanhVien && dk.ThanhVien.length > 0 && (
@@ -562,7 +562,7 @@ const ClassManagement = () => {
                                   <Text type="secondary">Thành viên: </Text>
                                   {dk.ThanhVien.map((tv, i) => (
                                     <Tag key={i} color={tv.TrangThaiTV === 'DaChapNhan' ? 'green' : tv.TrangThaiTV === 'TuChoi' ? 'red' : 'gold'}>
-                                      {tv.SinhVien?.HoTen || '—'} ({tv.VaiTro})
+                                      {tv.HocSinh?.HoTen || '—'} ({tv.VaiTro})
                                     </Tag>
                                   ))}
                                 </div>
@@ -631,13 +631,13 @@ const ClassManagement = () => {
             value={svSearchText}
             onChange={(val) => {
               setSvSearchText(val);
-              const found = allSinhVien.find(sv => sv._id === val || sv.MaSV === val);
+              const found = allHocSinh.find(sv => sv._id === val || sv.MaHS === val);
               if (!found) setSelectedSvId(null);
             }}
             onSelect={(value) => {
               setSelectedSvId(value);
-              const sv = allSinhVien.find(s => s._id === value);
-              if (sv) setSvSearchText(sv.MaSV);
+              const sv = allHocSinh.find(s => s._id === value);
+              if (sv) setSvSearchText(sv.MaHS);
             }}
             placeholder="Gõ để tìm học sinh..."
             allowClear

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const LopHoc = require('../models/LopHoc');
 const DeTai = require('../models/DeTai');
 const MonHoc = require('../models/MonHoc');
-const GiangVien = require('../models/GiangVien');
+const GiaoVien = require('../models/GiaoVien');
 
 async function seed() {
   console.log('🔗 Đang kết nối MongoDB...');
@@ -17,7 +17,7 @@ async function seed() {
     console.log('📝 Không tìm thấy lớp 13DHTH04, tiến hành tạo mới lớp học...');
     
     // Tìm 1 giáo viên bất kỳ làm chủ nhiệm
-    const gv = await GiangVien.findOne({});
+    const gv = await GiaoVien.findOne({});
     if (!gv) {
       console.error('❌ Không tìm thấy Giáo viên nào trong DB để tạo lớp học!');
       process.exit(1);
@@ -39,8 +39,8 @@ async function seed() {
       MaLopHoc: '13DHTH04',
       TenLopHoc: '13DHTH04 - Công nghệ phần mềm nâng cao',
       MonHoc: monHoc._id,
-      GiangVien: gv._id,
-      SinhVien: [] // Có thể add học sinh vào sau
+      GiaoVien: gv._id,
+      HocSinh: [] // Có thể add học sinh vào sau
     });
     console.log('✅ Đã tạo mới lớp học thành công:', lopHoc);
   } else {
@@ -58,7 +58,7 @@ async function seed() {
       Deadline: new Date(new Date().setDate(new Date().getDate() + 30)),
       HanDangKy: new Date(new Date().setDate(new Date().getDate() + 7)),
       HanNopBaoCao: new Date(new Date().setDate(new Date().getDate() + 30)),
-      GiangVienHuongDan: lopHoc.GiangVien,
+      GiaoVienHuongDan: lopHoc.GiaoVien,
       MonHoc: lopHoc.MonHoc,
       LopHoc: [lopHoc._id],
       CoBaiTest: true,
@@ -74,7 +74,7 @@ async function seed() {
       Deadline: new Date(new Date().setDate(new Date().getDate() + 30)),
       HanDangKy: new Date(new Date().setDate(new Date().getDate() + 7)),
       HanNopBaoCao: new Date(new Date().setDate(new Date().getDate() + 30)),
-      GiangVienHuongDan: lopHoc.GiangVien,
+      GiaoVienHuongDan: lopHoc.GiaoVien,
       MonHoc: lopHoc.MonHoc,
       LopHoc: [lopHoc._id],
       CoBaiTest: true,

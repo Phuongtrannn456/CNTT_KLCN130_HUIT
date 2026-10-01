@@ -1,7 +1,7 @@
 const DeTai = require('../models/DeTai');
 const DangKyDeTai = require('../models/DangKyDeTai');
 const Nhom = require('../models/Nhom');
-const SinhVien = require('../models/SinhVien');
+const HocSinh = require('../models/HocSinh');
 const logger = require('../config/logger');
 
 // Cache cho getAll - TTL 30 giay
@@ -30,13 +30,13 @@ exports.getAll = async (req, res) => {
             }
         }
         const list = await DeTai.find(filter)
-            .populate('GiangVienHuongDan', 'HoTen MaGV')
+            .populate('GiaoVienHuongDan', 'HoTen MaGV')
             .populate({
                 path: 'LopHoc',
-                select: 'MaLopHoc TenLopHoc MonHoc GiangVien',
+                select: 'MaLopHoc TenLopHoc MonHoc GiaoVien',
                 populate: [
                     { path: 'MonHoc', select: 'MaMonHoc TenMonHoc' },
-                    { path: 'GiangVien', select: 'HoTen MaGV' }
+                    { path: 'GiaoVien', select: 'HoTen MaGV' }
                 ]
             })
             .populate('MonHoc', 'MaMonHoc TenMonHoc')
@@ -72,13 +72,13 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => {
     try {
         const item = await DeTai.findById(req.params.id)
-            .populate('GiangVienHuongDan')
+            .populate('GiaoVienHuongDan')
             .populate({
                 path: 'LopHoc',
-                select: 'MaLopHoc TenLopHoc MonHoc GiangVien',
+                select: 'MaLopHoc TenLopHoc MonHoc GiaoVien',
                 populate: [
                     { path: 'MonHoc', select: 'MaMonHoc TenMonHoc' },
-                    { path: 'GiangVien', select: 'HoTen MaGV' }
+                    { path: 'GiaoVien', select: 'HoTen MaGV' }
                 ]
             });
         if (!item) return res.status(404).json({ error: 'Not found' });
@@ -138,7 +138,7 @@ exports.create = async (req, res) => {
 
         const newItem = new DeTai(body);
         await newItem.save();
-        logger.info(`[TOPIC] Created "${body.TenDeTai}" by GV ${body.GiangVienHuongDan} | Rubrics: ${body.SuDungRubrics || false}`);
+        logger.info(`[TOPIC] Created "${body.TenDeTai}" by GV ${body.GiaoVienHuongDan} | Rubrics: ${body.SuDungRubrics || false}`);
         invalidateDeTaiCache();
         res.status(201).json(newItem);
     } catch (err) {
@@ -175,7 +175,7 @@ exports.delete = async (req, res) => {
 exports.registerTopic = async (req, res) => {
     try {
         const { nhomId } = req.body;
-        const sinhVienId = req.user?.id || req.body.sinhVienId;
+        const hocSinhId = req.user?.id || req.body.hocSinhId;
         const deTaiId = req.params.id;
 
         // 1. Kiểm tra đề tài tồn tại + chưa bị chốt
@@ -200,11 +200,11 @@ exports.registerTopic = async (req, res) => {
             return res.status(400).json({ error: 'Nhóm chưa được chốt. Hãy chốt nhóm trước khi đăng ký đề tài.' });
         }
 
-        // 3. Kiểm tra SoLuongSinhVien đề tài === SoLuong nhóm
+        // 3. Kiểm tra SoLuongHocSinh đề tài === SoLuong nhóm
         const acceptedCount = nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan').length;
-        if (deTai.SoLuongSinhVien !== acceptedCount) {
+        if (deTai.SoLuongHocSinh !== acceptedCount) {
             return res.status(400).json({ 
-                error: `Đề tài yêu cầu ${deTai.SoLuongSinhVien} học sinh, nhóm bạn có ${acceptedCount} thành viên.` 
+                error: `Đề tài yêu cầu ${deTai.SoLuongHocSinh} học sinh, nhóm bạn có ${acceptedCount} thành viên.` 
             });
         }
 
@@ -221,12 +221,12 @@ exports.registerTopic = async (req, res) => {
         if (nhom.LopHoc) {
             const lopHocDeTais = await DeTai.find({ LopHoc: nhom.LopHoc }).select('_id');
             const lopDeTaiIds = lopHocDeTais.map(d => d._id);
-            const memberIds = [nhom.TruongNhom, ...nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan').map(tv => tv.SinhVien)].filter(Boolean);
+            const memberIds = [nhom.TruongNhom, ...nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan').map(tv => tv.HocSinh)].filter(Boolean);
             const memberGroupsInLop = await Nhom.find({
                 LopHoc: nhom.LopHoc,
                 $or: [
                     { TruongNhom: { $in: memberIds } },
-                    { 'ThanhVien.SinhVien': { $in: memberIds } }
+                    { 'ThanhVien.HocSinh': { $in: memberIds } }
                 ]
             }).select('_id');
             const groupIds = memberGroupsInLop.map(g => g._id);
@@ -245,15 +245,15 @@ exports.registerTopic = async (req, res) => {
         if (deTai.LoaiDeTai === 'KhoaLuan') {
             const khoaLuanTopics = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).select('_id');
             const khoaLuanTopicIds = khoaLuanTopics.map(dt => dt._id);
-            const memberIds = [nhom.TruongNhom, ...nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan').map(tv => tv.SinhVien)].filter(Boolean);
+            const memberIds = [nhom.TruongNhom, ...nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan').map(tv => tv.HocSinh)].filter(Boolean);
 
             const wonReg = await DangKyDeTai.findOne({
                 DeTai: { $in: khoaLuanTopicIds },
                 TrangThai: 'DaDuyet',
                 $or: [
-                    { SinhVien: { $in: memberIds } },
+                    { HocSinh: { $in: memberIds } },
                     { TruongNhom: { $in: memberIds } },
-                    { 'ThanhVien.SinhVien': { $in: memberIds }, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+                    { 'ThanhVien.HocSinh': { $in: memberIds }, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
                 ]
             });
             if (wonReg) {
@@ -275,12 +275,12 @@ exports.registerTopic = async (req, res) => {
         const dangKy = new DangKyDeTai({ 
             DeTai: deTaiId, 
             Nhom: nhomId,
-            TruongNhom: nhomId ? nhom.TruongNhom : sinhVienId,
-            SinhVien: nhomId ? nhom.TruongNhom : sinhVienId,  // backward compat
+            TruongNhom: nhomId ? nhom.TruongNhom : hocSinhId,
+            HocSinh: nhomId ? nhom.TruongNhom : hocSinhId,  // backward compat
             ThanhVien: nhom.ThanhVien
                 .filter(tv => tv.TrangThai === 'DaChapNhan')
                 .map(tv => ({
-                    SinhVien: tv.SinhVien,
+                    HocSinh: tv.HocSinh,
                     VaiTro: tv.VaiTro,
                     TrangThaiTV: 'DaChapNhan'
                 })),
@@ -303,23 +303,23 @@ exports.registerTopic = async (req, res) => {
 // Lấy đăng ký của 1 học sinh (kiểm tra đã đăng ký đề tài nào chưa)
 exports.getMyRegistration = async (req, res) => {
     try {
-        const svId = req.params.svId;
+        const hsId = req.params.hsId;
         const { lopHocId } = req.query;
 
         const mongoose = require('mongoose');
         let svObjectId;
         try {
-            svObjectId = new mongoose.Types.ObjectId(svId);
+            svObjectId = new mongoose.Types.ObjectId(hsId);
         } catch (e) {
-            svObjectId = svId;
+            svObjectId = hsId;
         }
 
         const query = {
             TrangThai: { $nin: ['TuChoi', 'Thua'] },
             $or: [
-                { SinhVien: svObjectId },
+                { HocSinh: svObjectId },
                 { TruongNhom: svObjectId },
-                { 'ThanhVien.SinhVien': svObjectId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+                { 'ThanhVien.HocSinh': svObjectId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
             ]
         };
 
@@ -332,7 +332,7 @@ exports.getMyRegistration = async (req, res) => {
             const regs = await DangKyDeTai.find(query)
                 .populate('DeTai')
                 .populate('Nhom')
-                .populate('ThanhVien.SinhVien');
+                .populate('ThanhVien.HocSinh');
             registration = regs.find(r => r.TrangThai === 'DaDuyet') || regs[0] || null;
         } else {
             if (lopHocId) {
@@ -343,7 +343,7 @@ exports.getMyRegistration = async (req, res) => {
             registration = await DangKyDeTai.findOne(query)
                 .populate('DeTai')
                 .populate('Nhom')
-                .populate('ThanhVien.SinhVien');
+                .populate('ThanhVien.HocSinh');
         }
 
         res.json({ registration: registration || null });
@@ -355,23 +355,23 @@ exports.getMyRegistration = async (req, res) => {
 // Lấy tất cả đăng ký của 1 học sinh (để hiển thị danh sách đăng ký qua các lớp)
 exports.getMyRegistrations = async (req, res) => {
     try {
-        const svId = req.params.svId;
+        const hsId = req.params.hsId;
         const mongoose = require('mongoose');
         let svObjectId;
         try {
-            svObjectId = new mongoose.Types.ObjectId(svId);
+            svObjectId = new mongoose.Types.ObjectId(hsId);
         } catch (e) {
-            svObjectId = svId;
+            svObjectId = hsId;
         }
 
         const registrations = await DangKyDeTai.find({
             TrangThai: { $nin: ['TuChoi', 'Thua'] },
             $or: [
-                { SinhVien: svObjectId },
+                { HocSinh: svObjectId },
                 { TruongNhom: svObjectId },
-                { 'ThanhVien.SinhVien': svObjectId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+                { 'ThanhVien.HocSinh': svObjectId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
             ]
-        }).populate('DeTai').populate('Nhom').populate('ThanhVien.SinhVien');
+        }).populate('DeTai').populate('Nhom').populate('ThanhVien.HocSinh');
 
         res.json({ registrations: registrations || [] });
     } catch (err) {
@@ -392,23 +392,23 @@ exports.getRegistrationsByLecturer = async (req, res) => {
         let myClassIds = [];
         try {
             const gvObjId = new mongoose.Types.ObjectId(gvId);
-            const myClasses = await LopHoc.find({ GiangVien: gvObjId }).select('_id');
+            const myClasses = await LopHoc.find({ GiaoVien: gvObjId }).select('_id');
             myClassIds = myClasses.map(c => c._id);
         } catch (e) {
-            const myClasses = await LopHoc.find({ GiangVien: gvId }).select('_id');
+            const myClasses = await LopHoc.find({ GiaoVien: gvId }).select('_id');
             myClassIds = myClasses.map(c => c._id);
         }
 
         // Tìm tất cả đề tài của GV (hỗ trợ cả ObjectId và String) hoặc thuộc lớp GV dạy
         let filterOr = [
-            { GiangVienHuongDan: gvId },
+            { GiaoVienHuongDan: gvId },
             { LopHoc: { $in: myClassIds } }
         ];
         try {
             const objectId = new mongoose.Types.ObjectId(gvId);
             filterOr = [
-                { GiangVienHuongDan: objectId },
-                { GiangVienHuongDan: gvId },
+                { GiaoVienHuongDan: objectId },
+                { GiaoVienHuongDan: gvId },
                 { LopHoc: { $in: myClassIds } }
             ];
         } catch (e) {}
@@ -420,14 +420,14 @@ exports.getRegistrationsByLecturer = async (req, res) => {
                 filterQuery = {
                     LoaiDeTai: 'KhoaLuan',
                     $or: [
-                        { GiangVienHuongDan: objectId },
-                        { GiangVienHuongDan: gvId }
+                        { GiaoVienHuongDan: objectId },
+                        { GiaoVienHuongDan: gvId }
                     ]
                 };
             } catch (e) {
                 filterQuery = {
                     LoaiDeTai: 'KhoaLuan',
-                    GiangVienHuongDan: gvId
+                    GiaoVienHuongDan: gvId
                 };
             }
         } else if (lopHocId) {
@@ -444,10 +444,10 @@ exports.getRegistrationsByLecturer = async (req, res) => {
 
         // Tìm tất cả đăng ký cho các đề tài đó
         const registrations = await DangKyDeTai.find({ DeTai: { $in: topicIds } })
-            .populate('SinhVien')
+            .populate('HocSinh')
             .populate('Nhom')
             .populate('TruongNhom')
-            .populate('ThanhVien.SinhVien')
+            .populate('ThanhVien.HocSinh')
             .populate('DeTai');
 
         res.json(registrations);
@@ -467,11 +467,11 @@ exports.cancelRegistration = async (req, res) => {
         }
 
         // Chỉ thành viên thuộc đăng ký này mới được hủy
-        const sinhVienId = req.user?.id || req.body.sinhVienId;
-        if (sinhVienId) {
-            const thuocDangKy = String(dangKy.SinhVien) === String(sinhVienId)
-                || String(dangKy.TruongNhom) === String(sinhVienId)
-                || (dangKy.ThanhVien || []).some(tv => String(tv.SinhVien) === String(sinhVienId));
+        const hocSinhId = req.user?.id || req.body.hocSinhId;
+        if (hocSinhId) {
+            const thuocDangKy = String(dangKy.HocSinh) === String(hocSinhId)
+                || String(dangKy.TruongNhom) === String(hocSinhId)
+                || (dangKy.ThanhVien || []).some(tv => String(tv.HocSinh) === String(hocSinhId));
             if (!thuocDangKy) {
                 return res.status(403).json({ error: 'Bạn không thuộc nhóm đăng ký này', code: 'KHONG_THUOC_DANGKY' });
             }
@@ -501,17 +501,17 @@ exports.approveRegistration = async (req, res) => {
         }
 
         // Chỉ GV hướng dẫn của đề tài mới được duyệt/từ chối
-        const giangVienId = req.user?.id || req.body.giangVienId;
+        const giaoVienId = req.user?.id || req.body.giaoVienId;
         const dangKyHienTai = await DangKyDeTai.findById(id).populate('DeTai');
         if (!dangKyHienTai) {
             return res.status(404).json({ error: 'Không tìm thấy đăng ký' });
         }
-        if (giangVienId && String(dangKyHienTai.DeTai?.GiangVienHuongDan) !== String(giangVienId)) {
+        if (giaoVienId && String(dangKyHienTai.DeTai?.GiaoVienHuongDan) !== String(giaoVienId)) {
             return res.status(403).json({ error: 'Không phải giáo viên hướng dẫn của đề tài này', code: 'KHONG_PHAI_GV_HUONG_DAN' });
         }
 
         const updated = await DangKyDeTai.findByIdAndUpdate(id, { TrangThai: trangThai }, { new: true })
-            .populate('SinhVien')
+            .populate('HocSinh')
             .populate('DeTai');
 
         if (!updated) {
@@ -552,15 +552,15 @@ exports.inviteMember = async (req, res) => {
         const jwtPayloadId = req.user.id; // Lấy từ token (nếu có user object)
 
         // B1: Tìm Học sinh được mời qua mã SV
-        const svMoi = await SinhVien.findOne({ MaSV: maSV });
+        const svMoi = await HocSinh.findOne({ MaHS: maSV });
         if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã SV này.' });
 
         // B2: Kiểm tra học sinh được mời đã đăng ký đề tài nào chưa
         const existingReg = await DangKyDeTai.findOne({
             TrangThai: { $ne: 'TuChoi' },
             $or: [
-                { SinhVien: svMoi._id },
-                { 'ThanhVien.SinhVien': svMoi._id, 'ThanhVien.TrangThaiTV': { $in: ['DaMoi', 'DaChapNhan'] } }
+                { HocSinh: svMoi._id },
+                { 'ThanhVien.HocSinh': svMoi._id, 'ThanhVien.TrangThaiTV': { $in: ['DaMoi', 'DaChapNhan'] } }
             ]
         });
 
@@ -569,26 +569,26 @@ exports.inviteMember = async (req, res) => {
         }
 
         // B3: Tìm phiếu đăng ký hiện tại của trưởng nhóm
-        const dangKy = await DangKyDeTai.findOne({ DeTai: id, SinhVien: jwtPayloadId, TrangThai: { $ne: 'TuChoi' } });
+        const dangKy = await DangKyDeTai.findOne({ DeTai: id, HocSinh: jwtPayloadId, TrangThai: { $ne: 'TuChoi' } });
         if (!dangKy) {
             return res.status(404).json({ error: 'Bạn chưa đăng ký đề tài này (Chỉ Trưởng nhóm mới có quyền mời).' });
         }
 
         // B4: Kiểm tra giới hạn thành viên
         const deTaiObj = await DeTai.findById(id);
-        if (dangKy.ThanhVien.length >= deTaiObj.SoLuongSinhVien) {
-             return res.status(400).json({ error: `Nhóm đã đủ số lượng, tối đa ${deTaiObj.SoLuongSinhVien} học sinh.` });
+        if (dangKy.ThanhVien.length >= deTaiObj.SoLuongHocSinh) {
+             return res.status(400).json({ error: `Nhóm đã đủ số lượng, tối đa ${deTaiObj.SoLuongHocSinh} học sinh.` });
         }
 
         // B5: Thêm vào nhóm (trạng thái DaMoi)
         dangKy.ThanhVien.push({
-            SinhVien: svMoi._id,
+            HocSinh: svMoi._id,
             VaiTro: 'ThanhVien',
             TrangThaiTV: 'DaMoi'
         });
         await dangKy.save();
 
-        logger.info(`[TOPIC] Student ${svMoi.MaSV} invited to topic ${id} by leader ${jwtPayloadId}`);
+        logger.info(`[TOPIC] Student ${svMoi.MaHS} invited to topic ${id} by leader ${jwtPayloadId}`);
         res.json({ message: 'Đã gửi lời mời thành công!' });
     } catch (err) {
         logger.error(`[TOPIC] Invite member failed: ${err.message}`);
@@ -599,13 +599,13 @@ exports.inviteMember = async (req, res) => {
 // Lấy danh sách lời mời của 1 học sinh
 exports.getMyInvitations = async (req, res) => {
     try {
-        const { svId } = req.params;
+        const { hsId } = req.params;
         const invitations = await DangKyDeTai.find({
             'ThanhVien': { 
-                $elemMatch: { SinhVien: svId, TrangThaiTV: 'DaMoi' } 
+                $elemMatch: { HocSinh: hsId, TrangThaiTV: 'DaMoi' } 
             },
             TrangThai: { $ne: 'TuChoi' }
-        }).populate('DeTai').populate('SinhVien'); // populate Trưởng nhóm
+        }).populate('DeTai').populate('HocSinh'); // populate Trưởng nhóm
 
         res.json(invitations);
     } catch (err) {
@@ -624,7 +624,7 @@ exports.respondToInvitation = async (req, res) => {
         if (!dangKy) return res.status(404).json({ error: 'Không tìm thấy lời mời.' });
 
         const thanhVienIndex = dangKy.ThanhVien.findIndex(tv => 
-            tv.SinhVien.toString() === jwtPayloadId && tv.TrangThaiTV === 'DaMoi'
+            tv.HocSinh.toString() === jwtPayloadId && tv.TrangThaiTV === 'DaMoi'
         );
 
         if (thanhVienIndex === -1) {
@@ -637,8 +637,8 @@ exports.respondToInvitation = async (req, res) => {
                 _id: { $ne: id },
                 TrangThai: { $ne: 'TuChoi' },
                 $or: [
-                    { SinhVien: jwtPayloadId },
-                    { 'ThanhVien.SinhVien': jwtPayloadId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+                    { HocSinh: jwtPayloadId },
+                    { 'ThanhVien.HocSinh': jwtPayloadId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
                 ]
             });
 

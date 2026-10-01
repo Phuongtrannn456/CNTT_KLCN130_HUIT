@@ -42,7 +42,7 @@ const ReportUpload = () => {
           
           if (result.existingBaoCao) {
             try {
-              const diemRes = await aiApiService.getDiemBySinhVien(user.id);
+              const diemRes = await aiApiService.getDiemByHocSinh(user.id);
               result.isGraded = Array.isArray(diemRes) && diemRes.some(d =>
                 d.BaoCao && (d.BaoCao._id || d.BaoCao).toString() === result.existingBaoCao._id.toString()
               );
@@ -67,10 +67,10 @@ const ReportUpload = () => {
   const hasSubmission = !!existingBaoCao;
 
   const isLeader = registration ? (
-    (registration.SinhVien && registration.SinhVien._id === user.id) ||
-    registration.SinhVien === user.id
+    (registration.HocSinh && registration.HocSinh._id === user.id) ||
+    registration.HocSinh === user.id
   ) : false;
-  const isGroupTopic = registration?.DeTai?.SoLuongSinhVien > 1;
+  const isGroupTopic = registration?.DeTai?.SoLuongHocSinh > 1;
 
   const props = {
     name: 'file',
@@ -112,7 +112,7 @@ const ReportUpload = () => {
       const formData = new FormData();
       formData.append('file', fileList[0]);
       formData.append('deTaiId', registration?.DeTai?._id || registration?.DeTai);
-      formData.append('sinhVienId', user.id);
+      formData.append('hocSinhId', user.id);
       formData.append('tieuDe', `Báo cáo: ${topicName}`);
 
       const result = await aiApiService.uploadBaoCao(formData);

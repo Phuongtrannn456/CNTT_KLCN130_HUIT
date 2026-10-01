@@ -63,7 +63,7 @@ async function main() {
 
   console.log('\n✅ Vai trò:', vData.user.role_id);
   console.log('✅ Tên    :', vData.user.name);
-  console.log('✅ User ID:', vData.user.id, '(dùng làm :id / :svId / :gvId trong route)');
+  console.log('✅ User ID:', vData.user.id, '(dùng làm :id / :hsId / :gvId trong route)');
   console.log('\n===== JWT TOKEN (dán vào Postman: Authorization → Bearer Token) =====\n');
   console.log(vData.token);
   console.log('\n=====================================================================');

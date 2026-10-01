@@ -402,9 +402,9 @@ function LoginPage() {
                   color="primary"
                 />
 
-                {!isLecturer && !isAdmin && user.MaSV && (
+                {!isLecturer && !isAdmin && user.MaHS && (
                   <Chip
-                    label={`MÃ£ SV: ${user.MaSV}`}
+                    label={`MÃ£ SV: ${user.MaHS}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />

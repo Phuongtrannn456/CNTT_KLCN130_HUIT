@@ -4,7 +4,7 @@ const path = require('path');
 const BaoCao = require('../models/BaoCao');
 const DiemSo = require('../models/DiemSo');
 require('../models/DeTai');
-require('../models/SinhVien');
+require('../models/HocSinh');
 
 const readABI = (version) => {
     const artifactPath = version === 'v2'
@@ -157,7 +157,7 @@ exports.getThesisDbRecords = async (req, res) => {
         const { contract, address, version } = await getThesisContract();
 
         const reports = await BaoCao.find({})
-            .populate('SinhVien', 'HoTen MaSV WalletAddress')
+            .populate('HocSinh', 'HoTen MaHS WalletAddress')
             .populate('DeTai', 'TenDeTai MaDeTai')
             .sort({ createdAt: -1 })
             .limit(limit)
@@ -167,7 +167,7 @@ exports.getThesisDbRecords = async (req, res) => {
         const grades = await DiemSo.find({
             BaoCao: { $in: reports.map(report => report._id) }
         })
-            .populate('SinhVien', 'HoTen MaSV WalletAddress')
+            .populate('HocSinh', 'HoTen MaHS WalletAddress')
             .populate('DeTai', 'TenDeTai MaDeTai')
             .lean();
 
@@ -179,7 +179,7 @@ exports.getThesisDbRecords = async (req, res) => {
         const baseRecords = reports.map((report) => ({
             report,
             grade: gradeMap.get(String(report._id)) || null,
-            studentId: String(report.SinhVien?._id || report.SinhVien),
+            studentId: String(report.HocSinh?._id || report.HocSinh),
             topicId: String(report.DeTai?._id || report.DeTai)
         }));
 
@@ -268,9 +268,9 @@ exports.getThesisDbRecords = async (req, res) => {
                 },
                 student: {
                     id: studentId,
-                    name: report.SinhVien?.HoTen || '',
-                    code: report.SinhVien?.MaSV || '',
-                    walletAddress: report.SinhVien?.WalletAddress || ''
+                    name: report.HocSinh?.HoTen || '',
+                    code: report.HocSinh?.MaHS || '',
+                    walletAddress: report.HocSinh?.WalletAddress || ''
                 },
                 topic: {
                     id: topicId,
@@ -318,7 +318,7 @@ exports.backfillTxHashes = async (req, res) => {
         let gradeUpdated = 0;
         let gradeFailed = 0;
         for (const grade of grades) {
-            const studentKey = keyOf(String(grade.SinhVien));
+            const studentKey = keyOf(String(grade.HocSinh));
             const topicKey = keyOf(String(grade.DeTai));
             try {
                 const events = await contract.queryFilter(
@@ -355,7 +355,7 @@ exports.backfillTxHashes = async (req, res) => {
         let reportUpdated = 0;
         let reportFailed = 0;
         for (const report of reports) {
-            const studentKey = keyOf(String(report.SinhVien));
+            const studentKey = keyOf(String(report.HocSinh));
             const topicKey = keyOf(String(report.DeTai));
             try {
                 const events = await contract.queryFilter(

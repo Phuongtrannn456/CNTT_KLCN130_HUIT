@@ -15,7 +15,7 @@ const GroupManagement = () => {
   const [tenNhom, setTenNhom] = useState('');
   const [soLuong, setSoLuong] = useState(2);
   const [creating, setCreating] = useState(false);
-  const [inviteMaSV, setInviteMaSV] = useState('');
+  const [inviteMaHS, setInviteMaHS] = useState('');
   const [inviting, setInviting] = useState(false);
   const [transferModalVisible, setTransferModalVisible] = useState(false);
   const [selectedNewLeader, setSelectedNewLeader] = useState(null);
@@ -30,7 +30,7 @@ const GroupManagement = () => {
       if (!user || !selectedClassId) return result;
       try {
         const [nhomRes, invitesRes] = await Promise.all([
-          nhomService.getNhomBySinhVien(user.id, selectedClassId),
+          nhomService.getNhomByHocSinh(user.id, selectedClassId),
           nhomService.getPendingInvites(user.id)
         ]);
         result.nhom = nhomRes.nhom;
@@ -72,15 +72,15 @@ const GroupManagement = () => {
 
   // === Mời thành viên ===
   const handleInvite = async () => {
-    if (!inviteMaSV.trim()) {
+    if (!inviteMaHS.trim()) {
       message.warning('Vui lòng nhập Mã Học Sinh.');
       return;
     }
     setInviting(true);
     try {
-      await nhomService.inviteMember(nhom._id, inviteMaSV.trim());
+      await nhomService.inviteMember(nhom._id, inviteMaHS.trim());
       message.success('Đã gửi lời mời!');
-      setInviteMaSV('');
+      setInviteMaHS('');
       queryClient.invalidateQueries({ queryKey: ['group-management'] });
     } catch (err) {
       message.error(err.response?.data?.error || 'Gửi lời mời thất bại');
@@ -101,7 +101,7 @@ const GroupManagement = () => {
   };
 
   // === Kick thành viên ===
-  const handleKick = (svId, hoTen) => {
+  const handleKick = (hsId, hoTen) => {
     Modal.confirm({
       title: 'Xóa thành viên',
       content: `Bạn có chắc muốn xóa ${hoTen} khỏi nhóm?`,
@@ -110,7 +110,7 @@ const GroupManagement = () => {
       cancelText: 'Hủy',
       onOk: async () => {
         try {
-          await nhomService.kickMember(nhom._id, svId);
+          await nhomService.kickMember(nhom._id, hsId);
           message.success('Đã xóa thành viên.');
           queryClient.invalidateQueries({ queryKey: ['group-management'] });
         } catch (err) {
@@ -241,7 +241,7 @@ const GroupManagement = () => {
                   <List.Item.Meta
                     avatar={<div style={{ fontSize: 28 }}>👥</div>}
                     title={<Text strong>{invite.TenNhom || `Nhóm của ${leader?.HoTen || 'N/A'}`}</Text>}
-                    description={`Trưởng nhóm: ${leader?.HoTen || 'N/A'} (${leader?.MaSV || ''}) • ${invite.SoLuong} thành viên`}
+                    description={`Trưởng nhóm: ${leader?.HoTen || 'N/A'} (${leader?.MaHS || ''}) • ${invite.SoLuong} thành viên`}
                   />
                 </List.Item>
               );
@@ -315,7 +315,7 @@ const GroupManagement = () => {
           <List
             dataSource={nhom.ThanhVien}
             renderItem={tv => {
-              const sv = tv.SinhVien;
+              const sv = tv.HocSinh;
               const isTVLeader = tv.VaiTro === 'TruongNhom';
               const isMe = sv?._id === user?.id;
 
@@ -348,7 +348,7 @@ const GroupManagement = () => {
                     title={
                       <Space>
                         <Text strong>{sv?.HoTen || 'Đang tải...'}</Text>
-                        <Text type="secondary">({sv?.MaSV || ''})</Text>
+                        <Text type="secondary">({sv?.MaHS || ''})</Text>
                         {isTVLeader && <Tag color="gold">Trưởng nhóm</Tag>}
                         {isMe && <Tag color="blue">Bạn</Tag>}
                       </Space>
@@ -376,8 +376,8 @@ const GroupManagement = () => {
               <Space>
                 <Input
                   placeholder="Nhập Mã Học Sinh"
-                  value={inviteMaSV}
-                  onChange={e => setInviteMaSV(e.target.value)}
+                  value={inviteMaHS}
+                  onChange={e => setInviteMaHS(e.target.value)}
                   onPressEnter={handleInvite}
                   style={{ width: 250 }}
                 />
@@ -473,10 +473,10 @@ const GroupManagement = () => {
           onChange={val => setSelectedNewLeader(val)}
           options={
             acceptedMembers
-              .filter(tv => tv.SinhVien?._id !== user?.id)
+              .filter(tv => tv.HocSinh?._id !== user?.id)
               .map(tv => ({
-                value: tv.SinhVien?._id,
-                label: `${tv.SinhVien?.HoTen || 'N/A'} (${tv.SinhVien?.MaSV || ''})`
+                value: tv.HocSinh?._id,
+                label: `${tv.HocSinh?.HoTen || 'N/A'} (${tv.HocSinh?.MaHS || ''})`
               }))
           }
         />

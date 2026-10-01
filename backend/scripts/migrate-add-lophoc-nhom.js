@@ -53,13 +53,13 @@ async function migrate() {
         const dt = await DeTai.findById(dk.DeTai);
         if (dt && dt.LopHoc && dt.LopHoc.length > 0) {
           // Find which LopHoc of the DeTai contains the Nhom members
-          const memberIds = [nhom.TruongNhom, ...nhom.ThanhVien.map(m => m.SinhVien)].filter(Boolean).map(id => id.toString());
+          const memberIds = [nhom.TruongNhom, ...nhom.ThanhVien.map(m => m.HocSinh)].filter(Boolean).map(id => id.toString());
           let matchedLopId = null;
           
           for (const lopId of dt.LopHoc) {
             const lop = await LopHoc.findById(lopId);
             if (lop) {
-              const lopSvStrs = lop.SinhVien.map(id => id.toString());
+              const lopSvStrs = lop.HocSinh.map(id => id.toString());
               if (memberIds.some(mId => lopSvStrs.includes(mId))) {
                 matchedLopId = lop._id;
                 break;
@@ -81,7 +81,7 @@ async function migrate() {
         }
       } else {
         // Fallback: search for any LopHoc containing TruongNhom
-        const lop = await LopHoc.findOne({ SinhVien: nhom.TruongNhom });
+        const lop = await LopHoc.findOne({ HocSinh: nhom.TruongNhom });
         if (lop) {
           console.log(`Nhom "${nhom.TenNhom}" (${nhom._id}) Fallback: Associating with LopHoc ${lop.MaLopHoc} (based on TruongNhom)`);
           if (!dryRun) {
@@ -101,8 +101,8 @@ async function migrate() {
     for (const bc of baoCaos) {
       const nhomList = await Nhom.find({
         $or: [
-          { TruongNhom: bc.SinhVien },
-          { 'ThanhVien.SinhVien': bc.SinhVien }
+          { TruongNhom: bc.HocSinh },
+          { 'ThanhVien.HocSinh': bc.HocSinh }
         ]
       });
       
@@ -128,7 +128,7 @@ async function migrate() {
           await bc.save();
         }
       } else {
-        console.log(`BaoCao "${bc.TieuDe}" (${bc._id}): No Nhom found for SinhVien ${bc.SinhVien}`);
+        console.log(`BaoCao "${bc.TieuDe}" (${bc._id}): No Nhom found for HocSinh ${bc.HocSinh}`);
       }
     }
     
@@ -139,8 +139,8 @@ async function migrate() {
     for (const td of tienDos) {
       const nhomList = await Nhom.find({
         $or: [
-          { TruongNhom: td.SinhVien },
-          { 'ThanhVien.SinhVien': td.SinhVien }
+          { TruongNhom: td.HocSinh },
+          { 'ThanhVien.HocSinh': td.HocSinh }
         ]
       });
       
@@ -166,7 +166,7 @@ async function migrate() {
           await td.save();
         }
       } else {
-        console.log(`TienDo (Tuan ${td.TuanSo}) (${td._id}): No Nhom found for SinhVien ${td.SinhVien}`);
+        console.log(`TienDo (Tuan ${td.TuanSo}) (${td._id}): No Nhom found for HocSinh ${td.HocSinh}`);
       }
     }
 
@@ -177,8 +177,8 @@ async function migrate() {
     for (const ds of diemSos) {
       const nhomList = await Nhom.find({
         $or: [
-          { TruongNhom: ds.SinhVien },
-          { 'ThanhVien.SinhVien': ds.SinhVien }
+          { TruongNhom: ds.HocSinh },
+          { 'ThanhVien.HocSinh': ds.HocSinh }
         ]
       });
       
@@ -198,7 +198,7 @@ async function migrate() {
       }
       
       if (matchedNhomId) {
-        console.log(`DiemSo (SV ${ds.SinhVien}) (${ds._id}): Associating with Nhom ${matchedNhomId}`);
+        console.log(`DiemSo (SV ${ds.HocSinh}) (${ds._id}): Associating with Nhom ${matchedNhomId}`);
         if (!dryRun) {
           ds.Nhom = matchedNhomId;
           if (ds.DiemGoc === undefined) {
@@ -207,7 +207,7 @@ async function migrate() {
           await ds.save();
         }
       } else {
-        console.log(`DiemSo (SV ${ds.SinhVien}) (${ds._id}): No Nhom found for SinhVien ${ds.SinhVien}`);
+        console.log(`DiemSo (SV ${ds.HocSinh}) (${ds._id}): No Nhom found for HocSinh ${ds.HocSinh}`);
       }
     }
     

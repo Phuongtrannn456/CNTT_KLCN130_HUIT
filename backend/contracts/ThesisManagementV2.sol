@@ -63,7 +63,7 @@ contract ThesisManagementV2 {
     event TestResultSubmitted(bytes32 indexed topicHash, bytes32 indexed studentDID, uint16 score);
     event ProgressSubmitted(bytes32 indexed topicHash, bytes32 indexed studentDID, uint16 week, uint16 score);
 
-    // === 1. Giảng viên đăng ký đề tài (onlyOwner) ===
+    // === 1. Giáo viên đăng ký đề tài (onlyOwner) ===
     function registerTopic(
         bytes32 topicHash,
         string memory title,
@@ -86,7 +86,7 @@ contract ThesisManagementV2 {
         emit TopicRegistered(topicHash, title, advisorDID);
     }
 
-    // === 2. Sinh viên nộp báo cáo (public) ===
+    // === 2. Học sinh nộp báo cáo (public) ===
     function submitReport(
         bytes32 studentDID,
         bytes32 topicHash,
@@ -110,7 +110,7 @@ contract ThesisManagementV2 {
         emit ReportSubmitted(studentDID, topicHash, ipfsCID);
     }
 
-    // === 3. Giảng viên chốt điểm (onlyOwner) ===
+    // === 3. Giáo viên chốt điểm (onlyOwner) ===
     function finalizeGrade(
         bytes32 studentDID,
         bytes32 topicHash,
@@ -180,7 +180,7 @@ contract ThesisManagementV2 {
         return progressLogs[topicHash][studentDID];
     }
 
-    // === 5. Lấy danh sách đề tài của giảng viên ===
+    // === 5. Lấy danh sách đề tài của giáo viên ===
     function getTopicsByAdvisor(bytes32 advisorDID) public view returns (bytes32[] memory) {
         return advisorTopics[advisorDID];
     }

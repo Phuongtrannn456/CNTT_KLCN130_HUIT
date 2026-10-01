@@ -17,19 +17,19 @@ const cleanupTempFile = (filePath) => {
 
 const getAcceptedMembers = (dangKy) => {
     const acceptedMembers = (dangKy?.ThanhVien || []).filter(tv =>
-        tv?.SinhVien && tv.TrangThaiTV === 'DaChapNhan'
+        tv?.HocSinh && tv.TrangThaiTV === 'DaChapNhan'
     );
 
     if (acceptedMembers.length > 0) {
         return acceptedMembers;
     }
 
-    if (!dangKy?.SinhVien) {
+    if (!dangKy?.HocSinh) {
         return [];
     }
 
     return [{
-        SinhVien: dangKy.SinhVien,
+        HocSinh: dangKy.HocSinh,
         VaiTro: 'TruongNhom',
         TrangThaiTV: 'DaChapNhan'
     }];
@@ -38,10 +38,10 @@ const getAcceptedMembers = (dangKy) => {
 // SV nộp báo cáo
 exports.uploadBaoCao = async (req, res) => {
     try {
-        const { deTaiId, sinhVienId, tieuDe } = req.body;
-        const requesterId = req.user?.id || sinhVienId;
+        const { deTaiId, hocSinhId, tieuDe } = req.body;
+        const requesterId = req.user?.id || hocSinhId;
 
-        if (req.user?.id && sinhVienId && req.user.id !== sinhVienId) {
+        if (req.user?.id && hocSinhId && req.user.id !== hocSinhId) {
             return res.status(403).json({ error: 'Bạn không có quyền nộp thay học sinh khác.' });
         }
 
@@ -60,8 +60,8 @@ exports.uploadBaoCao = async (req, res) => {
             DeTai: deTaiId,
             TrangThai: 'DaDuyet',
             $or: [
-                { SinhVien: requesterId },
-                { 'ThanhVien.SinhVien': requesterId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+                { HocSinh: requesterId },
+                { 'ThanhVien.HocSinh': requesterId, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
             ]
         });
 
@@ -70,9 +70,9 @@ exports.uploadBaoCao = async (req, res) => {
         }
 
         const acceptedMembers = getAcceptedMembers(dangKy);
-        const acceptedMemberIds = acceptedMembers.map(tv => tv.SinhVien.toString());
-        const leaderId = dangKy.SinhVien.toString();
-        const isGroupTopic = (deTai.SoLuongSinhVien || 1) > 1;
+        const acceptedMemberIds = acceptedMembers.map(tv => tv.HocSinh.toString());
+        const leaderId = dangKy.HocSinh.toString();
+        const isGroupTopic = (deTai.SoLuongHocSinh || 1) > 1;
 
         if (isGroupTopic && requesterId !== leaderId) {
             return res.status(403).json({ error: 'Chỉ trưởng nhóm mới có quyền nộp báo cáo chung.' });
@@ -80,7 +80,7 @@ exports.uploadBaoCao = async (req, res) => {
 
         const existing = await BaoCao.findOne({
             DeTai: deTaiId,
-            SinhVien: { $in: acceptedMemberIds }
+            HocSinh: { $in: acceptedMemberIds }
         });
         if (existing) {
             return res.status(400).json({
@@ -147,7 +147,7 @@ exports.uploadBaoCao = async (req, res) => {
 
         const payload = acceptedMembers.map(tv => ({
             DeTai: deTaiId,
-            SinhVien: tv.SinhVien,
+            HocSinh: tv.HocSinh,
             Nhom: dangKy.Nhom || undefined,
             TieuDe: tieuDe || 'Báo cáo đồ án',
             IPFS_CID: ipfsCid,
@@ -159,7 +159,7 @@ exports.uploadBaoCao = async (req, res) => {
         }));
 
         const createdReports = await BaoCao.insertMany(payload);
-        const myReport = createdReports.find(report => report.SinhVien.toString() === requesterId) || createdReports[0];
+        const myReport = createdReports.find(report => report.HocSinh.toString() === requesterId) || createdReports[0];
 
         // === GHI SUBMISSION LÊN BLOCKCHAIN (non-blocking) ===
         let submitTxHash = null;
@@ -179,7 +179,7 @@ exports.uploadBaoCao = async (req, res) => {
             logger.warn(`[REPORT] Blockchain submit failed (non-blocking): ${bcErr.message}`);
         }
 
-        const populated = await BaoCao.findById(myReport._id).populate('DeTai').populate('SinhVien');
+        const populated = await BaoCao.findById(myReport._id).populate('DeTai').populate('HocSinh');
 
         logger.info(`[REPORT] Uploaded by student ${requesterId} | topic=${deTaiId} | CID=${ipfsCid} | members=${acceptedMembers.length}`);
         res.status(201).json({
@@ -198,9 +198,9 @@ exports.uploadBaoCao = async (req, res) => {
 // SV lấy báo cáo của mình
 exports.getMyBaoCao = async (req, res) => {
     try {
-        const svId = req.params.svId;
+        const hsId = req.params.hsId;
         const { deTaiId } = req.query;
-        const query = { SinhVien: svId };
+        const query = { HocSinh: hsId };
         if (deTaiId) {
             query.DeTai = deTaiId;
         }
@@ -223,22 +223,22 @@ exports.deleteBaoCao = async (req, res) => {
             DeTai: bc.DeTai?._id || bc.DeTai,
             TrangThai: 'DaDuyet',
             $or: [
-                { SinhVien: bc.SinhVien },
-                { 'ThanhVien.SinhVien': bc.SinhVien, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+                { HocSinh: bc.HocSinh },
+                { 'ThanhVien.HocSinh': bc.HocSinh, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
             ]
         });
 
         const acceptedMembers = getAcceptedMembers(dangKy);
-        const acceptedMemberIds = acceptedMembers.map(tv => tv.SinhVien.toString());
-        const isGroupTopic = (bc.DeTai?.SoLuongSinhVien || 1) > 1;
-        const leaderId = dangKy?.SinhVien?.toString();
+        const acceptedMemberIds = acceptedMembers.map(tv => tv.HocSinh.toString());
+        const isGroupTopic = (bc.DeTai?.SoLuongHocSinh || 1) > 1;
+        const leaderId = dangKy?.HocSinh?.toString();
 
         if (requesterId) {
             if (isGroupTopic) {
                 if (requesterId !== leaderId) {
                     return res.status(403).json({ error: 'Chỉ trưởng nhóm mới có quyền hủy bài nộp chung.' });
                 }
-            } else if (bc.SinhVien.toString() !== requesterId) {
+            } else if (bc.HocSinh.toString() !== requesterId) {
                 return res.status(403).json({ error: 'Bạn không có quyền hủy báo cáo này.' });
             }
         }
@@ -246,7 +246,7 @@ exports.deleteBaoCao = async (req, res) => {
         const reportsToCheck = isGroupTopic
             ? await BaoCao.find({
                 DeTai: bc.DeTai?._id || bc.DeTai,
-                SinhVien: { $in: acceptedMemberIds }
+                HocSinh: { $in: acceptedMemberIds }
             }).select('_id')
             : [bc];
 
@@ -258,7 +258,7 @@ exports.deleteBaoCao = async (req, res) => {
         if (isGroupTopic) {
             await BaoCao.deleteMany({
                 DeTai: bc.DeTai?._id || bc.DeTai,
-                SinhVien: { $in: acceptedMemberIds }
+                HocSinh: { $in: acceptedMemberIds }
             });
             return res.json({ message: 'Đã hủy bài nộp chung của cả nhóm' });
         }
@@ -273,7 +273,7 @@ exports.deleteBaoCao = async (req, res) => {
 // GV lấy tất cả báo cáo theo đề tài
 exports.getBaoCaoByDeTai = async (req, res) => {
     try {
-        const list = await BaoCao.find({ DeTai: req.params.deTaiId }).populate('SinhVien').populate('Nhom');
+        const list = await BaoCao.find({ DeTai: req.params.deTaiId }).populate('HocSinh').populate('Nhom');
         res.json(list);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -291,12 +291,12 @@ exports.getBaoCaoByLecturer = async (req, res) => {
             const objectId = new mongoose.Types.ObjectId(gvId);
             myTopics = await DeTai.find({
                 $or: [
-                    { GiangVienHuongDan: objectId },
-                    { GiangVienHuongDan: gvId }
+                    { GiaoVienHuongDan: objectId },
+                    { GiaoVienHuongDan: gvId }
                 ]
             });
         } catch (e) {
-            myTopics = await DeTai.find({ GiangVienHuongDan: gvId });
+            myTopics = await DeTai.find({ GiaoVienHuongDan: gvId });
         }
 
         const topicIds = myTopics.map(t => t._id);
@@ -305,12 +305,12 @@ exports.getBaoCaoByLecturer = async (req, res) => {
             DeTai: { $in: topicIds },
             TrangThai: 'DaDuyet'
         })
-        .populate('SinhVien')
-        .populate('ThanhVien.SinhVien')
+        .populate('HocSinh')
+        .populate('ThanhVien.HocSinh')
         .populate({
             path: 'DeTai',
             populate: [
-                { path: 'GiangVienHuongDan', select: 'HoTen MaGV' },
+                { path: 'GiaoVienHuongDan', select: 'HoTen MaGV' },
                 { path: 'MonHoc', select: 'MaMonHoc TenMonHoc' },
                 { path: 'LopHoc', select: 'MaLopHoc TenLopHoc' }
             ]
@@ -319,7 +319,7 @@ exports.getBaoCaoByLecturer = async (req, res) => {
 
         const submissions = await BaoCao.find({ DeTai: { $in: topicIds } })
             .select('-ExtractedText -ExtractionWarnings')
-            .populate('SinhVien')
+            .populate('HocSinh')
             .populate('DeTai')
             .populate('Nhom');
 
@@ -331,10 +331,10 @@ exports.getBaoCaoByLecturer = async (req, res) => {
 
             // Tìm trưởng nhóm và submission/grade của trưởng nhóm để fallback cho thành viên
             const leader = members.find(tv => tv.VaiTro === 'TruongNhom');
-            const leaderId = leader?.SinhVien?._id?.toString() || leader?.SinhVien?.toString();
+            const leaderId = leader?.HocSinh?._id?.toString() || leader?.HocSinh?.toString();
 
             const leaderSub = leaderId ? submissions.find(s =>
-                s.SinhVien?._id?.toString() === leaderId &&
+                s.HocSinh?._id?.toString() === leaderId &&
                 s.DeTai?._id?.toString() === topicId
             ) : null;
 
@@ -343,12 +343,12 @@ exports.getBaoCaoByLecturer = async (req, res) => {
                 : null;
 
             return members.map(tv => {
-                const studentId = tv.SinhVien?._id?.toString() || tv.SinhVien?.toString();
+                const studentId = tv.HocSinh?._id?.toString() || tv.HocSinh?.toString();
                 const isLeader = tv.VaiTro === 'TruongNhom';
 
                 // Tìm BaoCao riêng của thành viên
                 let sub = submissions.find(s =>
-                    s.SinhVien?._id?.toString() === studentId &&
+                    s.HocSinh?._id?.toString() === studentId &&
                     s.DeTai?._id?.toString() === topicId
                 );
                 let grade = sub
@@ -366,7 +366,7 @@ exports.getBaoCaoByLecturer = async (req, res) => {
 
                 return {
                     _id: `${reg._id}-${studentId}`,
-                    student: tv.SinhVien,
+                    student: tv.HocSinh,
                     topic: reg.DeTai,
                     registration: reg,
                     submission: sub || null,
@@ -388,14 +388,14 @@ exports.getExtractedText = async (req, res) => {
     try {
         const bc = await BaoCao.findById(req.params.id)
             .select('DeTai ExtractedText ExtractionMethod ExtractionWarnings PageCount ExtractedAt')
-            .populate('DeTai', 'GiangVienHuongDan');
+            .populate('DeTai', 'GiaoVienHuongDan');
 
         if (!bc) {
             return res.status(404).json({ error: 'Bao cao khong ton tai', code: 'BAOCAO_KHONG_TON_TAI' });
         }
 
-        const giangVienId = req.user?.id;
-        if (giangVienId && String(bc.DeTai?.GiangVienHuongDan) !== String(giangVienId)) {
+        const giaoVienId = req.user?.id;
+        if (giaoVienId && String(bc.DeTai?.GiaoVienHuongDan) !== String(giaoVienId)) {
             return res.status(403).json({ error: 'Khong co quyen xem bao cao nay', code: 'KHONG_CO_QUYEN' });
         }
 

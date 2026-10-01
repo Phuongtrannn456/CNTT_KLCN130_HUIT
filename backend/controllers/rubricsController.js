@@ -5,7 +5,7 @@ const logger = require('../config/logger');
 exports.getTemplatesByGV = async (req, res) => {
     try {
         const { gvId } = req.params;
-        const templates = await RubricsTemplate.find({ GiangVien: gvId }).sort({ createdAt: -1 });
+        const templates = await RubricsTemplate.find({ GiaoVien: gvId }).sort({ createdAt: -1 });
         res.json(templates);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -15,7 +15,7 @@ exports.getTemplatesByGV = async (req, res) => {
 // Tạo Rubrics Template mới
 exports.createTemplate = async (req, res) => {
     try {
-        const { TenMau, MoTaMau, GiangVien, TieuChi, MacDinh } = req.body;
+        const { TenMau, MoTaMau, GiaoVien, TieuChi, MacDinh } = req.body;
 
         // Validate tổng trọng số = 100
         if (!TieuChi || TieuChi.length === 0) {
@@ -32,7 +32,7 @@ exports.createTemplate = async (req, res) => {
         // Nếu đặt MacDinh = true → tắt MacDinh của template cũ
         if (MacDinh) {
             await RubricsTemplate.updateMany(
-                { GiangVien, MacDinh: true },
+                { GiaoVien, MacDinh: true },
                 { MacDinh: false }
             );
         }
@@ -40,13 +40,13 @@ exports.createTemplate = async (req, res) => {
         const template = new RubricsTemplate({
             TenMau,
             MoTaMau: MoTaMau || '',
-            GiangVien,
+            GiaoVien,
             TieuChi,
             MacDinh: MacDinh || false
         });
 
         await template.save();
-        logger.info(`[RUBRICS] Template "${template.TenMau}" created by GV ${GiangVien} | criteria=${TieuChi.length}`);
+        logger.info(`[RUBRICS] Template "${template.TenMau}" created by GV ${GiaoVien} | criteria=${TieuChi.length}`);
         res.status(201).json(template);
     } catch (err) {
         logger.error(`[RUBRICS] Create template failed: ${err.message}`);
@@ -86,7 +86,7 @@ exports.updateTemplate = async (req, res) => {
         // Nếu đặt MacDinh = true → tắt MacDinh của template cũ
         if (MacDinh && !template.MacDinh) {
             await RubricsTemplate.updateMany(
-                { GiangVien: template.GiangVien, MacDinh: true, _id: { $ne: template._id } },
+                { GiaoVien: template.GiaoVien, MacDinh: true, _id: { $ne: template._id } },
                 { MacDinh: false }
             );
         }
@@ -141,7 +141,7 @@ exports.setDefaultTemplate = async (req, res) => {
 
         // Tắt MacDinh tất cả template cùng GV
         await RubricsTemplate.updateMany(
-            { GiangVien: template.GiangVien, MacDinh: true },
+            { GiaoVien: template.GiaoVien, MacDinh: true },
             { MacDinh: false }
         );
 

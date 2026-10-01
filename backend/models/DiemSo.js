@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const diemSoSchema = new mongoose.Schema({
   BaoCao: { type: mongoose.Schema.Types.ObjectId, ref: 'BaoCao', required: true },
-  GiangVienCam: { type: mongoose.Schema.Types.ObjectId, ref: 'GiangVien', required: true },
-  GiangVienCham: { type: mongoose.Schema.Types.ObjectId, ref: 'GiangVien' },
-  SinhVien: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien', required: true },
+  GiaoVienCam: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
+  GiaoVienCham: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien' },
+  HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   DeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DeTai', required: true },
   Nhom: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },
   DiemGoc: { type: Number, min: 0, max: 10 },
@@ -47,6 +47,6 @@ const diemSoSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 diemSoSchema.index({ BaoCao: 1 }, { unique: true });
-diemSoSchema.index({ DeTai: 1, SinhVien: 1 });
+diemSoSchema.index({ DeTai: 1, HocSinh: 1 });
 
 module.exports = mongoose.model('DiemSo', diemSoSchema);

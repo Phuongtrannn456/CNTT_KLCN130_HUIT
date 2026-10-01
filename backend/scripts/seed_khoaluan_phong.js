@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const DeTai = require('../models/DeTai');
-const GiangVien = require('../models/GiangVien');
+const GiaoVien = require('../models/GiaoVien');
 
 async function seed() {
   console.log('🔗 Đang kết nối MongoDB...');
@@ -9,9 +9,9 @@ async function seed() {
   console.log('✅ Đã kết nối MongoDB thành công!');
 
   // 1. Tìm Giáo Sư Phong (GV73F5CF)
-  const gvGS = await GiangVien.findOne({ HoTen: /Giáo Sư Phong/i });
+  const gvGS = await GiaoVien.findOne({ HoTen: /Giáo Sư Phong/i });
   // 2. Tìm PGS.TS Phong (GV003)
-  const gvPGS = await GiangVien.findOne({ HoTen: /PGS.TS Phong/i });
+  const gvPGS = await GiaoVien.findOne({ HoTen: /PGS.TS Phong/i });
 
   if (!gvGS && !gvPGS) {
     console.error('❌ Không tìm thấy Giáo viên Phong nào trong DB!');
@@ -30,7 +30,7 @@ async function seed() {
       Deadline: new Date(new Date().setDate(new Date().getDate() + 90)),
       HanDangKy: new Date(new Date().setDate(new Date().getDate() + 15)),
       HanNopBaoCao: new Date(new Date().setDate(new Date().getDate() + 90)),
-      GiangVienHuongDan: gvGS._id,
+      GiaoVienHuongDan: gvGS._id,
       MonHoc: null,
       LopHoc: [],
       CoBaiTest: true,
@@ -54,7 +54,7 @@ async function seed() {
       Deadline: new Date(new Date().setDate(new Date().getDate() + 90)),
       HanDangKy: new Date(new Date().setDate(new Date().getDate() + 15)),
       HanNopBaoCao: new Date(new Date().setDate(new Date().getDate() + 90)),
-      GiangVienHuongDan: gvPGS._id,
+      GiaoVienHuongDan: gvPGS._id,
       MonHoc: null,
       LopHoc: [],
       CoBaiTest: true,

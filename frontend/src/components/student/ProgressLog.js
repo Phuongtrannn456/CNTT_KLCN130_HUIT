@@ -45,7 +45,7 @@ const ProgressLog = () => {
                 
                 if (regRes.registration) {
                     const deTaiId = regRes.registration.DeTai?._id || regRes.registration.DeTai;
-                    const logsRes = await aiApiService.getProgressBySinhVien(user.id, deTaiId);
+                    const logsRes = await aiApiService.getProgressByHocSinh(user.id, deTaiId);
                     result.logs = logsRes.data || [];
                 }
             } catch (e) {
@@ -71,7 +71,7 @@ const ProgressLog = () => {
 
             const submitPayload = {
                 deTaiId: registration.DeTai._id || registration.DeTai,
-                sinhVienId: user.id,
+                hocSinhId: user.id,
                 noiDung: values.noiDung,
                 phanTramHoanThanh: values.phanTramHoanThanh,
                 loaiCapNhat: values.loaiCapNhat,

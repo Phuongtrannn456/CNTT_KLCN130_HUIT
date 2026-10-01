@@ -157,7 +157,7 @@ const EntranceTestManager = () => {
       key: 'student',
       render: (_, r) => (
         <div>
-          <Text strong>{r.SinhVien?.HoTen || 'N/A'} ({r.SinhVien?.MaSV})</Text>
+          <Text strong>{r.HocSinh?.HoTen || 'N/A'} ({r.HocSinh?.MaHS})</Text>
           {r.Nhom && <Tag color="blue" style={{ marginLeft: 6, fontSize: 10 }}>{r.Nhom.TenNhom || 'Nhóm'}</Tag>}
         </div>
       ),
@@ -189,7 +189,7 @@ const EntranceTestManager = () => {
         const passed = pct >= threshold;
         // Check competition status from DangKyDeTai
         const regStatus = registrations.find(reg => 
-          reg.Nhom?._id === r.Nhom?._id || reg.SinhVien?._id === r.SinhVien?._id
+          reg.Nhom?._id === r.Nhom?._id || reg.HocSinh?._id === r.HocSinh?._id
         );
         const isWinner = regStatus?.TrangThai === 'DaDuyet';
         const isLost = regStatus?.TrangThai === 'Thua';

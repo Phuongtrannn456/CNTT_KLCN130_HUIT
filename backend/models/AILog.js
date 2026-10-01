@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const aiLogSchema = new mongoose.Schema({
     BaoCao: { type: mongoose.Schema.Types.ObjectId, ref: 'BaoCao' },
     DeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DeTai' },
-    SinhVien: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien' },
+    HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh' },
     TextHash: { type: String },        // SHA-256 of the text scored
     TextLength: { type: Number },
     ScoreResult: { type: mongoose.Schema.Types.Mixed },

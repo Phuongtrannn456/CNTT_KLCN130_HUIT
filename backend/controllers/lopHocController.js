@@ -1,5 +1,5 @@
 const LopHoc = require('../models/LopHoc');
-const SinhVien = require('../models/SinhVien');
+const HocSinh = require('../models/HocSinh');
 const DangKyDeTai = require('../models/DangKyDeTai');
 const DeTai = require('../models/DeTai');
 const Nhom = require('../models/Nhom');
@@ -17,7 +17,7 @@ function invalidateLopHocCache(gvId) {
 }
 
 // Lấy danh sách lớp học của giáo viên
-exports.getByGiangVien = async (req, res) => {
+exports.getByGiaoVien = async (req, res) => {
   try {
     const { gvId } = req.params;
     const cached = _lopHocCache.get(String(gvId));
@@ -25,20 +25,20 @@ exports.getByGiangVien = async (req, res) => {
       return res.json({ success: true, data: cached.data });
     }
 
-    const lopHocs = await LopHoc.find({ GiangVien: gvId })
+    const lopHocs = await LopHoc.find({ GiaoVien: gvId })
       .populate('MonHoc', 'MaMonHoc TenMonHoc')
-      .populate('GiangVien', 'HoTen MaGV')
+      .populate('GiaoVien', 'HoTen MaGV')
       .sort({ createdAt: -1 });
 
     const result = lopHocs.map(lh => ({
       ...lh.toObject(),
-      siSo: lh.SinhVien ? lh.SinhVien.length : 0
+      siSo: lh.HocSinh ? lh.HocSinh.length : 0
     }));
 
     _lopHocCache.set(String(gvId), { data: result, ts: Date.now() });
     res.json({ success: true, data: result });
   } catch (error) {
-    logger.error(`[LopHoc] getByGiangVien error: ${error.message}`);
+    logger.error(`[LopHoc] getByGiaoVien error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi lấy danh sách lớp học' });
   }
 };
@@ -49,39 +49,39 @@ exports.getDetail = async (req, res) => {
     const { id } = req.params;
     const lopHoc = await LopHoc.findById(id)
       .populate('MonHoc', 'MaMonHoc TenMonHoc')
-      .populate('GiangVien', 'HoTen MaGV')
-      .populate('SinhVien', 'MaSV HoTen Email GPA ChuyenNganh KyNang WalletAddress DaCapNhatHoSo');
+      .populate('GiaoVien', 'HoTen MaGV')
+      .populate('HocSinh', 'MaHS HoTen Email GPA ChuyenNganh KyNang WalletAddress DaCapNhatHoSo');
 
     if (!lopHoc) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
     // MỚI: Query trực tiếp theo LopHoc, fallback MonHoc cho data cũ
-    let deTais = await DeTai.find({ LopHoc: id }).select('_id MaDeTai TenDeTai TrangThai SoLuongSinhVien');
+    let deTais = await DeTai.find({ LopHoc: id }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
     if (deTais.length === 0) {
-      deTais = await DeTai.find({ MonHoc: lopHoc.MonHoc._id }).select('_id MaDeTai TenDeTai TrangThai SoLuongSinhVien');
+      deTais = await DeTai.find({ MonHoc: lopHoc.MonHoc._id }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
     }
 
     // Lấy danh sách đăng ký đề tài của các SV trong lớp
-    const svIds = lopHoc.SinhVien.map(sv => sv._id);
+    const hsIds = lopHoc.HocSinh.map(sv => sv._id);
     const dangKys = await DangKyDeTai.find({
       DeTai: { $in: deTais.map(dt => dt._id) }
     })
       .populate('DeTai', 'MaDeTai TenDeTai TrangThai')
       .populate('Nhom')
-      .populate('TruongNhom', 'MaSV HoTen')
-      .populate('SinhVien', 'MaSV HoTen')
-      .populate('ThanhVien.SinhVien', 'MaSV HoTen');
+      .populate('TruongNhom', 'MaHS HoTen')
+      .populate('HocSinh', 'MaHS HoTen')
+      .populate('ThanhVien.HocSinh', 'MaHS HoTen');
 
     // Lọc ra chỉ những đăng ký có liên quan đến SV trong lớp
     const filteredDangKys = dangKys.filter(dk => {
       // Kiểm tra trưởng nhóm có thuộc lớp không
-      if (dk.TruongNhom && svIds.some(id => id.equals(dk.TruongNhom._id))) return true;
+      if (dk.TruongNhom && hsIds.some(id => id.equals(dk.TruongNhom._id))) return true;
       // Kiểm tra học sinh đơn lẻ
-      if (dk.SinhVien && svIds.some(id => id.equals(dk.SinhVien._id))) return true;
+      if (dk.HocSinh && hsIds.some(id => id.equals(dk.HocSinh._id))) return true;
       // Kiểm tra thành viên nhóm
       if (dk.ThanhVien && dk.ThanhVien.some(tv =>
-        tv.SinhVien && svIds.some(id => id.equals(tv.SinhVien._id))
+        tv.HocSinh && hsIds.some(id => id.equals(tv.HocSinh._id))
       )) return true;
       return false;
     });
@@ -103,9 +103,9 @@ exports.getDetail = async (req, res) => {
 // Tạo lớp học mới
 exports.create = async (req, res) => {
   try {
-    const { MaLopHoc, TenLopHoc, MonHoc, GiangVien } = req.body;
+    const { MaLopHoc, TenLopHoc, MonHoc, GiaoVien } = req.body;
 
-    if (!MaLopHoc || !TenLopHoc || !MonHoc || !GiangVien) {
+    if (!MaLopHoc || !TenLopHoc || !MonHoc || !GiaoVien) {
       return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc' });
     }
 
@@ -114,15 +114,15 @@ exports.create = async (req, res) => {
       return res.status(409).json({ success: false, message: `Lớp '${MaLopHoc}' đã tồn tại cho môn học này` });
     }
 
-    const lopHoc = new LopHoc({ MaLopHoc, TenLopHoc, MonHoc, GiangVien, SinhVien: [] });
+    const lopHoc = new LopHoc({ MaLopHoc, TenLopHoc, MonHoc, GiaoVien, HocSinh: [] });
     await lopHoc.save();
 
     const populated = await LopHoc.findById(lopHoc._id)
       .populate('MonHoc', 'MaMonHoc TenMonHoc')
-      .populate('GiangVien', 'HoTen MaGV');
+      .populate('GiaoVien', 'HoTen MaGV');
 
     logger.info(`[LopHoc] Created: ${MaLopHoc} - ${TenLopHoc}`);
-    invalidateLopHocCache(GiangVien);
+    invalidateLopHocCache(GiaoVien);
     res.status(201).json({ success: true, data: { ...populated.toObject(), siSo: 0 } });
   } catch (error) {
     logger.error(`[LopHoc] create error: ${error.message}`);
@@ -157,26 +157,26 @@ exports.update = async (req, res) => {
 };
 
 // Thêm học sinh vào lớp
-exports.addSinhVien = async (req, res) => {
+exports.addHocSinh = async (req, res) => {
   try {
     const { id } = req.params;
-    let { sinhVienId, maSV } = req.body;
+    let { hocSinhId, maSV } = req.body;
 
-    if (!sinhVienId && !maSV) {
-      return res.status(400).json({ success: false, message: 'Thiếu sinhVienId hoặc maSV' });
+    if (!hocSinhId && !maSV) {
+      return res.status(400).json({ success: false, message: 'Thiếu hocSinhId hoặc maSV' });
     }
 
     // Kiểm tra SV tồn tại
     let sv;
-    if (sinhVienId) {
-      sv = await SinhVien.findById(sinhVienId);
+    if (hocSinhId) {
+      sv = await HocSinh.findById(hocSinhId);
     } else {
-      sv = await SinhVien.findOne({ MaSV: maSV });
+      sv = await HocSinh.findOne({ MaHS: maSV });
     }
     if (!sv) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy học sinh' });
     }
-    sinhVienId = sv._id;
+    hocSinhId = sv._id;
 
     const lopHoc = await LopHoc.findById(id);
     if (!lopHoc) {
@@ -184,43 +184,43 @@ exports.addSinhVien = async (req, res) => {
     }
 
     // Kiểm tra SV đã có trong lớp chưa
-    if (lopHoc.SinhVien.some(svId => svId.equals(sinhVienId))) {
+    if (lopHoc.HocSinh.some(hsId => hsId.equals(hocSinhId))) {
       return res.status(409).json({ success: false, message: 'Học sinh đã có trong lớp này' });
     }
 
-    lopHoc.SinhVien.push(sinhVienId);
+    lopHoc.HocSinh.push(hocSinhId);
     await lopHoc.save();
 
     const updated = await LopHoc.findById(id)
-      .populate('SinhVien', 'MaSV HoTen Email GPA ChuyenNganh');
+      .populate('HocSinh', 'MaHS HoTen Email GPA ChuyenNganh');
 
-    logger.info(`[LopHoc] Added SV ${sv.MaSV} to class ${lopHoc.MaLopHoc}`);
+    logger.info(`[LopHoc] Added SV ${sv.MaHS} to class ${lopHoc.MaLopHoc}`);
     invalidateLopHocCache();
     res.json({ success: true, data: updated });
   } catch (error) {
-    logger.error(`[LopHoc] addSinhVien error: ${error.message}`);
+    logger.error(`[LopHoc] addHocSinh error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi thêm học sinh vào lớp' });
   }
 };
 
 // Xóa học sinh khỏi lớp
-exports.removeSinhVien = async (req, res) => {
+exports.removeHocSinh = async (req, res) => {
   try {
-    const { id, svId } = req.params;
+    const { id, hsId } = req.params;
 
     const lopHoc = await LopHoc.findById(id);
     if (!lopHoc) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    lopHoc.SinhVien = lopHoc.SinhVien.filter(s => !s.equals(svId));
+    lopHoc.HocSinh = lopHoc.HocSinh.filter(s => !s.equals(hsId));
     await lopHoc.save();
 
-    logger.info(`[LopHoc] Removed SV ${svId} from class ${lopHoc.MaLopHoc}`);
+    logger.info(`[LopHoc] Removed SV ${hsId} from class ${lopHoc.MaLopHoc}`);
     invalidateLopHocCache();
     res.json({ success: true, message: 'Đã xóa học sinh khỏi lớp' });
   } catch (error) {
-    logger.error(`[LopHoc] removeSinhVien error: ${error.message}`);
+    logger.error(`[LopHoc] removeHocSinh error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi xóa học sinh khỏi lớp' });
   }
 };
@@ -245,12 +245,12 @@ exports.delete = async (req, res) => {
 };
 
 // Import batch học sinh vào lớp
-exports.importSinhVien = async (req, res) => {
+exports.importHocSinh = async (req, res) => {
   try {
     const { id } = req.params;
-    const { danhSachMaSV } = req.body;
+    const { danhSachMaHS } = req.body;
 
-    if (!danhSachMaSV || !Array.isArray(danhSachMaSV)) {
+    if (!danhSachMaHS || !Array.isArray(danhSachMaHS)) {
       return res.status(400).json({ success: false, message: 'Danh sách mã học sinh không hợp lệ' });
     }
 
@@ -259,24 +259,24 @@ exports.importSinhVien = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    const svList = await SinhVien.find({ MaSV: { $in: danhSachMaSV } });
+    const svList = await HocSinh.find({ MaHS: { $in: danhSachMaHS } });
     
     let addedCount = 0;
     const duplicateSV = [];
-    const notFoundMaSV = [...danhSachMaSV];
+    const notFoundMaHS = [...danhSachMaHS];
 
     svList.forEach(sv => {
-      const index = notFoundMaSV.indexOf(sv.MaSV);
+      const index = notFoundMaHS.indexOf(sv.MaHS);
       if (index > -1) {
-        notFoundMaSV.splice(index, 1);
+        notFoundMaHS.splice(index, 1);
       }
 
-      const exists = lopHoc.SinhVien.some(svId => svId.equals(sv._id));
+      const exists = lopHoc.HocSinh.some(hsId => hsId.equals(sv._id));
       if (!exists) {
-        lopHoc.SinhVien.push(sv._id);
+        lopHoc.HocSinh.push(sv._id);
         addedCount++;
       } else {
-        duplicateSV.push(sv.MaSV);
+        duplicateSV.push(sv.MaHS);
       }
     });
 
@@ -286,69 +286,69 @@ exports.importSinhVien = async (req, res) => {
 
     res.json({
       success: true,
-      message: `Import thành công. Thêm mới: ${addedCount}, trùng lặp: ${duplicateSV.length}, không tìm thấy: ${notFoundMaSV.length}`,
+      message: `Import thành công. Thêm mới: ${addedCount}, trùng lặp: ${duplicateSV.length}, không tìm thấy: ${notFoundMaHS.length}`,
       data: {
         addedCount,
         duplicateSV,
-        notFoundMaSV
+        notFoundMaHS
       }
     });
   } catch (error) {
-    logger.error(`[LopHoc] importSinhVien error: ${error.message}`);
+    logger.error(`[LopHoc] importHocSinh error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi import học sinh' });
   }
 };
 
 // Lấy lớp học của học sinh
-exports.getBySinhVien = async (req, res) => {
+exports.getByHocSinh = async (req, res) => {
   try {
-    const { svId } = req.params;
-    const lopHocs = await LopHoc.find({ SinhVien: svId })
+    const { hsId } = req.params;
+    const lopHocs = await LopHoc.find({ HocSinh: hsId })
       .populate('MonHoc', 'MaMonHoc TenMonHoc')
-      .populate('GiangVien', 'HoTen MaGV')
+      .populate('GiaoVien', 'HoTen MaGV')
       .sort({ createdAt: -1 });
 
     const result = lopHocs.map(lh => ({
       ...lh.toObject(),
-      siSo: lh.SinhVien ? lh.SinhVien.length : 0
+      siSo: lh.HocSinh ? lh.HocSinh.length : 0
     }));
 
     res.json({ success: true, data: result });
   } catch (error) {
-    logger.error(`[LopHoc] getBySinhVien error: ${error.message}`);
+    logger.error(`[LopHoc] getByHocSinh error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi lấy lớp học của học sinh' });
   }
 };
 
 // Lấy danh sách học sinh thuộc các lớp của giáo viên (flat list kèm context lớp/môn/GV)
-exports.getSinhVienByGiangVien = async (req, res) => {
+exports.getHocSinhByGiaoVien = async (req, res) => {
   try {
     const { gvId } = req.params;
-    const lopHocs = await LopHoc.find({ GiangVien: gvId })
-      .populate('SinhVien', 'MaSV HoTen Email GPA ChuyenNganh KyNang WalletAddress DaCapNhatHoSo')
+    const lopHocs = await LopHoc.find({ GiaoVien: gvId })
+      .populate('HocSinh', 'MaHS HoTen Email GPA ChuyenNganh KyNang WalletAddress DaCapNhatHoSo')
       .populate('MonHoc', 'MaMonHoc TenMonHoc')
-      .populate('GiangVien', 'HoTen MaGV');
+      .populate('GiaoVien', 'HoTen MaGV');
 
-    // Flatten: mỗi item = { sinhVien, lopHoc info }
+    // Flatten: mỗi item = { hocSinh, lopHoc info }
     const flatList = [];
     for (const lh of lopHocs) {
-      for (const sv of (lh.SinhVien || [])) {
+      for (const sv of (lh.HocSinh || [])) {
         flatList.push({
-          sinhVien: sv,
+          hocSinh: sv,
           lopHoc: {
             _id: lh._id,
             MaLopHoc: lh.MaLopHoc,
             TenLopHoc: lh.TenLopHoc
           },
           monHoc: lh.MonHoc,
-          giangVien: lh.GiangVien
+          giaoVien: lh.GiaoVien
         });
       }
     }
 
     res.json({ success: true, data: flatList });
   } catch (error) {
-    logger.error(`[LopHoc] getSinhVienByGiangVien error: ${error.message}`);
+    logger.error(`[LopHoc] getHocSinhByGiaoVien error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi lấy danh sách học sinh theo giáo viên' });
   }
 };

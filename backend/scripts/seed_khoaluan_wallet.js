@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const DeTai = require('../models/DeTai');
-const GiangVien = require('../models/GiangVien');
+const GiaoVien = require('../models/GiaoVien');
 
 async function seed() {
   console.log('🔗 Đang kết nối MongoDB...');
@@ -11,7 +11,7 @@ async function seed() {
   const walletAddr = '0xf56ca4437a2c3ae3a594ff8a2dd9aed8ec3f1289';
 
   // 1. Tìm giáo viên có ví khớp
-  const gv = await GiangVien.findOne({ WalletAddress: new RegExp(`^${walletAddr}$`, 'i') });
+  const gv = await GiaoVien.findOne({ WalletAddress: new RegExp(`^${walletAddr}$`, 'i') });
 
   if (!gv) {
     console.error(`❌ Không tìm thấy Giáo viên nào có ví là ${walletAddr} trong DB!`);
@@ -30,7 +30,7 @@ async function seed() {
     Deadline: new Date(new Date().setDate(new Date().getDate() + 90)),
     HanDangKy: new Date(new Date().setDate(new Date().getDate() + 15)),
     HanNopBaoCao: new Date(new Date().setDate(new Date().getDate() + 90)),
-    GiangVienHuongDan: gv._id,
+    GiaoVienHuongDan: gv._id,
     MonHoc: null,
     LopHoc: [],
     CoBaiTest: true,

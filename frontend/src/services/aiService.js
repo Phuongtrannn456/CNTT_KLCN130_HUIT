@@ -40,26 +40,26 @@ const aiApiService = {
     },
 
     // Lấy thông tin học sinh
-    getStudentProfile: async (svId) => {
-        const response = await axios.get(`${API_URL}/sinhvien/${svId}`, { headers: getAuthHeaders() });
+    getStudentProfile: async (hsId) => {
+        const response = await axios.get(`${API_URL}/hocsinh/${hsId}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
     // Kiểm tra HS đã đăng ký đề tài nào chưa
-    getMyRegistration: async (svId, lopHocId) => {
+    getMyRegistration: async (hsId, lopHocId) => {
         let query = '';
         if (lopHocId === 'KHOA_LUAN') {
             query = '?loaiDeTai=KhoaLuan';
         } else if (lopHocId) {
             query = `?lopHocId=${lopHocId}`;
         }
-        const response = await axios.get(`${API_URL}/dangky/sinhvien/${svId}${query}`, { headers: getAuthHeaders() });
+        const response = await axios.get(`${API_URL}/dangky/hocsinh/${hsId}${query}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
     // Lấy tất cả đăng ký của 1 học sinh
-    getMyRegistrations: async (svId) => {
-        const response = await axios.get(`${API_URL}/dangky/sinhvien/${svId}/all`, { headers: getAuthHeaders() });
+    getMyRegistrations: async (hsId) => {
+        const response = await axios.get(`${API_URL}/dangky/hocsinh/${hsId}/all`, { headers: getAuthHeaders() });
         return response.data;
     },
 
@@ -69,9 +69,9 @@ const aiApiService = {
     },
 
     // SV đăng ký đề tài (theo nhóm)
-    registerTopic: async (topicId, sinhVienId, nhomId) => {
+    registerTopic: async (topicId, hocSinhId, nhomId) => {
         const response = await axios.post(`${API_URL}/detai/${topicId}/register`, {
-            sinhVienId,
+            hocSinhId,
             nhomId
         }, { headers: getAuthHeaders() });
         return response.data;
@@ -85,7 +85,7 @@ const aiApiService = {
         } else if (lopHocId && lopHocId !== 'ALL') {
             query = `?lopHocId=${lopHocId}`;
         }
-        const response = await axios.get(`${API_URL}/dangky/giangvien/${gvId}${query}`, { headers: getAuthHeaders() });
+        const response = await axios.get(`${API_URL}/dangky/giaovien/${gvId}${query}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
@@ -125,9 +125,9 @@ const aiApiService = {
     },
 
     // SV lấy báo cáo đã nộp
-    getMyBaoCao: async (svId, deTaiId) => {
+    getMyBaoCao: async (hsId, deTaiId) => {
         const query = deTaiId ? `?deTaiId=${deTaiId}` : '';
-        const response = await axios.get(`${API_URL}/baocao/sinhvien/${svId}${query}`, { headers: getAuthHeaders() });
+        const response = await axios.get(`${API_URL}/baocao/hocsinh/${hsId}${query}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
@@ -139,7 +139,7 @@ const aiApiService = {
 
     // GV lấy tất cả submissions cho đề tài của mình
     getSubmissionsByLecturer: async (gvId) => {
-        const response = await axios.get(`${API_URL}/baocao/giangvien/${gvId}`, { headers: getAuthHeaders() });
+        const response = await axios.get(`${API_URL}/baocao/giaovien/${gvId}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
@@ -155,27 +155,27 @@ const aiApiService = {
     },
 
     // SV xem điểm
-    retryGradeBlockchain: async (gradeId, giangVienId) => {
+    retryGradeBlockchain: async (gradeId, giaoVienId) => {
         const response = await axios.put(`${API_URL}/diemso/${gradeId}/retry-blockchain`, {
-            giangVienId
+            giaoVienId
         }, { headers: getAuthHeaders() });
         return response.data;
     },
 
-    getDiemBySinhVien: async (svId) => {
-        const response = await axios.get(`${API_URL}/diemso/sinhvien/${svId}`, { headers: getAuthHeaders() });
+    getDiemByHocSinh: async (hsId) => {
+        const response = await axios.get(`${API_URL}/diemso/hocsinh/${hsId}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
     // === HỒ SƠ HỌC SINH ===
 
     // HS cập nhật hồ sơ cá nhân
-    updateStudentProfile: async (svId, profileData) => {
-        const response = await axios.put(`${API_URL}/sinhvien/${svId}/profile`, profileData, { headers: getAuthHeaders() });
+    updateStudentProfile: async (hsId, profileData) => {
+        const response = await axios.put(`${API_URL}/hocsinh/${hsId}/profile`, profileData, { headers: getAuthHeaders() });
         return response.data;
     },
 
-    // Tìm HS theo MaSV (cho chức năng mời vào nhóm)
+    // Tìm HS theo MaHS (cho chức năng mời vào nhóm)
     // Nhóm Học Sinh
     inviteMember: async (deTaiId, maSV) => {
         const response = await axios.post(`${API_URL}/detai/${deTaiId}/invite`, { maSV }, { headers: getAuthHeaders() });
@@ -185,8 +185,8 @@ const aiApiService = {
         const response = await axios.post(`${API_URL}/detai/invitation/${deTaiId}/respond`, { accept }, { headers: getAuthHeaders() });
         return response.data;
     },
-    getMyInvitations: async (svId) => {
-        const response = await axios.get(`${API_URL}/detai/invitations/${svId}`, { headers: getAuthHeaders() });
+    getMyInvitations: async (hsId) => {
+        const response = await axios.get(`${API_URL}/detai/invitations/${hsId}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
@@ -195,17 +195,17 @@ const aiApiService = {
         const response = await axios.post(`${API_URL}/tiendo`, data, { headers: getAuthHeaders() });
         return response.data;
     },
-    getProgressBySV: async (svId) => {
-        const response = await axios.get(`${API_URL}/tiendo/${svId}`, { headers: getAuthHeaders() });
+    getProgressBySV: async (hsId) => {
+        const response = await axios.get(`${API_URL}/tiendo/${hsId}`, { headers: getAuthHeaders() });
         return response.data;
     },
     getProgressByTopic: async (deTaiId) => {
         const response = await axios.get(`${API_URL}/tiendo/detai/${deTaiId}`, { headers: getAuthHeaders() });
         return response.data;
     },
-    getProgressBySinhVien: async (svId, deTaiId) => {
+    getProgressByHocSinh: async (hsId, deTaiId) => {
         const query = deTaiId ? `?deTaiId=${deTaiId}` : '';
-        const response = await axios.get(`${API_URL}/tiendo/sinhvien/${svId}${query}`, { headers: getAuthHeaders() });
+        const response = await axios.get(`${API_URL}/tiendo/hocsinh/${hsId}${query}`, { headers: getAuthHeaders() });
         return response.data;
     },
     getProgressDetail: async (tienDoId) => {
@@ -233,7 +233,7 @@ const aiApiService = {
     // === RUBRICS TEMPLATE ===
 
     getRubricsTemplates: async (gvId) => {
-        const response = await axios.get(`${API_URL}/rubrics/giangvien/${gvId}`, { headers: getAuthHeaders() });
+        const response = await axios.get(`${API_URL}/rubrics/giaovien/${gvId}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
@@ -319,8 +319,8 @@ const aiApiService = {
         return response.data;
     },
 
-    checkTestSubmitted: async (deTaiId, sinhVienId) => {
-        const response = await axios.get(`${API_URL}/baitest/check/${deTaiId}/${sinhVienId}`, { headers: getAuthHeaders() });
+    checkTestSubmitted: async (deTaiId, hocSinhId) => {
+        const response = await axios.get(`${API_URL}/baitest/check/${deTaiId}/${hocSinhId}`, { headers: getAuthHeaders() });
         return response.data;
     },
 

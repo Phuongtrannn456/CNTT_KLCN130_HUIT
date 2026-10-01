@@ -92,7 +92,7 @@ const SubmissionReview = () => {
       const pendingEntries = await Promise.all(
         nextSubmissions.map(async (record) => {
           try {
-            const res = await aiApiService.getProgressBySinhVien(record.student?._id, record.topic?._id);
+            const res = await aiApiService.getProgressByHocSinh(record.student?._id, record.topic?._id);
             return [getSubmissionKey(record), countPendingProgress(res.data || [])];
           } catch (err) {
             console.warn('Không lấy được trạng thái tiến độ:', err);
@@ -133,7 +133,7 @@ const SubmissionReview = () => {
     });
   }, [selectedSubmission, submissions]);
 
-  const isGroupTopic = selectedSubmission && (selectedSubmission.topic?.SoLuongSinhVien || 1) > 1;
+  const isGroupTopic = selectedSubmission && (selectedSubmission.topic?.SoLuongHocSinh || 1) > 1;
   const [weeklyTarget, setWeeklyTarget] = useState(null);
   const [weeklyRubrics, setWeeklyRubrics] = useState([]);
   const [weeklyStatus, setWeeklyStatus] = useState('ChoDanhGia');
@@ -144,14 +144,14 @@ const SubmissionReview = () => {
   const [weeklyAiLoading, setWeeklyAiLoading] = useState(false);
   const [weeklyAiScore, setWeeklyAiScore] = useState(null);
 
-  const fetchStudentProgress = async (svId, topicId, record) => {
+  const fetchStudentProgress = async (hsId, topicId, record) => {
     setProgressLoading(true);
     try {
-      const res = await aiApiService.getProgressBySinhVien(svId, topicId);
+      const res = await aiApiService.getProgressByHocSinh(hsId, topicId);
       const logs = res.data || [];
       setProgressLogs(logs);
       setProgressSummary(buildProgressSummary(logs));
-      const matchedMember = record?.members?.find(m => m.student?._id === svId) || record;
+      const matchedMember = record?.members?.find(m => m.student?._id === hsId) || record;
       
       queryClient.setQueryData(['submissions', user?.id], (oldData) => {
         if (!oldData) return oldData;
@@ -179,10 +179,10 @@ const SubmissionReview = () => {
     await fetchStudentProgress(defaultSvId, record.topic?._id, record);
   };
 
-  const handleProgressStudentChange = async (svId) => {
-    setActiveProgressStudentId(svId);
+  const handleProgressStudentChange = async (hsId) => {
+    setActiveProgressStudentId(hsId);
     if (selectedSubmission) {
-      await fetchStudentProgress(svId, selectedSubmission.topic?._id, selectedSubmission);
+      await fetchStudentProgress(hsId, selectedSubmission.topic?._id, selectedSubmission);
     }
   };
 
@@ -336,7 +336,7 @@ const SubmissionReview = () => {
     }
 
     try {
-      const progressRes = await aiApiService.getProgressBySinhVien(workingRecord.student?._id, workingRecord.topic?._id);
+      const progressRes = await aiApiService.getProgressByHocSinh(workingRecord.student?._id, workingRecord.topic?._id);
       setProgressSummary(buildProgressSummary(progressRes.data || []));
     } catch (err) {
       console.error('Lỗi lấy tóm tắt tiến độ:', err);
@@ -360,8 +360,8 @@ const SubmissionReview = () => {
       const payload = {
         baoCaoId: selectedSubmission.submission._id,
         deTaiId: selectedSubmission.topic._id,
-        sinhVienId: selectedSubmission.student._id,
-        giangVienId: user.id,
+        hocSinhId: selectedSubmission.student._id,
+        giaoVienId: user.id,
         diem: score,
         nhanXet: aiAnalysis?.feedback || "",
         aiScore: aiAnalysis?.score || 0,
@@ -548,7 +548,7 @@ const SubmissionReview = () => {
     try {
       setWeeklySaving(true);
       const payload = {
-        giangVienId: user.id,
+        giaoVienId: user.id,
         trangThaiDanhGia: weeklyStatus,
         nhanXetGV: weeklyComment
       };
@@ -638,7 +638,7 @@ const SubmissionReview = () => {
         const classes = record.topic?.LopHoc || [];
         const classNameStr = isKL ? '📝 Dự Án STEM' : (classes.map(c => c.TenLopHoc || c.MaLopHoc).join(', ') || 'N/A');
         const subjectName = isKL ? '—' : (record.topic?.MonHoc?.TenMonHoc || 'N/A');
-        const lecturerName = record.topic?.GiangVienHuongDan?.HoTen || 'N/A';
+        const lecturerName = record.topic?.GiaoVienHuongDan?.HoTen || 'N/A';
         
         return (
           <Space direction="vertical" size={2} style={{ fontSize: 13 }}>
@@ -757,7 +757,7 @@ const SubmissionReview = () => {
     },
     {
       title: 'Mã HS',
-      dataIndex: ['student', 'MaSV'],
+      dataIndex: ['student', 'MaHS'],
       key: 'maSV'
     },
     {
@@ -916,7 +916,7 @@ const SubmissionReview = () => {
           <div>
             <Title level={4}>{selectedSubmission.topic?.TenDeTai}</Title>
             <Text type="secondary" style={{ display: 'block', marginBottom: 8 }}>
-              Học sinh: {selectedSubmission.student?.HoTen} ({selectedSubmission.student?.MaSV})
+              Học sinh: {selectedSubmission.student?.HoTen} ({selectedSubmission.student?.MaHS})
             </Text>
             <Text type="secondary" style={{ display: 'block', marginBottom: 24 }}>
               Nộp lúc: {new Date(selectedSubmission.submission?.NgayNop || selectedSubmission.submission?.createdAt).toLocaleString('vi-VN')}
@@ -1230,7 +1230,7 @@ const SubmissionReview = () => {
                                   renderItem={member => (
                                     <List.Item>
                                       <Space>
-                                        <Text>{member.student?.HoTen} ({member.student?.MaSV})</Text>
+                                        <Text>{member.student?.HoTen} ({member.student?.MaHS})</Text>
                                         <Tag color="success">
                                           {member.grade?.Diem ?? '—'}/10
                                         </Tag>

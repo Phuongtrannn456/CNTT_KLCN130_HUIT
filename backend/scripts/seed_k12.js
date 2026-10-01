@@ -2,7 +2,7 @@
  * Script Khởi tạo Dữ liệu Mẫu cho Nền tảng Web3 Giáo Dục Phổ Thông (K-12)
  * 
  * Sử dụng Models K-12 mới: Teacher, Student, Challenge
- * Không sử dụng Models legacy: GiangVien, SinhVien, DeTai
+ * Không sử dụng Models legacy: GiaoVien, HocSinh, DeTai
  * 
  * Chạy lệnh: node scripts/seed_k12.js
  * 
@@ -17,7 +17,7 @@ const Teacher = require('../models/Teacher');
 const Student = require('../models/Student');
 const Challenge = require('../models/Challenge');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giangvien';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giaovien';
 
 async function seedK12() {
   try {

@@ -133,7 +133,7 @@ exports.finalizeGradeOnChain = async (studentDID, topicId, grade, feedback, idx)
                 if (dt) {
                     const deadlineUnix = Math.floor(new Date(dt.Deadline).getTime() / 1000) || 0;
                     const reqs = dt.YeuCau && dt.YeuCau.length > 0 ? dt.YeuCau : ['N/A'];
-                    const advisorHash = toBytes32(dt.GiangVienHuongDan.toString());
+                    const advisorHash = toBytes32(dt.GiaoVienHuongDan.toString());
                     const txReg = await contract.registerTopic(topicHash, dt.TenDeTai || 'Untitled', advisorHash, deadlineUnix, reqs);
                     await txReg.wait();
                     logger.info('[BLOCKCHAIN] Topic auto-registered on-chain');
@@ -144,7 +144,7 @@ exports.finalizeGradeOnChain = async (studentDID, topicId, grade, feedback, idx)
             if (history.length <= idx) {
                 logger.info('[BLOCKCHAIN] Submission not on-chain, auto-submitting...');
                 const BaoCao = require('../models/BaoCao');
-                const bc = await BaoCao.findOne({ DeTai: topicId, SinhVien: studentDID });
+                const bc = await BaoCao.findOne({ DeTai: topicId, HocSinh: studentDID });
                 if (bc) {
                     const ts = Math.floor(new Date(bc.NgayNop).getTime() / 1000) || Math.floor(Date.now() / 1000);
                     const txSub = await contract.submitReport(studentHash, topicHash, bc.IPFS_CID || 'Qm...', ts);
@@ -167,7 +167,7 @@ exports.finalizeGradeOnChain = async (studentDID, topicId, grade, feedback, idx)
             if (dt) {
                 const deadlineUnix = Math.floor(new Date(dt.Deadline).getTime() / 1000) || 0;
                 const reqs = dt.YeuCau && dt.YeuCau.length > 0 ? dt.YeuCau : ['N/A'];
-                const txReg = await contract.registerTopic(topicId, dt.TenDeTai || 'Untitled', dt.GiangVienHuongDan.toString(), deadlineUnix, reqs);
+                const txReg = await contract.registerTopic(topicId, dt.TenDeTai || 'Untitled', dt.GiaoVienHuongDan.toString(), deadlineUnix, reqs);
                 await txReg.wait();
             }
         }
@@ -175,7 +175,7 @@ exports.finalizeGradeOnChain = async (studentDID, topicId, grade, feedback, idx)
         const history = await contract.getSubmissionHistory(studentDID, topicId);
         if (history.length <= idx) {
             const BaoCao = require('../models/BaoCao');
-            const bc = await BaoCao.findOne({ DeTai: topicId, SinhVien: studentDID });
+            const bc = await BaoCao.findOne({ DeTai: topicId, HocSinh: studentDID });
             if (bc) {
                 const ts = Math.floor(new Date(bc.NgayNop).getTime() / 1000) || Math.floor(Date.now() / 1000);
                 const txSub = await contract.submitReport(studentDID, topicId, bc.IPFS_CID || 'Qm...', ts);

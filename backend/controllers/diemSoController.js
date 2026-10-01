@@ -30,22 +30,22 @@ const parseBlockchainError = (error, walletAddress = '0xD6aB1D7521A6cd96317bd2d0
 };
 
 // Tạo 1 bản ghi điểm cho 1 báo cáo + ghi blockchain (best-effort). Bỏ qua nếu đã chấm.
-const createGradeForReport = async ({ baoCao, deTaiId, giangVienId, nhomId, diem, nhanXet, aiScore, aiFeedback, rubricsResult, aiSecurityFlags, aiRepetitionRate, aiTimeTakenMs }) => {
-    const sinhVienId = baoCao.SinhVien;
+const createGradeForReport = async ({ baoCao, deTaiId, giaoVienId, nhomId, diem, nhanXet, aiScore, aiFeedback, rubricsResult, aiSecurityFlags, aiRepetitionRate, aiTimeTakenMs }) => {
+    const hocSinhId = baoCao.HocSinh;
     const existing = await DiemSo.findOne({ BaoCao: baoCao._id });
     if (existing) {
         return { skipped: true, reason: 'DA_CHAM', diemSo: existing };
     }
 
-    const submissions = await BaoCao.find({ DeTai: deTaiId, SinhVien: sinhVienId }).sort({ NgayNop: 1 });
+    const submissions = await BaoCao.find({ DeTai: deTaiId, HocSinh: hocSinhId }).sort({ NgayNop: 1 });
     let submissionIndex = submissions.findIndex(item => String(item._id) === String(baoCao._id));
     if (submissionIndex < 0) submissionIndex = 0;
 
     const diemSo = new DiemSo({
         BaoCao: baoCao._id,
-        GiangVienCam: giangVienId,
-        GiangVienCham: giangVienId,
-        SinhVien: sinhVienId,
+        GiaoVienCam: giaoVienId,
+        GiaoVienCham: giaoVienId,
+        HocSinh: hocSinhId,
         DeTai: deTaiId,
         Nhom: nhomId || undefined,
         Diem: diem,
@@ -71,7 +71,7 @@ const createGradeForReport = async ({ baoCao, deTaiId, giangVienId, nhomId, diem
         await AILog.create({
             BaoCao: baoCao._id,
             DeTai: deTaiId,
-            SinhVien: sinhVienId,
+            HocSinh: hocSinhId,
             TextHash: textHash,
             TextLength: extractedText.length,
             ScoreResult: {
@@ -95,7 +95,7 @@ const createGradeForReport = async ({ baoCao, deTaiId, giangVienId, nhomId, diem
     let blockchainStatus = 'Pending';
     let txHash = null;
     try {
-        txHash = await contractService.finalizeGradeOnChain(String(sinhVienId), deTaiId, diem, nhanXet, submissionIndex);
+        txHash = await contractService.finalizeGradeOnChain(String(hocSinhId), deTaiId, diem, nhanXet, submissionIndex);
         diemSo.TxHash = txHash;
         diemSo.TrangThaiBlockchain = 'DaGhi';
         blockchainStatus = 'DaGhi';
@@ -104,8 +104,8 @@ const createGradeForReport = async ({ baoCao, deTaiId, giangVienId, nhomId, diem
         const errorMsg = error.message || '';
         if (errorMsg.includes('already graded') || errorMsg.includes('Submission already graded')) {
             try {
-                logger.info(`[GRADE] Intercepted 'already graded' in createGradeForReport. Synchronizing from blockchain for student ${sinhVienId} and topic ${deTaiId}`);
-                const history = await contractService.getSubmissionHistory(String(sinhVienId), deTaiId);
+                logger.info(`[GRADE] Intercepted 'already graded' in createGradeForReport. Synchronizing from blockchain for student ${hocSinhId} and topic ${deTaiId}`);
+                const history = await contractService.getSubmissionHistory(String(hocSinhId), deTaiId);
                 if (history && history.length > submissionIndex) {
                     const onChainSub = history[submissionIndex];
                     if (onChainSub.graded) {
@@ -133,7 +133,7 @@ const createGradeForReport = async ({ baoCao, deTaiId, giangVienId, nhomId, diem
             diemSo.LoiBlockchain = parseBlockchainError(error, walletAddress);
             blockchainStatus = 'LoiGhi';
             await diemSo.save();
-            logger.error(`[GRADE] Blockchain failed for student ${sinhVienId}: ${error.message}`);
+            logger.error(`[GRADE] Blockchain failed for student ${hocSinhId}: ${error.message}`);
         }
     }
 
@@ -147,13 +147,13 @@ const checkAndCompleteTopic = async (deTaiId) => {
         if (!dangKy) return;
 
         const accepted = (dangKy.ThanhVien || [])
-            .filter(tv => tv.SinhVien && tv.TrangThaiTV === 'DaChapNhan')
-            .map(tv => String(tv.SinhVien));
-        const memberIds = accepted.length ? accepted : (dangKy.SinhVien ? [String(dangKy.SinhVien)] : []);
+            .filter(tv => tv.HocSinh && tv.TrangThaiTV === 'DaChapNhan')
+            .map(tv => String(tv.HocSinh));
+        const memberIds = accepted.length ? accepted : (dangKy.HocSinh ? [String(dangKy.HocSinh)] : []);
         if (!memberIds.length) return;
 
-        const grades = await DiemSo.find({ DeTai: deTaiId, SinhVien: { $in: memberIds } }).select('SinhVien');
-        const gradedIds = new Set(grades.map(g => String(g.SinhVien)));
+        const grades = await DiemSo.find({ DeTai: deTaiId, HocSinh: { $in: memberIds } }).select('HocSinh');
+        const gradedIds = new Set(grades.map(g => String(g.HocSinh)));
         const allGraded = memberIds.every(id => gradedIds.has(id));
 
         if (allGraded) {
@@ -231,13 +231,13 @@ const validateRubricsAgainstScore = (rubricsResult, diem) => {
     return { ok: true };
 };
 
-const assertGiangVienOwnsDeTai = async (deTaiId, giangVienId) => {
+const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId) => {
     const deTai = await DeTai.findById(deTaiId);
     if (!deTai) {
         return { ok: false, error: 'Không tìm thấy đề tài', code: 'DETAI_KHONG_TON_TAI' };
     }
 
-    if (String(deTai.GiangVienHuongDan) !== String(giangVienId)) {
+    if (String(deTai.GiaoVienHuongDan) !== String(giaoVienId)) {
         return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
     }
 
@@ -246,9 +246,9 @@ const assertGiangVienOwnsDeTai = async (deTaiId, giangVienId) => {
 
 exports.chamDiem = async (req, res) => {
     try {
-        const { baoCaoId, deTaiId, sinhVienId, diem, nhanXet, aiScore, aiFeedback, rubricsResult, aiSecurityFlags, aiRepetitionRate, aiTimeTakenMs } = req.body;
+        const { baoCaoId, deTaiId, hocSinhId, diem, nhanXet, aiScore, aiFeedback, rubricsResult, aiSecurityFlags, aiRepetitionRate, aiTimeTakenMs } = req.body;
         // Danh tính GV chấm lấy từ token (an toàn), không tin body
-        const giangVienId = req.user?.id || req.body.giangVienId;
+        const giaoVienId = req.user?.id || req.body.giaoVienId;
 
         const diemValidation = validateDiem(diem);
         if (!diemValidation.ok) {
@@ -260,7 +260,7 @@ exports.chamDiem = async (req, res) => {
             return res.status(400).json({ error: rubricsValidation.error, code: rubricsValidation.code });
         }
 
-        const ownerCheck = await assertGiangVienOwnsDeTai(deTaiId, giangVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(deTaiId, giaoVienId);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -271,7 +271,7 @@ exports.chamDiem = async (req, res) => {
             return res.status(404).json({ error: 'Báo cáo không tồn tại', code: 'BAOCAO_KHONG_TON_TAI' });
         }
 
-        if (String(baoCao.SinhVien) !== String(sinhVienId) || String(baoCao.DeTai) !== String(deTaiId)) {
+        if (String(baoCao.HocSinh) !== String(hocSinhId) || String(baoCao.DeTai) !== String(deTaiId)) {
             return res.status(400).json({ error: 'Báo cáo không khớp học sinh/đề tài', code: 'BAOCAO_KHONG_KHOP_SV' });
         }
 
@@ -296,13 +296,13 @@ exports.chamDiem = async (req, res) => {
             DeTai: deTaiId,
             TrangThai: 'DaDuyet',
             $or: [
-                { SinhVien: sinhVienId },
-                { TruongNhom: sinhVienId },
-                { 'ThanhVien.SinhVien': sinhVienId }
+                { HocSinh: hocSinhId },
+                { TruongNhom: hocSinhId },
+                { 'ThanhVien.HocSinh': hocSinhId }
             ]
         });
         const nhomId = dangKy?.Nhom;
-        const gradePayload = { deTaiId, giangVienId, nhomId, diem, nhanXet, aiScore, aiFeedback, rubricsResult, aiSecurityFlags, aiRepetitionRate, aiTimeTakenMs };
+        const gradePayload = { deTaiId, giaoVienId, nhomId, diem, nhanXet, aiScore, aiFeedback, rubricsResult, aiSecurityFlags, aiRepetitionRate, aiTimeTakenMs };
 
         // Chấm cho báo cáo chính (của thành viên được chọn)
         const primary = await createGradeForReport({ baoCao, ...gradePayload });
@@ -310,13 +310,13 @@ exports.chamDiem = async (req, res) => {
 
         // #12: Đề tài nhóm → áp CÙNG điểm/nhận xét cho TẤT CẢ thành viên trong nhóm
         let groupGraded = null;
-        const isGroupTopic = (ownerCheck.deTai?.SoLuongSinhVien || 1) > 1 || (dangKy?.Nhom);
+        const isGroupTopic = (ownerCheck.deTai?.SoLuongHocSinh || 1) > 1 || (dangKy?.Nhom);
         if (isGroupTopic && dangKy && nhomId) {
             const groupReports = await BaoCao.find({ DeTai: deTaiId, Nhom: nhomId });
             let success = 1; // đã tính báo cáo chính
             let total = 1;
             for (const memberReport of groupReports) {
-                if (String(memberReport.SinhVien) === String(sinhVienId)) continue; // đã chấm ở trên
+                if (String(memberReport.HocSinh) === String(hocSinhId)) continue; // đã chấm ở trên
                 total += 1;
                 const r = await createGradeForReport({ baoCao: memberReport, ...gradePayload });
                 if (!r.skipped) success += 1;
@@ -328,7 +328,7 @@ exports.chamDiem = async (req, res) => {
         // #5: kiểm tra khép vòng đời đề tài sau khi chấm
         await checkAndCompleteTopic(deTaiId);
 
-        logger.info(`[GRADE] Student ${sinhVienId} graded ${diem}/10 for topic ${deTaiId} | AI: ${aiScore || 'N/A'} | txHash: ${primary.txHash || 'N/A'}`);
+        logger.info(`[GRADE] Student ${hocSinhId} graded ${diem}/10 for topic ${deTaiId} | AI: ${aiScore || 'N/A'} | txHash: ${primary.txHash || 'N/A'}`);
         res.status(201).json({
             message: groupGraded ? 'Chấm điểm thành công cho cả nhóm' : 'Chấm điểm thành công',
             data: result,
@@ -339,43 +339,43 @@ exports.chamDiem = async (req, res) => {
             groupGraded
         });
     } catch (err) {
-        logger.error(`[GRADE] Failed to grade student ${req.body.sinhVienId}: ${err.message}`);
+        logger.error(`[GRADE] Failed to grade student ${req.body.hocSinhId}: ${err.message}`);
         res.status(500).json({ error: err.message });
     }
 };
 
-exports.getDiemBySinhVien = async (req, res) => {
+exports.getDiemByHocSinh = async (req, res) => {
     try {
-        const svId = req.params.svId;
-        let list = await DiemSo.find({ SinhVien: svId })
+        const hsId = req.params.hsId;
+        let list = await DiemSo.find({ HocSinh: hsId })
             .populate('DeTai')
             .populate('BaoCao')
             .populate('Nhom')
-            .populate('GiangVienCham', 'HoTen Email')
-            .populate('GiangVienCam', 'HoTen Email');
+            .populate('GiaoVienCham', 'HoTen Email')
+            .populate('GiaoVienCam', 'HoTen Email');
 
         // Fallback nhóm: nếu SV không có DiemSo riêng,
         // kiểm tra xem SV có thuộc nhóm nào đã được chấm điểm không
         if (list.length === 0) {
             const groupRegs = await DangKyDeTai.find({
                 TrangThai: 'DaDuyet',
-                'ThanhVien.SinhVien': svId,
+                'ThanhVien.HocSinh': hsId,
                 'ThanhVien.TrangThaiTV': 'DaChapNhan'
             });
 
             for (const reg of groupRegs) {
                 const leaderId = reg.TruongNhom?.toString();
-                if (!leaderId || leaderId === svId) continue;
+                if (!leaderId || leaderId === hsId) continue;
 
                 const deTaiId = reg.DeTai?.toString();
                 if (!deTaiId) continue;
 
-                const leaderGrades = await DiemSo.find({ SinhVien: leaderId, DeTai: deTaiId })
+                const leaderGrades = await DiemSo.find({ HocSinh: leaderId, DeTai: deTaiId })
                     .populate('DeTai')
                     .populate('BaoCao')
                     .populate('Nhom')
-                    .populate('GiangVienCham', 'HoTen Email')
-                    .populate('GiangVienCam', 'HoTen Email');
+                    .populate('GiaoVienCham', 'HoTen Email')
+                    .populate('GiaoVienCam', 'HoTen Email');
 
                 if (leaderGrades.length > 0) {
                     list = list.concat(leaderGrades);
@@ -392,13 +392,13 @@ exports.getDiemBySinhVien = async (req, res) => {
 // Bảng so sánh điểm AI vs GV cho tất cả SV của 1 giáo viên
 exports.retryBlockchain = async (req, res) => {
     try {
-        const giangVienId = req.user?.id || req.body.giangVienId;
+        const giaoVienId = req.user?.id || req.body.giaoVienId;
         const grade = await DiemSo.findById(req.params.id);
         if (!grade) {
             return res.status(404).json({ error: 'Khong tim thay diem so', code: 'DIEMSO_KHONG_TON_TAI' });
         }
 
-        const ownerCheck = await assertGiangVienOwnsDeTai(grade.DeTai, giangVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(grade.DeTai, giaoVienId);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -417,9 +417,9 @@ exports.retryBlockchain = async (req, res) => {
 
         // 1. Kiểm tra trước trên Blockchain xem điểm số đã được chốt từ trước chưa để tự động phục hồi không cần tốn gas
         try {
-            logger.info(`[GRADE] Pre-checking blockchain history in retry for student ${grade.SinhVien} and topic ${grade.DeTai}`);
+            logger.info(`[GRADE] Pre-checking blockchain history in retry for student ${grade.HocSinh} and topic ${grade.DeTai}`);
             const history = await contractService.getSubmissionHistory(
-                grade.SinhVien.toString(),
+                grade.HocSinh.toString(),
                 grade.DeTai.toString()
             );
             const idx = grade.SubmissionIndex || 0;
@@ -457,7 +457,7 @@ exports.retryBlockchain = async (req, res) => {
 
         try {
             const txHash = await contractService.finalizeGradeOnChain(
-                grade.SinhVien.toString(),
+                grade.HocSinh.toString(),
                 grade.DeTai.toString(),
                 grade.Diem,
                 grade.NhanXet || '',
@@ -481,9 +481,9 @@ exports.retryBlockchain = async (req, res) => {
             const errorMsg = error.message || '';
             if (errorMsg.includes('already graded') || errorMsg.includes('Submission already graded')) {
                 try {
-                    logger.info(`[GRADE] Intercepted 'already graded' in retry. Synchronizing grade from blockchain for student ${grade.SinhVien} and topic ${grade.DeTai}`);
+                    logger.info(`[GRADE] Intercepted 'already graded' in retry. Synchronizing grade from blockchain for student ${grade.HocSinh} and topic ${grade.DeTai}`);
                     const history = await contractService.getSubmissionHistory(
-                        grade.SinhVien.toString(),
+                        grade.HocSinh.toString(),
                         grade.DeTai.toString()
                     );
                     const idx = grade.SubmissionIndex || 0;
@@ -550,17 +550,17 @@ exports.getComparison = async (req, res) => {
         try {
             const objectId = new mongoose.Types.ObjectId(gvId);
             myTopics = await DeTai.find({
-                $or: [{ GiangVienHuongDan: objectId }, { GiangVienHuongDan: gvId }]
+                $or: [{ GiaoVienHuongDan: objectId }, { GiaoVienHuongDan: gvId }]
             });
         } catch (e) {
-            myTopics = await DeTai.find({ GiangVienHuongDan: gvId });
+            myTopics = await DeTai.find({ GiaoVienHuongDan: gvId });
         }
 
         const topicIds = myTopics.map(t => t._id);
 
         // Lấy tất cả điểm số cho các đề tài đó
         const allGrades = await DiemSo.find({ DeTai: { $in: topicIds } })
-            .populate('SinhVien', 'HoTen MaSV')
+            .populate('HocSinh', 'HoTen MaHS')
             .populate({
                 path: 'DeTai',
                 select: 'TenDeTai MaDeTai SuDungRubrics LopHoc MonHoc',
@@ -578,7 +578,7 @@ exports.getComparison = async (req, res) => {
                 const diff = (g.Diem || 0) - (g.AI_Score || 0);
                 return {
                     _id: g._id,
-                    student: g.SinhVien,
+                    student: g.HocSinh,
                     topic: g.DeTai,
                     gvScore: g.Diem,
                     aiScore: g.AI_Score,

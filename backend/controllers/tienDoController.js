@@ -55,26 +55,26 @@ const validateRubricsTuan = (rubricsTuan) => {
     return { ok: true };
 };
 
-const assertGiangVienOwnsDeTai = async (deTaiId, giangVienId) => {
+const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId) => {
     const deTai = await DeTai.findById(deTaiId);
     if (!deTai) {
         return { ok: false, error: 'Không tìm thấy đề tài', code: 'DETAI_KHONG_TON_TAI' };
     }
 
-    if (String(deTai.GiangVienHuongDan) !== String(giangVienId)) {
+    if (String(deTai.GiaoVienHuongDan) !== String(giaoVienId)) {
         return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
     }
 
     return { ok: true, deTai };
 };
 
-const assertSinhVienBelongsToDangKy = async (deTaiId, sinhVienId) => {
+const assertHocSinhBelongsToDangKy = async (deTaiId, hocSinhId) => {
     const dangKy = await DangKyDeTai.findOne({
         DeTai: deTaiId,
         TrangThai: 'DaDuyet',
         $or: [
-            { SinhVien: sinhVienId },
-            { 'ThanhVien.SinhVien': sinhVienId }
+            { HocSinh: hocSinhId },
+            { 'ThanhVien.HocSinh': hocSinhId }
         ]
     });
 
@@ -190,9 +190,9 @@ exports.createProgressEntry = async (req, res) => {
             minhChung,
             confirmGiam
         } = req.body;
-        const sinhVienId = req.user?.id || req.body.sinhVienId;
+        const hocSinhId = req.user?.id || req.body.hocSinhId;
 
-        const registrationCheck = await assertSinhVienBelongsToDangKy(deTaiId, sinhVienId);
+        const registrationCheck = await assertHocSinhBelongsToDangKy(deTaiId, hocSinhId);
         if (!registrationCheck.ok) {
             return res.status(403).json({ error: registrationCheck.error, code: registrationCheck.code });
         }
@@ -202,7 +202,7 @@ exports.createProgressEntry = async (req, res) => {
         if (nhomId) {
             queryExisting.Nhom = nhomId;
         } else {
-            queryExisting.SinhVien = sinhVienId;
+            queryExisting.HocSinh = hocSinhId;
         }
         const existingEntries = await TienDo.find(queryExisting)
             .sort({ createdAt: -1 });
@@ -222,7 +222,7 @@ exports.createProgressEntry = async (req, res) => {
 
         const draftEntry = {
             DeTai: deTaiId,
-            SinhVien: sinhVienId,
+            HocSinh: hocSinhId,
             Nhom: nhomId || undefined,
             NoiDung: noiDung || noiDungDaLam || 'Cap nhat tien do',
             PhanTramHoanThanh: phanTramHoanThanh || 0,
@@ -275,18 +275,18 @@ exports.createProgressEntry = async (req, res) => {
 };
 
 // 2. Lấy tiến độ của 1 SV theo Đề tài (SV xem của mình)
-exports.getProgressBySinhVien = async (req, res) => {
+exports.getProgressByHocSinh = async (req, res) => {
     try {
-        const { svId } = req.params;
+        const { hsId } = req.params;
         const { deTaiId } = req.query;
 
         // Tìm xem học sinh có thuộc nhóm nào có đề tài được duyệt không
         const queryDangKy = {
             TrangThai: 'DaDuyet',
             $or: [
-                { SinhVien: svId },
-                { TruongNhom: svId },
-                { 'ThanhVien.SinhVien': svId }
+                { HocSinh: hsId },
+                { TruongNhom: hsId },
+                { 'ThanhVien.HocSinh': hsId }
             ]
         };
         if (deTaiId) {
@@ -295,7 +295,7 @@ exports.getProgressBySinhVien = async (req, res) => {
 
         const dangKy = await DangKyDeTai.findOne(queryDangKy);
 
-        let filter = { SinhVien: svId };
+        let filter = { HocSinh: hsId };
         if (dangKy && dangKy.Nhom) {
             filter = { Nhom: dangKy.Nhom };
         }
@@ -317,7 +317,7 @@ exports.getProgressBySinhVien = async (req, res) => {
 
 // Legacy route giữ nguyên behavior
 exports.getProgressBySV = async (req, res) => {
-    return exports.getProgressBySinhVien(req, res);
+    return exports.getProgressByHocSinh(req, res);
 };
 
 // 3. Lấy toàn bộ tiến độ của 1 đề tài (GV xem)
@@ -332,9 +332,9 @@ exports.getProgressByTopic = async (req, res) => {
         }
 
         const tienDoList = await TienDo.find(filter)
-            .populate('SinhVien', 'HoTen MaSV Email')
+            .populate('HocSinh', 'HoTen MaHS Email')
             .populate('Nhom')
-            .sort({ TuanSo: 1, SinhVien: 1, LanNopLai: -1, createdAt: -1 });
+            .sort({ TuanSo: 1, HocSinh: 1, LanNopLai: -1, createdAt: -1 });
 
         res.json({ data: tienDoList });
     } catch (err) {
@@ -347,24 +347,24 @@ exports.getProgressDetail = async (req, res) => {
     try {
         const { id } = req.params;
         const progress = await TienDo.findById(id)
-            .populate('DeTai', 'TenDeTai MaDeTai GiangVienHuongDan')
-            .populate('SinhVien', 'HoTen MaSV Email');
+            .populate('DeTai', 'TenDeTai MaDeTai GiaoVienHuongDan')
+            .populate('HocSinh', 'HoTen MaHS Email');
 
         if (!progress) {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const requesterId = req.user?.id || req.user?._id || req.query.sinhVienId || req.query.giangVienId;
-        const isOwner = String(progress.SinhVien) === String(requesterId);
+        const requesterId = req.user?.id || req.user?._id || req.query.hocSinhId || req.query.giaoVienId;
+        const isOwner = String(progress.HocSinh) === String(requesterId);
         let isMemberOfGroup = false;
         if (progress.Nhom && requesterId) {
             const dangKy = await DangKyDeTai.findOne({
                 DeTai: progress.DeTai._id || progress.DeTai,
                 Nhom: progress.Nhom,
                 $or: [
-                    { SinhVien: requesterId },
+                    { HocSinh: requesterId },
                     { TruongNhom: requesterId },
-                    { 'ThanhVien.SinhVien': requesterId }
+                    { 'ThanhVien.HocSinh': requesterId }
                 ]
             });
             if (dangKy) {
@@ -373,7 +373,7 @@ exports.getProgressDetail = async (req, res) => {
         }
 
         if (requesterId && !isOwner && !isMemberOfGroup) {
-            const ownerCheck = await assertGiangVienOwnsDeTai(progress.DeTai._id || progress.DeTai, requesterId);
+            const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai._id || progress.DeTai, requesterId);
             if (!ownerCheck.ok) {
                 return res.status(403).json({ error: ownerCheck.error, code: ownerCheck.code });
             }
@@ -386,7 +386,7 @@ exports.getProgressDetail = async (req, res) => {
         if (progress.Nhom) {
             queryHistory.Nhom = progress.Nhom;
         } else {
-            queryHistory.SinhVien = progress.SinhVien;
+            queryHistory.HocSinh = progress.HocSinh;
         }
         const lichSu = isNumber(progress.TuanSo)
             ? await TienDo.find(queryHistory).sort({ LanNopLai: -1, createdAt: -1 })
@@ -399,7 +399,7 @@ exports.getProgressDetail = async (req, res) => {
         if (progress.Nhom) {
             queryTuanTruoc.Nhom = progress.Nhom;
         } else {
-            queryTuanTruoc.SinhVien = progress.SinhVien;
+            queryTuanTruoc.HocSinh = progress.HocSinh;
         }
         const tuanTruoc = isNumber(progress.TuanSo)
             ? await TienDo.findOne(queryTuanTruoc).sort({ TuanSo: -1 })
@@ -412,7 +412,7 @@ exports.getProgressDetail = async (req, res) => {
         if (progress.Nhom) {
             queryPrevious.Nhom = progress.Nhom;
         } else {
-            queryPrevious.SinhVien = progress.SinhVien;
+            queryPrevious.HocSinh = progress.HocSinh;
         }
         const previousEntries = await TienDo.find(queryPrevious).sort({ createdAt: -1 });
 
@@ -443,7 +443,7 @@ exports.updateProgressEntry = async (req, res) => {
             keHoachTuanSau,
             minhChung,
             confirmGiam,
-            sinhVienId
+            hocSinhId
         } = req.body;
 
         const progress = await TienDo.findById(id);
@@ -451,17 +451,17 @@ exports.updateProgressEntry = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const requesterId = req.user?.id || req.user?._id || sinhVienId;
-        const isOwner = String(progress.SinhVien) === String(requesterId);
+        const requesterId = req.user?.id || req.user?._id || hocSinhId;
+        const isOwner = String(progress.HocSinh) === String(requesterId);
         let isMemberOfGroup = false;
         if (progress.Nhom && requesterId) {
             const dangKy = await DangKyDeTai.findOne({
                 DeTai: progress.DeTai,
                 Nhom: progress.Nhom,
                 $or: [
-                    { SinhVien: requesterId },
+                    { HocSinh: requesterId },
                     { TruongNhom: requesterId },
-                    { 'ThanhVien.SinhVien': requesterId }
+                    { 'ThanhVien.HocSinh': requesterId }
                 ]
             });
             if (dangKy) {
@@ -530,7 +530,7 @@ exports.updateProgressEntry = async (req, res) => {
         if (progress.Nhom) {
             queryPrevious.Nhom = progress.Nhom;
         } else {
-            queryPrevious.SinhVien = progress.SinhVien;
+            queryPrevious.HocSinh = progress.HocSinh;
         }
         const previousEntries = await TienDo.find(queryPrevious).sort({ createdAt: -1 });
 
@@ -564,14 +564,14 @@ exports.evaluateProgress = async (req, res) => {
     try {
         const { id } = req.params;
         const { trangThaiDanhGia, nhanXetGV, rubricsTuan } = req.body;
-        const giangVienId = req.user?.id || req.body.giangVienId;
+        const giaoVienId = req.user?.id || req.body.giaoVienId;
 
         const progress = await TienDo.findById(id);
         if (!progress) {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const ownerCheck = await assertGiangVienOwnsDeTai(progress.DeTai, giangVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -609,7 +609,7 @@ exports.evaluateProgress = async (req, res) => {
             progress.NhanXetGV = nhanXetGV;
         }
 
-        progress.GiangVienDanhGia = giangVienId;
+        progress.GiaoVienDanhGia = giaoVienId;
         progress.NgayDanhGia = new Date();
 
         // #18: ghi vết đánh giá tiến độ lên blockchain (chỉ khi bật flag + đánh giá Đạt) — non-blocking
@@ -618,7 +618,7 @@ exports.evaluateProgress = async (req, res) => {
             try {
                 const contractService = require('../services/thesisContractService');
                 const txHash = await contractService.submitProgressOnChain(
-                    String(progress.DeTai), String(progress.SinhVien),
+                    String(progress.DeTai), String(progress.HocSinh),
                     progress.TuanSo || 0, progress.DiemTienDo || 0
                 );
                 progress.TxHash = txHash;
@@ -651,7 +651,7 @@ exports.commentProgress = async (req, res) => {
 
         const requesterId = req.user?.id || req.user?._id;
         if (requesterId) {
-            const ownerCheck = await assertGiangVienOwnsDeTai(updated.DeTai, requesterId);
+            const ownerCheck = await assertGiaoVienOwnsDeTai(updated.DeTai, requesterId);
             if (!ownerCheck.ok) {
                 return res.status(403).json({ error: ownerCheck.error, code: ownerCheck.code });
             }
@@ -670,14 +670,14 @@ exports.commentProgress = async (req, res) => {
 exports.aiSuggestProgress = async (req, res) => {
     try {
         const { id } = req.params;
-        const giangVienId = req.user?.id || req.body.giangVienId || req.query.giangVienId;
+        const giaoVienId = req.user?.id || req.body.giaoVienId || req.query.giaoVienId;
 
         const progress = await TienDo.findById(id);
         if (!progress) {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const ownerCheck = await assertGiangVienOwnsDeTai(progress.DeTai, giangVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });

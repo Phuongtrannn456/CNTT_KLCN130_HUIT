@@ -14,8 +14,8 @@ export const getDomainTerminology = () => {
 
   // Default: UNIVERSITY
   return {
-    STUDENT: 'Sinh viên',
-    TEACHER: 'Giảng viên',
+    STUDENT: 'Học sinh',
+    TEACHER: 'Giáo viên',
     PROJECT: 'Đề tài',
     MAJOR: 'Chuyên ngành',
     GPA: 'GPA',

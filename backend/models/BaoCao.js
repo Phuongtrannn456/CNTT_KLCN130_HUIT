@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const baoCaoSchema = new mongoose.Schema({
   DeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DeTai', required: true },
-  SinhVien: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien', required: true },
+  HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   Nhom: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },
   TieuDe: { type: String, required: true },
   IPFS_CID: { type: String, required: true }, // Nơi lưu trữ hash của file PDF trên mạng IPFS

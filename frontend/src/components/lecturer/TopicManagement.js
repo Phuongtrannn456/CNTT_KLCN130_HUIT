@@ -57,7 +57,7 @@ const TopicManagement = () => {
   const topics = React.useMemo(() => {
     const myClassIds = new Set(lopHocList.map(lh => (lh._id || lh).toString()));
     return rawTopics.filter(t => {
-      const gvHD = t.GiangVienHuongDan;
+      const gvHD = t.GiaoVienHuongDan;
       if (!gvHD) return false;
       const gvId = typeof gvHD === 'object' ? (gvHD._id || gvHD).toString() : gvHD.toString();
       
@@ -185,11 +185,11 @@ const TopicManagement = () => {
         MoTaChiTiet: values.detailDescription || '',
         YeuCau: Array.from(new Set((values.requires || []).flatMap(req => req.split(',').map(s => s.trim()).filter(Boolean)))),
         ChiTietBoSung: chiTietBoSung.filter(item => item.TieuDe && item.NoiDung),
-        SoLuongSinhVien: values.soLuongSV || 1,
+        SoLuongHocSinh: values.soLuongSV || 1,
         Deadline: deadlineDate,
         HanDangKy: values.hanDangKy ? values.hanDangKy.toDate() : undefined,
         HanNopBaoCao: values.hanNopBaoCao ? values.hanNopBaoCao.toDate() : undefined,
-        GiangVienHuongDan: user.id,
+        GiaoVienHuongDan: user.id,
         TrangThai: editingTopic ? editingTopic.TrangThai : 'MoDangKy',
         LoaiDeTai: selectedClassId === 'KHOA_LUAN' ? 'KhoaLuan' : 'MonHoc',
         // LopHoc
@@ -227,7 +227,7 @@ const TopicManagement = () => {
       description: record.MoTa,
       detailDescription: record.MoTaChiTiet,
       requires: record.YeuCau || [],
-      soLuongSV: record.SoLuongSinhVien,
+      soLuongSV: record.SoLuongHocSinh,
       deadline: record.Deadline ? dayjs(record.Deadline) : null,
       hanDangKy: record.HanDangKy ? dayjs(record.HanDangKy) : null,
       hanNopBaoCao: record.HanNopBaoCao ? dayjs(record.HanNopBaoCao) : null,
@@ -358,10 +358,10 @@ const TopicManagement = () => {
     },
     {
       title: 'Giáo Viên',
-      key: 'giangVien',
+      key: 'giaoVien',
       width: 145,
       render: (_, record) => {
-        const gv = record.GiangVienHuongDan;
+        const gv = record.GiaoVienHuongDan;
         if (!gv) return '—';
         return <Text strong style={{ color: '#595959' }}>{gv.HoTen || 'N/A'}</Text>;
       },
@@ -373,8 +373,8 @@ const TopicManagement = () => {
       align: 'center',
       responsive: ['sm'],
       render: (_, record) => (
-        <Tag color={record.SoLuongSinhVien > 1 ? 'blue' : 'default'} style={{ margin: 0 }}>
-          {record.SoLuongSinhVien || 1}
+        <Tag color={record.SoLuongHocSinh > 1 ? 'blue' : 'default'} style={{ margin: 0 }}>
+          {record.SoLuongHocSinh || 1}
         </Tag>
       ),
     },
@@ -427,7 +427,7 @@ const TopicManagement = () => {
       align: 'center',
       render: (_, record) => {
         const regCount = countRegistrations(record._id);
-        const gvId = record.GiangVienHuongDan ? (record.GiangVienHuongDan._id || record.GiangVienHuongDan).toString() : '';
+        const gvId = record.GiaoVienHuongDan ? (record.GiaoVienHuongDan._id || record.GiaoVienHuongDan).toString() : '';
         const isOwner = gvId === user.id;
 
         return (
@@ -517,7 +517,7 @@ const TopicManagement = () => {
                         <Tag color="blue">{record.MaDeTai}</Tag>
                       </Descriptions.Item>
                       <Descriptions.Item label={<strong>Giáo viên hướng dẫn</strong>}>
-                        <Text strong style={{ color: '#1677ff' }}>{record.GiangVienHuongDan?.HoTen || '—'}</Text>
+                        <Text strong style={{ color: '#1677ff' }}>{record.GiaoVienHuongDan?.HoTen || '—'}</Text>
                       </Descriptions.Item>
                       <Descriptions.Item label={<strong>Mô tả cốt lõi</strong>}>
                         {record.MoTa || <span style={{ color: '#aaa' }}>Không có</span>}
@@ -542,7 +542,7 @@ const TopicManagement = () => {
                           {(record.LopHoc || []).map(lh => (
                             <span key={lh._id || lh}>
                               <Tag color="cyan">{lh.MaLopHoc}</Tag> 
-                              <Text type="secondary" style={{ fontSize: 12 }}>{lh.TenLopHoc} {lh.MonHoc?.TenMonHoc ? `(${lh.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lh.GiangVien?.HoTen || 'N/A'}</Text>
+                              <Text type="secondary" style={{ fontSize: 12 }}>{lh.TenLopHoc} {lh.MonHoc?.TenMonHoc ? `(${lh.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lh.GiaoVien?.HoTen || 'N/A'}</Text>
                             </span>
                           ))}
                         </div>
@@ -551,7 +551,7 @@ const TopicManagement = () => {
                         {record.Deadline ? new Date(record.Deadline).toLocaleString('vi-VN') : 'Không giới hạn'}
                       </Descriptions.Item>
                       <Descriptions.Item label={<strong>Số lượng HS tối đa</strong>}>
-                        {record.SoLuongSinhVien || 1} HS ({record.SoLuongSinhVien > 1 ? 'Dự án nhóm' : 'Dự án cá nhân'})
+                        {record.SoLuongHocSinh || 1} HS ({record.SoLuongHocSinh > 1 ? 'Dự án nhóm' : 'Dự án cá nhân'})
                       </Descriptions.Item>
                     </Descriptions>
 
@@ -584,7 +584,7 @@ const TopicManagement = () => {
                       <Alert
                         message={
                           <span>
-                            <strong>Dự án đã có nhóm đảm nhận!</strong> Đã phê duyệt chính thức cho nhóm <strong>{approvedReg.Nhom?.TenNhom || `Nhóm của ${approvedReg.TruongNhom?.HoTen || approvedReg.SinhVien?.HoTen || 'N/A'}`}</strong> thực hiện dự án này.
+                            <strong>Dự án đã có nhóm đảm nhận!</strong> Đã phê duyệt chính thức cho nhóm <strong>{approvedReg.Nhom?.TenNhom || `Nhóm của ${approvedReg.TruongNhom?.HoTen || approvedReg.HocSinh?.HoTen || 'N/A'}`}</strong> thực hiện dự án này.
                           </span>
                         }
                         type="success"
@@ -613,8 +613,8 @@ const TopicManagement = () => {
                           'DaSubmit': '📤 Đã Submit', 'ChoDoi': '⏳ Chờ Kết Quả', 'DaDuyet': '✅ Đã Duyệt (Thắng)',
                           'TuChoi': '❌ Từ Chối', 'Thua': '😞 Thua'
                         };
-                        const nhomName = reg.Nhom?.TenNhom || `Nhóm của ${reg.TruongNhom?.HoTen || reg.SinhVien?.HoTen || 'N/A'}`;
-                        const gvId = record.GiangVienHuongDan ? (record.GiangVienHuongDan._id || record.GiangVienHuongDan).toString() : '';
+                        const nhomName = reg.Nhom?.TenNhom || `Nhóm của ${reg.TruongNhom?.HoTen || reg.HocSinh?.HoTen || 'N/A'}`;
+                        const gvId = record.GiaoVienHuongDan ? (record.GiaoVienHuongDan._id || record.GiaoVienHuongDan).toString() : '';
                         const isOwner = gvId === user.id;
 
                         return (
@@ -657,7 +657,7 @@ const TopicManagement = () => {
                                           <Tag color={tv.VaiTro === 'TruongNhom' ? 'gold' : 'blue'} style={{ fontSize: 10, lineHeight: '14px', padding: '0 4px' }}>
                                             {tv.VaiTro === 'TruongNhom' ? '👑' : '👤'}
                                           </Tag>
-                                          <Text style={{ fontSize: 13 }}>{tv.SinhVien?.HoTen || 'N/A'} ({tv.SinhVien?.MaSV || ''})</Text>
+                                          <Text style={{ fontSize: 13 }}>{tv.HocSinh?.HoTen || 'N/A'} ({tv.HocSinh?.MaHS || ''})</Text>
                                         </Space>
                                       </List.Item>
                                     )}
@@ -741,7 +741,7 @@ const TopicManagement = () => {
                 placeholder="Chọn lớp học..."
                 options={lopHocList.map(lh => ({
                   value: lh._id,
-                  label: `${lh.MaLopHoc} - ${lh.TenLopHoc}${lh.MonHoc?.TenMonHoc ? ` (${lh.MonHoc.TenMonHoc})` : ''} - Giáo viên: ${lh.GiangVien?.HoTen || 'N/A'}`
+                  label: `${lh.MaLopHoc} - ${lh.TenLopHoc}${lh.MonHoc?.TenMonHoc ? ` (${lh.MonHoc.TenMonHoc})` : ''} - Giáo viên: ${lh.GiaoVien?.HoTen || 'N/A'}`
                 }))}
                 size="large"
               />

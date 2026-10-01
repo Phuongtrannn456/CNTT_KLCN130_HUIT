@@ -75,7 +75,7 @@ const RubricsManagement = () => {
       const payload = {
         TenMau: values.TenMau,
         MoTaMau: values.MoTaMau || '',
-        GiangVien: user.id,
+        GiaoVien: user.id,
         TieuChi: tieuChiList,
         MacDinh: values.MacDinh || false,
       };

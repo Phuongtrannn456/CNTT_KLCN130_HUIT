@@ -18,7 +18,7 @@ export const ClassProvider = ({ children }) => {
     }
     try {
       setLoading(true);
-      const classesRes = await managementService.getLopHocBySinhVien(user.id);
+      const classesRes = await managementService.getLopHocByHocSinh(user.id);
       const classes = classesRes.data || [];
       setMyClasses(classes);
       

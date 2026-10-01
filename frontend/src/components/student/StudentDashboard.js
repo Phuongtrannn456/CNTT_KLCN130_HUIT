@@ -63,7 +63,7 @@ const StudentDashboard = () => {
 
             if (regData.registration.TrangThai === 'DaDuyet') {
               try {
-                const gradeData = await aiApiService.getDiemBySinhVien(user.id);
+                const gradeData = await aiApiService.getDiemByHocSinh(user.id);
                 if (Array.isArray(gradeData) && gradeData.length > 0) {
                   const topicGrade = gradeData.find(g =>
                     g.DeTai?._id === (regData.registration.DeTai?._id || regData.registration.DeTai)
@@ -75,7 +75,7 @@ const StudentDashboard = () => {
               }
 
               try {
-                const progressRes = await aiApiService.getProgressBySinhVien(user.id, regData.registration.DeTai?._id);
+                const progressRes = await aiApiService.getProgressByHocSinh(user.id, regData.registration.DeTai?._id);
                 const logs = progressRes?.data || [];
                 const graded = logs.filter(item => item.TrangThaiDanhGia === 'Dat' && item.DiemTienDo != null);
                 const avg = graded.length > 0
@@ -115,7 +115,7 @@ const StudentDashboard = () => {
 
       const result = await aiApiService.updateStudentProfile(user.id, {
         HoTen: values.HoTen,
-        MaSV: values.MaSV,
+        MaHS: values.MaHS,
         Email: values.Email,
         GPA: values.GPA || 0,
         ChuyenNganh: values.ChuyenNganh || '',
@@ -144,7 +144,7 @@ const StudentDashboard = () => {
 
       form.setFieldsValue({
         HoTen: studentProfile.HoTen,
-        MaSV: studentProfile.MaSV,
+        MaHS: studentProfile.MaHS,
         Email: studentProfile.Email,
         GPA: studentProfile.GPA,
         ChuyenNganh: studentProfile.ChuyenNganh,
@@ -217,7 +217,7 @@ const StudentDashboard = () => {
         <Alert
           key={inv._id}
           message={`📩 Bạn có lời mời tham gia nhóm Dự án: ${inv.DeTai?.TenDeTai}`}
-          description={`Trưởng nhóm: ${inv.SinhVien?.HoTen} (${inv.SinhVien?.MaSV}). Bạn có muốn tham gia dự án không?`}
+          description={`Trưởng nhóm: ${inv.HocSinh?.HoTen} (${inv.HocSinh?.MaHS}). Bạn có muốn tham gia dự án không?`}
           type="info"
           showIcon
           style={{ marginBottom: 24, border: '1px solid #1677ff', background: '#e6f4ff' }}
@@ -244,7 +244,7 @@ const StudentDashboard = () => {
               <span>Lời mời vào lớp: <strong>{inv.LopHoc?.TenLopHoc || inv.LopHoc?.MaLopHoc || '—'}</strong></span>
             </Space>
           }
-          description={`Môn học: ${inv.LopHoc?.MonHoc?.TenMonHoc || '—'} | Giáo viên: ${inv.GiangVien?.HoTen || '—'}`}
+          description={`Môn học: ${inv.LopHoc?.MonHoc?.TenMonHoc || '—'} | Giáo viên: ${inv.GiaoVien?.HoTen || '—'}`}
           type="warning"
           showIcon
           style={{ marginBottom: 24, border: '1px solid #faad14', background: '#fffbe6' }}
@@ -275,7 +275,7 @@ const StudentDashboard = () => {
             </div>
             <div style={{ marginBottom: 8 }}>
               <Text type="secondary">Mã HS: </Text>
-              <Text strong>{studentProfile?.MaSV || 'Chưa cập nhật'}</Text>
+              <Text strong>{studentProfile?.MaHS || 'Chưa cập nhật'}</Text>
             </div>
             <div style={{ marginBottom: 8 }}>
               <Text type="secondary">Email: </Text>
@@ -414,7 +414,7 @@ const StudentDashboard = () => {
                     </div>
                     <div style={{ fontSize: 13, marginTop: 2 }}>
                       <span style={{ color: '#8c8c8c' }}>Giáo viên: </span>
-                      <Text>{lop.GiangVien?.HoTen || '—'}</Text>
+                      <Text>{lop.GiaoVien?.HoTen || '—'}</Text>
                     </div>
                     {idx < myClasses.length - 1 && <Divider style={{ margin: '10px 0' }} />}
                   </div>
@@ -459,7 +459,7 @@ const StudentDashboard = () => {
           onFinish={handleSaveProfile}
           initialValues={{
             HoTen: studentProfile?.HoTen || '',
-            MaSV: studentProfile?.MaSV || '',
+            MaHS: studentProfile?.MaHS || '',
             Email: studentProfile?.Email || '',
             GPA: studentProfile?.GPA || 0,
             ChuyenNganh: studentProfile?.ChuyenNganh || '',
@@ -476,7 +476,7 @@ const StudentDashboard = () => {
 
           <Row gutter={[16, 16]}>
             <Col xs={24} sm={12}>
-              <Form.Item name="MaSV" label="Mã Học Sinh" rules={[{ required: true, message: 'Vui lòng nhập mã học sinh!' }]}>
+              <Form.Item name="MaHS" label="Mã Học Sinh" rules={[{ required: true, message: 'Vui lòng nhập mã học sinh!' }]}>
                 <Input placeholder="HS1001" size="large" />
               </Form.Item>
             </Col>

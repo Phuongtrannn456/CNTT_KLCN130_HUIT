@@ -15,7 +15,7 @@ function invalidateMonHocCache(gvId) {
 }
 
 // Lấy danh sách môn học của giáo viên
-exports.getByGiangVien = async (req, res) => {
+exports.getByGiaoVien = async (req, res) => {
   try {
     const { gvId } = req.params;
     const cached = _monHocCache.get(String(gvId));
@@ -23,8 +23,8 @@ exports.getByGiangVien = async (req, res) => {
       return res.json({ success: true, data: cached.data });
     }
 
-    const monHocs = await MonHoc.find({ GiangVien: gvId })
-      .populate('GiangVien', 'HoTen MaGV')
+    const monHocs = await MonHoc.find({ GiaoVien: gvId })
+      .populate('GiaoVien', 'HoTen MaGV')
       .sort({ createdAt: -1 })
       .lean();
 
@@ -59,7 +59,7 @@ exports.getByGiangVien = async (req, res) => {
 
     res.json({ success: true, data: result });
   } catch (error) {
-    logger.error(`[MonHoc] getByGiangVien error: ${error.message}`);
+    logger.error(`[MonHoc] getByGiaoVien error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi lấy danh sách môn học' });
   }
 };
@@ -67,10 +67,10 @@ exports.getByGiangVien = async (req, res) => {
 // Tạo môn học mới
 exports.create = async (req, res) => {
   try {
-    const { MaMonHoc, TenMonHoc, MoTa, GiangVien } = req.body;
+    const { MaMonHoc, TenMonHoc, MoTa, GiaoVien } = req.body;
 
-    if (!MaMonHoc || !TenMonHoc || !GiangVien) {
-      return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc (MaMonHoc, TenMonHoc, GiangVien)' });
+    if (!MaMonHoc || !TenMonHoc || !GiaoVien) {
+      return res.status(400).json({ success: false, message: 'Thiếu thông tin bắt buộc (MaMonHoc, TenMonHoc, GiaoVien)' });
     }
 
     const existing = await MonHoc.findOne({ MaMonHoc });
@@ -78,11 +78,11 @@ exports.create = async (req, res) => {
       return res.status(409).json({ success: false, message: `Mã môn học '${MaMonHoc}' đã tồn tại` });
     }
 
-    const monHoc = new MonHoc({ MaMonHoc, TenMonHoc, MoTa: MoTa || '', GiangVien });
+    const monHoc = new MonHoc({ MaMonHoc, TenMonHoc, MoTa: MoTa || '', GiaoVien });
     await monHoc.save();
 
     logger.info(`[MonHoc] Created: ${MaMonHoc} - ${TenMonHoc}`);
-    invalidateMonHocCache(GiangVien);
+    invalidateMonHocCache(GiaoVien);
     res.status(201).json({ success: true, data: monHoc });
   } catch (error) {
     logger.error(`[MonHoc] create error: ${error.message}`);
@@ -96,15 +96,15 @@ exports.update = async (req, res) => {
     const { id } = req.params;
     const { TenMonHoc, MoTa } = req.body;
 
-    const currentMonHoc = await MonHoc.findById(id).select('GiangVien');
+    const currentMonHoc = await MonHoc.findById(id).select('GiaoVien');
     const monHoc = await MonHoc.findByIdAndUpdate(id, { TenMonHoc, MoTa }, { new: true });
     if (!monHoc) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy môn học' });
     }
 
     logger.info(`[MonHoc] Updated: ${monHoc.MaMonHoc}`);
-    if (currentMonHoc?.GiangVien) {
-      invalidateMonHocCache(currentMonHoc.GiangVien);
+    if (currentMonHoc?.GiaoVien) {
+      invalidateMonHocCache(currentMonHoc.GiaoVien);
     } else {
       invalidateMonHocCache();
     }

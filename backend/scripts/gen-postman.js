@@ -4,16 +4,16 @@
  *   node scripts/gen-postman.js
  *
  * Sinh ra:
- *   - Web3GiangVien_SmokeTest_Lecturer.postman_collection.json  (token GIẢNG VIÊN)
- *   - Web3GiangVien_SmokeTest_Student.postman_collection.json   (token SINH VIÊN)
- *   - Web3GiangVien.postman_environment.json                    (dùng chung)
+ *   - Web3GiaoVien_SmokeTest_Lecturer.postman_collection.json  (token GIÁO VIÊN)
+ *   - Web3GiaoVien_SmokeTest_Student.postman_collection.json   (token HỌC SINH)
+ *   - Web3GiaoVien.postman_environment.json                    (dùng chung)
  *
  * Cách dùng:
- *   1. Lấy token GV:  node scripts/get-token.js 0xPK_GIANGVIEN  → token + User ID (gvId)
- *   2. Lấy token SV:  node scripts/get-token.js 0xPK_SINHVIEN   → token + User ID (svId)
+ *   1. Lấy token GV:  node scripts/get-token.js 0xPK_GiaoVien  → token + User ID (gvId)
+ *   2. Lấy token SV:  node scripts/get-token.js 0xPK_HocSinh   → token + User ID (hsId)
  *   3. Postman: Import 2 collection + environment
  *   4. Chạy Lecturer: dán token GV vào "token", gvId vào "gvId" → Run
- *   5. Chạy Student:  dán token SV vào "token", svId vào "svId" → Run
+ *   5. Chạy Student:  dán token SV vào "token", hsId vào "hsId" → Run
  *
  * FIX cốt lõi: event (test script) đặt ở CẤP ITEM → assertion mới chạy.
  */
@@ -50,7 +50,7 @@ try {
 } catch (e) { console.log("⚠️ ${varName}:", e.message); }`;
 }
 
-// Lưu nhiều field từ 1 object response (vd hồ sơ SV: HoTen/MaSV/Email)
+// Lưu nhiều field từ 1 object response (vd hồ sơ SV: HoTen/MaHS/Email)
 function fieldSaver(mapping) {
   const lines = Object.entries(mapping)
     .map(([envKey, jsonKey]) => `  if (j.${jsonKey} != null) pm.environment.set("${envKey}", j.${jsonKey});`)
@@ -71,24 +71,24 @@ const json = (obj) => ({
 
 const S = (folder, method, route, opts = {}) => ({ folder, method, route, ...opts });
 
-// ── COLLECTION GIẢNG VIÊN ──────────────────────────────────────────────
+// ── COLLECTION GIÁO VIÊN ──────────────────────────────────────────────
 const lecturerRequests = [
   // 0 — bootstrap
-  S('0_bootstrap', 'GET', '/api/giangvien', { test: listSaver('gvId') }),
+  S('0_bootstrap', 'GET', '/api/giaovien', { test: listSaver('gvId') }),
   S('0_bootstrap', 'GET', '/api/detai', { test: listSaver('deTaiId') }),
 
   // 1 — read
   S('1_read', 'GET', '/api/detai/:id', { params: { id: 'deTaiId' } }),
-  S('1_read', 'GET', '/api/giangvien/:id', { params: { id: 'gvId' } }),
-  S('1_read', 'GET', '/api/monhoc/giangvien/:gvId', { params: { gvId: 'gvId' } }),
-  S('1_read', 'GET', '/api/lophoc/giangvien/:gvId', { params: { gvId: 'gvId' } }),
+  S('1_read', 'GET', '/api/giaovien/:id', { params: { id: 'gvId' } }),
+  S('1_read', 'GET', '/api/monhoc/giaovien/:gvId', { params: { gvId: 'gvId' } }),
+  S('1_read', 'GET', '/api/lophoc/giaovien/:gvId', { params: { gvId: 'gvId' } }),
   S('1_read', 'GET', '/api/blockchain/contracts'),
   S('1_read', 'GET', '/api/blockchain/thesis/db-records'),
-  S('1_read', 'GET', '/api/dangky/giangvien/:gvId', { params: { gvId: 'gvId' } }),
-  S('1_read', 'GET', '/api/baocao/giangvien/:gvId', { params: { gvId: 'gvId' } }),
+  S('1_read', 'GET', '/api/dangky/giaovien/:gvId', { params: { gvId: 'gvId' } }),
+  S('1_read', 'GET', '/api/baocao/giaovien/:gvId', { params: { gvId: 'gvId' } }),
   S('1_read', 'GET', '/api/baocao/detai/:deTaiId', { params: { deTaiId: 'deTaiId' } }),
   S('1_read', 'GET', '/api/diemso/comparison/:gvId', { params: { gvId: 'gvId' } }),
-  S('1_read', 'GET', '/api/rubrics/giangvien/:gvId', { params: { gvId: 'gvId' } }),
+  S('1_read', 'GET', '/api/rubrics/giaovien/:gvId', { params: { gvId: 'gvId' } }),
 
   // 2 — create/update
   S('2_create', 'POST', '/api/detai', {
@@ -98,9 +98,9 @@ const lecturerRequests = [
       TenDeTai: 'Smoke Test - Hệ thống Web3 Giáo Viên',
       MoTa: 'Đề tài tạo tự động khi kiểm thử',
       YeuCau: ['Web3', 'Blockchain', 'AI'],
-      SoLuongSinhVien: 2,
+      SoLuongHocSinh: 2,
       Deadline: new Date(Date.now() + 90 * 864e5).toISOString().split('T')[0],
-      GiangVienHuongDan: '{{gvId}}',
+      GiaoVienHuongDan: '{{gvId}}',
       CoBaiTest: false,
     }),
   }),
@@ -113,7 +113,7 @@ const lecturerRequests = [
     body: json({
       TenMau: 'Rubric Smoke Test',
       MoTaMau: 'Mẫu rubric tạo tự động',
-      GiangVien: '{{gvId}}',
+      GiaoVien: '{{gvId}}',
       MacDinh: false,
       TieuChi: [
         { TenTieuChi: 'Nội dung kỹ thuật', TrongSo: 50, DiemToiDa: 10, GoiYChoAI: ['web3', 'blockchain'] },
@@ -165,9 +165,9 @@ const lecturerRequests = [
   S('5_cleanup', 'DELETE', '/api/detai/:id', { params: { id: 'deTaiId' } }),
 ];
 
-// ── COLLECTION SINH VIÊN ───────────────────────────────────────────────
-// Không cần dán svId: lấy svId từ response POST /api/nhom (TruongNhom = chính SV này).
-// Lưu svId + nhomId từ create-nhom response
+// ── COLLECTION HỌC SINH ───────────────────────────────────────────────
+// Không cần dán hsId: lấy hsId từ response POST /api/nhom (TruongNhom = chính SV này).
+// Lưu hsId + nhomId từ create-nhom response
 const nhomBootstrapSaver = `${assertOk}
 try {
   var j = pm.response.json();
@@ -175,28 +175,28 @@ try {
   if (d._id) { pm.environment.set("nhomId", d._id); console.log("✅ nhomId =", d._id); }
   var tn = d.TruongNhom;
   var sv = tn && (tn._id || tn);
-  if (sv) { pm.environment.set("svId", sv); console.log("✅ svId =", sv); }
+  if (sv) { pm.environment.set("hsId", sv); console.log("✅ hsId =", sv); }
 } catch (e) { console.log("⚠️ nhomBootstrap:", e.message); }`;
 
 const studentRequests = [
-  // 0 — bootstrap: tạo nhóm để lấy svId (từ TruongNhom) + nhomId; lấy đề tài
+  // 0 — bootstrap: tạo nhóm để lấy hsId (từ TruongNhom) + nhomId; lấy đề tài
   S('0_bootstrap', 'GET', '/api/detai', { test: listSaver('deTaiId') }),
   S('0_bootstrap', 'POST', '/api/nhom', {
     test: nhomBootstrapSaver,
     body: json({ tenNhom: 'Nhóm Smoke Test', soLuong: 1 }),
   }),
-  S('0_bootstrap', 'GET', '/api/sinhvien/:id', {
-    params: { id: 'svId' },
-    test: fieldSaver({ svHoTen: 'HoTen', svMaSV: 'MaSV', svEmail: 'Email' }),
+  S('0_bootstrap', 'GET', '/api/hocsinh/:id', {
+    params: { id: 'hsId' },
+    test: fieldSaver({ svHoTen: 'HoTen', svMaHS: 'MaHS', svEmail: 'Email' }),
   }),
 
-  // 1 — đọc dữ liệu của chính mình (svId đã có)
-  S('1_read', 'GET', '/api/nhom/sinhvien/:svId', { params: { svId: 'svId' } }),
-  S('1_read', 'GET', '/api/nhom/invites/:svId', { params: { svId: 'svId' } }),
-  S('1_read', 'GET', '/api/dangky/sinhvien/:svId', { params: { svId: 'svId' } }),
-  S('1_read', 'GET', '/api/baocao/sinhvien/:svId', { params: { svId: 'svId' } }),
-  S('1_read', 'GET', '/api/diemso/sinhvien/:svId', { params: { svId: 'svId' } }),
-  S('1_read', 'GET', '/api/tiendo/sinhvien/:svId', { params: { svId: 'svId' } }),
+  // 1 — đọc dữ liệu của chính mình (hsId đã có)
+  S('1_read', 'GET', '/api/nhom/hocsinh/:hsId', { params: { hsId: 'hsId' } }),
+  S('1_read', 'GET', '/api/nhom/invites/:hsId', { params: { hsId: 'hsId' } }),
+  S('1_read', 'GET', '/api/dangky/hocsinh/:hsId', { params: { hsId: 'hsId' } }),
+  S('1_read', 'GET', '/api/baocao/hocsinh/:hsId', { params: { hsId: 'hsId' } }),
+  S('1_read', 'GET', '/api/diemso/hocsinh/:hsId', { params: { hsId: 'hsId' } }),
+  S('1_read', 'GET', '/api/tiendo/hocsinh/:hsId', { params: { hsId: 'hsId' } }),
 
   // 2 — AI gợi ý đề tài theo năng lực (SBERT). Cần ML 8001.
   // matchingService cần mỗi topic có _id + YeuCau, studentProfile có GPA + BangDiemKyNang
@@ -215,11 +215,11 @@ const studentRequests = [
   }),
 
   // 3 — cập nhật hồ sơ (GIỮ NGUYÊN tên/MSSV/email gốc, chỉ thêm GPA + kỹ năng)
-  S('3_profile', 'PUT', '/api/sinhvien/:id/profile', {
-    params: { id: 'svId' },
+  S('3_profile', 'PUT', '/api/hocsinh/:id/profile', {
+    params: { id: 'hsId' },
     body: json({
       HoTen: '{{svHoTen}}',
-      MaSV: '{{svMaSV}}',
+      MaHS: '{{svMaHS}}',
       Email: '{{svEmail}}',
       GPA: 3.5,
       ChuyenNganh: 'Công nghệ thông tin',
@@ -250,7 +250,7 @@ function buildUrl(route, paramMap = {}) {
   };
 }
 
-// Pre-request cấp collection: giải mã JWT trong {{token}} → tự set idVar (svId/gvId)
+// Pre-request cấp collection: giải mã JWT trong {{token}} → tự set idVar (hsId/gvId)
 function jwtPrereq(idVar) {
   return [
     'var t = pm.environment.get("token");',
@@ -303,30 +303,30 @@ function buildCollection(reqs, name, desc, idVar) {
 
 const lecturer = buildCollection(
   lecturerRequests,
-  'Web3GiangVien SmokeTest - Lecturer',
-  `${lecturerRequests.length} request (token GIẢNG VIÊN). Chỉ cần dán token GV → gvId tự lấy từ JWT.`,
+  'Web3GiaoVien SmokeTest - Lecturer',
+  `${lecturerRequests.length} request (token GIÁO VIÊN). Chỉ cần dán token GV → gvId tự lấy từ JWT.`,
   'gvId'
 );
 const student = buildCollection(
   studentRequests,
-  'Web3GiangVien SmokeTest - Student',
-  `${studentRequests.length} request (token SINH VIÊN). Chỉ cần dán token SV → svId tự lấy từ JWT. Profile PUT giữ nguyên tên/MSSV/email gốc.`,
-  'svId'
+  'Web3GiaoVien SmokeTest - Student',
+  `${studentRequests.length} request (token HỌC SINH). Chỉ cần dán token SV → hsId tự lấy từ JWT. Profile PUT giữ nguyên tên/MSSV/email gốc.`,
+  'hsId'
 );
 
 const environment = {
-  name: 'Web3GiangVien Local',
+  name: 'Web3GiaoVien Local',
   values: [
     { key: 'baseUrl', value: 'http://localhost:5000', enabled: true, type: 'string' },
     { key: 'token', value: '', enabled: true, type: 'string' },
     { key: 'gvId', value: '', enabled: true, type: 'string' },
-    { key: 'svId', value: '', enabled: true, type: 'string' },
+    { key: 'hsId', value: '', enabled: true, type: 'string' },
     { key: 'deTaiId', value: '', enabled: true, type: 'string' },
     { key: 'rubricsId', value: '', enabled: true, type: 'string' },
     { key: 'baiTestId', value: '', enabled: true, type: 'string' },
     { key: 'nhomId', value: '', enabled: true, type: 'string' },
     { key: 'svHoTen', value: '', enabled: true, type: 'string' },
-    { key: 'svMaSV', value: '', enabled: true, type: 'string' },
+    { key: 'svMaHS', value: '', enabled: true, type: 'string' },
     { key: 'svEmail', value: '', enabled: true, type: 'string' },
   ],
   _postman_variable_scope: 'environment',
@@ -334,20 +334,20 @@ const environment = {
 
 const outDir = path.join(__dirname, '..');
 fs.writeFileSync(
-  path.join(outDir, 'Web3GiangVien_SmokeTest_Lecturer.postman_collection.json'),
+  path.join(outDir, 'Web3GiaoVien_SmokeTest_Lecturer.postman_collection.json'),
   JSON.stringify(lecturer, null, 2)
 );
 fs.writeFileSync(
-  path.join(outDir, 'Web3GiangVien_SmokeTest_Student.postman_collection.json'),
+  path.join(outDir, 'Web3GiaoVien_SmokeTest_Student.postman_collection.json'),
   JSON.stringify(student, null, 2)
 );
 fs.writeFileSync(
-  path.join(outDir, 'Web3GiangVien.postman_environment.json'),
+  path.join(outDir, 'Web3GiaoVien.postman_environment.json'),
   JSON.stringify(environment, null, 2)
 );
 
 console.log('✅ Sinh 2 collection smoke test:');
-console.log(`   📄 Lecturer (${lecturerRequests.length} req): Web3GiangVien_SmokeTest_Lecturer.postman_collection.json`);
-console.log(`   📄 Student  (${studentRequests.length} req): Web3GiangVien_SmokeTest_Student.postman_collection.json`);
-console.log('   📄 Web3GiangVien.postman_environment.json (dùng chung)');
-console.log('\n🚀 Student: lấy token SV (get-token.js với ví SV), dán token + svId → Run.');
+console.log(`   📄 Lecturer (${lecturerRequests.length} req): Web3GiaoVien_SmokeTest_Lecturer.postman_collection.json`);
+console.log(`   📄 Student  (${studentRequests.length} req): Web3GiaoVien_SmokeTest_Student.postman_collection.json`);
+console.log('   📄 Web3GiaoVien.postman_environment.json (dùng chung)');
+console.log('\n🚀 Student: lấy token SV (get-token.js với ví SV), dán token + hsId → Run.');

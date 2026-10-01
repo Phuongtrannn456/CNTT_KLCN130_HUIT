@@ -65,7 +65,7 @@ const StudentClassSelector = () => {
         </Option>
         {myClasses.map((lop) => (
           <Option key={lop._id} value={lop._id}>
-            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lop.GiangVien?.HoTen || 'N/A'}
+            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lop.GiaoVien?.HoTen || 'N/A'}
           </Option>
         ))}
       </Select>
@@ -95,7 +95,7 @@ const LecturerClassSelector = () => {
         </Option>
         {myClasses.map((lop) => (
           <Option key={lop._id} value={lop._id}>
-            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lop.GiangVien?.HoTen || 'N/A'}
+            {lop.MaLopHoc} - {lop.TenLopHoc} {lop.MonHoc?.TenMonHoc ? `(${lop.MonHoc.TenMonHoc})` : ''} - Giáo viên: {lop.GiaoVien?.HoTen || 'N/A'}
           </Option>
         ))}
       </Select>

@@ -32,7 +32,7 @@ contract ThesisManagement {
     event ReportSubmitted(string indexed studentDID, string indexed topicId, string ipfsCID);
     event GradeFinalized(string indexed studentDID, string indexed topicId, uint8 grade);
 
-    // 1. Giảng viên đăng ký đề tài
+    // 1. Giáo viên đăng ký đề tài
     function registerTopic(
         string memory topicId,
         string memory title,
@@ -55,7 +55,7 @@ contract ThesisManagement {
         emit TopicRegistered(topicId, title, advisorDID);
     }
 
-    // 2. Sinh viên nộp báo cáo
+    // 2. Học sinh nộp báo cáo
     function submitReport(
         string memory studentDID,
         string memory topicId,
@@ -79,7 +79,7 @@ contract ThesisManagement {
         emit ReportSubmitted(studentDID, topicId, ipfsCID);
     }
 
-    // 3. Giảng viên chốt điểm
+    // 3. Giáo viên chốt điểm
     function finalizeGrade(
         string memory studentDID,
         string memory topicId,
@@ -104,12 +104,12 @@ contract ThesisManagement {
         emit GradeFinalized(studentDID, topicId, grade);
     }
 
-    // 4. Lấy danh sách đề tài của giảng viên
+    // 4. Lấy danh sách đề tài của giáo viên
     function getTopicsByAdvisor(string memory advisorDID) public view returns (string[] memory) {
         return advisorTopics[advisorDID];
     }
 
-    // 5. Lấy lịch sử nộp bài của sinh viên cho 1 đề tài
+    // 5. Lấy lịch sử nộp bài của học sinh cho 1 đề tài
     function getSubmissionHistory(string memory studentDID, string memory topicId)
         public
         view

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const rubricsTemplateSchema = new mongoose.Schema({
   TenMau: { type: String, required: true },             // VD: "Rubrics Đồ án CNTT"
   MoTaMau: { type: String, default: '' },               // Mô tả ngắn
-  GiangVien: { type: mongoose.Schema.Types.ObjectId, ref: 'GiangVien', required: true },
+  GiaoVien: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
   TieuChi: [{
     TenTieuChi: { type: String, required: true },
     MoTa: { type: String, default: '' },
@@ -19,6 +19,6 @@ const rubricsTemplateSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Index cho truy vấn theo GV
-rubricsTemplateSchema.index({ GiangVien: 1, MacDinh: 1 });
+rubricsTemplateSchema.index({ GiaoVien: 1, MacDinh: 1 });
 
 module.exports = mongoose.model('RubricsTemplate', rubricsTemplateSchema);

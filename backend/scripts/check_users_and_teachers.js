@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const GiangVien = require('../models/GiangVien');
+const GiaoVien = require('../models/GiaoVien');
 
 async function check() {
   await mongoose.connect(process.env.MONGODB_URI);
@@ -23,9 +23,9 @@ async function check() {
     console.log('Không có collection users hoặc lỗi:', e.message);
   }
 
-  // In ra danh sách GiangVien
-  const gvs = await GiangVien.find({});
-  console.log('=== DANH SÁCH GIẢNG VIÊN (GIANGVIEN) ===');
+  // In ra danh sách GiaoVien
+  const gvs = await GiaoVien.find({});
+  console.log('=== DANH SÁCH GIÁO VIÊN (GiaoVien) ===');
   gvs.forEach(g => {
     console.log(`- ID: ${g._id} | HoTen: ${g.HoTen} | Email: ${g.Email} | Wallet: ${g.WalletAddress}`);
   });

@@ -14,7 +14,7 @@ const TopicRegistration = () => {
   const navigate = useNavigate();
   const { selectedClassId, selectedClass } = useClassContext();
   const [loadingId, setLoadingId] = useState(null);
-  const [inviteMaSV, setInviteMaSV] = useState('');
+  const [inviteMaHS, setInviteMaHS] = useState('');
   const [inviting, setInviting] = useState(false);
 
   const user = authService.getCurrentUser();
@@ -38,7 +38,7 @@ const TopicRegistration = () => {
 
       // 0. Lấy nhóm của SV
       try {
-        const nhomRes = await nhomService.getNhomBySinhVien(user.id, selectedClassId);
+        const nhomRes = await nhomService.getNhomByHocSinh(user.id, selectedClassId);
         result.myNhom = nhomRes.nhom;
       } catch (e) {
         console.warn('Không lấy được thông tin nhóm');
@@ -171,10 +171,10 @@ const TopicRegistration = () => {
 
           <div style={{ marginBottom: 16 }}>
             <Text type="secondary">Giáo viên hướng dẫn:</Text>
-            <Text strong style={{ marginLeft: 8 }}>{topic.GiangVienHuongDan?.HoTen || 'N/A'}</Text>
+            <Text strong style={{ marginLeft: 8 }}>{topic.GiaoVienHuongDan?.HoTen || 'N/A'}</Text>
             <br />
             <Text type="secondary">Học sinh tối đa:</Text>
-            <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongSinhVien || 1} HS</Tag>
+            <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongHocSinh || 1} HS</Tag>
             <br />
             <Text type="secondary">Môn học:</Text>
             <Space size={2} wrap style={{ marginLeft: 8, marginTop: 4 }}>
@@ -289,16 +289,16 @@ const TopicRegistration = () => {
   };
 
   const handleInviteMember = async () => {
-    if (!inviteMaSV) {
+    if (!inviteMaHS) {
       message.warning('Vui lòng nhập Mã Học sinh cần mời.');
       return;
     }
     setInviting(true);
     try {
       const deTaiId = fullRegistration.DeTai?._id || fullRegistration.DeTai;
-      await aiApiService.inviteMember(deTaiId, inviteMaSV);
-      message.success(`Đã gửi lời mời đến học sinh có mã ${inviteMaSV}`);
-      setInviteMaSV('');
+      await aiApiService.inviteMember(deTaiId, inviteMaHS);
+      message.success(`Đã gửi lời mời đến học sinh có mã ${inviteMaHS}`);
+      setInviteMaHS('');
       queryClient.invalidateQueries({ queryKey: ['topic-registration'] });
     } catch (err) {
       message.error(err.response?.data?.error || 'Gửi lời mời thất bại');
@@ -410,7 +410,7 @@ const TopicRegistration = () => {
                   title={<Text strong style={{ fontSize: 15 }}>{reg.DeTai?.TenDeTai}</Text>}
                   description={
                     <div style={{ marginTop: 4 }}>
-                      <span>Giáo viên: {reg.DeTai?.GiangVienHuongDan?.HoTen || 'N/A'} • </span>
+                      <span>Giáo viên: {reg.DeTai?.GiaoVienHuongDan?.HoTen || 'N/A'} • </span>
                       <span>Trạng thái: </span>
                       {reg.TrangThai === 'ChoTest' && <Tag color="volcano">Cần làm test</Tag>}
                       {reg.TrangThai === 'DangLamTest' && <Tag color="purple">Đang làm test</Tag>}
@@ -470,9 +470,9 @@ const TopicRegistration = () => {
             )}
 
             {/* Thông tin nhóm học sinh */}
-            {fullRegistration.DeTai?.SoLuongSinhVien > 1 && (
+            {fullRegistration.DeTai?.SoLuongHocSinh > 1 && (
               <div style={{ marginTop: 16, background: '#fff', padding: 16, borderRadius: 8 }}>
-                <Title level={5}>Thành Viên Nhóm ({fullRegistration.ThanhVien?.length || 1} / {fullRegistration.DeTai.SoLuongSinhVien})</Title>
+                <Title level={5}>Thành Viên Nhóm ({fullRegistration.ThanhVien?.length || 1} / {fullRegistration.DeTai.SoLuongHocSinh})</Title>
                 <List
                   itemLayout="horizontal"
                   dataSource={fullRegistration.ThanhVien || []}
@@ -480,7 +480,7 @@ const TopicRegistration = () => {
                     <List.Item>
                       <List.Item.Meta
                         avatar={<div style={{ fontSize: 24 }}>{item.VaiTro === 'TruongNhom' ? '👑' : '👤'}</div>}
-                        title={<Text strong>{item.SinhVien?.HoTen || 'Đang tải...'} ({item.SinhVien?.MaSV})</Text>}
+                        title={<Text strong>{item.HocSinh?.HoTen || 'Đang tải...'} ({item.HocSinh?.MaHS})</Text>}
                         description={
                           <Tag color={
                             item.TrangThaiTV === 'DaChapNhan' ? 'green' :
@@ -496,15 +496,15 @@ const TopicRegistration = () => {
                 />
 
                 {/* Form mời thành viên - Chỉ hiển thị nếu chưa full và là Trưởng nhóm */}
-                {fullRegistration.ThanhVien?.length < fullRegistration.DeTai.SoLuongSinhVien &&
-                  fullRegistration.ThanhVien?.find(tv => tv.SinhVien?._id === authService.getCurrentUser().id)?.VaiTro === 'TruongNhom' && (
+                {fullRegistration.ThanhVien?.length < fullRegistration.DeTai.SoLuongHocSinh &&
+                  fullRegistration.ThanhVien?.find(tv => tv.HocSinh?._id === authService.getCurrentUser().id)?.VaiTro === 'TruongNhom' && (
                     <>
                       <Divider style={{ margin: '12px 0' }} />
                       <Space>
                         <Input
                           placeholder="Nhập Mã Học Sinh để mời"
-                          value={inviteMaSV}
-                          onChange={e => setInviteMaSV(e.target.value)}
+                          value={inviteMaHS}
+                          onChange={e => setInviteMaHS(e.target.value)}
                           style={{ width: 250 }}
                         />
                         <Button type="primary" onClick={handleInviteMember} loading={inviting}>
@@ -541,7 +541,7 @@ const TopicRegistration = () => {
             }).map(topic => {
               const thisRegistered = isRegistered(topic._id);
               const disabled = hasAnyRegistration || !myNhom || !myNhom.DaChot || topic.DaChotNhom;
-              const sizeMismatch = myNhom && myNhom.DaChot && (topic.SoLuongSinhVien || 1) !== (myNhom.ThanhVien?.filter(tv => tv.TrangThai === 'DaChapNhan').length || 0);
+              const sizeMismatch = myNhom && myNhom.DaChot && (topic.SoLuongHocSinh || 1) !== (myNhom.ThanhVien?.filter(tv => tv.TrangThai === 'DaChapNhan').length || 0);
 
               const thisRegRecord = selectedClassId === 'KHOA_LUAN'
                 ? activeRegistrations.find(r => (r.DeTai?._id || r.DeTai || '').toString() === topic._id.toString())
@@ -568,7 +568,7 @@ const TopicRegistration = () => {
                         Đã chốt cho nhóm khác
                       </Button>
                     ) : (
-                      <Tooltip title={sizeMismatch ? `Đề tài cần ${topic.SoLuongSinhVien} HS, nhóm bạn có ${myNhom?.ThanhVien?.filter(tv => tv.TrangThai === 'DaChapNhan').length || 0}` : ''}>
+                      <Tooltip title={sizeMismatch ? `Đề tài cần ${topic.SoLuongHocSinh} HS, nhóm bạn có ${myNhom?.ThanhVien?.filter(tv => tv.TrangThai === 'DaChapNhan').length || 0}` : ''}>
                         <Button
                           type={topic.isRecommended ? 'primary' : 'default'}
                           icon={<CheckCircle size={16} />}
@@ -596,10 +596,10 @@ const TopicRegistration = () => {
               >
                 <div style={{ marginBottom: 12 }}>
                   <Text type="secondary">Giáo viên hướng dẫn:</Text>
-                  <Text strong style={{ marginLeft: 8 }}>{topic.GiangVienHuongDan?.HoTen || 'N/A'}</Text>
+                  <Text strong style={{ marginLeft: 8 }}>{topic.GiaoVienHuongDan?.HoTen || 'N/A'}</Text>
                   <br />
                   <Text type="secondary">Học sinh tối đa:</Text>
-                  <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongSinhVien || 1} HS</Tag>
+                  <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongHocSinh || 1} HS</Tag>
                   <br />
                   {topic.LoaiDeTai === 'KhoaLuan' ? (
                     <>

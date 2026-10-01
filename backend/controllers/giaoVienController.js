@@ -1,4 +1,4 @@
-const GiangVien = require('../models/GiangVien');
+const GiaoVien = require('../models/GiaoVien');
 
 // Cache cho getAll - TTL 30 giay
 let _gvCache = { data: null, ts: 0 };
@@ -14,7 +14,7 @@ exports.getAll = async (req, res) => {
             return res.json(_gvCache.data);
         }
 
-        const list = await GiangVien.find({});
+        const list = await GiaoVien.find({});
         _gvCache = { data: list, ts: Date.now() };
         res.json(list);
     } catch (err) {
@@ -24,7 +24,7 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        const item = await GiangVien.findById(req.params.id);
+        const item = await GiaoVien.findById(req.params.id);
         if(!item) return res.status(404).json({ error: 'Not found' });
         res.json(item);
     } catch (err) {
@@ -34,7 +34,7 @@ exports.getById = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const newGV = new GiangVien(req.body);
+        const newGV = new GiaoVien(req.body);
         await newGV.save();
         invalidateGvCache();
         res.status(201).json(newGV);
@@ -45,7 +45,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const updated = await GiangVien.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updated = await GiaoVien.findByIdAndUpdate(req.params.id, req.body, { new: true });
         invalidateGvCache();
         res.json(updated);
     } catch (err) {
@@ -55,7 +55,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        await GiangVien.findByIdAndDelete(req.params.id);
+        await GiaoVien.findByIdAndDelete(req.params.id);
         invalidateGvCache();
         res.json({ message: 'Deleted successfully' });
     } catch (err) {

@@ -16,7 +16,7 @@ const StudentManagement = () => {
     queryKey: ['students-by-gv', currentUser?.id],
     queryFn: async () => {
       try {
-        const res = await managementService.getSinhVienByGV(currentUser.id);
+        const res = await managementService.getHocSinhByGV(currentUser.id);
         return res?.data || [];
       } catch (err) {
         message.error('Lỗi tải danh sách học sinh');
@@ -30,18 +30,18 @@ const StudentManagement = () => {
   const groupedData = useMemo(() => {
     const map = {};
     rawData.forEach(item => {
-      const svId = item.sinhVien?._id;
-      if (!svId) return;
-      if (!map[svId]) {
-        map[svId] = {
-          ...item.sinhVien,
+      const hsId = item.hocSinh?._id;
+      if (!hsId) return;
+      if (!map[hsId]) {
+        map[hsId] = {
+          ...item.hocSinh,
           classes: []
         };
       }
-      map[svId].classes.push({
+      map[hsId].classes.push({
         lopHoc: item.lopHoc,
         monHoc: item.monHoc,
-        giangVien: item.giangVien
+        giaoVien: item.giaoVien
       });
     });
     return Object.values(map);
@@ -52,11 +52,11 @@ const StudentManagement = () => {
     const text = searchText.toLowerCase();
     // Search across all basic fields + class/subject names
     const classTexts = (sv.classes || []).map(c =>
-      `${c.lopHoc?.MaLopHoc || ''} ${c.lopHoc?.TenLopHoc || ''} ${c.monHoc?.TenMonHoc || ''} ${c.monHoc?.MaMonHoc || ''} ${c.giangVien?.HoTen || ''}`
+      `${c.lopHoc?.MaLopHoc || ''} ${c.lopHoc?.TenLopHoc || ''} ${c.monHoc?.TenMonHoc || ''} ${c.monHoc?.MaMonHoc || ''} ${c.giaoVien?.HoTen || ''}`
     ).join(' ').toLowerCase();
 
     return (
-      sv.MaSV?.toLowerCase().includes(text) ||
+      sv.MaHS?.toLowerCase().includes(text) ||
       sv.HoTen?.toLowerCase().includes(text) ||
       sv.Email?.toLowerCase().includes(text) ||
       sv.ChuyenNganh?.toLowerCase().includes(text) ||
@@ -68,11 +68,11 @@ const StudentManagement = () => {
   const columns = [
     {
       title: 'Mã HS',
-      dataIndex: 'MaSV',
-      key: 'MaSV',
+      dataIndex: 'MaHS',
+      key: 'MaHS',
       width: 120,
       render: (text) => <Tag color="blue">{text}</Tag>,
-      sorter: (a, b) => (a.MaSV || '').localeCompare(b.MaSV || ''),
+      sorter: (a, b) => (a.MaHS || '').localeCompare(b.MaHS || ''),
     },
     {
       title: 'Họ Tên',
@@ -146,17 +146,17 @@ const StudentManagement = () => {
     },
     {
       title: 'Giáo Viên',
-      key: 'giangVien',
+      key: 'giaoVien',
       render: (_, record) => {
         const classes = record.classes || [];
-        // Deduplicate by giangVien _id
+        // Deduplicate by giaoVien _id
         const uniqueGV = [];
         const seenGV = new Set();
         classes.forEach(c => {
-          const gvId = c.giangVien?._id;
+          const gvId = c.giaoVien?._id;
           if (gvId && !seenGV.has(gvId)) {
             seenGV.add(gvId);
-            uniqueGV.push(c.giangVien);
+            uniqueGV.push(c.giaoVien);
           }
         });
         if (uniqueGV.length === 0) return <Text type="secondary">—</Text>;

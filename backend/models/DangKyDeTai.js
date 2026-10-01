@@ -4,11 +4,11 @@ const dangKyDeTaiSchema = new mongoose.Schema({
   DeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DeTai', required: true },
   // --- Nhóm mới (Phase 2) ---
   Nhom: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },
-  TruongNhom: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien' },
+  TruongNhom: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh' },
   // --- Backward compat (cũ) ---
-  SinhVien: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien' },
+  HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh' },
   ThanhVien: [{
-    SinhVien: { type: mongoose.Schema.Types.ObjectId, ref: 'SinhVien' },
+    HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh' },
     VaiTro: { type: String, enum: ['TruongNhom', 'ThanhVien'], default: 'ThanhVien' },
     TrangThaiTV: {
       type: String,
@@ -27,8 +27,8 @@ const dangKyDeTaiSchema = new mongoose.Schema({
 
 // Một nhóm chỉ đăng ký 1 đề tài 1 lần
 dangKyDeTaiSchema.index({ DeTai: 1, Nhom: 1 }, { unique: true, sparse: true });
-// Backward compat: SinhVien index
-dangKyDeTaiSchema.index({ DeTai: 1, SinhVien: 1 }, { unique: true, sparse: true });
+// Backward compat: HocSinh index
+dangKyDeTaiSchema.index({ DeTai: 1, HocSinh: 1 }, { unique: true, sparse: true });
 // Index cho query getAll: lọc trạng thái active rồi nhóm theo đề tài
 dangKyDeTaiSchema.index({ TrangThai: 1, DeTai: 1 });
 

@@ -35,7 +35,7 @@ const ProgressTracking = () => {
 
           if (activeReg.TrangThai === 'DaDuyet') {
             try {
-              const diemRes = await aiApiService.getDiemBySinhVien(user.id);
+              const diemRes = await aiApiService.getDiemByHocSinh(user.id);
               if (diemRes && diemRes.length > 0) {
                 const topicGrade = diemRes.find(g => (g.DeTai?._id || g.DeTai).toString() === deTaiId.toString());
                 if (topicGrade) {
@@ -47,7 +47,7 @@ const ProgressTracking = () => {
             }
 
             try {
-              const progressRes = await aiApiService.getProgressBySinhVien(user.id, deTaiId);
+              const progressRes = await aiApiService.getProgressByHocSinh(user.id, deTaiId);
               const logs = progressRes?.data || [];
               const latest = [...logs].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
               result.latestProgress = latest || null;

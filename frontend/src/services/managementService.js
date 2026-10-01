@@ -3,7 +3,7 @@ import apiService from './apiService';
 const managementService = {
   // ===== MÔN HỌC =====
   async getMonHocByGV(gvId) {
-    const res = await apiService.get(`/monhoc/giangvien/${gvId}`);
+    const res = await apiService.get(`/monhoc/giaovien/${gvId}`);
     return res.data;
   },
 
@@ -24,7 +24,7 @@ const managementService = {
 
   // ===== LỚP HỌC =====
   async getLopHocByGV(gvId) {
-    const res = await apiService.get(`/lophoc/giangvien/${gvId}`);
+    const res = await apiService.get(`/lophoc/giaovien/${gvId}`);
     return res.data;
   },
 
@@ -43,13 +43,13 @@ const managementService = {
     return res.data;
   },
 
-  async addSinhVienToLop(lopId, data) {
-    const res = await apiService.post(`/lophoc/${lopId}/sinhvien`, typeof data === 'object' ? data : { sinhVienId: data });
+  async addHocSinhToLop(lopId, data) {
+    const res = await apiService.post(`/lophoc/${lopId}/hocsinh`, typeof data === 'object' ? data : { hocSinhId: data });
     return res.data;
   },
 
-  async removeSinhVienFromLop(lopId, svId) {
-    const res = await apiService.delete(`/lophoc/${lopId}/sinhvien/${svId}`);
+  async removeHocSinhFromLop(lopId, hsId) {
+    const res = await apiService.delete(`/lophoc/${lopId}/hocsinh/${hsId}`);
     return res.data;
   },
 
@@ -58,35 +58,35 @@ const managementService = {
     return res.data;
   },
 
-  async getLopHocBySinhVien(svId) {
-    const res = await apiService.get(`/lophoc/sinhvien/${svId}`);
+  async getLopHocByHocSinh(hsId) {
+    const res = await apiService.get(`/lophoc/hocsinh/${hsId}`);
     return res.data;
   },
 
-  async importSinhVienToLop(lopId, danhSachMaSV) {
-    const res = await apiService.post(`/lophoc/${lopId}/import-sinhvien`, { danhSachMaSV });
+  async importHocSinhToLop(lopId, danhSachMaHS) {
+    const res = await apiService.post(`/lophoc/${lopId}/import-hocsinh`, { danhSachMaHS });
     return res.data;
   },
 
   // ===== HỌC SINH =====
-  async getAllSinhVien() {
-    const res = await apiService.get('/sinhvien');
+  async getAllHocSinh() {
+    const res = await apiService.get('/hocsinh');
     return res.data;
   },
 
-  async getSinhVienByGV(gvId) {
-    const res = await apiService.get(`/lophoc/giangvien/${gvId}/sinhvien`);
+  async getHocSinhByGV(gvId) {
+    const res = await apiService.get(`/lophoc/giaovien/${gvId}/hocsinh`);
     return res.data;
   },
 
   // ===== LỜI MỜI LỚP HỌC =====
-  async inviteSinhVienToLop(lopId, sinhVienId) {
-    const res = await apiService.post(`/loimoi-lophoc/${lopId}/invite`, { sinhVienId });
+  async inviteHocSinhToLop(lopId, hocSinhId) {
+    const res = await apiService.post(`/loimoi-lophoc/${lopId}/invite`, { hocSinhId });
     return res.data;
   },
 
-  async inviteBatchToLop(lopId, danhSachMaSV) {
-    const res = await apiService.post(`/loimoi-lophoc/${lopId}/invite-batch`, { danhSachMaSV });
+  async inviteBatchToLop(lopId, danhSachMaHS) {
+    const res = await apiService.post(`/loimoi-lophoc/${lopId}/invite-batch`, { danhSachMaHS });
     return res.data;
   },
 
@@ -95,8 +95,8 @@ const managementService = {
     return res.data;
   },
 
-  async getMyClassInvites(svId) {
-    const res = await apiService.get(`/loimoi-lophoc/sinhvien/${svId}`);
+  async getMyClassInvites(hsId) {
+    const res = await apiService.get(`/loimoi-lophoc/hocsinh/${hsId}`);
     return res.data;
   },
 
