@@ -1,0 +1,2552 @@
+[
+  {
+    "MaDeTai": "DT001",
+    "TenDeTai": "Phát triển ứng dụng chuỗi cung ứng dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTa": "Mô tả ngắn gọn cho: Phát triển ứng dụng chuỗi cung ứng dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phát triển ứng dụng chuỗi cung ứng dựa trên Trí tuệ nhân tạo (AI), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-11-29T02:54:50.455Z",
+    "HanDangKy": "2026-10-13T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-29T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT002",
+    "TenDeTai": "Xây dựng hệ thống giao dịch dựa trên Bảo mật",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống giao dịch dựa trên Bảo mật",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống giao dịch dựa trên Bảo mật, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-05T02:54:50.455Z",
+    "HanDangKy": "2026-10-22T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-05T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT003",
+    "TenDeTai": "Thiết kế gợi ý sản phẩm dựa trên Ứng dụng Di động",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế gợi ý sản phẩm dựa trên Ứng dụng Di động",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế gợi ý sản phẩm dựa trên Ứng dụng Di động, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-18T02:54:50.455Z",
+    "HanDangKy": "2026-10-10T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-18T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT004",
+    "TenDeTai": "Thiết kế điểm danh dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế điểm danh dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế điểm danh dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-28T02:54:50.455Z",
+    "HanDangKy": "2026-10-08T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-28T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT005",
+    "TenDeTai": "Nghiên cứu nhận diện giọng nói dựa trên Bảo mật",
+    "MoTa": "Mô tả ngắn gọn cho: Nghiên cứu nhận diện giọng nói dựa trên Bảo mật",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Nghiên cứu nhận diện giọng nói dựa trên Bảo mật, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2027-01-11T02:54:50.455Z",
+    "HanDangKy": "2026-10-15T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-11T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT006",
+    "TenDeTai": "Thiết kế nhận diện khuôn mặt dựa trên Data Analytics",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế nhận diện khuôn mặt dựa trên Data Analytics",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế nhận diện khuôn mặt dựa trên Data Analytics, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-11-30T02:54:50.455Z",
+    "HanDangKy": "2026-10-14T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-30T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT007",
+    "TenDeTai": "Thiết kế điểm danh dựa trên Ứng dụng Di động",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế điểm danh dựa trên Ứng dụng Di động",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế điểm danh dựa trên Ứng dụng Di động, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-19T02:54:50.455Z",
+    "HanDangKy": "2026-10-21T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-19T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT008",
+    "TenDeTai": "Xây dựng hệ thống y tế thông minh dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống y tế thông minh dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống y tế thông minh dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-11-25T02:54:50.455Z",
+    "HanDangKy": "2026-10-23T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-25T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT009",
+    "TenDeTai": "Phân tích gợi ý sản phẩm dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Phân tích gợi ý sản phẩm dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phân tích gợi ý sản phẩm dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-12-18T02:54:50.455Z",
+    "HanDangKy": "2026-10-16T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-18T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT010",
+    "TenDeTai": "Xây dựng hệ thống y tế thông minh dựa trên Học máy (Machine Learning)",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống y tế thông minh dựa trên Học máy (Machine Learning)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống y tế thông minh dựa trên Học máy (Machine Learning), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-29T02:54:50.455Z",
+    "HanDangKy": "2026-10-10T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-29T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT011",
+    "TenDeTai": "Ứng dụng điểm danh dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng điểm danh dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng điểm danh dựa trên Trí tuệ nhân tạo (AI), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-11T02:54:50.455Z",
+    "HanDangKy": "2026-10-09T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-11T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT012",
+    "TenDeTai": "Thiết kế nhận diện khuôn mặt dựa trên IoT",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế nhận diện khuôn mặt dựa trên IoT",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế nhận diện khuôn mặt dựa trên IoT, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-24T02:54:50.455Z",
+    "HanDangKy": "2026-10-17T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-24T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT013",
+    "TenDeTai": "Phát triển ứng dụng quản lý đồ án dựa trên IoT",
+    "MoTa": "Mô tả ngắn gọn cho: Phát triển ứng dụng quản lý đồ án dựa trên IoT",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phát triển ứng dụng quản lý đồ án dựa trên IoT, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-01T02:54:50.455Z",
+    "HanDangKy": "2026-10-08T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-01T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT014",
+    "TenDeTai": "Ứng dụng gợi ý sản phẩm dựa trên Data Analytics",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng gợi ý sản phẩm dựa trên Data Analytics",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng gợi ý sản phẩm dựa trên Data Analytics, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2027-01-03T02:54:50.455Z",
+    "HanDangKy": "2026-10-29T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-03T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT015",
+    "TenDeTai": "Phân tích gợi ý sản phẩm dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Phân tích gợi ý sản phẩm dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phân tích gợi ý sản phẩm dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-11-26T02:54:50.455Z",
+    "HanDangKy": "2026-10-14T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-26T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT016",
+    "TenDeTai": "Nghiên cứu nhận diện giọng nói dựa trên Học máy (Machine Learning)",
+    "MoTa": "Mô tả ngắn gọn cho: Nghiên cứu nhận diện giọng nói dựa trên Học máy (Machine Learning)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Nghiên cứu nhận diện giọng nói dựa trên Học máy (Machine Learning), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2027-01-19T02:54:50.455Z",
+    "HanDangKy": "2026-10-31T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-19T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT017",
+    "TenDeTai": "Ứng dụng Fake News dựa trên IoT",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng Fake News dựa trên IoT",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng Fake News dựa trên IoT, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-12-03T02:54:50.455Z",
+    "HanDangKy": "2026-10-09T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-03T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT018",
+    "TenDeTai": "Tối ưu hóa nhà thông minh dựa trên Data Analytics",
+    "MoTa": "Mô tả ngắn gọn cho: Tối ưu hóa nhà thông minh dựa trên Data Analytics",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Tối ưu hóa nhà thông minh dựa trên Data Analytics, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2027-01-03T02:54:50.455Z",
+    "HanDangKy": "2026-10-17T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-03T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT019",
+    "TenDeTai": "Xây dựng hệ thống dự báo thời tiết dựa trên Bảo mật",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống dự báo thời tiết dựa trên Bảo mật",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống dự báo thời tiết dựa trên Bảo mật, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-11T02:54:50.455Z",
+    "HanDangKy": "2026-10-22T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-11T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT020",
+    "TenDeTai": "Nghiên cứu y tế thông minh dựa trên Ứng dụng Di động",
+    "MoTa": "Mô tả ngắn gọn cho: Nghiên cứu y tế thông minh dựa trên Ứng dụng Di động",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Nghiên cứu y tế thông minh dựa trên Ứng dụng Di động, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-11-13T02:54:50.455Z",
+    "HanDangKy": "2026-10-12T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-13T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT021",
+    "TenDeTai": "Xây dựng hệ thống gợi ý sản phẩm dựa trên Phát triển Web",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống gợi ý sản phẩm dựa trên Phát triển Web",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống gợi ý sản phẩm dựa trên Phát triển Web, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-21T02:54:50.455Z",
+    "HanDangKy": "2026-10-09T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-21T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT022",
+    "TenDeTai": "Thiết kế nhận diện khuôn mặt dựa trên Phát triển Web",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế nhận diện khuôn mặt dựa trên Phát triển Web",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế nhận diện khuôn mặt dựa trên Phát triển Web, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-12-24T02:54:50.455Z",
+    "HanDangKy": "2026-10-17T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-24T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT023",
+    "TenDeTai": "Phát triển ứng dụng gợi ý sản phẩm dựa trên Học máy (Machine Learning)",
+    "MoTa": "Mô tả ngắn gọn cho: Phát triển ứng dụng gợi ý sản phẩm dựa trên Học máy (Machine Learning)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phát triển ứng dụng gợi ý sản phẩm dựa trên Học máy (Machine Learning), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-05T02:54:50.455Z",
+    "HanDangKy": "2026-10-08T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-05T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT024",
+    "TenDeTai": "Thiết kế dự báo thời tiết dựa trên Ứng dụng Di động",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế dự báo thời tiết dựa trên Ứng dụng Di động",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế dự báo thời tiết dựa trên Ứng dụng Di động, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-11-29T02:54:50.455Z",
+    "HanDangKy": "2026-10-22T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-29T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT025",
+    "TenDeTai": "Xây dựng hệ thống nhận diện giọng nói dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống nhận diện giọng nói dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống nhận diện giọng nói dựa trên Trí tuệ nhân tạo (AI), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2027-01-13T02:54:50.455Z",
+    "HanDangKy": "2026-10-17T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-13T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT026",
+    "TenDeTai": "Thiết kế quản lý đồ án dựa trên Bảo mật",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế quản lý đồ án dựa trên Bảo mật",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế quản lý đồ án dựa trên Bảo mật, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-04T02:54:50.455Z",
+    "HanDangKy": "2026-10-24T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-04T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT027",
+    "TenDeTai": "Thiết kế dự báo thời tiết dựa trên IoT",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế dự báo thời tiết dựa trên IoT",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế dự báo thời tiết dựa trên IoT, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-23T02:54:50.455Z",
+    "HanDangKy": "2026-10-12T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-23T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT028",
+    "TenDeTai": "Nghiên cứu điểm danh dựa trên Bảo mật",
+    "MoTa": "Mô tả ngắn gọn cho: Nghiên cứu điểm danh dựa trên Bảo mật",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Nghiên cứu điểm danh dựa trên Bảo mật, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-17T02:54:50.455Z",
+    "HanDangKy": "2026-10-20T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-17T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT029",
+    "TenDeTai": "Nghiên cứu nhận diện giọng nói dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Nghiên cứu nhận diện giọng nói dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Nghiên cứu nhận diện giọng nói dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-12-12T02:54:50.455Z",
+    "HanDangKy": "2026-10-16T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-12T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT030",
+    "TenDeTai": "Phân tích gợi ý sản phẩm dựa trên Ứng dụng Di động",
+    "MoTa": "Mô tả ngắn gọn cho: Phân tích gợi ý sản phẩm dựa trên Ứng dụng Di động",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phân tích gợi ý sản phẩm dựa trên Ứng dụng Di động, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-02T02:54:50.455Z",
+    "HanDangKy": "2026-10-09T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-02T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT031",
+    "TenDeTai": "Xây dựng hệ thống quản lý đồ án dựa trên IoT",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống quản lý đồ án dựa trên IoT",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống quản lý đồ án dựa trên IoT, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-05T02:54:50.455Z",
+    "HanDangKy": "2026-10-26T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-05T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT032",
+    "TenDeTai": "Xây dựng hệ thống hỗ trợ học tập dựa trên Ứng dụng Di động",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống hỗ trợ học tập dựa trên Ứng dụng Di động",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống hỗ trợ học tập dựa trên Ứng dụng Di động, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-11T02:54:50.455Z",
+    "HanDangKy": "2026-10-13T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-11T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT033",
+    "TenDeTai": "Ứng dụng y tế thông minh dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng y tế thông minh dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng y tế thông minh dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-20T02:54:50.455Z",
+    "HanDangKy": "2026-10-30T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-20T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT034",
+    "TenDeTai": "Nghiên cứu chuỗi cung ứng dựa trên Phát triển Web",
+    "MoTa": "Mô tả ngắn gọn cho: Nghiên cứu chuỗi cung ứng dựa trên Phát triển Web",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Nghiên cứu chuỗi cung ứng dựa trên Phát triển Web, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-11-19T02:54:50.455Z",
+    "HanDangKy": "2026-10-16T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-19T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT035",
+    "TenDeTai": "Ứng dụng chuỗi cung ứng dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng chuỗi cung ứng dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng chuỗi cung ứng dựa trên Trí tuệ nhân tạo (AI), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-19T02:54:50.455Z",
+    "HanDangKy": "2026-10-28T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-19T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT036",
+    "TenDeTai": "Đánh giá gợi ý sản phẩm dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTa": "Mô tả ngắn gọn cho: Đánh giá gợi ý sản phẩm dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Đánh giá gợi ý sản phẩm dựa trên Trí tuệ nhân tạo (AI), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2027-01-04T02:54:50.455Z",
+    "HanDangKy": "2026-10-16T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-04T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT037",
+    "TenDeTai": "Ứng dụng nhận diện khuôn mặt dựa trên IoT",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng nhận diện khuôn mặt dựa trên IoT",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng nhận diện khuôn mặt dựa trên IoT, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-11-28T02:54:50.455Z",
+    "HanDangKy": "2026-10-08T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-28T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT038",
+    "TenDeTai": "Xây dựng hệ thống Fake News dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Xây dựng hệ thống Fake News dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Xây dựng hệ thống Fake News dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2027-01-04T02:54:50.455Z",
+    "HanDangKy": "2026-10-14T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-04T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT039",
+    "TenDeTai": "Ứng dụng y tế thông minh dựa trên Blockchain & Web3",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng y tế thông minh dựa trên Blockchain & Web3",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng y tế thông minh dựa trên Blockchain & Web3, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-13T02:54:50.455Z",
+    "HanDangKy": "2026-10-19T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-13T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT040",
+    "TenDeTai": "Phát triển ứng dụng dự báo thời tiết dựa trên Data Analytics",
+    "MoTa": "Mô tả ngắn gọn cho: Phát triển ứng dụng dự báo thời tiết dựa trên Data Analytics",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phát triển ứng dụng dự báo thời tiết dựa trên Data Analytics, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2027-01-24T02:54:50.455Z",
+    "HanDangKy": "2026-10-27T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-24T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT041",
+    "TenDeTai": "Nghiên cứu nhà thông minh dựa trên IoT",
+    "MoTa": "Mô tả ngắn gọn cho: Nghiên cứu nhà thông minh dựa trên IoT",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Nghiên cứu nhà thông minh dựa trên IoT, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-17T02:54:50.455Z",
+    "HanDangKy": "2026-10-24T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-17T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT042",
+    "TenDeTai": "Thiết kế hỗ trợ học tập dựa trên Phát triển Web",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế hỗ trợ học tập dựa trên Phát triển Web",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế hỗ trợ học tập dựa trên Phát triển Web, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-11-21T02:54:50.455Z",
+    "HanDangKy": "2026-10-11T02:54:50.455Z",
+    "HanNopBaoCao": "2026-11-21T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT043",
+    "TenDeTai": "Thiết kế nhận diện khuôn mặt dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTa": "Mô tả ngắn gọn cho: Thiết kế nhận diện khuôn mặt dựa trên Trí tuệ nhân tạo (AI)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Thiết kế nhận diện khuôn mặt dựa trên Trí tuệ nhân tạo (AI), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-12-20T02:54:50.455Z",
+    "HanDangKy": "2026-10-08T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-20T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT044",
+    "TenDeTai": "Đánh giá gợi ý sản phẩm dựa trên Phát triển Web",
+    "MoTa": "Mô tả ngắn gọn cho: Đánh giá gợi ý sản phẩm dựa trên Phát triển Web",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Đánh giá gợi ý sản phẩm dựa trên Phát triển Web, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2027-01-01T02:54:50.455Z",
+    "HanDangKy": "2026-10-20T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-01T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT045",
+    "TenDeTai": "Phát triển ứng dụng hỗ trợ học tập dựa trên Phát triển Web",
+    "MoTa": "Mô tả ngắn gọn cho: Phát triển ứng dụng hỗ trợ học tập dựa trên Phát triển Web",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phát triển ứng dụng hỗ trợ học tập dựa trên Phát triển Web, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2026-12-01T02:54:50.455Z",
+    "HanDangKy": "2026-10-12T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-01T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT046",
+    "TenDeTai": "Phân tích Fake News dựa trên Bảo mật",
+    "MoTa": "Mô tả ngắn gọn cho: Phân tích Fake News dựa trên Bảo mật",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phân tích Fake News dựa trên Bảo mật, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2027-01-09T02:54:50.455Z",
+    "HanDangKy": "2026-10-20T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-09T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT047",
+    "TenDeTai": "Ứng dụng Fake News dựa trên Ứng dụng Di động",
+    "MoTa": "Mô tả ngắn gọn cho: Ứng dụng Fake News dựa trên Ứng dụng Di động",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Ứng dụng Fake News dựa trên Ứng dụng Di động, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-18T02:54:50.455Z",
+    "HanDangKy": "2026-10-23T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-18T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT048",
+    "TenDeTai": "Đánh giá điểm danh dựa trên Học máy (Machine Learning)",
+    "MoTa": "Mô tả ngắn gọn cho: Đánh giá điểm danh dựa trên Học máy (Machine Learning)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Đánh giá điểm danh dựa trên Học máy (Machine Learning), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 2,
+    "Deadline": "2027-01-06T02:54:50.455Z",
+    "HanDangKy": "2026-10-19T02:54:50.455Z",
+    "HanNopBaoCao": "2027-01-06T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "HoanThanh",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT049",
+    "TenDeTai": "Phát triển ứng dụng điểm danh dựa trên Học máy (Machine Learning)",
+    "MoTa": "Mô tả ngắn gọn cho: Phát triển ứng dụng điểm danh dựa trên Học máy (Machine Learning)",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Phát triển ứng dụng điểm danh dựa trên Học máy (Machine Learning), yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 1,
+    "Deadline": "2026-12-29T02:54:50.455Z",
+    "HanDangKy": "2026-10-18T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-29T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": false,
+    "TrangThai": "DaChot",
+    "LoaiDeTai": "KhoaLuan",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  },
+  {
+    "MaDeTai": "DT050",
+    "TenDeTai": "Tối ưu hóa nhà thông minh dựa trên Phát triển Web",
+    "MoTa": "Mô tả ngắn gọn cho: Tối ưu hóa nhà thông minh dựa trên Phát triển Web",
+    "MoTaChiTiet": "Mô tả chi tiết: Sinh viên sẽ thực hiện Tối ưu hóa nhà thông minh dựa trên Phát triển Web, yêu cầu hoàn thành trong thời gian quy định.",
+    "YeuCau": [
+      "Có kiến thức nền tảng",
+      "Thái độ làm việc nhóm tốt"
+    ],
+    "ChiTietBoSung": [
+      {
+        "TieuDe": "Môi trường",
+        "NoiDung": "Sinh viên tự chuẩn bị máy tính"
+      }
+    ],
+    "Rubrics": [
+      {
+        "TenTieuChi": "Chất lượng Source Code",
+        "MoTa": "Code sạch, dễ đọc",
+        "TrongSo": 40,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Clean code",
+          "Tối ưu"
+        ]
+      },
+      {
+        "TenTieuChi": "Báo cáo",
+        "MoTa": "Trình bày rõ ràng",
+        "TrongSo": 60,
+        "DiemToiDa": 10,
+        "GoiYChoAI": [
+          "Đầy đủ",
+          "Cấu trúc tốt"
+        ]
+      }
+    ],
+    "SuDungRubrics": true,
+    "HienThiChiTietChoSV": true,
+    "SoLuongSinhVien": 3,
+    "Deadline": "2026-12-06T02:54:50.455Z",
+    "HanDangKy": "2026-10-21T02:54:50.455Z",
+    "HanNopBaoCao": "2026-12-06T02:54:50.455Z",
+    "GiangVienHuongDan": "6abdcb7ab76898c2e80053c9",
+    "CoBaiTest": true,
+    "TrangThai": "MoDangKy",
+    "LoaiDeTai": "MonHoc",
+    "KhoiLopYeuCau": [
+      12
+    ]
+  }
+]

@@ -12,7 +12,7 @@ async function main() {
     console.log("Deployer balance:", hre.ethers.formatEther(balance), "ETH");
 
     const ThesisV2 = await hre.ethers.getContractFactory("ThesisManagementV2");
-    const thesis = await ThesisV2.deploy();
+    const thesis = await ThesisV2.deploy({gasLimit: 8000000});
 
     await thesis.waitForDeployment();
     const address = await thesis.getAddress();

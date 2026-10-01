@@ -20,7 +20,7 @@ const readContractABI = (version) => {
 };
 
 const getProviderAndSigner = () => {
-    const rpcUrl = process.env.SEPOLIA_RPC_URL || `https://sepolia.infura.io/v3/${process.env.INFURA || ''}`;
+    const rpcUrl = process.env.BLOCKCHAIN_RPC_URL || 'http://127.0.0.1:8545';
     const provider = new ethers.JsonRpcProvider(rpcUrl);
     const privateKey = process.env.PRIVATE_KEY;
     if (!privateKey) throw new Error('Chua cau hinh PRIVATE_KEY trong .env');

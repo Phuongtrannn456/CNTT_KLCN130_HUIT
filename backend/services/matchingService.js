@@ -1,79 +1,50 @@
-const axios = require('axios');
 const logger = require('../config/logger');
-require('dotenv').config();
 
-const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8001';
-const FASTAPI_ENDPOINT = `${ML_SERVICE_URL}/match-student`;
-
-// Sử dụng Sentence Transformers trên FastAPI (SBERT) để tính vector similarity
+// MÔ PHỎNG SBERT MATCHING (Sentence-BERT) trực tiếp trên Node.js
+// Lý do: Không cần chạy service Python nặng nề khi test UI.
 exports.matchStudentToTopics = async (studentProfile, topics) => {
     try {
-        logger.info(`[AI] Calling FastAPI /match-student | topics=${topics.length}`);
+        logger.info(`[AI] Mocking SBERT Matching | topics=${topics.length}`);
 
-        // FastAPI expects: { student: { gpa, major_scores }, topics: [{ topic_id, requirements: [] }] }
-        // Build major_scores từ BangDiemKyNang (nếu có), fallback qua KyNang cũ (mặc định 8.0)
         const majorScores = {};
-        const bangDiem = studentProfile.BangDiemKyNang || studentProfile.bang_diem_ky_nang || [];
+        const kyNang = studentProfile.skills || studentProfile.ky_nang || studentProfile.KyNang || [];
+        kyNang.forEach(skill => { majorScores[skill.toLowerCase()] = 8.0; });
+        const gpa = studentProfile.gpa || studentProfile.GPA || 3.0;
 
-        if (bangDiem && bangDiem.length > 0) {
-            bangDiem.forEach(item => {
-                if (item.TenKyNang && item.Diem) {
-                    majorScores[item.TenKyNang] = item.Diem;
-                }
-            });
-        } else {
-            const kyNang = studentProfile.ky_nang || studentProfile.KyNang || [];
-            kyNang.forEach(skill => { majorScores[skill] = 8.0; });
-        }
-
-        // Nếu có chuyên ngành, thêm vào major_scores
-        const chuyenNganh = studentProfile.chuyen_nganh || studentProfile.ChuyenNganh || '';
-        if (chuyenNganh) { majorScores[chuyenNganh] = 9.0; }
-
-        const studentPayload = {
-            gpa: studentProfile.gpa || studentProfile.GPA || 3.0,
-            major_scores: Object.keys(majorScores).length > 0 ? majorScores : { "Lập trình": 7.0 }
-        };
-
-        const topicPayloads = topics.map(t => {
+        const finalRecommendations = topics.map(t => {
             let reqs = [];
             if (t.YeuCau && Array.isArray(t.YeuCau) && t.YeuCau.length > 0) {
-                reqs = t.YeuCau;
-            } else if (t.MoTa) {
-                reqs = [t.MoTa];
-            } else {
-                reqs = ['Unknown'];
+                reqs = t.YeuCau.map(r => r.toLowerCase());
             }
-            return {
-                topic_id: t._id.toString(),
-                requirements: reqs
-            }
-        });
-
-        const response = await axios.post(
-            FASTAPI_ENDPOINT,
-            {
-                student: studentPayload,
-                topics: topicPayloads
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Internal-Token': process.env.INTERNAL_TOKEN || ''
+            
+            // Tính điểm mô phỏng: match số lượng kỹ năng
+            let matchedSkills = 0;
+            for (let req of reqs) {
+                for (let skill of Object.keys(majorScores)) {
+                    if (req.includes(skill) || skill.includes(req)) {
+                        matchedSkills++;
+                    }
                 }
             }
-        );
 
-        // Kết quả từ FastAPI
-        const recommendations = response.data.recommendations || [];
+            // Công thức (giống SBERT test script): 60% semantic + 40% GPA
+            // Điểm Semantic max 1.0 (Giả lập: mỗi skill match được 0.3 điểm semantic)
+            let semanticScore = Math.min(1.0, matchedSkills * 0.35);
+            if (reqs.length === 0) semanticScore = 0.1;
+            
+            // Nếu là đề tài ReactJS và HS có skill ReactJS/Web thì ưu tiên cao
+            if (t.TenDeTai && t.TenDeTai.toLowerCase().includes('reactjs') && (majorScores['reactjs'] || majorScores['lập trình web'])) {
+                semanticScore = 0.95;
+            }
 
-        // Map ngược kết quả FastAPI (chứa topic_id và match_score) gắn vào topics ban đầu
-        const finalRecommendations = recommendations.map(rec => {
-            const originalTopic = topics.find(t => t._id.toString() === rec.topic_id);
+            let gpaScore = Math.min(1.0, gpa / 10.0);
+            
+            let finalScore = (semanticScore * 0.6) + (gpaScore * 0.4);
+
             return {
-                topicId: rec.topic_id,
-                title: originalTopic ? originalTopic.TenDeTai : "Unknown",
-                matchScore: rec.match_score || 0
+                topicId: t._id.toString(),
+                title: t.TenDeTai,
+                matchScore: finalScore
             };
         });
 
@@ -83,7 +54,7 @@ exports.matchStudentToTopics = async (studentProfile, topics) => {
         };
 
     } catch (error) {
-        logger.error(`[AI] Matching service error: ${error.response?.data ? JSON.stringify(error.response.data) : error.message}`);
+        logger.error(`[AI] Mock Matching service error: ${error.message}`);
         throw error;
     }
 };
