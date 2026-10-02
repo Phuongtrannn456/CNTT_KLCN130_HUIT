@@ -43,7 +43,7 @@ Mỗi loại tài khoản có quyền hạn và nhóm chức năng cụ thể nh
 
 **Tài khoản Học sinh:**
 
-- Quản lý hồ sơ năng lực: cập nhật họ tên, mã số học sinh, email, GPA, chuyên ngành
+- Quản lý hồ sơ năng lực: cập nhật họ tên, mã số học sinh, email, GPA, môn chuyên
   và kỹ năng (phục vụ AI gợi ý đề tài).
 - Quản lý nhóm: tạo nhóm, mời thành viên, chốt nhóm trước khi đăng ký đề tài.
 - Đăng ký đề tài: xem danh sách đề tài kèm độ tương thích do AI (SBERT) gợi ý và gửi
@@ -69,7 +69,7 @@ chỉ số quan trọng theo từng vai trò.
 
 Khi người dùng đăng nhập bằng tài khoản học sinh, màn hình hiển thị Dashboard Sinh
 viên. Giao diện gồm ba thẻ thông tin chính: thẻ Hồ sơ cá nhân (họ tên, mã học sinh,
-email, chuyên ngành, GPA và các kỹ năng), thẻ Trạng thái đồ án (đề tài hiện tại và
+email, môn chuyên, GPA và các kỹ năng), thẻ Trạng thái dự án (đề tài hiện tại và
 trạng thái đăng ký), và thẻ Tiến độ & Điểm (điểm giáo viên, điểm AI gợi ý, điểm quá
 trình trung bình và liên kết xác thực trên Etherscan). Trong trường hợp học sinh chưa
 hoàn tất hồ sơ, hệ thống bắt buộc cập nhật thông tin cá nhân và kỹ năng trước khi sử
@@ -164,7 +164,7 @@ kết xem file gốc trên IPFS. Học sinh có thể hủy nộp để nộp l�
 **Hình 4.10: Giao diện theo dõi tiến độ xét duyệt và kết quả điểm**
 
 Khi người dùng đăng nhập bằng tài khoản học sinh và chọn chức năng Kết Quả & Điểm,
-màn hình hiển thị toàn bộ tiến trình thực hiện đồ án dưới dạng các bước (Steps): Đăng
+màn hình hiển thị toàn bộ tiến trình thực hiện dự án dưới dạng các bước (Steps): Đăng
 ký đề tài → Nộp báo cáo → AI phân tích → Giáo viên đánh giá → Ghi nhận
 Blockchain. Giao diện trình bày điểm AI do PhoBERT gợi ý kèm phản hồi nội dung,
 điểm chính thức của giáo viên dưới dạng biểu đồ vòng, nhận xét của giáo viên và

@@ -49,7 +49,7 @@ Module này là **cổng vào duy nhất** của hệ thống Web3GiaoVien. Hệ
 ### Phân biệt với module liên quan
 | Tiêu chí | AUTH_0101 (module này) | AUTH_0102 (Cập nhật profile) |
 |----------|------------------------|------------------------------|
-| Mục đích | Xác thực danh tính (login) | Bổ sung thông tin học vụ (GPA, kỹ năng, chuyên ngành) |
+| Mục đích | Xác thực danh tính (login) | Bổ sung thông tin học vụ (GPA, kỹ năng, môn chuyên) |
 | Khi nào | Mỗi phiên làm việc | Lần đầu sau khi đăng ký |
 | Bắt buộc | Mọi user | Học sinh (để dùng được AI gợi ý đề tài) |
 
@@ -221,8 +221,8 @@ Module này là **cổng vào duy nhất** của hệ thống Web3GiaoVien. Hệ
 ❓ **JWT hết hạn 24h, có cách nào kéo dài không?**
 → Hiện tại không có refresh token. Sau 24h phải login lại (ký lại chữ ký). Đây là thiết kế an toàn — nếu bị mất token thì attacker tối đa chỉ dùng được 24h.
 
-❓ **Trang login hiển thị "Cổng Thông Tin Hỗ Trợ Học Tập" — có phải hệ thống hỗ trợ học tập & quản lý đồ án không?**
-→ Đúng vậy. Hệ thống Web3GiaoVien là nền tảng hỗ trợ học tập & quản lý đồ án phi tập trung (Web3 + AI Competition Platform), được tích hợp ví MetaMask để xác thực danh tính và blockchain để ghi nhận kết quả.
+❓ **Trang login hiển thị "Cổng Thông Tin Hỗ Trợ Học Tập" — có phải hệ thống hỗ trợ học tập & quản lý dự án không?**
+→ Đúng vậy. Hệ thống Web3GiaoVien là nền tảng hỗ trợ học tập & quản lý dự án phi tập trung (Web3 + AI Competition Platform), được tích hợp ví MetaMask để xác thực danh tính và blockchain để ghi nhận kết quả.
 
 ❓ **Có thể login bằng nhiều ví khác nhau cùng lúc không?**
 → Không trên cùng 1 tab. Mỗi tab giữ 1 `authToken` trong `localStorage`. Muốn dùng 2 tài khoản → mở tab ẩn danh (incognito) hoặc trình duyệt khác.

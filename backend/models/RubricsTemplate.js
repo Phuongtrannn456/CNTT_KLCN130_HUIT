@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const rubricsTemplateSchema = new mongoose.Schema({
-  TenMau: { type: String, required: true },             // VD: "Rubrics Đồ án CNTT"
+  TenMau: { type: String, required: true },             // VD: "Rubrics Dự án CNTT"
   MoTaMau: { type: String, default: '' },               // Mô tả ngắn
   GiaoVien: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
   TieuChi: [{

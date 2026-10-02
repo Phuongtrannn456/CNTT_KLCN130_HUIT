@@ -1,7 +1,7 @@
 # Plan Phase 1 — Dọn dẹp text "quản lý nhân sự" → "hỗ trợ học tập"
 
 ## Mục tiêu
-Thay thế tất cả chuỗi text liên quan đề tài mẫu cũ "quản lý nhân sự / HR" bằng ngôn ngữ phù hợp với hệ thống "hỗ trợ học tập / quản lý đồ án tốt nghiệp".
+Thay thế tất cả chuỗi text liên quan đề tài mẫu cũ "quản lý nhân sự / HR" bằng ngôn ngữ phù hợp với hệ thống "hỗ trợ học tập / quản lý dự án tốt nghiệp".
 
 ## Phạm vi thay đổi
 
@@ -11,7 +11,7 @@ Thay thế tất cả chuỗi text liên quan đề tài mẫu cũ "quản lý n
 |---|---|---|
 | ~118 | `Vui lòng liên hệ Phòng Nhân sự` | `Vui lòng liên hệ Ban quản lý khóa luận hoặc Giáo viên chủ nhiệm` |
 | ~497 | `Cổng Thông Tin Nhân Sự` | `Cổng Thông Tin Hỗ Trợ Học Tập` |
-| ~507 | `Nền tảng quản trị nhân sự phi tập trung` | `Nền tảng hỗ trợ học tập & quản lý đồ án phi tập trung` |
+| ~507 | `Nền tảng quản trị nhân sự phi tập trung` | `Nền tảng hỗ trợ học tập & quản lý dự án phi tập trung` |
 | ~651 | `Quét mã QR từ ứng dụng nhân viên` | `Quét mã QR từ ứng dụng học sinh` |
 
 **Cách thực hiện**: Dùng Grep tìm chính xác line, sau đó Edit từng chỗ.

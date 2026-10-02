@@ -40,7 +40,7 @@ Kế hoạch thực hiện được xây dựng theo hướng chia nhỏ nhiệm
 
 ## 5. Kết quả dự kiến sau khi hoàn thành
 
-Sau khi hoàn thành kế hoạch, nhóm dự kiến xây dựng được hệ thống quản lý đề tài và đồ án với các chức năng chính: học sinh cập nhật hồ sơ, xem và đăng ký đề tài, tham gia nhóm, cập nhật tiến độ và nộp báo cáo; giáo viên tạo đề tài, duyệt đăng ký, theo dõi tiến độ, xem báo cáo và chấm điểm. Hệ thống đồng thời có khả năng hỗ trợ gợi ý đề tài và phân tích báo cáo bằng AI, lưu trữ file báo cáo trên IPFS và ghi nhận các mốc dữ liệu quan trọng bằng blockchain.
+Sau khi hoàn thành kế hoạch, nhóm dự kiến xây dựng được hệ thống quản lý đề tài và dự án với các chức năng chính: học sinh cập nhật hồ sơ, xem và đăng ký đề tài, tham gia nhóm, cập nhật tiến độ và nộp báo cáo; giáo viên tạo đề tài, duyệt đăng ký, theo dõi tiến độ, xem báo cáo và chấm điểm. Hệ thống đồng thời có khả năng hỗ trợ gợi ý đề tài và phân tích báo cáo bằng AI, lưu trữ file báo cáo trên IPFS và ghi nhận các mốc dữ liệu quan trọng bằng blockchain.
 
 Việc phân công theo từng nhóm chức năng giúp các thành viên có trách nhiệm rõ ràng, tránh chồng chéo công việc và dễ theo dõi tiến độ thực hiện. Trong quá trình triển khai, các thành viên vẫn phối hợp kiểm tra chéo để bảo đảm các phần backend, frontend, AI và blockchain hoạt động thống nhất trong cùng một hệ thống.
 

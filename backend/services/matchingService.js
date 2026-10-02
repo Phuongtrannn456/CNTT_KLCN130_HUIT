@@ -26,7 +26,7 @@ exports.matchStudentToTopics = async (studentProfile, topics) => {
             kyNang.forEach(skill => { majorScores[skill] = 8.0; });
         }
 
-        // Nếu có chuyên ngành, thêm vào major_scores
+        // Nếu có môn chuyên, thêm vào major_scores
         const chuyenNganh = studentProfile.chuyen_nganh || studentProfile.ChuyenNganh || '';
         if (chuyenNganh) { majorScores[chuyenNganh] = 9.0; }
 

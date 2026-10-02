@@ -183,7 +183,7 @@ FRONTEND_URL=http://localhost:3000
 {
   "name": "web3giaovien-frontend",
   "version": "1.0.0",
-  "description": "Modern React frontend for Web3 GiaoVien - Hệ thống hỗ trợ học tập & quản lý đồ án tốt nghiệp với MetaMask authentication",
+  "description": "Modern React frontend for Web3 GiaoVien - Hệ thống hỗ trợ học tập & quản lý dự án tốt nghiệp với MetaMask authentication",
 ```
 
 #### B.2.2 — backend/.env.example header

@@ -307,7 +307,7 @@ Sửa `const payload = acceptedMembers.map(tv => ({` để thêm các field mớ
 const payload = acceptedMembers.map(tv => ({
     DeTai: deTaiId,
     HocSinh: tv.HocSinh,
-    TieuDe: tieuDe || 'Báo cáo đồ án',
+    TieuDe: tieuDe || 'Báo cáo dự án',
     IPFS_CID: ipfsCid,
     // [MỚI]
     ExtractedText: extractionResult.text || null,
@@ -327,7 +327,7 @@ const payload = acceptedMembers.map(tv => ({
 Tìm đoạn build `textForAI` từ metadata (khoảng line 187):
 
 ```javascript
-const textForAI = `Báo cáo Đồ án: ${topic?.TenDeTai || ''}.
+const textForAI = `Báo cáo Dự án: ${topic?.TenDeTai || ''}.
 ${topic?.MoTa || ''}. 
 Học sinh sử dụng: ${(topic?.YeuCau || []).join(', ')}.`;
 ```

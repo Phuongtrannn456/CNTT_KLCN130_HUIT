@@ -28,7 +28,7 @@ async function check() {
 
   // 2. Find Tran Minh Anh
   const sv = await HocSinh.findOne({ HoTen: /Trần Minh Anh/i });
-  console.log('\n--- SINH VIEN DETAILS ---');
+  console.log('\n--- HOC SINH DETAILS ---');
   if (sv) {
     console.log({
       _id: sv._id,

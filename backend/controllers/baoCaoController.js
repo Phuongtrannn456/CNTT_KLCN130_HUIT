@@ -149,7 +149,7 @@ exports.uploadBaoCao = async (req, res) => {
             DeTai: deTaiId,
             HocSinh: tv.HocSinh,
             Nhom: dangKy.Nhom || undefined,
-            TieuDe: tieuDe || 'Báo cáo đồ án',
+            TieuDe: tieuDe || 'Báo cáo dự án',
             IPFS_CID: ipfsCid,
             ExtractedText: extractionResult.text || null,
             ExtractedAt: extractionResult.text ? new Date() : null,

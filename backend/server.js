@@ -278,7 +278,7 @@ app.put('/api/diemso/:id/adjust', ...requireTeacher, diemSoController.adjustGrad
 app.get('/api/diemso/hocsinh/:hsId', ...requireAuth, diemSoController.getDiemByHocSinh);
 app.get('/api/diemso/comparison/:gvId', ...requireTeacher, diemSoController.getComparison);
 
-// 7.1. Blockchain read-only routes (doi chieu DB <-> on-chain, chi Giang Vien)
+// 7.1. Blockchain read-only routes (doi chieu DB <-> on-chain, chi Giao Vien)
 app.get('/api/blockchain/contracts', ...requireTeacher, blockchainController.getContracts);
 app.get('/api/blockchain/db-records', ...requireTeacher, blockchainController.getThesisDbRecords);
 app.get('/api/blockchain/thesis/db-records', ...requireTeacher, blockchainController.getThesisDbRecords);

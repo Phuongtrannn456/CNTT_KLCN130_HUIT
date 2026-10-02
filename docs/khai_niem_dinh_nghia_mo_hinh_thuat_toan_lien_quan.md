@@ -2,7 +2,7 @@
 
 ## 1. Tổng quan
 
-Trong đề tài xây dựng hệ thống hỗ trợ quản lý đề tài và đồ án, các công nghệ được sử dụng không chỉ phục vụ việc triển khai phần mềm mà còn có ý nghĩa về mặt học thuật. Hệ thống kết hợp nhiều nhóm kỹ thuật khác nhau, bao gồm trí tuệ nhân tạo trong xử lý ngôn ngữ tự nhiên, mô hình so khớp ngữ nghĩa, hệ thống lưu trữ phi tập trung, blockchain, smart contract và mô hình đánh giá theo rubrics. Việc trình bày rõ các khái niệm và mô hình liên quan giúp làm rõ cơ sở lý thuyết cho việc lựa chọn công nghệ, đồng thời giải thích vì sao từng thành phần phù hợp với bài toán quản lý đề tài, nộp báo cáo và chấm điểm.
+Trong đề tài xây dựng hệ thống hỗ trợ quản lý đề tài và dự án, các công nghệ được sử dụng không chỉ phục vụ việc triển khai phần mềm mà còn có ý nghĩa về mặt học thuật. Hệ thống kết hợp nhiều nhóm kỹ thuật khác nhau, bao gồm trí tuệ nhân tạo trong xử lý ngôn ngữ tự nhiên, mô hình so khớp ngữ nghĩa, hệ thống lưu trữ phi tập trung, blockchain, smart contract và mô hình đánh giá theo rubrics. Việc trình bày rõ các khái niệm và mô hình liên quan giúp làm rõ cơ sở lý thuyết cho việc lựa chọn công nghệ, đồng thời giải thích vì sao từng thành phần phù hợp với bài toán quản lý đề tài, nộp báo cáo và chấm điểm.
 
 Trong hệ thống, dữ liệu vận hành thường xuyên như hồ sơ học sinh, đề tài, đăng ký, tiến độ và trạng thái xử lý được quản lý bằng cơ sở dữ liệu MongoDB. Các thành phần AI được triển khai dưới dạng dịch vụ riêng bằng FastAPI để thực hiện hai nhiệm vụ chính: gợi ý đề tài phù hợp với năng lực học sinh và hỗ trợ phân tích nội dung báo cáo. File báo cáo được lưu trữ thông qua IPFS/Pinata để tạo mã định danh nội dung. Các mốc dữ liệu cần tính xác thực cao, đặc biệt là bài nộp cuối cùng và điểm số đã chốt, được ghi nhận bằng smart contract trên blockchain.
 
@@ -40,7 +40,7 @@ Trong đó, `A` và `B` là hai vector embedding, `A . B` là tích vô hướng
 
 ## 5. Mô hình gợi ý đề tài bằng SBERT
 
-Mô hình gợi ý đề tài trong hệ thống được xây dựng theo hướng so khớp giữa hồ sơ năng lực học sinh và yêu cầu chuyên môn của đề tài. Đầu vào của mô hình gồm thông tin học sinh và danh sách đề tài. Thông tin học sinh được biểu diễn thông qua GPA, chuyên ngành và danh sách kỹ năng. Thông tin đề tài được biểu diễn thông qua danh sách yêu cầu kỹ thuật hoặc yêu cầu chuyên môn.
+Mô hình gợi ý đề tài trong hệ thống được xây dựng theo hướng so khớp giữa hồ sơ năng lực học sinh và yêu cầu chuyên môn của đề tài. Đầu vào của mô hình gồm thông tin học sinh và danh sách đề tài. Thông tin học sinh được biểu diễn thông qua GPA, môn chuyên và danh sách kỹ năng. Thông tin đề tài được biểu diễn thông qua danh sách yêu cầu kỹ thuật hoặc yêu cầu chuyên môn.
 
 Quy trình xử lý gồm các bước chính:
 
@@ -103,7 +103,7 @@ Trong đó, `Total_Hits` là số yêu cầu được ghi nhận thông qua từ
 
 ## 7. Mô hình đánh giá theo rubrics
 
-Rubrics là mô hình đánh giá dựa trên bộ tiêu chí cụ thể. Mỗi tiêu chí có tên, mô tả, trọng số, điểm tối đa và có thể có các gợi ý từ khóa cho AI. Trong giáo dục, rubrics giúp việc chấm điểm minh bạch hơn vì giáo viên và học sinh đều có thể biết bài làm được đánh giá dựa trên những tiêu chí nào. Đối với đề tài này, rubrics được áp dụng để hỗ trợ chấm báo cáo đồ án theo từng tiêu chí thay vì chỉ dựa trên một điểm tổng.
+Rubrics là mô hình đánh giá dựa trên bộ tiêu chí cụ thể. Mỗi tiêu chí có tên, mô tả, trọng số, điểm tối đa và có thể có các gợi ý từ khóa cho AI. Trong giáo dục, rubrics giúp việc chấm điểm minh bạch hơn vì giáo viên và học sinh đều có thể biết bài làm được đánh giá dựa trên những tiêu chí nào. Đối với đề tài này, rubrics được áp dụng để hỗ trợ chấm báo cáo dự án theo từng tiêu chí thay vì chỉ dựa trên một điểm tổng.
 
 Trong hệ thống, mỗi đề tài có thể bật chế độ sử dụng rubrics thông qua trường `SuDungRubrics`. Danh sách tiêu chí được lưu trong model `DeTai` với các trường như `TenTieuChi`, `MoTa`, `TrongSo`, `DiemToiDa` và `GoiYChoAI`. Ngoài ra, hệ thống còn có model `RubricsTemplate` để giáo viên tạo mẫu rubrics dùng lại cho nhiều đề tài. Khi template đã được áp dụng, hệ thống có cơ chế hạn chế sửa/xóa trực tiếp nhằm tránh ảnh hưởng đến các đề tài đã dùng mẫu đó.
 
@@ -172,7 +172,7 @@ Hệ thống sử dụng mạng Ethereum Sepolia ở môi trường thử nghi�
 
 ## 12. Smart contract
 
-Smart contract là chương trình chạy trên blockchain. Khi được triển khai, smart contract hoạt động theo logic đã được lập trình sẵn và có thể được gọi thông qua các giao dịch. Ưu điểm của smart contract là tính minh bạch và khó sửa đổi sau khi triển khai. Trong hệ thống, smart contract đóng vai trò ghi nhận các mốc dữ liệu cuối cùng của quy trình làm đồ án.
+Smart contract là chương trình chạy trên blockchain. Khi được triển khai, smart contract hoạt động theo logic đã được lập trình sẵn và có thể được gọi thông qua các giao dịch. Ưu điểm của smart contract là tính minh bạch và khó sửa đổi sau khi triển khai. Trong hệ thống, smart contract đóng vai trò ghi nhận các mốc dữ liệu cuối cùng của quy trình làm dự án.
 
 File `backend/contracts/ThesisManagement.sol` định nghĩa contract `ThesisManagement` với hai cấu trúc dữ liệu chính:
 
@@ -203,7 +203,7 @@ Cách kết hợp này giúp cân bằng giữa tính linh hoạt và tính minh
 
 Trong hệ thống, điểm cuối cùng không do AI tự quyết định. AI chỉ tạo điểm gợi ý và phản hồi tham khảo. Giáo viên xem kết quả AI, xem nội dung báo cáo, cân nhắc mức độ đóng góp và nhập điểm chính thức. Điểm chính thức được lưu ở trường `Diem`, trong khi điểm AI được lưu ở trường `AI_Score`. Nếu đề tài sử dụng rubrics, kết quả từng tiêu chí được lưu trong `RubricsResult`, bao gồm điểm AI, điểm giáo viên, nhận xét AI và chunk nội dung liên quan.
 
-Cách tổ chức này phù hợp với nguyên tắc đánh giá học thuật. AI có thể hỗ trợ xử lý nhanh dữ liệu văn bản và phát hiện mức độ liên quan, nhưng không thể thay thế hoàn toàn nhận định chuyên môn của giáo viên. Đặc biệt trong đồ án, giáo viên còn phải xem xét quá trình làm việc, mức độ đóng góp, chất lượng trình bày, khả năng bảo vệ và nhiều yếu tố ngữ cảnh khác.
+Cách tổ chức này phù hợp với nguyên tắc đánh giá học thuật. AI có thể hỗ trợ xử lý nhanh dữ liệu văn bản và phát hiện mức độ liên quan, nhưng không thể thay thế hoàn toàn nhận định chuyên môn của giáo viên. Đặc biệt trong dự án, giáo viên còn phải xem xét quá trình làm việc, mức độ đóng góp, chất lượng trình bày, khả năng bảo vệ và nhiều yếu tố ngữ cảnh khác.
 
 Mô hình chấm điểm của hệ thống có thể tóm tắt như sau:
 

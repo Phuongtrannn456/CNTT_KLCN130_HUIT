@@ -1,7 +1,7 @@
 # [[Nghiệp vụ Web3 Giáo Viên]]
 
 ## Định nghĩa
-- Phiên bản source ngày 12.04 được tái thiết kế từ nền tảng [[quản lý nhân sự]] sang miền nghiệp vụ đào tạo và hướng dẫn đồ án.
+- Phiên bản source ngày 12.04 được tái thiết kế từ nền tảng [[quản lý nhân sự]] sang miền nghiệp vụ đào tạo và hướng dẫn dự án.
 - Hệ thống kết hợp [[React]], [[Node.js]], [[MongoDB]], [[Hardhat]] và [[Ethers.js]] để xử lý luồng nghiệp vụ học thuật.
 
 ## Bản chất
