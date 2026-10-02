@@ -28,12 +28,6 @@ import ProgressTracking from './components/student/ProgressTracking';
 import ProgressLog from './components/student/ProgressLog';
 import EntranceTest from './components/student/EntranceTest';
 import GroupManagement from './components/student/GroupManagement';
-// CN1 & CN4 Components (Yến Nhi)
-import TeacherTopicsPage from './components/cn1_cn4/TeacherTopicsPage';
-import StudentTopicsPage from './components/cn1_cn4/StudentTopicsPage';
-import RegistrationApprovalPage from './components/cn1_cn4/RegistrationApprovalPage';
-import Web3ReportPage from './components/cn1_cn4/Web3ReportPage';
-
 // Admin & Others
 import BlockchainDebugPage from './components/debug/BlockchainDebugPage';
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -121,10 +115,6 @@ function App() {
           <Route path="challenges" element={<ChallengeManagement />} />
           <Route path="challenges/:id/participants" element={<TeacherChallengeDetail />} />
           
-          {/* CN1 & CN4 Routes */}
-          <Route path="manage-topics-cn1" element={<TeacherTopicsPage />} />
-          <Route path="approve-registrations-cn1" element={<RegistrationApprovalPage />} />
-
           {/* Legacy Lecturer Routes - still kept but not on menu by default */}
           <Route path="topics" element={<TopicManagement />} />
           <Route path="review" element={<SubmissionReview />} />
@@ -149,10 +139,6 @@ function App() {
           <Route path="submissions/:id" element={<StudentSubmissionView />} />
           <Route path="achievements" element={<AchievementList />} />
           
-          {/* CN1 & CN4 Student Routes */}
-          <Route path="student-topics-cn1" element={<StudentTopicsPage />} />
-          <Route path="web3-report-cn4" element={<Web3ReportPage />} />
-
           {/* Legacy Student Routes */}
           <Route path="dashboard" element={<StudentDashboard />} />
           <Route path="register" element={<TopicRegistration />} />
