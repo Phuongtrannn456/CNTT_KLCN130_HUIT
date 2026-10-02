@@ -186,6 +186,12 @@ app.use('/api/achievements', require('./routes/achievementRoutes'));
 app.use('/api/ai', require('./routes/aiRoutes'));
 app.use('/api/credentials', require('./routes/credentialRoutes'));
 
+// --- API Chức năng 01 & Chức năng 04 (Yến Nhi) ---
+app.use('/api/topics', require('./routes/topicRoutes'));
+app.use('/api/registrations', require('./routes/registrationRoutes'));
+app.use('/api/reports', require('./routes/reportRoutes'));
+app.use('/api/web3', require('./routes/web3Routes'));
+
 // --- Legacy Auth Routes ---
 app.post('/api/auth/challenge', loginLimiter, authController.generateChallenge);
 app.post('/api/auth/verify', loginLimiter, authController.verifySignature);
