@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,8 +10,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes
-      refetchOnWindowFocus: false, // KhÃ´ng tá»± refetch khi chuyá»ƒn tab
-      retry: 1, // Chá»‰ retry 1 láº§n náº¿u lá»—i
+      refetchOnWindowFocus: false, // Không tự refetch khi chuyển tab
+      retry: 1, // Chỉ retry 1 lần nếu lỗi
     },
   },
 });
@@ -53,22 +53,22 @@ const web3Theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#3399FF', // Electric Blue - NÄƒng Ä‘á»™ng vÃ  cÃ´ng nghá»‡
+      main: '#3399FF', // Electric Blue - Năng động và công nghệ
       light: '#66B2FF',
       dark: '#0077E5',
     },
     secondary: {
-      main: '#9C27B0', // Deep Purple - Sang trá»ng vÃ  sÃ¡ng táº¡o
+      main: '#9C27B0', // Deep Purple - Sang trọng và sáng tạo
       light: '#AF52BF',
       dark: '#89229B',
     },
     background: {
-      default: '#0A1929', // Ná»n xanh navy Ä‘áº­m, khÃ´ng pháº£i mÃ u Ä‘en tuyá»n
-      paper: 'rgba(17, 34, 51, 0.6)', // Hiá»‡u á»©ng trong má» (glassmorphism)
+      default: '#0A1929', // Nền xanh navy đậm, không phải màu đen tuyền
+      paper: 'rgba(17, 34, 51, 0.6)', // Hiệu ứng trong mờ (glassmorphism)
     },
     text: {
-      primary: '#E0E0E0', // MÃ u chá»¯ tráº¯ng ngÃ , dá»… chá»‹u cho máº¯t
-      secondary: '#B0B0B0', // MÃ u chá»¯ phá»¥
+      primary: '#E0E0E0', // Màu chữ trắng ngà, dễ chịu cho mắt
+      secondary: '#B0B0B0', // Màu chữ phụ
     },
     success: {
       main: '#00E676',
@@ -147,10 +147,10 @@ const web3Theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 16, // Bo gÃ³c má»m máº¡i hÆ¡n
+    borderRadius: 16, // Bo góc mềm mại hơn
   },
   components: {
-    // ThÃªm hiá»‡u á»©ng ná»n Aurora cho toÃ n bá»™ trang
+    // Thêm hiệu ứng nền Aurora cho toàn bộ trang
     MuiCssBaseline: {
       styleOverrides: {
         body: {
@@ -209,7 +209,7 @@ const web3Theme = createTheme({
       styleOverrides: {
         root: {
           border: '1px solid rgba(255, 255, 255, 0.12)',
-          backdropFilter: 'blur(12px)', // Hiá»‡u á»©ng má» ná»n
+          backdropFilter: 'blur(12px)', // Hiệu ứng mờ nền
           boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
           '@media (max-width:600px)': {
             borderRadius: '12px',

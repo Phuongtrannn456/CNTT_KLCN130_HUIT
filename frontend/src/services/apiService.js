@@ -1,4 +1,4 @@
-﻿import axios from 'axios';
+import axios from 'axios';
 import authService from './authService';
 import io from 'socket.io-client';
 
