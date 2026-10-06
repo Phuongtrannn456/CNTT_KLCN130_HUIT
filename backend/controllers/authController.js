@@ -145,7 +145,7 @@ const authenticateToken = (req, res, next) => {
   if (!token) return res.status(401).json({ success: false, message: 'Access token required' });
 
   jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key', { clockTolerance: 300 }, (err, user) => {
-    if (err) return res.status(403).json({ success: false, message: 'Invalid token' });
+    if (err) return res.status(401).json({ success: false, message: 'Invalid or expired token' });
     req.user = user;
     next();
   });
@@ -300,27 +300,25 @@ const registerWithRole = async (req, res) => {
         message: 'Đăng ký Học sinh thành công'
       });
     } 
-    else if (role === 'TEACHER_ROLE') {
-      const newUser = new Teacher({
-        teacherId: `TC${uuidv4().substring(0, 6).toUpperCase()}`,
-        fullName: hoTen || 'Giáo Viên Mới',
-        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-        department: chuyenNganh || '',
-        walletAddress: lowerWallet
-      });
-      await newUser.save();
+    else if (role === 'TEACHER_ROLE' || role === 'LECTURER_ROLE') {
+      const existingRequest = await RoleRequest.findOne({ walletAddress: lowerWallet, status: 'pending' });
+      if (existingRequest) {
+        return res.json({ success: true, isPending: true, message: 'Yêu cầu của bạn đang chờ duyệt.' });
+      }
 
-      const token = jwt.sign(
-        { id: newUser._id, role_id: 'TEACHER_ROLE' },
-        process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' }
-      );
+      const newRequest = new RoleRequest({
+        walletAddress: lowerWallet,
+        hoTen: hoTen || 'Giáo Viên Mới',
+        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
+        chuyenNganh: chuyenNganh || '',
+        requestedRole: 'LECTURER_ROLE'
+      });
+      await newRequest.save();
 
       return res.json({
         success: true,
-        token,
-        user: { id: newUser._id, role_id: 'TEACHER_ROLE', name: newUser.fullName },
-        message: 'Đăng ký Giáo viên thành công'
+        isPending: true,
+        message: 'Yêu cầu đăng ký Giáo viên đã được gửi. Vui lòng chờ Admin phê duyệt.'
       });
     }
 

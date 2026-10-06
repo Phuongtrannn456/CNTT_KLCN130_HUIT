@@ -206,35 +206,21 @@ app.post('/api/admin/approve/:id', ...requireAdmin, adminController.approveReque
 app.post('/api/admin/reject/:id', ...requireAdmin, adminController.rejectRequest);
 app.get('/api/admin/lecturers', ...requireAdmin, adminController.getAllLecturers);
 
-// 3. Học Sinh (và Alias: Học Sinh)
-app.get('/api/hocsinh', hocSinhController.getAll);
-app.get('/api/hocsinh/:id', hocSinhController.getById);
-app.post('/api/hocsinh', hocSinhController.create);
-app.put('/api/hocsinh/:id', hocSinhController.update);
-app.put('/api/hocsinh/:id/profile', hocSinhController.updateProfile);
-app.get('/api/hocsinh/masv/:maSV', hocSinhController.findByMaHS);
-app.delete('/api/hocsinh/:id', hocSinhController.delete);
-// Alias Học Sinh
-app.get('/api/hocsinh', hocSinhController.getAll);
-app.get('/api/hocsinh/:id', hocSinhController.getById);
-app.post('/api/hocsinh', hocSinhController.create);
-app.put('/api/hocsinh/:id', hocSinhController.update);
-app.put('/api/hocsinh/:id/profile', hocSinhController.updateProfile);
-app.get('/api/hocsinh/mahs/:maSV', hocSinhController.findByMaHS);
-app.delete('/api/hocsinh/:id', hocSinhController.delete);
+// 3. Học Sinh
+app.get('/api/hocsinh', ...requireAuth, hocSinhController.getAll);
+app.get('/api/hocsinh/:id', ...requireAuth, hocSinhController.getById);
+app.post('/api/hocsinh', ...requireAdmin, hocSinhController.create);
+app.put('/api/hocsinh/:id', ...requireAuth, hocSinhController.update);
+app.put('/api/hocsinh/:id/profile', ...requireAuth, hocSinhController.updateProfile);
+app.get('/api/hocsinh/masv/:maSV', ...requireAuth, hocSinhController.findByMaHS);
+app.delete('/api/hocsinh/:id', ...requireAdmin, hocSinhController.delete);
 
-// 4. Giáo Viên (và Alias: Giáo Viên)
-app.get('/api/giaovien', giaoVienController.getAll);
-app.get('/api/giaovien/:id', giaoVienController.getById);
-app.post('/api/giaovien', giaoVienController.create);
-app.put('/api/giaovien/:id', giaoVienController.update);
-app.delete('/api/giaovien/:id', giaoVienController.delete);
-// Alias Giáo Viên
-app.get('/api/giaovien', giaoVienController.getAll);
-app.get('/api/giaovien/:id', giaoVienController.getById);
-app.post('/api/giaovien', giaoVienController.create);
-app.put('/api/giaovien/:id', giaoVienController.update);
-app.delete('/api/giaovien/:id', giaoVienController.delete);
+// 4. Giáo Viên
+app.get('/api/giaovien', ...requireAuth, giaoVienController.getAll);
+app.get('/api/giaovien/:id', ...requireAuth, giaoVienController.getById);
+app.post('/api/giaovien', ...requireAdmin, giaoVienController.create);
+app.put('/api/giaovien/:id', ...requireAuth, giaoVienController.update);
+app.delete('/api/giaovien/:id', ...requireAdmin, giaoVienController.delete);
 
 // 5. Đề Tài (và Alias: Dự Án)
 app.get('/api/detai', deTaiController.getAll);

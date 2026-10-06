@@ -119,6 +119,7 @@ const StudentDashboard = () => {
         Email: values.Email,
         GPA: values.GPA || 0,
         ChuyenNganh: values.ChuyenNganh || '',
+        KhoiLop: values.KhoiLop,
         BangDiemKyNang: bangDiem
       });
       setEditingProfile(false);
@@ -148,6 +149,7 @@ const StudentDashboard = () => {
         Email: studentProfile.Email,
         GPA: studentProfile.GPA,
         ChuyenNganh: studentProfile.ChuyenNganh,
+        KhoiLop: studentProfile.KhoiLop,
         KyNang: currentKyNang,
         Scores: currentScores
       });
@@ -491,6 +493,14 @@ const StudentDashboard = () => {
             <Input placeholder="hocsinh@thpt.edu.vn" size="large" />
           </Form.Item>
 
+          <Form.Item name="KhoiLop" label="Khối Lớp (10, 11, 12)" rules={[{ required: true, message: 'Vui lòng chọn khối lớp!' }]}>
+            <Select placeholder="Chọn khối lớp" size="large">
+              <Option value={10}>Khối 10</Option>
+              <Option value={11}>Khối 11</Option>
+              <Option value={12}>Khối 12</Option>
+            </Select>
+          </Form.Item>
+          
           <Form.Item name="ChuyenNganh" label="Khối Lớp / Chuyên Ban">
             <Input placeholder="Khối 10 Tự Nhiên / STEM" size="large" />
           </Form.Item>

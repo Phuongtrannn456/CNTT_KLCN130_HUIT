@@ -118,10 +118,11 @@ exports.suggestEvaluation = async (req, res) => {
 
     // Map rubrics to FastAPI format
     const mappedRubrics = rubrics.map(r => ({
-      criteria: r.criteriaName,
-      description: r.description,
-      weight: r.weight,
-      max_score: r.maxScore
+      TenTieuChi: r.criteriaName,
+      MoTa: r.description,
+      TrongSo: r.weight,
+      DiemToiDa: r.maxScore,
+      GoiYChoAI: ''
     }));
 
     try {
@@ -134,12 +135,12 @@ exports.suggestEvaluation = async (req, res) => {
       if (result.details && Array.isArray(result.details)) {
         rubricScores = result.details.map((d, index) => {
           let score = parseFloat(d.score) || 0;
-          const max = mappedRubrics[index]?.max_score || 10;
+          const max = mappedRubrics[index]?.DiemToiDa || 10;
           if (score < 0) score = 0;
           if (score > max) score = max;
           
           return {
-            criteriaName: mappedRubrics[index].criteria,
+            criteriaName: mappedRubrics[index].TenTieuChi,
             aiScore: score,
             aiFeedback: d.feedback || 'Không có nhận xét'
           };

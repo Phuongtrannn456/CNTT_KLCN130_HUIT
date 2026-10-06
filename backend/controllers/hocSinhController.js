@@ -1,4 +1,5 @@
 const HocSinh = require('../models/HocSinh');
+const Student = require('../models/Student');
 
 // Cache cho getAll - TTL 30 giay
 let _svCache = { data: null, ts: 0 };
@@ -24,7 +25,26 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        const item = await HocSinh.findById(req.params.id);
+        let item = await HocSinh.findById(req.params.id);
+        if (!item) {
+            const student = await Student.findById(req.params.id);
+            if (student) {
+                // Map Student fields to HocSinh format
+                item = {
+                    _id: student._id,
+                    HoTen: student.fullName,
+                    MaHS: student.studentId,
+                    Email: student.email,
+                    GPA: student.gpa || 0,
+                    ChuyenNganh: student.school || '',
+                    KhoiLop: student.gradeLevel || null,
+                    KyNang: student.skills || [],
+                    BangDiemKyNang: [],
+                    DaCapNhatHoSo: student.profileUpdated,
+                    WalletAddress: student.walletAddress
+                };
+            }
+        }
         if(!item) return res.status(404).json({ error: 'Not found' });
         res.json(item);
     } catch (err) {
@@ -67,7 +87,7 @@ exports.delete = async (req, res) => {
 exports.updateProfile = async (req, res) => {
     try {
         const { id } = req.params;
-        const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang } = req.body;
+        const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang, KhoiLop } = req.body;
 
         // Validate fields cơ bản
         if (!HoTen || !MaHS || !Email) {
@@ -97,21 +117,34 @@ exports.updateProfile = async (req, res) => {
             return res.status(400).json({ error: 'Email đã tồn tại trong hệ thống.' });
         }
 
-        const updated = await HocSinh.findByIdAndUpdate(id, {
+        let updated = await HocSinh.findByIdAndUpdate(id, {
             HoTen,
             MaHS,
             Email,
             GPA: GPA || 0,
             ChuyenNganh: ChuyenNganh || '',
+            KhoiLop: KhoiLop || null,
             KyNang: KyNang || [],
             BangDiemKyNang: BangDiemKyNang || [],
             DaCapNhatHoSo: true
         }, { new: true });
 
-        if (!updated) return res.status(404).json({ error: 'Không tìm thấy học sinh.' });
+        let studentUpdated = await Student.findByIdAndUpdate(id, {
+            fullName: HoTen,
+            studentId: MaHS,
+            email: Email,
+            gpa: GPA || 0,
+            gradeLevel: KhoiLop || null,
+            skills: KyNang || [],
+            profileUpdated: true
+        }, { new: true });
+
+        if (!updated && !studentUpdated) return res.status(404).json({ error: 'Không tìm thấy học sinh.' });
+
+        const finalData = updated || studentUpdated;
 
         invalidateSvCache();
-        res.json({ message: 'Cập nhật hồ sơ thành công!', data: updated });
+        res.json({ message: 'Cập nhật hồ sơ thành công!', data: finalData });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

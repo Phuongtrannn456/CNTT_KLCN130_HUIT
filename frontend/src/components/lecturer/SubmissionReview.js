@@ -322,14 +322,8 @@ const SubmissionReview = () => {
           setScore(aiResult.score);
         }
       } catch (err) {
-        console.error('AI Analysis failed:', err);
-        message.warning('PhoBERT AI chưa phản hồi.');
-        setAiAnalysis({
-          score: 7.0,
-          feedback: 'AI Server không phản hồi.',
-          issues: ['Vui lòng kiểm tra uvicorn port 8001']
-        });
-        setScore(7.0);
+        message.error('Không thể kết nối AI Service. Vui lòng chấm điểm thủ công.');
+        setAiAnalysis(null);
       } finally {
         setAnalyzing(false);
       }
