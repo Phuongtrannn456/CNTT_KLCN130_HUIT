@@ -24,6 +24,11 @@ const customStyles = `
     background-color: #f5f5f5 !important;
     color: #000000 !important;
   }
+  
+  .ant-select-selection-placeholder {
+    color: #595959 !important;
+    opacity: 1 !important;
+  }
 `;
 
 const ClassSelector = () => {
