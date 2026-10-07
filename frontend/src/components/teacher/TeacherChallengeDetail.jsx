@@ -159,6 +159,14 @@ const TeacherChallengeDetail = () => {
     
     try {
       await challengeService.evaluateSubmission(latestSub._id, payload);
+      if (aiSuggestionResult && values.teacherTotalScore !== undefined) {
+        try {
+          await challengeService.saveTrainingData(latestSub._id, {
+            aiScore: aiSuggestionResult.aiTotalScore,
+            teacherScore: values.teacherTotalScore
+          });
+        } catch (e) { console.warn("Training data save failed", e); }
+      }
       message.success('Luu d�nh gi� th�nh c�ng');
       setIsEvalModalVisible(false);
       fetchData(); // Refresh to show if finalized

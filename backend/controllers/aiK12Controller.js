@@ -176,3 +176,48 @@ exports.suggestEvaluation = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
+
+// 4.5 Save Active Learning Training Data
+const AITrainingData = require('../models/AITrainingData');
+
+exports.saveTrainingData = async (req, res) => {
+  try {
+    const submission = await Submission.findById(req.params.submissionId).populate('challenge');
+    if (!submission) return res.status(404).json({ success: false, message: 'Submission not found' });
+
+    // Authorization
+    if (req.user.role_id !== 'TEACHER_ROLE' || submission.challenge.createdBy.toString() !== req.user.id) {
+      return res.status(403).json({ success: false, message: 'Unauthorized' });
+    }
+
+    const { aiScore, teacherScore } = req.body;
+
+    if (aiScore === undefined || teacherScore === undefined) {
+      return res.status(400).json({ success: false, message: 'Missing scores' });
+    }
+
+    const delta = Math.abs(teacherScore - aiScore);
+    
+    // Lưu lại log để huấn luyện
+    const trainingData = new AITrainingData({
+      challengeId: submission.challenge._id,
+      studentId: submission.student,
+      teacherId: req.user.id,
+      inputText: submission.content,
+      topicRequirements: submission.challenge.requirements || [submission.challenge.description],
+      aiScore,
+      teacherScore,
+      delta,
+      isTrained: false
+    });
+
+    await trainingData.save();
+
+    logger.info(`[Active Learning] Saved training data for submission ${submission._id} | Delta: ${delta}`);
+
+    return res.status(200).json({ success: true, message: 'Đã ghi nhận độ lệch để huấn luyện AI.' });
+  } catch (error) {
+    logger.error(`[Active Learning Error] ${error.message}`);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
