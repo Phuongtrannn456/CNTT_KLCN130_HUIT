@@ -38,7 +38,7 @@ const TeacherChallengeDetail = () => {
       const partsRes = await challengeService.getParticipants(challengeId);
       if (partsRes.success) setParticipants(partsRes.participants);
     } catch (error) {
-      message.error(error.response?.data?.message || 'L?i khi l?y d? li?u');
+      message.error(error.response?.data?.message || 'Lỗi khi lấy dữ liệu');
     } finally {
       setLoading(false);
     }

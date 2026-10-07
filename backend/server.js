@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cspHeader = require('./middleware/cspHeader');
 const bodyParser = require('body-parser');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -37,6 +38,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
+app.use(cspHeader);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // HTTP Request Logging (Morgan → Winston)
@@ -356,10 +358,10 @@ app.use((err, req, res, next) => {
 });
 
 // 13. Quản Lý Môn Học
-app.get('/api/monhoc/giaovien/:gvId', monHocController.getByGiaoVien);
-app.post('/api/monhoc', monHocController.create);
-app.put('/api/monhoc/:id', monHocController.update);
-app.delete('/api/monhoc/:id', monHocController.delete);
+app.get('/api/monhoc/giaovien/:gvId', ...requireTeacher, monHocController.getByGiaoVien);
+app.post('/api/monhoc', ...requireTeacher, monHocController.create);
+app.put('/api/monhoc/:id', ...requireTeacher, monHocController.update);
+app.delete('/api/monhoc/:id', ...requireTeacher, monHocController.delete);
 
 // 14. Quản Lý Lớp Học
 app.get('/api/lophoc/giaovien/:gvId', ...requireTeacher, lopHocController.getByGiaoVien);

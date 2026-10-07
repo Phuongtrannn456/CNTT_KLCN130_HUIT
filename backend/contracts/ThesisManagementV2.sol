@@ -92,7 +92,7 @@ contract ThesisManagementV2 {
         bytes32 topicHash,
         string memory ipfsCID,
         uint256 timestamp
-    ) public {
+    ) public onlyOwner {
         require(topics[topicHash].exists, "Topic does not exist");
 
         Submission memory newSubmission = Submission({
@@ -140,7 +140,7 @@ contract ThesisManagementV2 {
         bytes32 topicHash,
         bytes32 studentDID,
         uint16 score
-    ) public {
+    ) public onlyOwner {
         require(topics[topicHash].exists, "Topic does not exist");
 
         testResults[topicHash].push(TestResult({
@@ -159,7 +159,7 @@ contract ThesisManagementV2 {
         bytes32 studentDID,
         uint16 week,
         uint16 score
-    ) public {
+    ) public onlyOwner {
         require(topics[topicHash].exists, "Topic does not exist");
 
         progressLogs[topicHash][studentDID].push(ProgressRecord({

@@ -231,21 +231,6 @@ class AuthService {
     return localStorage.getItem('token');
   }
 
-  // Enhanced logout - clear all auth data and optionally disconnect wallet
-  logout() {
-    // Clear local storage
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    localStorage.removeItem('authToken'); // Clear any additional tokens
-
-    // Reset service state
-    this.user = null;
-    this.provider = null;
-    this.signer = null;
-
-    // Note: MetaMask doesn't have a disconnect method, but we can clear our state
-    // User will need to manually disconnect from MetaMask if desired
-  }
 
   // Get user profile from backend
   async getProfile() {

@@ -1,0 +1,779 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/models/HocSinh.js",
+      "type": "file",
+      "name": "HocSinh.js",
+      "filePath": "backend/models/HocSinh.js",
+      "summary": "Component responsible for HocSinh.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/KetQuaTest.js",
+      "type": "file",
+      "name": "KetQuaTest.js",
+      "filePath": "backend/models/KetQuaTest.js",
+      "summary": "Component responsible for KetQuaTest.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/LoiMoiLopHoc.js",
+      "type": "file",
+      "name": "LoiMoiLopHoc.js",
+      "filePath": "backend/models/LoiMoiLopHoc.js",
+      "summary": "Component responsible for LoiMoiLopHoc.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/LopHoc.js",
+      "type": "file",
+      "name": "LopHoc.js",
+      "filePath": "backend/models/LopHoc.js",
+      "summary": "Component responsible for LopHoc.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/MonHoc.js",
+      "type": "file",
+      "name": "MonHoc.js",
+      "filePath": "backend/models/MonHoc.js",
+      "summary": "Component responsible for MonHoc.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Nhom.js",
+      "type": "file",
+      "name": "Nhom.js",
+      "filePath": "backend/models/Nhom.js",
+      "summary": "Component responsible for Nhom.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/RubricsTemplate.js",
+      "type": "file",
+      "name": "RubricsTemplate.js",
+      "filePath": "backend/models/RubricsTemplate.js",
+      "summary": "Component responsible for RubricsTemplate.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/TienDo.js",
+      "type": "file",
+      "name": "TienDo.js",
+      "filePath": "backend/models/TienDo.js",
+      "summary": "Component responsible for TienDo.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/scripts/backfill-pdf-extraction.js",
+      "type": "file",
+      "name": "backfill-pdf-extraction.js",
+      "filePath": "backend/scripts/backfill-pdf-extraction.js",
+      "summary": "Component responsible for backfill-pdf-extraction.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/backfill-pdf-extraction.js:run",
+      "type": "function",
+      "name": "run",
+      "filePath": "backend/scripts/backfill-pdf-extraction.js",
+      "lineRange": [
+        12,
+        53
+      ],
+      "summary": "Function run",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/check_student_test.js",
+      "type": "file",
+      "name": "check_student_test.js",
+      "filePath": "backend/scripts/check_student_test.js",
+      "summary": "Component responsible for check_student_test.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/check_student_test.js:check",
+      "type": "function",
+      "name": "check",
+      "filePath": "backend/scripts/check_student_test.js",
+      "lineRange": [
+        9,
+        59
+      ],
+      "summary": "Function check",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "type": "file",
+      "name": "migrate-add-lophoc-nhom.js",
+      "filePath": "backend/scripts/migrate-add-lophoc-nhom.js",
+      "summary": "Component responsible for migrate-add-lophoc-nhom.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/migrate-add-lophoc-nhom.js:migrate",
+      "type": "function",
+      "name": "migrate",
+      "filePath": "backend/scripts/migrate-add-lophoc-nhom.js",
+      "lineRange": [
+        15,
+        221
+      ],
+      "summary": "Function migrate",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/reset_test_data.js",
+      "type": "file",
+      "name": "reset_test_data.js",
+      "filePath": "backend/scripts/reset_test_data.js",
+      "summary": "Component responsible for reset_test_data.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/reset_test_data.js:run",
+      "type": "function",
+      "name": "run",
+      "filePath": "backend/scripts/reset_test_data.js",
+      "lineRange": [
+        21,
+        205
+      ],
+      "summary": "Function run",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seed_giao_duc_pho_thong.js",
+      "type": "file",
+      "name": "seed_giao_duc_pho_thong.js",
+      "filePath": "backend/scripts/seed_giao_duc_pho_thong.js",
+      "summary": "Component responsible for seed_giao_duc_pho_thong.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seed_giao_duc_pho_thong.js:seedGiaoDucPhoThong",
+      "type": "function",
+      "name": "seedGiaoDucPhoThong",
+      "filePath": "backend/scripts/seed_giao_duc_pho_thong.js",
+      "lineRange": [
+        17,
+        196
+      ],
+      "summary": "Function seedGiaoDucPhoThong",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "type": "file",
+      "name": "seed_khoaluan_tests_rubrics.js",
+      "filePath": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "summary": "Component responsible for seed_khoaluan_tests_rubrics.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seed_khoaluan_tests_rubrics.js:seedTestsAndRubrics",
+      "type": "function",
+      "name": "seedTestsAndRubrics",
+      "filePath": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "lineRange": [
+        6,
+        282
+      ],
+      "summary": "Function seedTestsAndRubrics",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seed_topic_13dhth04.js",
+      "type": "file",
+      "name": "seed_topic_13dhth04.js",
+      "filePath": "backend/scripts/seed_topic_13dhth04.js",
+      "summary": "Component responsible for seed_topic_13dhth04.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seed_topic_13dhth04.js:seed",
+      "type": "function",
+      "name": "seed",
+      "filePath": "backend/scripts/seed_topic_13dhth04.js",
+      "lineRange": [
+        8,
+        100
+      ],
+      "summary": "Function seed",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/services/aiService.js",
+      "type": "file",
+      "name": "aiService.js",
+      "filePath": "backend/services/aiService.js",
+      "summary": "Component responsible for aiService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/services/ipfsService.js",
+      "type": "file",
+      "name": "ipfsService.js",
+      "filePath": "backend/services/ipfsService.js",
+      "summary": "Component responsible for ipfsService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/services/matchingService.js",
+      "type": "file",
+      "name": "matchingService.js",
+      "filePath": "backend/services/matchingService.js",
+      "summary": "Component responsible for matchingService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/services/thesisContractService.js",
+      "type": "file",
+      "name": "thesisContractService.js",
+      "filePath": "backend/services/thesisContractService.js",
+      "summary": "Component responsible for thesisContractService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/services/thesisContractService.js:readContractABI",
+      "type": "function",
+      "name": "readContractABI",
+      "filePath": "backend/services/thesisContractService.js",
+      "lineRange": [
+        9,
+        20
+      ],
+      "summary": "Function readContractABI",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/services/thesisContractService.js:detectContractVersion",
+      "type": "function",
+      "name": "detectContractVersion",
+      "filePath": "backend/services/thesisContractService.js",
+      "lineRange": [
+        31,
+        49
+      ],
+      "summary": "Function detectContractVersion",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/services/thesisContractService.js:getContractInstance",
+      "type": "function",
+      "name": "getContractInstance",
+      "filePath": "backend/services/thesisContractService.js",
+      "lineRange": [
+        51,
+        64
+      ],
+      "summary": "Function getContractInstance",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/scripts/backfill-pdf-extraction.js",
+      "target": "function:backend/scripts/backfill-pdf-extraction.js:run",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/backfill-pdf-extraction.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/backfill-pdf-extraction.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/backfill-pdf-extraction.js",
+      "target": "file:backend/models/BaoCao.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/backfill-pdf-extraction.js",
+      "target": "file:backend/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/check_student_test.js",
+      "target": "function:backend/scripts/check_student_test.js:check",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/check_student_test.js",
+      "target": "file:backend/models/BaiTest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/check_student_test.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/check_student_test.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/check_student_test.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/check_student_test.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "function:backend/scripts/migrate-add-lophoc-nhom.js:migrate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "file:backend/models/BaoCao.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "file:backend/models/DiemSo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "file:backend/models/Nhom.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/migrate-add-lophoc-nhom.js",
+      "target": "file:backend/models/TienDo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "function:backend/scripts/reset_test_data.js:run",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/BaiTest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/BaoCao.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/DiemSo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/KetQuaTest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/MonHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/Nhom.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/reset_test_data.js",
+      "target": "file:backend/models/TienDo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_giao_duc_pho_thong.js",
+      "target": "function:backend/scripts/seed_giao_duc_pho_thong.js:seedGiaoDucPhoThong",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed_giao_duc_pho_thong.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_giao_duc_pho_thong.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_giao_duc_pho_thong.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_giao_duc_pho_thong.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_giao_duc_pho_thong.js",
+      "target": "file:backend/models/MonHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "target": "function:backend/scripts/seed_khoaluan_tests_rubrics.js:seedTestsAndRubrics",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "target": "file:backend/models/BaiTest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_topic_13dhth04.js",
+      "target": "function:backend/scripts/seed_topic_13dhth04.js:seed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed_topic_13dhth04.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_topic_13dhth04.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_topic_13dhth04.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_topic_13dhth04.js",
+      "target": "file:backend/models/MonHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/aiService.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/ipfsService.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/matchingService.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/thesisContractService.js",
+      "target": "function:backend/services/thesisContractService.js:readContractABI",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/services/thesisContractService.js",
+      "target": "function:backend/services/thesisContractService.js:detectContractVersion",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/services/thesisContractService.js",
+      "target": "function:backend/services/thesisContractService.js:getContractInstance",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/services/thesisContractService.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/thesisContractService.js",
+      "target": "file:backend/models/BaoCao.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/services/thesisContractService.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

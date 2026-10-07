@@ -1,11 +1,19 @@
 const crypto = require('crypto');
 const QrCode = require('../models/QrCode');
+const Teacher = require('../models/Teacher');
+const Student = require('../models/Student');
+const GiaoVien = require('../models/GiaoVien');
+const HocSinh = require('../models/HocSinh');
 
 const qrController = {
   // Lấy mã QR hiện tại của user
   getQrCode: async (req, res) => {
     try {
-      const { id: userId, walletAddress, role_id } = req.user;
+      const { id: userId, role_id } = req.user;
+
+      const user = await Teacher.findById(userId) || await Student.findById(userId) || await GiaoVien.findById(userId) || await HocSinh.findById(userId);
+      if (!user?.walletAddress) return res.status(400).json({ message: 'Chưa liên kết ví Web3' });
+      const walletAddress = user.walletAddress.toLowerCase();
 
       let qrCode = await QrCode.findOne({
         user_id: userId,
@@ -21,7 +29,7 @@ const qrController = {
 
         qrCode = new QrCode({
           user_id: userId,
-          wallet_address: walletAddress.toLowerCase(),
+          wallet_address: walletAddress,
           role: role_id,
           role_model: roleModel,
           qr_hash: newHash,
@@ -43,7 +51,11 @@ const qrController = {
   // Tạo mã QR mới (vô hiệu hóa mã cũ)
   generateQrCode: async (req, res) => {
     try {
-      const { id: userId, walletAddress, role_id } = req.user;
+      const { id: userId, role_id } = req.user;
+
+      const user = await Teacher.findById(userId) || await Student.findById(userId) || await GiaoVien.findById(userId) || await HocSinh.findById(userId);
+      if (!user?.walletAddress) return res.status(400).json({ message: 'Chưa liên kết ví Web3' });
+      const walletAddress = user.walletAddress.toLowerCase();
 
       // Vô hiệu hóa mã cũ
       await QrCode.updateMany(
@@ -56,7 +68,7 @@ const qrController = {
 
       const newQrCode = new QrCode({
         user_id: userId,
-        wallet_address: walletAddress.toLowerCase(),
+        wallet_address: walletAddress,
         role: role_id,
         role_model: roleModel,
         qr_hash: newHash,

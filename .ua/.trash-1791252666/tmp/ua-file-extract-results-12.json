@@ -1,0 +1,176 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "definitions": [
+        {
+          "name": "HOST",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "DANGEROUSLY_DISABLE_HOST_CHECK",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 2,
+          "endLine": 2
+        },
+        {
+          "name": "REACT_APP_DOMAIN_MODE",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "REACT_APP_API_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 4,
+          "endLine": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 4
+      }
+    },
+    {
+      "path": "frontend/jsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 5,
+      "nonEmptyLines": 5,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "frontend/netlify.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 14,
+      "nonEmptyLines": 11,
+      "sections": [
+        {
+          "heading": "build",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "[[redirects]]",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "build.environment",
+          "level": 2,
+          "line": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 56,
+      "nonEmptyLines": 56,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "main",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 39
+        },
+        {
+          "heading": "browserslist",
+          "level": 1,
+          "line": 43
+        },
+        {
+          "heading": "proxy",
+          "level": 1,
+          "line": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    }
+  ]
+}

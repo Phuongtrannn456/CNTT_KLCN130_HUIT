@@ -48,7 +48,6 @@ function AnimatedGradientText({ children, sx }) {
 
 // --- Main LoginPage Component ---
 function LoginPage() {
-  console.log('LoginPage component rendered');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isVerySmall = useMediaQuery(theme.breakpoints.down(400));
@@ -119,7 +118,6 @@ function LoginPage() {
       }
 
       const qrWallet = (qrInfo.walletAddress || qrInfo.wallet_address).toLowerCase();
-      console.log('QR scanned wallet:', qrWallet);
 
       // Kiểm tra MetaMask
       if (!authService.isMetaMaskInstalled()) {
@@ -129,10 +127,8 @@ function LoginPage() {
       }
 
       // Kết nối MetaMask trên PC
-      console.log('Connecting MetaMask...');
       await authService.initializeProvider();
       const walletAddress = await authService.getWalletAddress();
-      console.log('MetaMask wallet:', walletAddress);
       setConnectedWallet(walletAddress);
 
       // Kiểm tra ví MetaMask khớp với QR
@@ -145,7 +141,6 @@ function LoginPage() {
       }
 
       // Xác thực MetaMask (ký challenge)
-      console.log('Authenticating...');
       const result = await authService.authenticate();
       
       /* DISABLED: Admin approval flow

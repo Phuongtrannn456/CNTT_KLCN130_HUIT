@@ -1,0 +1,262 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/config/db.js",
+      "type": "file",
+      "name": "db.js",
+      "filePath": "backend/config/db.js",
+      "summary": "Component responsible for db.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/scripts/debug-payment.js",
+      "type": "file",
+      "name": "debug-payment.js",
+      "filePath": "backend/scripts/debug-payment.js",
+      "summary": "Component responsible for debug-payment.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/debug-payment.js:debugPayment",
+      "type": "function",
+      "name": "debugPayment",
+      "filePath": "backend/scripts/debug-payment.js",
+      "lineRange": [
+        13,
+        159
+      ],
+      "summary": "Function debugPayment",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/impersonate-accounts.js",
+      "type": "file",
+      "name": "impersonate-accounts.js",
+      "filePath": "backend/scripts/impersonate-accounts.js",
+      "summary": "Component responsible for impersonate-accounts.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/impersonate-accounts.js:fetchAddressesFromDatabase",
+      "type": "function",
+      "name": "fetchAddressesFromDatabase",
+      "filePath": "backend/scripts/impersonate-accounts.js",
+      "lineRange": [
+        9,
+        49
+      ],
+      "summary": "Function fetchAddressesFromDatabase",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/impersonate-accounts.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/scripts/impersonate-accounts.js",
+      "lineRange": [
+        51,
+        125
+      ],
+      "summary": "Function main",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seed-ai-model-metadata.js",
+      "type": "file",
+      "name": "seed-ai-model-metadata.js",
+      "filePath": "backend/scripts/seed-ai-model-metadata.js",
+      "summary": "Component responsible for seed-ai-model-metadata.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seed-ai-model-metadata.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/scripts/seed-ai-model-metadata.js",
+      "lineRange": [
+        72,
+        103
+      ],
+      "summary": "Function main",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/seed-ai-model-metadata.js:buildRecord",
+      "type": "function",
+      "name": "buildRecord",
+      "filePath": "backend/scripts/seed-ai-model-metadata.js",
+      "lineRange": [
+        105,
+        134
+      ],
+      "summary": "Function buildRecord",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/seed-ai-model-metadata.js:taoBanGhiGiaLap",
+      "type": "function",
+      "name": "taoBanGhiGiaLap",
+      "filePath": "backend/scripts/seed-ai-model-metadata.js",
+      "lineRange": [
+        140,
+        201
+      ],
+      "summary": "Function taoBanGhiGiaLap",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/test-payment-direct.js",
+      "type": "file",
+      "name": "test-payment-direct.js",
+      "filePath": "backend/scripts/test-payment-direct.js",
+      "summary": "Component responsible for test-payment-direct.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/test-payment-direct.js:testPayment",
+      "type": "function",
+      "name": "testPayment",
+      "filePath": "backend/scripts/test-payment-direct.js",
+      "lineRange": [
+        14,
+        110
+      ],
+      "summary": "Function testPayment",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/config/db.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/debug-payment.js",
+      "target": "function:backend/scripts/debug-payment.js:debugPayment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/debug-payment.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/impersonate-accounts.js",
+      "target": "function:backend/scripts/impersonate-accounts.js:fetchAddressesFromDatabase",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/impersonate-accounts.js",
+      "target": "function:backend/scripts/impersonate-accounts.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/impersonate-accounts.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed-ai-model-metadata.js",
+      "target": "function:backend/scripts/seed-ai-model-metadata.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed-ai-model-metadata.js",
+      "target": "function:backend/scripts/seed-ai-model-metadata.js:buildRecord",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed-ai-model-metadata.js",
+      "target": "function:backend/scripts/seed-ai-model-metadata.js:taoBanGhiGiaLap",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed-ai-model-metadata.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/test-payment-direct.js",
+      "target": "function:backend/scripts/test-payment-direct.js:testPayment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test-payment-direct.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

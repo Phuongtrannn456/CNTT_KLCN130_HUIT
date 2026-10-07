@@ -1,0 +1,1042 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/components/LoginPage.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 741,
+      "nonEmptyLines": 680,
+      "functions": [
+        {
+          "name": "AnimatedGradientText",
+          "startLine": 27,
+          "endLine": 47,
+          "params": []
+        },
+        {
+          "name": "LoginPage",
+          "startLine": 50,
+          "endLine": 739,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LoginPage",
+          "callee": "useTheme",
+          "lineNumber": 52
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useMediaQuery",
+          "lineNumber": 53
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "theme.breakpoints.down",
+          "lineNumber": 53
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useMediaQuery",
+          "lineNumber": 54
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "theme.breakpoints.down",
+          "lineNumber": 54
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 56
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 57
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 58
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 59
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 60
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 61
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 62
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 63
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 66
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 67
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 70
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 71
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useState",
+          "lineNumber": 72
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "useEffect",
+          "lineNumber": 74
+        },
+        {
+          "caller": "checkAuth",
+          "callee": "authService.isAuthenticated",
+          "lineNumber": 76
+        },
+        {
+          "caller": "checkAuth",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 77
+        },
+        {
+          "caller": "checkAuth",
+          "callee": "setIsAuthenticated",
+          "lineNumber": 78
+        },
+        {
+          "caller": "checkAuth",
+          "callee": "setUser",
+          "lineNumber": 79
+        },
+        {
+          "caller": "checkAuth",
+          "callee": "setConnectedWallet",
+          "lineNumber": 81
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "checkAuth",
+          "lineNumber": 84
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "authService.onAccountChange",
+          "lineNumber": 86
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setIsAuthenticated",
+          "lineNumber": 88
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setUser",
+          "lineNumber": 89
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setError",
+          "lineNumber": 90
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "authService.onChainChange",
+          "lineNumber": 94
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "window.location.reload",
+          "lineNumber": 94
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setScanningQr",
+          "lineNumber": 99
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setError",
+          "lineNumber": 100
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setSuccess",
+          "lineNumber": 101
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "JSON.parse",
+          "lineNumber": 106
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "qrData.startsWith",
+          "lineNumber": 109
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "(qrInfo.walletAddress || qrInfo.wallet_address).toLowerCase",
+          "lineNumber": 121
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "authService.isMetaMaskInstalled",
+          "lineNumber": 125
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setError",
+          "lineNumber": 126
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setGuideModalOpen",
+          "lineNumber": 127
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "authService.initializeProvider",
+          "lineNumber": 133
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "authService.getWalletAddress",
+          "lineNumber": 134
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setConnectedWallet",
+          "lineNumber": 136
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 139
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "walletAddress.slice",
+          "lineNumber": 141
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "walletAddress.slice",
+          "lineNumber": 141
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "qrWallet.slice",
+          "lineNumber": 142
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "qrWallet.slice",
+          "lineNumber": 142
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "authService.authenticate",
+          "lineNumber": 149
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setNeedsRoleSelection",
+          "lineNumber": 162
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setTempWallet",
+          "lineNumber": 163
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setRejectedCountToday",
+          "lineNumber": 164
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setSuccess",
+          "lineNumber": 165
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setSuccess",
+          "lineNumber": 169
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setIsAuthenticated",
+          "lineNumber": 170
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setUser",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setTimeout",
+          "lineNumber": 173
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setError",
+          "lineNumber": 179
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setError",
+          "lineNumber": 181
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setScanningQr",
+          "lineNumber": 184
+        },
+        {
+          "caller": "handleQrScan",
+          "callee": "setQrScannerOpen",
+          "lineNumber": 185
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setLoading",
+          "lineNumber": 190
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setError",
+          "lineNumber": 191
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setSuccess",
+          "lineNumber": 192
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "authService.isMetaMaskInstalled",
+          "lineNumber": 194
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setError",
+          "lineNumber": 195
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setGuideModalOpen",
+          "lineNumber": 196
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "authService.initializeProvider",
+          "lineNumber": 200
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "authService.getWalletAddress",
+          "lineNumber": 201
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setConnectedWallet",
+          "lineNumber": 202
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "authService.authenticate",
+          "lineNumber": 204
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setNeedsRoleSelection",
+          "lineNumber": 217
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setTempWallet",
+          "lineNumber": 218
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setRejectedCountToday",
+          "lineNumber": 219
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setSuccess",
+          "lineNumber": 220
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setSuccess",
+          "lineNumber": 224
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setIsAuthenticated",
+          "lineNumber": 225
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setUser",
+          "lineNumber": 226
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setTimeout",
+          "lineNumber": 229
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "message.includes",
+          "lineNumber": 234
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setError",
+          "lineNumber": 235
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "message.includes",
+          "lineNumber": 236
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setError",
+          "lineNumber": 237
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setError",
+          "lineNumber": 239
+        },
+        {
+          "caller": "handleConnectWallet",
+          "callee": "setLoading",
+          "lineNumber": 242
+        },
+        {
+          "caller": "handleTabChange",
+          "callee": "setTabValue",
+          "lineNumber": 247
+        },
+        {
+          "caller": "handleTabChange",
+          "callee": "setError",
+          "lineNumber": 248
+        },
+        {
+          "caller": "handleTabChange",
+          "callee": "setSuccess",
+          "lineNumber": 249
+        },
+        {
+          "caller": "handleSelectStudent",
+          "callee": "setLoading",
+          "lineNumber": 253
+        },
+        {
+          "caller": "handleSelectStudent",
+          "callee": "setError",
+          "lineNumber": 254
+        },
+        {
+          "caller": "handleSelectStudent",
+          "callee": "authService.registerWithRole",
+          "lineNumber": 256
+        },
+        {
+          "caller": "handleSelectStudent",
+          "callee": "setError",
+          "lineNumber": 259
+        },
+        {
+          "caller": "handleSelectStudent",
+          "callee": "setLoading",
+          "lineNumber": 261
+        },
+        {
+          "caller": "handleSelectLecturer",
+          "callee": "setLoading",
+          "lineNumber": 266
+        },
+        {
+          "caller": "handleSelectLecturer",
+          "callee": "setError",
+          "lineNumber": 267
+        },
+        {
+          "caller": "handleSelectLecturer",
+          "callee": "authService.registerWithRole",
+          "lineNumber": 269
+        },
+        {
+          "caller": "handleSelectLecturer",
+          "callee": "setError",
+          "lineNumber": 272
+        },
+        {
+          "caller": "handleSelectLecturer",
+          "callee": "setLoading",
+          "lineNumber": 274
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "getResponsiveStyles",
+          "lineNumber": 311
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "connectedWallet?.slice",
+          "lineNumber": 385
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "connectedWallet?.slice",
+          "lineNumber": 385
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "user.GPA.toFixed",
+          "lineNumber": 431
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "authService.logout",
+          "lineNumber": 461
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setIsAuthenticated",
+          "lineNumber": 462
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setUser",
+          "lineNumber": 463
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setConnectedWallet",
+          "lineNumber": 464
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setError",
+          "lineNumber": 465
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setSuccess",
+          "lineNumber": 466
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setGuideModalOpen",
+          "lineNumber": 635
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setQrScannerOpen",
+          "lineNumber": 663
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setQrScannerOpen",
+          "lineNumber": 698
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "console.error",
+          "lineNumber": 708
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setError",
+          "lineNumber": 709
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setQrScannerOpen",
+          "lineNumber": 718
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "new Date().getFullYear",
+          "lineNumber": 732
+        },
+        {
+          "caller": "LoginPage",
+          "callee": "setGuideModalOpen",
+          "lineNumber": 736
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/MetaMaskGuideModal.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 411,
+      "nonEmptyLines": 397,
+      "functions": [
+        {
+          "name": "MetaMaskGuideModal",
+          "startLine": 68,
+          "endLine": 409,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "useTheme",
+          "lineNumber": 69
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "useMediaQuery",
+          "lineNumber": 70
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "theme.breakpoints.down",
+          "lineNumber": 70
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "useMediaQuery",
+          "lineNumber": 71
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "theme.breakpoints.down",
+          "lineNumber": 71
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "useState",
+          "lineNumber": 72
+        },
+        {
+          "caller": "handleNext",
+          "callee": "setActiveStep",
+          "lineNumber": 74
+        },
+        {
+          "caller": "handleNext",
+          "callee": "Math.min",
+          "lineNumber": 74
+        },
+        {
+          "caller": "handleBack",
+          "callee": "setActiveStep",
+          "lineNumber": 75
+        },
+        {
+          "caller": "handleBack",
+          "callee": "Math.max",
+          "lineNumber": 75
+        },
+        {
+          "caller": "handleResetAndClose",
+          "callee": "setActiveStep",
+          "lineNumber": 77
+        },
+        {
+          "caller": "handleResetAndClose",
+          "callee": "onClose",
+          "lineNumber": 78
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "useState",
+          "lineNumber": 100
+        },
+        {
+          "caller": "paginate",
+          "callee": "setDirection",
+          "lineNumber": 103
+        },
+        {
+          "caller": "paginate",
+          "callee": "handleNext",
+          "lineNumber": 104
+        },
+        {
+          "caller": "paginate",
+          "callee": "handleBack",
+          "lineNumber": 105
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "getResponsiveStyles",
+          "lineNumber": 155
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "theme.spacing",
+          "lineNumber": 231
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "theme.spacing",
+          "lineNumber": 232
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "theme.spacing",
+          "lineNumber": 233
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "theme.spacing",
+          "lineNumber": 234
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "React.cloneElement",
+          "lineNumber": 259
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "paginate",
+          "lineNumber": 364
+        },
+        {
+          "caller": "MetaMaskGuideModal",
+          "callee": "paginate",
+          "lineNumber": 381
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/QrScanner.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 199,
+      "nonEmptyLines": 186,
+      "functions": [
+        {
+          "name": "QrScanner",
+          "startLine": 12,
+          "endLine": 197,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "QrScanner",
+          "callee": "useTheme",
+          "lineNumber": 13
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useMediaQuery",
+          "lineNumber": 14
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "theme.breakpoints.down",
+          "lineNumber": 14
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useRef",
+          "lineNumber": 15
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useRef",
+          "lineNumber": 16
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useRef",
+          "lineNumber": 17
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "useEffect",
+          "lineNumber": 22
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "setScanning",
+          "lineNumber": 26
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "codeReader.current.decodeFromVideoDevice",
+          "lineNumber": 27
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "onScan",
+          "lineNumber": 32
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "setScanning",
+          "lineNumber": 33
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "codeReader.current.reset",
+          "lineNumber": 34
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "onError",
+          "lineNumber": 37
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "setScanning",
+          "lineNumber": 42
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "codeReader.current.reset",
+          "lineNumber": 44
+        },
+        {
+          "caller": "QrScanner",
+          "callee": "codeReader.current.reset",
+          "lineNumber": 50
+        },
+        {
+          "caller": "handleTabChange",
+          "callee": "setTabValue",
+          "lineNumber": 56
+        },
+        {
+          "caller": "handleTabChange",
+          "callee": "setCameraPermission",
+          "lineNumber": 58
+        },
+        {
+          "caller": "requestCameraPermission",
+          "callee": "onError",
+          "lineNumber": 66
+        },
+        {
+          "caller": "requestCameraPermission",
+          "callee": "navigator.mediaDevices.getUserMedia",
+          "lineNumber": 70
+        },
+        {
+          "caller": "requestCameraPermission",
+          "callee": "setCameraPermission",
+          "lineNumber": 71
+        },
+        {
+          "caller": "requestCameraPermission",
+          "callee": "console.error",
+          "lineNumber": 73
+        },
+        {
+          "caller": "requestCameraPermission",
+          "callee": "onError",
+          "lineNumber": 82
+        },
+        {
+          "caller": "handleFileUpload",
+          "callee": "URL.createObjectURL",
+          "lineNumber": 90
+        },
+        {
+          "caller": "handleFileUpload",
+          "callee": "codeReader.current.decodeFromImage",
+          "lineNumber": 94
+        },
+        {
+          "caller": "handleFileUpload",
+          "callee": "onScan",
+          "lineNumber": 96
+        },
+        {
+          "caller": "handleFileUpload",
+          "callee": "onError",
+          "lineNumber": 98
+        },
+        {
+          "caller": "handleFileUpload",
+          "callee": "onError",
+          "lineNumber": 101
+        },
+        {
+          "caller": "handleFileUpload",
+          "callee": "URL.revokeObjectURL",
+          "lineNumber": 103
+        },
+        {
+          "caller": "handleFileUpload",
+          "callee": "onError",
+          "lineNumber": 108
+        },
+        {
+          "caller": "handleUploadClick",
+          "callee": "fileInputRef.current.click",
+          "lineNumber": 114
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/RoleSelection.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 162,
+      "nonEmptyLines": 155,
+      "functions": [
+        {
+          "name": "RoleSelection",
+          "startLine": 8,
+          "endLine": 160,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "RoleSelection",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "handleLecturerSubmit",
+          "callee": "onSelectLecturer",
+          "lineNumber": 14
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "walletAddress?.slice",
+          "lineNumber": 23
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "walletAddress?.slice",
+          "lineNumber": 23
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "setModalOpen",
+          "lineNumber": 90
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "setModalOpen",
+          "lineNumber": 108
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "setFormData",
+          "lineNumber": 122
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "setFormData",
+          "lineNumber": 132
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "setFormData",
+          "lineNumber": 142
+        },
+        {
+          "caller": "RoleSelection",
+          "callee": "setModalOpen",
+          "lineNumber": 146
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

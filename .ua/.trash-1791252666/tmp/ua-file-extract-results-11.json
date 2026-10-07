@@ -1,0 +1,211 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [
+    "backend/.env.render"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 4,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 4
+    }
+  },
+  "results": [
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 11,
+      "nonEmptyLines": 8,
+      "definitions": [
+        {
+          "name": "PORT",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 1,
+          "endLine": 1
+        },
+        {
+          "name": "MONGODB_URI",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 2,
+          "endLine": 2
+        },
+        {
+          "name": "JWT_SECRET",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "ML_SERVICE_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 5,
+          "endLine": 5
+        },
+        {
+          "name": "BLOCKCHAIN_NETWORK",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 7,
+          "endLine": 7
+        },
+        {
+          "name": "BLOCKCHAIN_RPC_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 8,
+          "endLine": 8
+        },
+        {
+          "name": "K12_CREDENTIAL_CONTRACT_ADDRESS",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 9,
+          "endLine": 9
+        },
+        {
+          "name": "RELAYER_PRIVATE_KEY",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 11,
+          "endLine": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 8
+      }
+    },
+    {
+      "path": "backend/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 20,
+      "nonEmptyLines": 13,
+      "sections": [
+        {
+          "heading": "Cau hinh INTERNAL_TOKEN",
+          "level": 2,
+          "line": 1
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 1
+      }
+    },
+    {
+      "path": "backend/deployment.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 17,
+      "nonEmptyLines": 17,
+      "sections": [
+        {
+          "heading": "qrAuthentication",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "consentManagement",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "network",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "timestamp",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "payrollManagement",
+          "level": 1,
+          "line": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 65,
+      "nonEmptyLines": 65,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "main",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 6
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 32
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 56
+        },
+        {
+          "heading": "engines",
+          "level": 1,
+          "line": 62
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    }
+  ]
+}

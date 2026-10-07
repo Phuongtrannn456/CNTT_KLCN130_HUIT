@@ -42,7 +42,7 @@ const approveRequest = async (req, res) => {
 
     // Generate Token
     const token = jwt.sign(
-      { id: newGiaoVien._id, walletAddress: newGiaoVien.WalletAddress, role_id: 'LECTURER_ROLE' },
+      { id: newGiaoVien._id, walletAddress: newGiaoVien.WalletAddress, role_id: 'TEACHER_ROLE' },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
@@ -57,7 +57,7 @@ const approveRequest = async (req, res) => {
         user: {
           id: newGiaoVien._id,
           walletAddress: newGiaoVien.WalletAddress,
-          role_id: 'LECTURER_ROLE',
+          role_id: 'TEACHER_ROLE',
           name: newGiaoVien.HoTen
         }
       });

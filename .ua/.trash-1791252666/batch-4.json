@@ -1,0 +1,1092 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/config/logger.js",
+      "type": "file",
+      "name": "logger.js",
+      "filePath": "backend/config/logger.js",
+      "summary": "Component responsible for logger.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/aiController.js",
+      "type": "file",
+      "name": "aiController.js",
+      "filePath": "backend/controllers/aiController.js",
+      "summary": "Component responsible for aiController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/baiTestController.js",
+      "type": "file",
+      "name": "baiTestController.js",
+      "filePath": "backend/controllers/baiTestController.js",
+      "summary": "Component responsible for baiTestController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/baiTestController.js:tryClaimWinner",
+      "type": "function",
+      "name": "tryClaimWinner",
+      "filePath": "backend/controllers/baiTestController.js",
+      "lineRange": [
+        145,
+        202
+      ],
+      "summary": "Function tryClaimWinner",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/baiTestController.js:resolveWaitingGroups",
+      "type": "function",
+      "name": "resolveWaitingGroups",
+      "filePath": "backend/controllers/baiTestController.js",
+      "lineRange": [
+        205,
+        227
+      ],
+      "summary": "Function resolveWaitingGroups",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/controllers/baoCaoController.js",
+      "type": "file",
+      "name": "baoCaoController.js",
+      "filePath": "backend/controllers/baoCaoController.js",
+      "summary": "Component responsible for baoCaoController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/baoCaoController.js:getAcceptedMembers",
+      "type": "function",
+      "name": "getAcceptedMembers",
+      "filePath": "backend/controllers/baoCaoController.js",
+      "lineRange": [
+        18,
+        36
+      ],
+      "summary": "Function getAcceptedMembers",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/controllers/blockchainController.js",
+      "type": "file",
+      "name": "blockchainController.js",
+      "filePath": "backend/controllers/blockchainController.js",
+      "summary": "Component responsible for blockchainController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/blockchainController.js:getThesisContract",
+      "type": "function",
+      "name": "getThesisContract",
+      "filePath": "backend/controllers/blockchainController.js",
+      "lineRange": [
+        24,
+        53
+      ],
+      "summary": "Function getThesisContract",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/controllers/deTaiController.js",
+      "type": "file",
+      "name": "deTaiController.js",
+      "filePath": "backend/controllers/deTaiController.js",
+      "summary": "Component responsible for deTaiController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/diemSoController.js",
+      "type": "file",
+      "name": "diemSoController.js",
+      "filePath": "backend/controllers/diemSoController.js",
+      "summary": "Component responsible for diemSoController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/diemSoController.js:parseBlockchainError",
+      "type": "function",
+      "name": "parseBlockchainError",
+      "filePath": "backend/controllers/diemSoController.js",
+      "lineRange": [
+        10,
+        30
+      ],
+      "summary": "Function parseBlockchainError",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/diemSoController.js:createGradeForReport",
+      "type": "function",
+      "name": "createGradeForReport",
+      "filePath": "backend/controllers/diemSoController.js",
+      "lineRange": [
+        33,
+        141
+      ],
+      "summary": "Function createGradeForReport",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/diemSoController.js:checkAndCompleteTopic",
+      "type": "function",
+      "name": "checkAndCompleteTopic",
+      "filePath": "backend/controllers/diemSoController.js",
+      "lineRange": [
+        144,
+        166
+      ],
+      "summary": "Function checkAndCompleteTopic",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/diemSoController.js:calculateRubricsScore",
+      "type": "function",
+      "name": "calculateRubricsScore",
+      "filePath": "backend/controllers/diemSoController.js",
+      "lineRange": [
+        177,
+        192
+      ],
+      "summary": "Function calculateRubricsScore",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/diemSoController.js:validateRubricsResult",
+      "type": "function",
+      "name": "validateRubricsResult",
+      "filePath": "backend/controllers/diemSoController.js",
+      "lineRange": [
+        194,
+        219
+      ],
+      "summary": "Function validateRubricsResult",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/diemSoController.js:validateRubricsAgainstScore",
+      "type": "function",
+      "name": "validateRubricsAgainstScore",
+      "filePath": "backend/controllers/diemSoController.js",
+      "lineRange": [
+        221,
+        232
+      ],
+      "summary": "Function validateRubricsAgainstScore",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/diemSoController.js:assertGiaoVienOwnsDeTai",
+      "type": "function",
+      "name": "assertGiaoVienOwnsDeTai",
+      "filePath": "backend/controllers/diemSoController.js",
+      "lineRange": [
+        234,
+        245
+      ],
+      "summary": "Function assertGiaoVienOwnsDeTai",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/controllers/loiMoiLopHocController.js",
+      "type": "file",
+      "name": "loiMoiLopHocController.js",
+      "filePath": "backend/controllers/loiMoiLopHocController.js",
+      "summary": "Component responsible for loiMoiLopHocController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/lopHocController.js",
+      "type": "file",
+      "name": "lopHocController.js",
+      "filePath": "backend/controllers/lopHocController.js",
+      "summary": "Component responsible for lopHocController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/monHocController.js",
+      "type": "file",
+      "name": "monHocController.js",
+      "filePath": "backend/controllers/monHocController.js",
+      "summary": "Component responsible for monHocController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/nhomController.js",
+      "type": "file",
+      "name": "nhomController.js",
+      "filePath": "backend/controllers/nhomController.js",
+      "summary": "Component responsible for nhomController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/rubricsController.js",
+      "type": "file",
+      "name": "rubricsController.js",
+      "filePath": "backend/controllers/rubricsController.js",
+      "summary": "Component responsible for rubricsController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/tienDoController.js",
+      "type": "file",
+      "name": "tienDoController.js",
+      "filePath": "backend/controllers/tienDoController.js",
+      "summary": "Component responsible for tienDoController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/tienDoController.js:normalizeMinhChung",
+      "type": "function",
+      "name": "normalizeMinhChung",
+      "filePath": "backend/controllers/tienDoController.js",
+      "lineRange": [
+        9,
+        25
+      ],
+      "summary": "Function normalizeMinhChung",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/tienDoController.js:validateRubricsTuan",
+      "type": "function",
+      "name": "validateRubricsTuan",
+      "filePath": "backend/controllers/tienDoController.js",
+      "lineRange": [
+        27,
+        56
+      ],
+      "summary": "Function validateRubricsTuan",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/tienDoController.js:assertGiaoVienOwnsDeTai",
+      "type": "function",
+      "name": "assertGiaoVienOwnsDeTai",
+      "filePath": "backend/controllers/tienDoController.js",
+      "lineRange": [
+        58,
+        69
+      ],
+      "summary": "Function assertGiaoVienOwnsDeTai",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/tienDoController.js:assertHocSinhBelongsToDangKy",
+      "type": "function",
+      "name": "assertHocSinhBelongsToDangKy",
+      "filePath": "backend/controllers/tienDoController.js",
+      "lineRange": [
+        71,
+        86
+      ],
+      "summary": "Function assertHocSinhBelongsToDangKy",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/tienDoController.js:getPreviousEntry",
+      "type": "function",
+      "name": "getPreviousEntry",
+      "filePath": "backend/controllers/tienDoController.js",
+      "lineRange": [
+        88,
+        104
+      ],
+      "summary": "Function getPreviousEntry",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/tienDoController.js:detectAnomalies",
+      "type": "function",
+      "name": "detectAnomalies",
+      "filePath": "backend/controllers/tienDoController.js",
+      "lineRange": [
+        106,
+        164
+      ],
+      "summary": "Function detectAnomalies",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/models/AILog.js",
+      "type": "file",
+      "name": "AILog.js",
+      "filePath": "backend/models/AILog.js",
+      "summary": "Component responsible for AILog.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/BaiTest.js",
+      "type": "file",
+      "name": "BaiTest.js",
+      "filePath": "backend/models/BaiTest.js",
+      "summary": "Component responsible for BaiTest.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/BaoCao.js",
+      "type": "file",
+      "name": "BaoCao.js",
+      "filePath": "backend/models/BaoCao.js",
+      "summary": "Component responsible for BaoCao.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/DangKyDeTai.js",
+      "type": "file",
+      "name": "DangKyDeTai.js",
+      "filePath": "backend/models/DangKyDeTai.js",
+      "summary": "Component responsible for DangKyDeTai.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/DeTai.js",
+      "type": "file",
+      "name": "DeTai.js",
+      "filePath": "backend/models/DeTai.js",
+      "summary": "Component responsible for DeTai.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/DiemSo.js",
+      "type": "file",
+      "name": "DiemSo.js",
+      "filePath": "backend/models/DiemSo.js",
+      "summary": "Component responsible for DiemSo.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/DuAn.js",
+      "type": "file",
+      "name": "DuAn.js",
+      "filePath": "backend/models/DuAn.js",
+      "summary": "Component responsible for DuAn.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/controllers/aiController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiController.js",
+      "target": "file:backend/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiController.js",
+      "target": "file:backend/services/matchingService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "function:backend/controllers/baiTestController.js:tryClaimWinner",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "function:backend/controllers/baiTestController.js:resolveWaitingGroups",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "file:backend/models/BaiTest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "file:backend/models/KetQuaTest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baiTestController.js",
+      "target": "file:backend/services/thesisContractService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "function:backend/controllers/baoCaoController.js:getAcceptedMembers",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/models/BaoCao.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/models/DiemSo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/services/ipfsService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/baoCaoController.js",
+      "target": "file:backend/services/thesisContractService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/blockchainController.js",
+      "target": "function:backend/controllers/blockchainController.js:getThesisContract",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/blockchainController.js",
+      "target": "file:backend/models/BaoCao.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/blockchainController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/blockchainController.js",
+      "target": "file:backend/models/DiemSo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/blockchainController.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/deTaiController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/deTaiController.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/deTaiController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/deTaiController.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/deTaiController.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/deTaiController.js",
+      "target": "file:backend/models/Nhom.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/deTaiController.js",
+      "target": "file:backend/models/RubricsTemplate.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "function:backend/controllers/diemSoController.js:parseBlockchainError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "function:backend/controllers/diemSoController.js:createGradeForReport",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "function:backend/controllers/diemSoController.js:checkAndCompleteTopic",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "function:backend/controllers/diemSoController.js:calculateRubricsScore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "function:backend/controllers/diemSoController.js:validateRubricsResult",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "function:backend/controllers/diemSoController.js:validateRubricsAgainstScore",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "function:backend/controllers/diemSoController.js:assertGiaoVienOwnsDeTai",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "file:backend/models/AILog.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "file:backend/models/BaoCao.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "file:backend/models/DiemSo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/diemSoController.js",
+      "target": "file:backend/services/thesisContractService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/loiMoiLopHocController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/loiMoiLopHocController.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/loiMoiLopHocController.js",
+      "target": "file:backend/models/LoiMoiLopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/loiMoiLopHocController.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/lopHocController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/lopHocController.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/lopHocController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/lopHocController.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/lopHocController.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/lopHocController.js",
+      "target": "file:backend/models/Nhom.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/monHocController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/monHocController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/monHocController.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/monHocController.js",
+      "target": "file:backend/models/MonHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/nhomController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/nhomController.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/nhomController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/nhomController.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/nhomController.js",
+      "target": "file:backend/models/LopHoc.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/nhomController.js",
+      "target": "file:backend/models/Nhom.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/rubricsController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/rubricsController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/rubricsController.js",
+      "target": "file:backend/models/RubricsTemplate.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "function:backend/controllers/tienDoController.js:normalizeMinhChung",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "function:backend/controllers/tienDoController.js:validateRubricsTuan",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "function:backend/controllers/tienDoController.js:assertGiaoVienOwnsDeTai",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "function:backend/controllers/tienDoController.js:assertHocSinhBelongsToDangKy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "function:backend/controllers/tienDoController.js:getPreviousEntry",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "function:backend/controllers/tienDoController.js:detectAnomalies",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "file:backend/models/DangKyDeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "file:backend/models/TienDo.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "file:backend/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/tienDoController.js",
+      "target": "file:backend/services/thesisContractService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/models/DuAn.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 2,
+  "filesSkipped": [
+    "ml-service/requirements.txt"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 2,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 0,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "results": [
+    {
+      "path": "ml-service/.env.example",
+      "language": "config",
+      "fileCategory": "config",
+      "totalLines": 4,
+      "nonEmptyLines": 4,
+      "definitions": [
+        {
+          "name": "BACKEND_URL",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 3,
+          "endLine": 3
+        },
+        {
+          "name": "INTERNAL_TOKEN",
+          "kind": "variable",
+          "fields": [],
+          "startLine": 4,
+          "endLine": 4
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "definitionCount": 2
+      }
+    },
+    {
+      "path": "ml-service/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 76,
+      "nonEmptyLines": 55,
+      "sections": [
+        {
+          "heading": "ML Service - PhoBERT & SBERT Scaffold",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Chạy service",
+          "level": 2,
+          "line": 13
+        },
+        {
+          "heading": "1) Cài dependencies",
+          "level": 3,
+          "line": 15
+        },
+        {
+          "heading": "2) Start FastAPI",
+          "level": 3,
+          "line": 22
+        },
+        {
+          "heading": "Endpoints",
+          "level": 2,
+          "line": 28
+        },
+        {
+          "heading": "Health check",
+          "level": 3,
+          "line": 30
+        },
+        {
+          "heading": "Analyze report (PhoBERT flow)",
+          "level": 3,
+          "line": 34
+        },
+        {
+          "heading": "Match student (SBERT flow)",
+          "level": 3,
+          "line": 47
+        },
+        {
+          "heading": "Lưu ý quan trọng",
+          "level": 2,
+          "line": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 9
+      }
+    }
+  ]
+}

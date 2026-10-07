@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import authService from './services/authService';
 import LoginPage from './components/LoginPage';
+import MobileLogin from './components/MobileLogin';
 import CredentialVerify from './components/shared/CredentialVerify';
 import MainLayout from './components/layout/MainLayout';
 // Legacy Lecturer Components
@@ -90,6 +91,7 @@ function App() {
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="/mobile-login" element={<MobileLogin />} />
         <Route path="/dashboard" element={<RoleRedirect />} />
         <Route path="/verify/:credentialId" element={<CredentialVerify />} />
         <Route path="/pending-approval" element={<PendingApproval />} />

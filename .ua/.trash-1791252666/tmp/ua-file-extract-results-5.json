@@ -1,0 +1,1697 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 19,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 19,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 19,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/models/HocSinh.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/KetQuaTest.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 25,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/LoiMoiLopHoc.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 14,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/LopHoc.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 13,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/MonHoc.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Nhom.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 17,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/RubricsTemplate.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/TienDo.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 59,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/backfill-pdf-extraction.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 12,
+          "endLine": 53,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "connectDB",
+          "lineNumber": 13
+        },
+        {
+          "caller": "run",
+          "callee": "BaoCao.find({ ExtractedText: null }).lean",
+          "lineNumber": 14
+        },
+        {
+          "caller": "run",
+          "callee": "BaoCao.find",
+          "lineNumber": 14
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 15
+        },
+        {
+          "caller": "run",
+          "callee": "path.join",
+          "lineNumber": 18
+        },
+        {
+          "caller": "run",
+          "callee": "fs.existsSync",
+          "lineNumber": 19
+        },
+        {
+          "caller": "run",
+          "callee": "fs.mkdirSync",
+          "lineNumber": 20
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 27
+        },
+        {
+          "caller": "run",
+          "callee": "axios.get",
+          "lineNumber": 28
+        },
+        {
+          "caller": "run",
+          "callee": "path.join",
+          "lineNumber": 30
+        },
+        {
+          "caller": "run",
+          "callee": "fs.writeFileSync",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run",
+          "callee": "Buffer.from",
+          "lineNumber": 31
+        },
+        {
+          "caller": "run",
+          "callee": "aiService.extractPdf",
+          "lineNumber": 33
+        },
+        {
+          "caller": "run",
+          "callee": "fs.existsSync",
+          "lineNumber": 34
+        },
+        {
+          "caller": "run",
+          "callee": "fs.unlinkSync",
+          "lineNumber": 35
+        },
+        {
+          "caller": "run",
+          "callee": "BaoCao.findByIdAndUpdate",
+          "lineNumber": 38
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 45
+        },
+        {
+          "caller": "run",
+          "callee": "logger.error",
+          "lineNumber": 47
+        },
+        {
+          "caller": "run",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 51
+        },
+        {
+          "caller": "run",
+          "callee": "logger.info",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/check_student_test.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 61,
+      "nonEmptyLines": 55,
+      "functions": [
+        {
+          "name": "check",
+          "startLine": 9,
+          "endLine": 59,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "check",
+          "callee": "mongoose.connect",
+          "lineNumber": 10
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 11
+        },
+        {
+          "caller": "check",
+          "callee": "DeTai.find({ LoaiDeTai: 'KhoaLuan' }).populate",
+          "lineNumber": 14
+        },
+        {
+          "caller": "check",
+          "callee": "DeTai.find",
+          "lineNumber": 14
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "check",
+          "callee": "BaiTest.findOne",
+          "lineNumber": 17
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 18
+        },
+        {
+          "caller": "check",
+          "callee": "HocSinh.findOne",
+          "lineNumber": 30
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 31
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 33
+        },
+        {
+          "caller": "check",
+          "callee": "DangKyDeTai.find({ HocSinh: sv._id }).populate",
+          "lineNumber": 39
+        },
+        {
+          "caller": "check",
+          "callee": "DangKyDeTai.find",
+          "lineNumber": 39
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "check",
+          "callee": "regs.forEach",
+          "lineNumber": 44
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 45
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 55
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/migrate-add-lophoc-nhom.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 223,
+      "nonEmptyLines": 203,
+      "functions": [
+        {
+          "name": "migrate",
+          "startLine": 15,
+          "endLine": 221,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 16
+        },
+        {
+          "caller": "migrate",
+          "callee": "mongoose.connect",
+          "lineNumber": 20
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "migrate",
+          "callee": "DeTai.find",
+          "lineNumber": 25
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "migrate",
+          "callee": "LopHoc.find",
+          "lineNumber": 29
+        },
+        {
+          "caller": "migrate",
+          "callee": "lops.map",
+          "lineNumber": 31
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 32
+        },
+        {
+          "caller": "migrate",
+          "callee": "lops.map(l => l.MaLopHoc).join",
+          "lineNumber": 32
+        },
+        {
+          "caller": "migrate",
+          "callee": "lops.map",
+          "lineNumber": 32
+        },
+        {
+          "caller": "migrate",
+          "callee": "dt.save",
+          "lineNumber": 35
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 38
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 46
+        },
+        {
+          "caller": "migrate",
+          "callee": "Nhom.find",
+          "lineNumber": 47
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 48
+        },
+        {
+          "caller": "migrate",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 51
+        },
+        {
+          "caller": "migrate",
+          "callee": "DeTai.findById",
+          "lineNumber": 53
+        },
+        {
+          "caller": "migrate",
+          "callee": "[nhom.TruongNhom, ...nhom.ThanhVien.map(m => m.HocSinh)].filter(Boolean).map",
+          "lineNumber": 56
+        },
+        {
+          "caller": "migrate",
+          "callee": "[nhom.TruongNhom, ...nhom.ThanhVien.map(m => m.HocSinh)].filter",
+          "lineNumber": 56
+        },
+        {
+          "caller": "migrate",
+          "callee": "nhom.ThanhVien.map",
+          "lineNumber": 56
+        },
+        {
+          "caller": "migrate",
+          "callee": "id.toString",
+          "lineNumber": 56
+        },
+        {
+          "caller": "migrate",
+          "callee": "LopHoc.findById",
+          "lineNumber": 60
+        },
+        {
+          "caller": "migrate",
+          "callee": "lop.HocSinh.map",
+          "lineNumber": 62
+        },
+        {
+          "caller": "migrate",
+          "callee": "id.toString",
+          "lineNumber": 62
+        },
+        {
+          "caller": "migrate",
+          "callee": "memberIds.some",
+          "lineNumber": 63
+        },
+        {
+          "caller": "migrate",
+          "callee": "lopSvStrs.includes",
+          "lineNumber": 63
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 74
+        },
+        {
+          "caller": "migrate",
+          "callee": "nhom.save",
+          "lineNumber": 77
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "migrate",
+          "callee": "LopHoc.findOne",
+          "lineNumber": 84
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 86
+        },
+        {
+          "caller": "migrate",
+          "callee": "nhom.save",
+          "lineNumber": 89
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 98
+        },
+        {
+          "caller": "migrate",
+          "callee": "BaoCao.find",
+          "lineNumber": 99
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 100
+        },
+        {
+          "caller": "migrate",
+          "callee": "Nhom.find",
+          "lineNumber": 102
+        },
+        {
+          "caller": "migrate",
+          "callee": "nhomList.map",
+          "lineNumber": 111
+        },
+        {
+          "caller": "migrate",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 112
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 125
+        },
+        {
+          "caller": "migrate",
+          "callee": "bc.save",
+          "lineNumber": 128
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 131
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 136
+        },
+        {
+          "caller": "migrate",
+          "callee": "TienDo.find",
+          "lineNumber": 137
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 138
+        },
+        {
+          "caller": "migrate",
+          "callee": "Nhom.find",
+          "lineNumber": 140
+        },
+        {
+          "caller": "migrate",
+          "callee": "nhomList.map",
+          "lineNumber": 149
+        },
+        {
+          "caller": "migrate",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 150
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 163
+        },
+        {
+          "caller": "migrate",
+          "callee": "td.save",
+          "lineNumber": 166
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 169
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 174
+        },
+        {
+          "caller": "migrate",
+          "callee": "DiemSo.find",
+          "lineNumber": 175
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 176
+        },
+        {
+          "caller": "migrate",
+          "callee": "Nhom.find",
+          "lineNumber": 178
+        },
+        {
+          "caller": "migrate",
+          "callee": "nhomList.map",
+          "lineNumber": 187
+        },
+        {
+          "caller": "migrate",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 188
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 201
+        },
+        {
+          "caller": "migrate",
+          "callee": "ds.save",
+          "lineNumber": 207
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 210
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 214
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.error",
+          "lineNumber": 216
+        },
+        {
+          "caller": "migrate",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 218
+        },
+        {
+          "caller": "migrate",
+          "callee": "console.log",
+          "lineNumber": 219
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/reset_test_data.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 207,
+      "nonEmptyLines": 187,
+      "functions": [
+        {
+          "name": "run",
+          "startLine": 21,
+          "endLine": 205,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 22
+        },
+        {
+          "caller": "run",
+          "callee": "mongoose.connect",
+          "lineNumber": 23
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "run",
+          "callee": "HocSinh.find",
+          "lineNumber": 27
+        },
+        {
+          "caller": "run",
+          "callee": "students.map",
+          "lineNumber": 28
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 30
+        },
+        {
+          "caller": "run",
+          "callee": "Nhom.find",
+          "lineNumber": 32
+        },
+        {
+          "caller": "run",
+          "callee": "nhoms.map",
+          "lineNumber": 38
+        },
+        {
+          "caller": "run",
+          "callee": "Nhom.deleteMany",
+          "lineNumber": 40
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "run",
+          "callee": "DangKyDeTai.deleteMany",
+          "lineNumber": 44
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 54
+        },
+        {
+          "caller": "run",
+          "callee": "KetQuaTest.deleteMany",
+          "lineNumber": 55
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 62
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 64
+        },
+        {
+          "caller": "run",
+          "callee": "BaoCao.deleteMany",
+          "lineNumber": 65
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 73
+        },
+        {
+          "caller": "run",
+          "callee": "DiemSo.deleteMany",
+          "lineNumber": 74
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "run",
+          "callee": "TienDo.deleteMany",
+          "lineNumber": 83
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 89
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 91
+        },
+        {
+          "caller": "run",
+          "callee": "DeTai.updateMany",
+          "lineNumber": 92
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 96
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 98
+        },
+        {
+          "caller": "run",
+          "callee": "BaiTest.updateMany",
+          "lineNumber": 99
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 103
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 105
+        },
+        {
+          "caller": "run",
+          "callee": "LopHoc.findById",
+          "lineNumber": 111
+        },
+        {
+          "caller": "run",
+          "callee": "console.error",
+          "lineNumber": 113
+        },
+        {
+          "caller": "run",
+          "callee": "DeTai.deleteOne",
+          "lineNumber": 116
+        },
+        {
+          "caller": "run",
+          "callee": "new Date().setDate",
+          "lineNumber": 123
+        },
+        {
+          "caller": "run",
+          "callee": "new Date().getDate",
+          "lineNumber": 123
+        },
+        {
+          "caller": "run",
+          "callee": "new Date().setDate",
+          "lineNumber": 124
+        },
+        {
+          "caller": "run",
+          "callee": "new Date().getDate",
+          "lineNumber": 124
+        },
+        {
+          "caller": "run",
+          "callee": "new Date().setDate",
+          "lineNumber": 125
+        },
+        {
+          "caller": "run",
+          "callee": "new Date().getDate",
+          "lineNumber": 125
+        },
+        {
+          "caller": "run",
+          "callee": "newTopic.save",
+          "lineNumber": 158
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 159
+        },
+        {
+          "caller": "run",
+          "callee": "BaiTest.deleteOne",
+          "lineNumber": 162
+        },
+        {
+          "caller": "run",
+          "callee": "newTest.save",
+          "lineNumber": 199
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 200
+        },
+        {
+          "caller": "run",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 203
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 204
+        }
+      ],
+      "metrics": {
+        "importCount": 12,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seed_giao_duc_pho_thong.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 198,
+      "nonEmptyLines": 177,
+      "functions": [
+        {
+          "name": "seedGiaoDucPhoThong",
+          "startLine": 17,
+          "endLine": 196,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 19
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "mongoose.connect",
+          "lineNumber": 20
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "GiaoVien.findOneAndUpdate",
+          "lineNumber": 43
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 44
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "GiaoVien.findOne",
+          "lineNumber": 47
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "GiaoVien.findOne",
+          "lineNumber": 48
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "MonHoc.findOneAndUpdate",
+          "lineNumber": 60
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 61
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "MonHoc.findOne",
+          "lineNumber": 64
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "MonHoc.findOne",
+          "lineNumber": 65
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "LopHoc.findOneAndUpdate",
+          "lineNumber": 91
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "LopHoc.findOne",
+          "lineNumber": 95
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "LopHoc.findOne",
+          "lineNumber": 96
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 99
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "HocSinh.findOneAndUpdate",
+          "lineNumber": 132
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 133
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "HocSinh.findOne",
+          "lineNumber": 136
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "HocSinh.findOne",
+          "lineNumber": 137
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "LopHoc.findByIdAndUpdate",
+          "lineNumber": 140
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "LopHoc.findByIdAndUpdate",
+          "lineNumber": 141
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 144
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "Date.now",
+          "lineNumber": 151
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "Date.now",
+          "lineNumber": 164
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "Date.now",
+          "lineNumber": 177
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "DeTai.findOneAndUpdate",
+          "lineNumber": 186
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 187
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.log",
+          "lineNumber": 190
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "process.exit",
+          "lineNumber": 191
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "console.error",
+          "lineNumber": 193
+        },
+        {
+          "caller": "seedGiaoDucPhoThong",
+          "callee": "process.exit",
+          "lineNumber": 194
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 284,
+      "nonEmptyLines": 271,
+      "functions": [
+        {
+          "name": "seedTestsAndRubrics",
+          "startLine": 6,
+          "endLine": 282,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 7
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "mongoose.connect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 9
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "DeTai.find",
+          "lineNumber": 14
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "topic.save",
+          "lineNumber": 47
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 48
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "BaiTest.deleteOne",
+          "lineNumber": 51
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "test.save",
+          "lineNumber": 97
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 98
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 101
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "DeTai.findOne",
+          "lineNumber": 107
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 109
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "topic02.save",
+          "lineNumber": 136
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 137
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "BaiTest.deleteOne",
+          "lineNumber": 140
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "test02.save",
+          "lineNumber": 186
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 187
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 189
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "DeTai.findOne",
+          "lineNumber": 195
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 197
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "topic03.save",
+          "lineNumber": 224
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 225
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "BaiTest.deleteOne",
+          "lineNumber": 228
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "test03.save",
+          "lineNumber": 274
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 275
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 277
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "console.log",
+          "lineNumber": 280
+        },
+        {
+          "caller": "seedTestsAndRubrics",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 281
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seed_topic_13dhth04.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 102,
+      "nonEmptyLines": 91,
+      "functions": [
+        {
+          "name": "seed",
+          "startLine": 8,
+          "endLine": 100,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 9
+        },
+        {
+          "caller": "seed",
+          "callee": "mongoose.connect",
+          "lineNumber": 10
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 11
+        },
+        {
+          "caller": "seed",
+          "callee": "LopHoc.findOne",
+          "lineNumber": 14
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "seed",
+          "callee": "GiaoVien.findOne",
+          "lineNumber": 20
+        },
+        {
+          "caller": "seed",
+          "callee": "console.error",
+          "lineNumber": 22
+        },
+        {
+          "caller": "seed",
+          "callee": "process.exit",
+          "lineNumber": 23
+        },
+        {
+          "caller": "seed",
+          "callee": "MonHoc.findOne",
+          "lineNumber": 27
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 29
+        },
+        {
+          "caller": "seed",
+          "callee": "MonHoc.create",
+          "lineNumber": 30
+        },
+        {
+          "caller": "seed",
+          "callee": "LopHoc.create",
+          "lineNumber": 38
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 45
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 47
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 58
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 58
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 59
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 59
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 60
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 60
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 74
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 74
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 75
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 75
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 76
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 76
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.deleteOne",
+          "lineNumber": 89
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.create",
+          "lineNumber": 91
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "seed",
+          "callee": "console.error",
+          "lineNumber": 94
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 98
+        },
+        {
+          "caller": "seed",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 99
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/aiService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 103,
+      "nonEmptyLines": 90,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/ipfsService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 31,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/matchingService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 77,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/thesisContractService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 273,
+      "nonEmptyLines": 241,
+      "functions": [
+        {
+          "name": "toBytes32",
+          "startLine": 7,
+          "endLine": 7,
+          "params": [
+            "str"
+          ]
+        },
+        {
+          "name": "readContractABI",
+          "startLine": 9,
+          "endLine": 20,
+          "params": [
+            "version"
+          ]
+        },
+        {
+          "name": "getProviderAndSigner",
+          "startLine": 22,
+          "endLine": 29,
+          "params": []
+        },
+        {
+          "name": "detectContractVersion",
+          "startLine": 31,
+          "endLine": 49,
+          "params": [
+            "contractAddress",
+            "signer"
+          ]
+        },
+        {
+          "name": "getContractInstance",
+          "startLine": 51,
+          "endLine": 64,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "toBytes32",
+          "callee": "ethers.keccak256",
+          "lineNumber": 7
+        },
+        {
+          "caller": "toBytes32",
+          "callee": "ethers.toUtf8Bytes",
+          "lineNumber": 7
+        },
+        {
+          "caller": "toBytes32",
+          "callee": "String",
+          "lineNumber": 7
+        },
+        {
+          "caller": "readContractABI",
+          "callee": "fs.readFileSync",
+          "lineNumber": 14
+        },
+        {
+          "caller": "readContractABI",
+          "callee": "path.join",
+          "lineNumber": 14
+        },
+        {
+          "caller": "readContractABI",
+          "callee": "JSON.parse",
+          "lineNumber": 15
+        },
+        {
+          "caller": "readContractABI",
+          "callee": "logger.error",
+          "lineNumber": 17
+        },
+        {
+          "caller": "readContractABI",
+          "callee": "version.toUpperCase",
+          "lineNumber": 17
+        },
+        {
+          "caller": "detectContractVersion",
+          "callee": "(process.env.THESIS_CONTRACT_VERSION || '').toLowerCase",
+          "lineNumber": 32
+        },
+        {
+          "caller": "detectContractVersion",
+          "callee": "readContractABI",
+          "lineNumber": 37
+        },
+        {
+          "caller": "detectContractVersion",
+          "callee": "v2Contract.owner",
+          "lineNumber": 41
+        },
+        {
+          "caller": "detectContractVersion",
+          "callee": "logger.warn",
+          "lineNumber": 44
+        },
+        {
+          "caller": "getContractInstance",
+          "callee": "getProviderAndSigner",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getContractInstance",
+          "callee": "detectContractVersion",
+          "lineNumber": 56
+        },
+        {
+          "caller": "getContractInstance",
+          "callee": "readContractABI",
+          "lineNumber": 57
+        },
+        {
+          "caller": "getContractInstance",
+          "callee": "logger.info",
+          "lineNumber": 58
+        },
+        {
+          "caller": "getContractInstance",
+          "callee": "version.toUpperCase",
+          "lineNumber": 58
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    }
+  ]
+}

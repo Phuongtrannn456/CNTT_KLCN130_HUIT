@@ -8,24 +8,26 @@ const pinata = new PinataSDK({
 });
 
 const fs = require('fs');
+const { Blob } = require('buffer');
 
 exports.uploadFile = async (filePath, fileName) => {
     try {
         logger.info(`[IPFS] Uploading ${fileName} to Pinata...`);
         
-        // 1. Đọc file từ thư mục tạm trên server (Multer)
         const fileBuffer = fs.readFileSync(filePath);
-        
-        // 2. Tạo Blob/File object (Hỗ trợ từ Node.js v20+)
         const blob = new Blob([fileBuffer]);
-        const file = new File([blob], fileName, { type: 'application/octet-stream' });
+        let file;
+        if (typeof File !== 'undefined') {
+            file = new File([blob], fileName, { type: 'application/octet-stream' });
+        } else {
+            file = blob;
+            file.name = fileName;
+        }
         
-        // 3. Thực hiện tải lên Pinata
         const upload = await pinata.upload.file(file);
         
         logger.info(`[IPFS] Upload success | CID=${upload.IpfsHash} | file=${fileName}`);
         
-        // 4. Xóa file tạm sau khi đã upload (Tùy chọn, nên thực hiện để trống ổ cứng)
         try {
             fs.unlinkSync(filePath);
         } catch (err) {

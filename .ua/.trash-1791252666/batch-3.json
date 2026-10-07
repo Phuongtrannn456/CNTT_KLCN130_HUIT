@@ -1,0 +1,1010 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/components/student/EntranceTest.js",
+      "type": "file",
+      "name": "EntranceTest.js",
+      "filePath": "frontend/src/components/student/EntranceTest.js",
+      "summary": "Component responsible for EntranceTest.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/EntranceTest.js:EntranceTest",
+      "type": "function",
+      "name": "EntranceTest",
+      "filePath": "frontend/src/components/student/EntranceTest.js",
+      "lineRange": [
+        18,
+        397
+      ],
+      "summary": "Function EntranceTest",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/GroupManagement.js",
+      "type": "file",
+      "name": "GroupManagement.js",
+      "filePath": "frontend/src/components/student/GroupManagement.js",
+      "summary": "Component responsible for GroupManagement.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/GroupManagement.js:GroupManagement",
+      "type": "function",
+      "name": "GroupManagement",
+      "filePath": "frontend/src/components/student/GroupManagement.js",
+      "lineRange": [
+        12,
+        486
+      ],
+      "summary": "Function GroupManagement",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/ProgressLog.js",
+      "type": "file",
+      "name": "ProgressLog.js",
+      "filePath": "frontend/src/components/student/ProgressLog.js",
+      "summary": "Component responsible for ProgressLog.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/ProgressLog.js:ProgressLog",
+      "type": "function",
+      "name": "ProgressLog",
+      "filePath": "frontend/src/components/student/ProgressLog.js",
+      "lineRange": [
+        26,
+        602
+      ],
+      "summary": "Function ProgressLog",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/ProgressTracking.js",
+      "type": "file",
+      "name": "ProgressTracking.js",
+      "filePath": "frontend/src/components/student/ProgressTracking.js",
+      "summary": "Component responsible for ProgressTracking.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/ProgressTracking.js:ProgressTracking",
+      "type": "function",
+      "name": "ProgressTracking",
+      "filePath": "frontend/src/components/student/ProgressTracking.js",
+      "lineRange": [
+        12,
+        280
+      ],
+      "summary": "Function ProgressTracking",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/ReportUpload.js",
+      "type": "file",
+      "name": "ReportUpload.js",
+      "filePath": "frontend/src/components/student/ReportUpload.js",
+      "summary": "Component responsible for ReportUpload.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/ReportUpload.js:ReportUpload",
+      "type": "function",
+      "name": "ReportUpload",
+      "filePath": "frontend/src/components/student/ReportUpload.js",
+      "lineRange": [
+        13,
+        292
+      ],
+      "summary": "Function ReportUpload",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/StudentDashboard.js",
+      "type": "file",
+      "name": "StudentDashboard.js",
+      "filePath": "frontend/src/components/student/StudentDashboard.js",
+      "summary": "Component responsible for StudentDashboard.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/StudentDashboard.js:StudentDashboard",
+      "type": "function",
+      "name": "StudentDashboard",
+      "filePath": "frontend/src/components/student/StudentDashboard.js",
+      "lineRange": [
+        14,
+        558
+      ],
+      "summary": "Function StudentDashboard",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/StudentSubmissionView.jsx",
+      "type": "file",
+      "name": "StudentSubmissionView.jsx",
+      "filePath": "frontend/src/components/student/StudentSubmissionView.jsx",
+      "summary": "Component responsible for StudentSubmissionView.jsx functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/StudentSubmissionView.jsx:StudentSubmissionView",
+      "type": "function",
+      "name": "StudentSubmissionView",
+      "filePath": "frontend/src/components/student/StudentSubmissionView.jsx",
+      "lineRange": [
+        11,
+        177
+      ],
+      "summary": "Function StudentSubmissionView",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/TopicRegistration.js",
+      "type": "file",
+      "name": "TopicRegistration.js",
+      "filePath": "frontend/src/components/student/TopicRegistration.js",
+      "summary": "Component responsible for TopicRegistration.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/TopicRegistration.js:TopicRegistration",
+      "type": "function",
+      "name": "TopicRegistration",
+      "filePath": "frontend/src/components/student/TopicRegistration.js",
+      "lineRange": [
+        13,
+        698
+      ],
+      "summary": "Function TopicRegistration",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/teacher/ChallengeManagement.jsx",
+      "type": "file",
+      "name": "ChallengeManagement.jsx",
+      "filePath": "frontend/src/components/teacher/ChallengeManagement.jsx",
+      "summary": "Component responsible for ChallengeManagement.jsx functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/teacher/ChallengeManagement.jsx:ChallengeManagement",
+      "type": "function",
+      "name": "ChallengeManagement",
+      "filePath": "frontend/src/components/teacher/ChallengeManagement.jsx",
+      "lineRange": [
+        11,
+        284
+      ],
+      "summary": "Function ChallengeManagement",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "type": "file",
+      "name": "TeacherChallengeDetail.jsx",
+      "filePath": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "summary": "Component responsible for TeacherChallengeDetail.jsx functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:fetchData",
+      "type": "function",
+      "name": "fetchData",
+      "filePath": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "lineRange": [
+        32,
+        45
+      ],
+      "summary": "Function fetchData",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:handleReview",
+      "type": "function",
+      "name": "handleReview",
+      "filePath": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "lineRange": [
+        51,
+        95
+      ],
+      "summary": "Function handleReview",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:handleAiAnalysis",
+      "type": "function",
+      "name": "handleAiAnalysis",
+      "filePath": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "lineRange": [
+        97,
+        113
+      ],
+      "summary": "Function handleAiAnalysis",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:handleAiSuggest",
+      "type": "function",
+      "name": "handleAiSuggest",
+      "filePath": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "lineRange": [
+        115,
+        136
+      ],
+      "summary": "Function handleAiSuggest",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:onEvalSubmit",
+      "type": "function",
+      "name": "onEvalSubmit",
+      "filePath": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "lineRange": [
+        138,
+        168
+      ],
+      "summary": "Function onEvalSubmit",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/contexts/ClassContext.js",
+      "type": "file",
+      "name": "ClassContext.js",
+      "filePath": "frontend/src/contexts/ClassContext.js",
+      "summary": "Component responsible for ClassContext.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/contexts/ClassContext.js:ClassProvider",
+      "type": "function",
+      "name": "ClassProvider",
+      "filePath": "frontend/src/contexts/ClassContext.js",
+      "lineRange": [
+        7,
+        88
+      ],
+      "summary": "Function ClassProvider",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/contexts/LecturerClassContext.js",
+      "type": "file",
+      "name": "LecturerClassContext.js",
+      "filePath": "frontend/src/contexts/LecturerClassContext.js",
+      "summary": "Component responsible for LecturerClassContext.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/contexts/LecturerClassContext.js:LecturerClassProvider",
+      "type": "function",
+      "name": "LecturerClassProvider",
+      "filePath": "frontend/src/contexts/LecturerClassContext.js",
+      "lineRange": [
+        7,
+        84
+      ],
+      "summary": "Function LecturerClassProvider",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/hooks/useResponsive.js",
+      "type": "file",
+      "name": "useResponsive.js",
+      "filePath": "frontend/src/hooks/useResponsive.js",
+      "summary": "Component responsible for useResponsive.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/index.js",
+      "type": "file",
+      "name": "index.js",
+      "filePath": "frontend/src/index.js",
+      "summary": "Component responsible for index.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/services/aiService.js",
+      "type": "file",
+      "name": "aiService.js",
+      "filePath": "frontend/src/services/aiService.js",
+      "summary": "Component responsible for aiService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/services/apiService.js",
+      "type": "file",
+      "name": "apiService.js",
+      "filePath": "frontend/src/services/apiService.js",
+      "summary": "Component responsible for apiService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:frontend/src/services/apiService.js:ApiService",
+      "type": "class",
+      "name": "ApiService",
+      "filePath": "frontend/src/services/apiService.js",
+      "lineRange": [
+        24,
+        162
+      ],
+      "summary": "Class ApiService",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/services/authService.js",
+      "type": "file",
+      "name": "authService.js",
+      "filePath": "frontend/src/services/authService.js",
+      "summary": "Component responsible for authService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:frontend/src/services/authService.js:AuthService",
+      "type": "class",
+      "name": "AuthService",
+      "filePath": "frontend/src/services/authService.js",
+      "lineRange": [
+        6,
+        307
+      ],
+      "summary": "Class AuthService",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/services/challengeService.js",
+      "type": "file",
+      "name": "challengeService.js",
+      "filePath": "frontend/src/services/challengeService.js",
+      "summary": "Component responsible for challengeService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/services/kpiService.js",
+      "type": "file",
+      "name": "kpiService.js",
+      "filePath": "frontend/src/services/kpiService.js",
+      "summary": "Component responsible for kpiService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:frontend/src/services/kpiService.js:KpiService",
+      "type": "class",
+      "name": "KpiService",
+      "filePath": "frontend/src/services/kpiService.js",
+      "lineRange": [
+        3,
+        5
+      ],
+      "summary": "Class KpiService",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/services/managementService.js",
+      "type": "file",
+      "name": "managementService.js",
+      "filePath": "frontend/src/services/managementService.js",
+      "summary": "Component responsible for managementService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/services/nhomService.js",
+      "type": "file",
+      "name": "nhomService.js",
+      "filePath": "frontend/src/services/nhomService.js",
+      "summary": "Component responsible for nhomService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/components/student/EntranceTest.js",
+      "target": "function:frontend/src/components/student/EntranceTest.js:EntranceTest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/EntranceTest.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/EntranceTest.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/EntranceTest.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/EntranceTest.js",
+      "target": "file:frontend/src/services/nhomService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/GroupManagement.js",
+      "target": "function:frontend/src/components/student/GroupManagement.js:GroupManagement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/GroupManagement.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/GroupManagement.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/GroupManagement.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/GroupManagement.js",
+      "target": "file:frontend/src/services/nhomService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressLog.js",
+      "target": "function:frontend/src/components/student/ProgressLog.js:ProgressLog",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressLog.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressLog.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressLog.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressLog.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressTracking.js",
+      "target": "function:frontend/src/components/student/ProgressTracking.js:ProgressTracking",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressTracking.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressTracking.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressTracking.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ProgressTracking.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ReportUpload.js",
+      "target": "function:frontend/src/components/student/ReportUpload.js:ReportUpload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/ReportUpload.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ReportUpload.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ReportUpload.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ReportUpload.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentDashboard.js",
+      "target": "function:frontend/src/components/student/StudentDashboard.js:StudentDashboard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentDashboard.js",
+      "target": "file:frontend/src/components/QrAuthentication.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentDashboard.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentDashboard.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentDashboard.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentDashboard.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentDashboard.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentSubmissionView.jsx",
+      "target": "function:frontend/src/components/student/StudentSubmissionView.jsx:StudentSubmissionView",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/StudentSubmissionView.jsx",
+      "target": "file:frontend/src/services/challengeService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/TopicRegistration.js",
+      "target": "function:frontend/src/components/student/TopicRegistration.js:TopicRegistration",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/TopicRegistration.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/TopicRegistration.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/TopicRegistration.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/TopicRegistration.js",
+      "target": "file:frontend/src/services/nhomService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/teacher/ChallengeManagement.jsx",
+      "target": "function:frontend/src/components/teacher/ChallengeManagement.jsx:ChallengeManagement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/teacher/ChallengeManagement.jsx",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/teacher/ChallengeManagement.jsx",
+      "target": "file:frontend/src/services/challengeService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "target": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:fetchData",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "target": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:handleReview",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "target": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:handleAiAnalysis",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "target": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:handleAiSuggest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "target": "function:frontend/src/components/teacher/TeacherChallengeDetail.jsx:onEvalSubmit",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "target": "file:frontend/src/services/challengeService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/contexts/ClassContext.js",
+      "target": "function:frontend/src/contexts/ClassContext.js:ClassProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/contexts/ClassContext.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/contexts/ClassContext.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/contexts/LecturerClassContext.js",
+      "target": "function:frontend/src/contexts/LecturerClassContext.js:LecturerClassProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/contexts/LecturerClassContext.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/contexts/LecturerClassContext.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/index.js",
+      "target": "file:frontend/src/App.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/aiService.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/apiService.js",
+      "target": "class:frontend/src/services/apiService.js:ApiService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/services/apiService.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/authService.js",
+      "target": "class:frontend/src/services/authService.js:AuthService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/services/challengeService.js",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/kpiService.js",
+      "target": "class:frontend/src/services/kpiService.js:KpiService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/services/kpiService.js",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/managementService.js",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/services/nhomService.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

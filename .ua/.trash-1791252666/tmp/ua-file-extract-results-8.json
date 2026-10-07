@@ -1,0 +1,1636 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 5,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 5,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 5,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/config/db.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 13,
+      "functions": [
+        {
+          "name": "connectDB",
+          "startLine": 5,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "connectDB",
+          "callee": "mongoose.connect",
+          "lineNumber": 7
+        },
+        {
+          "caller": "connectDB",
+          "callee": "logger.info",
+          "lineNumber": 8
+        },
+        {
+          "caller": "connectDB",
+          "callee": "logger.error",
+          "lineNumber": 10
+        },
+        {
+          "caller": "connectDB",
+          "callee": "process.exit",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/debug-payment.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 165,
+      "nonEmptyLines": 148,
+      "functions": [
+        {
+          "name": "debugPayment",
+          "startLine": 13,
+          "endLine": 159,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 15
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 16
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 17
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 18
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "connectDB",
+          "lineNumber": 21
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 22
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 27
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 28
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 29
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 30
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 31
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 34
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "payrollContractService.initializePayrollService",
+          "lineNumber": 36
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 37
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 39
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 40
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 46
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "payrollContractService.getContractInfo",
+          "lineNumber": 48
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 49
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 50
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 53
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 54
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 55
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 56
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "contractInfo.signerAddress.toLowerCase",
+          "lineNumber": 59
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "contractInfo.contractAdmin.toLowerCase",
+          "lineNumber": 59
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 60
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 61
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 62
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 64
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "parseFloat",
+          "lineNumber": 68
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 70
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 72
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 74
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "parseFloat",
+          "lineNumber": 78
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 81
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 84
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 87
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 88
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 90
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "HoSoNhanVien.findOne",
+          "lineNumber": 96
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 98
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 100
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 102
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 103
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 105
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "require",
+          "lineNumber": 108
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "ethers.getAddress",
+          "lineNumber": 110
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 111
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 113
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 118
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 120
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 125
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "HoSoNhanVien.findOne",
+          "lineNumber": 127
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 129
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 131
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "payrollContractService.payTaskReward",
+          "lineNumber": 132
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 134
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 135
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 136
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 137
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 139
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 143
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 144
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 146
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 149
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 149
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 150
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.log",
+          "lineNumber": 151
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 151
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "console.error",
+          "lineNumber": 154
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "mongoose.connection.close",
+          "lineNumber": 156
+        },
+        {
+          "caller": "debugPayment",
+          "callee": "process.exit",
+          "lineNumber": 157
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/impersonate-accounts.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 133,
+      "nonEmptyLines": 109,
+      "functions": [
+        {
+          "name": "fetchAddressesFromDatabase",
+          "startLine": 9,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 51,
+          "endLine": 125,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "console.log",
+          "lineNumber": 10
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "connectDB",
+          "lineNumber": 11
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "HoSoNhanVien.find(\n    {\n      walletAddress: { $exists: true, $ne: null, $ne: \"\" },\n    },\n    { walletAddress: 1, ho_ten: 1, employee_did: 1 }\n  ).lean",
+          "lineNumber": 13
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "HoSoNhanVien.find",
+          "lineNumber": 13
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "employees.forEach",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "(employee.walletAddress || \"\").trim",
+          "lineNumber": 24
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "ethers.getAddress",
+          "lineNumber": 28
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "seen.has",
+          "lineNumber": 29
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "seen.add",
+          "lineNumber": 30
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "uniqueAddresses.push",
+          "lineNumber": 31
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "console.warn",
+          "lineNumber": 38
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "fetchAddressesFromDatabase",
+          "callee": "console.log",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "process.env.IMPERSONATE_ACCOUNTS.split(\",\").map((addr) => addr.trim()).filter",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "process.env.IMPERSONATE_ACCOUNTS.split(\",\").map",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "process.env.IMPERSONATE_ACCOUNTS.split",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "addr.trim",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "process.argv.slice",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "inputAddresses.map",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "fetchAddressesFromDatabase",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.getSigners",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "/^0x[a-fA-F0-9]{40}$/.test",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "console.warn",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.getAddress",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 84
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "network.provider.request",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.provider.getBalance",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "funder.sendTransaction",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.parseEther",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "tx.wait",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 104
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.formatEther",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.getSigner",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "signer.provider.getBalance",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.formatEther",
+          "lineNumber": 112
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "mongoose.connection.close().catch",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "mongoose.connection.close",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 123
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seed-ai-model-metadata.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 238,
+      "nonEmptyLines": 210,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 72,
+          "endLine": 103,
+          "params": []
+        },
+        {
+          "name": "buildRecord",
+          "startLine": 105,
+          "endLine": 134,
+          "params": [
+            "index"
+          ]
+        },
+        {
+          "name": "chonNgauNhien",
+          "startLine": 136,
+          "endLine": 138,
+          "params": [
+            "list"
+          ]
+        },
+        {
+          "name": "taoBanGhiGiaLap",
+          "startLine": 140,
+          "endLine": 201,
+          "params": [
+            "index"
+          ]
+        },
+        {
+          "name": "chonTrangThai",
+          "startLine": 203,
+          "endLine": 208,
+          "params": []
+        },
+        {
+          "name": "randomFloat",
+          "startLine": 210,
+          "endLine": 212,
+          "params": [
+            "min",
+            "max"
+          ]
+        },
+        {
+          "name": "randomInt",
+          "startLine": 214,
+          "endLine": 216,
+          "params": [
+            "min",
+            "max"
+          ]
+        },
+        {
+          "name": "randomDateWithinDays",
+          "startLine": 218,
+          "endLine": 222,
+          "params": [
+            "days"
+          ]
+        },
+        {
+          "name": "slugify",
+          "startLine": 224,
+          "endLine": 231,
+          "params": [
+            "input"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "connectDB",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "AiModelMetadata.deleteMany",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "AiModelMetadata.estimatedDocumentCount",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "Math.min",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "batch.push",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "buildRecord",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "AiModelMetadata.insertMany",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "process.stdout.write",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "mongoose.connection.close",
+          "lineNumber": 101
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 102
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "chonNgauNhien",
+          "lineNumber": 106
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "chonNgauNhien",
+          "lineNumber": 107
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "chonTrangThai",
+          "lineNumber": 108
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "randomFloat",
+          "lineNumber": 110
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "Math.max",
+          "lineNumber": 111
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "Number",
+          "lineNumber": 111
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "(accuracy - randomFloat(0.0, 0.05)).toFixed",
+          "lineNumber": 111
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "randomFloat",
+          "lineNumber": 111
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "randomDateWithinDays",
+          "lineNumber": 112
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "String(index).padStart",
+          "lineNumber": 114
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "String",
+          "lineNumber": 114
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "Math.floor",
+          "lineNumber": 115
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "taoBanGhiGiaLap",
+          "lineNumber": 116
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "[\n      'Bao gồm 4 nhóm dữ liệu: thông tin cá nhân, học tập, hiệu suất, nghiên cứu & hoạt động',\n      `Ví dụ học sinh: ${duLieuGiaLap.thong_tin_ca_nhan.ma_nhan_vien}, khóa ${duLieuGiaLap.thong_tin_ca_nhan.phong_ban}, vai trò ${duLieuGiaLap.thong_tin_cong_viec.vi_tri_cong_viec}`,\n    ].join",
+          "lineNumber": 123
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "Number",
+          "lineNumber": 127
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "accuracy.toFixed",
+          "lineNumber": 127
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "Number",
+          "lineNumber": 128
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "f1.toFixed",
+          "lineNumber": 128
+        },
+        {
+          "caller": "buildRecord",
+          "callee": "slugify",
+          "lineNumber": 129
+        },
+        {
+          "caller": "chonNgauNhien",
+          "callee": "Math.floor",
+          "lineNumber": 137
+        },
+        {
+          "caller": "chonNgauNhien",
+          "callee": "Math.random",
+          "lineNumber": 137
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "String(index).padStart",
+          "lineNumber": 141
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "String",
+          "lineNumber": 141
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 142
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 143
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 144
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 145
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "Number",
+          "lineNumber": 146
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat(0, 15).toFixed",
+          "lineNumber": 146
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat",
+          "lineNumber": 146
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 147
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 148
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 149
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 150
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "Number",
+          "lineNumber": 152
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat(60, 100).toFixed",
+          "lineNumber": 152
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat",
+          "lineNumber": 152
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 153
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 154
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 155
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 156
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 158
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 159
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 160
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 161
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "Number",
+          "lineNumber": 162
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat(50, 100).toFixed",
+          "lineNumber": 162
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat",
+          "lineNumber": 162
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 163
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomInt",
+          "lineNumber": 168
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 169
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 170
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "chonNgauNhien",
+          "lineNumber": 171
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "Number",
+          "lineNumber": 172
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat(0.2, 12).toFixed",
+          "lineNumber": 172
+        },
+        {
+          "caller": "taoBanGhiGiaLap",
+          "callee": "randomFloat",
+          "lineNumber": 172
+        },
+        {
+          "caller": "chonTrangThai",
+          "callee": "Math.random",
+          "lineNumber": 204
+        },
+        {
+          "caller": "randomFloat",
+          "callee": "Math.random",
+          "lineNumber": 211
+        },
+        {
+          "caller": "randomInt",
+          "callee": "Math.floor",
+          "lineNumber": 215
+        },
+        {
+          "caller": "randomInt",
+          "callee": "Math.random",
+          "lineNumber": 215
+        },
+        {
+          "caller": "randomDateWithinDays",
+          "callee": "Date.now",
+          "lineNumber": 219
+        },
+        {
+          "caller": "randomDateWithinDays",
+          "callee": "randomInt",
+          "lineNumber": 220
+        },
+        {
+          "caller": "slugify",
+          "callee": "input\n    .toLowerCase()\n    .normalize('NFD')\n    .replace(/[\\u0300-\\u036f]/g, '')\n    .replace(/[^a-z0-9]+/g, '-')\n    .replace",
+          "lineNumber": 225
+        },
+        {
+          "caller": "slugify",
+          "callee": "input\n    .toLowerCase()\n    .normalize('NFD')\n    .replace(/[\\u0300-\\u036f]/g, '')\n    .replace",
+          "lineNumber": 225
+        },
+        {
+          "caller": "slugify",
+          "callee": "input\n    .toLowerCase()\n    .normalize('NFD')\n    .replace",
+          "lineNumber": 225
+        },
+        {
+          "caller": "slugify",
+          "callee": "input\n    .toLowerCase()\n    .normalize",
+          "lineNumber": 225
+        },
+        {
+          "caller": "slugify",
+          "callee": "input\n    .toLowerCase",
+          "lineNumber": 225
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/test-payment-direct.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 123,
+      "nonEmptyLines": 106,
+      "functions": [
+        {
+          "name": "testPayment",
+          "startLine": 14,
+          "endLine": 110,
+          "params": [
+            "employeeDid"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 16
+        },
+        {
+          "caller": "testPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 16
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 18
+        },
+        {
+          "caller": "testPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 18
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 19
+        },
+        {
+          "caller": "testPayment",
+          "callee": "connectDB",
+          "lineNumber": 22
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 27
+        },
+        {
+          "caller": "testPayment",
+          "callee": "HoSoNhanVien.findOne",
+          "lineNumber": 28
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 30
+        },
+        {
+          "caller": "testPayment",
+          "callee": "process.exit",
+          "lineNumber": 31
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 33
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 36
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 37
+        },
+        {
+          "caller": "testPayment",
+          "callee": "process.exit",
+          "lineNumber": 38
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 40
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 44
+        },
+        {
+          "caller": "testPayment",
+          "callee": "payrollContractService.initializePayrollService",
+          "lineNumber": 45
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 46
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 47
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 50
+        },
+        {
+          "caller": "testPayment",
+          "callee": "payrollContractService.getContractInfo",
+          "lineNumber": 51
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 53
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 54
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 57
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 58
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "testPayment",
+          "callee": "payrollContractService.payTaskReward",
+          "lineNumber": 61
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "testPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 68
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 70
+        },
+        {
+          "caller": "testPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 70
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 72
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 73
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 74
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 75
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.log",
+          "lineNumber": 76
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 78
+        },
+        {
+          "caller": "testPayment",
+          "callee": "process.exit",
+          "lineNumber": 79
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 83
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 84
+        },
+        {
+          "caller": "testPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 84
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 85
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 86
+        },
+        {
+          "caller": "testPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 86
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 87
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 88
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 89
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 90
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 91
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 92
+        },
+        {
+          "caller": "testPayment",
+          "callee": "error.message.includes",
+          "lineNumber": 95
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 96
+        },
+        {
+          "caller": "testPayment",
+          "callee": "error.message.includes",
+          "lineNumber": 97
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 98
+        },
+        {
+          "caller": "testPayment",
+          "callee": "error.message.includes",
+          "lineNumber": 99
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 100
+        },
+        {
+          "caller": "testPayment",
+          "callee": "error.message.includes",
+          "lineNumber": 101
+        },
+        {
+          "caller": "testPayment",
+          "callee": "error.message.includes",
+          "lineNumber": 101
+        },
+        {
+          "caller": "testPayment",
+          "callee": "console.error",
+          "lineNumber": 102
+        },
+        {
+          "caller": "testPayment",
+          "callee": "process.exit",
+          "lineNumber": 105
+        },
+        {
+          "caller": "testPayment",
+          "callee": "mongoose.connection.close",
+          "lineNumber": 107
+        },
+        {
+          "caller": "testPayment",
+          "callee": "process.exit",
+          "lineNumber": 108
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

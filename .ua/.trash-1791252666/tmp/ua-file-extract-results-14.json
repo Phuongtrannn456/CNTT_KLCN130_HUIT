@@ -1,0 +1,2413 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [
+    ".DS_Store",
+    "backend/.DS_Store",
+    "backend/contracts/K12CredentialRegistry.sol",
+    "backend/contracts/ThesisManagement.sol",
+    "backend/contracts/ThesisManagementV2.sol"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 20,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 18,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "results": [
+    {
+      "path": ".ua/tmp/run-scanner.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 30,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 60,
+      "nonEmptyLines": 52,
+      "sections": [
+        {
+          "heading": "Web3 K-12 Education Platform",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "🎯 Purpose",
+          "level": 2,
+          "line": 5
+        },
+        {
+          "heading": "🏗 Architecture",
+          "level": 2,
+          "line": 8
+        },
+        {
+          "heading": "🚀 Tech Stack",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "🔧 Installation & Running",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "🧪 Testing",
+          "level": 2,
+          "line": 43
+        },
+        {
+          "heading": "📖 Documentation",
+          "level": 2,
+          "line": 53
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "backend/contracts/README.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 161,
+      "nonEmptyLines": 112,
+      "sections": [
+        {
+          "heading": "Smart Contracts Documentation",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "HRPayroll Contract",
+          "level": 2,
+          "line": 3
+        },
+        {
+          "heading": "Features",
+          "level": 3,
+          "line": 7
+        },
+        {
+          "heading": "Contract Address",
+          "level": 3,
+          "line": 14
+        },
+        {
+          "heading": "Deployment",
+          "level": 3,
+          "line": 18
+        },
+        {
+          "heading": "1. Cài đặt dependencies",
+          "level": 4,
+          "line": 20
+        },
+        {
+          "heading": "2. Cấu hình môi trường",
+          "level": 4,
+          "line": 27
+        },
+        {
+          "heading": "3. Deploy contract (nếu chưa deploy)",
+          "level": 4,
+          "line": 45
+        },
+        {
+          "heading": "Contract Functions",
+          "level": 3,
+          "line": 62
+        },
+        {
+          "heading": "Payment",
+          "level": 4,
+          "line": 64
+        },
+        {
+          "heading": "Events",
+          "level": 3,
+          "line": 80
+        },
+        {
+          "heading": "Nạp Token vào Contract",
+          "level": 3,
+          "line": 86
+        },
+        {
+          "heading": "Integration với Backend",
+          "level": 3,
+          "line": 106
+        },
+        {
+          "heading": "Quy trình Thanh toán Tự động",
+          "level": 3,
+          "line": 116
+        },
+        {
+          "heading": "Security Best Practices",
+          "level": 3,
+          "line": 124
+        },
+        {
+          "heading": "Troubleshooting",
+          "level": 3,
+          "line": 131
+        },
+        {
+          "heading": "1. \"Insufficient contract token balance\"",
+          "level": 4,
+          "line": 133
+        },
+        {
+          "heading": "2. \"Only Admin\"",
+          "level": 4,
+          "line": 141
+        },
+        {
+          "heading": "3. \"Low signer wallet balance\"",
+          "level": 4,
+          "line": 149
+        },
+        {
+          "heading": "References",
+          "level": 3,
+          "line": 156
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 20
+      }
+    },
+    {
+      "path": "backend/hardhat.config.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 32,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/healthcheck.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/middleware/cspHeader.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 29,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "cspHeader",
+          "startLine": 1,
+          "endLine": 27,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cspHeader",
+          "callee": "res.setHeader",
+          "lineNumber": 3
+        },
+        {
+          "caller": "cspHeader",
+          "callee": "[\n      \"default-src 'self'\",\n      \"script-src 'self' https://cdn.jsdelivr.net https://unpkg.com\",\n      \"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net\",\n      \"font-src 'self' https://fonts.gstatic.com data:\",\n      \"img-src 'self' data: https:\",\n      \"connect-src 'self' https://sepolia.infura.io https://mainnet.infura.io https://localhost:8545 https://polygon-rpc.com https://rpc-mumbai.maticvigil.com https://bsc-dataseed.binance.org https://data-seed-prebsc-1-s1.binance.org wss://*\",\n      \"worker-src 'self' blob:\",\n      \"object-src 'none'\",\n      \"frame-ancestors 'none'\",\n      \"base-uri 'self'\",\n      \"form-action 'self'\",\n    ].join",
+          "lineNumber": 5
+        },
+        {
+          "caller": "cspHeader",
+          "callee": "res.setHeader",
+          "lineNumber": 21
+        },
+        {
+          "caller": "cspHeader",
+          "callee": "res.setHeader",
+          "lineNumber": 22
+        },
+        {
+          "caller": "cspHeader",
+          "callee": "res.setHeader",
+          "lineNumber": 23
+        },
+        {
+          "caller": "cspHeader",
+          "callee": "res.setHeader",
+          "lineNumber": 24
+        },
+        {
+          "caller": "cspHeader",
+          "callee": "next",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/migrate_sv.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 17,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/check-node.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 38,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 3,
+          "endLine": 38,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 4
+        },
+        {
+          "caller": "main",
+          "callee": "provider.getBlockNumber",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "provider.getNetwork",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "network.chainId.toString",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.getSigners",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "provider.getBalance",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "ethers.formatEther",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/check-payroll-contract.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 120,
+      "nonEmptyLines": 105,
+      "functions": [
+        {
+          "name": "checkPayrollContract",
+          "startLine": 14,
+          "endLine": 109,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 16
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "'='.repeat",
+          "lineNumber": 16
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 18
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "'='.repeat",
+          "lineNumber": 18
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 19
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 22
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "provider.getNetwork",
+          "lineNumber": 24
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 25
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 27
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 30
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "wallet.getAddress",
+          "lineNumber": 32
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "provider.getBalance",
+          "lineNumber": 33
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 34
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 35
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "ethers.formatEther",
+          "lineNumber": 35
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "ethers.parseEther",
+          "lineNumber": 36
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 37
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 39
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 42
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "provider.getCode",
+          "lineNumber": 45
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 47
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 48
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 54
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "payrollContractService.getContractInfo",
+          "lineNumber": 56
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 57
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 58
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 60
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 61
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "parseFloat",
+          "lineNumber": 63
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 64
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 65
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 66
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 74
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "payrollContractService.initializePayrollService",
+          "lineNumber": 76
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 77
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "payrollContractService.getContractBalance",
+          "lineNumber": 79
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 84
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 87
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "'='.repeat",
+          "lineNumber": 87
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 88
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 89
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "'='.repeat",
+          "lineNumber": 89
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 90
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 91
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 93
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 95
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 96
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 97
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 98
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 99
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 100
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 101
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.log",
+          "lineNumber": 102
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.error",
+          "lineNumber": 105
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "console.error",
+          "lineNumber": 106
+        },
+        {
+          "caller": "checkPayrollContract",
+          "callee": "process.exit",
+          "lineNumber": 107
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/check_khoaluan_topics.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 23,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "check",
+          "startLine": 4,
+          "endLine": 21,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "check",
+          "callee": "mongoose.connect",
+          "lineNumber": 5
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 6
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.connection.collection",
+          "lineNumber": 8
+        },
+        {
+          "caller": "check",
+          "callee": "DeTai.find({ LoaiDeTai: 'KhoaLuan' }).toArray",
+          "lineNumber": 9
+        },
+        {
+          "caller": "check",
+          "callee": "DeTai.find",
+          "lineNumber": 9
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 11
+        },
+        {
+          "caller": "check",
+          "callee": "list.forEach",
+          "lineNumber": 12
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 13
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 14
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 16
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/deploy-hrpayroll.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 92,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 11,
+          "endLine": 98,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "\"=\".repeat",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "\"=\".repeat",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.getSigners",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.provider.getBalance",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.formatEther",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.getContractFactory",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "TestUSDT.deploy",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "testUSDT.waitForDeployment",
+          "lineNumber": 28
+        },
+        {
+          "caller": "main",
+          "callee": "testUSDT.getAddress",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "testUSDT.symbol",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "testUSDT.decimals",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "testUSDT.balanceOf",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.formatUnits",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.getContractFactory",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "HRPayroll.deploy",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "hrPayroll.waitForDeployment",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "hrPayroll.getAddress",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "hrPayroll.admin",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "hrPayroll.paymentToken",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.parseUnits",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "testUSDT.transfer",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "tx.wait",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.formatUnits",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "testUSDT.balanceOf",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.formatUnits",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "\"=\".repeat",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "\"=\".repeat",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.formatUnits",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "\"=\".repeat",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "\"=\".repeat",
+          "lineNumber": 87
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 88
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 95
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 96
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 97
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/deploy-thesis-v2.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 4,
+          "endLine": 25,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 5
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.getSigners",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.provider.getBalance",
+          "lineNumber": 11
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.formatEther",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.getContractFactory",
+          "lineNumber": 14
+        },
+        {
+          "caller": "main",
+          "callee": "ThesisV2.deploy",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "thesis.waitForDeployment",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "thesis.getAddress",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 22
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 24
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/deploy-thesis.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 6,
+          "endLine": 19,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "hre.ethers.getContractFactory",
+          "lineNumber": 9
+        },
+        {
+          "caller": "main",
+          "callee": "ThesisManagement.deploy",
+          "lineNumber": 10
+        },
+        {
+          "caller": "main",
+          "callee": "thesis.waitForDeployment",
+          "lineNumber": 12
+        },
+        {
+          "caller": "main",
+          "callee": "thesis.getAddress",
+          "lineNumber": 13
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 18
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/deploy.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 12,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 3,
+          "endLine": 9,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "hre.ethers.getContractFactory",
+          "lineNumber": 4
+        },
+        {
+          "caller": "main",
+          "callee": "K12CredentialRegistry.deploy",
+          "lineNumber": 6
+        },
+        {
+          "caller": "main",
+          "callee": "registry.waitForDeployment",
+          "lineNumber": 7
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 8
+        },
+        {
+          "caller": "main",
+          "callee": "registry.getAddress",
+          "lineNumber": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/fixIndexes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 98,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "fixIndexes",
+          "startLine": 8,
+          "endLine": 96,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 11
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "mongoose.connect",
+          "lineNumber": 12
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 13
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "db.collection",
+          "lineNumber": 16
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "collection.indexes",
+          "lineNumber": 19
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "'─'.repeat",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "indexes.forEach",
+          "lineNumber": 22
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "JSON.stringify",
+          "lineNumber": 24
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 25
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 27
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "indexes.find",
+          "lineNumber": 31
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 36
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "collection.dropIndex",
+          "lineNumber": 38
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 39
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 45
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "collection.createIndex",
+          "lineNumber": 49
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 53
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 56
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 58
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "collection.createIndex",
+          "lineNumber": 64
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 73
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "collection.indexes",
+          "lineNumber": 78
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 79
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "'─'.repeat",
+          "lineNumber": 80
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "newIndexes.forEach",
+          "lineNumber": 81
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 83
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "JSON.stringify",
+          "lineNumber": 83
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 84
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 85
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 86
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.log",
+          "lineNumber": 89
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "console.error",
+          "lineNumber": 91
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 93
+        },
+        {
+          "caller": "fixIndexes",
+          "callee": "process.exit",
+          "lineNumber": 94
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/gen-postman.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 353,
+      "nonEmptyLines": 325,
+      "functions": [
+        {
+          "name": "listSaver",
+          "startLine": 29,
+          "endLine": 39,
+          "params": [
+            "varName"
+          ]
+        },
+        {
+          "name": "createSaver",
+          "startLine": 41,
+          "endLine": 51,
+          "params": [
+            "varName"
+          ]
+        },
+        {
+          "name": "fieldSaver",
+          "startLine": 54,
+          "endLine": 64,
+          "params": [
+            "mapping"
+          ]
+        },
+        {
+          "name": "json",
+          "startLine": 66,
+          "endLine": 70,
+          "params": [
+            "obj"
+          ]
+        },
+        {
+          "name": "S",
+          "startLine": 72,
+          "endLine": 72,
+          "params": [
+            "folder",
+            "method",
+            "route"
+          ]
+        },
+        {
+          "name": "buildUrl",
+          "startLine": 239,
+          "endLine": 251,
+          "params": [
+            "route"
+          ]
+        },
+        {
+          "name": "jwtPrereq",
+          "startLine": 254,
+          "endLine": 265,
+          "params": [
+            "idVar"
+          ]
+        },
+        {
+          "name": "buildCollection",
+          "startLine": 267,
+          "endLine": 302,
+          "params": [
+            "reqs",
+            "name",
+            "desc",
+            "idVar"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fieldSaver",
+          "callee": "Object.entries(mapping)\n    .map(([envKey, jsonKey]) => `  if (j.${jsonKey} != null) pm.environment.set(\"${envKey}\", j.${jsonKey});`)\n    .join",
+          "lineNumber": 55
+        },
+        {
+          "caller": "fieldSaver",
+          "callee": "Object.entries(mapping)\n    .map",
+          "lineNumber": 55
+        },
+        {
+          "caller": "fieldSaver",
+          "callee": "Object.entries",
+          "lineNumber": 55
+        },
+        {
+          "caller": "json",
+          "callee": "JSON.stringify",
+          "lineNumber": 68
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "route.split('/').filter",
+          "lineNumber": 240
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "route.split",
+          "lineNumber": 240
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "segs.map",
+          "lineNumber": 241
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "s.startsWith",
+          "lineNumber": 241
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "s.slice",
+          "lineNumber": 241
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "s.slice",
+          "lineNumber": 241
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "segs\n    .filter((s) => s.startsWith(':'))\n    .map",
+          "lineNumber": 242
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "segs\n    .filter",
+          "lineNumber": 242
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "s.startsWith",
+          "lineNumber": 243
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "s.slice",
+          "lineNumber": 244
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "s.slice",
+          "lineNumber": 244
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "s.slice",
+          "lineNumber": 244
+        },
+        {
+          "caller": "buildUrl",
+          "callee": "path.join",
+          "lineNumber": 246
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "(folders[r.folder] = folders[r.folder] || []).push",
+          "lineNumber": 269
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "Object.keys(folders)\n    .sort()\n    .map",
+          "lineNumber": 271
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "Object.keys(folders)\n    .sort",
+          "lineNumber": 271
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "Object.keys",
+          "lineNumber": 271
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "folders[folder].map",
+          "lineNumber": 275
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "buildUrl",
+          "lineNumber": 279
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "(r.test || assertOk).split",
+          "lineNumber": 282
+        },
+        {
+          "caller": "buildCollection",
+          "callee": "jwtPrereq",
+          "lineNumber": 298
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/get-token.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 33,
+          "endLine": 70,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "fetch",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "chRes.json",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "wallet.signMessage",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "fetch",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "vRes.json",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/importFromJson.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 108,
+      "nonEmptyLines": 92,
+      "functions": [
+        {
+          "name": "importData",
+          "startLine": 35,
+          "endLine": 101,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "importData",
+          "callee": "mongoose.connect",
+          "lineNumber": 39
+        },
+        {
+          "caller": "importData",
+          "callee": "console.log",
+          "lineNumber": 40
+        },
+        {
+          "caller": "importData",
+          "callee": "path.join",
+          "lineNumber": 43
+        },
+        {
+          "caller": "importData",
+          "callee": "JSON.parse",
+          "lineNumber": 44
+        },
+        {
+          "caller": "importData",
+          "callee": "fs.readFileSync",
+          "lineNumber": 44
+        },
+        {
+          "caller": "importData",
+          "callee": "console.log",
+          "lineNumber": 52
+        },
+        {
+          "caller": "importData",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "importData",
+          "callee": "model.deleteMany",
+          "lineNumber": 62
+        },
+        {
+          "caller": "importData",
+          "callee": "newRecord.save",
+          "lineNumber": 82
+        },
+        {
+          "caller": "importData",
+          "callee": "console.error",
+          "lineNumber": 84
+        },
+        {
+          "caller": "importData",
+          "callee": "console.log",
+          "lineNumber": 88
+        },
+        {
+          "caller": "importData",
+          "callee": "console.log",
+          "lineNumber": 90
+        },
+        {
+          "caller": "importData",
+          "callee": "console.log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "importData",
+          "callee": "console.error",
+          "lineNumber": 96
+        },
+        {
+          "caller": "importData",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 98
+        },
+        {
+          "caller": "importData",
+          "callee": "console.log",
+          "lineNumber": 99
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seedDepartments.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 41,
+      "functions": [
+        {
+          "name": "seedDepartments",
+          "startLine": 15,
+          "endLine": 47,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedDepartments",
+          "callee": "mongoose.connect",
+          "lineNumber": 18
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "DanhMucPhongBan.deleteMany",
+          "lineNumber": 27
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.log",
+          "lineNumber": 28
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "DanhMucPhongBan.insertMany",
+          "lineNumber": 31
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.log",
+          "lineNumber": 32
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.log",
+          "lineNumber": 35
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "insertedDepartments.forEach",
+          "lineNumber": 36
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.log",
+          "lineNumber": 37
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.log",
+          "lineNumber": 40
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "process.exit",
+          "lineNumber": 41
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "console.error",
+          "lineNumber": 44
+        },
+        {
+          "caller": "seedDepartments",
+          "callee": "process.exit",
+          "lineNumber": 45
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seedEmployees.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 100,
+      "nonEmptyLines": 91,
+      "functions": [
+        {
+          "name": "seedEmployees",
+          "startLine": 65,
+          "endLine": 97,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedEmployees",
+          "callee": "mongoose.connect",
+          "lineNumber": 68
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.log",
+          "lineNumber": 73
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.log",
+          "lineNumber": 74
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "HoSoNhanVien.deleteMany",
+          "lineNumber": 77
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.log",
+          "lineNumber": 78
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "HoSoNhanVien.insertMany",
+          "lineNumber": 81
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.log",
+          "lineNumber": 85
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "insertedEmployees.forEach",
+          "lineNumber": 86
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.log",
+          "lineNumber": 87
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.log",
+          "lineNumber": 90
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "process.exit",
+          "lineNumber": 91
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "console.error",
+          "lineNumber": 94
+        },
+        {
+          "caller": "seedEmployees",
+          "callee": "process.exit",
+          "lineNumber": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

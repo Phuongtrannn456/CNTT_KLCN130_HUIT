@@ -1,0 +1,6950 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "89bb07641a60e3e61e6bad963ed2c45e16193056",
+  "generatedAt": "2026-10-06T02:11:06.698Z",
+  "files": {
+    ".DS_Store": {
+      "filePath": ".DS_Store",
+      "contentHash": "a37b85397cb17bae8d4e91a3eb87f5dad9fa2bb9803df2afff208f510b276b29",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    ".ua/tmp/commit.txt": {
+      "filePath": ".ua/tmp/commit.txt",
+      "contentHash": "d0e0d6bc6256d43167a519b2b1ed6d8659a488ab106276001fc47cec13737dc9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": false
+    },
+    ".ua/tmp/readme.txt": {
+      "filePath": ".ua/tmp/readme.txt",
+      "contentHash": "d5d57ed05153bb1ff2682e92fc4a75aefbb37205d827db9933cb14bfa1ba80a5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 61,
+      "hasStructuralAnalysis": false
+    },
+    ".ua/tmp/run-scanner.mjs": {
+      "filePath": ".ua/tmp/run-scanner.mjs",
+      "contentHash": "cf6d7964b6945bd5453edd3ab334da8115cee03100a5bddd09d5d71116a18327",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "fs",
+          "specifiers": [
+            "readFileSync",
+            "writeFileSync"
+          ]
+        },
+        {
+          "source": "child_process",
+          "specifiers": [
+            "execSync"
+          ]
+        },
+        {
+          "source": "path",
+          "specifiers": [
+            "path"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    ".ua/tmp/tree.txt": {
+      "filePath": ".ua/tmp/tree.txt",
+      "contentHash": "12586e48c3b672d3369a65fdf15bff5a2b4c48e516eac47976d41ab2590e0662",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 30,
+      "hasStructuralAnalysis": false
+    },
+    "README.md": {
+      "filePath": "README.md",
+      "contentHash": "d5d57ed05153bb1ff2682e92fc4a75aefbb37205d827db9933cb14bfa1ba80a5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 61,
+      "hasStructuralAnalysis": false
+    },
+    "backend/.DS_Store": {
+      "filePath": "backend/.DS_Store",
+      "contentHash": "7265478a318e8a4558e96b904bd37decbcbb2134e15458fe4c3ac9f5209442b5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 2,
+      "hasStructuralAnalysis": false
+    },
+    "backend/.env.example": {
+      "filePath": "backend/.env.example",
+      "contentHash": "83ef76ffa7b660c0b51a147c6bdff10cf5ea807ca66a2c401950fd0f893af998",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    },
+    "backend/.env.render": {
+      "filePath": "backend/.env.render",
+      "contentHash": "6b2bd73df8eff3b7b1f3be6edd432e4d420a9623182132592a59fdc3ccb8340c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": false
+    },
+    "backend/README.md": {
+      "filePath": "backend/README.md",
+      "contentHash": "7ce65b5349b153401ba53368f08637ba30454e77653e20c273df125d5f625b89",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": false
+    },
+    "backend/config/db.js": {
+      "filePath": "backend/config/db.js",
+      "contentHash": "ae5962ca7a7504fb3a1a1db09d03f039a7687cd59b1297c783f6d8f4f3b374fb",
+      "functions": [
+        {
+          "name": "connectDB",
+          "params": [],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "backend/config/logger.js": {
+      "filePath": "backend/config/logger.js",
+      "contentHash": "95e2f92754bce5b0f91d3195ba8318288fb6edd2a8fed5e314c3ca6d36cea426",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 59,
+      "hasStructuralAnalysis": true
+    },
+    "backend/config/web3.js": {
+      "filePath": "backend/config/web3.js",
+      "contentHash": "436ec68cc25d4e906c4f482038b13a47d13e68ab5d5bddc6d7714e7e3978e3c7",
+      "functions": [
+        {
+          "name": "initializeWeb3",
+          "params": [],
+          "exported": false,
+          "lineCount": 41
+        },
+        {
+          "name": "getContract",
+          "params": [
+            "contractName",
+            "abi"
+          ],
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "getQRAuthContract",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "getConsentContract",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "getKpiContract",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 300,
+      "hasStructuralAnalysis": true
+    },
+    "backend/contracts/K12CredentialRegistry.sol": {
+      "filePath": "backend/contracts/K12CredentialRegistry.sol",
+      "contentHash": "71721fc1de35c766bb999e588a2a5d214dd05f38af07e3018a1eae75c03914a0",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 90,
+      "hasStructuralAnalysis": false
+    },
+    "backend/contracts/README.md": {
+      "filePath": "backend/contracts/README.md",
+      "contentHash": "79197c202e5047a534f7d79d8c503ffa6eba00e590df9d04dc36a9e15f110f07",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 162,
+      "hasStructuralAnalysis": false
+    },
+    "backend/contracts/ThesisManagement.sol": {
+      "filePath": "backend/contracts/ThesisManagement.sol",
+      "contentHash": "9de10b7bce5532538a7345bfa21eac85162cacf467e853ffacdbfed387fdbc8b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 121,
+      "hasStructuralAnalysis": false
+    },
+    "backend/contracts/ThesisManagementV2.sol": {
+      "filePath": "backend/contracts/ThesisManagementV2.sol",
+      "contentHash": "748d80cfc8f51ad6547610bcaa789080aa4f3106e66ec26ed2198ebb772c0a8f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 205,
+      "hasStructuralAnalysis": false
+    },
+    "backend/controllers/adminController.js": {
+      "filePath": "backend/controllers/adminController.js",
+      "contentHash": "f50b8e0cffee45383523c912af791c57d51a42589bb1c5816b03c08b60db161a",
+      "functions": [
+        {
+          "name": "getPendingRequests",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "approveRequest",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 55
+        },
+        {
+          "name": "rejectRequest",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 38
+        },
+        {
+          "name": "getProcessedRequests",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 64
+        },
+        {
+          "name": "getRequestDetail",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "getAllLecturers",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 213,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/aiController.js": {
+      "filePath": "backend/controllers/aiController.js",
+      "contentHash": "399fc30aad91b603b1e40cb62c298078400acf585c1373f6ee61f46071cf14ca",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 54,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/aiK12Controller.js": {
+      "filePath": "backend/controllers/aiK12Controller.js",
+      "contentHash": "d6a5a4fa9e4c859bea7b8ecffdf8f3425966833dcdf4a4fa7840a388f9b20db4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 178,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/authController.js": {
+      "filePath": "backend/controllers/authController.js",
+      "contentHash": "042445546f0b6a09b36fbd9086f9f00b5ea736e1d9ae60e4fdfdc9cedd7aca9c",
+      "functions": [
+        {
+          "name": "generateChallenge",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "verifySignature",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 82
+        },
+        {
+          "name": "logout",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "getProfile",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "authenticateToken",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "generateQrSession",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "verifyQrSignature",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 88
+        },
+        {
+          "name": "registerWithRole",
+          "params": [
+            "req",
+            "res"
+          ],
+          "exported": false,
+          "lineCount": 72
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 345,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/baiTestController.js": {
+      "filePath": "backend/controllers/baiTestController.js",
+      "contentHash": "c0d11c5069f10efa0cd8bf91adc6f0aefad357e100288f91f3f2b23e0bf34bc2",
+      "functions": [
+        {
+          "name": "tryClaimWinner",
+          "params": [
+            "dangKyId",
+            "deTaiId",
+            "thoiGianSubmit",
+            "io"
+          ],
+          "exported": false,
+          "lineCount": 58
+        },
+        {
+          "name": "resolveWaitingGroups",
+          "params": [
+            "deTaiId",
+            "io"
+          ],
+          "exported": false,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 492,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/baoCaoController.js": {
+      "filePath": "backend/controllers/baoCaoController.js",
+      "contentHash": "cbc860c8a36eee11eb88b086fb8c9310ffffd27e9c9c59236c35caddc3b9b15d",
+      "functions": [
+        {
+          "name": "cleanupTempFile",
+          "params": [
+            "filePath"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "getAcceptedMembers",
+          "params": [
+            "dangKy"
+          ],
+          "exported": false,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 413,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/blockchainController.js": {
+      "filePath": "backend/controllers/blockchainController.js",
+      "contentHash": "85ba9bc25d1b623855b07ed6cd1296b7a57e626d2da7d08379a5722d042e8e94",
+      "functions": [
+        {
+          "name": "readABI",
+          "params": [
+            "version"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "toBytes32",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "getProvider",
+          "params": [],
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "getThesisContract",
+          "params": [],
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "normalizeTopic",
+          "params": [
+            "topic",
+            "version"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "normalizeSubmission",
+          "params": [
+            "item"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "getErrorMessage",
+          "params": [
+            "error"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "readOnChainHistory",
+          "params": [
+            "contract",
+            "version",
+            "studentId",
+            "topicId"
+          ],
+          "exported": false,
+          "lineCount": 6
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 387,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/challengeController.js": {
+      "filePath": "backend/controllers/challengeController.js",
+      "contentHash": "277adf667de4f54d97dae8d411674260a9b2e4ae4d1e8ee80dfcf57d0738b3d1",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 93,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/credentialController.js": {
+      "filePath": "backend/controllers/credentialController.js",
+      "contentHash": "50f64b995b4f948b928010f9a85946482d930c65d0d0212c13b82b86ad6fafe7",
+      "functions": [
+        {
+          "name": "getContract",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "uuidToBytes32",
+          "params": [
+            "uuid"
+          ],
+          "exported": false,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 250,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/deTaiController.js": {
+      "filePath": "backend/controllers/deTaiController.js",
+      "contentHash": "6b446be9d5964f76e768cbe3d5f16027f54f96b88c8c2c597fe0a19baf6b8aae",
+      "functions": [
+        {
+          "name": "invalidateDeTaiCache",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 664,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/diemSoController.js": {
+      "filePath": "backend/controllers/diemSoController.js",
+      "contentHash": "b7a0535110334f923c6ca1bf94d8dd27f17f1632e6de55231aae3a55e2e194d4",
+      "functions": [
+        {
+          "name": "parseBlockchainError",
+          "params": [
+            "error"
+          ],
+          "exported": false,
+          "lineCount": 21
+        },
+        {
+          "name": "createGradeForReport",
+          "params": [],
+          "exported": false,
+          "lineCount": 109
+        },
+        {
+          "name": "checkAndCompleteTopic",
+          "params": [
+            "deTaiId"
+          ],
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "isNumber",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "validateDiem",
+          "params": [
+            "diem"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "calculateRubricsScore",
+          "params": [
+            "rubricsResult"
+          ],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "validateRubricsResult",
+          "params": [
+            "rubricsResult"
+          ],
+          "exported": false,
+          "lineCount": 26
+        },
+        {
+          "name": "validateRubricsAgainstScore",
+          "params": [
+            "rubricsResult",
+            "diem"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "assertGiaoVienOwnsDeTai",
+          "params": [
+            "deTaiId",
+            "giaoVienId"
+          ],
+          "exported": false,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 628,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/evaluationController.js": {
+      "filePath": "backend/controllers/evaluationController.js",
+      "contentHash": "56fabd7215d7afe519c7ecea85461facf75e2a7ac9745077fd993447794017e6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 128,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/giaoVienController.js": {
+      "filePath": "backend/controllers/giaoVienController.js",
+      "contentHash": "1b2920bc352a8e56b55693d7051ef7f0d424a303ad04aa15cf14590cb40b7243",
+      "functions": [
+        {
+          "name": "invalidateGvCache",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/hocSinhController.js": {
+      "filePath": "backend/controllers/hocSinhController.js",
+      "contentHash": "a08df83c8ee30b04b516cb1c0695fb4b03a43185c87a93bfb71a9605a357a725",
+      "functions": [
+        {
+          "name": "invalidateSvCache",
+          "params": [],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 142,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/loiMoiLopHocController.js": {
+      "filePath": "backend/controllers/loiMoiLopHocController.js",
+      "contentHash": "49b233e830f7cd80a0f6f7d72c91af6b7e002f8e4ad700890de47617c9e1155c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 255,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/lopHocController.js": {
+      "filePath": "backend/controllers/lopHocController.js",
+      "contentHash": "f4f0d451d451510c4ad8226d5ca8c25cdfc1795535bcb5f899c9f54b0c6cbbd4",
+      "functions": [
+        {
+          "name": "invalidateLopHocCache",
+          "params": [
+            "gvId"
+          ],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 356,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/monHocController.js": {
+      "filePath": "backend/controllers/monHocController.js",
+      "contentHash": "43e7c803fea3b1f1e7227e781b58b781ab5ee1a3c88473e56dcbf537d172efab",
+      "functions": [
+        {
+          "name": "invalidateMonHocCache",
+          "params": [
+            "gvId"
+          ],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 146,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/nhomController.js": {
+      "filePath": "backend/controllers/nhomController.js",
+      "contentHash": "1c62deb752f2d2b1fa2ba372bb84b8b7865a0cb4fd9b1125a30b16df524f0724",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 446,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/participationController.js": {
+      "filePath": "backend/controllers/participationController.js",
+      "contentHash": "b32926d9234673208c0d6c93bb76e419827c77f8602439db7fe6731043c2e570",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 104,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/qrController.js": {
+      "filePath": "backend/controllers/qrController.js",
+      "contentHash": "4c265fc2c52507ad40f9f90ea094c396180c2586f0618df12a9dc06b6aedf852",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/rubricsController.js": {
+      "filePath": "backend/controllers/rubricsController.js",
+      "contentHash": "b3a67f37ba5df8734125b147c457c350e28e2dda25947b1fb811f897a3c87505",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 199,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/submissionController.js": {
+      "filePath": "backend/controllers/submissionController.js",
+      "contentHash": "e2c807fa8c636cf9b67605ab3799f38a1be6049b5f8b2d8fff323d781e04c36c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 83,
+      "hasStructuralAnalysis": true
+    },
+    "backend/controllers/tienDoController.js": {
+      "filePath": "backend/controllers/tienDoController.js",
+      "contentHash": "a9cad156b4c39c7e682878ec1f2fdd4c139162a0de309aac06320db681835343",
+      "functions": [
+        {
+          "name": "isNumber",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "normalizeMinhChung",
+          "params": [
+            "arr"
+          ],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "validateRubricsTuan",
+          "params": [
+            "rubricsTuan"
+          ],
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "assertGiaoVienOwnsDeTai",
+          "params": [
+            "deTaiId",
+            "giaoVienId"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "assertHocSinhBelongsToDangKy",
+          "params": [
+            "deTaiId",
+            "hocSinhId"
+          ],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "getPreviousEntry",
+          "params": [
+            "entries",
+            "currentEntry"
+          ],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "detectAnomalies",
+          "params": [
+            "currentEntry",
+            "previousEntries"
+          ],
+          "exported": false,
+          "lineCount": 59
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 725,
+      "hasStructuralAnalysis": true
+    },
+    "backend/deployment.json": {
+      "filePath": "backend/deployment.json",
+      "contentHash": "b51ba4f3e0ea93e7b0eeae3612b9609c116a698fa708bf4c38aead71106b7958",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "backend/hardhat.config.js": {
+      "filePath": "backend/hardhat.config.js",
+      "contentHash": "6c2994068c623d3ebf6221de34197b7b412ca39f178e76d1934a96537bc02088",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 34,
+      "hasStructuralAnalysis": true
+    },
+    "backend/healthcheck.js": {
+      "filePath": "backend/healthcheck.js",
+      "contentHash": "01699549f3e11e09a19cedb47b323e12671b4ac394c1eaa70a237807850ed005",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "backend/middleware/authz.js": {
+      "filePath": "backend/middleware/authz.js",
+      "contentHash": "d0e3b396bf287e03ba1467945935ff3f7d07f630ed29f0d82b1f89610cfd519a",
+      "functions": [
+        {
+          "name": "requireRole",
+          "params": [
+            "...roles"
+          ],
+          "exported": false,
+          "lineCount": 9
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "backend/middleware/cspHeader.js": {
+      "filePath": "backend/middleware/cspHeader.js",
+      "contentHash": "b4f7c800a628ff9e469188c6ca5c27a936ce58e0d61b2e81689754a92881d043",
+      "functions": [
+        {
+          "name": "cspHeader",
+          "params": [
+            "req",
+            "res",
+            "next"
+          ],
+          "exported": false,
+          "lineCount": 27
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "backend/migrate_sv.js": {
+      "filePath": "backend/migrate_sv.js",
+      "contentHash": "2167649e83ffc661dfd9d0b401a6c5cced722dfbd770132b69330aa23ffd7645",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/AILog.js": {
+      "filePath": "backend/models/AILog.js",
+      "contentHash": "d106c1f2cc4bc15f6ff76dafdd9542cac86c5b076509fc6142aa4d83a00ef834",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Achievement.js": {
+      "filePath": "backend/models/Achievement.js",
+      "contentHash": "1183f23c1a8a1cd26370f5debaf82a0349771885610740c3146792d51555f694",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 21,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Admin.js": {
+      "filePath": "backend/models/Admin.js",
+      "contentHash": "e3ceb1251ef7e58f1de5adfa7677fc54faeb145d08f57470695ff78f88d27044",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/BaiTest.js": {
+      "filePath": "backend/models/BaiTest.js",
+      "contentHash": "63d91dab32327faa29908bb04f304a50c641278f59d1d23065fe37db2797510f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/BaoCao.js": {
+      "filePath": "backend/models/BaoCao.js",
+      "contentHash": "98376c32383d8df9988ac30af264f90e3efa43c8bb48c5787aa7cb3b075e2d76",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 23,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Challenge.js": {
+      "filePath": "backend/models/Challenge.js",
+      "contentHash": "0579bedb4477fffa4c4bad1f530a6fb67525f3dcd30661212250ce3018ce2b3d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/ChallengeParticipation.js": {
+      "filePath": "backend/models/ChallengeParticipation.js",
+      "contentHash": "b3a67bf1f5cf063f1ad1e80ad8ad5728648fe6e3c78195c54c59f74b6184aa4c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/DangKyDeTai.js": {
+      "filePath": "backend/models/DangKyDeTai.js",
+      "contentHash": "ec7a02fee14936e11757a79bf01009527e6a3a71d4e0303cd52282676510b316",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 36,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/DeTai.js": {
+      "filePath": "backend/models/DeTai.js",
+      "contentHash": "479729a7d54acfe05b8389893be4c3e26ea843732e0df17a4534e55c43ed6e86",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/DiemSo.js": {
+      "filePath": "backend/models/DiemSo.js",
+      "contentHash": "896f14490b8ef01e768a42109b6360346616c1c3fa1bbb4c9cf71a7922289329",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/DuAn.js": {
+      "filePath": "backend/models/DuAn.js",
+      "contentHash": "9300c75903bbfbe2332d384d8bb2c9f8a9ca128aab8d868c8fb5d0b3486d8259",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 6,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/EducationalCredential.js": {
+      "filePath": "backend/models/EducationalCredential.js",
+      "contentHash": "739dfafeec955492f7fadde94d5ef8bc849de05418387ea18cff8708b580a41f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Evaluation.js": {
+      "filePath": "backend/models/Evaluation.js",
+      "contentHash": "44a8c0093cd6a2da333e0bc6be8dc8bf34b96677497dfa5f856c2a999765b0aa",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/GiaoVien.js": {
+      "filePath": "backend/models/GiaoVien.js",
+      "contentHash": "99edf6e05ba5b75990e55a31b20131ecd1e9ea15c2ed1f44959ff2d7ba07a1c5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/HocSinh.js": {
+      "filePath": "backend/models/HocSinh.js",
+      "contentHash": "acedc67a93676959f414c8e67b7af74e60ad1e68e194f3f139e32101e9d54e4f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/KetQuaTest.js": {
+      "filePath": "backend/models/KetQuaTest.js",
+      "contentHash": "4e613e6b3ef2fd274de864055dfa3d7c12d82b4208f2742c1eea284645193874",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/LearningResult.js": {
+      "filePath": "backend/models/LearningResult.js",
+      "contentHash": "42a9860d582908131f863ea86048608db4831544727e1afbcdbc5583bc55c243",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/LoiMoiLopHoc.js": {
+      "filePath": "backend/models/LoiMoiLopHoc.js",
+      "contentHash": "cf0abffa933a278b2fc63c2f20f92d27e1a0eb242b1482dd10aeea21fbde311c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/LopHoc.js": {
+      "filePath": "backend/models/LopHoc.js",
+      "contentHash": "2bfc4621627b7713c32a3b677fe196f95419f8e967af6f04f657099539ff2e83",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/MonHoc.js": {
+      "filePath": "backend/models/MonHoc.js",
+      "contentHash": "8cbd35e34752f21dc791fb960c9813060d088d5d10932392e4f61deb1dda2b94",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Nhom.js": {
+      "filePath": "backend/models/Nhom.js",
+      "contentHash": "e72038eef49e88c6909ea13770a0a8a440aa5d365a719febf8838632a31e8639",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 18,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/QrCode.js": {
+      "filePath": "backend/models/QrCode.js",
+      "contentHash": "31e1150774bc6ba74a893109dac53296c104399fc2482eeb614ae402fcdafb1c",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/RoleRequest.js": {
+      "filePath": "backend/models/RoleRequest.js",
+      "contentHash": "0bf6614f3c583b49d41b15837f4cd21770e942bdc63f681f1a22e1b41e60420f",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 48,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/RubricsTemplate.js": {
+      "filePath": "backend/models/RubricsTemplate.js",
+      "contentHash": "2bd725723635c57f6069b0154311ae6e0204731a4324d779aebfe02f25cd5b75",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Student.js": {
+      "filePath": "backend/models/Student.js",
+      "contentHash": "64f1c17309f939af31fafe75eb7ab338a4a5d20cdc3b083562174b317f02eb59",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Submission.js": {
+      "filePath": "backend/models/Submission.js",
+      "contentHash": "333928d51618844166337f10871377cc223e937f878e03d6c5850c165691acba",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/Teacher.js": {
+      "filePath": "backend/models/Teacher.js",
+      "contentHash": "e561c0635b274a5af3634e10dd6dcc912a6be734707ecb20d6262d90fe5ef689",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "backend/models/TienDo.js": {
+      "filePath": "backend/models/TienDo.js",
+      "contentHash": "3f165004d122fc33000f3c06af9fb0704f01403fd4863aa63f856a305c6b58e3",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 62,
+      "hasStructuralAnalysis": true
+    },
+    "backend/package.json": {
+      "filePath": "backend/package.json",
+      "contentHash": "2fda81232e279722e89ef01465514f819f647eb507d049ea86874a3a5b01d9cf",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 66,
+      "hasStructuralAnalysis": false
+    },
+    "backend/routes/achievementRoutes.js": {
+      "filePath": "backend/routes/achievementRoutes.js",
+      "contentHash": "3cc4186da9d0026754cea292fd2ac2a09abd3e61b62cc92de36e4dd5eda17bae",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/aiRoutes.js": {
+      "filePath": "backend/routes/aiRoutes.js",
+      "contentHash": "2135cf637d41a45b40be6708f678d8205f60a216671b37ecf124e7f8b5ef06f4",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/challengeRoutes.js": {
+      "filePath": "backend/routes/challengeRoutes.js",
+      "contentHash": "5d67bf4874295752dfb3f7de298ff791b2be6cc7f431b429b6245c433d29a0f6",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/credentialRoutes.js": {
+      "filePath": "backend/routes/credentialRoutes.js",
+      "contentHash": "d4a035f445a36e1ee8f25411011bfb56ab649f0f775c693ab9585c558e7b26a5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/participationRoutes.js": {
+      "filePath": "backend/routes/participationRoutes.js",
+      "contentHash": "2f248ca7eca96824fcaf14361d37dd84467499ae053712832a95451b9ab0f1d7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 13,
+      "hasStructuralAnalysis": true
+    },
+    "backend/routes/submissionRoutes.js": {
+      "filePath": "backend/routes/submissionRoutes.js",
+      "contentHash": "09186ae6a7f95e750f2759d9477217a1217bb529eb7a7a0fd401f8983bbd605a",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/backfill-pdf-extraction.js": {
+      "filePath": "backend/scripts/backfill-pdf-extraction.js",
+      "contentHash": "6d35e23d7386a358d57a9147db8d9b69009d85c623cdf3915c10b56437d3fd4d",
+      "functions": [
+        {
+          "name": "run",
+          "params": [],
+          "exported": false,
+          "lineCount": 42
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/check-node.js": {
+      "filePath": "backend/scripts/check-node.js",
+      "contentHash": "4a4153f745906e5340069d888f327cc0dfe8816b89986018f2a12eb4689f603f",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 47,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/check-payroll-contract.js": {
+      "filePath": "backend/scripts/check-payroll-contract.js",
+      "contentHash": "da2ff66cf58e519c51b033d9fc8a6be9f927225447b8c03229662d0e22253a03",
+      "functions": [
+        {
+          "name": "checkPayrollContract",
+          "params": [],
+          "exported": false,
+          "lineCount": 96
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 121,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/check_khoaluan_topics.js": {
+      "filePath": "backend/scripts/check_khoaluan_topics.js",
+      "contentHash": "7b795ad45ea87f0873d1d62d7266bd0b9c7bf4fd86ac1d62c30548f01e7db19f",
+      "functions": [
+        {
+          "name": "check",
+          "params": [],
+          "exported": false,
+          "lineCount": 18
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 24,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/check_lecturers.js": {
+      "filePath": "backend/scripts/check_lecturers.js",
+      "contentHash": "d97b1f65bd22f829c254f1784ba111a7a231069c306589aef86df7e197498905",
+      "functions": [
+        {
+          "name": "check",
+          "params": [],
+          "exported": false,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/check_student_test.js": {
+      "filePath": "backend/scripts/check_student_test.js",
+      "contentHash": "e6e3f7a5b8eb0e3da4d3775b6ce7e4d2ff3c9a3e1ea434b0a193f479a0df4eb7",
+      "functions": [
+        {
+          "name": "check",
+          "params": [],
+          "exported": false,
+          "lineCount": 51
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 62,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/check_users_and_teachers.js": {
+      "filePath": "backend/scripts/check_users_and_teachers.js",
+      "contentHash": "d692629b85ed9448e6f98bf7bc45636f6786ea55a7c534768da3641cdc9d3685",
+      "functions": [
+        {
+          "name": "check",
+          "params": [],
+          "exported": false,
+          "lineCount": 30
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 37,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/debug-payment.js": {
+      "filePath": "backend/scripts/debug-payment.js",
+      "contentHash": "5d2a916fcc819d14a441127a886493bcc217c90d884d8a8b35b2686b8ac12823",
+      "functions": [
+        {
+          "name": "debugPayment",
+          "params": [],
+          "exported": false,
+          "lineCount": 147
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 166,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/deploy-hrpayroll.js": {
+      "filePath": "backend/scripts/deploy-hrpayroll.js",
+      "contentHash": "a7cc8e3db359f472baf8bd89a485a106518c10c53af61085620b06391d3860b9",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 88
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/deploy-thesis-v2.js": {
+      "filePath": "backend/scripts/deploy-thesis-v2.js",
+      "contentHash": "f7976bc1b0ad4b5d0ea80e1c8807768f597386cc702c65697ea036b7023f7860",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 31,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/deploy-thesis.js": {
+      "filePath": "backend/scripts/deploy-thesis.js",
+      "contentHash": "407124b7949eee7368d91a5f5047012a57d5bd582860e8b319b32b3d9a1c84f7",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/deploy.js": {
+      "filePath": "backend/scripts/deploy.js",
+      "contentHash": "f4a67afca93e087db5831f662e8c1acd24e79ebb11e16e8383a90f0aff031610",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/fixIndexes.js": {
+      "filePath": "backend/scripts/fixIndexes.js",
+      "contentHash": "ab1d8e574c87377b41b0bfaae6bc2cf53e775c7e7197d94c032041975e3dbca9",
+      "functions": [
+        {
+          "name": "fixIndexes",
+          "params": [],
+          "exported": false,
+          "lineCount": 89
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 99,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/gen-postman.js": {
+      "filePath": "backend/scripts/gen-postman.js",
+      "contentHash": "ad9744571340d66ff2129c91eda8e948922c0e1e03a91dc543821e7f519b4b09",
+      "functions": [
+        {
+          "name": "listSaver",
+          "params": [
+            "varName"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "createSaver",
+          "params": [
+            "varName"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "fieldSaver",
+          "params": [
+            "mapping"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "json",
+          "params": [
+            "obj"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "S",
+          "params": [
+            "folder",
+            "method",
+            "route"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "buildUrl",
+          "params": [
+            "route"
+          ],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "jwtPrereq",
+          "params": [
+            "idVar"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "buildCollection",
+          "params": [
+            "reqs",
+            "name",
+            "desc",
+            "idVar"
+          ],
+          "exported": false,
+          "lineCount": 36
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 354,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/get-token.js": {
+      "filePath": "backend/scripts/get-token.js",
+      "contentHash": "d6ce347245255ad0f147444f289a757c9fe776ff6a4f83eac8e9b1370805fe3c",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 38
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/impersonate-accounts.js": {
+      "filePath": "backend/scripts/impersonate-accounts.js",
+      "contentHash": "418fc6635237c4850f267f985c0fa84c443df4f256441963085d04e770539cc0",
+      "functions": [
+        {
+          "name": "fetchAddressesFromDatabase",
+          "params": [],
+          "exported": false,
+          "lineCount": 41
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 75
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 134,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/importFromJson.js": {
+      "filePath": "backend/scripts/importFromJson.js",
+      "contentHash": "7f951790e3cee5f411cca29a6a8ea5b7a64992f097b2223292fe4006f8015fb0",
+      "functions": [
+        {
+          "name": "importData",
+          "params": [],
+          "exported": false,
+          "lineCount": 67
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 109,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/migrate-add-lophoc-nhom.js": {
+      "filePath": "backend/scripts/migrate-add-lophoc-nhom.js",
+      "contentHash": "0d23835a3ac2e8d817112933d594efc2b884d0b2ff640986609b198e39aa1a6c",
+      "functions": [
+        {
+          "name": "migrate",
+          "params": [],
+          "exported": false,
+          "lineCount": 207
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 224,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/reset_test_data.js": {
+      "filePath": "backend/scripts/reset_test_data.js",
+      "contentHash": "71641b68fc8e6e98600f9e6d1cae694c7c844f53bf037bdf21d9fe2bd7f61b3b",
+      "functions": [
+        {
+          "name": "run",
+          "params": [],
+          "exported": false,
+          "lineCount": 185
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 208,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seed-ai-model-metadata.js": {
+      "filePath": "backend/scripts/seed-ai-model-metadata.js",
+      "contentHash": "72690c8393af8163f60e5f8c498503f8c619e11ab2664f1e0388240e06eab8d0",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 32
+        },
+        {
+          "name": "buildRecord",
+          "params": [
+            "index"
+          ],
+          "exported": false,
+          "lineCount": 30
+        },
+        {
+          "name": "chonNgauNhien",
+          "params": [
+            "list"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "taoBanGhiGiaLap",
+          "params": [
+            "index"
+          ],
+          "exported": false,
+          "lineCount": 62
+        },
+        {
+          "name": "chonTrangThai",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "randomFloat",
+          "params": [
+            "min",
+            "max"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "randomInt",
+          "params": [
+            "min",
+            "max"
+          ],
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "randomDateWithinDays",
+          "params": [
+            "days"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "slugify",
+          "params": [
+            "input"
+          ],
+          "exported": false,
+          "lineCount": 8
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 239,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seedAdmin.js": {
+      "filePath": "backend/scripts/seedAdmin.js",
+      "contentHash": "65acd0469ec634f0b09523bed73c879835bd554e168f6c2dcef971a90917adb1",
+      "functions": [
+        {
+          "name": "seedAdmin",
+          "params": [],
+          "exported": false,
+          "lineCount": 29
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seedDepartments.js": {
+      "filePath": "backend/scripts/seedDepartments.js",
+      "contentHash": "e5a68a7e9ebb274c281f5348362548136a9692ac17575f21eff31af87aba25eb",
+      "functions": [
+        {
+          "name": "seedDepartments",
+          "params": [],
+          "exported": false,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seedEmployees.js": {
+      "filePath": "backend/scripts/seedEmployees.js",
+      "contentHash": "9b908c6a1cee789b3ed29a1bda989ddad81ab75eeec734ba640c0b7295b13c7f",
+      "functions": [
+        {
+          "name": "seedEmployees",
+          "params": [],
+          "exported": false,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 101,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seedMockWorkData.js": {
+      "filePath": "backend/scripts/seedMockWorkData.js",
+      "contentHash": "7ef3f55c590ed8bb836062379dc9593b047e8a43b4b883bca9365c3ec103a53b",
+      "functions": [
+        {
+          "name": "seedMockData",
+          "params": [],
+          "exported": false,
+          "lineCount": 52
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 94,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seedRoles.js": {
+      "filePath": "backend/scripts/seedRoles.js",
+      "contentHash": "8a117de141d1c755a7db2bdbddcb2054eb4ca57d0f1009053bda02171dc2d4f8",
+      "functions": [
+        {
+          "name": "seedRoles",
+          "params": [],
+          "exported": false,
+          "lineCount": 33
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 206,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seedSuperAdmin.js": {
+      "filePath": "backend/scripts/seedSuperAdmin.js",
+      "contentHash": "612dc8c2893b57ae9ed9aebe386f57c9cc4c40dd5069f5cbc412b8a80729b9c4",
+      "functions": [
+        {
+          "name": "seedSuperAdmin",
+          "params": [],
+          "exported": false,
+          "lineCount": 31
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 51,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seed_giao_duc_pho_thong.js": {
+      "filePath": "backend/scripts/seed_giao_duc_pho_thong.js",
+      "contentHash": "5778c025edde3ef535da64242e728eb4a7b397696b4af77be7e4173ad613df86",
+      "functions": [
+        {
+          "name": "seedGiaoDucPhoThong",
+          "params": [],
+          "exported": false,
+          "lineCount": 180
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 199,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seed_k12.js": {
+      "filePath": "backend/scripts/seed_k12.js",
+      "contentHash": "d17b733516a6d59d6d78c80d4e47c8f3cd87e5510d13756bf0e106d7acc87465",
+      "functions": [
+        {
+          "name": "seedK12",
+          "params": [],
+          "exported": false,
+          "lineCount": 191
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 215,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seed_khoaluan_phong.js": {
+      "filePath": "backend/scripts/seed_khoaluan_phong.js",
+      "contentHash": "543ba84179c17a54acc8f06e49c0def151481c29cca26673f2a53170f140111a",
+      "functions": [
+        {
+          "name": "seed",
+          "params": [],
+          "exported": false,
+          "lineCount": 66
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seed_khoaluan_tests_rubrics.js": {
+      "filePath": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "contentHash": "26529c6e071e26516bdbf4336da5a2d105dbb63b6f067e2bded22a03542e1d01",
+      "functions": [
+        {
+          "name": "seedTestsAndRubrics",
+          "params": [],
+          "exported": false,
+          "lineCount": 277
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 285,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seed_khoaluan_wallet.js": {
+      "filePath": "backend/scripts/seed_khoaluan_wallet.js",
+      "contentHash": "a7c719ffc6629923203f4ad3e92915c48e65f2329279778c85ead42048e99c2b",
+      "functions": [
+        {
+          "name": "seed",
+          "params": [],
+          "exported": false,
+          "lineCount": 48
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/seed_topic_13dhth04.js": {
+      "filePath": "backend/scripts/seed_topic_13dhth04.js",
+      "contentHash": "85b8f2d53f0bc6d9ca344559125cafca21c8f4e3bb2826fcefb1bc4ce609477a",
+      "functions": [
+        {
+          "name": "seed",
+          "params": [],
+          "exported": false,
+          "lineCount": 93
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 103,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/test-payment-direct.js": {
+      "filePath": "backend/scripts/test-payment-direct.js",
+      "contentHash": "2cd2402a59d37ed9366f66086c898bbfe62d88156a7fe7d4fd1afb2e9bbc58f9",
+      "functions": [
+        {
+          "name": "testPayment",
+          "params": [
+            "employeeDid"
+          ],
+          "exported": false,
+          "lineCount": 97
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 124,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/test-task-payment.js": {
+      "filePath": "backend/scripts/test-task-payment.js",
+      "contentHash": "f7b8b3a5c91007607e96dec584f67a9b72976d15a6843b6d95acfd9776128d36",
+      "functions": [
+        {
+          "name": "testTaskPayment",
+          "params": [
+            "taskId",
+            "employeeDid"
+          ],
+          "exported": false,
+          "lineCount": 139
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 176,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/test_k12_api.js": {
+      "filePath": "backend/scripts/test_k12_api.js",
+      "contentHash": "21941126b8376168f1b3c17eeef28a15824e74ce9018f8c92bd120162d7c2ba6",
+      "functions": [
+        {
+          "name": "req",
+          "params": [
+            "method",
+            "path",
+            "body",
+            "token"
+          ],
+          "exported": false,
+          "lineCount": 25
+        },
+        {
+          "name": "loginWithWallet",
+          "params": [
+            "privateKey"
+          ],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "log",
+          "params": [
+            "name",
+            "pass",
+            "detail"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "run",
+          "params": [],
+          "exported": false,
+          "lineCount": 190
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 272,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/test_phase3.js": {
+      "filePath": "backend/scripts/test_phase3.js",
+      "contentHash": "f6cde8df751dcb1f1947c36129d6e18273b564d5d0dc1d804b172c3004629c94",
+      "functions": [
+        {
+          "name": "req",
+          "params": [
+            "method",
+            "path",
+            "body",
+            "token"
+          ],
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "loginWithWallet",
+          "params": [
+            "pk"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "log",
+          "params": [
+            "name",
+            "pass",
+            "detail"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "run",
+          "params": [],
+          "exported": false,
+          "lineCount": 115
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 168,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/test_phase4.js": {
+      "filePath": "backend/scripts/test_phase4.js",
+      "contentHash": "a0f18df42aef61e8a111f671bc17c8c4db2fd053f704f001d968cb2a94b7b6df",
+      "functions": [
+        {
+          "name": "loginWithWallet",
+          "params": [
+            "pk"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "runTests",
+          "params": [],
+          "exported": false,
+          "lineCount": 108
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 129,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/test_phase5.js": {
+      "filePath": "backend/scripts/test_phase5.js",
+      "contentHash": "585a9cbe288d71c8c022fc7955abdb1f365e6d90cfe4fb95bc91e6f0d69f0e34",
+      "functions": [
+        {
+          "name": "loginWithWallet",
+          "params": [
+            "pk"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "runTests",
+          "params": [],
+          "exported": false,
+          "lineCount": 97
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 115,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/test_phase5_1.js": {
+      "filePath": "backend/scripts/test_phase5_1.js",
+      "contentHash": "821fea5810476c5164fa761fa448ceb46cb155e2ab589d4bd88af48c2d4b6411",
+      "functions": [
+        {
+          "name": "loginWithWallet",
+          "params": [
+            "pk"
+          ],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "runTests",
+          "params": [],
+          "exported": false,
+          "lineCount": 105
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 123,
+      "hasStructuralAnalysis": true
+    },
+    "backend/scripts/transfer-tokens-to-contract.js": {
+      "filePath": "backend/scripts/transfer-tokens-to-contract.js",
+      "contentHash": "3e2caea7639dc993b018c538b54b3d8d0cde22bf87fa6d755794a362874574c3",
+      "functions": [
+        {
+          "name": "transferTokens",
+          "params": [],
+          "exported": false,
+          "lineCount": 45
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 68,
+      "hasStructuralAnalysis": true
+    },
+    "backend/server.js": {
+      "filePath": "backend/server.js",
+      "contentHash": "d7d07eadc314d91e9a7f92ff15b146e955e2bd698349244f18abc0e7b537a73d",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 402,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/aiService.js": {
+      "filePath": "backend/services/aiService.js",
+      "contentHash": "8b07ad087e676e335965198109db24460fc720771293d0e1d585e9512436e097",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 104,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/authService.js": {
+      "filePath": "backend/services/authService.js",
+      "contentHash": "078ebb2e98b2b0bde98fecb33a18528dde00bf338ec68fd807016022c61f6518",
+      "functions": [
+        {
+          "name": "verifyToken",
+          "params": [
+            "token"
+          ],
+          "exported": false,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 26,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/ipfsService.js": {
+      "filePath": "backend/services/ipfsService.js",
+      "contentHash": "2e187a1584585ac9951b2d71822d5eb29d51a43c24b23e805ee5bbb492275ccd",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/matchingService.js": {
+      "filePath": "backend/services/matchingService.js",
+      "contentHash": "6c456d29b59c074b08cfb49221c0f05372a21be528d5a8ea5a8351c1b7a59958",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 90,
+      "hasStructuralAnalysis": true
+    },
+    "backend/services/thesisContractService.js": {
+      "filePath": "backend/services/thesisContractService.js",
+      "contentHash": "eff07cd9e75ab8d501658f3aedc3a37227edb8c2401739dead2f524fd614287a",
+      "functions": [
+        {
+          "name": "toBytes32",
+          "params": [
+            "str"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "readContractABI",
+          "params": [
+            "version"
+          ],
+          "exported": false,
+          "lineCount": 12
+        },
+        {
+          "name": "getProviderAndSigner",
+          "params": [],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "detectContractVersion",
+          "params": [
+            "contractAddress",
+            "signer"
+          ],
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "getContractInstance",
+          "params": [],
+          "exported": false,
+          "lineCount": 14
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 274,
+      "hasStructuralAnalysis": true
+    },
+    "backend/utils/canonicalCredential.js": {
+      "filePath": "backend/utils/canonicalCredential.js",
+      "contentHash": "6b71d015557679d014c4efc9ff0027fbc9edd12e44df7cd41e9822206a2dec8d",
+      "functions": [
+        {
+          "name": "createCanonicalHash",
+          "params": [
+            "credentialData"
+          ],
+          "exported": false,
+          "lineCount": 27
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 38,
+      "hasStructuralAnalysis": true
+    },
+    "docker/backend.Dockerfile": {
+      "filePath": "docker/backend.Dockerfile",
+      "contentHash": "a9f79403f99ad2537c1c17dacc00a5baed9ca5eeafa73f87b353662ff816fca5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": false
+    },
+    "docker/docker-compose.yml": {
+      "filePath": "docker/docker-compose.yml",
+      "contentHash": "940ee64eebdb0b7599eb5b6720579d5cc4c5e7ee2b3bb42045b0b1be7fccf3dc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 72,
+      "hasStructuralAnalysis": false
+    },
+    "docker/frontend.Dockerfile": {
+      "filePath": "docker/frontend.Dockerfile",
+      "contentHash": "e42316ab84f03ed87ed68e7d7d2aacef1dda63854a0ee412b4593532ee8a68cb",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 33,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/.env.example": {
+      "filePath": "frontend/.env.example",
+      "contentHash": "1982952bc6b32408fada925b6c1e71512dd70b777b76289d2a647943ec505452",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/jsconfig.json": {
+      "filePath": "frontend/jsconfig.json",
+      "contentHash": "99427ab76b36077b0472744c137992c661d0037efe7dd46df57f58ae7dce379e",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/netlify.toml": {
+      "filePath": "frontend/netlify.toml",
+      "contentHash": "6c9b2f31e19971454a444dfec7957c7242ae31f94a175881e21cfb755d3fd064",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 15,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/package.json": {
+      "filePath": "frontend/package.json",
+      "contentHash": "fc4e8e8fd3e0857f2524140af85c37e0edd9681a36262cc0bbe7e61384b38fb5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 57,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/public/_headers": {
+      "filePath": "frontend/public/_headers",
+      "contentHash": "61558715611047b97935d7fbee97646d0a3c78f4616c1208aa8ebfac6ae42219",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 9,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/public/_redirects": {
+      "filePath": "frontend/public/_redirects",
+      "contentHash": "ab1e71951aa87ebacd108c3adb42f66da8098abfbf13851ea38478b167ffa722",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 3,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/public/index.html": {
+      "filePath": "frontend/public/index.html",
+      "contentHash": "9974093c98ee856cab3c00bac922ba86d80ffabf91e7a4831e7d8754fe580ebc",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 20,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/public/manifest.json": {
+      "filePath": "frontend/public/manifest.json",
+      "contentHash": "2d24b6d32f7d96cb6d9039210361b5d89090357c3d2ac98d76ecb395f444308b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 16,
+      "hasStructuralAnalysis": false
+    },
+    "frontend/src/App.js": {
+      "filePath": "frontend/src/App.js",
+      "contentHash": "e97e714689c4047267f8c6e18cc974e59f4f9f242d6568de9e3c94073f49dd67",
+      "functions": [
+        {
+          "name": "ProtectedRoute",
+          "params": [],
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "PublicRoute",
+          "params": [],
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "RoleRedirect",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "App",
+          "params": [],
+          "exported": false,
+          "lineCount": 70
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "Router",
+            "Routes",
+            "Route",
+            "Navigate"
+          ]
+        },
+        {
+          "source": "./services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "./components/LoginPage",
+          "specifiers": [
+            "LoginPage"
+          ]
+        },
+        {
+          "source": "./components/shared/CredentialVerify",
+          "specifiers": [
+            "CredentialVerify"
+          ]
+        },
+        {
+          "source": "./components/layout/MainLayout",
+          "specifiers": [
+            "MainLayout"
+          ]
+        },
+        {
+          "source": "./components/lecturer/LecturerDashboard",
+          "specifiers": [
+            "LecturerDashboard"
+          ]
+        },
+        {
+          "source": "./components/lecturer/TopicManagement",
+          "specifiers": [
+            "TopicManagement"
+          ]
+        },
+        {
+          "source": "./components/lecturer/SubmissionReview",
+          "specifiers": [
+            "SubmissionReview"
+          ]
+        },
+        {
+          "source": "./components/lecturer/RubricsManagement",
+          "specifiers": [
+            "RubricsManagement"
+          ]
+        },
+        {
+          "source": "./components/lecturer/ScoreComparison",
+          "specifiers": [
+            "ScoreComparison"
+          ]
+        },
+        {
+          "source": "./components/lecturer/EntranceTestManager",
+          "specifiers": [
+            "EntranceTestManager"
+          ]
+        },
+        {
+          "source": "./components/lecturer/CourseManagement",
+          "specifiers": [
+            "CourseManagement"
+          ]
+        },
+        {
+          "source": "./components/lecturer/ClassManagement",
+          "specifiers": [
+            "ClassManagement"
+          ]
+        },
+        {
+          "source": "./components/lecturer/StudentManagement",
+          "specifiers": [
+            "StudentManagement"
+          ]
+        },
+        {
+          "source": "./components/teacher/ChallengeManagement",
+          "specifiers": [
+            "ChallengeManagement"
+          ]
+        },
+        {
+          "source": "./components/student/StudentDashboard",
+          "specifiers": [
+            "StudentDashboard"
+          ]
+        },
+        {
+          "source": "./components/student/TopicRegistration",
+          "specifiers": [
+            "TopicRegistration"
+          ]
+        },
+        {
+          "source": "./components/student/ChallengeList",
+          "specifiers": [
+            "ChallengeList"
+          ]
+        },
+        {
+          "source": "./components/student/StudentSubmissionView",
+          "specifiers": [
+            "StudentSubmissionView"
+          ]
+        },
+        {
+          "source": "./components/student/AchievementList",
+          "specifiers": [
+            "AchievementList"
+          ]
+        },
+        {
+          "source": "./components/teacher/TeacherChallengeDetail",
+          "specifiers": [
+            "TeacherChallengeDetail"
+          ]
+        },
+        {
+          "source": "./components/student/ReportUpload",
+          "specifiers": [
+            "ReportUpload"
+          ]
+        },
+        {
+          "source": "./components/student/ProgressTracking",
+          "specifiers": [
+            "ProgressTracking"
+          ]
+        },
+        {
+          "source": "./components/student/ProgressLog",
+          "specifiers": [
+            "ProgressLog"
+          ]
+        },
+        {
+          "source": "./components/student/EntranceTest",
+          "specifiers": [
+            "EntranceTest"
+          ]
+        },
+        {
+          "source": "./components/student/GroupManagement",
+          "specifiers": [
+            "GroupManagement"
+          ]
+        },
+        {
+          "source": "./components/debug/BlockchainDebugPage",
+          "specifiers": [
+            "BlockchainDebugPage"
+          ]
+        },
+        {
+          "source": "./components/admin/AdminDashboard",
+          "specifiers": [
+            "AdminDashboard"
+          ]
+        },
+        {
+          "source": "./components/admin/AdminRequests",
+          "specifiers": [
+            "AdminRequests"
+          ]
+        },
+        {
+          "source": "./components/PendingApproval",
+          "specifiers": [
+            "PendingApproval"
+          ]
+        },
+        {
+          "source": "./contexts/ClassContext",
+          "specifiers": [
+            "ClassProvider"
+          ]
+        },
+        {
+          "source": "./contexts/LecturerClassContext",
+          "specifiers": [
+            "LecturerClassProvider"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 160,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/AuthContext.js": {
+      "filePath": "frontend/src/AuthContext.js",
+      "contentHash": "186c41afee51a05b66f5ab4675ba7c83797273c71fc3680d5ad5494a8f8c3374",
+      "functions": [
+        {
+          "name": "useAuth",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "AuthProvider",
+          "params": [],
+          "exported": true,
+          "lineCount": 50
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "createContext",
+            "useContext",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "./services/apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        }
+      ],
+      "exports": [
+        "useAuth",
+        "AuthProvider"
+      ],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/LoginPage.js": {
+      "filePath": "frontend/src/components/LoginPage.js",
+      "contentHash": "a9e3c02b327d88a5cb3335757c10f68283de4746984db1cc02566339b54a85e4",
+      "functions": [
+        {
+          "name": "AnimatedGradientText",
+          "params": [],
+          "exported": false,
+          "lineCount": 21
+        },
+        {
+          "name": "LoginPage",
+          "params": [],
+          "exported": false,
+          "lineCount": 690
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "@mui/material",
+          "specifiers": [
+            "Container",
+            "Box",
+            "Typography",
+            "Button",
+            "Paper",
+            "Alert",
+            "CircularProgress",
+            "Fade",
+            "Grow",
+            "Avatar",
+            "Chip",
+            "Link",
+            "useTheme",
+            "useMediaQuery",
+            "Tabs",
+            "Tab",
+            "Dialog",
+            "DialogTitle",
+            "DialogContent",
+            "DialogActions"
+          ]
+        },
+        {
+          "source": "@mui/icons-material",
+          "specifiers": [
+            "WalletIcon",
+            "VerifiedUserIcon",
+            "ChevronRightIcon",
+            "LanguageIcon",
+            "HelpIcon",
+            "QrCodeScannerIcon"
+          ]
+        },
+        {
+          "source": "./MetaMaskGuideModal",
+          "specifiers": [
+            "MetaMaskGuideModal"
+          ]
+        },
+        {
+          "source": "./QrScanner",
+          "specifiers": [
+            "QrScanner"
+          ]
+        },
+        {
+          "source": "./RoleSelection",
+          "specifiers": [
+            "RoleSelection"
+          ]
+        },
+        {
+          "source": "../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 742,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/MetaMaskGuideModal.js": {
+      "filePath": "frontend/src/components/MetaMaskGuideModal.js",
+      "contentHash": "bcb7997ec5efe64eab831e0a4f50f5283e3a014d31f33c2db2bf58577f1f0a68",
+      "functions": [
+        {
+          "name": "MetaMaskGuideModal",
+          "params": [],
+          "exported": false,
+          "lineCount": 342
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState"
+          ]
+        },
+        {
+          "source": "@mui/material",
+          "specifiers": [
+            "Dialog",
+            "DialogTitle",
+            "DialogContent",
+            "DialogActions",
+            "Button",
+            "Typography",
+            "Box",
+            "Link",
+            "Alert",
+            "IconButton",
+            "LinearProgress",
+            "useTheme",
+            "useMediaQuery"
+          ]
+        },
+        {
+          "source": "@mui/icons-material",
+          "specifiers": [
+            "CloseIcon",
+            "LaunchIcon",
+            "ArrowBack",
+            "HelpOutline",
+            "Download",
+            "AddCard",
+            "Password",
+            "DoneAll",
+            "Celebration"
+          ]
+        },
+        {
+          "source": "framer-motion",
+          "specifiers": [
+            "motion",
+            "AnimatePresence"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 412,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/MobileLogin.js": {
+      "filePath": "frontend/src/components/MobileLogin.js",
+      "contentHash": "b4cd4b39066800a11e59467d129a5de64f3e2d087653f53719a4c3332be62b64",
+      "functions": [
+        {
+          "name": "MobileLogin",
+          "params": [],
+          "exported": false,
+          "lineCount": 178
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useSearchParams"
+          ]
+        },
+        {
+          "source": "@mui/material",
+          "specifiers": [
+            "Container",
+            "Box",
+            "Typography",
+            "Button",
+            "Paper",
+            "Alert",
+            "CircularProgress",
+            "Avatar",
+            "useTheme"
+          ]
+        },
+        {
+          "source": "@mui/icons-material",
+          "specifiers": [
+            "QrIcon",
+            "SuccessIcon",
+            "WalletIcon"
+          ]
+        },
+        {
+          "source": "ethers",
+          "specifiers": [
+            "ethers"
+          ]
+        },
+        {
+          "source": "../services/apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 195,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/PendingApproval.js": {
+      "filePath": "frontend/src/components/PendingApproval.js",
+      "contentHash": "c05d7bb5b63ddebbffa6c6b0b5167be3e8ce00e8f0cb0e534ca33f28630499f2",
+      "functions": [
+        {
+          "name": "PendingApproval",
+          "params": [],
+          "exported": false,
+          "lineCount": 119
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "@mui/material",
+          "specifiers": [
+            "Box",
+            "Typography",
+            "Container",
+            "Paper",
+            "CircularProgress",
+            "Button",
+            "Alert"
+          ]
+        },
+        {
+          "source": "@mui/icons-material",
+          "specifiers": [
+            "HourglassIcon",
+            "CheckCircleIcon",
+            "ErrorIcon"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "socket.io-client",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 131,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/QrAuthentication.js": {
+      "filePath": "frontend/src/components/QrAuthentication.js",
+      "contentHash": "12e788be8125c45d9cbe8941ffa7943256a079eafd2568803f21196890677737",
+      "functions": [
+        {
+          "name": "QrAuthentication",
+          "params": [],
+          "exported": false,
+          "lineCount": 228
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "Button",
+            "Spin",
+            "Alert",
+            "Divider",
+            "Tooltip",
+            "Row",
+            "Col",
+            "Space"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "QrCode",
+            "RefreshCw",
+            "Copy",
+            "Download"
+          ]
+        },
+        {
+          "source": "qrcode",
+          "specifiers": [
+            "QRCode"
+          ]
+        },
+        {
+          "source": "../services/apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 239,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/QrScanner.js": {
+      "filePath": "frontend/src/components/QrScanner.js",
+      "contentHash": "53d2a643312ac03dd5417a41032f32fa5def2befacfa39b0683a97efc39038cd",
+      "functions": [
+        {
+          "name": "QrScanner",
+          "params": [],
+          "exported": false,
+          "lineCount": 186
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useRef",
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "@zxing/library",
+          "specifiers": [
+            "BrowserMultiFormatReader"
+          ]
+        },
+        {
+          "source": "@mui/material",
+          "specifiers": [
+            "Box",
+            "Tabs",
+            "Tab",
+            "Button",
+            "Typography",
+            "Paper",
+            "useTheme",
+            "useMediaQuery"
+          ]
+        },
+        {
+          "source": "@mui/icons-material",
+          "specifiers": [
+            "CameraIcon",
+            "UploadIcon"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 200,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/RoleSelection.js": {
+      "filePath": "frontend/src/components/RoleSelection.js",
+      "contentHash": "1addc315e67e53c104985bf1ff8a5983393a444c97d488e1208584ca1706a287",
+      "functions": [
+        {
+          "name": "RoleSelection",
+          "params": [],
+          "exported": false,
+          "lineCount": 153
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState"
+          ]
+        },
+        {
+          "source": "@mui/material",
+          "specifiers": [
+            "Box",
+            "Typography",
+            "Paper",
+            "Grid",
+            "Button",
+            "Dialog",
+            "DialogTitle",
+            "DialogContent",
+            "DialogActions",
+            "TextField",
+            "CircularProgress"
+          ]
+        },
+        {
+          "source": "@mui/icons-material",
+          "specifiers": [
+            "SchoolIcon",
+            "TeacherIcon",
+            "ArrowForwardIcon"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 163,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/admin/AdminDashboard.js": {
+      "filePath": "frontend/src/components/admin/AdminDashboard.js",
+      "contentHash": "b4c8a694ef54d96574f1fc3a68891de73225d282fc76d6b82597d1dfe8c0be28",
+      "functions": [
+        {
+          "name": "AdminDashboard",
+          "params": [],
+          "exported": false,
+          "lineCount": 123
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Table",
+            "Tag",
+            "Space",
+            "Spin",
+            "Alert",
+            "Typography",
+            "Row",
+            "Col",
+            "Card",
+            "Statistic"
+          ]
+        },
+        {
+          "source": "@ant-design/icons",
+          "specifiers": [
+            "TeamOutlined",
+            "UserAddOutlined"
+          ]
+        },
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        },
+        {
+          "source": "socket.io-client",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 139,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/admin/AdminRequests.js": {
+      "filePath": "frontend/src/components/admin/AdminRequests.js",
+      "contentHash": "f8ae09537457b6febd8e5e6fea1132f6daa017ee39ba0389811bc9f4f9d0bb02",
+      "functions": [
+        {
+          "name": "AdminRequests",
+          "params": [],
+          "exported": false,
+          "lineCount": 522
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback",
+            "useRef"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Table",
+            "Space",
+            "Button",
+            "Modal",
+            "Input",
+            "Spin",
+            "Alert",
+            "Typography",
+            "message",
+            "Tabs",
+            "Tag",
+            "Descriptions",
+            "Select",
+            "Drawer",
+            "DatePicker"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        },
+        {
+          "source": "@mui/icons-material",
+          "specifiers": [
+            "CheckIcon",
+            "CloseIcon"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Eye",
+            "History",
+            "Clock",
+            "CheckCircle",
+            "XCircle",
+            "Search"
+          ]
+        },
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        },
+        {
+          "source": "socket.io-client",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 538,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/common/ClassSelector.js": {
+      "filePath": "frontend/src/components/common/ClassSelector.js",
+      "contentHash": "8042f273d8bcc7bcde195bfb0b0e502a1d6c0ddf0a7879d392fc94dbb4f59eed",
+      "functions": [
+        {
+          "name": "ClassSelector",
+          "params": [],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "StudentClassSelector",
+          "params": [],
+          "exported": false,
+          "lineCount": 29
+        },
+        {
+          "name": "LecturerClassSelector",
+          "params": [],
+          "exported": false,
+          "lineCount": 29
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Select"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "BookOpen"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../contexts/ClassContext",
+          "specifiers": [
+            "useClassContext"
+          ]
+        },
+        {
+          "source": "../../contexts/LecturerClassContext",
+          "specifiers": [
+            "useLecturerClassContext"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/debug/BlockchainDebugPage.js": {
+      "filePath": "frontend/src/components/debug/BlockchainDebugPage.js",
+      "contentHash": "f94a0cc69e962b0ee93e5bde8d846b624dd308a602cbcce84700946e4fd0065a",
+      "functions": [
+        {
+          "name": "etherscanTxUrl",
+          "params": [
+            "hash"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "etherscanAddressUrl",
+          "params": [
+            "addr"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "formatTimestamp",
+          "params": [
+            "value"
+          ],
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "shortenHash",
+          "params": [
+            "hash"
+          ],
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "isMockTx",
+          "params": [
+            "hash"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "stripReportLabel",
+          "params": [
+            "text"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "renderAddress",
+          "params": [
+            "addr"
+          ],
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "renderTx",
+          "params": [
+            "hash"
+          ],
+          "exported": false,
+          "lineCount": 11
+        },
+        {
+          "name": "getChainStatusMeta",
+          "params": [
+            "status"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "getGradeBcMeta",
+          "params": [
+            "status"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "BlockchainDebugPage",
+          "params": [],
+          "exported": false,
+          "lineCount": 520
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "../../services/apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Alert",
+            "Button",
+            "Card",
+            "Col",
+            "Descriptions",
+            "Divider",
+            "Form",
+            "Input",
+            "Row",
+            "Space",
+            "Spin",
+            "Table",
+            "Tag",
+            "Typography",
+            "message"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Database",
+            "FileSearch",
+            "RefreshCw",
+            "Search",
+            "History"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 605,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/layout/MainLayout.js": {
+      "filePath": "frontend/src/components/layout/MainLayout.js",
+      "contentHash": "1a6d6f4dddecb205f1f5a2522f7615fcd2486c476198ec980b089b0063bc1aaa",
+      "functions": [
+        {
+          "name": "MainLayout",
+          "params": [],
+          "exported": false,
+          "lineCount": 154
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Layout",
+            "Menu",
+            "Button",
+            "Avatar",
+            "theme",
+            "Dropdown",
+            "Badge"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "BookOpen",
+            "LogOut",
+            "FileText",
+            "UserIcon",
+            "Monitor",
+            "CheckCircle",
+            "Award",
+            "ClipboardList",
+            "BarChart2",
+            "School",
+            "Users",
+            "GraduationCap",
+            "Bell",
+            "ShieldCheck"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate",
+            "Outlet",
+            "useLocation"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        },
+        {
+          "source": "socket.io-client",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../common/ClassSelector",
+          "specifiers": [
+            "ClassSelector"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 169,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/ClassManagement.js": {
+      "filePath": "frontend/src/components/lecturer/ClassManagement.js",
+      "contentHash": "f56433d54b973b7b8fe7594e6776fb2063146278fc0d4471a00f0a2e01af6db0",
+      "functions": [
+        {
+          "name": "ClassManagement",
+          "params": [],
+          "exported": false,
+          "lineCount": 666
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "Table",
+            "Button",
+            "Modal",
+            "Form",
+            "Input",
+            "Select",
+            "Space",
+            "Tag",
+            "Popconfirm",
+            "message",
+            "Spin",
+            "Descriptions",
+            "List",
+            "Avatar",
+            "Badge",
+            "Tabs",
+            "Divider",
+            "AutoComplete",
+            "Alert"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Plus",
+            "Pencil",
+            "Trash2",
+            "School",
+            "Eye",
+            "UserPlus",
+            "UserMinus",
+            "Users",
+            "Clock",
+            "XCircle",
+            "CheckCircle"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 681,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/CourseManagement.js": {
+      "filePath": "frontend/src/components/lecturer/CourseManagement.js",
+      "contentHash": "2def99e3b8ddab05f1ac0b8dcf8517bdd35c67ed1597b4af79c3ad7da3dca0e1",
+      "functions": [
+        {
+          "name": "CourseManagement",
+          "params": [],
+          "exported": false,
+          "lineCount": 287
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "Table",
+            "Button",
+            "Modal",
+            "Form",
+            "Input",
+            "Space",
+            "Tag",
+            "Popconfirm",
+            "message",
+            "Spin"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Plus",
+            "Pencil",
+            "Trash2",
+            "BookOpen"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 302,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/EntranceTestManager.js": {
+      "filePath": "frontend/src/components/lecturer/EntranceTestManager.js",
+      "contentHash": "63a7756295e74afbdae4d45bbb9c880126d2b97d8dee582f36146dc237fc540e",
+      "functions": [
+        {
+          "name": "EntranceTestManager",
+          "params": [],
+          "exported": false,
+          "lineCount": 387
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Button",
+            "Input",
+            "Select",
+            "InputNumber",
+            "Space",
+            "Typography",
+            "Table",
+            "Tag",
+            "Modal",
+            "message",
+            "Tabs",
+            "Empty",
+            "Badge",
+            "Popconfirm",
+            "Alert",
+            "Descriptions"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Plus",
+            "Trash2",
+            "Trophy",
+            "Code2",
+            "ListChecks",
+            "ShieldCheck",
+            "ArrowLeft"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useParams",
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "@monaco-editor/react",
+          "specifiers": [
+            "Editor"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 402,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/LecturerDashboard.js": {
+      "filePath": "frontend/src/components/lecturer/LecturerDashboard.js",
+      "contentHash": "2e5c4fa5b8069ab841e806c626a2c8a6b2e6699de0aac838021e666abfa60aaf",
+      "functions": [
+        {
+          "name": "LecturerDashboard",
+          "params": [],
+          "exported": false,
+          "lineCount": 59
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "Row",
+            "Col",
+            "Statistic",
+            "Spin"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "BookOpen",
+            "Users"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../QrAuthentication",
+          "specifiers": [
+            "QrAuthentication"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 73,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/RubricsManagement.js": {
+      "filePath": "frontend/src/components/lecturer/RubricsManagement.js",
+      "contentHash": "705efaf1ddbd8bddd33e17d76dbfebb07c43f916a402d907d2ef21fca557bff1",
+      "functions": [
+        {
+          "name": "RubricsManagement",
+          "params": [],
+          "exported": false,
+          "lineCount": 368
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback",
+            "useMemo"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Table",
+            "Button",
+            "Space",
+            "Tag",
+            "Modal",
+            "Form",
+            "Input",
+            "Select",
+            "Typography",
+            "message",
+            "Tooltip",
+            "InputNumber",
+            "Divider",
+            "Badge",
+            "Empty",
+            "Alert",
+            "Popconfirm"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Plus",
+            "Edit2",
+            "Trash2",
+            "Star",
+            "Lock",
+            "Eye",
+            "Copy"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 381,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/ScoreComparison.js": {
+      "filePath": "frontend/src/components/lecturer/ScoreComparison.js",
+      "contentHash": "13f14b8df2680df7db82ab3c76ff11934b2280edb1e90a5fe0c1a2c3068b7c75",
+      "functions": [
+        {
+          "name": "ScoreComparison",
+          "params": [],
+          "exported": false,
+          "lineCount": 809
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback",
+            "useMemo"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Table",
+            "Card",
+            "Tag",
+            "Typography",
+            "Space",
+            "Statistic",
+            "Row",
+            "Col",
+            "Select",
+            "Empty",
+            "Spin",
+            "Tooltip",
+            "Drawer",
+            "Descriptions",
+            "Badge",
+            "Tabs"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "BarChart2",
+            "TrendingUp",
+            "TrendingDown",
+            "ShieldCheck",
+            "BrainCircuit",
+            "Users",
+            "Award",
+            "BookOpen",
+            "LayoutDashboard",
+            "Layers"
+          ]
+        },
+        {
+          "source": "recharts",
+          "specifiers": [
+            "BarChart",
+            "Bar",
+            "XAxis",
+            "YAxis",
+            "CartesianGrid",
+            "RechartsTooltip",
+            "Legend",
+            "ResponsiveContainer",
+            "Cell",
+            "PieChart",
+            "Pie",
+            "RadarChart",
+            "Radar",
+            "PolarGrid",
+            "PolarAngleAxis",
+            "PolarRadiusAxis"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../../contexts/LecturerClassContext",
+          "specifiers": [
+            "useLecturerClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 832,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/StudentManagement.js": {
+      "filePath": "frontend/src/components/lecturer/StudentManagement.js",
+      "contentHash": "54551f1720e0f76e5345044a7246180ceedcfba5c160c1fdc8a6225abe373109",
+      "functions": [
+        {
+          "name": "StudentManagement",
+          "params": [],
+          "exported": false,
+          "lineCount": 245
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback",
+            "useMemo"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "Table",
+            "Input",
+            "Tag",
+            "Space",
+            "Spin",
+            "message"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Search"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 257,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/SubmissionReview.js": {
+      "filePath": "frontend/src/components/lecturer/SubmissionReview.js",
+      "contentHash": "af3bdc1d6ee255ae161eae55eb943d0e52a8d3b3744c0d232f7708e13f2d3bf5",
+      "functions": [
+        {
+          "name": "formatWarningLabel",
+          "params": [
+            "warning"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "getProgressStatusLabel",
+          "params": [
+            "status"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "getSubmissionKey",
+          "params": [
+            "record"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "countPendingProgress",
+          "params": [
+            "logs"
+          ],
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "formatBlockchainError",
+          "params": [
+            "errorStr"
+          ],
+          "exported": false,
+          "lineCount": 27
+        },
+        {
+          "name": "getBlockchainStatusMeta",
+          "params": [
+            "status"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "SubmissionReview",
+          "params": [],
+          "exported": false,
+          "lineCount": 1523
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback",
+            "useMemo"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Table",
+            "Button",
+            "Badge",
+            "Drawer",
+            "Alert",
+            "Typography",
+            "InputNumber",
+            "Space",
+            "message",
+            "Tag",
+            "Steps",
+            "Spin",
+            "Skeleton",
+            "Empty",
+            "Tooltip",
+            "Descriptions",
+            "List",
+            "Divider",
+            "Input",
+            "Modal",
+            "Select",
+            "Card"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "CheckSquare",
+            "ShieldCheck",
+            "BrainCircuit",
+            "ScanSearch",
+            "Fingerprint",
+            "ExternalLink",
+            "Download",
+            "Clock",
+            "RefreshCw",
+            "Users",
+            "TrendingUp",
+            "ListChecks"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../../contexts/LecturerClassContext",
+          "specifiers": [
+            "useLecturerClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 1604,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/lecturer/TopicManagement.js": {
+      "filePath": "frontend/src/components/lecturer/TopicManagement.js",
+      "contentHash": "578051659c54243e697c2ebb20e983370a7f91d6a2d799e26bcd291372ccf3b4",
+      "functions": [
+        {
+          "name": "TopicManagement",
+          "params": [],
+          "exported": false,
+          "lineCount": 912
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Table",
+            "Button",
+            "Space",
+            "Tag",
+            "Modal",
+            "Form",
+            "Input",
+            "Select",
+            "Typography",
+            "message",
+            "Tooltip",
+            "Drawer",
+            "List",
+            "Spin",
+            "Badge",
+            "InputNumber",
+            "DatePicker",
+            "Divider",
+            "Descriptions",
+            "Switch",
+            "Alert",
+            "Row",
+            "Col"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Plus",
+            "Edit2",
+            "Trash2",
+            "Users",
+            "CheckCircle",
+            "XCircle",
+            "Eye",
+            "MinusCircle",
+            "NotebookText",
+            "ListChecks",
+            "Trophy",
+            "Clock"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate",
+            "useLocation"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        },
+        {
+          "source": "../../contexts/LecturerClassContext",
+          "specifiers": [
+            "useLecturerClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 930,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/shared/CredentialVerify.jsx": {
+      "filePath": "frontend/src/components/shared/CredentialVerify.jsx",
+      "contentHash": "8f0d47d9c54e212218b670b6edf2b0be81301b6284878c57b2bf28c28fd39559",
+      "functions": [
+        {
+          "name": "CredentialVerify",
+          "params": [],
+          "exported": false,
+          "lineCount": 146
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useEffect",
+            "useState"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useParams",
+            "Link"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Result",
+            "Spin",
+            "Tag",
+            "Descriptions",
+            "Typography",
+            "Button",
+            "Space",
+            "Alert"
+          ]
+        },
+        {
+          "source": "@ant-design/icons",
+          "specifiers": [
+            "CheckCircleOutlined",
+            "CloseCircleOutlined",
+            "SafetyCertificateOutlined",
+            "ArrowLeftOutlined"
+          ]
+        },
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 158,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/AchievementList.jsx": {
+      "filePath": "frontend/src/components/student/AchievementList.jsx",
+      "contentHash": "3131c8909d0c83b6ce3956b27176d7199a6ed07ca2d9aa42275d207eef3dd421",
+      "functions": [
+        {
+          "name": "AchievementList",
+          "params": [],
+          "exported": false,
+          "lineCount": 148
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Row",
+            "Col",
+            "Typography",
+            "Empty",
+            "Spin",
+            "message",
+            "Button",
+            "Tag",
+            "Space",
+            "Divider"
+          ]
+        },
+        {
+          "source": "@ant-design/icons",
+          "specifiers": [
+            "TrophyOutlined",
+            "SafetyCertificateOutlined",
+            "ShareAltOutlined"
+          ]
+        },
+        {
+          "source": "../../services/challengeService",
+          "specifiers": [
+            "challengeService"
+          ]
+        },
+        {
+          "source": "../../services/apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        },
+        {
+          "source": "ethers",
+          "specifiers": [
+            "ethers"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 161,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/ChallengeList.jsx": {
+      "filePath": "frontend/src/components/student/ChallengeList.jsx",
+      "contentHash": "008efee199785293ef4cad5eed90352b4a751f301d24137071d3c8903e6866ec",
+      "functions": [
+        {
+          "name": "ChallengeList",
+          "params": [],
+          "exported": false,
+          "lineCount": 155
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Row",
+            "Col",
+            "Typography",
+            "Tag",
+            "Button",
+            "Spin",
+            "Empty",
+            "message",
+            "Alert"
+          ]
+        },
+        {
+          "source": "@ant-design/icons",
+          "specifiers": [
+            "AppstoreOutlined",
+            "FileTextOutlined",
+            "UserOutlined",
+            "ClockCircleOutlined",
+            "StarOutlined"
+          ]
+        },
+        {
+          "source": "../../services/challengeService",
+          "specifiers": [
+            "challengeService"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 167,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/EntranceTest.js": {
+      "filePath": "frontend/src/components/student/EntranceTest.js",
+      "contentHash": "3b1666386cb93957defb0e86b65020f160dfca6e40fa8138843f452af76b53bd",
+      "functions": [
+        {
+          "name": "EntranceTest",
+          "params": [],
+          "exported": false,
+          "lineCount": 380
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useRef"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Button",
+            "Radio",
+            "Space",
+            "Typography",
+            "Tag",
+            "Alert",
+            "Spin",
+            "Progress",
+            "Statistic",
+            "Result",
+            "Descriptions",
+            "message",
+            "Modal"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Clock",
+            "Send",
+            "Code2",
+            "CheckCircle",
+            "ShieldCheck",
+            "Trophy",
+            "AlertTriangle"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useParams",
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "@monaco-editor/react",
+          "specifiers": [
+            "Editor"
+          ]
+        },
+        {
+          "source": "socket.io-client",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/nhomService",
+          "specifiers": [
+            "nhomService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 400,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/GroupManagement.js": {
+      "filePath": "frontend/src/components/student/GroupManagement.js",
+      "contentHash": "3de37077e65f866a539011faa7236e827d46c103e46e9c2966425915ca3a0e13",
+      "functions": [
+        {
+          "name": "GroupManagement",
+          "params": [],
+          "exported": false,
+          "lineCount": 475
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Button",
+            "Typography",
+            "Tag",
+            "message",
+            "Modal",
+            "Input",
+            "InputNumber",
+            "Space",
+            "List",
+            "Divider",
+            "Alert",
+            "Spin",
+            "Empty",
+            "Tooltip",
+            "Badge",
+            "Select"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Users",
+            "UserPlus",
+            "Crown",
+            "LogOut",
+            "Trash2",
+            "CheckCircle",
+            "XCircle",
+            "Lock",
+            "ArrowRightLeft"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../services/nhomService",
+          "specifiers": [
+            "nhomService"
+          ]
+        },
+        {
+          "source": "../../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        },
+        {
+          "source": "../../contexts/ClassContext",
+          "specifiers": [
+            "useClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 489,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/ProgressLog.js": {
+      "filePath": "frontend/src/components/student/ProgressLog.js",
+      "contentHash": "42cb204930699d38e897e59562a8d9ef917672f1fbd026f32d4fe8e5232f0a9d",
+      "functions": [
+        {
+          "name": "formatWarningLabel",
+          "params": [
+            "warning"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "ProgressLog",
+          "params": [],
+          "exported": false,
+          "lineCount": 577
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useMemo"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "List",
+            "Tag",
+            "Button",
+            "Spin",
+            "Modal",
+            "Form",
+            "Input",
+            "InputNumber",
+            "message",
+            "AutoComplete",
+            "DatePicker",
+            "Collapse",
+            "Alert",
+            "Divider",
+            "Space"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "PlusCircle",
+            "Clock",
+            "CheckCircle"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../../contexts/ClassContext",
+          "specifiers": [
+            "useClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 605,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/ProgressTracking.js": {
+      "filePath": "frontend/src/components/student/ProgressTracking.js",
+      "contentHash": "10414a81f95bae75fce504ecf0e4cd18cebe2efc9bf83f9704a85e9cfdb90db3",
+      "functions": [
+        {
+          "name": "ProgressTracking",
+          "params": [],
+          "exported": false,
+          "lineCount": 269
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Steps",
+            "Typography",
+            "Card",
+            "Alert",
+            "AntProgress",
+            "Row",
+            "Col",
+            "Divider",
+            "Skeleton",
+            "Tag",
+            "Space"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "CheckCircle",
+            "Clock",
+            "Search",
+            "BookOpen",
+            "BrainCircuit"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../../contexts/ClassContext",
+          "specifiers": [
+            "useClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 283,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/ReportUpload.js": {
+      "filePath": "frontend/src/components/student/ReportUpload.js",
+      "contentHash": "ed7b24a88126ac6b79c781c3a0fe6fd311737fca7d974ad97e20742ccee8dc14",
+      "functions": [
+        {
+          "name": "ReportUpload",
+          "params": [],
+          "exported": false,
+          "lineCount": 280
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Upload",
+            "message",
+            "Typography",
+            "Card",
+            "Progress",
+            "Button",
+            "Alert",
+            "Skeleton",
+            "Tag",
+            "Space",
+            "Modal",
+            "Descriptions"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "UploadCloud",
+            "BookOpen",
+            "Trash2",
+            "CheckCircle",
+            "ExternalLink",
+            "ShieldCheck"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../../contexts/ClassContext",
+          "specifiers": [
+            "useClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 295,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/StudentDashboard.js": {
+      "filePath": "frontend/src/components/student/StudentDashboard.js",
+      "contentHash": "7d739d3a20e096052348f16a8f60a4f2a238dacb43e9d790ed1d9b50179d6fa9",
+      "functions": [
+        {
+          "name": "StudentDashboard",
+          "params": [],
+          "exported": false,
+          "lineCount": 545
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "Row",
+            "Col",
+            "Statistic",
+            "Alert",
+            "Spin",
+            "Tag",
+            "Tooltip",
+            "Form",
+            "Input",
+            "InputNumber",
+            "Select",
+            "Button",
+            "Modal",
+            "message",
+            "Divider",
+            "Space"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "Target",
+            "Award",
+            "BookOpen",
+            "ShieldCheck",
+            "BrainCircuit",
+            "ExternalLink",
+            "Edit2",
+            "User",
+            "Save",
+            "School",
+            "GraduationCap"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        },
+        {
+          "source": "../../hooks/useResponsive",
+          "specifiers": [
+            "useIsMobile"
+          ]
+        },
+        {
+          "source": "../QrAuthentication",
+          "specifiers": [
+            "QrAuthentication"
+          ]
+        },
+        {
+          "source": "../../contexts/ClassContext",
+          "specifiers": [
+            "useClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 561,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/StudentSubmissionView.jsx": {
+      "filePath": "frontend/src/components/student/StudentSubmissionView.jsx",
+      "contentHash": "079bcad5126ccf516b71a1a63a96de086568958cdd5b5398492a2ce9c99003e4",
+      "functions": [
+        {
+          "name": "StudentSubmissionView",
+          "params": [],
+          "exported": false,
+          "lineCount": 167
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useParams",
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Typography",
+            "Descriptions",
+            "Tag",
+            "Button",
+            "Input",
+            "Form",
+            "message",
+            "Spin",
+            "Alert",
+            "Timeline",
+            "Divider"
+          ]
+        },
+        {
+          "source": "@ant-design/icons",
+          "specifiers": [
+            "CheckCircleOutlined",
+            "ClockCircleOutlined"
+          ]
+        },
+        {
+          "source": "../../services/challengeService",
+          "specifiers": [
+            "challengeService"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 180,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/student/TopicRegistration.js": {
+      "filePath": "frontend/src/components/student/TopicRegistration.js",
+      "contentHash": "a2d5a49fe5eacaae041cfe5dd11aca1ddad8ccb62b0f82fcceef6cbc4457d6fb",
+      "functions": [
+        {
+          "name": "TopicRegistration",
+          "params": [],
+          "exported": false,
+          "lineCount": 686
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect",
+            "useCallback"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Button",
+            "Typography",
+            "Tag",
+            "Badge",
+            "message",
+            "Row",
+            "Col",
+            "Modal",
+            "Skeleton",
+            "Alert",
+            "Input",
+            "Space",
+            "List",
+            "Divider",
+            "Tooltip",
+            "Select"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "CheckCircle",
+            "Code",
+            "Zap",
+            "Lock",
+            "ListChecks",
+            "Users"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "../../services/aiService",
+          "specifiers": [
+            "aiApiService"
+          ]
+        },
+        {
+          "source": "../../services/nhomService",
+          "specifiers": [
+            "nhomService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../../contexts/ClassContext",
+          "specifiers": [
+            "useClassContext"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "useQuery",
+            "useQueryClient"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 701,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/teacher/ChallengeManagement.jsx": {
+      "filePath": "frontend/src/components/teacher/ChallengeManagement.jsx",
+      "contentHash": "f89917495b5a3a603a8099008f244b5e1dae161da1b900c6a271809835e4ab83",
+      "functions": [
+        {
+          "name": "ChallengeManagement",
+          "params": [],
+          "exported": false,
+          "lineCount": 274
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Table",
+            "Button",
+            "Space",
+            "Modal",
+            "Form",
+            "Input",
+            "Select",
+            "DatePicker",
+            "message",
+            "Card",
+            "Typography",
+            "Tag",
+            "Popconfirm"
+          ]
+        },
+        {
+          "source": "@ant-design/icons",
+          "specifiers": [
+            "PlusOutlined",
+            "EditOutlined",
+            "DeleteOutlined"
+          ]
+        },
+        {
+          "source": "../../services/challengeService",
+          "specifiers": [
+            "challengeService"
+          ]
+        },
+        {
+          "source": "../../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 287,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/components/teacher/TeacherChallengeDetail.jsx": {
+      "filePath": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "contentHash": "b7dbb88f1cca91058f41a83d0224d5ae2e0a4bf9bcf1bb467752225692f46bd3",
+      "functions": [
+        {
+          "name": "fetchData",
+          "params": [],
+          "exported": false,
+          "lineCount": 14
+        },
+        {
+          "name": "handleReview",
+          "params": [
+            "participation"
+          ],
+          "exported": false,
+          "lineCount": 45
+        },
+        {
+          "name": "handleAiAnalysis",
+          "params": [],
+          "exported": false,
+          "lineCount": 17
+        },
+        {
+          "name": "handleAiSuggest",
+          "params": [],
+          "exported": false,
+          "lineCount": 22
+        },
+        {
+          "name": "onEvalSubmit",
+          "params": [
+            "values"
+          ],
+          "exported": false,
+          "lineCount": 31
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "react-router-dom",
+          "specifiers": [
+            "useParams",
+            "useNavigate"
+          ]
+        },
+        {
+          "source": "antd",
+          "specifiers": [
+            "Card",
+            "Table",
+            "Typography",
+            "Tag",
+            "Button",
+            "Spin",
+            "message",
+            "Modal",
+            "Input",
+            "InputNumber",
+            "Form",
+            "Alert",
+            "Select",
+            "Divider",
+            "Space",
+            "Row",
+            "Col"
+          ]
+        },
+        {
+          "source": "@ant-design/icons",
+          "specifiers": [
+            "EyeOutlined",
+            "CheckCircleOutlined",
+            "RobotOutlined"
+          ]
+        },
+        {
+          "source": "../../services/challengeService",
+          "specifiers": [
+            "challengeService"
+          ]
+        },
+        {
+          "source": "dayjs",
+          "specifiers": [
+            "dayjs"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 328,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/contexts/ClassContext.js": {
+      "filePath": "frontend/src/contexts/ClassContext.js",
+      "contentHash": "bec75632165f17d1769c0fa067544131812452290c0037d1f21794ae36abea9a",
+      "functions": [
+        {
+          "name": "ClassProvider",
+          "params": [],
+          "exported": true,
+          "lineCount": 82
+        },
+        {
+          "name": "useClassContext",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "createContext",
+            "useContext",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        }
+      ],
+      "exports": [
+        "ClassProvider",
+        "useClassContext"
+      ],
+      "totalLines": 97,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/contexts/LecturerClassContext.js": {
+      "filePath": "frontend/src/contexts/LecturerClassContext.js",
+      "contentHash": "c0ccbed1a79bec9bb19d56d18651c38769c691cd215783c345fd287107a4579f",
+      "functions": [
+        {
+          "name": "LecturerClassProvider",
+          "params": [],
+          "exported": true,
+          "lineCount": 78
+        },
+        {
+          "name": "useLecturerClassContext",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React",
+            "createContext",
+            "useContext",
+            "useState",
+            "useEffect"
+          ]
+        },
+        {
+          "source": "../services/authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "../services/managementService",
+          "specifiers": [
+            "managementService"
+          ]
+        }
+      ],
+      "exports": [
+        "LecturerClassProvider",
+        "useLecturerClassContext"
+      ],
+      "totalLines": 93,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/hooks/useResponsive.js": {
+      "filePath": "frontend/src/hooks/useResponsive.js",
+      "contentHash": "4c6739bbc7d5d5ed5c9306b571f89837f0d1f148d9a433d3df74f31e69e469a7",
+      "functions": [
+        {
+          "name": "useIsMobile",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "useIsTablet",
+          "params": [],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "useResponsiveModalWidth",
+          "params": [],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@mui/material",
+          "specifiers": [
+            "useMediaQuery"
+          ]
+        }
+      ],
+      "exports": [
+        "useIsMobile",
+        "useIsTablet",
+        "useResponsiveModalWidth"
+      ],
+      "totalLines": 9,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/index.js": {
+      "filePath": "frontend/src/index.js",
+      "contentHash": "cca6735b84fab286abdb7ef906b157b641dd2fa4cbcdc4c3b43844cdd301827d",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "React"
+          ]
+        },
+        {
+          "source": "react-dom/client",
+          "specifiers": [
+            "ReactDOM"
+          ]
+        },
+        {
+          "source": "@mui/material/styles",
+          "specifiers": [
+            "ThemeProvider",
+            "createTheme"
+          ]
+        },
+        {
+          "source": "@mui/material/CssBaseline",
+          "specifiers": [
+            "CssBaseline"
+          ]
+        },
+        {
+          "source": "./App",
+          "specifiers": [
+            "App"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query",
+          "specifiers": [
+            "QueryClient",
+            "QueryClientProvider"
+          ]
+        },
+        {
+          "source": "@tanstack/react-query-devtools",
+          "specifiers": [
+            "ReactQueryDevtools"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 273,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/aiService.js": {
+      "filePath": "frontend/src/services/aiService.js",
+      "contentHash": "4487b86a98b25c1e74c48aa7af56f4636547c54a5f30d9850fb7c649ed49dedd",
+      "functions": [
+        {
+          "name": "getAuthHeaders",
+          "params": [],
+          "exported": false,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        },
+        {
+          "source": "./authService",
+          "specifiers": [
+            "authService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 336,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/apiService.js": {
+      "filePath": "frontend/src/services/apiService.js",
+      "contentHash": "1516aefa8d53bdab3ebe835733de680383ac7c0e2dd17a8ba2e0ec95eaa0f327",
+      "functions": [],
+      "classes": [
+        {
+          "name": "ApiService",
+          "methods": [
+            "constructor",
+            "get",
+            "post",
+            "put",
+            "delete",
+            "initSocket",
+            "onNotification",
+            "offNotification",
+            "disconnectSocket",
+            "getQrCode",
+            "generateNewQrCode",
+            "validateQrForLogin",
+            "getQrSession",
+            "submitQrSignature"
+          ],
+          "properties": [],
+          "exported": false,
+          "lineCount": 139
+        }
+      ],
+      "imports": [
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        },
+        {
+          "source": "./authService",
+          "specifiers": [
+            "authService"
+          ]
+        },
+        {
+          "source": "socket.io-client",
+          "specifiers": [
+            "io"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 165,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/authService.js": {
+      "filePath": "frontend/src/services/authService.js",
+      "contentHash": "3220c0b4ed6e3a4995e9805b6c1d98256566fc7d844c03bb8ae04b127d09564f",
+      "functions": [],
+      "classes": [
+        {
+          "name": "AuthService",
+          "methods": [
+            "constructor",
+            "isMetaMaskInstalled",
+            "initializeProvider",
+            "getWalletAddress",
+            "signMessage",
+            "connectWallet",
+            "signAndVerify",
+            "authenticate",
+            "registerWithRole",
+            "logout",
+            "isAuthenticated",
+            "getCurrentUser",
+            "getToken",
+            "logout",
+            "getProfile",
+            "onAccountChange",
+            "onChainChange"
+          ],
+          "properties": [],
+          "exported": false,
+          "lineCount": 302
+        }
+      ],
+      "imports": [
+        {
+          "source": "ethers",
+          "specifiers": [
+            "ethers"
+          ]
+        },
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 310,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/challengeService.js": {
+      "filePath": "frontend/src/services/challengeService.js",
+      "contentHash": "d8326935f131126294a6957a62e7b3725db462c2497d337a56ea95fbfaa532a1",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 90,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/kpiService.js": {
+      "filePath": "frontend/src/services/kpiService.js",
+      "contentHash": "9075fbcf9638c7d5bf58fa0ec2fd4d64ec5ccf91361c940558358e21f501c5ea",
+      "functions": [],
+      "classes": [
+        {
+          "name": "KpiService",
+          "methods": [],
+          "properties": [],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "./apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 8,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/managementService.js": {
+      "filePath": "frontend/src/services/managementService.js",
+      "contentHash": "3c95ef9e1255d923b5f72575cdc1b62d9f3be9beaee4b60aba6c137a4100656e",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./apiService",
+          "specifiers": [
+            "apiService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 116,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/services/nhomService.js": {
+      "filePath": "frontend/src/services/nhomService.js",
+      "contentHash": "ca70f2ba754cd52ba7a67d23b914817c17c9dd9d705b389cb2bf7074ddfbe54d",
+      "functions": [
+        {
+          "name": "getAuthHeaders",
+          "params": [],
+          "exported": false,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "axios",
+          "specifiers": [
+            "axios"
+          ]
+        },
+        {
+          "source": "./authService",
+          "specifiers": [
+            "authService"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 96,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/theme/adminTheme.js": {
+      "filePath": "frontend/src/theme/adminTheme.js",
+      "contentHash": "5f687fd2333e3828fce487602121c63969c886272854ab66ee5be7982545e19c",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@mui/material/styles",
+          "specifiers": [
+            "createTheme"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 263,
+      "hasStructuralAnalysis": true
+    },
+    "frontend/src/utils/domain.js": {
+      "filePath": "frontend/src/utils/domain.js",
+      "contentHash": "50873d9ac44867afee174bb0f1f117a0c8c776b24428bfc77f2b329d0e8c14db",
+      "functions": [
+        {
+          "name": "getDomainTerminology",
+          "params": [],
+          "exported": true,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "getDomainTerminology"
+      ],
+      "totalLines": 25,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/.env.example": {
+      "filePath": "ml-service/.env.example",
+      "contentHash": "851147c077420bd8d9d6045128918c80347a1deacd21f682f2be9daede3888e5",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 5,
+      "hasStructuralAnalysis": false
+    },
+    "ml-service/README.md": {
+      "filePath": "ml-service/README.md",
+      "contentHash": "87b3c2cc2b4189ccb891497e2871155059e61a5d3ff337c6db06e3b142899366",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 77,
+      "hasStructuralAnalysis": false
+    },
+    "ml-service/app.py": {
+      "filePath": "ml-service/app.py",
+      "contentHash": "b609059eb41ab1cb6da733290f242ee2e8e2318880cebd549e664f59f28c8884",
+      "functions": [
+        {
+          "name": "verify_internal_token",
+          "params": [
+            "request",
+            "call_next"
+          ],
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "healthz",
+          "params": [],
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "FastAPI",
+            "Request"
+          ]
+        },
+        {
+          "source": "dotenv",
+          "specifiers": [
+            "load_dotenv"
+          ]
+        },
+        {
+          "source": "fastapi.middleware.cors",
+          "specifiers": [
+            "CORSMiddleware"
+          ]
+        },
+        {
+          "source": "fastapi.responses",
+          "specifiers": [
+            "JSONResponse"
+          ]
+        },
+        {
+          "source": "slowapi",
+          "specifiers": [
+            "Limiter",
+            "_rate_limit_exceeded_handler"
+          ]
+        },
+        {
+          "source": "slowapi.util",
+          "specifiers": [
+            "get_remote_address"
+          ]
+        },
+        {
+          "source": "slowapi.errors",
+          "specifiers": [
+            "RateLimitExceeded"
+          ]
+        },
+        {
+          "source": "utils.log_config",
+          "specifiers": [
+            "setup_logging"
+          ]
+        },
+        {
+          "source": "routes.analyze",
+          "specifiers": [
+            "analyze_router"
+          ]
+        },
+        {
+          "source": "routes.match",
+          "specifiers": [
+            "match_router"
+          ]
+        },
+        {
+          "source": "routes.compare_code",
+          "specifiers": [
+            "compare_code_router"
+          ]
+        },
+        {
+          "source": "routes.extract_pdf",
+          "specifiers": [
+            "extract_pdf_router"
+          ]
+        }
+      ],
+      "exports": [
+        "verify_internal_token",
+        "healthz"
+      ],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/models/phobert_analyzer.py": {
+      "filePath": "ml-service/models/phobert_analyzer.py",
+      "contentHash": "6a1402709c1a12f313363091b4828114c2b379d29f477c035a899ca2564290b8",
+      "functions": [],
+      "classes": [
+        {
+          "name": "PhoBertAnalyzer",
+          "methods": [
+            "__init__",
+            "_calc_repetition_ratio",
+            "_get_embedding",
+            "analyze",
+            "analyze_with_rubrics"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 227
+        }
+      ],
+      "imports": [
+        {
+          "source": "time",
+          "specifiers": [
+            "time"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "numpy",
+          "specifiers": [
+            "np"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "torch.nn.functional",
+          "specifiers": [
+            "F"
+          ]
+        },
+        {
+          "source": "transformers",
+          "specifiers": [
+            "AutoModel",
+            "AutoTokenizer"
+          ]
+        },
+        {
+          "source": "utils.text_preprocessing",
+          "specifiers": [
+            "extract_requirement_hits",
+            "normalize_text"
+          ]
+        },
+        {
+          "source": "utils.pdf_chunker",
+          "specifiers": [
+            "chunk_text"
+          ]
+        }
+      ],
+      "exports": [
+        "PhoBertAnalyzer"
+      ],
+      "totalLines": 240,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/models/sbert_matcher.py": {
+      "filePath": "ml-service/models/sbert_matcher.py",
+      "contentHash": "6e68c3b54d7ace5c314a9d2cb5bd6f6b1cd1e2cf7b1c662be5d416e435f099db",
+      "functions": [],
+      "classes": [
+        {
+          "name": "SbertMatcher",
+          "methods": [
+            "__init__",
+            "match"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 54
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "torch",
+          "specifiers": [
+            "torch"
+          ]
+        },
+        {
+          "source": "sentence_transformers",
+          "specifiers": [
+            "SentenceTransformer",
+            "util"
+          ]
+        }
+      ],
+      "exports": [
+        "SbertMatcher"
+      ],
+      "totalLines": 63,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/requirements.txt": {
+      "filePath": "ml-service/requirements.txt",
+      "contentHash": "dc0ced69077746fbcdcf923d9de30b59a2f61ad1ad1a517c5be42de15ebd433b",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 17,
+      "hasStructuralAnalysis": false
+    },
+    "ml-service/routes/analyze.py": {
+      "filePath": "ml-service/routes/analyze.py",
+      "contentHash": "fee79828aafddea4a1d4077322bfd5e2206945678a806d291d0b1e177f8a5e5e",
+      "functions": [
+        {
+          "name": "analyze_report",
+          "params": [
+            "request",
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 30
+        },
+        {
+          "name": "analyze_with_rubrics",
+          "params": [
+            "request",
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 31
+        }
+      ],
+      "classes": [
+        {
+          "name": "AnalyzeRequest",
+          "methods": [],
+          "properties": [
+            "text",
+            "topic_requirements"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "RubricItem",
+          "methods": [],
+          "properties": [
+            "TenTieuChi",
+            "MoTa",
+            "TrongSo",
+            "DiemToiDa",
+            "GoiYChoAI"
+          ],
+          "exported": true,
+          "lineCount": 6
+        },
+        {
+          "name": "AnalyzeRubricsRequest",
+          "methods": [],
+          "properties": [
+            "text",
+            "rubrics"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "Request"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        },
+        {
+          "source": "slowapi",
+          "specifiers": [
+            "Limiter"
+          ]
+        },
+        {
+          "source": "slowapi.util",
+          "specifiers": [
+            "get_remote_address"
+          ]
+        },
+        {
+          "source": "models.phobert_analyzer",
+          "specifiers": [
+            "PhoBertAnalyzer"
+          ]
+        },
+        {
+          "source": "utils.text_security",
+          "specifiers": [
+            "scan_injection",
+            "check_repetition",
+            "check_type_token_ratio"
+          ]
+        }
+      ],
+      "exports": [
+        "AnalyzeRequest",
+        "RubricItem",
+        "AnalyzeRubricsRequest",
+        "analyze_report",
+        "analyze_with_rubrics"
+      ],
+      "totalLines": 102,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/routes/compare_code.py": {
+      "filePath": "ml-service/routes/compare_code.py",
+      "contentHash": "8defd94063d86da634e6a47facc229cdd26f144290fe8780df1d00c8fae35960",
+      "functions": [
+        {
+          "name": "get_model",
+          "params": [],
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "compare_code",
+          "params": [
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 36
+        }
+      ],
+      "classes": [
+        {
+          "name": "CompareCodeRequest",
+          "methods": [],
+          "properties": [
+            "student_code",
+            "answer_code"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel"
+          ]
+        },
+        {
+          "source": "sentence_transformers",
+          "specifiers": [
+            "SentenceTransformer",
+            "util"
+          ]
+        }
+      ],
+      "exports": [
+        "get_model",
+        "CompareCodeRequest",
+        "compare_code"
+      ],
+      "totalLines": 63,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/routes/extract_pdf.py": {
+      "filePath": "ml-service/routes/extract_pdf.py",
+      "contentHash": "43e5c044382bb2d9fbc8a14e2ab4f2509dc65bdecd58213aa012926d82aa9d38",
+      "functions": [
+        {
+          "name": "extract_pdf",
+          "params": [
+            "file"
+          ],
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter",
+            "UploadFile",
+            "File",
+            "HTTPException"
+          ]
+        },
+        {
+          "source": "utils.pdf_extractor",
+          "specifiers": [
+            "extract_pdf_text"
+          ]
+        }
+      ],
+      "exports": [
+        "extract_pdf"
+      ],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/routes/match.py": {
+      "filePath": "ml-service/routes/match.py",
+      "contentHash": "632ed5949363f1950fee00a9598b23d379282d76b730c300f1970868162df3d4",
+      "functions": [
+        {
+          "name": "match_student",
+          "params": [
+            "payload"
+          ],
+          "exported": true,
+          "lineCount": 4
+        }
+      ],
+      "classes": [
+        {
+          "name": "StudentPayload",
+          "methods": [],
+          "properties": [
+            "gpa",
+            "major_scores"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "TopicPayload",
+          "methods": [],
+          "properties": [
+            "topic_id",
+            "requirements"
+          ],
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "MatchRequest",
+          "methods": [],
+          "properties": [
+            "student",
+            "topics"
+          ],
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "imports": [
+        {
+          "source": "typing",
+          "specifiers": [
+            "Any"
+          ]
+        },
+        {
+          "source": "fastapi",
+          "specifiers": [
+            "APIRouter"
+          ]
+        },
+        {
+          "source": "pydantic",
+          "specifiers": [
+            "BaseModel",
+            "Field"
+          ]
+        },
+        {
+          "source": "models.sbert_matcher",
+          "specifiers": [
+            "SbertMatcher"
+          ]
+        }
+      ],
+      "exports": [
+        "StudentPayload",
+        "TopicPayload",
+        "MatchRequest",
+        "match_student"
+      ],
+      "totalLines": 33,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/utils/log_config.py": {
+      "filePath": "ml-service/utils/log_config.py",
+      "contentHash": "ba98398f5ccb0b6aef2626accfcc508bd1c798c75a606e2a1814a88b1fb0bfec",
+      "functions": [
+        {
+          "name": "setup_logging",
+          "params": [
+            "level"
+          ],
+          "exported": true,
+          "lineCount": 52
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "os",
+          "specifiers": [
+            "os"
+          ]
+        },
+        {
+          "source": "logging.handlers",
+          "specifiers": [
+            "RotatingFileHandler"
+          ]
+        }
+      ],
+      "exports": [
+        "setup_logging"
+      ],
+      "totalLines": 58,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/utils/pdf_chunker.py": {
+      "filePath": "ml-service/utils/pdf_chunker.py",
+      "contentHash": "6ffab937dd8a677bedf9455c141ff3adedd83d1800ffcb26866ec1abd7d3cc1f",
+      "functions": [
+        {
+          "name": "_detect_headings",
+          "params": [
+            "text"
+          ],
+          "returnType": "list[tuple[int, str, int]]",
+          "exported": true,
+          "lineCount": 39
+        },
+        {
+          "name": "chunk_text",
+          "params": [
+            "text"
+          ],
+          "returnType": "list[TextChunk]",
+          "exported": true,
+          "lineCount": 57
+        },
+        {
+          "name": "_split_by_paragraphs",
+          "params": [
+            "text",
+            "max_words"
+          ],
+          "returnType": "list[TextChunk]",
+          "exported": true,
+          "lineCount": 44
+        }
+      ],
+      "classes": [
+        {
+          "name": "TextChunk",
+          "methods": [],
+          "properties": [
+            "index",
+            "heading",
+            "level",
+            "content",
+            "char_count"
+          ],
+          "exported": true,
+          "lineCount": 6
+        }
+      ],
+      "imports": [
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "dataclasses",
+          "specifiers": [
+            "dataclass",
+            "field"
+          ]
+        }
+      ],
+      "exports": [
+        "TextChunk",
+        "_detect_headings",
+        "chunk_text",
+        "_split_by_paragraphs"
+      ],
+      "totalLines": 174,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/utils/pdf_extractor.py": {
+      "filePath": "ml-service/utils/pdf_extractor.py",
+      "contentHash": "13b0180a1caed4e389f23273de028a8ae6418d905acd93b6256854ac26b51c75",
+      "functions": [
+        {
+          "name": "extract_pdf_text",
+          "params": [
+            "file_bytes"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 90
+        },
+        {
+          "name": "_check_injection_hints",
+          "params": [
+            "text",
+            "warnings"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "io",
+          "specifiers": [
+            "io"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        },
+        {
+          "source": "pdfplumber",
+          "specifiers": [
+            "pdfplumber"
+          ]
+        },
+        {
+          "source": "fitz",
+          "specifiers": [
+            "fitz"
+          ]
+        }
+      ],
+      "exports": [
+        "extract_pdf_text",
+        "_check_injection_hints"
+      ],
+      "totalLines": 113,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/utils/text_preprocessing.py": {
+      "filePath": "ml-service/utils/text_preprocessing.py",
+      "contentHash": "2c5c69e113ba2f44a50c05d028551b903da37f8e7760ae8371f7056ab0aee72b",
+      "functions": [
+        {
+          "name": "normalize_text",
+          "params": [
+            "text"
+          ],
+          "returnType": "str",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "extract_requirement_hits",
+          "params": [
+            "text",
+            "requirements"
+          ],
+          "returnType": "int",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "underthesea",
+          "specifiers": [
+            "word_tokenize"
+          ]
+        }
+      ],
+      "exports": [
+        "normalize_text",
+        "extract_requirement_hits"
+      ],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "ml-service/utils/text_security.py": {
+      "filePath": "ml-service/utils/text_security.py",
+      "contentHash": "3a1da543a5b6e8b75568e2e53be9097410362af55833cc1bedee5d4612b6bd7e",
+      "functions": [
+        {
+          "name": "scan_injection",
+          "params": [
+            "text"
+          ],
+          "returnType": "list[str]",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "check_repetition",
+          "params": [
+            "text",
+            "threshold"
+          ],
+          "returnType": "dict",
+          "exported": true,
+          "lineCount": 25
+        },
+        {
+          "name": "check_type_token_ratio",
+          "params": [
+            "text",
+            "threshold"
+          ],
+          "returnType": "bool",
+          "exported": true,
+          "lineCount": 7
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "re",
+          "specifiers": [
+            "re"
+          ]
+        },
+        {
+          "source": "logging",
+          "specifiers": [
+            "logging"
+          ]
+        }
+      ],
+      "exports": [
+        "scan_injection",
+        "check_repetition",
+        "check_type_token_ratio"
+      ],
+      "totalLines": 57,
+      "hasStructuralAnalysis": true
+    },
+    "package.json": {
+      "filePath": "package.json",
+      "contentHash": "1f36c9a7001208058b2758bde9802df539feb11566a1e4732a3fb9c071c810a8",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 12,
+      "hasStructuralAnalysis": false
+    }
+  }
+}

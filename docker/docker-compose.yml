@@ -1,36 +1,34 @@
 version: '3.8'
 
 services:
-  # MongoDB Database
   mongodb:
     image: mongo:7.0
-    container_name: web3-hr-mongodb
+    container_name: kltn-mongodb
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password123
-      MONGO_INITDB_DATABASE: web3_hr_db
+      MONGO_INITDB_DATABASE: kltn_db
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
       - ./mongo-init:/docker-entrypoint-initdb.d
     networks:
-      - web3-hr-network
+      - kltn-network
 
-  # Backend API
   backend:
     build:
       context: ../backend
       dockerfile: ../docker/backend.Dockerfile
-    container_name: web3-hr-backend
+    container_name: kltn-backend
     restart: unless-stopped
     environment:
       NODE_ENV: development
       PORT: 5000
-      MONGODB_URI: mongodb://admin:password123@mongodb:27017/web3_hr_db?authSource=admin
+      MONGODB_URI: mongodb://admin:password123@mongodb:27017/kltn_db?authSource=admin
       JWT_SECRET: your-super-secret-jwt-key-change-in-production
-      WEB3_PROVIDER_URL: https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID
+      ML_SERVICE_URL: http://ml-service:8001
     ports:
       - "5000:5000"
     depends_on:
@@ -39,15 +37,14 @@ services:
       - ../backend:/app
       - /app/node_modules
     networks:
-      - web3-hr-network
+      - kltn-network
     command: npm run dev
 
-  # Frontend React App
   frontend:
     build:
       context: ../frontend
       dockerfile: ../docker/frontend.Dockerfile
-    container_name: web3-hr-frontend
+    container_name: kltn-frontend
     restart: unless-stopped
     environment:
       REACT_APP_API_URL: http://localhost:5000/api
@@ -60,12 +57,24 @@ services:
       - ../frontend:/app
       - /app/node_modules
     networks:
-      - web3-hr-network
+      - kltn-network
     command: npm start
+
+  ml-service:
+    container_name: kltn-ml
+    build:
+      context: ../ml-service
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - ML_INTERNAL_TOKEN=${ML_INTERNAL_TOKEN:-}
+    networks:
+      - kltn-network
 
 volumes:
   mongodb_data:
 
 networks:
-  web3-hr-network:
+  kltn-network:
     driver: bridge

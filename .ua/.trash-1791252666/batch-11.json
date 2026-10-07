@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "config:backend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "backend/.env.example",
+      "summary": "Component responsible for .env.example functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:backend/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "backend/README.md",
+      "summary": "Component responsible for README.md functionality.",
+      "tags": [
+        "docs",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:backend/deployment.json",
+      "type": "config",
+      "name": "deployment.json",
+      "filePath": "backend/deployment.json",
+      "summary": "Component responsible for deployment.json functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:backend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "backend/package.json",
+      "summary": "Component responsible for package.json functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

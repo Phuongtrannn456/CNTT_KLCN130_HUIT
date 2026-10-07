@@ -2,6 +2,14 @@
 pragma solidity ^0.8.19;
 
 contract ThesisManagement {
+    address public owner;
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call this function");
+        _;
+    }
+    constructor() {
+        owner = msg.sender;
+    }
     struct Topic {
         string title;
         string advisorDID;
@@ -39,7 +47,7 @@ contract ThesisManagement {
         string memory advisorDID,
         uint256 deadline,
         string[] memory requirements
-    ) public {
+    ) public onlyOwner {
         require(!topics[topicId].exists, "Topic already exists");
 
         topics[topicId] = Topic({
@@ -61,7 +69,7 @@ contract ThesisManagement {
         string memory topicId,
         string memory ipfsCID,
         uint256 timestamp
-    ) public {
+    ) public onlyOwner {
         require(topics[topicId].exists, "Topic does not exist");
 
         Submission memory newSubmission = Submission({
@@ -86,7 +94,7 @@ contract ThesisManagement {
         uint8 grade,
         string memory feedback,
         uint256 submissionIndex
-    ) public {
+    ) public onlyOwner {
         require(topics[topicId].exists, "Topic does not exist");
         require(
             submissions[topicId][studentDID].length > submissionIndex,

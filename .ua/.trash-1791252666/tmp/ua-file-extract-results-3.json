@@ -1,0 +1,4749 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 21,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 21,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 21,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "frontend/src/components/student/EntranceTest.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 399,
+      "nonEmptyLines": 354,
+      "functions": [
+        {
+          "name": "EntranceTest",
+          "startLine": 18,
+          "endLine": 397,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "EntranceTest",
+          "callee": "useIsMobile",
+          "lineNumber": 19
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useParams",
+          "lineNumber": 20
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useNavigate",
+          "lineNumber": 21
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 22
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 23
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useQueryClient",
+          "lineNumber": 24
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 25
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 26
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 27
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 28
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 29
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 31
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 32
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useState",
+          "lineNumber": 33
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useRef",
+          "lineNumber": 34
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useRef",
+          "lineNumber": 35
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useEffect",
+          "lineNumber": 37
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useQuery",
+          "lineNumber": 41
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "nhomService.getNhomByHocSinh",
+          "lineNumber": 51
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "aiApiService.checkTestSubmitted",
+          "lineNumber": 55
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "aiApiService.getBaiTestForStudent",
+          "lineNumber": 62
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useEffect",
+          "lineNumber": 69
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "setMyNhom",
+          "lineNumber": 71
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "setSubmitted",
+          "lineNumber": 73
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "setResult",
+          "lineNumber": 74
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "setBaiTest",
+          "lineNumber": 77
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useEffect",
+          "lineNumber": 83
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "io",
+          "lineNumber": 86
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "socket.on",
+          "lineNumber": 89
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "console.log",
+          "lineNumber": 90
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "socket.emit",
+          "lineNumber": 93
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "socket.on",
+          "lineNumber": 98
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "setCompetitionResult",
+          "lineNumber": 101
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "message.success",
+          "lineNumber": 103
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "setCompetitionStopped",
+          "lineNumber": 107
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "setCompetitionResult",
+          "lineNumber": 108
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "Modal.warning",
+          "lineNumber": 109
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "navigate",
+          "lineNumber": 113
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "socket.on",
+          "lineNumber": 119
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "console.log",
+          "lineNumber": 120
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "socket.emit",
+          "lineNumber": 124
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "socket.disconnect",
+          "lineNumber": 125
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "useEffect",
+          "lineNumber": 130
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "socketRef.current.emit",
+          "lineNumber": 132
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "String",
+          "lineNumber": 137
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "String",
+          "lineNumber": 137
+        },
+        {
+          "caller": "handleStart",
+          "callee": "message.warning",
+          "lineNumber": 142
+        },
+        {
+          "caller": "handleStart",
+          "callee": "aiApiService.startBaiTest",
+          "lineNumber": 146
+        },
+        {
+          "caller": "handleStart",
+          "callee": "message.error",
+          "lineNumber": 148
+        },
+        {
+          "caller": "handleStart",
+          "callee": "setStarted",
+          "lineNumber": 151
+        },
+        {
+          "caller": "handleStart",
+          "callee": "setStartTime",
+          "lineNumber": 152
+        },
+        {
+          "caller": "handleAnswer",
+          "callee": "setAnswers",
+          "lineNumber": 156
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "message.warning",
+          "lineNumber": 161
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 164
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "traLoi.push",
+          "lineNumber": 168
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "aiApiService.submitBaiTest",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "startTime?.toISOString",
+          "lineNumber": 175
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setSubmitted",
+          "lineNumber": 178
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setCompetitionResult",
+          "lineNumber": 179
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setResult",
+          "lineNumber": 180
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "message.success",
+          "lineNumber": 190
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "message.info",
+          "lineNumber": 192
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "message.warning",
+          "lineNumber": 194
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "message.warning",
+          "lineNumber": 196
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 198
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "message.error",
+          "lineNumber": 200
+        },
+        {
+          "caller": "handleSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 202
+        },
+        {
+          "caller": "handleTimeUp",
+          "callee": "message.warning",
+          "lineNumber": 208
+        },
+        {
+          "caller": "handleTimeUp",
+          "callee": "handleSubmit",
+          "lineNumber": 209
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "Math.round",
+          "lineNumber": 217
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "new Date(result.ThoiGianNop).toLocaleString",
+          "lineNumber": 239
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "result.TxHash.startsWith",
+          "lineNumber": 248
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "window.open",
+          "lineNumber": 248
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "result.TxHash.substring",
+          "lineNumber": 249
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "(result.TraLoi || []).map",
+          "lineNumber": 256
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "Math.round",
+          "lineNumber": 262
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "navigate",
+          "lineNumber": 267
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "new Date(startTime.getTime() + baiTest.ThoiGianLam * 60000).getTime",
+          "lineNumber": 311
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "startTime.getTime",
+          "lineNumber": 311
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "Object.keys",
+          "lineNumber": 312
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "navigate",
+          "lineNumber": 323
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "Math.round",
+          "lineNumber": 339
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "baiTest.CauHoi.map",
+          "lineNumber": 343
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "handleAnswer",
+          "lineNumber": 356
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "(q.LuaChon || []).map",
+          "lineNumber": 358
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "String.fromCharCode",
+          "lineNumber": 359
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "String.fromCharCode",
+          "lineNumber": 361
+        },
+        {
+          "caller": "EntranceTest",
+          "callee": "handleAnswer",
+          "lineNumber": 376
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/student/GroupManagement.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 488,
+      "nonEmptyLines": 461,
+      "functions": [
+        {
+          "name": "GroupManagement",
+          "startLine": 12,
+          "endLine": 486,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "GroupManagement",
+          "callee": "useClassContext",
+          "lineNumber": 13
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 23
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useQueryClient",
+          "lineNumber": 24
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "useQuery",
+          "lineNumber": 26
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "Promise.all",
+          "lineNumber": 32
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "nhomService.getNhomByHocSinh",
+          "lineNumber": 33
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "nhomService.getPendingInvites",
+          "lineNumber": 34
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "console.error",
+          "lineNumber": 39
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "message.warning",
+          "lineNumber": 51
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "message.warning",
+          "lineNumber": 55
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "setCreating",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "nhomService.createNhom",
+          "lineNumber": 60
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "message.success",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "setCreateModalVisible",
+          "lineNumber": 62
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "setTenNhom",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "setSoLuong",
+          "lineNumber": 64
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 65
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "message.error",
+          "lineNumber": 67
+        },
+        {
+          "caller": "handleCreateNhom",
+          "callee": "setCreating",
+          "lineNumber": 69
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "inviteMaHS.trim",
+          "lineNumber": 75
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "message.warning",
+          "lineNumber": 76
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setInviting",
+          "lineNumber": 79
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "nhomService.inviteMember",
+          "lineNumber": 81
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "inviteMaHS.trim",
+          "lineNumber": 81
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "message.success",
+          "lineNumber": 82
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setInviteMaHS",
+          "lineNumber": 83
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 84
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "message.error",
+          "lineNumber": 86
+        },
+        {
+          "caller": "handleInvite",
+          "callee": "setInviting",
+          "lineNumber": 88
+        },
+        {
+          "caller": "handleRespondInvite",
+          "callee": "nhomService.respondToInvite",
+          "lineNumber": 95
+        },
+        {
+          "caller": "handleRespondInvite",
+          "callee": "message.success",
+          "lineNumber": 96
+        },
+        {
+          "caller": "handleRespondInvite",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 97
+        },
+        {
+          "caller": "handleRespondInvite",
+          "callee": "message.error",
+          "lineNumber": 99
+        },
+        {
+          "caller": "handleKick",
+          "callee": "Modal.confirm",
+          "lineNumber": 105
+        },
+        {
+          "caller": "handleKick",
+          "callee": "nhomService.kickMember",
+          "lineNumber": 113
+        },
+        {
+          "caller": "handleKick",
+          "callee": "message.success",
+          "lineNumber": 114
+        },
+        {
+          "caller": "handleKick",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 115
+        },
+        {
+          "caller": "handleKick",
+          "callee": "message.error",
+          "lineNumber": 117
+        },
+        {
+          "caller": "handleLeave",
+          "callee": "Modal.confirm",
+          "lineNumber": 125
+        },
+        {
+          "caller": "handleLeave",
+          "callee": "nhomService.leaveNhom",
+          "lineNumber": 133
+        },
+        {
+          "caller": "handleLeave",
+          "callee": "message.success",
+          "lineNumber": 134
+        },
+        {
+          "caller": "handleLeave",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 135
+        },
+        {
+          "caller": "handleLeave",
+          "callee": "message.error",
+          "lineNumber": 137
+        },
+        {
+          "caller": "handleTransferLeader",
+          "callee": "message.warning",
+          "lineNumber": 146
+        },
+        {
+          "caller": "handleTransferLeader",
+          "callee": "nhomService.transferLeader",
+          "lineNumber": 150
+        },
+        {
+          "caller": "handleTransferLeader",
+          "callee": "message.success",
+          "lineNumber": 151
+        },
+        {
+          "caller": "handleTransferLeader",
+          "callee": "setTransferModalVisible",
+          "lineNumber": 152
+        },
+        {
+          "caller": "handleTransferLeader",
+          "callee": "setSelectedNewLeader",
+          "lineNumber": 153
+        },
+        {
+          "caller": "handleTransferLeader",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 154
+        },
+        {
+          "caller": "handleTransferLeader",
+          "callee": "message.error",
+          "lineNumber": 156
+        },
+        {
+          "caller": "handleChotNhom",
+          "callee": "Modal.confirm",
+          "lineNumber": 162
+        },
+        {
+          "caller": "handleChotNhom",
+          "callee": "nhomService.chotNhom",
+          "lineNumber": 169
+        },
+        {
+          "caller": "handleChotNhom",
+          "callee": "message.success",
+          "lineNumber": 170
+        },
+        {
+          "caller": "handleChotNhom",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleChotNhom",
+          "callee": "message.error",
+          "lineNumber": 173
+        },
+        {
+          "caller": "handleDeleteNhom",
+          "callee": "Modal.confirm",
+          "lineNumber": 181
+        },
+        {
+          "caller": "handleDeleteNhom",
+          "callee": "nhomService.deleteNhom",
+          "lineNumber": 189
+        },
+        {
+          "caller": "handleDeleteNhom",
+          "callee": "message.success",
+          "lineNumber": 190
+        },
+        {
+          "caller": "handleDeleteNhom",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 191
+        },
+        {
+          "caller": "handleDeleteNhom",
+          "callee": "message.error",
+          "lineNumber": 193
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "nhom?.ThanhVien?.filter",
+          "lineNumber": 200
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "nhom?.ThanhVien?.filter",
+          "lineNumber": 201
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "handleRespondInvite",
+          "lineNumber": 234
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "handleRespondInvite",
+          "lineNumber": 237
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setCreateModalVisible",
+          "lineNumber": 261
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "[\n                      tv.TrangThai === 'DaMoi' ? (\n                        <Tag color=\"orange\">Đang chờ</Tag>\n                      ) : null,\n                      <Tooltip title=\"Xóa khỏi nhóm\">\n                        <Button size=\"small\" danger icon={<Trash2 size={14} />}\n                          onClick={() => handleKick(sv?._id, sv?.HoTen || 'N/A')}\n                        />\n                      </Tooltip>\n                    ].filter",
+          "lineNumber": 325
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "handleKick",
+          "lineNumber": 331
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "[\n                      tv.TrangThai === 'DaMoi' && isMe ? (\n                        <Space key=\"respond\">\n                          <Button type=\"primary\" size=\"small\" onClick={() => handleRespondInvite(nhom._id, true)}>Chấp nhận</Button>\n                          <Button size=\"small\" danger onClick={() => handleRespondInvite(nhom._id, false)}>Từ chối</Button>\n                        </Space>\n                      ) : tv.TrangThai === 'DaMoi' ? (\n                        <Tag color=\"orange\">Đang chờ</Tag>\n                      ) : null\n                    ].filter",
+          "lineNumber": 334
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "handleRespondInvite",
+          "lineNumber": 337
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "handleRespondInvite",
+          "lineNumber": 338
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setInviteMaHS",
+          "lineNumber": 380
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setTransferModalVisible",
+          "lineNumber": 403
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setCreateModalVisible",
+          "lineNumber": 416
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setTenNhom",
+          "lineNumber": 427
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setSoLuong",
+          "lineNumber": 446
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setTransferModalVisible",
+          "lineNumber": 464
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setSelectedNewLeader",
+          "lineNumber": 464
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "setSelectedNewLeader",
+          "lineNumber": 473
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "acceptedMembers\n              .filter(tv => tv.HocSinh?._id !== user?.id)\n              .map",
+          "lineNumber": 475
+        },
+        {
+          "caller": "GroupManagement",
+          "callee": "acceptedMembers\n              .filter",
+          "lineNumber": 475
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/student/ProgressLog.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 604,
+      "nonEmptyLines": 543,
+      "functions": [
+        {
+          "name": "formatWarningLabel",
+          "startLine": 24,
+          "endLine": 24,
+          "params": [
+            "warning"
+          ]
+        },
+        {
+          "name": "ProgressLog",
+          "startLine": 26,
+          "endLine": 602,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ProgressLog",
+          "callee": "useIsMobile",
+          "lineNumber": 27
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useClassContext",
+          "lineNumber": 28
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useState",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useState",
+          "lineNumber": 30
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useState",
+          "lineNumber": 31
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Form.useForm",
+          "lineNumber": 32
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 34
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useQueryClient",
+          "lineNumber": 35
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useQuery",
+          "lineNumber": 37
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "aiApiService.getMyRegistration",
+          "lineNumber": 43
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "aiApiService.getProgressByHocSinh",
+          "lineNumber": 48
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "console.error",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "message.warning",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "setSubmitting",
+          "lineNumber": 68
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "getPreviousPercent",
+          "lineNumber": 69
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "Number.isFinite",
+          "lineNumber": 70
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "values.tuanThoiGian?.[0]?.toISOString",
+          "lineNumber": 80
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "values.tuanThoiGian?.[1]?.toISOString",
+          "lineNumber": 81
+        },
+        {
+          "caller": "submitAction",
+          "callee": "aiApiService.updateProgressEntry",
+          "lineNumber": 93
+        },
+        {
+          "caller": "submitAction",
+          "callee": "aiApiService.createProgressEntry",
+          "lineNumber": 95
+        },
+        {
+          "caller": "finalizeSubmit",
+          "callee": "submitAction",
+          "lineNumber": 100
+        },
+        {
+          "caller": "finalizeSubmit",
+          "callee": "message.success",
+          "lineNumber": 101
+        },
+        {
+          "caller": "finalizeSubmit",
+          "callee": "setIsModalVisible",
+          "lineNumber": 102
+        },
+        {
+          "caller": "finalizeSubmit",
+          "callee": "form.resetFields",
+          "lineNumber": 103
+        },
+        {
+          "caller": "finalizeSubmit",
+          "callee": "setEditingLog",
+          "lineNumber": 104
+        },
+        {
+          "caller": "finalizeSubmit",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 105
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "Modal.confirm",
+          "lineNumber": 109
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "finalizeSubmit",
+          "lineNumber": 116
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "message.error",
+          "lineNumber": 118
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "finalizeSubmit",
+          "lineNumber": 125
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "message.error",
+          "lineNumber": 127
+        },
+        {
+          "caller": "handleCreateLog",
+          "callee": "setSubmitting",
+          "lineNumber": 129
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number.isFinite",
+          "lineNumber": 134
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number",
+          "lineNumber": 134
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "logs.filter",
+          "lineNumber": 138
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number.isFinite",
+          "lineNumber": 138
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number",
+          "lineNumber": 138
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "weeklyLogs\n            .filter(item => Number(item.TuanSo) < Number(tuanSo))\n            .sort",
+          "lineNumber": 139
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "weeklyLogs\n            .filter",
+          "lineNumber": 139
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number",
+          "lineNumber": 140
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number",
+          "lineNumber": 140
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number",
+          "lineNumber": 141
+        },
+        {
+          "caller": "getPreviousPercent",
+          "callee": "Number",
+          "lineNumber": 141
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useMemo",
+          "lineNumber": 150
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "logs.forEach",
+          "lineNumber": 154
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number.isFinite",
+          "lineNumber": 155
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 155
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "weekly.push",
+          "lineNumber": 156
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "legacy.push",
+          "lineNumber": 158
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "weekly.sort",
+          "lineNumber": 162
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 162
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 162
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "useMemo",
+          "lineNumber": 166
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "groupedLogs.weekly.forEach",
+          "lineNumber": 168
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 169
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "groups[key].push",
+          "lineNumber": 173
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Object.keys(groups)\n            .map(key => ({ label: `Tuần ${key}`, items: groups[key] }))\n            .sort",
+          "lineNumber": 176
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Object.keys(groups)\n            .map",
+          "lineNumber": 176
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Object.keys",
+          "lineNumber": 176
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 178
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "a.label.replace",
+          "lineNumber": 178
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 178
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "b.label.replace",
+          "lineNumber": 178
+        },
+        {
+          "caller": "openCreateModal",
+          "callee": "setEditingLog",
+          "lineNumber": 202
+        },
+        {
+          "caller": "openCreateModal",
+          "callee": "form.resetFields",
+          "lineNumber": 203
+        },
+        {
+          "caller": "openCreateModal",
+          "callee": "setIsModalVisible",
+          "lineNumber": 204
+        },
+        {
+          "caller": "openResubmitModal",
+          "callee": "setEditingLog",
+          "lineNumber": 208
+        },
+        {
+          "caller": "openResubmitModal",
+          "callee": "form.resetFields",
+          "lineNumber": 209
+        },
+        {
+          "caller": "openResubmitModal",
+          "callee": "form.setFieldsValue",
+          "lineNumber": 210
+        },
+        {
+          "caller": "openResubmitModal",
+          "callee": "setIsModalVisible",
+          "lineNumber": 211
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "setEditingLog",
+          "lineNumber": 215
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "form.resetFields",
+          "lineNumber": 216
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "form.setFieldsValue",
+          "lineNumber": 217
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "(log.MinhChung || []).map",
+          "lineNumber": 227
+        },
+        {
+          "caller": "openEditModal",
+          "callee": "setIsModalVisible",
+          "lineNumber": 239
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "weeklyGroups.map",
+          "lineNumber": 291
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number.isFinite",
+          "lineNumber": 301
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 301
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "getTagColor",
+          "lineNumber": 304
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "getStatusColor",
+          "lineNumber": 310
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "getStatusLabel",
+          "lineNumber": 310
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number.isFinite",
+          "lineNumber": 312
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Number",
+          "lineNumber": 312
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "new Date(item.createdAt).toLocaleString",
+          "lineNumber": 317
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Array.isArray",
+          "lineNumber": 336
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Array.isArray",
+          "lineNumber": 356
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "item.CanhBaoTienDo.map(formatWarningLabel).join",
+          "lineNumber": 362
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "item.CanhBaoTienDo.map",
+          "lineNumber": 362
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "Array.isArray",
+          "lineNumber": 366
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "openEditModal",
+          "lineNumber": 394
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "openResubmitModal",
+          "lineNumber": 401
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "getTagColor",
+          "lineNumber": 422
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "new Date(item.createdAt).toLocaleString",
+          "lineNumber": 428
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "setIsModalVisible",
+          "lineNumber": 454
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "setEditingLog",
+          "lineNumber": 455
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "fields.map",
+          "lineNumber": 509
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "remove",
+          "lineNumber": 536
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "add",
+          "lineNumber": 542
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "option.value.toUpperCase().indexOf",
+          "lineNumber": 566
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "option.value.toUpperCase",
+          "lineNumber": 566
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "inputValue.toUpperCase",
+          "lineNumber": 566
+        },
+        {
+          "caller": "ProgressLog",
+          "callee": "setIsModalVisible",
+          "lineNumber": 595
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/student/ProgressTracking.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 282,
+      "nonEmptyLines": 262,
+      "functions": [
+        {
+          "name": "ProgressTracking",
+          "startLine": 12,
+          "endLine": 280,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ProgressTracking",
+          "callee": "useIsMobile",
+          "lineNumber": 13
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "useClassContext",
+          "lineNumber": 14
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "useQuery",
+          "lineNumber": 17
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "aiApiService.getMyRegistration",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "aiApiService.getDiemByHocSinh",
+          "lineNumber": 38
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "diemRes.find",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "(g.DeTai?._id || g.DeTai).toString",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "deTaiId.toString",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "console.warn",
+          "lineNumber": 46
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "aiApiService.getProgressByHocSinh",
+          "lineNumber": 50
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "[...logs].sort",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "console.warn",
+          "lineNumber": 55
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "aiApiService.getMyBaoCao",
+          "lineNumber": 59
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "aiApiService.analyzeReportAI",
+          "lineNumber": 63
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "console.warn",
+          "lineNumber": 67
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "console.error",
+          "lineNumber": 72
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "topicRequires.map",
+          "lineNumber": 129
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "getCurrentStep",
+          "lineNumber": 142
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "aiResult.issues.map",
+          "lineNumber": 193
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "Math.round",
+          "lineNumber": 252
+        },
+        {
+          "caller": "ProgressTracking",
+          "callee": "Math.round",
+          "lineNumber": 252
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/student/ReportUpload.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 294,
+      "nonEmptyLines": 265,
+      "functions": [
+        {
+          "name": "ReportUpload",
+          "startLine": 13,
+          "endLine": 292,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ReportUpload",
+          "callee": "useIsMobile",
+          "lineNumber": 14
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "useClassContext",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 21
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "useQueryClient",
+          "lineNumber": 22
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "useQuery",
+          "lineNumber": 24
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "aiApiService.getMyRegistration",
+          "lineNumber": 35
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "aiApiService.getMyBaoCao",
+          "lineNumber": 40
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "aiApiService.getDiemByHocSinh",
+          "lineNumber": 45
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "Array.isArray",
+          "lineNumber": 46
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "diemRes.some",
+          "lineNumber": 46
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "(d.BaoCao._id || d.BaoCao).toString",
+          "lineNumber": 47
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "result.existingBaoCao._id.toString",
+          "lineNumber": 47
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "console.error",
+          "lineNumber": 55
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "message.error",
+          "lineNumber": 82
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "setFileList",
+          "lineNumber": 85
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "setFileList",
+          "lineNumber": 88
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "message.warning",
+          "lineNumber": 93
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "message.warning",
+          "lineNumber": 97
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setUploading",
+          "lineNumber": 101
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 102
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setInterval",
+          "lineNumber": 104
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 105
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "clearInterval",
+          "lineNumber": 106
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "formData.append",
+          "lineNumber": 113
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "formData.append",
+          "lineNumber": 114
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "formData.append",
+          "lineNumber": 115
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "formData.append",
+          "lineNumber": 116
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "aiApiService.uploadBaoCao",
+          "lineNumber": 118
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "clearInterval",
+          "lineNumber": 119
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 120
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setFileList",
+          "lineNumber": 121
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 122
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "message.success",
+          "lineNumber": 126
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "message.warning",
+          "lineNumber": 128
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "clearInterval",
+          "lineNumber": 131
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setProgress",
+          "lineNumber": 132
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "message.error",
+          "lineNumber": 134
+        },
+        {
+          "caller": "handleUpload",
+          "callee": "setUploading",
+          "lineNumber": 136
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "Modal.confirm",
+          "lineNumber": 141
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "setDeleting",
+          "lineNumber": 148
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "aiApiService.deleteBaoCao",
+          "lineNumber": 150
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "setProgress",
+          "lineNumber": 151
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 152
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "message.success",
+          "lineNumber": 153
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "message.error",
+          "lineNumber": 156
+        },
+        {
+          "caller": "handleUnsubmit",
+          "callee": "setDeleting",
+          "lineNumber": 158
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "topicRequires.map",
+          "lineNumber": 196
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "window.open",
+          "lineNumber": 220
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "getIpfsUrl",
+          "lineNumber": 220
+        },
+        {
+          "caller": "ReportUpload",
+          "callee": "new Date(existingBaoCao.NgayNop || existingBaoCao.createdAt).toLocaleString",
+          "lineNumber": 226
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/student/StudentDashboard.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 560,
+      "nonEmptyLines": 518,
+      "functions": [
+        {
+          "name": "StudentDashboard",
+          "startLine": 14,
+          "endLine": 558,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "StudentDashboard",
+          "callee": "useIsMobile",
+          "lineNumber": 15
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "useClassContext",
+          "lineNumber": 16
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "Form.useForm",
+          "lineNumber": 19
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 20
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "useQueryClient",
+          "lineNumber": 21
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "useQuery",
+          "lineNumber": 23
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "aiApiService.getStudentProfile",
+          "lineNumber": 40
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "aiApiService.getMyInvitations",
+          "lineNumber": 44
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "Array.isArray",
+          "lineNumber": 45
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "managementService.getMyClassInvites",
+          "lineNumber": 49
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "console.warn",
+          "lineNumber": 52
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "console.warn",
+          "lineNumber": 55
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "aiApiService.getMyRegistration",
+          "lineNumber": 60
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "aiApiService.getDiemByHocSinh",
+          "lineNumber": 66
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "Array.isArray",
+          "lineNumber": 67
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "gradeData.find",
+          "lineNumber": 68
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "console.warn",
+          "lineNumber": 74
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "aiApiService.getProgressByHocSinh",
+          "lineNumber": 78
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "logs.filter",
+          "lineNumber": 80
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "Math.round",
+          "lineNumber": 82
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "graded.reduce",
+          "lineNumber": 82
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "console.warn",
+          "lineNumber": 87
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "console.warn",
+          "lineNumber": 92
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "useEffect",
+          "lineNumber": 102
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "setEditingProfile",
+          "lineNumber": 104
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "setSavingProfile",
+          "lineNumber": 109
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "(values.KyNang || []).map",
+          "lineNumber": 111
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "aiApiService.updateStudentProfile",
+          "lineNumber": 116
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "setEditingProfile",
+          "lineNumber": 124
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "message.success",
+          "lineNumber": 125
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 126
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "message.error",
+          "lineNumber": 129
+        },
+        {
+          "caller": "handleSaveProfile",
+          "callee": "setSavingProfile",
+          "lineNumber": 131
+        },
+        {
+          "caller": "openEditProfile",
+          "callee": "studentProfile.BangDiemKyNang.forEach",
+          "lineNumber": 140
+        },
+        {
+          "caller": "openEditProfile",
+          "callee": "form.setFieldsValue",
+          "lineNumber": 145
+        },
+        {
+          "caller": "openEditProfile",
+          "callee": "setEditingProfile",
+          "lineNumber": 155
+        },
+        {
+          "caller": "handleRespondInvitation",
+          "callee": "aiApiService.respondToInvitation",
+          "lineNumber": 160
+        },
+        {
+          "caller": "handleRespondInvitation",
+          "callee": "message.success",
+          "lineNumber": 161
+        },
+        {
+          "caller": "handleRespondInvitation",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 162
+        },
+        {
+          "caller": "handleRespondInvitation",
+          "callee": "message.error",
+          "lineNumber": 164
+        },
+        {
+          "caller": "handleRespondClassInvite",
+          "callee": "managementService.respondClassInvite",
+          "lineNumber": 170
+        },
+        {
+          "caller": "handleRespondClassInvite",
+          "callee": "message.success",
+          "lineNumber": 171
+        },
+        {
+          "caller": "handleRespondClassInvite",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 172
+        },
+        {
+          "caller": "handleRespondClassInvite",
+          "callee": "message.error",
+          "lineNumber": 174
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "invitations.map",
+          "lineNumber": 216
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "handleRespondInvitation",
+          "lineNumber": 226
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "handleRespondInvitation",
+          "lineNumber": 229
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "classInvites.map",
+          "lineNumber": 238
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "handleRespondClassInvite",
+          "lineNumber": 253
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "handleRespondClassInvite",
+          "lineNumber": 256
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "studentProfile.KyNang.map",
+          "lineNumber": 297
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "grade.TxHash.startsWith",
+          "lineNumber": 363
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "window.open",
+          "lineNumber": 364
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "myClasses.map",
+          "lineNumber": 405
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "setEditingProfile",
+          "lineNumber": 442
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "studentProfile?.BangDiemKyNang?.reduce",
+          "lineNumber": 467
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "getFieldValue",
+          "lineNumber": 527
+        },
+        {
+          "caller": "StudentDashboard",
+          "callee": "kyNangList.map",
+          "lineNumber": 532
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/student/StudentSubmissionView.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 179,
+      "nonEmptyLines": 161,
+      "functions": [
+        {
+          "name": "StudentSubmissionView",
+          "startLine": 11,
+          "endLine": 177,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useParams",
+          "lineNumber": 12
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useNavigate",
+          "lineNumber": 13
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useState",
+          "lineNumber": 19
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useState",
+          "lineNumber": 20
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useState",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setLoading",
+          "lineNumber": 24
+        },
+        {
+          "caller": "fetchData",
+          "callee": "challengeService.getChallengeById",
+          "lineNumber": 26
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setChallenge",
+          "lineNumber": 27
+        },
+        {
+          "caller": "fetchData",
+          "callee": "challengeService.getMyParticipations",
+          "lineNumber": 29
+        },
+        {
+          "caller": "fetchData",
+          "callee": "partsRes.participations.find",
+          "lineNumber": 31
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setParticipation",
+          "lineNumber": 33
+        },
+        {
+          "caller": "fetchData",
+          "callee": "challengeService.getSubmissions",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setSubmissions",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fetchData",
+          "callee": "challengeService.getEvaluation",
+          "lineNumber": 42
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setEvaluation",
+          "lineNumber": 44
+        },
+        {
+          "caller": "fetchData",
+          "callee": "message.error",
+          "lineNumber": 54
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setLoading",
+          "lineNumber": 56
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "useEffect",
+          "lineNumber": 60
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "fetchData",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleJoin",
+          "callee": "challengeService.joinChallenge",
+          "lineNumber": 66
+        },
+        {
+          "caller": "handleJoin",
+          "callee": "message.success",
+          "lineNumber": 67
+        },
+        {
+          "caller": "handleJoin",
+          "callee": "fetchData",
+          "lineNumber": 68
+        },
+        {
+          "caller": "handleJoin",
+          "callee": "message.error",
+          "lineNumber": 70
+        },
+        {
+          "caller": "onFinishSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 76
+        },
+        {
+          "caller": "onFinishSubmit",
+          "callee": "challengeService.submitWork",
+          "lineNumber": 78
+        },
+        {
+          "caller": "onFinishSubmit",
+          "callee": "message.success",
+          "lineNumber": 82
+        },
+        {
+          "caller": "onFinishSubmit",
+          "callee": "fetchData",
+          "lineNumber": 83
+        },
+        {
+          "caller": "onFinishSubmit",
+          "callee": "message.error",
+          "lineNumber": 85
+        },
+        {
+          "caller": "onFinishSubmit",
+          "callee": "setSubmitting",
+          "lineNumber": 87
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "dayjs().isAfter",
+          "lineNumber": 95
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "dayjs",
+          "lineNumber": 95
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "dayjs",
+          "lineNumber": 95
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "navigate",
+          "lineNumber": 100
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "dayjs(challenge.deadline).format",
+          "lineNumber": 106
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "dayjs",
+          "lineNumber": 106
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "challenge.eligibleGrades?.join",
+          "lineNumber": 107
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "submissions.map",
+          "lineNumber": 158
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "dayjs(sub.createdAt).format",
+          "lineNumber": 162
+        },
+        {
+          "caller": "StudentSubmissionView",
+          "callee": "dayjs",
+          "lineNumber": 162
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/student/TopicRegistration.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 700,
+      "nonEmptyLines": 658,
+      "functions": [
+        {
+          "name": "TopicRegistration",
+          "startLine": 13,
+          "endLine": 698,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "TopicRegistration",
+          "callee": "useNavigate",
+          "lineNumber": 14
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "useClassContext",
+          "lineNumber": 15
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "useState",
+          "lineNumber": 18
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 20
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "useQueryClient",
+          "lineNumber": 21
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "useQuery",
+          "lineNumber": 23
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "nhomService.getNhomByHocSinh",
+          "lineNumber": 41
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "console.warn",
+          "lineNumber": 44
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "aiApiService.getMyRegistrations",
+          "lineNumber": 49
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "(regsRes.registrations || []).filter",
+          "lineNumber": 50
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "klRegs.find",
+          "lineNumber": 54
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "aiApiService.getMyRegistration",
+          "lineNumber": 62
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "aiApiService.checkTestSubmitted",
+          "lineNumber": 73
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "console.warn",
+          "lineNumber": 78
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "aiApiService.getTopics",
+          "lineNumber": 85
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "Array.isArray",
+          "lineNumber": 86
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "aiApiService.getStudentProfile",
+          "lineNumber": 95
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "console.warn",
+          "lineNumber": 102
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topicList.map",
+          "lineNumber": 106
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "aiApiService.matchTopicsAI",
+          "lineNumber": 109
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topicList.map",
+          "lineNumber": 112
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "recs.find",
+          "lineNumber": 113
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "(t._id || '').toString",
+          "lineNumber": 113
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "(score * 10).toFixed",
+          "lineNumber": 117
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "console.warn",
+          "lineNumber": 123
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "enriched.sort",
+          "lineNumber": 126
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "parseFloat",
+          "lineNumber": 126
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "parseFloat",
+          "lineNumber": 126
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 144
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "message.error",
+          "lineNumber": 146
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "message.warning",
+          "lineNumber": 151
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "message.warning",
+          "lineNumber": 156
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "Modal.confirm",
+          "lineNumber": 160
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "(() => {\n                const monHocSet = new Map();\n                (topic.LopHoc || []).forEach(lh => {\n                  if (lh.MonHoc && lh.MonHoc._id) {\n                    monHocSet.set(lh.MonHoc._id, lh.MonHoc);\n                  }\n                });\n                if (monHocSet.size === 0 && topic.MonHoc) {\n                  const mh = topic.MonHoc;\n                  return <Tag color=\"geekblue\">{mh.TenMonHoc || mh.MaMonHoc || '—'}</Tag>;\n                }\n                return Array.from(monHocSet.values()).map(mh => (\n                  <Tag key={mh._id} color=\"geekblue\">{mh.TenMonHoc || mh.MaMonHoc}</Tag>\n                ));\n              })",
+          "lineNumber": 181
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "(topic.LopHoc || []).forEach",
+          "lineNumber": 183
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "monHocSet.set",
+          "lineNumber": 185
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "Array.from(monHocSet.values()).map",
+          "lineNumber": 192
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "Array.from",
+          "lineNumber": 192
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "monHocSet.values",
+          "lineNumber": 192
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "topic.ChiTietBoSung.map",
+          "lineNumber": 228
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "topic.YeuCau.map",
+          "lineNumber": 240
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "setLoadingId",
+          "lineNumber": 250
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "aiApiService.registerTopic",
+          "lineNumber": 252
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 253
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "message.success",
+          "lineNumber": 257
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "setTimeout",
+          "lineNumber": 259
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "navigate",
+          "lineNumber": 259
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "message.error",
+          "lineNumber": 263
+        },
+        {
+          "caller": "handleRegister",
+          "callee": "setLoadingId",
+          "lineNumber": 265
+        },
+        {
+          "caller": "handleCancelRegistration",
+          "callee": "Modal.confirm",
+          "lineNumber": 272
+        },
+        {
+          "caller": "handleCancelRegistration",
+          "callee": "aiApiService.cancelRegistration",
+          "lineNumber": 281
+        },
+        {
+          "caller": "handleCancelRegistration",
+          "callee": "message.success",
+          "lineNumber": 282
+        },
+        {
+          "caller": "handleCancelRegistration",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 283
+        },
+        {
+          "caller": "handleCancelRegistration",
+          "callee": "message.error",
+          "lineNumber": 285
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "message.warning",
+          "lineNumber": 293
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "setInviting",
+          "lineNumber": 296
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "aiApiService.inviteMember",
+          "lineNumber": 299
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "message.success",
+          "lineNumber": 300
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "setInviteMaHS",
+          "lineNumber": 301
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 302
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "message.error",
+          "lineNumber": 304
+        },
+        {
+          "caller": "handleInviteMember",
+          "callee": "setInviting",
+          "lineNumber": 306
+        },
+        {
+          "caller": "isRegistered",
+          "callee": "activeRegistrations.some",
+          "lineNumber": 312
+        },
+        {
+          "caller": "isRegistered",
+          "callee": "(r.DeTai?._id || r.DeTai || '').toString",
+          "lineNumber": 312
+        },
+        {
+          "caller": "isRegistered",
+          "callee": "topicId.toString",
+          "lineNumber": 312
+        },
+        {
+          "caller": "isRegistered",
+          "callee": "registeredTopicId.toString",
+          "lineNumber": 314
+        },
+        {
+          "caller": "isRegistered",
+          "callee": "topicId.toString",
+          "lineNumber": 314
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "activeRegistrations.some",
+          "lineNumber": 318
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "navigate",
+          "lineNumber": 361
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "[\n                  reg.TrangThai === 'ChoTest' && (\n                    <Button type=\"primary\" size=\"small\" style={{ background: '#722ed1', borderColor: '#722ed1' }}\n                      onClick={() => navigate(`/student/entrance-test/${reg.DeTai?._id || reg.DeTai}`)}>\n                      Làm bài test\n                    </Button>\n                  ),\n                  ['ChoDuyet', 'ChoTest', 'DangLamTest'].includes(reg.TrangThai) && (\n                    <Button size=\"small\" type=\"primary\" danger onClick={() => {\n                      Modal.confirm({\n                        title: 'Hủy Đăng Ký Đề Tài',\n                        content: `Bạn có chắc muốn hủy đăng ký đề tài \"${reg.DeTai?.TenDeTai}\" không?`,\n                        okText: 'Xác Nhận Hủy',\n                        okButtonProps: { danger: true },\n                        cancelText: 'Quay lại',\n                        onOk: async () => {\n                          try {\n                            await aiApiService.cancelRegistration(reg._id);\n                            message.success('Đã hủy đăng ký thành công!');\n                            queryClient.invalidateQueries({ queryKey: ['topic-registration'] });\n                          } catch (err) {\n                            message.error(err.response?.data?.error || 'Hủy thất bại');\n                          }\n                        }\n                      });\n                    }}>\n                      Hủy Đăng Ký\n                    </Button>\n                  )\n                ].filter",
+          "lineNumber": 378
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "navigate",
+          "lineNumber": 381
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "['ChoDuyet', 'ChoTest', 'DangLamTest'].includes",
+          "lineNumber": 385
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "Modal.confirm",
+          "lineNumber": 387
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "aiApiService.cancelRegistration",
+          "lineNumber": 395
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "message.success",
+          "lineNumber": 396
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "queryClient.invalidateQueries",
+          "lineNumber": 397
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "message.error",
+          "lineNumber": 399
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "navigate",
+          "lineNumber": 464
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "fullRegistration.ThanhVien?.find",
+          "lineNumber": 500
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 500
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "setInviteMaHS",
+          "lineNumber": 507
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "[1, 2, 3].map",
+          "lineNumber": 524
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topics.filter(topic => {\n              if (!selectedClassId) return false;\n              if (selectedClassId === 'KHOA_LUAN') {\n                return topic.LoaiDeTai === 'KhoaLuan';\n              }\n              if (topic.LoaiDeTai === 'KhoaLuan') return false; // Không hiện đề tài KL ở luồng lớp học\n              if (!topic.LopHoc || topic.LopHoc.length === 0) return true;\n              return topic.LopHoc.some(lh => (lh._id || lh).toString() === selectedClassId.toString());\n            }).map",
+          "lineNumber": 533
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topics.filter",
+          "lineNumber": 533
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topic.LopHoc.some",
+          "lineNumber": 540
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "(lh._id || lh).toString",
+          "lineNumber": 540
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "selectedClassId.toString",
+          "lineNumber": 540
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "isRegistered",
+          "lineNumber": 542
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "myNhom.ThanhVien?.filter",
+          "lineNumber": 544
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "activeRegistrations.find",
+          "lineNumber": 547
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "(r.DeTai?._id || r.DeTai || '').toString",
+          "lineNumber": 547
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topic._id.toString",
+          "lineNumber": 547
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "myNhom?.ThanhVien?.filter",
+          "lineNumber": 571
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "handleRegister",
+          "lineNumber": 575
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topic.LopHoc.map",
+          "lineNumber": 614
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "(() => {\n                          const monHocSet = new Map();\n                          (topic.LopHoc || []).forEach(lh => {\n                            if (lh.MonHoc && lh.MonHoc._id) {\n                              monHocSet.set(lh.MonHoc._id, lh.MonHoc);\n                            }\n                          });\n                          if (monHocSet.size === 0 && topic.MonHoc) {\n                            const mh = topic.MonHoc;\n                            return <Tag color=\"geekblue\">{mh.TenMonHoc || mh.MaMonHoc || '—'}</Tag>;\n                          }\n                          return Array.from(monHocSet.values()).map(mh => (\n                            <Tag key={mh._id} color=\"geekblue\">{mh.TenMonHoc || mh.MaMonHoc}</Tag>\n                          ));\n                        })",
+          "lineNumber": 624
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "(topic.LopHoc || []).forEach",
+          "lineNumber": 626
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "monHocSet.set",
+          "lineNumber": 628
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "Array.from(monHocSet.values()).map",
+          "lineNumber": 635
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "Array.from",
+          "lineNumber": 635
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "monHocSet.values",
+          "lineNumber": 635
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "Array.from(new Set(topic.YeuCau.flatMap(tech => tech.split(',').map(s => s.trim()).filter(Boolean)))).map",
+          "lineNumber": 660
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "Array.from",
+          "lineNumber": 660
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "topic.YeuCau.flatMap",
+          "lineNumber": 660
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "tech.split(',').map(s => s.trim()).filter",
+          "lineNumber": 660
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "tech.split(',').map",
+          "lineNumber": 660
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "tech.split",
+          "lineNumber": 660
+        },
+        {
+          "caller": "TopicRegistration",
+          "callee": "s.trim",
+          "lineNumber": 660
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/teacher/ChallengeManagement.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 286,
+      "nonEmptyLines": 266,
+      "functions": [
+        {
+          "name": "ChallengeManagement",
+          "startLine": 11,
+          "endLine": 284,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ChallengeManagement",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "useState",
+          "lineNumber": 13
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "useState",
+          "lineNumber": 14
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "useState",
+          "lineNumber": 15
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "Form.useForm",
+          "lineNumber": 16
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 17
+        },
+        {
+          "caller": "fetchChallenges",
+          "callee": "setLoading",
+          "lineNumber": 20
+        },
+        {
+          "caller": "fetchChallenges",
+          "callee": "challengeService.getChallenges",
+          "lineNumber": 22
+        },
+        {
+          "caller": "fetchChallenges",
+          "callee": "setChallenges",
+          "lineNumber": 24
+        },
+        {
+          "caller": "fetchChallenges",
+          "callee": "message.error",
+          "lineNumber": 27
+        },
+        {
+          "caller": "fetchChallenges",
+          "callee": "setLoading",
+          "lineNumber": 29
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "useEffect",
+          "lineNumber": 33
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "fetchChallenges",
+          "lineNumber": 34
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "setEditingChallenge",
+          "lineNumber": 38
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "form.resetFields",
+          "lineNumber": 39
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "setIsModalVisible",
+          "lineNumber": 40
+        },
+        {
+          "caller": "handleEdit",
+          "callee": "setEditingChallenge",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handleEdit",
+          "callee": "form.setFieldsValue",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handleEdit",
+          "callee": "dayjs",
+          "lineNumber": 51
+        },
+        {
+          "caller": "handleEdit",
+          "callee": "setIsModalVisible",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "challengeService.deleteChallenge",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "message.success",
+          "lineNumber": 60
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "fetchChallenges",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "message.error",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "form.validateFields",
+          "lineNumber": 69
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "values.deadline.toISOString",
+          "lineNumber": 72
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "challengeService.updateChallenge",
+          "lineNumber": 76
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "message.success",
+          "lineNumber": 77
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "challengeService.createChallenge",
+          "lineNumber": 79
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "message.success",
+          "lineNumber": 80
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "setIsModalVisible",
+          "lineNumber": 82
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "fetchChallenges",
+          "lineNumber": 83
+        },
+        {
+          "caller": "handleModalOk",
+          "callee": "message.error",
+          "lineNumber": 86
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "grades?.join",
+          "lineNumber": 115
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "dayjs(text).format",
+          "lineNumber": 121
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "dayjs",
+          "lineNumber": 121
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "handleEdit",
+          "lineNumber": 153
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "handleDelete",
+          "lineNumber": 155
+        },
+        {
+          "caller": "ChallengeManagement",
+          "callee": "setIsModalVisible",
+          "lineNumber": 188
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 327,
+      "nonEmptyLines": 290,
+      "functions": [
+        {
+          "name": "fetchData",
+          "startLine": 32,
+          "endLine": 45,
+          "params": []
+        },
+        {
+          "name": "handleReview",
+          "startLine": 51,
+          "endLine": 95,
+          "params": [
+            "participation"
+          ]
+        },
+        {
+          "name": "handleAiAnalysis",
+          "startLine": 97,
+          "endLine": 113,
+          "params": []
+        },
+        {
+          "name": "handleAiSuggest",
+          "startLine": 115,
+          "endLine": 136,
+          "params": []
+        },
+        {
+          "name": "onEvalSubmit",
+          "startLine": 138,
+          "endLine": 168,
+          "params": [
+            "values"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "fetchData",
+          "callee": "setLoading",
+          "lineNumber": 33
+        },
+        {
+          "caller": "fetchData",
+          "callee": "challengeService.getChallengeById",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setChallenge",
+          "lineNumber": 36
+        },
+        {
+          "caller": "fetchData",
+          "callee": "challengeService.getParticipants",
+          "lineNumber": 38
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setParticipants",
+          "lineNumber": 39
+        },
+        {
+          "caller": "fetchData",
+          "callee": "message.error",
+          "lineNumber": 41
+        },
+        {
+          "caller": "fetchData",
+          "callee": "setLoading",
+          "lineNumber": 43
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setSelectedParticipation",
+          "lineNumber": 52
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setEvalLoading",
+          "lineNumber": 53
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setIsEvalModalVisible",
+          "lineNumber": 54
+        },
+        {
+          "caller": "handleReview",
+          "callee": "form.resetFields",
+          "lineNumber": 55
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setCurrentEvaluation",
+          "lineNumber": 56
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setStudentSubmissions",
+          "lineNumber": 57
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setAiAnalysisResult",
+          "lineNumber": 58
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setAiSuggestionResult",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handleReview",
+          "callee": "challengeService.getSubmissions",
+          "lineNumber": 62
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setStudentSubmissions",
+          "lineNumber": 64
+        },
+        {
+          "caller": "handleReview",
+          "callee": "challengeService.getEvaluation",
+          "lineNumber": 68
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setCurrentEvaluation",
+          "lineNumber": 70
+        },
+        {
+          "caller": "handleReview",
+          "callee": "form.setFieldsValue",
+          "lineNumber": 71
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setAiSuggestionResult",
+          "lineNumber": 78
+        },
+        {
+          "caller": "handleReview",
+          "callee": "form.setFieldsValue",
+          "lineNumber": 86
+        },
+        {
+          "caller": "handleReview",
+          "callee": "message.error",
+          "lineNumber": 91
+        },
+        {
+          "caller": "handleReview",
+          "callee": "setEvalLoading",
+          "lineNumber": 93
+        },
+        {
+          "caller": "handleAiAnalysis",
+          "callee": "setAiAnalyzing",
+          "lineNumber": 99
+        },
+        {
+          "caller": "handleAiAnalysis",
+          "callee": "challengeService.analyzeSubmission",
+          "lineNumber": 101
+        },
+        {
+          "caller": "handleAiAnalysis",
+          "callee": "setAiAnalysisResult",
+          "lineNumber": 103
+        },
+        {
+          "caller": "handleAiAnalysis",
+          "callee": "message.success",
+          "lineNumber": 104
+        },
+        {
+          "caller": "handleAiAnalysis",
+          "callee": "message.warning",
+          "lineNumber": 106
+        },
+        {
+          "caller": "handleAiAnalysis",
+          "callee": "message.error",
+          "lineNumber": 109
+        },
+        {
+          "caller": "handleAiAnalysis",
+          "callee": "setAiAnalyzing",
+          "lineNumber": 111
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "setAiSuggesting",
+          "lineNumber": 117
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "challengeService.suggestEvaluation",
+          "lineNumber": 119
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "setAiSuggestionResult",
+          "lineNumber": 121
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "form.setFieldsValue",
+          "lineNumber": 123
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "message.success",
+          "lineNumber": 127
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "message.warning",
+          "lineNumber": 129
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "message.error",
+          "lineNumber": 132
+        },
+        {
+          "caller": "handleAiSuggest",
+          "callee": "setAiSuggesting",
+          "lineNumber": 134
+        },
+        {
+          "caller": "onEvalSubmit",
+          "callee": "aiSuggestionResult.rubricScores?.map",
+          "lineNumber": 152
+        },
+        {
+          "caller": "onEvalSubmit",
+          "callee": "challengeService.evaluateSubmission",
+          "lineNumber": 161
+        },
+        {
+          "caller": "onEvalSubmit",
+          "callee": "message.success",
+          "lineNumber": 162
+        },
+        {
+          "caller": "onEvalSubmit",
+          "callee": "setIsEvalModalVisible",
+          "lineNumber": 163
+        },
+        {
+          "caller": "onEvalSubmit",
+          "callee": "fetchData",
+          "lineNumber": 164
+        },
+        {
+          "caller": "onEvalSubmit",
+          "callee": "message.error",
+          "lineNumber": 166
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/contexts/ClassContext.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "ClassProvider",
+          "startLine": 7,
+          "endLine": 88,
+          "params": []
+        },
+        {
+          "name": "useClassContext",
+          "startLine": 90,
+          "endLine": 96,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ClassProvider",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "useClassContext",
+          "line": 90,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ClassProvider",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "ClassProvider",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 8
+        },
+        {
+          "caller": "ClassProvider",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "ClassProvider",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "ClassProvider",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "ClassProvider",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setLoading",
+          "lineNumber": 16
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setLoading",
+          "lineNumber": 20
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "managementService.getLopHocByHocSinh",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setMyClasses",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "localStorage.getItem",
+          "lineNumber": 27
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "classes.find",
+          "lineNumber": 28
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 30
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 31
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 33
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 34
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 36
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 37
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "localStorage.setItem",
+          "lineNumber": 38
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "localStorage.getItem",
+          "lineNumber": 41
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 43
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 45
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 47
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "console.error",
+          "lineNumber": 50
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setLoading",
+          "lineNumber": 52
+        },
+        {
+          "caller": "ClassProvider",
+          "callee": "useEffect",
+          "lineNumber": 56
+        },
+        {
+          "caller": "ClassProvider",
+          "callee": "fetchClasses",
+          "lineNumber": 57
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "setSelectedClassId",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "setSelectedClass",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "myClasses.find",
+          "lineNumber": 65
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "setSelectedClass",
+          "lineNumber": 66
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "localStorage.setItem",
+          "lineNumber": 69
+        },
+        {
+          "caller": "useClassContext",
+          "callee": "useContext",
+          "lineNumber": 91
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/contexts/LecturerClassContext.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 83,
+      "functions": [
+        {
+          "name": "LecturerClassProvider",
+          "startLine": 7,
+          "endLine": 84,
+          "params": []
+        },
+        {
+          "name": "useLecturerClassContext",
+          "startLine": 86,
+          "endLine": 92,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "LecturerClassProvider",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "useLecturerClassContext",
+          "line": 86,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "useState",
+          "lineNumber": 8
+        },
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "authService.getCurrentUser",
+          "lineNumber": 8
+        },
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "useState",
+          "lineNumber": 9
+        },
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "useState",
+          "lineNumber": 10
+        },
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "useState",
+          "lineNumber": 11
+        },
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "useState",
+          "lineNumber": 12
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setLoading",
+          "lineNumber": 16
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setLoading",
+          "lineNumber": 20
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "managementService.getLopHocByGV",
+          "lineNumber": 21
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setMyClasses",
+          "lineNumber": 23
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "localStorage.getItem",
+          "lineNumber": 25
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 27
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 28
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 30
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 31
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "classes.find",
+          "lineNumber": 33
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 35
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 36
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 38
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 39
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClassId",
+          "lineNumber": 42
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setSelectedClass",
+          "lineNumber": 43
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "console.error",
+          "lineNumber": 46
+        },
+        {
+          "caller": "fetchClasses",
+          "callee": "setLoading",
+          "lineNumber": 48
+        },
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "useEffect",
+          "lineNumber": 52
+        },
+        {
+          "caller": "LecturerClassProvider",
+          "callee": "fetchClasses",
+          "lineNumber": 53
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "setSelectedClassId",
+          "lineNumber": 57
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "setSelectedClass",
+          "lineNumber": 59
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "myClasses.find",
+          "lineNumber": 61
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "setSelectedClass",
+          "lineNumber": 62
+        },
+        {
+          "caller": "handleSelectClassId",
+          "callee": "localStorage.setItem",
+          "lineNumber": 65
+        },
+        {
+          "caller": "useLecturerClassContext",
+          "callee": "useContext",
+          "lineNumber": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/hooks/useResponsive.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 8,
+      "nonEmptyLines": 7,
+      "functions": [
+        {
+          "name": "useIsMobile",
+          "startLine": 3,
+          "endLine": 3,
+          "params": []
+        },
+        {
+          "name": "useIsTablet",
+          "startLine": 4,
+          "endLine": 4,
+          "params": []
+        },
+        {
+          "name": "useResponsiveModalWidth",
+          "startLine": 5,
+          "endLine": 8,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "useIsMobile",
+          "line": 3,
+          "isDefault": false
+        },
+        {
+          "name": "useIsTablet",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "useResponsiveModalWidth",
+          "line": 5,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "useIsMobile",
+          "callee": "useMediaQuery",
+          "lineNumber": 3
+        },
+        {
+          "caller": "useIsTablet",
+          "callee": "useMediaQuery",
+          "lineNumber": 4
+        },
+        {
+          "caller": "useResponsiveModalWidth",
+          "callee": "useIsMobile",
+          "lineNumber": 6
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/index.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 272,
+      "nonEmptyLines": 263,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/services/aiService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 335,
+      "nonEmptyLines": 284,
+      "functions": [
+        {
+          "name": "getAuthHeaders",
+          "startLine": 6,
+          "endLine": 9,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getAuthHeaders",
+          "callee": "authService.getToken",
+          "lineNumber": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/services/apiService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 164,
+      "nonEmptyLines": 134,
+      "classes": [
+        {
+          "name": "ApiService",
+          "startLine": 24,
+          "endLine": 162,
+          "methods": [
+            "constructor",
+            "get",
+            "post",
+            "put",
+            "delete",
+            "initSocket",
+            "onNotification",
+            "offNotification",
+            "disconnectSocket",
+            "getQrCode",
+            "generateNewQrCode",
+            "validateQrForLogin",
+            "getQrSession",
+            "submitQrSignature"
+          ],
+          "properties": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "constructor",
+          "callee": "axios.create",
+          "lineNumber": 26
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.client.interceptors.request.use",
+          "lineNumber": 34
+        },
+        {
+          "caller": "constructor",
+          "callee": "authService.getToken",
+          "lineNumber": 36
+        },
+        {
+          "caller": "constructor",
+          "callee": "Promise.reject",
+          "lineNumber": 46
+        },
+        {
+          "caller": "constructor",
+          "callee": "this.client.interceptors.response.use",
+          "lineNumber": 50
+        },
+        {
+          "caller": "constructor",
+          "callee": "authService.logout",
+          "lineNumber": 54
+        },
+        {
+          "caller": "constructor",
+          "callee": "Promise.reject",
+          "lineNumber": 57
+        },
+        {
+          "caller": "get",
+          "callee": "this.client.get",
+          "lineNumber": 68
+        },
+        {
+          "caller": "post",
+          "callee": "this.client.post",
+          "lineNumber": 73
+        },
+        {
+          "caller": "put",
+          "callee": "this.client.put",
+          "lineNumber": 78
+        },
+        {
+          "caller": "delete",
+          "callee": "this.client.delete",
+          "lineNumber": 83
+        },
+        {
+          "caller": "initSocket",
+          "callee": "this.socket.disconnect",
+          "lineNumber": 90
+        },
+        {
+          "caller": "initSocket",
+          "callee": "io",
+          "lineNumber": 93
+        },
+        {
+          "caller": "initSocket",
+          "callee": "API_BASE_URL.replace",
+          "lineNumber": 93
+        },
+        {
+          "caller": "initSocket",
+          "callee": "this.socket.on",
+          "lineNumber": 99
+        },
+        {
+          "caller": "initSocket",
+          "callee": "this.socket.emit",
+          "lineNumber": 101
+        },
+        {
+          "caller": "initSocket",
+          "callee": "this.socket.on",
+          "lineNumber": 104
+        },
+        {
+          "caller": "initSocket",
+          "callee": "this.notificationCallbacks.forEach",
+          "lineNumber": 106
+        },
+        {
+          "caller": "initSocket",
+          "callee": "callback",
+          "lineNumber": 106
+        },
+        {
+          "caller": "initSocket",
+          "callee": "this.socket.on",
+          "lineNumber": 109
+        },
+        {
+          "caller": "initSocket",
+          "callee": "this.socket.on",
+          "lineNumber": 114
+        },
+        {
+          "caller": "initSocket",
+          "callee": "console.error",
+          "lineNumber": 115
+        },
+        {
+          "caller": "onNotification",
+          "callee": "this.notificationCallbacks.push",
+          "lineNumber": 121
+        },
+        {
+          "caller": "offNotification",
+          "callee": "this.notificationCallbacks.filter",
+          "lineNumber": 126
+        },
+        {
+          "caller": "disconnectSocket",
+          "callee": "this.socket.disconnect",
+          "lineNumber": 132
+        },
+        {
+          "caller": "getQrCode",
+          "callee": "this.client.get",
+          "lineNumber": 139
+        },
+        {
+          "caller": "generateNewQrCode",
+          "callee": "this.client.post",
+          "lineNumber": 144
+        },
+        {
+          "caller": "validateQrForLogin",
+          "callee": "this.client.post",
+          "lineNumber": 149
+        },
+        {
+          "caller": "getQrSession",
+          "callee": "this.client.get",
+          "lineNumber": 154
+        },
+        {
+          "caller": "submitQrSignature",
+          "callee": "this.client.post",
+          "lineNumber": 159
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "frontend/src/services/authService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 309,
+      "nonEmptyLines": 267,
+      "classes": [
+        {
+          "name": "AuthService",
+          "startLine": 6,
+          "endLine": 307,
+          "methods": [
+            "constructor",
+            "isMetaMaskInstalled",
+            "initializeProvider",
+            "getWalletAddress",
+            "signMessage",
+            "connectWallet",
+            "signAndVerify",
+            "authenticate",
+            "registerWithRole",
+            "logout",
+            "isAuthenticated",
+            "getCurrentUser",
+            "getToken",
+            "logout",
+            "getProfile",
+            "onAccountChange",
+            "onChainChange"
+          ],
+          "properties": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "initializeProvider",
+          "callee": "this.isMetaMaskInstalled",
+          "lineNumber": 20
+        },
+        {
+          "caller": "initializeProvider",
+          "callee": "window.ethereum.request",
+          "lineNumber": 26
+        },
+        {
+          "caller": "initializeProvider",
+          "callee": "window.ethereum.request",
+          "lineNumber": 29
+        },
+        {
+          "caller": "initializeProvider",
+          "callee": "this.provider.getSigner",
+          "lineNumber": 33
+        },
+        {
+          "caller": "initializeProvider",
+          "callee": "console.error",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getWalletAddress",
+          "callee": "this.initializeProvider",
+          "lineNumber": 48
+        },
+        {
+          "caller": "getWalletAddress",
+          "callee": "this.signer.getAddress",
+          "lineNumber": 52
+        },
+        {
+          "caller": "getWalletAddress",
+          "callee": "console.error",
+          "lineNumber": 55
+        },
+        {
+          "caller": "signMessage",
+          "callee": "this.initializeProvider",
+          "lineNumber": 63
+        },
+        {
+          "caller": "signMessage",
+          "callee": "this.signer.signMessage",
+          "lineNumber": 67
+        },
+        {
+          "caller": "signMessage",
+          "callee": "console.error",
+          "lineNumber": 70
+        },
+        {
+          "caller": "connectWallet",
+          "callee": "this.getWalletAddress",
+          "lineNumber": 81
+        },
+        {
+          "caller": "connectWallet",
+          "callee": "axios.post",
+          "lineNumber": 84
+        },
+        {
+          "caller": "connectWallet",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 85
+        },
+        {
+          "caller": "connectWallet",
+          "callee": "console.error",
+          "lineNumber": 98
+        },
+        {
+          "caller": "signAndVerify",
+          "callee": "this.signMessage",
+          "lineNumber": 107
+        },
+        {
+          "caller": "signAndVerify",
+          "callee": "axios.post",
+          "lineNumber": 110
+        },
+        {
+          "caller": "signAndVerify",
+          "callee": "localStorage.setItem",
+          "lineNumber": 126
+        },
+        {
+          "caller": "signAndVerify",
+          "callee": "JSON.stringify",
+          "lineNumber": 126
+        },
+        {
+          "caller": "signAndVerify",
+          "callee": "localStorage.setItem",
+          "lineNumber": 127
+        },
+        {
+          "caller": "signAndVerify",
+          "callee": "console.error",
+          "lineNumber": 131
+        },
+        {
+          "caller": "authenticate",
+          "callee": "this.connectWallet",
+          "lineNumber": 140
+        },
+        {
+          "caller": "authenticate",
+          "callee": "this.signAndVerify",
+          "lineNumber": 143
+        },
+        {
+          "caller": "authenticate",
+          "callee": "console.error",
+          "lineNumber": 150
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "axios.post",
+          "lineNumber": 158
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "localStorage.setItem",
+          "lineNumber": 170
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "JSON.stringify",
+          "lineNumber": 170
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "localStorage.setItem",
+          "lineNumber": 171
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "console.error",
+          "lineNumber": 176
+        },
+        {
+          "caller": "logout",
+          "callee": "this.getToken",
+          "lineNumber": 184
+        },
+        {
+          "caller": "logout",
+          "callee": "axios.post",
+          "lineNumber": 187
+        },
+        {
+          "caller": "logout",
+          "callee": "console.error",
+          "lineNumber": 194
+        },
+        {
+          "caller": "logout",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 202
+        },
+        {
+          "caller": "logout",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 203
+        },
+        {
+          "caller": "isAuthenticated",
+          "callee": "localStorage.getItem",
+          "lineNumber": 209
+        },
+        {
+          "caller": "isAuthenticated",
+          "callee": "localStorage.getItem",
+          "lineNumber": 210
+        },
+        {
+          "caller": "isAuthenticated",
+          "callee": "console.error",
+          "lineNumber": 213
+        },
+        {
+          "caller": "getCurrentUser",
+          "callee": "localStorage.getItem",
+          "lineNumber": 221
+        },
+        {
+          "caller": "getCurrentUser",
+          "callee": "JSON.parse",
+          "lineNumber": 222
+        },
+        {
+          "caller": "getCurrentUser",
+          "callee": "console.error",
+          "lineNumber": 224
+        },
+        {
+          "caller": "getToken",
+          "callee": "localStorage.getItem",
+          "lineNumber": 231
+        },
+        {
+          "caller": "logout",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 237
+        },
+        {
+          "caller": "logout",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 238
+        },
+        {
+          "caller": "logout",
+          "callee": "localStorage.removeItem",
+          "lineNumber": 239
+        },
+        {
+          "caller": "getProfile",
+          "callee": "this.getToken",
+          "lineNumber": 253
+        },
+        {
+          "caller": "getProfile",
+          "callee": "axios.get",
+          "lineNumber": 258
+        },
+        {
+          "caller": "getProfile",
+          "callee": "localStorage.setItem",
+          "lineNumber": 267
+        },
+        {
+          "caller": "getProfile",
+          "callee": "JSON.stringify",
+          "lineNumber": 267
+        },
+        {
+          "caller": "getProfile",
+          "callee": "console.error",
+          "lineNumber": 273
+        },
+        {
+          "caller": "getProfile",
+          "callee": "this.logout",
+          "lineNumber": 276
+        },
+        {
+          "caller": "onAccountChange",
+          "callee": "window.ethereum.on",
+          "lineNumber": 286
+        },
+        {
+          "caller": "onAccountChange",
+          "callee": "this.logout",
+          "lineNumber": 289
+        },
+        {
+          "caller": "onAccountChange",
+          "callee": "callback",
+          "lineNumber": 290
+        },
+        {
+          "caller": "onAccountChange",
+          "callee": "callback",
+          "lineNumber": 293
+        },
+        {
+          "caller": "onChainChange",
+          "callee": "window.ethereum.on",
+          "lineNumber": 302
+        },
+        {
+          "caller": "onChainChange",
+          "callee": "callback",
+          "lineNumber": 303
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "frontend/src/services/challengeService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 89,
+      "nonEmptyLines": 83,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/services/kpiService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 7,
+      "nonEmptyLines": 5,
+      "classes": [
+        {
+          "name": "KpiService",
+          "startLine": 3,
+          "endLine": 5,
+          "methods": [],
+          "properties": []
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "frontend/src/services/managementService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 115,
+      "nonEmptyLines": 92,
+      "callGraph": [
+        {
+          "caller": "getMonHocByGV",
+          "callee": "apiService.get",
+          "lineNumber": 6
+        },
+        {
+          "caller": "createMonHoc",
+          "callee": "apiService.post",
+          "lineNumber": 11
+        },
+        {
+          "caller": "updateMonHoc",
+          "callee": "apiService.put",
+          "lineNumber": 16
+        },
+        {
+          "caller": "deleteMonHoc",
+          "callee": "apiService.delete",
+          "lineNumber": 21
+        },
+        {
+          "caller": "getLopHocByGV",
+          "callee": "apiService.get",
+          "lineNumber": 27
+        },
+        {
+          "caller": "getLopHocDetail",
+          "callee": "apiService.get",
+          "lineNumber": 32
+        },
+        {
+          "caller": "createLopHoc",
+          "callee": "apiService.post",
+          "lineNumber": 37
+        },
+        {
+          "caller": "updateLopHoc",
+          "callee": "apiService.put",
+          "lineNumber": 42
+        },
+        {
+          "caller": "addHocSinhToLop",
+          "callee": "apiService.post",
+          "lineNumber": 47
+        },
+        {
+          "caller": "removeHocSinhFromLop",
+          "callee": "apiService.delete",
+          "lineNumber": 52
+        },
+        {
+          "caller": "deleteLopHoc",
+          "callee": "apiService.delete",
+          "lineNumber": 57
+        },
+        {
+          "caller": "getLopHocByHocSinh",
+          "callee": "apiService.get",
+          "lineNumber": 62
+        },
+        {
+          "caller": "importHocSinhToLop",
+          "callee": "apiService.post",
+          "lineNumber": 67
+        },
+        {
+          "caller": "getAllHocSinh",
+          "callee": "apiService.get",
+          "lineNumber": 73
+        },
+        {
+          "caller": "getHocSinhByGV",
+          "callee": "apiService.get",
+          "lineNumber": 78
+        },
+        {
+          "caller": "inviteHocSinhToLop",
+          "callee": "apiService.post",
+          "lineNumber": 84
+        },
+        {
+          "caller": "inviteBatchToLop",
+          "callee": "apiService.post",
+          "lineNumber": 89
+        },
+        {
+          "caller": "getInvitesByLopHoc",
+          "callee": "apiService.get",
+          "lineNumber": 94
+        },
+        {
+          "caller": "getMyClassInvites",
+          "callee": "apiService.get",
+          "lineNumber": 99
+        },
+        {
+          "caller": "respondClassInvite",
+          "callee": "apiService.post",
+          "lineNumber": 104
+        },
+        {
+          "caller": "cancelClassInvite",
+          "callee": "apiService.delete",
+          "lineNumber": 109
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/services/nhomService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 95,
+      "nonEmptyLines": 80,
+      "functions": [
+        {
+          "name": "getAuthHeaders",
+          "startLine": 6,
+          "endLine": 9,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getAuthHeaders",
+          "callee": "authService.getToken",
+          "lineNumber": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}
