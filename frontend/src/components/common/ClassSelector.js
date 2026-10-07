@@ -50,7 +50,7 @@ const StudentClassSelector = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <BookOpen size={16} aria-hidden="true" style={{ color: '#1890ff' }} />
+      <BookOpen size={16} aria-hidden="true" style={{ color: '#0050b3' }} />
       <Select
         aria-label="Chọn lớp học"
         value={selectedClassId}
@@ -81,7 +81,7 @@ const LecturerClassSelector = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <BookOpen size={16} aria-hidden="true" style={{ color: '#1890ff' }} />
+      <BookOpen size={16} aria-hidden="true" style={{ color: '#0050b3' }} />
       <Select
         aria-label="Chọn lớp học"
         value={selectedClassId}

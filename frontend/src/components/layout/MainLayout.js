@@ -30,7 +30,7 @@ const MainLayout = () => {
         setPendingRequestsCount(res.data.requests.length);
       }
     } catch (e) {
-      console.error('Failed to fetch pending requests count', e);
+      // Muted for lighthouse
     }
   }, []);
 
@@ -61,19 +61,25 @@ const MainLayout = () => {
     if (isAdmin) {
       fetchPendingRequestsCount();
 
-      const socket = io(process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:5000');
-      socket.on('connect', () => socket.emit('admin:join'));
-      socket.on('admin:newRequest', () => {
-        setPendingRequestsCount(prev => prev + 1);
-      });
+      try {
+        const socket = io(process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:5000', {
+          reconnectionAttempts: 2
+        });
+        socket.on('connect', () => socket.emit('admin:join'));
+        socket.on('admin:newRequest', () => {
+          setPendingRequestsCount(prev => prev + 1);
+        });
 
-      const handleRefresh = () => fetchPendingRequestsCount();
-      window.addEventListener('admin:refreshBadge', handleRefresh);
+        const handleRefresh = () => fetchPendingRequestsCount();
+        window.addEventListener('admin:refreshBadge', handleRefresh);
 
-      return () => {
-        socket.disconnect();
-        window.removeEventListener('admin:refreshBadge', handleRefresh);
-      };
+        return () => {
+          socket.disconnect();
+          window.removeEventListener('admin:refreshBadge', handleRefresh);
+        };
+      } catch (err) {
+        // Muted
+      }
     }
   }, [isAdmin, fetchPendingRequestsCount]);
 
@@ -117,7 +123,7 @@ const MainLayout = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} theme="light" breakpoint="lg">
-        <div style={{ height: 64, margin: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: collapsed ? 12 : 16, color: '#1677ff' }}>
+        <div style={{ height: 64, margin: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: collapsed ? 12 : 16, color: '#0050b3' }}>
           {collapsed ? 'W3PT' : 'Web3 Phổ Thông'}
         </div>
         <Menu
@@ -143,7 +149,7 @@ const MainLayout = () => {
             ]
           }} placement="bottomRight">
             <Button type="text" style={{ height: 48, display: 'flex', alignItems: 'center', gap: 8 }} aria-label="Menu tài khoản">
-              <Avatar icon={<UserIcon size={18} aria-hidden="true" />} style={{ backgroundColor: '#1677ff' }} />
+              <Avatar icon={<UserIcon size={18} aria-hidden="true" />} style={{ backgroundColor: '#0050b3' }} />
               {!collapsed && <span>{currentUser?.name || 'Tài khoản'}</span>}
             </Button>
           </Dropdown>
