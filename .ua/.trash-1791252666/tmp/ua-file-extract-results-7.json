@@ -1,0 +1,515 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 6,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/controllers/giaoVienController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "invalidateGvCache",
+          "startLine": 7,
+          "endLine": 9,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/GiaoVien.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/check_lecturers.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 14,
+      "functions": [
+        {
+          "name": "check",
+          "startLine": 5,
+          "endLine": 16,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "check",
+          "callee": "mongoose.connect",
+          "lineNumber": 6
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 7
+        },
+        {
+          "caller": "check",
+          "callee": "GiaoVien.find",
+          "lineNumber": 9
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 10
+        },
+        {
+          "caller": "check",
+          "callee": "listers.forEach",
+          "lineNumber": 11
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 12
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/check_users_and_teachers.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 36,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "check",
+          "startLine": 5,
+          "endLine": 34,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "check",
+          "callee": "mongoose.connect",
+          "lineNumber": 6
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 7
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.connection.db.listCollections().toArray",
+          "lineNumber": 10
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.connection.db.listCollections",
+          "lineNumber": 10
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 11
+        },
+        {
+          "caller": "check",
+          "callee": "collections.forEach",
+          "lineNumber": 12
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 12
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.connection.collection",
+          "lineNumber": 16
+        },
+        {
+          "caller": "check",
+          "callee": "User.find({}).toArray",
+          "lineNumber": 17
+        },
+        {
+          "caller": "check",
+          "callee": "User.find",
+          "lineNumber": 17
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 18
+        },
+        {
+          "caller": "check",
+          "callee": "users.forEach",
+          "lineNumber": 19
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "check",
+          "callee": "GiaoVien.find",
+          "lineNumber": 27
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 28
+        },
+        {
+          "caller": "check",
+          "callee": "gvs.forEach",
+          "lineNumber": 29
+        },
+        {
+          "caller": "check",
+          "callee": "console.log",
+          "lineNumber": 30
+        },
+        {
+          "caller": "check",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seed_khoaluan_phong.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "seed",
+          "startLine": 6,
+          "endLine": 71,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 7
+        },
+        {
+          "caller": "seed",
+          "callee": "mongoose.connect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 9
+        },
+        {
+          "caller": "seed",
+          "callee": "GiaoVien.findOne",
+          "lineNumber": 12
+        },
+        {
+          "caller": "seed",
+          "callee": "GiaoVien.findOne",
+          "lineNumber": 14
+        },
+        {
+          "caller": "seed",
+          "callee": "console.error",
+          "lineNumber": 17
+        },
+        {
+          "caller": "seed",
+          "callee": "process.exit",
+          "lineNumber": 18
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 30
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 30
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 31
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 31
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.deleteOne",
+          "lineNumber": 40
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.create",
+          "lineNumber": 41
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 42
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 47
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 54
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 54
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 55
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 55
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 56
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 56
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.deleteOne",
+          "lineNumber": 64
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.create",
+          "lineNumber": 65
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 66
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "seed",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seed_khoaluan_wallet.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 45,
+      "functions": [
+        {
+          "name": "seed",
+          "startLine": 6,
+          "endLine": 53,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 7
+        },
+        {
+          "caller": "seed",
+          "callee": "mongoose.connect",
+          "lineNumber": 8
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 9
+        },
+        {
+          "caller": "seed",
+          "callee": "GiaoVien.findOne",
+          "lineNumber": 14
+        },
+        {
+          "caller": "seed",
+          "callee": "console.error",
+          "lineNumber": 17
+        },
+        {
+          "caller": "seed",
+          "callee": "process.exit",
+          "lineNumber": 18
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 21
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 30
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 30
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 31
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 31
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().setDate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "seed",
+          "callee": "new Date().getDate",
+          "lineNumber": 32
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.deleteOne",
+          "lineNumber": 43
+        },
+        {
+          "caller": "seed",
+          "callee": "DeTai.create",
+          "lineNumber": 45
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 46
+        },
+        {
+          "caller": "seed",
+          "callee": "console.error",
+          "lineNumber": 48
+        },
+        {
+          "caller": "seed",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "seed",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

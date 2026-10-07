@@ -1,0 +1,1370 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/config/web3.js",
+      "type": "file",
+      "name": "web3.js",
+      "filePath": "backend/config/web3.js",
+      "summary": "Component responsible for web3.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/config/web3.js:initializeWeb3",
+      "type": "function",
+      "name": "initializeWeb3",
+      "filePath": "backend/config/web3.js",
+      "lineRange": [
+        155,
+        195
+      ],
+      "summary": "Function initializeWeb3",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/config/web3.js:getContract",
+      "type": "function",
+      "name": "getContract",
+      "filePath": "backend/config/web3.js",
+      "lineRange": [
+        198,
+        215
+      ],
+      "summary": "Function getContract",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/controllers/adminController.js",
+      "type": "file",
+      "name": "adminController.js",
+      "filePath": "backend/controllers/adminController.js",
+      "summary": "Component responsible for adminController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/adminController.js:approveRequest",
+      "type": "function",
+      "name": "approveRequest",
+      "filePath": "backend/controllers/adminController.js",
+      "lineRange": [
+        17,
+        71
+      ],
+      "summary": "Function approveRequest",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/adminController.js:rejectRequest",
+      "type": "function",
+      "name": "rejectRequest",
+      "filePath": "backend/controllers/adminController.js",
+      "lineRange": [
+        73,
+        110
+      ],
+      "summary": "Function rejectRequest",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/adminController.js:getProcessedRequests",
+      "type": "function",
+      "name": "getProcessedRequests",
+      "filePath": "backend/controllers/adminController.js",
+      "lineRange": [
+        112,
+        175
+      ],
+      "summary": "Function getProcessedRequests",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/adminController.js:getRequestDetail",
+      "type": "function",
+      "name": "getRequestDetail",
+      "filePath": "backend/controllers/adminController.js",
+      "lineRange": [
+        177,
+        193
+      ],
+      "summary": "Function getRequestDetail",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/controllers/aiK12Controller.js",
+      "type": "file",
+      "name": "aiK12Controller.js",
+      "filePath": "backend/controllers/aiK12Controller.js",
+      "summary": "Component responsible for aiK12Controller.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/authController.js",
+      "type": "file",
+      "name": "authController.js",
+      "filePath": "backend/controllers/authController.js",
+      "summary": "Component responsible for authController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/controllers/authController.js:generateChallenge",
+      "type": "function",
+      "name": "generateChallenge",
+      "filePath": "backend/controllers/authController.js",
+      "lineRange": [
+        13,
+        35
+      ],
+      "summary": "Function generateChallenge",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/authController.js:verifySignature",
+      "type": "function",
+      "name": "verifySignature",
+      "filePath": "backend/controllers/authController.js",
+      "lineRange": [
+        37,
+        118
+      ],
+      "summary": "Function verifySignature",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/authController.js:getProfile",
+      "type": "function",
+      "name": "getProfile",
+      "filePath": "backend/controllers/authController.js",
+      "lineRange": [
+        122,
+        139
+      ],
+      "summary": "Function getProfile",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/authController.js:authenticateToken",
+      "type": "function",
+      "name": "authenticateToken",
+      "filePath": "backend/controllers/authController.js",
+      "lineRange": [
+        141,
+        152
+      ],
+      "summary": "Function authenticateToken",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/authController.js:generateQrSession",
+      "type": "function",
+      "name": "generateQrSession",
+      "filePath": "backend/controllers/authController.js",
+      "lineRange": [
+        154,
+        171
+      ],
+      "summary": "Function generateQrSession",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/authController.js:verifyQrSignature",
+      "type": "function",
+      "name": "verifyQrSignature",
+      "filePath": "backend/controllers/authController.js",
+      "lineRange": [
+        173,
+        260
+      ],
+      "summary": "Function verifyQrSignature",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/controllers/authController.js:registerWithRole",
+      "type": "function",
+      "name": "registerWithRole",
+      "filePath": "backend/controllers/authController.js",
+      "lineRange": [
+        262,
+        333
+      ],
+      "summary": "Function registerWithRole",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/controllers/challengeController.js",
+      "type": "file",
+      "name": "challengeController.js",
+      "filePath": "backend/controllers/challengeController.js",
+      "summary": "Component responsible for challengeController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/credentialController.js",
+      "type": "file",
+      "name": "credentialController.js",
+      "filePath": "backend/controllers/credentialController.js",
+      "summary": "Component responsible for credentialController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/evaluationController.js",
+      "type": "file",
+      "name": "evaluationController.js",
+      "filePath": "backend/controllers/evaluationController.js",
+      "summary": "Component responsible for evaluationController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/hocSinhController.js",
+      "type": "file",
+      "name": "hocSinhController.js",
+      "filePath": "backend/controllers/hocSinhController.js",
+      "summary": "Component responsible for hocSinhController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/participationController.js",
+      "type": "file",
+      "name": "participationController.js",
+      "filePath": "backend/controllers/participationController.js",
+      "summary": "Component responsible for participationController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/qrController.js",
+      "type": "file",
+      "name": "qrController.js",
+      "filePath": "backend/controllers/qrController.js",
+      "summary": "Component responsible for qrController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/controllers/submissionController.js",
+      "type": "file",
+      "name": "submissionController.js",
+      "filePath": "backend/controllers/submissionController.js",
+      "summary": "Component responsible for submissionController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/middleware/authz.js",
+      "type": "file",
+      "name": "authz.js",
+      "filePath": "backend/middleware/authz.js",
+      "summary": "Component responsible for authz.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Achievement.js",
+      "type": "file",
+      "name": "Achievement.js",
+      "filePath": "backend/models/Achievement.js",
+      "summary": "Component responsible for Achievement.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Admin.js",
+      "type": "file",
+      "name": "Admin.js",
+      "filePath": "backend/models/Admin.js",
+      "summary": "Component responsible for Admin.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Challenge.js",
+      "type": "file",
+      "name": "Challenge.js",
+      "filePath": "backend/models/Challenge.js",
+      "summary": "Component responsible for Challenge.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/ChallengeParticipation.js",
+      "type": "file",
+      "name": "ChallengeParticipation.js",
+      "filePath": "backend/models/ChallengeParticipation.js",
+      "summary": "Component responsible for ChallengeParticipation.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/EducationalCredential.js",
+      "type": "file",
+      "name": "EducationalCredential.js",
+      "filePath": "backend/models/EducationalCredential.js",
+      "summary": "Component responsible for EducationalCredential.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Evaluation.js",
+      "type": "file",
+      "name": "Evaluation.js",
+      "filePath": "backend/models/Evaluation.js",
+      "summary": "Component responsible for Evaluation.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/LearningResult.js",
+      "type": "file",
+      "name": "LearningResult.js",
+      "filePath": "backend/models/LearningResult.js",
+      "summary": "Component responsible for LearningResult.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/QrCode.js",
+      "type": "file",
+      "name": "QrCode.js",
+      "filePath": "backend/models/QrCode.js",
+      "summary": "Component responsible for QrCode.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/RoleRequest.js",
+      "type": "file",
+      "name": "RoleRequest.js",
+      "filePath": "backend/models/RoleRequest.js",
+      "summary": "Component responsible for RoleRequest.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Student.js",
+      "type": "file",
+      "name": "Student.js",
+      "filePath": "backend/models/Student.js",
+      "summary": "Component responsible for Student.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Submission.js",
+      "type": "file",
+      "name": "Submission.js",
+      "filePath": "backend/models/Submission.js",
+      "summary": "Component responsible for Submission.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/Teacher.js",
+      "type": "file",
+      "name": "Teacher.js",
+      "filePath": "backend/models/Teacher.js",
+      "summary": "Component responsible for Teacher.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/routes/achievementRoutes.js",
+      "type": "file",
+      "name": "achievementRoutes.js",
+      "filePath": "backend/routes/achievementRoutes.js",
+      "summary": "Component responsible for achievementRoutes.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/routes/aiRoutes.js",
+      "type": "file",
+      "name": "aiRoutes.js",
+      "filePath": "backend/routes/aiRoutes.js",
+      "summary": "Component responsible for aiRoutes.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/routes/challengeRoutes.js",
+      "type": "file",
+      "name": "challengeRoutes.js",
+      "filePath": "backend/routes/challengeRoutes.js",
+      "summary": "Component responsible for challengeRoutes.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/routes/credentialRoutes.js",
+      "type": "file",
+      "name": "credentialRoutes.js",
+      "filePath": "backend/routes/credentialRoutes.js",
+      "summary": "Component responsible for credentialRoutes.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/routes/participationRoutes.js",
+      "type": "file",
+      "name": "participationRoutes.js",
+      "filePath": "backend/routes/participationRoutes.js",
+      "summary": "Component responsible for participationRoutes.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/routes/submissionRoutes.js",
+      "type": "file",
+      "name": "submissionRoutes.js",
+      "filePath": "backend/routes/submissionRoutes.js",
+      "summary": "Component responsible for submissionRoutes.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/scripts/seedAdmin.js",
+      "type": "file",
+      "name": "seedAdmin.js",
+      "filePath": "backend/scripts/seedAdmin.js",
+      "summary": "Component responsible for seedAdmin.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seedAdmin.js:seedAdmin",
+      "type": "function",
+      "name": "seedAdmin",
+      "filePath": "backend/scripts/seedAdmin.js",
+      "lineRange": [
+        7,
+        35
+      ],
+      "summary": "Function seedAdmin",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seed_k12.js",
+      "type": "file",
+      "name": "seed_k12.js",
+      "filePath": "backend/scripts/seed_k12.js",
+      "summary": "Component responsible for seed_k12.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seed_k12.js:seedK12",
+      "type": "function",
+      "name": "seedK12",
+      "filePath": "backend/scripts/seed_k12.js",
+      "lineRange": [
+        22,
+        212
+      ],
+      "summary": "Function seedK12",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/server.js",
+      "type": "file",
+      "name": "server.js",
+      "filePath": "backend/server.js",
+      "summary": "Component responsible for server.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/utils/canonicalCredential.js",
+      "type": "file",
+      "name": "canonicalCredential.js",
+      "filePath": "backend/utils/canonicalCredential.js",
+      "summary": "Component responsible for canonicalCredential.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/utils/canonicalCredential.js:createCanonicalHash",
+      "type": "function",
+      "name": "createCanonicalHash",
+      "filePath": "backend/utils/canonicalCredential.js",
+      "lineRange": [
+        7,
+        33
+      ],
+      "summary": "Function createCanonicalHash",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/config/web3.js",
+      "target": "function:backend/config/web3.js:initializeWeb3",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/config/web3.js",
+      "target": "function:backend/config/web3.js:getContract",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/adminController.js",
+      "target": "function:backend/controllers/adminController.js:approveRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/adminController.js",
+      "target": "function:backend/controllers/adminController.js:rejectRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/adminController.js",
+      "target": "function:backend/controllers/adminController.js:getProcessedRequests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/adminController.js",
+      "target": "function:backend/controllers/adminController.js:getRequestDetail",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/adminController.js",
+      "target": "file:backend/models/Admin.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/adminController.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/adminController.js",
+      "target": "file:backend/models/RoleRequest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiK12Controller.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiK12Controller.js",
+      "target": "file:backend/models/Challenge.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiK12Controller.js",
+      "target": "file:backend/models/Student.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiK12Controller.js",
+      "target": "file:backend/models/Submission.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiK12Controller.js",
+      "target": "file:backend/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/aiK12Controller.js",
+      "target": "file:backend/services/matchingService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "function:backend/controllers/authController.js:generateChallenge",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "function:backend/controllers/authController.js:verifySignature",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "function:backend/controllers/authController.js:getProfile",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "function:backend/controllers/authController.js:authenticateToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "function:backend/controllers/authController.js:generateQrSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "function:backend/controllers/authController.js:verifyQrSignature",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "function:backend/controllers/authController.js:registerWithRole",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "file:backend/config/web3.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "file:backend/models/Admin.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "file:backend/models/RoleRequest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "file:backend/models/Student.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/authController.js",
+      "target": "file:backend/models/Teacher.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/challengeController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/challengeController.js",
+      "target": "file:backend/models/Challenge.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/credentialController.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/credentialController.js",
+      "target": "file:backend/models/Achievement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/credentialController.js",
+      "target": "file:backend/models/EducationalCredential.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/credentialController.js",
+      "target": "file:backend/models/Student.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/credentialController.js",
+      "target": "file:backend/models/Teacher.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/credentialController.js",
+      "target": "file:backend/utils/canonicalCredential.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/evaluationController.js",
+      "target": "file:backend/models/Achievement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/evaluationController.js",
+      "target": "file:backend/models/ChallengeParticipation.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/evaluationController.js",
+      "target": "file:backend/models/Evaluation.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/evaluationController.js",
+      "target": "file:backend/models/LearningResult.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/evaluationController.js",
+      "target": "file:backend/models/Submission.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/hocSinhController.js",
+      "target": "file:backend/models/HocSinh.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/participationController.js",
+      "target": "file:backend/models/Challenge.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/participationController.js",
+      "target": "file:backend/models/ChallengeParticipation.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/participationController.js",
+      "target": "file:backend/models/Student.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/qrController.js",
+      "target": "file:backend/models/QrCode.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/submissionController.js",
+      "target": "file:backend/models/Challenge.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/submissionController.js",
+      "target": "file:backend/models/ChallengeParticipation.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/controllers/submissionController.js",
+      "target": "file:backend/models/Submission.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/achievementRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/achievementRoutes.js",
+      "target": "file:backend/middleware/authz.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/achievementRoutes.js",
+      "target": "file:backend/models/Achievement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/aiRoutes.js",
+      "target": "file:backend/controllers/aiK12Controller.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/aiRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/aiRoutes.js",
+      "target": "file:backend/middleware/authz.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/challengeRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/challengeRoutes.js",
+      "target": "file:backend/controllers/challengeController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/challengeRoutes.js",
+      "target": "file:backend/controllers/participationController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/challengeRoutes.js",
+      "target": "file:backend/middleware/authz.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/credentialRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/credentialRoutes.js",
+      "target": "file:backend/controllers/credentialController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/credentialRoutes.js",
+      "target": "file:backend/middleware/authz.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/participationRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/participationRoutes.js",
+      "target": "file:backend/controllers/participationController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/participationRoutes.js",
+      "target": "file:backend/controllers/submissionController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/submissionRoutes.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/submissionRoutes.js",
+      "target": "file:backend/controllers/evaluationController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/routes/submissionRoutes.js",
+      "target": "file:backend/middleware/authz.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seedAdmin.js",
+      "target": "function:backend/scripts/seedAdmin.js:seedAdmin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seedAdmin.js",
+      "target": "file:backend/models/Admin.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_k12.js",
+      "target": "function:backend/scripts/seed_k12.js:seedK12",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed_k12.js",
+      "target": "file:backend/models/Challenge.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_k12.js",
+      "target": "file:backend/models/Student.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_k12.js",
+      "target": "file:backend/models/Teacher.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/config/db.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/config/logger.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/adminController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/aiController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/authController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/baiTestController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/baoCaoController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/blockchainController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/deTaiController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/diemSoController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/giaoVienController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/hocSinhController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/loiMoiLopHocController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/lopHocController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/monHocController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/nhomController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/qrController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/rubricsController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/controllers/tienDoController.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/middleware/authz.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/achievementRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/aiRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/challengeRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/credentialRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/participationRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/server.js",
+      "target": "file:backend/routes/submissionRoutes.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/utils/canonicalCredential.js",
+      "target": "function:backend/utils/canonicalCredential.js:createCanonicalHash",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

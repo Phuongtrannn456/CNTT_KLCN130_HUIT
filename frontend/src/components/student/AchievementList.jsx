@@ -46,7 +46,7 @@ const AchievementList = () => {
       const signer = await provider.getSigner();
 
       // 1. Lấy claim message từ backend
-      const msgRes = await apiService.get(`/credentials/claim-message/${ach._id}`);
+      const msgRes = await apiService.get(`/credentials/claim-message/${achievementId}`);
       const { messageToSign, credentialId } = msgRes.data;
 
       // 2. Ký message bằng MetaMask
@@ -90,12 +90,12 @@ const AchievementList = () => {
       ) : (
         <Row gutter={[24, 24]}>
           {achievements.map((ach) => {
-            const credential = credentials.find(c => c.achievement === ach._id || (c.achievement && c.achievement._id === ach._id));
+            const credential = credentials.find(c => c.achievement === achievementId || (c.achievement && c.achievement._id === achievementId));
             const isAnchored = credential && credential.status === 'ANCHORED';
             const isPending = credential && credential.status === 'PENDING_CHAIN';
 
             return (
-              <Col xs={24} sm={12} lg={8} key={ach._id}>
+              <Col xs={24} sm={12} lg={8} key={achievementId}>
                 <Card
                   hoverable
                   style={{ height: '100%', borderTop: '4px solid #faad14' }}
@@ -141,7 +141,7 @@ const AchievementList = () => {
                     <Button 
                       type="primary" 
                       loading={claiming} 
-                      onClick={() => handleClaim(ach._id)}
+                      onClick={() => handleClaim(achievementId)}
                       block
                     >
                       Nhận Web3 Credential

@@ -1,0 +1,1423 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 20,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 20,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 20,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/config/logger.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 51,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/aiController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 53,
+      "nonEmptyLines": 45,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/baiTestController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 491,
+      "nonEmptyLines": 431,
+      "functions": [
+        {
+          "name": "tryClaimWinner",
+          "startLine": 145,
+          "endLine": 202,
+          "params": [
+            "dangKyId",
+            "deTaiId",
+            "thoiGianSubmit",
+            "io"
+          ]
+        },
+        {
+          "name": "resolveWaitingGroups",
+          "startLine": 205,
+          "endLine": 227,
+          "params": [
+            "deTaiId",
+            "io"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 147
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DangKyDeTai.findByIdAndUpdate",
+          "lineNumber": 149
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 154
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DangKyDeTai.findByIdAndUpdate",
+          "lineNumber": 163
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "logger.info",
+          "lineNumber": 164
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DangKyDeTai.findOneAndUpdate(\n        { _id: dangKyId, TrangThai: { $in: ['DaSubmit', 'ChoDoi'] } },\n        { TrangThai: 'DaDuyet' },\n        { new: true }\n    ).populate",
+          "lineNumber": 169
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DangKyDeTai.findOneAndUpdate",
+          "lineNumber": 169
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DangKyDeTai.updateMany",
+          "lineNumber": 181
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "DeTai.findByIdAndUpdate",
+          "lineNumber": 187
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "BaiTest.findOne",
+          "lineNumber": 188
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "BaiTest.findByIdAndUpdate",
+          "lineNumber": 189
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "io.to(`competition:${deTaiId}`).emit",
+          "lineNumber": 193
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "io.to",
+          "lineNumber": 193
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "winner.Nhom?._id?.toString",
+          "lineNumber": 195
+        },
+        {
+          "caller": "tryClaimWinner",
+          "callee": "logger.info",
+          "lineNumber": 200
+        },
+        {
+          "caller": "resolveWaitingGroups",
+          "callee": "DangKyDeTai.find({\n        DeTai: deTaiId,\n        TrangThai: 'ChoDoi'\n    }).sort",
+          "lineNumber": 207
+        },
+        {
+          "caller": "resolveWaitingGroups",
+          "callee": "DangKyDeTai.find",
+          "lineNumber": 207
+        },
+        {
+          "caller": "resolveWaitingGroups",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 214
+        },
+        {
+          "caller": "resolveWaitingGroups",
+          "callee": "tryClaimWinner",
+          "lineNumber": 223
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/baoCaoController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 412,
+      "nonEmptyLines": 358,
+      "functions": [
+        {
+          "name": "cleanupTempFile",
+          "startLine": 9,
+          "endLine": 16,
+          "params": [
+            "filePath"
+          ]
+        },
+        {
+          "name": "getAcceptedMembers",
+          "startLine": 18,
+          "endLine": 36,
+          "params": [
+            "dangKy"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cleanupTempFile",
+          "callee": "fs.existsSync",
+          "lineNumber": 12
+        },
+        {
+          "caller": "cleanupTempFile",
+          "callee": "fs.unlinkSync",
+          "lineNumber": 13
+        },
+        {
+          "caller": "getAcceptedMembers",
+          "callee": "(dangKy?.ThanhVien || []).filter",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/blockchainController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 386,
+      "nonEmptyLines": 347,
+      "functions": [
+        {
+          "name": "readABI",
+          "startLine": 9,
+          "endLine": 15,
+          "params": [
+            "version"
+          ]
+        },
+        {
+          "name": "toBytes32",
+          "startLine": 17,
+          "endLine": 17,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "getProvider",
+          "startLine": 19,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "getThesisContract",
+          "startLine": 24,
+          "endLine": 53,
+          "params": []
+        },
+        {
+          "name": "normalizeTopic",
+          "startLine": 55,
+          "endLine": 61,
+          "params": [
+            "topic",
+            "version"
+          ]
+        },
+        {
+          "name": "normalizeSubmission",
+          "startLine": 63,
+          "endLine": 72,
+          "params": [
+            "item"
+          ]
+        },
+        {
+          "name": "getErrorMessage",
+          "startLine": 74,
+          "endLine": 74,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "readOnChainHistory",
+          "startLine": 76,
+          "endLine": 81,
+          "params": [
+            "contract",
+            "version",
+            "studentId",
+            "topicId"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readABI",
+          "callee": "fs.readFileSync",
+          "lineNumber": 13
+        },
+        {
+          "caller": "readABI",
+          "callee": "path.join",
+          "lineNumber": 13
+        },
+        {
+          "caller": "readABI",
+          "callee": "JSON.parse",
+          "lineNumber": 14
+        },
+        {
+          "caller": "toBytes32",
+          "callee": "ethers.keccak256",
+          "lineNumber": 17
+        },
+        {
+          "caller": "toBytes32",
+          "callee": "ethers.toUtf8Bytes",
+          "lineNumber": 17
+        },
+        {
+          "caller": "toBytes32",
+          "callee": "String",
+          "lineNumber": 17
+        },
+        {
+          "caller": "getThesisContract",
+          "callee": "getProvider",
+          "lineNumber": 25
+        },
+        {
+          "caller": "getThesisContract",
+          "callee": "(process.env.THESIS_CONTRACT_VERSION || '').toLowerCase",
+          "lineNumber": 31
+        },
+        {
+          "caller": "getThesisContract",
+          "callee": "readABI",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getThesisContract",
+          "callee": "readABI",
+          "lineNumber": 42
+        },
+        {
+          "caller": "getThesisContract",
+          "callee": "v2Contract.owner",
+          "lineNumber": 43
+        },
+        {
+          "caller": "getThesisContract",
+          "callee": "readABI",
+          "lineNumber": 50
+        },
+        {
+          "caller": "normalizeTopic",
+          "callee": "Number",
+          "lineNumber": 58
+        },
+        {
+          "caller": "normalizeTopic",
+          "callee": "Boolean",
+          "lineNumber": 60
+        },
+        {
+          "caller": "normalizeSubmission",
+          "callee": "Number",
+          "lineNumber": 67
+        },
+        {
+          "caller": "normalizeSubmission",
+          "callee": "Number",
+          "lineNumber": 68
+        },
+        {
+          "caller": "normalizeSubmission",
+          "callee": "Number",
+          "lineNumber": 69
+        },
+        {
+          "caller": "normalizeSubmission",
+          "callee": "Boolean",
+          "lineNumber": 71
+        },
+        {
+          "caller": "getErrorMessage",
+          "callee": "String",
+          "lineNumber": 74
+        },
+        {
+          "caller": "readOnChainHistory",
+          "callee": "toBytes32",
+          "lineNumber": 77
+        },
+        {
+          "caller": "readOnChainHistory",
+          "callee": "toBytes32",
+          "lineNumber": 78
+        },
+        {
+          "caller": "readOnChainHistory",
+          "callee": "contract.getSubmissionHistory",
+          "lineNumber": 79
+        },
+        {
+          "caller": "readOnChainHistory",
+          "callee": "submissions.map",
+          "lineNumber": 80
+        },
+        {
+          "caller": "buildChain",
+          "callee": "history.some",
+          "lineNumber": 223
+        },
+        {
+          "caller": "keyOf",
+          "callee": "toBytes32",
+          "lineNumber": 311
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/deTaiController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 663,
+      "nonEmptyLines": 585,
+      "functions": [
+        {
+          "name": "invalidateDeTaiCache",
+          "startLine": 11,
+          "endLine": 13,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/diemSoController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 627,
+      "nonEmptyLines": 552,
+      "functions": [
+        {
+          "name": "parseBlockchainError",
+          "startLine": 10,
+          "endLine": 30,
+          "params": [
+            "error"
+          ]
+        },
+        {
+          "name": "createGradeForReport",
+          "startLine": 33,
+          "endLine": 141,
+          "params": []
+        },
+        {
+          "name": "checkAndCompleteTopic",
+          "startLine": 144,
+          "endLine": 166,
+          "params": [
+            "deTaiId"
+          ]
+        },
+        {
+          "name": "isNumber",
+          "startLine": 168,
+          "endLine": 168,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "validateDiem",
+          "startLine": 170,
+          "endLine": 175,
+          "params": [
+            "diem"
+          ]
+        },
+        {
+          "name": "calculateRubricsScore",
+          "startLine": 177,
+          "endLine": 192,
+          "params": [
+            "rubricsResult"
+          ]
+        },
+        {
+          "name": "validateRubricsResult",
+          "startLine": 194,
+          "endLine": 219,
+          "params": [
+            "rubricsResult"
+          ]
+        },
+        {
+          "name": "validateRubricsAgainstScore",
+          "startLine": 221,
+          "endLine": 232,
+          "params": [
+            "rubricsResult",
+            "diem"
+          ]
+        },
+        {
+          "name": "assertGiaoVienOwnsDeTai",
+          "startLine": 234,
+          "endLine": 245,
+          "params": [
+            "deTaiId",
+            "giaoVienId"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "parseBlockchainError",
+          "callee": "String",
+          "lineNumber": 11
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.includes",
+          "lineNumber": 12
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.includes",
+          "lineNumber": 15
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.includes",
+          "lineNumber": 15
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.includes",
+          "lineNumber": 18
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.includes",
+          "lineNumber": 18
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.match",
+          "lineNumber": 22
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.match",
+          "lineNumber": 22
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.split('\\n')[0].substring",
+          "lineNumber": 27
+        },
+        {
+          "caller": "parseBlockchainError",
+          "callee": "errorStr.split",
+          "lineNumber": 27
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "DiemSo.findOne",
+          "lineNumber": 35
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "BaoCao.find({ DeTai: deTaiId, HocSinh: hocSinhId }).sort",
+          "lineNumber": 40
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "BaoCao.find",
+          "lineNumber": 40
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "submissions.findIndex",
+          "lineNumber": 41
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "String",
+          "lineNumber": 41
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "String",
+          "lineNumber": 41
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "diemSo.save",
+          "lineNumber": 61
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "Array.isArray",
+          "lineNumber": 65
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "Number",
+          "lineNumber": 66
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "crypto.createHash('sha256').update(extractedText).digest",
+          "lineNumber": 68
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "crypto.createHash('sha256').update",
+          "lineNumber": 68
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "crypto.createHash",
+          "lineNumber": 68
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "AILog.create",
+          "lineNumber": 71
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "Number.isFinite",
+          "lineNumber": 78
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "securityFlags.some",
+          "lineNumber": 84
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "flag.toLowerCase().includes",
+          "lineNumber": 85
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "flag.toLowerCase",
+          "lineNumber": 85
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "logger.warn",
+          "lineNumber": 92
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "contractService.finalizeGradeOnChain",
+          "lineNumber": 98
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "String",
+          "lineNumber": 98
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "diemSo.save",
+          "lineNumber": 102
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "errorMsg.includes",
+          "lineNumber": 105
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "errorMsg.includes",
+          "lineNumber": 105
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "logger.info",
+          "lineNumber": 107
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "contractService.getSubmissionHistory",
+          "lineNumber": 108
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "String",
+          "lineNumber": 108
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "Number",
+          "lineNumber": 112
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "diemSo.TxHash.startsWith",
+          "lineNumber": 116
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "diemSo.save",
+          "lineNumber": 119
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "logger.info",
+          "lineNumber": 122
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "logger.warn",
+          "lineNumber": 126
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "contractService.getWalletAddress",
+          "lineNumber": 131
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "parseBlockchainError",
+          "lineNumber": 133
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "diemSo.save",
+          "lineNumber": 135
+        },
+        {
+          "caller": "createGradeForReport",
+          "callee": "logger.error",
+          "lineNumber": 136
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 146
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "(dangKy.ThanhVien || [])\n            .filter(tv => tv.HocSinh && tv.TrangThaiTV === 'DaChapNhan')\n            .map",
+          "lineNumber": 149
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "(dangKy.ThanhVien || [])\n            .filter",
+          "lineNumber": 149
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "String",
+          "lineNumber": 151
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "String",
+          "lineNumber": 152
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "DiemSo.find({ DeTai: deTaiId, HocSinh: { $in: memberIds } }).select",
+          "lineNumber": 155
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "DiemSo.find",
+          "lineNumber": 155
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "grades.map",
+          "lineNumber": 156
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "String",
+          "lineNumber": 156
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "memberIds.every",
+          "lineNumber": 157
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "gradedIds.has",
+          "lineNumber": 157
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "DeTai.findByIdAndUpdate",
+          "lineNumber": 160
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "logger.info",
+          "lineNumber": 161
+        },
+        {
+          "caller": "checkAndCompleteTopic",
+          "callee": "logger.warn",
+          "lineNumber": 164
+        },
+        {
+          "caller": "isNumber",
+          "callee": "Number.isNaN",
+          "lineNumber": 168
+        },
+        {
+          "caller": "validateDiem",
+          "callee": "isNumber",
+          "lineNumber": 171
+        },
+        {
+          "caller": "calculateRubricsScore",
+          "callee": "Array.isArray",
+          "lineNumber": 178
+        },
+        {
+          "caller": "calculateRubricsScore",
+          "callee": "rubricsResult.reduce",
+          "lineNumber": 182
+        },
+        {
+          "caller": "calculateRubricsScore",
+          "callee": "isNumber",
+          "lineNumber": 183
+        },
+        {
+          "caller": "calculateRubricsScore",
+          "callee": "isNumber",
+          "lineNumber": 183
+        },
+        {
+          "caller": "calculateRubricsScore",
+          "callee": "isNumber",
+          "lineNumber": 187
+        },
+        {
+          "caller": "calculateRubricsScore",
+          "callee": "Math.round",
+          "lineNumber": 191
+        },
+        {
+          "caller": "validateRubricsResult",
+          "callee": "Array.isArray",
+          "lineNumber": 199
+        },
+        {
+          "caller": "validateRubricsResult",
+          "callee": "isNumber",
+          "lineNumber": 205
+        },
+        {
+          "caller": "validateRubricsResult",
+          "callee": "isNumber",
+          "lineNumber": 209
+        },
+        {
+          "caller": "validateRubricsResult",
+          "callee": "isNumber",
+          "lineNumber": 209
+        },
+        {
+          "caller": "validateRubricsResult",
+          "callee": "Math.abs",
+          "lineNumber": 214
+        },
+        {
+          "caller": "validateRubricsAgainstScore",
+          "callee": "calculateRubricsScore",
+          "lineNumber": 222
+        },
+        {
+          "caller": "validateRubricsAgainstScore",
+          "callee": "isNumber",
+          "lineNumber": 223
+        },
+        {
+          "caller": "validateRubricsAgainstScore",
+          "callee": "Math.abs",
+          "lineNumber": 227
+        },
+        {
+          "caller": "assertGiaoVienOwnsDeTai",
+          "callee": "DeTai.findById",
+          "lineNumber": 235
+        },
+        {
+          "caller": "assertGiaoVienOwnsDeTai",
+          "callee": "String",
+          "lineNumber": 240
+        },
+        {
+          "caller": "assertGiaoVienOwnsDeTai",
+          "callee": "String",
+          "lineNumber": 240
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 0,
+        "functionCount": 9,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/loiMoiLopHocController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 254,
+      "nonEmptyLines": 217,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/lopHocController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 355,
+      "nonEmptyLines": 301,
+      "functions": [
+        {
+          "name": "invalidateLopHocCache",
+          "startLine": 11,
+          "endLine": 17,
+          "params": [
+            "gvId"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "invalidateLopHocCache",
+          "callee": "_lopHocCache.delete",
+          "lineNumber": 13
+        },
+        {
+          "caller": "invalidateLopHocCache",
+          "callee": "String",
+          "lineNumber": 13
+        },
+        {
+          "caller": "invalidateLopHocCache",
+          "callee": "_lopHocCache.clear",
+          "lineNumber": 15
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/monHocController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 145,
+      "nonEmptyLines": 121,
+      "functions": [
+        {
+          "name": "invalidateMonHocCache",
+          "startLine": 9,
+          "endLine": 15,
+          "params": [
+            "gvId"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "invalidateMonHocCache",
+          "callee": "_monHocCache.delete",
+          "lineNumber": 11
+        },
+        {
+          "caller": "invalidateMonHocCache",
+          "callee": "String",
+          "lineNumber": 11
+        },
+        {
+          "caller": "invalidateMonHocCache",
+          "callee": "_monHocCache.clear",
+          "lineNumber": 13
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/nhomController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 445,
+      "nonEmptyLines": 385,
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/rubricsController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 198,
+      "nonEmptyLines": 171,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/tienDoController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 724,
+      "nonEmptyLines": 619,
+      "functions": [
+        {
+          "name": "isNumber",
+          "startLine": 7,
+          "endLine": 7,
+          "params": [
+            "value"
+          ]
+        },
+        {
+          "name": "normalizeMinhChung",
+          "startLine": 9,
+          "endLine": 25,
+          "params": [
+            "arr"
+          ]
+        },
+        {
+          "name": "validateRubricsTuan",
+          "startLine": 27,
+          "endLine": 56,
+          "params": [
+            "rubricsTuan"
+          ]
+        },
+        {
+          "name": "assertGiaoVienOwnsDeTai",
+          "startLine": 58,
+          "endLine": 69,
+          "params": [
+            "deTaiId",
+            "giaoVienId"
+          ]
+        },
+        {
+          "name": "assertHocSinhBelongsToDangKy",
+          "startLine": 71,
+          "endLine": 86,
+          "params": [
+            "deTaiId",
+            "hocSinhId"
+          ]
+        },
+        {
+          "name": "getPreviousEntry",
+          "startLine": 88,
+          "endLine": 104,
+          "params": [
+            "entries",
+            "currentEntry"
+          ]
+        },
+        {
+          "name": "detectAnomalies",
+          "startLine": 106,
+          "endLine": 164,
+          "params": [
+            "currentEntry",
+            "previousEntries"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "isNumber",
+          "callee": "Number.isNaN",
+          "lineNumber": 7
+        },
+        {
+          "caller": "normalizeMinhChung",
+          "callee": "Array.isArray",
+          "lineNumber": 10
+        },
+        {
+          "caller": "normalizeMinhChung",
+          "callee": "arr\n        .map(m => {\n            if (typeof m === 'string') {\n                return { TenFile: '', Url: m, GhiChu: '' };\n            }\n\n            const item = m || {};\n            return {\n                TenFile: item.TenFile ?? item.tenFile ?? '',\n                Url: item.Url ?? item.url ?? '',\n                GhiChu: item.GhiChu ?? item.ghiChu ?? ''\n            };\n        })\n        .filter",
+          "lineNumber": 11
+        },
+        {
+          "caller": "normalizeMinhChung",
+          "callee": "arr\n        .map",
+          "lineNumber": 11
+        },
+        {
+          "caller": "validateRubricsTuan",
+          "callee": "Array.isArray",
+          "lineNumber": 32
+        },
+        {
+          "caller": "validateRubricsTuan",
+          "callee": "isNumber",
+          "lineNumber": 38
+        },
+        {
+          "caller": "validateRubricsTuan",
+          "callee": "isNumber",
+          "lineNumber": 42
+        },
+        {
+          "caller": "validateRubricsTuan",
+          "callee": "isNumber",
+          "lineNumber": 46
+        },
+        {
+          "caller": "validateRubricsTuan",
+          "callee": "isNumber",
+          "lineNumber": 46
+        },
+        {
+          "caller": "validateRubricsTuan",
+          "callee": "Math.abs",
+          "lineNumber": 51
+        },
+        {
+          "caller": "assertGiaoVienOwnsDeTai",
+          "callee": "DeTai.findById",
+          "lineNumber": 59
+        },
+        {
+          "caller": "assertGiaoVienOwnsDeTai",
+          "callee": "String",
+          "lineNumber": 64
+        },
+        {
+          "caller": "assertGiaoVienOwnsDeTai",
+          "callee": "String",
+          "lineNumber": 64
+        },
+        {
+          "caller": "assertHocSinhBelongsToDangKy",
+          "callee": "DangKyDeTai.findOne",
+          "lineNumber": 72
+        },
+        {
+          "caller": "getPreviousEntry",
+          "callee": "Array.isArray",
+          "lineNumber": 89
+        },
+        {
+          "caller": "getPreviousEntry",
+          "callee": "isNumber",
+          "lineNumber": 93
+        },
+        {
+          "caller": "getPreviousEntry",
+          "callee": "entries\n            .filter(entry => isNumber(entry.TuanSo) && entry.TuanSo < currentEntry.TuanSo)\n            .sort",
+          "lineNumber": 94
+        },
+        {
+          "caller": "getPreviousEntry",
+          "callee": "entries\n            .filter",
+          "lineNumber": 94
+        },
+        {
+          "caller": "getPreviousEntry",
+          "callee": "isNumber",
+          "lineNumber": 95
+        },
+        {
+          "caller": "getPreviousEntry",
+          "callee": "entries\n        .slice()\n        .sort",
+          "lineNumber": 100
+        },
+        {
+          "caller": "getPreviousEntry",
+          "callee": "entries\n        .slice",
+          "lineNumber": 100
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "Array.isArray",
+          "lineNumber": 109
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "isNumber",
+          "lineNumber": 111
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "entries.some",
+          "lineNumber": 112
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "isNumber",
+          "lineNumber": 113
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "blockers.push",
+          "lineNumber": 119
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "getPreviousEntry",
+          "lineNumber": 123
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "isNumber",
+          "lineNumber": 124
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "isNumber",
+          "lineNumber": 124
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "blockers.push",
+          "lineNumber": 126
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "Array.isArray",
+          "lineNumber": 130
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "warnings.push",
+          "lineNumber": 134
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "isNumber",
+          "lineNumber": 138
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "Array.isArray",
+          "lineNumber": 139
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "warnings.push",
+          "lineNumber": 141
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "warnings.push",
+          "lineNumber": 146
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "Date.now",
+          "lineNumber": 149
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "entries.filter",
+          "lineNumber": 150
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "warnings.push",
+          "lineNumber": 156
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "(currentEntry.KeHoachTuanSau || '').trim",
+          "lineNumber": 159
+        },
+        {
+          "caller": "detectAnomalies",
+          "callee": "warnings.push",
+          "lineNumber": 160
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/AILog.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/BaiTest.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 22,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/BaoCao.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 22,
+      "nonEmptyLines": 20,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/DangKyDeTai.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 35,
+      "nonEmptyLines": 32,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/DeTai.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 35,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/DiemSo.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 49,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/DuAn.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 5,
+      "nonEmptyLines": 4,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    }
+  ]
+}

@@ -65,3 +65,8 @@ SKILL.md
 SKILL_WEB3GIANGVIEN.md
 .claude/
 
+
+
+backend/.env.render
+backend/.env
+backend/uploads/

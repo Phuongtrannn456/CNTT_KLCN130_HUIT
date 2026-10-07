@@ -1,0 +1,2929 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 16,
+  "filesSkipped": [
+    "docker/backend.Dockerfile",
+    "docker/frontend.Dockerfile",
+    "frontend/public/_headers",
+    "frontend/public/_redirects",
+    "frontend/public/index.html"
+  ],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 16,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 13,
+      "failed": 0,
+      "skipped": 3
+    }
+  },
+  "results": [
+    {
+      "path": "backend/scripts/seedMockWorkData.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 93,
+      "nonEmptyLines": 80,
+      "functions": [
+        {
+          "name": "seedMockData",
+          "startLine": 39,
+          "endLine": 90,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedMockData",
+          "callee": "console.error",
+          "lineNumber": 42
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "process.exit",
+          "lineNumber": 43
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "mongoose.connect",
+          "lineNumber": 47
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "ChamCong.findOneAndUpdate",
+          "lineNumber": 53
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "attendance.ngay.toISOString().split",
+          "lineNumber": 61
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "attendance.ngay.toISOString",
+          "lineNumber": 61
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "DanhGiaKpi.findOneAndUpdate",
+          "lineNumber": 65
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "console.log",
+          "lineNumber": 75
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "console.log",
+          "lineNumber": 82
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 83
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "process.exit",
+          "lineNumber": 84
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "console.error",
+          "lineNumber": 86
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 87
+        },
+        {
+          "caller": "seedMockData",
+          "callee": "process.exit",
+          "lineNumber": 88
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seedRoles.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 205,
+      "nonEmptyLines": 196,
+      "functions": [
+        {
+          "name": "seedRoles",
+          "startLine": 170,
+          "endLine": 202,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedRoles",
+          "callee": "mongoose.connect",
+          "lineNumber": 173
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.log",
+          "lineNumber": 178
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.log",
+          "lineNumber": 179
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "RolesPermissions.deleteMany",
+          "lineNumber": 182
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.log",
+          "lineNumber": 183
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "RolesPermissions.insertMany",
+          "lineNumber": 186
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.log",
+          "lineNumber": 187
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.log",
+          "lineNumber": 190
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "insertedRoles.forEach",
+          "lineNumber": 191
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.log",
+          "lineNumber": 192
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.log",
+          "lineNumber": 195
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "process.exit",
+          "lineNumber": 196
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "console.error",
+          "lineNumber": 199
+        },
+        {
+          "caller": "seedRoles",
+          "callee": "process.exit",
+          "lineNumber": 200
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seedSuperAdmin.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 50,
+      "nonEmptyLines": 42,
+      "functions": [
+        {
+          "name": "seedSuperAdmin",
+          "startLine": 18,
+          "endLine": 48,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "mongoose.connect",
+          "lineNumber": 21
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "HoSoNhanVien.findOne",
+          "lineNumber": 29
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "console.log",
+          "lineNumber": 31
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "process.exit",
+          "lineNumber": 32
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "superAdmin.save",
+          "lineNumber": 37
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "console.log",
+          "lineNumber": 39
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "console.log",
+          "lineNumber": 40
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "process.exit",
+          "lineNumber": 43
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "console.error",
+          "lineNumber": 45
+        },
+        {
+          "caller": "seedSuperAdmin",
+          "callee": "process.exit",
+          "lineNumber": 46
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/test-task-payment.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 175,
+      "nonEmptyLines": 149,
+      "functions": [
+        {
+          "name": "testTaskPayment",
+          "startLine": 17,
+          "endLine": 155,
+          "params": [
+            "taskId",
+            "employeeDid"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "testTaskPayment",
+          "callee": "mongoose.connect",
+          "lineNumber": 20
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "CongViecGiao.findOne",
+          "lineNumber": 27
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.error",
+          "lineNumber": 29
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "process.exit",
+          "lineNumber": 30
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 33
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 33
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 34
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 35
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 35
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 36
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 37
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 38
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 39
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 40
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 42
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "HoSoNhanVien.findOne",
+          "lineNumber": 45
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.error",
+          "lineNumber": 49
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "process.exit",
+          "lineNumber": 50
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.error",
+          "lineNumber": 54
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.error",
+          "lineNumber": 55
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "process.exit",
+          "lineNumber": 56
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 60
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 61
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 64
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "payrollContractService.getContractInfo",
+          "lineNumber": 65
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 66
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 67
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "calculateTaskReward",
+          "lineNumber": 101
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 107
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 108
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 109
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 110
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 113
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "process.exit",
+          "lineNumber": 114
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 118
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 118
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 119
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 120
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 120
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 121
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 122
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "payrollContractService.payTaskReward",
+          "lineNumber": 124
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 130
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 131
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 131
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 132
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 133
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "'='.repeat",
+          "lineNumber": 133
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 134
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "JSON.stringify",
+          "lineNumber": 134
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 135
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 138
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 139
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 140
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 141
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 142
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 144
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.log",
+          "lineNumber": 145
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.error",
+          "lineNumber": 149
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "console.error",
+          "lineNumber": 150
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "process.exit",
+          "lineNumber": 151
+        },
+        {
+          "caller": "testTaskPayment",
+          "callee": "mongoose.disconnect",
+          "lineNumber": 153
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/test_k12_api.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 271,
+      "nonEmptyLines": 239,
+      "functions": [
+        {
+          "name": "req",
+          "startLine": 33,
+          "endLine": 57,
+          "params": [
+            "method",
+            "path",
+            "body",
+            "token"
+          ]
+        },
+        {
+          "name": "loginWithWallet",
+          "startLine": 59,
+          "endLine": 72,
+          "params": [
+            "privateKey"
+          ]
+        },
+        {
+          "name": "log",
+          "startLine": 74,
+          "endLine": 78,
+          "params": [
+            "name",
+            "pass",
+            "detail"
+          ]
+        },
+        {
+          "name": "run",
+          "startLine": 80,
+          "endLine": 269,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "req",
+          "callee": "http.request",
+          "lineNumber": 45
+        },
+        {
+          "caller": "req",
+          "callee": "res.on",
+          "lineNumber": 47
+        },
+        {
+          "caller": "req",
+          "callee": "res.on",
+          "lineNumber": 48
+        },
+        {
+          "caller": "req",
+          "callee": "resolve",
+          "lineNumber": 49
+        },
+        {
+          "caller": "req",
+          "callee": "JSON.parse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "req",
+          "callee": "resolve",
+          "lineNumber": 50
+        },
+        {
+          "caller": "req",
+          "callee": "r.on",
+          "lineNumber": 53
+        },
+        {
+          "caller": "req",
+          "callee": "r.write",
+          "lineNumber": 54
+        },
+        {
+          "caller": "req",
+          "callee": "JSON.stringify",
+          "lineNumber": 54
+        },
+        {
+          "caller": "req",
+          "callee": "r.end",
+          "lineNumber": 55
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "req",
+          "lineNumber": 63
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "JSON.stringify",
+          "lineNumber": 64
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "wallet.signMessage",
+          "lineNumber": 67
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "req",
+          "lineNumber": 70
+        },
+        {
+          "caller": "log",
+          "callee": "console.log",
+          "lineNumber": 76
+        },
+        {
+          "caller": "log",
+          "callee": "results.push",
+          "lineNumber": 77
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 81
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 86
+        },
+        {
+          "caller": "run",
+          "callee": "loginWithWallet",
+          "lineNumber": 89
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "run",
+          "callee": "JSON.stringify",
+          "lineNumber": 94
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 96
+        },
+        {
+          "caller": "run",
+          "callee": "loginWithWallet",
+          "lineNumber": 99
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 102
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 104
+        },
+        {
+          "caller": "run",
+          "callee": "JSON.stringify",
+          "lineNumber": 104
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 106
+        },
+        {
+          "caller": "run",
+          "callee": "loginWithWallet",
+          "lineNumber": 109
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 112
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 114
+        },
+        {
+          "caller": "run",
+          "callee": "JSON.stringify",
+          "lineNumber": 114
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 116
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 121
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 124
+        },
+        {
+          "caller": "run",
+          "callee": "Array.isArray",
+          "lineNumber": 125
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 126
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 128
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 130
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 133
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 135
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 137
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 139
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 144
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 147
+        },
+        {
+          "caller": "run",
+          "callee": "new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString",
+          "lineNumber": 151
+        },
+        {
+          "caller": "run",
+          "callee": "Date.now",
+          "lineNumber": 151
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 157
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 159
+        },
+        {
+          "caller": "run",
+          "callee": "JSON.stringify",
+          "lineNumber": 159
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 161
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 165
+        },
+        {
+          "caller": "run",
+          "callee": "new Date().toISOString",
+          "lineNumber": 167
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 170
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 172
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 174
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 179
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 184
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 188
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 190
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 192
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 196
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 200
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 202
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 204
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 208
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 212
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 214
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 216
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 222
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 227
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 229
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 231
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 233
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 237
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 239
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 241
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 243
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 247
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 249
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 251
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 253
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter",
+          "lineNumber": 259
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter",
+          "lineNumber": 260
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 261
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 262
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 264
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter(r => !r.pass).forEach",
+          "lineNumber": 265
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter",
+          "lineNumber": 265
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 265
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 267
+        },
+        {
+          "caller": "run",
+          "callee": "process.exit",
+          "lineNumber": 268
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/test_phase3.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 167,
+      "nonEmptyLines": 136,
+      "functions": [
+        {
+          "name": "req",
+          "startLine": 16,
+          "endLine": 37,
+          "params": [
+            "method",
+            "path",
+            "body",
+            "token"
+          ]
+        },
+        {
+          "name": "loginWithWallet",
+          "startLine": 39,
+          "endLine": 44,
+          "params": [
+            "pk"
+          ]
+        },
+        {
+          "name": "log",
+          "startLine": 46,
+          "endLine": 50,
+          "params": [
+            "name",
+            "pass",
+            "detail"
+          ]
+        },
+        {
+          "name": "run",
+          "startLine": 52,
+          "endLine": 166,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "req",
+          "callee": "http.request",
+          "lineNumber": 25
+        },
+        {
+          "caller": "req",
+          "callee": "res.on",
+          "lineNumber": 27
+        },
+        {
+          "caller": "req",
+          "callee": "res.on",
+          "lineNumber": 28
+        },
+        {
+          "caller": "req",
+          "callee": "resolve",
+          "lineNumber": 29
+        },
+        {
+          "caller": "req",
+          "callee": "JSON.parse",
+          "lineNumber": 29
+        },
+        {
+          "caller": "req",
+          "callee": "resolve",
+          "lineNumber": 30
+        },
+        {
+          "caller": "req",
+          "callee": "r.on",
+          "lineNumber": 33
+        },
+        {
+          "caller": "req",
+          "callee": "r.write",
+          "lineNumber": 34
+        },
+        {
+          "caller": "req",
+          "callee": "JSON.stringify",
+          "lineNumber": 34
+        },
+        {
+          "caller": "req",
+          "callee": "r.end",
+          "lineNumber": 35
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "req",
+          "lineNumber": 41
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "wallet.signMessage",
+          "lineNumber": 42
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "req",
+          "lineNumber": 43
+        },
+        {
+          "caller": "log",
+          "callee": "console.log",
+          "lineNumber": 48
+        },
+        {
+          "caller": "log",
+          "callee": "results.push",
+          "lineNumber": 49
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 53
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 55
+        },
+        {
+          "caller": "run",
+          "callee": "loginWithWallet",
+          "lineNumber": 56
+        },
+        {
+          "caller": "run",
+          "callee": "loginWithWallet",
+          "lineNumber": 57
+        },
+        {
+          "caller": "run",
+          "callee": "loginWithWallet",
+          "lineNumber": 58
+        },
+        {
+          "caller": "run",
+          "callee": "loginWithWallet",
+          "lineNumber": 59
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 61
+        },
+        {
+          "caller": "run",
+          "callee": "new Date(Date.now() + 7 * 86400000).toISOString",
+          "lineNumber": 63
+        },
+        {
+          "caller": "run",
+          "callee": "Date.now",
+          "lineNumber": 63
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 67
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 70
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 72
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 74
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 75
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 76
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 78
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 79
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 82
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 83
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 84
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 86
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 87
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 88
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 90
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 91
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 95
+        },
+        {
+          "caller": "run",
+          "callee": "myParts.body.participations.find",
+          "lineNumber": 96
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 98
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 99
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 100
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 102
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 103
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 104
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 106
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 107
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 108
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 110
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 111
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 112
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 114
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 115
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 116
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 118
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 119
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 120
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 122
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 124
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 128
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 129
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 130
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 133
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 134
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 135
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 138
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 139
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 140
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 143
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 144
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 145
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 148
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 149
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 150
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 153
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 154
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 155
+        },
+        {
+          "caller": "run",
+          "callee": "req",
+          "lineNumber": 158
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 159
+        },
+        {
+          "caller": "run",
+          "callee": "log",
+          "lineNumber": 160
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 161
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter",
+          "lineNumber": 162
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 163
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter",
+          "lineNumber": 163
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter(x => !x.pass).forEach",
+          "lineNumber": 164
+        },
+        {
+          "caller": "run",
+          "callee": "results.filter",
+          "lineNumber": 164
+        },
+        {
+          "caller": "run",
+          "callee": "console.log",
+          "lineNumber": 164
+        },
+        {
+          "caller": "run",
+          "callee": "process.exit",
+          "lineNumber": 165
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/test_phase4.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 128,
+      "nonEmptyLines": 110,
+      "functions": [
+        {
+          "name": "loginWithWallet",
+          "startLine": 11,
+          "endLine": 17,
+          "params": [
+            "pk"
+          ]
+        },
+        {
+          "name": "runTests",
+          "startLine": 19,
+          "endLine": 126,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loginWithWallet",
+          "callee": "axios.post",
+          "lineNumber": 13
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "wallet.signMessage",
+          "lineNumber": 14
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "axios.post",
+          "lineNumber": 15
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "assert",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "assert",
+          "callee": "console.error",
+          "lineNumber": 29
+        },
+        {
+          "caller": "runTests",
+          "callee": "loginWithWallet",
+          "lineNumber": 35
+        },
+        {
+          "caller": "runTests",
+          "callee": "loginWithWallet",
+          "lineNumber": 36
+        },
+        {
+          "caller": "runTests",
+          "callee": "loginWithWallet",
+          "lineNumber": 37
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 40
+        },
+        {
+          "caller": "runTests",
+          "callee": "new Date(Date.now() + 86400000).toISOString",
+          "lineNumber": 46
+        },
+        {
+          "caller": "runTests",
+          "callee": "Date.now",
+          "lineNumber": 46
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 57
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 58
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 61
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 62
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 63
+        },
+        {
+          "caller": "runTests",
+          "callee": "Array.isArray",
+          "lineNumber": 63
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 65
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 69
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 70
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 72
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 76
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 77
+        },
+        {
+          "caller": "runTests",
+          "callee": "partsRes.data.participations.find",
+          "lineNumber": 78
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 80
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 81
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 85
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 88
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 91
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 92
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 94
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 97
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 99
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 100
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 102
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 105
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 108
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 109
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 112
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 113
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 115
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 118
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 119
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 120
+        },
+        {
+          "caller": "runTests",
+          "callee": "process.exit",
+          "lineNumber": 121
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.error",
+          "lineNumber": 123
+        },
+        {
+          "caller": "runTests",
+          "callee": "process.exit",
+          "lineNumber": 124
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/test_phase5.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 114,
+      "nonEmptyLines": 94,
+      "functions": [
+        {
+          "name": "loginWithWallet",
+          "startLine": 8,
+          "endLine": 14,
+          "params": [
+            "pk"
+          ]
+        },
+        {
+          "name": "runTests",
+          "startLine": 16,
+          "endLine": 112,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loginWithWallet",
+          "callee": "axios.post",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "wallet.signMessage",
+          "lineNumber": 11
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "axios.post",
+          "lineNumber": 12
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "assert",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "assert",
+          "callee": "console.error",
+          "lineNumber": 26
+        },
+        {
+          "caller": "runTests",
+          "callee": "loginWithWallet",
+          "lineNumber": 32
+        },
+        {
+          "caller": "runTests",
+          "callee": "loginWithWallet",
+          "lineNumber": 33
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 36
+        },
+        {
+          "caller": "runTests",
+          "callee": "new Date(Date.now() + 86400000).toISOString",
+          "lineNumber": 41
+        },
+        {
+          "caller": "runTests",
+          "callee": "Date.now",
+          "lineNumber": 41
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 45
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "runTests",
+          "callee": "partsRes.data.participations.find",
+          "lineNumber": 47
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 54
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 61
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 63
+        },
+        {
+          "caller": "runTests",
+          "callee": "achievements.find",
+          "lineNumber": 66
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 70
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 71
+        },
+        {
+          "caller": "runTests",
+          "callee": "studentWallet.signMessage",
+          "lineNumber": 77
+        },
+        {
+          "caller": "runTests",
+          "callee": "teacherWallet.signMessage",
+          "lineNumber": 81
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 83
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 86
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 90
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 91
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 92
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 93
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 96
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 97
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 98
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 99
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 100
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 101
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 103
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 104
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 105
+        },
+        {
+          "caller": "runTests",
+          "callee": "process.exit",
+          "lineNumber": 106
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.error",
+          "lineNumber": 109
+        },
+        {
+          "caller": "runTests",
+          "callee": "process.exit",
+          "lineNumber": 110
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/test_phase5_1.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 122,
+      "nonEmptyLines": 99,
+      "functions": [
+        {
+          "name": "loginWithWallet",
+          "startLine": 8,
+          "endLine": 14,
+          "params": [
+            "pk"
+          ]
+        },
+        {
+          "name": "runTests",
+          "startLine": 16,
+          "endLine": 120,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loginWithWallet",
+          "callee": "axios.post",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "wallet.signMessage",
+          "lineNumber": 11
+        },
+        {
+          "caller": "loginWithWallet",
+          "callee": "axios.post",
+          "lineNumber": 12
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "assert",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "assert",
+          "callee": "console.error",
+          "lineNumber": 26
+        },
+        {
+          "caller": "runTests",
+          "callee": "loginWithWallet",
+          "lineNumber": 32
+        },
+        {
+          "caller": "runTests",
+          "callee": "loginWithWallet",
+          "lineNumber": 33
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 36
+        },
+        {
+          "caller": "runTests",
+          "callee": "new Date(Date.now() + 86400000).toISOString",
+          "lineNumber": 41
+        },
+        {
+          "caller": "runTests",
+          "callee": "Date.now",
+          "lineNumber": 41
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 45
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 46
+        },
+        {
+          "caller": "runTests",
+          "callee": "partsRes.data.participations.find",
+          "lineNumber": 47
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 49
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 50
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 53
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 59
+        },
+        {
+          "caller": "runTests",
+          "callee": "achRes.data.achievements.find",
+          "lineNumber": 60
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 63
+        },
+        {
+          "caller": "runTests",
+          "callee": "studentWallet.signMessage",
+          "lineNumber": 66
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 68
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 72
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 73
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 75
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 79
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 80
+        },
+        {
+          "caller": "runTests",
+          "callee": "piiKeys.some",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runTests",
+          "callee": "Object.keys(publicData).includes",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runTests",
+          "callee": "Object.keys",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runTests",
+          "callee": "Object.keys(publicData.challenge || {}).includes",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runTests",
+          "callee": "Object.keys",
+          "lineNumber": 84
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 86
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 87
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 88
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 89
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 92
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 95
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 96
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 98
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.post",
+          "lineNumber": 102
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 103
+        },
+        {
+          "caller": "runTests",
+          "callee": "axios.get",
+          "lineNumber": 106
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 107
+        },
+        {
+          "caller": "runTests",
+          "callee": "assert",
+          "lineNumber": 109
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 111
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 112
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.log",
+          "lineNumber": 113
+        },
+        {
+          "caller": "runTests",
+          "callee": "process.exit",
+          "lineNumber": 114
+        },
+        {
+          "caller": "runTests",
+          "callee": "console.error",
+          "lineNumber": 117
+        },
+        {
+          "caller": "runTests",
+          "callee": "process.exit",
+          "lineNumber": 118
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/transfer-tokens-to-contract.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 67,
+      "nonEmptyLines": 56,
+      "functions": [
+        {
+          "name": "transferTokens",
+          "startLine": 12,
+          "endLine": 56,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 14
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "'='.repeat",
+          "lineNumber": 14
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 15
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 16
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "'='.repeat",
+          "lineNumber": 16
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 20
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "payrollContractService.initializePayrollService",
+          "lineNumber": 21
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 22
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 23
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "payrollContractService.getContractInfo",
+          "lineNumber": 26
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 27
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 28
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 29
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 30
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 31
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 34
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "payrollContractService.transferTokensToContract",
+          "lineNumber": 35
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 37
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 38
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "'='.repeat",
+          "lineNumber": 38
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 39
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 40
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "'='.repeat",
+          "lineNumber": 40
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 41
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 42
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 44
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "payrollContractService.getContractInfo",
+          "lineNumber": 47
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 48
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.log",
+          "lineNumber": 49
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.error",
+          "lineNumber": 52
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "console.error",
+          "lineNumber": 53
+        },
+        {
+          "caller": "transferTokens",
+          "callee": "process.exit",
+          "lineNumber": 54
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/services/authService.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 25,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "verifyToken",
+          "startLine": 9,
+          "endLine": 20,
+          "params": [
+            "token"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "verifyToken",
+          "callee": "jwt.verify",
+          "lineNumber": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "docker/docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 71,
+      "nonEmptyLines": 66,
+      "sections": [
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 66
+        },
+        {
+          "heading": "networks",
+          "level": 1,
+          "line": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 4
+      }
+    },
+    {
+      "path": "frontend/public/manifest.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 15,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "short_name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "icons",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "start_url",
+          "level": 1,
+          "line": 11
+        },
+        {
+          "heading": "display",
+          "level": 1,
+          "line": 12
+        },
+        {
+          "heading": "theme_color",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "background_color",
+          "level": 1,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "frontend/src/theme/adminTheme.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 262,
+      "nonEmptyLines": 260,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "frontend/src/utils/domain.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 24,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "getDomainTerminology",
+          "startLine": 1,
+          "endLine": 24,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "getDomainTerminology",
+          "line": 1,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 12,
+      "nonEmptyLines": 12,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "version",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "main",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "keywords",
+          "level": 1,
+          "line": 8
+        },
+        {
+          "heading": "author",
+          "level": 1,
+          "line": 9
+        },
+        {
+          "heading": "license",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "description",
+          "level": 1,
+          "line": 11
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 8
+      }
+    }
+  ]
+}

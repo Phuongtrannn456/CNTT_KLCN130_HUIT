@@ -1,8 +1,9 @@
+import apiService from "../../services/apiService";
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Card, Result, Spin, Tag, Descriptions, Typography, Button, Space, Alert } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, SafetyCertificateOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-import axios from 'axios';
+
 import dayjs from 'dayjs';
 
 const { Title, Text, Paragraph } = Typography;
@@ -17,7 +18,7 @@ const CredentialVerify = () => {
     const fetchVerification = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/credentials/${credentialId}/verify`);
+        const res = await apiService.get(`/credentials/${credentialId}/verify`);
         setData(res.data);
       } catch (err) {
         setError(err.response?.data?.message || 'Không thể tải thông tin xác minh chứng chỉ số.');

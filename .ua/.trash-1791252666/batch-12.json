@@ -1,0 +1,53 @@
+{
+  "nodes": [
+    {
+      "id": "config:frontend/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "frontend/.env.example",
+      "summary": "Component responsible for .env.example functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/jsconfig.json",
+      "type": "config",
+      "name": "jsconfig.json",
+      "filePath": "frontend/jsconfig.json",
+      "summary": "Component responsible for jsconfig.json functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/netlify.toml",
+      "type": "config",
+      "name": "netlify.toml",
+      "filePath": "frontend/netlify.toml",
+      "summary": "Component responsible for netlify.toml functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "frontend/package.json",
+      "summary": "Component responsible for package.json functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

@@ -10,7 +10,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes
-      refetchOnWindowFocus: false, // KhÃ´ng tá»± refetch khi chuyá»ƒn tab
+      refetchOnWindowFocus: false, // Không tự refetch khi chuyển tab
       retry: 1, // Chá»‰ retry 1 láº§n náº¿u lá»—i
     },
   },
@@ -53,12 +53,12 @@ const web3Theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#3399FF', // Electric Blue - NÄƒng Ä‘á»™ng vÃ  cÃ´ng nghá»‡
+      main: '#3399FF', // Electric Blue - Năng động và công nghệ
       light: '#66B2FF',
       dark: '#0077E5',
     },
     secondary: {
-      main: '#9C27B0', // Deep Purple - Sang trá»ng vÃ  sÃ¡ng táº¡o
+      main: '#9C27B0', // Deep Purple - Sang trọng và sáng tạo
       light: '#AF52BF',
       dark: '#89229B',
     },
@@ -67,8 +67,8 @@ const web3Theme = createTheme({
       paper: 'rgba(17, 34, 51, 0.6)', // Hiá»‡u á»©ng trong má» (glassmorphism)
     },
     text: {
-      primary: '#E0E0E0', // MÃ u chá»¯ tráº¯ng ngÃ , dá»… chá»‹u cho máº¯t
-      secondary: '#B0B0B0', // MÃ u chá»¯ phá»¥
+      primary: '#E0E0E0', // Màu chữ trắng ngà, dễ chịu cho mắt
+      secondary: '#B0B0B0', // Màu chữ phụ
     },
     success: {
       main: '#00E676',
@@ -147,7 +147,7 @@ const web3Theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 16, // Bo gÃ³c má»m máº¡i hÆ¡n
+    borderRadius: 16, // Bo góc mềm mại hơn
   },
   components: {
     // ThÃªm hiá»‡u á»©ng ná»n Aurora cho toÃ n bá»™ trang

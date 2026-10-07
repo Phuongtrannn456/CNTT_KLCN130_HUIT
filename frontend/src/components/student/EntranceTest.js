@@ -87,7 +87,6 @@ const EntranceTest = () => {
     socketRef.current = socket;
 
     socket.on('connect', () => {
-      console.log('[SOCKET] Connected:', socket.id);
       // Join competition room nếu có nhóm
       if (myNhom) {
         socket.emit('competition:join', { deTaiId, nhomId: myNhom._id });
@@ -117,7 +116,6 @@ const EntranceTest = () => {
 
     // Nhận cập nhật trạng thái
     socket.on('competition:status', ({ nhomId, status }) => {
-      console.log(`[SOCKET] Competition status: nhom=${nhomId} status=${status}`);
     });
 
     return () => {

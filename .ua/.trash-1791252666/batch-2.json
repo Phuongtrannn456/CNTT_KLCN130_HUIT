@@ -1,0 +1,1446 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/App.js",
+      "type": "file",
+      "name": "App.js",
+      "filePath": "frontend/src/App.js",
+      "summary": "Component responsible for App.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/App.js:ProtectedRoute",
+      "type": "function",
+      "name": "ProtectedRoute",
+      "filePath": "frontend/src/App.js",
+      "lineRange": [
+        41,
+        59
+      ],
+      "summary": "Function ProtectedRoute",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.js:PublicRoute",
+      "type": "function",
+      "name": "PublicRoute",
+      "filePath": "frontend/src/App.js",
+      "lineRange": [
+        62,
+        77
+      ],
+      "summary": "Function PublicRoute",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.js:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "frontend/src/App.js",
+      "lineRange": [
+        88,
+        157
+      ],
+      "summary": "Function App",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/AuthContext.js",
+      "type": "file",
+      "name": "AuthContext.js",
+      "filePath": "frontend/src/AuthContext.js",
+      "summary": "Component responsible for AuthContext.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/AuthContext.js:AuthProvider",
+      "type": "function",
+      "name": "AuthProvider",
+      "filePath": "frontend/src/AuthContext.js",
+      "lineRange": [
+        8,
+        57
+      ],
+      "summary": "Function AuthProvider",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/MobileLogin.js",
+      "type": "file",
+      "name": "MobileLogin.js",
+      "filePath": "frontend/src/components/MobileLogin.js",
+      "summary": "Component responsible for MobileLogin.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/MobileLogin.js:MobileLogin",
+      "type": "function",
+      "name": "MobileLogin",
+      "filePath": "frontend/src/components/MobileLogin.js",
+      "lineRange": [
+        15,
+        192
+      ],
+      "summary": "Function MobileLogin",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/PendingApproval.js",
+      "type": "file",
+      "name": "PendingApproval.js",
+      "filePath": "frontend/src/components/PendingApproval.js",
+      "summary": "Component responsible for PendingApproval.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/PendingApproval.js:PendingApproval",
+      "type": "function",
+      "name": "PendingApproval",
+      "filePath": "frontend/src/components/PendingApproval.js",
+      "lineRange": [
+        10,
+        128
+      ],
+      "summary": "Function PendingApproval",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/QrAuthentication.js",
+      "type": "file",
+      "name": "QrAuthentication.js",
+      "filePath": "frontend/src/components/QrAuthentication.js",
+      "summary": "Component responsible for QrAuthentication.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/QrAuthentication.js:QrAuthentication",
+      "type": "function",
+      "name": "QrAuthentication",
+      "filePath": "frontend/src/components/QrAuthentication.js",
+      "lineRange": [
+        9,
+        236
+      ],
+      "summary": "Function QrAuthentication",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/admin/AdminDashboard.js",
+      "type": "file",
+      "name": "AdminDashboard.js",
+      "filePath": "frontend/src/components/admin/AdminDashboard.js",
+      "summary": "Component responsible for AdminDashboard.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/admin/AdminDashboard.js:AdminDashboard",
+      "type": "function",
+      "name": "AdminDashboard",
+      "filePath": "frontend/src/components/admin/AdminDashboard.js",
+      "lineRange": [
+        14,
+        136
+      ],
+      "summary": "Function AdminDashboard",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/admin/AdminRequests.js",
+      "type": "file",
+      "name": "AdminRequests.js",
+      "filePath": "frontend/src/components/admin/AdminRequests.js",
+      "summary": "Component responsible for AdminRequests.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/admin/AdminRequests.js:AdminRequests",
+      "type": "function",
+      "name": "AdminRequests",
+      "filePath": "frontend/src/components/admin/AdminRequests.js",
+      "lineRange": [
+        14,
+        535
+      ],
+      "summary": "Function AdminRequests",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/common/ClassSelector.js",
+      "type": "file",
+      "name": "ClassSelector.js",
+      "filePath": "frontend/src/components/common/ClassSelector.js",
+      "summary": "Component responsible for ClassSelector.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/common/ClassSelector.js:ClassSelector",
+      "type": "function",
+      "name": "ClassSelector",
+      "filePath": "frontend/src/components/common/ClassSelector.js",
+      "lineRange": [
+        31,
+        44
+      ],
+      "summary": "Function ClassSelector",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/common/ClassSelector.js:StudentClassSelector",
+      "type": "function",
+      "name": "StudentClassSelector",
+      "filePath": "frontend/src/components/common/ClassSelector.js",
+      "lineRange": [
+        46,
+        74
+      ],
+      "summary": "Function StudentClassSelector",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/common/ClassSelector.js:LecturerClassSelector",
+      "type": "function",
+      "name": "LecturerClassSelector",
+      "filePath": "frontend/src/components/common/ClassSelector.js",
+      "lineRange": [
+        76,
+        104
+      ],
+      "summary": "Function LecturerClassSelector",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/debug/BlockchainDebugPage.js",
+      "type": "file",
+      "name": "BlockchainDebugPage.js",
+      "filePath": "frontend/src/components/debug/BlockchainDebugPage.js",
+      "summary": "Component responsible for BlockchainDebugPage.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/debug/BlockchainDebugPage.js:renderTx",
+      "type": "function",
+      "name": "renderTx",
+      "filePath": "frontend/src/components/debug/BlockchainDebugPage.js",
+      "lineRange": [
+        56,
+        66
+      ],
+      "summary": "Function renderTx",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/debug/BlockchainDebugPage.js:BlockchainDebugPage",
+      "type": "function",
+      "name": "BlockchainDebugPage",
+      "filePath": "frontend/src/components/debug/BlockchainDebugPage.js",
+      "lineRange": [
+        83,
+        602
+      ],
+      "summary": "Function BlockchainDebugPage",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/layout/MainLayout.js",
+      "type": "file",
+      "name": "MainLayout.js",
+      "filePath": "frontend/src/components/layout/MainLayout.js",
+      "summary": "Component responsible for MainLayout.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/layout/MainLayout.js:MainLayout",
+      "type": "function",
+      "name": "MainLayout",
+      "filePath": "frontend/src/components/layout/MainLayout.js",
+      "lineRange": [
+        13,
+        166
+      ],
+      "summary": "Function MainLayout",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/ClassManagement.js",
+      "type": "file",
+      "name": "ClassManagement.js",
+      "filePath": "frontend/src/components/lecturer/ClassManagement.js",
+      "summary": "Component responsible for ClassManagement.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/ClassManagement.js:ClassManagement",
+      "type": "function",
+      "name": "ClassManagement",
+      "filePath": "frontend/src/components/lecturer/ClassManagement.js",
+      "lineRange": [
+        13,
+        678
+      ],
+      "summary": "Function ClassManagement",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/CourseManagement.js",
+      "type": "file",
+      "name": "CourseManagement.js",
+      "filePath": "frontend/src/components/lecturer/CourseManagement.js",
+      "summary": "Component responsible for CourseManagement.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/CourseManagement.js:CourseManagement",
+      "type": "function",
+      "name": "CourseManagement",
+      "filePath": "frontend/src/components/lecturer/CourseManagement.js",
+      "lineRange": [
+        13,
+        299
+      ],
+      "summary": "Function CourseManagement",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/EntranceTestManager.js",
+      "type": "file",
+      "name": "EntranceTestManager.js",
+      "filePath": "frontend/src/components/lecturer/EntranceTestManager.js",
+      "summary": "Component responsible for EntranceTestManager.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/EntranceTestManager.js:EntranceTestManager",
+      "type": "function",
+      "name": "EntranceTestManager",
+      "filePath": "frontend/src/components/lecturer/EntranceTestManager.js",
+      "lineRange": [
+        13,
+        399
+      ],
+      "summary": "Function EntranceTestManager",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/LecturerDashboard.js",
+      "type": "file",
+      "name": "LecturerDashboard.js",
+      "filePath": "frontend/src/components/lecturer/LecturerDashboard.js",
+      "summary": "Component responsible for LecturerDashboard.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/LecturerDashboard.js:LecturerDashboard",
+      "type": "function",
+      "name": "LecturerDashboard",
+      "filePath": "frontend/src/components/lecturer/LecturerDashboard.js",
+      "lineRange": [
+        12,
+        70
+      ],
+      "summary": "Function LecturerDashboard",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/RubricsManagement.js",
+      "type": "file",
+      "name": "RubricsManagement.js",
+      "filePath": "frontend/src/components/lecturer/RubricsManagement.js",
+      "summary": "Component responsible for RubricsManagement.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/RubricsManagement.js:RubricsManagement",
+      "type": "function",
+      "name": "RubricsManagement",
+      "filePath": "frontend/src/components/lecturer/RubricsManagement.js",
+      "lineRange": [
+        11,
+        378
+      ],
+      "summary": "Function RubricsManagement",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/ScoreComparison.js",
+      "type": "file",
+      "name": "ScoreComparison.js",
+      "filePath": "frontend/src/components/lecturer/ScoreComparison.js",
+      "summary": "Component responsible for ScoreComparison.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/ScoreComparison.js:ScoreComparison",
+      "type": "function",
+      "name": "ScoreComparison",
+      "filePath": "frontend/src/components/lecturer/ScoreComparison.js",
+      "lineRange": [
+        21,
+        829
+      ],
+      "summary": "Function ScoreComparison",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/StudentManagement.js",
+      "type": "file",
+      "name": "StudentManagement.js",
+      "filePath": "frontend/src/components/lecturer/StudentManagement.js",
+      "summary": "Component responsible for StudentManagement.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/StudentManagement.js:StudentManagement",
+      "type": "function",
+      "name": "StudentManagement",
+      "filePath": "frontend/src/components/lecturer/StudentManagement.js",
+      "lineRange": [
+        10,
+        254
+      ],
+      "summary": "Function StudentManagement",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "type": "file",
+      "name": "SubmissionReview.js",
+      "filePath": "frontend/src/components/lecturer/SubmissionReview.js",
+      "summary": "Component responsible for SubmissionReview.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/SubmissionReview.js:formatBlockchainError",
+      "type": "function",
+      "name": "formatBlockchainError",
+      "filePath": "frontend/src/components/lecturer/SubmissionReview.js",
+      "lineRange": [
+        41,
+        67
+      ],
+      "summary": "Function formatBlockchainError",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/SubmissionReview.js:SubmissionReview",
+      "type": "function",
+      "name": "SubmissionReview",
+      "filePath": "frontend/src/components/lecturer/SubmissionReview.js",
+      "lineRange": [
+        79,
+        1601
+      ],
+      "summary": "Function SubmissionReview",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "type": "file",
+      "name": "TopicManagement.js",
+      "filePath": "frontend/src/components/lecturer/TopicManagement.js",
+      "summary": "Component responsible for TopicManagement.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/lecturer/TopicManagement.js:TopicManagement",
+      "type": "function",
+      "name": "TopicManagement",
+      "filePath": "frontend/src/components/lecturer/TopicManagement.js",
+      "lineRange": [
+        16,
+        927
+      ],
+      "summary": "Function TopicManagement",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/shared/CredentialVerify.jsx",
+      "type": "file",
+      "name": "CredentialVerify.jsx",
+      "filePath": "frontend/src/components/shared/CredentialVerify.jsx",
+      "summary": "Component responsible for CredentialVerify.jsx functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/shared/CredentialVerify.jsx:CredentialVerify",
+      "type": "function",
+      "name": "CredentialVerify",
+      "filePath": "frontend/src/components/shared/CredentialVerify.jsx",
+      "lineRange": [
+        10,
+        155
+      ],
+      "summary": "Function CredentialVerify",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/AchievementList.jsx",
+      "type": "file",
+      "name": "AchievementList.jsx",
+      "filePath": "frontend/src/components/student/AchievementList.jsx",
+      "summary": "Component responsible for AchievementList.jsx functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/AchievementList.jsx:AchievementList",
+      "type": "function",
+      "name": "AchievementList",
+      "filePath": "frontend/src/components/student/AchievementList.jsx",
+      "lineRange": [
+        11,
+        158
+      ],
+      "summary": "Function AchievementList",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/student/ChallengeList.jsx",
+      "type": "file",
+      "name": "ChallengeList.jsx",
+      "filePath": "frontend/src/components/student/ChallengeList.jsx",
+      "summary": "Component responsible for ChallengeList.jsx functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/student/ChallengeList.jsx:ChallengeList",
+      "type": "function",
+      "name": "ChallengeList",
+      "filePath": "frontend/src/components/student/ChallengeList.jsx",
+      "lineRange": [
+        10,
+        164
+      ],
+      "summary": "Function ChallengeList",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "function:frontend/src/App.js:ProtectedRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "function:frontend/src/App.js:PublicRoute",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "function:frontend/src/App.js:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/LoginPage.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/PendingApproval.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/admin/AdminDashboard.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/admin/AdminRequests.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/debug/BlockchainDebugPage.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/layout/MainLayout.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/ClassManagement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/CourseManagement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/EntranceTestManager.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/LecturerDashboard.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/RubricsManagement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/ScoreComparison.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/StudentManagement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/shared/CredentialVerify.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/AchievementList.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/ChallengeList.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/EntranceTest.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/GroupManagement.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/ProgressLog.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/ProgressTracking.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/ReportUpload.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/StudentDashboard.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/StudentSubmissionView.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/student/TopicRegistration.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/teacher/ChallengeManagement.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/contexts/LecturerClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/AuthContext.js",
+      "target": "function:frontend/src/AuthContext.js:AuthProvider",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/AuthContext.js",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MobileLogin.js",
+      "target": "function:frontend/src/components/MobileLogin.js:MobileLogin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/MobileLogin.js",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/PendingApproval.js",
+      "target": "function:frontend/src/components/PendingApproval.js:PendingApproval",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/PendingApproval.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/QrAuthentication.js",
+      "target": "function:frontend/src/components/QrAuthentication.js:QrAuthentication",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/QrAuthentication.js",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/admin/AdminDashboard.js",
+      "target": "function:frontend/src/components/admin/AdminDashboard.js:AdminDashboard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/admin/AdminDashboard.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/admin/AdminRequests.js",
+      "target": "function:frontend/src/components/admin/AdminRequests.js:AdminRequests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/admin/AdminRequests.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/common/ClassSelector.js",
+      "target": "function:frontend/src/components/common/ClassSelector.js:ClassSelector",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/common/ClassSelector.js",
+      "target": "function:frontend/src/components/common/ClassSelector.js:StudentClassSelector",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/common/ClassSelector.js",
+      "target": "function:frontend/src/components/common/ClassSelector.js:LecturerClassSelector",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/common/ClassSelector.js",
+      "target": "file:frontend/src/contexts/ClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/common/ClassSelector.js",
+      "target": "file:frontend/src/contexts/LecturerClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/common/ClassSelector.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/debug/BlockchainDebugPage.js",
+      "target": "function:frontend/src/components/debug/BlockchainDebugPage.js:renderTx",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/debug/BlockchainDebugPage.js",
+      "target": "function:frontend/src/components/debug/BlockchainDebugPage.js:BlockchainDebugPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/debug/BlockchainDebugPage.js",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/layout/MainLayout.js",
+      "target": "function:frontend/src/components/layout/MainLayout.js:MainLayout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/layout/MainLayout.js",
+      "target": "file:frontend/src/components/common/ClassSelector.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/layout/MainLayout.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/layout/MainLayout.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ClassManagement.js",
+      "target": "function:frontend/src/components/lecturer/ClassManagement.js:ClassManagement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ClassManagement.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ClassManagement.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/CourseManagement.js",
+      "target": "function:frontend/src/components/lecturer/CourseManagement.js:CourseManagement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/CourseManagement.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/CourseManagement.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/CourseManagement.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/EntranceTestManager.js",
+      "target": "function:frontend/src/components/lecturer/EntranceTestManager.js:EntranceTestManager",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/EntranceTestManager.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/EntranceTestManager.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/LecturerDashboard.js",
+      "target": "function:frontend/src/components/lecturer/LecturerDashboard.js:LecturerDashboard",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/LecturerDashboard.js",
+      "target": "file:frontend/src/components/QrAuthentication.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/LecturerDashboard.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/LecturerDashboard.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/LecturerDashboard.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/RubricsManagement.js",
+      "target": "function:frontend/src/components/lecturer/RubricsManagement.js:RubricsManagement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/RubricsManagement.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/RubricsManagement.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/RubricsManagement.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ScoreComparison.js",
+      "target": "function:frontend/src/components/lecturer/ScoreComparison.js:ScoreComparison",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ScoreComparison.js",
+      "target": "file:frontend/src/contexts/LecturerClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ScoreComparison.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ScoreComparison.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/ScoreComparison.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/StudentManagement.js",
+      "target": "function:frontend/src/components/lecturer/StudentManagement.js:StudentManagement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/StudentManagement.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/StudentManagement.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "target": "function:frontend/src/components/lecturer/SubmissionReview.js:formatBlockchainError",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "target": "function:frontend/src/components/lecturer/SubmissionReview.js:SubmissionReview",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "target": "file:frontend/src/contexts/LecturerClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/SubmissionReview.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "target": "function:frontend/src/components/lecturer/TopicManagement.js:TopicManagement",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "target": "file:frontend/src/contexts/LecturerClassContext.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "target": "file:frontend/src/hooks/useResponsive.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "target": "file:frontend/src/services/aiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/lecturer/TopicManagement.js",
+      "target": "file:frontend/src/services/managementService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/shared/CredentialVerify.jsx",
+      "target": "function:frontend/src/components/shared/CredentialVerify.jsx:CredentialVerify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/AchievementList.jsx",
+      "target": "function:frontend/src/components/student/AchievementList.jsx:AchievementList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/AchievementList.jsx",
+      "target": "file:frontend/src/services/apiService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/AchievementList.jsx",
+      "target": "file:frontend/src/services/challengeService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/student/ChallengeList.jsx",
+      "target": "function:frontend/src/components/student/ChallengeList.jsx:ChallengeList",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/student/ChallengeList.jsx",
+      "target": "file:frontend/src/services/challengeService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

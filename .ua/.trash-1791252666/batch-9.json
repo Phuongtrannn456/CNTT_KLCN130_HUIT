@@ -1,0 +1,197 @@
+{
+  "nodes": [
+    {
+      "id": "file:frontend/src/components/LoginPage.js",
+      "type": "file",
+      "name": "LoginPage.js",
+      "filePath": "frontend/src/components/LoginPage.js",
+      "summary": "Component responsible for LoginPage.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/LoginPage.js:AnimatedGradientText",
+      "type": "function",
+      "name": "AnimatedGradientText",
+      "filePath": "frontend/src/components/LoginPage.js",
+      "lineRange": [
+        27,
+        47
+      ],
+      "summary": "Function AnimatedGradientText",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/LoginPage.js:LoginPage",
+      "type": "function",
+      "name": "LoginPage",
+      "filePath": "frontend/src/components/LoginPage.js",
+      "lineRange": [
+        50,
+        739
+      ],
+      "summary": "Function LoginPage",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/MetaMaskGuideModal.js",
+      "type": "file",
+      "name": "MetaMaskGuideModal.js",
+      "filePath": "frontend/src/components/MetaMaskGuideModal.js",
+      "summary": "Component responsible for MetaMaskGuideModal.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/MetaMaskGuideModal.js:MetaMaskGuideModal",
+      "type": "function",
+      "name": "MetaMaskGuideModal",
+      "filePath": "frontend/src/components/MetaMaskGuideModal.js",
+      "lineRange": [
+        68,
+        409
+      ],
+      "summary": "Function MetaMaskGuideModal",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/QrScanner.js",
+      "type": "file",
+      "name": "QrScanner.js",
+      "filePath": "frontend/src/components/QrScanner.js",
+      "summary": "Component responsible for QrScanner.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/QrScanner.js:QrScanner",
+      "type": "function",
+      "name": "QrScanner",
+      "filePath": "frontend/src/components/QrScanner.js",
+      "lineRange": [
+        12,
+        197
+      ],
+      "summary": "Function QrScanner",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/RoleSelection.js",
+      "type": "file",
+      "name": "RoleSelection.js",
+      "filePath": "frontend/src/components/RoleSelection.js",
+      "summary": "Component responsible for RoleSelection.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/components/RoleSelection.js:RoleSelection",
+      "type": "function",
+      "name": "RoleSelection",
+      "filePath": "frontend/src/components/RoleSelection.js",
+      "lineRange": [
+        8,
+        160
+      ],
+      "summary": "Function RoleSelection",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/components/LoginPage.js",
+      "target": "function:frontend/src/components/LoginPage.js:AnimatedGradientText",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/LoginPage.js",
+      "target": "function:frontend/src/components/LoginPage.js:LoginPage",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/LoginPage.js",
+      "target": "file:frontend/src/components/MetaMaskGuideModal.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/LoginPage.js",
+      "target": "file:frontend/src/components/QrScanner.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/LoginPage.js",
+      "target": "file:frontend/src/components/RoleSelection.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/LoginPage.js",
+      "target": "file:frontend/src/services/authService.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/MetaMaskGuideModal.js",
+      "target": "function:frontend/src/components/MetaMaskGuideModal.js:MetaMaskGuideModal",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/QrScanner.js",
+      "target": "function:frontend/src/components/QrScanner.js:QrScanner",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/RoleSelection.js",
+      "target": "function:frontend/src/components/RoleSelection.js:RoleSelection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

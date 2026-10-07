@@ -80,6 +80,10 @@ const challengeService = {
     const response = await apiService.post(`/ai/submissions/${submissionId}/analyze`, {});
     return response.data;
   },
+  saveTrainingData: async (submissionId, data) => {
+    const response = await apiService.post(`/ai/submissions/${submissionId}/training-data`, data);
+    return response.data;
+  },
   suggestEvaluation: async (submissionId) => {
     const response = await apiService.post(`/ai/submissions/${submissionId}/evaluate-suggest`, {});
     return response.data;

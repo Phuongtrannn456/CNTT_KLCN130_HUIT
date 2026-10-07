@@ -1,0 +1,3892 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 204,
+  "totalBatches": 15,
+  "exportsByPath": {
+    ".DS_Store": [],
+    ".ua/tmp/run-scanner.mjs": [],
+    "backend/.DS_Store": [],
+    "backend/config/db.js": [],
+    "backend/config/logger.js": [],
+    "backend/config/web3.js": [],
+    "backend/contracts/K12CredentialRegistry.sol": [],
+    "backend/contracts/ThesisManagement.sol": [],
+    "backend/contracts/ThesisManagementV2.sol": [],
+    "backend/controllers/adminController.js": [],
+    "backend/controllers/aiController.js": [],
+    "backend/controllers/aiK12Controller.js": [],
+    "backend/controllers/authController.js": [],
+    "backend/controllers/baiTestController.js": [],
+    "backend/controllers/baoCaoController.js": [],
+    "backend/controllers/blockchainController.js": [],
+    "backend/controllers/challengeController.js": [],
+    "backend/controllers/credentialController.js": [],
+    "backend/controllers/deTaiController.js": [],
+    "backend/controllers/diemSoController.js": [],
+    "backend/controllers/evaluationController.js": [],
+    "backend/controllers/giaoVienController.js": [],
+    "backend/controllers/hocSinhController.js": [],
+    "backend/controllers/loiMoiLopHocController.js": [],
+    "backend/controllers/lopHocController.js": [],
+    "backend/controllers/monHocController.js": [],
+    "backend/controllers/nhomController.js": [],
+    "backend/controllers/participationController.js": [],
+    "backend/controllers/qrController.js": [],
+    "backend/controllers/rubricsController.js": [],
+    "backend/controllers/submissionController.js": [],
+    "backend/controllers/tienDoController.js": [],
+    "backend/hardhat.config.js": [],
+    "backend/healthcheck.js": [],
+    "backend/middleware/authz.js": [],
+    "backend/middleware/cspHeader.js": [],
+    "backend/migrate_sv.js": [],
+    "backend/models/AILog.js": [],
+    "backend/models/Achievement.js": [],
+    "backend/models/Admin.js": [],
+    "backend/models/BaiTest.js": [],
+    "backend/models/BaoCao.js": [],
+    "backend/models/Challenge.js": [],
+    "backend/models/ChallengeParticipation.js": [],
+    "backend/models/DangKyDeTai.js": [],
+    "backend/models/DeTai.js": [],
+    "backend/models/DiemSo.js": [],
+    "backend/models/DuAn.js": [],
+    "backend/models/EducationalCredential.js": [],
+    "backend/models/Evaluation.js": [],
+    "backend/models/GiaoVien.js": [],
+    "backend/models/HocSinh.js": [],
+    "backend/models/KetQuaTest.js": [],
+    "backend/models/LearningResult.js": [],
+    "backend/models/LoiMoiLopHoc.js": [],
+    "backend/models/LopHoc.js": [],
+    "backend/models/MonHoc.js": [],
+    "backend/models/Nhom.js": [],
+    "backend/models/QrCode.js": [],
+    "backend/models/RoleRequest.js": [],
+    "backend/models/RubricsTemplate.js": [],
+    "backend/models/Student.js": [],
+    "backend/models/Submission.js": [],
+    "backend/models/Teacher.js": [],
+    "backend/models/TienDo.js": [],
+    "backend/routes/achievementRoutes.js": [],
+    "backend/routes/aiRoutes.js": [],
+    "backend/routes/challengeRoutes.js": [],
+    "backend/routes/credentialRoutes.js": [],
+    "backend/routes/participationRoutes.js": [],
+    "backend/routes/submissionRoutes.js": [],
+    "backend/scripts/backfill-pdf-extraction.js": [],
+    "backend/scripts/check-node.js": [],
+    "backend/scripts/check-payroll-contract.js": [],
+    "backend/scripts/check_khoaluan_topics.js": [],
+    "backend/scripts/check_lecturers.js": [],
+    "backend/scripts/check_student_test.js": [],
+    "backend/scripts/check_users_and_teachers.js": [],
+    "backend/scripts/debug-payment.js": [],
+    "backend/scripts/deploy-hrpayroll.js": [],
+    "backend/scripts/deploy-thesis-v2.js": [],
+    "backend/scripts/deploy-thesis.js": [],
+    "backend/scripts/deploy.js": [],
+    "backend/scripts/fixIndexes.js": [],
+    "backend/scripts/gen-postman.js": [],
+    "backend/scripts/get-token.js": [],
+    "backend/scripts/impersonate-accounts.js": [],
+    "backend/scripts/importFromJson.js": [],
+    "backend/scripts/migrate-add-lophoc-nhom.js": [],
+    "backend/scripts/reset_test_data.js": [],
+    "backend/scripts/seed-ai-model-metadata.js": [],
+    "backend/scripts/seedAdmin.js": [],
+    "backend/scripts/seedDepartments.js": [],
+    "backend/scripts/seedEmployees.js": [],
+    "backend/scripts/seedMockWorkData.js": [],
+    "backend/scripts/seedRoles.js": [],
+    "backend/scripts/seedSuperAdmin.js": [],
+    "backend/scripts/seed_giao_duc_pho_thong.js": [],
+    "backend/scripts/seed_k12.js": [],
+    "backend/scripts/seed_khoaluan_phong.js": [],
+    "backend/scripts/seed_khoaluan_tests_rubrics.js": [],
+    "backend/scripts/seed_khoaluan_wallet.js": [],
+    "backend/scripts/seed_topic_13dhth04.js": [],
+    "backend/scripts/test-payment-direct.js": [],
+    "backend/scripts/test-task-payment.js": [],
+    "backend/scripts/test_k12_api.js": [],
+    "backend/scripts/test_phase3.js": [],
+    "backend/scripts/test_phase4.js": [],
+    "backend/scripts/test_phase5.js": [],
+    "backend/scripts/test_phase5_1.js": [],
+    "backend/scripts/transfer-tokens-to-contract.js": [],
+    "backend/server.js": [],
+    "backend/services/aiService.js": [],
+    "backend/services/authService.js": [],
+    "backend/services/ipfsService.js": [],
+    "backend/services/matchingService.js": [],
+    "backend/services/thesisContractService.js": [],
+    "backend/utils/canonicalCredential.js": [],
+    "docker/backend.Dockerfile": [],
+    "docker/frontend.Dockerfile": [],
+    "frontend/public/_headers": [],
+    "frontend/public/_redirects": [],
+    "frontend/src/App.js": [],
+    "frontend/src/AuthContext.js": [
+      "useAuth",
+      "AuthProvider"
+    ],
+    "frontend/src/components/LoginPage.js": [],
+    "frontend/src/components/MetaMaskGuideModal.js": [],
+    "frontend/src/components/MobileLogin.js": [],
+    "frontend/src/components/PendingApproval.js": [],
+    "frontend/src/components/QrAuthentication.js": [],
+    "frontend/src/components/QrScanner.js": [],
+    "frontend/src/components/RoleSelection.js": [],
+    "frontend/src/components/admin/AdminDashboard.js": [],
+    "frontend/src/components/admin/AdminRequests.js": [],
+    "frontend/src/components/common/ClassSelector.js": [],
+    "frontend/src/components/debug/BlockchainDebugPage.js": [],
+    "frontend/src/components/layout/MainLayout.js": [],
+    "frontend/src/components/lecturer/ClassManagement.js": [],
+    "frontend/src/components/lecturer/CourseManagement.js": [],
+    "frontend/src/components/lecturer/EntranceTestManager.js": [],
+    "frontend/src/components/lecturer/LecturerDashboard.js": [],
+    "frontend/src/components/lecturer/RubricsManagement.js": [],
+    "frontend/src/components/lecturer/ScoreComparison.js": [],
+    "frontend/src/components/lecturer/StudentManagement.js": [],
+    "frontend/src/components/lecturer/SubmissionReview.js": [],
+    "frontend/src/components/lecturer/TopicManagement.js": [],
+    "frontend/src/components/shared/CredentialVerify.jsx": [],
+    "frontend/src/components/student/AchievementList.jsx": [],
+    "frontend/src/components/student/ChallengeList.jsx": [],
+    "frontend/src/components/student/EntranceTest.js": [],
+    "frontend/src/components/student/GroupManagement.js": [],
+    "frontend/src/components/student/ProgressLog.js": [],
+    "frontend/src/components/student/ProgressTracking.js": [],
+    "frontend/src/components/student/ReportUpload.js": [],
+    "frontend/src/components/student/StudentDashboard.js": [],
+    "frontend/src/components/student/StudentSubmissionView.jsx": [],
+    "frontend/src/components/student/TopicRegistration.js": [],
+    "frontend/src/components/teacher/ChallengeManagement.jsx": [],
+    "frontend/src/components/teacher/TeacherChallengeDetail.jsx": [],
+    "frontend/src/contexts/ClassContext.js": [
+      "ClassProvider",
+      "useClassContext"
+    ],
+    "frontend/src/contexts/LecturerClassContext.js": [
+      "LecturerClassProvider",
+      "useLecturerClassContext"
+    ],
+    "frontend/src/hooks/useResponsive.js": [
+      "useIsMobile",
+      "useIsTablet",
+      "useResponsiveModalWidth"
+    ],
+    "frontend/src/index.js": [],
+    "frontend/src/services/aiService.js": [],
+    "frontend/src/services/apiService.js": [],
+    "frontend/src/services/authService.js": [],
+    "frontend/src/services/challengeService.js": [],
+    "frontend/src/services/kpiService.js": [],
+    "frontend/src/services/managementService.js": [],
+    "frontend/src/services/nhomService.js": [],
+    "frontend/src/theme/adminTheme.js": [],
+    "frontend/src/utils/domain.js": [
+      "getDomainTerminology"
+    ],
+    "ml-service/app.py": [
+      "verify_internal_token",
+      "healthz"
+    ],
+    "ml-service/models/phobert_analyzer.py": [
+      "PhoBertAnalyzer"
+    ],
+    "ml-service/models/sbert_matcher.py": [
+      "SbertMatcher"
+    ],
+    "ml-service/routes/analyze.py": [
+      "AnalyzeRequest",
+      "RubricItem",
+      "AnalyzeRubricsRequest",
+      "analyze_report",
+      "analyze_with_rubrics"
+    ],
+    "ml-service/routes/compare_code.py": [
+      "get_model",
+      "CompareCodeRequest",
+      "compare_code"
+    ],
+    "ml-service/routes/extract_pdf.py": [
+      "extract_pdf"
+    ],
+    "ml-service/routes/match.py": [
+      "StudentPayload",
+      "TopicPayload",
+      "MatchRequest",
+      "match_student"
+    ],
+    "ml-service/utils/log_config.py": [
+      "setup_logging"
+    ],
+    "ml-service/utils/pdf_chunker.py": [
+      "TextChunk",
+      "_detect_headings",
+      "chunk_text",
+      "_split_by_paragraphs"
+    ],
+    "ml-service/utils/pdf_extractor.py": [
+      "extract_pdf_text",
+      "_check_injection_hints"
+    ],
+    "ml-service/utils/text_preprocessing.py": [
+      "normalize_text",
+      "extract_requirement_hits"
+    ],
+    "ml-service/utils/text_security.py": [
+      "scan_injection",
+      "check_repetition",
+      "check_type_token_ratio"
+    ]
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "backend/config/web3.js",
+          "language": "javascript",
+          "sizeLines": 299,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/adminController.js",
+          "language": "javascript",
+          "sizeLines": 212,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/aiK12Controller.js",
+          "language": "javascript",
+          "sizeLines": 177,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/authController.js",
+          "language": "javascript",
+          "sizeLines": 344,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/challengeController.js",
+          "language": "javascript",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/credentialController.js",
+          "language": "javascript",
+          "sizeLines": 249,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/evaluationController.js",
+          "language": "javascript",
+          "sizeLines": 127,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/hocSinhController.js",
+          "language": "javascript",
+          "sizeLines": 141,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/participationController.js",
+          "language": "javascript",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/qrController.js",
+          "language": "javascript",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/submissionController.js",
+          "language": "javascript",
+          "sizeLines": 82,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/middleware/authz.js",
+          "language": "javascript",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Achievement.js",
+          "language": "javascript",
+          "sizeLines": 20,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Admin.js",
+          "language": "javascript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Challenge.js",
+          "language": "javascript",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/ChallengeParticipation.js",
+          "language": "javascript",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/EducationalCredential.js",
+          "language": "javascript",
+          "sizeLines": 44,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Evaluation.js",
+          "language": "javascript",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/LearningResult.js",
+          "language": "javascript",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/QrCode.js",
+          "language": "javascript",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/RoleRequest.js",
+          "language": "javascript",
+          "sizeLines": 47,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Student.js",
+          "language": "javascript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Submission.js",
+          "language": "javascript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Teacher.js",
+          "language": "javascript",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/routes/achievementRoutes.js",
+          "language": "javascript",
+          "sizeLines": 19,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/routes/aiRoutes.js",
+          "language": "javascript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/routes/challengeRoutes.js",
+          "language": "javascript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/routes/credentialRoutes.js",
+          "language": "javascript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/routes/participationRoutes.js",
+          "language": "javascript",
+          "sizeLines": 12,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/routes/submissionRoutes.js",
+          "language": "javascript",
+          "sizeLines": 16,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seedAdmin.js",
+          "language": "javascript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seed_k12.js",
+          "language": "javascript",
+          "sizeLines": 214,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/server.js",
+          "language": "javascript",
+          "sizeLines": 401,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/utils/canonicalCredential.js",
+          "language": "javascript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/config/web3.js": [],
+        "backend/controllers/adminController.js": [
+          "backend/models/Admin.js",
+          "backend/models/GiaoVien.js",
+          "backend/models/RoleRequest.js"
+        ],
+        "backend/controllers/aiK12Controller.js": [
+          "backend/config/logger.js",
+          "backend/models/Challenge.js",
+          "backend/models/Student.js",
+          "backend/models/Submission.js",
+          "backend/services/aiService.js",
+          "backend/services/matchingService.js"
+        ],
+        "backend/controllers/authController.js": [
+          "backend/config/web3.js",
+          "backend/models/Admin.js",
+          "backend/models/RoleRequest.js",
+          "backend/models/Student.js",
+          "backend/models/Teacher.js"
+        ],
+        "backend/controllers/challengeController.js": [
+          "backend/config/logger.js",
+          "backend/models/Challenge.js"
+        ],
+        "backend/controllers/credentialController.js": [
+          "backend/config/logger.js",
+          "backend/models/Achievement.js",
+          "backend/models/EducationalCredential.js",
+          "backend/models/Student.js",
+          "backend/models/Teacher.js",
+          "backend/utils/canonicalCredential.js"
+        ],
+        "backend/controllers/evaluationController.js": [
+          "backend/models/Achievement.js",
+          "backend/models/ChallengeParticipation.js",
+          "backend/models/Evaluation.js",
+          "backend/models/LearningResult.js",
+          "backend/models/Submission.js"
+        ],
+        "backend/controllers/hocSinhController.js": [
+          "backend/models/HocSinh.js"
+        ],
+        "backend/controllers/participationController.js": [
+          "backend/models/Challenge.js",
+          "backend/models/ChallengeParticipation.js",
+          "backend/models/Student.js"
+        ],
+        "backend/controllers/qrController.js": [
+          "backend/models/QrCode.js"
+        ],
+        "backend/controllers/submissionController.js": [
+          "backend/models/Challenge.js",
+          "backend/models/ChallengeParticipation.js",
+          "backend/models/Submission.js"
+        ],
+        "backend/middleware/authz.js": [],
+        "backend/models/Achievement.js": [],
+        "backend/models/Admin.js": [],
+        "backend/models/Challenge.js": [],
+        "backend/models/ChallengeParticipation.js": [],
+        "backend/models/EducationalCredential.js": [],
+        "backend/models/Evaluation.js": [],
+        "backend/models/LearningResult.js": [],
+        "backend/models/QrCode.js": [],
+        "backend/models/RoleRequest.js": [],
+        "backend/models/Student.js": [],
+        "backend/models/Submission.js": [],
+        "backend/models/Teacher.js": [],
+        "backend/routes/achievementRoutes.js": [
+          "backend/controllers/authController.js",
+          "backend/middleware/authz.js",
+          "backend/models/Achievement.js"
+        ],
+        "backend/routes/aiRoutes.js": [
+          "backend/controllers/aiK12Controller.js",
+          "backend/controllers/authController.js",
+          "backend/middleware/authz.js"
+        ],
+        "backend/routes/challengeRoutes.js": [
+          "backend/controllers/authController.js",
+          "backend/controllers/challengeController.js",
+          "backend/controllers/participationController.js",
+          "backend/middleware/authz.js"
+        ],
+        "backend/routes/credentialRoutes.js": [
+          "backend/controllers/authController.js",
+          "backend/controllers/credentialController.js",
+          "backend/middleware/authz.js"
+        ],
+        "backend/routes/participationRoutes.js": [
+          "backend/controllers/authController.js",
+          "backend/controllers/participationController.js",
+          "backend/controllers/submissionController.js"
+        ],
+        "backend/routes/submissionRoutes.js": [
+          "backend/controllers/authController.js",
+          "backend/controllers/evaluationController.js",
+          "backend/middleware/authz.js"
+        ],
+        "backend/scripts/seedAdmin.js": [
+          "backend/models/Admin.js"
+        ],
+        "backend/scripts/seed_k12.js": [
+          "backend/models/Challenge.js",
+          "backend/models/Student.js",
+          "backend/models/Teacher.js"
+        ],
+        "backend/server.js": [
+          "backend/config/db.js",
+          "backend/config/logger.js",
+          "backend/controllers/adminController.js",
+          "backend/controllers/aiController.js",
+          "backend/controllers/authController.js",
+          "backend/controllers/baiTestController.js",
+          "backend/controllers/baoCaoController.js",
+          "backend/controllers/blockchainController.js",
+          "backend/controllers/deTaiController.js",
+          "backend/controllers/diemSoController.js",
+          "backend/controllers/giaoVienController.js",
+          "backend/controllers/hocSinhController.js",
+          "backend/controllers/loiMoiLopHocController.js",
+          "backend/controllers/lopHocController.js",
+          "backend/controllers/monHocController.js",
+          "backend/controllers/nhomController.js",
+          "backend/controllers/qrController.js",
+          "backend/controllers/rubricsController.js",
+          "backend/controllers/tienDoController.js",
+          "backend/middleware/authz.js",
+          "backend/routes/achievementRoutes.js",
+          "backend/routes/aiRoutes.js",
+          "backend/routes/challengeRoutes.js",
+          "backend/routes/credentialRoutes.js",
+          "backend/routes/participationRoutes.js",
+          "backend/routes/submissionRoutes.js"
+        ],
+        "backend/utils/canonicalCredential.js": []
+      },
+      "neighborMap": {
+        "backend/controllers/adminController.js": [
+          {
+            "path": "backend/models/GiaoVien.js",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/aiK12Controller.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/aiService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/matchingService.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/challengeController.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/credentialController.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/hocSinhController.js": [
+          {
+            "path": "backend/models/HocSinh.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/server.js": [
+          {
+            "path": "backend/config/db.js",
+            "batchIndex": 8,
+            "symbols": []
+          },
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/aiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/baiTestController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/baoCaoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/blockchainController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/deTaiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/diemSoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/giaoVienController.js",
+            "batchIndex": 7,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/loiMoiLopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/lopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/monHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/nhomController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/rubricsController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/tienDoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "frontend/src/App.js",
+          "language": "javascript",
+          "sizeLines": 159,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/AuthContext.js",
+          "language": "javascript",
+          "sizeLines": 56,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/MobileLogin.js",
+          "language": "javascript",
+          "sizeLines": 194,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/PendingApproval.js",
+          "language": "javascript",
+          "sizeLines": 130,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/QrAuthentication.js",
+          "language": "javascript",
+          "sizeLines": 238,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/admin/AdminDashboard.js",
+          "language": "javascript",
+          "sizeLines": 138,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/admin/AdminRequests.js",
+          "language": "javascript",
+          "sizeLines": 537,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/common/ClassSelector.js",
+          "language": "javascript",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/debug/BlockchainDebugPage.js",
+          "language": "javascript",
+          "sizeLines": 604,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/layout/MainLayout.js",
+          "language": "javascript",
+          "sizeLines": 168,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/ClassManagement.js",
+          "language": "javascript",
+          "sizeLines": 680,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/CourseManagement.js",
+          "language": "javascript",
+          "sizeLines": 301,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/EntranceTestManager.js",
+          "language": "javascript",
+          "sizeLines": 401,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/LecturerDashboard.js",
+          "language": "javascript",
+          "sizeLines": 72,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/RubricsManagement.js",
+          "language": "javascript",
+          "sizeLines": 380,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/ScoreComparison.js",
+          "language": "javascript",
+          "sizeLines": 831,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/StudentManagement.js",
+          "language": "javascript",
+          "sizeLines": 256,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/SubmissionReview.js",
+          "language": "javascript",
+          "sizeLines": 1603,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/lecturer/TopicManagement.js",
+          "language": "javascript",
+          "sizeLines": 929,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/shared/CredentialVerify.jsx",
+          "language": "javascript",
+          "sizeLines": 157,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/AchievementList.jsx",
+          "language": "javascript",
+          "sizeLines": 160,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/ChallengeList.jsx",
+          "language": "javascript",
+          "sizeLines": 166,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/App.js": [
+          "frontend/src/components/LoginPage.js",
+          "frontend/src/components/PendingApproval.js",
+          "frontend/src/components/admin/AdminDashboard.js",
+          "frontend/src/components/admin/AdminRequests.js",
+          "frontend/src/components/debug/BlockchainDebugPage.js",
+          "frontend/src/components/layout/MainLayout.js",
+          "frontend/src/components/lecturer/ClassManagement.js",
+          "frontend/src/components/lecturer/CourseManagement.js",
+          "frontend/src/components/lecturer/EntranceTestManager.js",
+          "frontend/src/components/lecturer/LecturerDashboard.js",
+          "frontend/src/components/lecturer/RubricsManagement.js",
+          "frontend/src/components/lecturer/ScoreComparison.js",
+          "frontend/src/components/lecturer/StudentManagement.js",
+          "frontend/src/components/lecturer/SubmissionReview.js",
+          "frontend/src/components/lecturer/TopicManagement.js",
+          "frontend/src/components/shared/CredentialVerify.jsx",
+          "frontend/src/components/student/AchievementList.jsx",
+          "frontend/src/components/student/ChallengeList.jsx",
+          "frontend/src/components/student/EntranceTest.js",
+          "frontend/src/components/student/GroupManagement.js",
+          "frontend/src/components/student/ProgressLog.js",
+          "frontend/src/components/student/ProgressTracking.js",
+          "frontend/src/components/student/ReportUpload.js",
+          "frontend/src/components/student/StudentDashboard.js",
+          "frontend/src/components/student/StudentSubmissionView.jsx",
+          "frontend/src/components/student/TopicRegistration.js",
+          "frontend/src/components/teacher/ChallengeManagement.jsx",
+          "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/contexts/LecturerClassContext.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/AuthContext.js": [
+          "frontend/src/services/apiService.js"
+        ],
+        "frontend/src/components/MobileLogin.js": [
+          "frontend/src/services/apiService.js"
+        ],
+        "frontend/src/components/PendingApproval.js": [
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/QrAuthentication.js": [
+          "frontend/src/services/apiService.js"
+        ],
+        "frontend/src/components/admin/AdminDashboard.js": [
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/admin/AdminRequests.js": [
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/common/ClassSelector.js": [
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/contexts/LecturerClassContext.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/debug/BlockchainDebugPage.js": [
+          "frontend/src/services/apiService.js"
+        ],
+        "frontend/src/components/layout/MainLayout.js": [
+          "frontend/src/components/common/ClassSelector.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/lecturer/ClassManagement.js": [
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js"
+        ],
+        "frontend/src/components/lecturer/CourseManagement.js": [
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js"
+        ],
+        "frontend/src/components/lecturer/EntranceTestManager.js": [
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/lecturer/LecturerDashboard.js": [
+          "frontend/src/components/QrAuthentication.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/lecturer/RubricsManagement.js": [
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/lecturer/ScoreComparison.js": [
+          "frontend/src/contexts/LecturerClassContext.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/lecturer/StudentManagement.js": [
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js"
+        ],
+        "frontend/src/components/lecturer/SubmissionReview.js": [
+          "frontend/src/contexts/LecturerClassContext.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/lecturer/TopicManagement.js": [
+          "frontend/src/contexts/LecturerClassContext.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js"
+        ],
+        "frontend/src/components/shared/CredentialVerify.jsx": [],
+        "frontend/src/components/student/AchievementList.jsx": [
+          "frontend/src/services/apiService.js",
+          "frontend/src/services/challengeService.js"
+        ],
+        "frontend/src/components/student/ChallengeList.jsx": [
+          "frontend/src/services/challengeService.js"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/App.js": [
+          {
+            "path": "frontend/src/components/LoginPage.js",
+            "batchIndex": 9,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/EntranceTest.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/GroupManagement.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/ProgressLog.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/ProgressTracking.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/ReportUpload.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/StudentDashboard.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/StudentSubmissionView.jsx",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/TopicRegistration.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/teacher/ChallengeManagement.jsx",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/contexts/ClassContext.js",
+            "batchIndex": 3,
+            "symbols": [
+              "ClassProvider",
+              "useClassContext"
+            ]
+          },
+          {
+            "path": "frontend/src/contexts/LecturerClassContext.js",
+            "batchIndex": 3,
+            "symbols": [
+              "LecturerClassProvider",
+              "useLecturerClassContext"
+            ]
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/index.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/AuthContext.js": [
+          {
+            "path": "frontend/src/services/apiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/MobileLogin.js": [
+          {
+            "path": "frontend/src/services/apiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/PendingApproval.js": [
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/QrAuthentication.js": [
+          {
+            "path": "frontend/src/services/apiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/StudentDashboard.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/admin/AdminDashboard.js": [
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/admin/AdminRequests.js": [
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/common/ClassSelector.js": [
+          {
+            "path": "frontend/src/contexts/ClassContext.js",
+            "batchIndex": 3,
+            "symbols": [
+              "ClassProvider",
+              "useClassContext"
+            ]
+          },
+          {
+            "path": "frontend/src/contexts/LecturerClassContext.js",
+            "batchIndex": 3,
+            "symbols": [
+              "LecturerClassProvider",
+              "useLecturerClassContext"
+            ]
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/debug/BlockchainDebugPage.js": [
+          {
+            "path": "frontend/src/services/apiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/layout/MainLayout.js": [
+          {
+            "path": "frontend/src/hooks/useResponsive.js",
+            "batchIndex": 3,
+            "symbols": [
+              "useIsMobile",
+              "useIsTablet",
+              "useResponsiveModalWidth"
+            ]
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/ClassManagement.js": [
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/managementService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/CourseManagement.js": [
+          {
+            "path": "frontend/src/services/aiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/managementService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/EntranceTestManager.js": [
+          {
+            "path": "frontend/src/services/aiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/LecturerDashboard.js": [
+          {
+            "path": "frontend/src/hooks/useResponsive.js",
+            "batchIndex": 3,
+            "symbols": [
+              "useIsMobile",
+              "useIsTablet",
+              "useResponsiveModalWidth"
+            ]
+          },
+          {
+            "path": "frontend/src/services/aiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/RubricsManagement.js": [
+          {
+            "path": "frontend/src/hooks/useResponsive.js",
+            "batchIndex": 3,
+            "symbols": [
+              "useIsMobile",
+              "useIsTablet",
+              "useResponsiveModalWidth"
+            ]
+          },
+          {
+            "path": "frontend/src/services/aiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/ScoreComparison.js": [
+          {
+            "path": "frontend/src/contexts/LecturerClassContext.js",
+            "batchIndex": 3,
+            "symbols": [
+              "LecturerClassProvider",
+              "useLecturerClassContext"
+            ]
+          },
+          {
+            "path": "frontend/src/hooks/useResponsive.js",
+            "batchIndex": 3,
+            "symbols": [
+              "useIsMobile",
+              "useIsTablet",
+              "useResponsiveModalWidth"
+            ]
+          },
+          {
+            "path": "frontend/src/services/aiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/StudentManagement.js": [
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/managementService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/SubmissionReview.js": [
+          {
+            "path": "frontend/src/contexts/LecturerClassContext.js",
+            "batchIndex": 3,
+            "symbols": [
+              "LecturerClassProvider",
+              "useLecturerClassContext"
+            ]
+          },
+          {
+            "path": "frontend/src/hooks/useResponsive.js",
+            "batchIndex": 3,
+            "symbols": [
+              "useIsMobile",
+              "useIsTablet",
+              "useResponsiveModalWidth"
+            ]
+          },
+          {
+            "path": "frontend/src/services/aiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/lecturer/TopicManagement.js": [
+          {
+            "path": "frontend/src/contexts/LecturerClassContext.js",
+            "batchIndex": 3,
+            "symbols": [
+              "LecturerClassProvider",
+              "useLecturerClassContext"
+            ]
+          },
+          {
+            "path": "frontend/src/hooks/useResponsive.js",
+            "batchIndex": 3,
+            "symbols": [
+              "useIsMobile",
+              "useIsTablet",
+              "useResponsiveModalWidth"
+            ]
+          },
+          {
+            "path": "frontend/src/services/aiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/managementService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/AchievementList.jsx": [
+          {
+            "path": "frontend/src/services/apiService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/services/challengeService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/ChallengeList.jsx": [
+          {
+            "path": "frontend/src/services/challengeService.js",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "frontend/src/components/student/EntranceTest.js",
+          "language": "javascript",
+          "sizeLines": 399,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/GroupManagement.js",
+          "language": "javascript",
+          "sizeLines": 488,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/ProgressLog.js",
+          "language": "javascript",
+          "sizeLines": 604,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/ProgressTracking.js",
+          "language": "javascript",
+          "sizeLines": 282,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/ReportUpload.js",
+          "language": "javascript",
+          "sizeLines": 294,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/StudentDashboard.js",
+          "language": "javascript",
+          "sizeLines": 560,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/StudentSubmissionView.jsx",
+          "language": "javascript",
+          "sizeLines": 179,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/student/TopicRegistration.js",
+          "language": "javascript",
+          "sizeLines": 700,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/teacher/ChallengeManagement.jsx",
+          "language": "javascript",
+          "sizeLines": 286,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+          "language": "javascript",
+          "sizeLines": 327,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/contexts/ClassContext.js",
+          "language": "javascript",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/contexts/LecturerClassContext.js",
+          "language": "javascript",
+          "sizeLines": 92,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/hooks/useResponsive.js",
+          "language": "javascript",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/index.js",
+          "language": "javascript",
+          "sizeLines": 272,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/services/aiService.js",
+          "language": "javascript",
+          "sizeLines": 335,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/services/apiService.js",
+          "language": "javascript",
+          "sizeLines": 164,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/services/authService.js",
+          "language": "javascript",
+          "sizeLines": 309,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/services/challengeService.js",
+          "language": "javascript",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/services/kpiService.js",
+          "language": "javascript",
+          "sizeLines": 7,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/services/managementService.js",
+          "language": "javascript",
+          "sizeLines": 115,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/services/nhomService.js",
+          "language": "javascript",
+          "sizeLines": 95,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/components/student/EntranceTest.js": [
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js",
+          "frontend/src/services/nhomService.js"
+        ],
+        "frontend/src/components/student/GroupManagement.js": [
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js",
+          "frontend/src/services/nhomService.js"
+        ],
+        "frontend/src/components/student/ProgressLog.js": [
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/student/ProgressTracking.js": [
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/student/ReportUpload.js": [
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/student/StudentDashboard.js": [
+          "frontend/src/components/QrAuthentication.js",
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/hooks/useResponsive.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js"
+        ],
+        "frontend/src/components/student/StudentSubmissionView.jsx": [
+          "frontend/src/services/challengeService.js"
+        ],
+        "frontend/src/components/student/TopicRegistration.js": [
+          "frontend/src/contexts/ClassContext.js",
+          "frontend/src/services/aiService.js",
+          "frontend/src/services/authService.js",
+          "frontend/src/services/nhomService.js"
+        ],
+        "frontend/src/components/teacher/ChallengeManagement.jsx": [
+          "frontend/src/services/authService.js",
+          "frontend/src/services/challengeService.js"
+        ],
+        "frontend/src/components/teacher/TeacherChallengeDetail.jsx": [
+          "frontend/src/services/challengeService.js"
+        ],
+        "frontend/src/contexts/ClassContext.js": [
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js"
+        ],
+        "frontend/src/contexts/LecturerClassContext.js": [
+          "frontend/src/services/authService.js",
+          "frontend/src/services/managementService.js"
+        ],
+        "frontend/src/hooks/useResponsive.js": [],
+        "frontend/src/index.js": [
+          "frontend/src/App.js"
+        ],
+        "frontend/src/services/aiService.js": [
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/services/apiService.js": [
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/services/authService.js": [],
+        "frontend/src/services/challengeService.js": [
+          "frontend/src/services/apiService.js"
+        ],
+        "frontend/src/services/kpiService.js": [
+          "frontend/src/services/apiService.js"
+        ],
+        "frontend/src/services/managementService.js": [
+          "frontend/src/services/apiService.js"
+        ],
+        "frontend/src/services/nhomService.js": [
+          "frontend/src/services/authService.js"
+        ]
+      },
+      "neighborMap": {
+        "frontend/src/components/student/EntranceTest.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/GroupManagement.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/ProgressLog.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/ProgressTracking.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/ReportUpload.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/StudentDashboard.js": [
+          {
+            "path": "frontend/src/components/QrAuthentication.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/StudentSubmissionView.jsx": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/student/TopicRegistration.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/teacher/ChallengeManagement.jsx": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/components/teacher/TeacherChallengeDetail.jsx": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/contexts/ClassContext.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/common/ClassSelector.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/contexts/LecturerClassContext.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/common/ClassSelector.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/ScoreComparison.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/SubmissionReview.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/TopicManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/hooks/useResponsive.js": [
+          {
+            "path": "frontend/src/components/layout/MainLayout.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/LecturerDashboard.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/RubricsManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/ScoreComparison.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/SubmissionReview.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/TopicManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/index.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/services/aiService.js": [
+          {
+            "path": "frontend/src/components/lecturer/CourseManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/EntranceTestManager.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/LecturerDashboard.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/RubricsManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/ScoreComparison.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/SubmissionReview.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/TopicManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/services/apiService.js": [
+          {
+            "path": "frontend/src/AuthContext.js",
+            "batchIndex": 2,
+            "symbols": [
+              "useAuth",
+              "AuthProvider"
+            ]
+          },
+          {
+            "path": "frontend/src/components/MobileLogin.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/QrAuthentication.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/debug/BlockchainDebugPage.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/AchievementList.jsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/services/authService.js": [
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/LoginPage.js",
+            "batchIndex": 9,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/PendingApproval.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/admin/AdminDashboard.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/admin/AdminRequests.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/common/ClassSelector.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/layout/MainLayout.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/ClassManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/CourseManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/EntranceTestManager.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/LecturerDashboard.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/RubricsManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/ScoreComparison.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/StudentManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/SubmissionReview.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/TopicManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/services/challengeService.js": [
+          {
+            "path": "frontend/src/components/student/AchievementList.jsx",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/student/ChallengeList.jsx",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "frontend/src/services/managementService.js": [
+          {
+            "path": "frontend/src/components/lecturer/ClassManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/CourseManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/StudentManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/components/lecturer/TopicManagement.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "backend/config/logger.js",
+          "language": "javascript",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/aiController.js",
+          "language": "javascript",
+          "sizeLines": 53,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/baiTestController.js",
+          "language": "javascript",
+          "sizeLines": 491,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/baoCaoController.js",
+          "language": "javascript",
+          "sizeLines": 412,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/blockchainController.js",
+          "language": "javascript",
+          "sizeLines": 386,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/deTaiController.js",
+          "language": "javascript",
+          "sizeLines": 663,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/diemSoController.js",
+          "language": "javascript",
+          "sizeLines": 627,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/loiMoiLopHocController.js",
+          "language": "javascript",
+          "sizeLines": 254,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/lopHocController.js",
+          "language": "javascript",
+          "sizeLines": 355,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/monHocController.js",
+          "language": "javascript",
+          "sizeLines": 145,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/nhomController.js",
+          "language": "javascript",
+          "sizeLines": 445,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/rubricsController.js",
+          "language": "javascript",
+          "sizeLines": 198,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/controllers/tienDoController.js",
+          "language": "javascript",
+          "sizeLines": 724,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/AILog.js",
+          "language": "javascript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/BaiTest.js",
+          "language": "javascript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/BaoCao.js",
+          "language": "javascript",
+          "sizeLines": 22,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/DangKyDeTai.js",
+          "language": "javascript",
+          "sizeLines": 35,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/DeTai.js",
+          "language": "javascript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/DiemSo.js",
+          "language": "javascript",
+          "sizeLines": 52,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/DuAn.js",
+          "language": "javascript",
+          "sizeLines": 5,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/config/logger.js": [],
+        "backend/controllers/aiController.js": [
+          "backend/config/logger.js",
+          "backend/services/aiService.js",
+          "backend/services/matchingService.js"
+        ],
+        "backend/controllers/baiTestController.js": [
+          "backend/config/logger.js",
+          "backend/models/BaiTest.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/KetQuaTest.js",
+          "backend/services/thesisContractService.js"
+        ],
+        "backend/controllers/baoCaoController.js": [
+          "backend/config/logger.js",
+          "backend/models/BaoCao.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/DiemSo.js",
+          "backend/services/aiService.js",
+          "backend/services/ipfsService.js",
+          "backend/services/thesisContractService.js"
+        ],
+        "backend/controllers/blockchainController.js": [
+          "backend/models/BaoCao.js",
+          "backend/models/DeTai.js",
+          "backend/models/DiemSo.js",
+          "backend/models/HocSinh.js"
+        ],
+        "backend/controllers/deTaiController.js": [
+          "backend/config/logger.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/HocSinh.js",
+          "backend/models/LopHoc.js",
+          "backend/models/Nhom.js",
+          "backend/models/RubricsTemplate.js"
+        ],
+        "backend/controllers/diemSoController.js": [
+          "backend/config/logger.js",
+          "backend/models/AILog.js",
+          "backend/models/BaoCao.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/DiemSo.js",
+          "backend/services/thesisContractService.js"
+        ],
+        "backend/controllers/loiMoiLopHocController.js": [
+          "backend/config/logger.js",
+          "backend/models/HocSinh.js",
+          "backend/models/LoiMoiLopHoc.js",
+          "backend/models/LopHoc.js"
+        ],
+        "backend/controllers/lopHocController.js": [
+          "backend/config/logger.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/HocSinh.js",
+          "backend/models/LopHoc.js",
+          "backend/models/Nhom.js"
+        ],
+        "backend/controllers/monHocController.js": [
+          "backend/config/logger.js",
+          "backend/models/DeTai.js",
+          "backend/models/LopHoc.js",
+          "backend/models/MonHoc.js"
+        ],
+        "backend/controllers/nhomController.js": [
+          "backend/config/logger.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/HocSinh.js",
+          "backend/models/LopHoc.js",
+          "backend/models/Nhom.js"
+        ],
+        "backend/controllers/rubricsController.js": [
+          "backend/config/logger.js",
+          "backend/models/DeTai.js",
+          "backend/models/RubricsTemplate.js"
+        ],
+        "backend/controllers/tienDoController.js": [
+          "backend/config/logger.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/TienDo.js",
+          "backend/services/aiService.js",
+          "backend/services/thesisContractService.js"
+        ],
+        "backend/models/AILog.js": [],
+        "backend/models/BaiTest.js": [],
+        "backend/models/BaoCao.js": [],
+        "backend/models/DangKyDeTai.js": [],
+        "backend/models/DeTai.js": [],
+        "backend/models/DiemSo.js": [],
+        "backend/models/DuAn.js": [
+          "backend/models/DeTai.js"
+        ]
+      },
+      "neighborMap": {
+        "backend/config/logger.js": [
+          {
+            "path": "backend/config/db.js",
+            "batchIndex": 8,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/aiK12Controller.js",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/challengeController.js",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/credentialController.js",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/backfill-pdf-extraction.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/aiService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/ipfsService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/matchingService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/thesisContractService.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/aiController.js": [
+          {
+            "path": "backend/services/aiService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/matchingService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/baiTestController.js": [
+          {
+            "path": "backend/models/KetQuaTest.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/thesisContractService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/baoCaoController.js": [
+          {
+            "path": "backend/services/aiService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/ipfsService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/thesisContractService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/blockchainController.js": [
+          {
+            "path": "backend/models/HocSinh.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/deTaiController.js": [
+          {
+            "path": "backend/models/HocSinh.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/LopHoc.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/Nhom.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/RubricsTemplate.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/diemSoController.js": [
+          {
+            "path": "backend/services/thesisContractService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/loiMoiLopHocController.js": [
+          {
+            "path": "backend/models/HocSinh.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/LoiMoiLopHoc.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/LopHoc.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/lopHocController.js": [
+          {
+            "path": "backend/models/HocSinh.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/LopHoc.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/Nhom.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/monHocController.js": [
+          {
+            "path": "backend/models/LopHoc.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/MonHoc.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/nhomController.js": [
+          {
+            "path": "backend/models/HocSinh.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/LopHoc.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/Nhom.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/rubricsController.js": [
+          {
+            "path": "backend/models/RubricsTemplate.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/controllers/tienDoController.js": [
+          {
+            "path": "backend/models/TienDo.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/aiService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/thesisContractService.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/models/BaiTest.js": [
+          {
+            "path": "backend/scripts/check_student_test.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/reset_test_data.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/models/BaoCao.js": [
+          {
+            "path": "backend/scripts/backfill-pdf-extraction.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/migrate-add-lophoc-nhom.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/reset_test_data.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/thesisContractService.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/models/DangKyDeTai.js": [
+          {
+            "path": "backend/scripts/check_student_test.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/migrate-add-lophoc-nhom.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/reset_test_data.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/models/DeTai.js": [
+          {
+            "path": "backend/scripts/check_student_test.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/migrate-add-lophoc-nhom.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/reset_test_data.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_giao_duc_pho_thong.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_khoaluan_phong.js",
+            "batchIndex": 7,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_khoaluan_wallet.js",
+            "batchIndex": 7,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_topic_13dhth04.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/services/thesisContractService.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/models/DiemSo.js": [
+          {
+            "path": "backend/scripts/migrate-add-lophoc-nhom.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/reset_test_data.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "backend/models/HocSinh.js",
+          "language": "javascript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/KetQuaTest.js",
+          "language": "javascript",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/LoiMoiLopHoc.js",
+          "language": "javascript",
+          "sizeLines": 17,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/LopHoc.js",
+          "language": "javascript",
+          "sizeLines": 17,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/MonHoc.js",
+          "language": "javascript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/Nhom.js",
+          "language": "javascript",
+          "sizeLines": 17,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/RubricsTemplate.js",
+          "language": "javascript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/TienDo.js",
+          "language": "javascript",
+          "sizeLines": 61,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/backfill-pdf-extraction.js",
+          "language": "javascript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/check_student_test.js",
+          "language": "javascript",
+          "sizeLines": 61,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/migrate-add-lophoc-nhom.js",
+          "language": "javascript",
+          "sizeLines": 223,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/reset_test_data.js",
+          "language": "javascript",
+          "sizeLines": 207,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seed_giao_duc_pho_thong.js",
+          "language": "javascript",
+          "sizeLines": 198,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+          "language": "javascript",
+          "sizeLines": 284,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seed_topic_13dhth04.js",
+          "language": "javascript",
+          "sizeLines": 102,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/services/aiService.js",
+          "language": "javascript",
+          "sizeLines": 103,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/services/ipfsService.js",
+          "language": "javascript",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/services/matchingService.js",
+          "language": "javascript",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/services/thesisContractService.js",
+          "language": "javascript",
+          "sizeLines": 273,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/models/HocSinh.js": [],
+        "backend/models/KetQuaTest.js": [],
+        "backend/models/LoiMoiLopHoc.js": [],
+        "backend/models/LopHoc.js": [],
+        "backend/models/MonHoc.js": [],
+        "backend/models/Nhom.js": [],
+        "backend/models/RubricsTemplate.js": [],
+        "backend/models/TienDo.js": [],
+        "backend/scripts/backfill-pdf-extraction.js": [
+          "backend/config/db.js",
+          "backend/config/logger.js",
+          "backend/models/BaoCao.js",
+          "backend/services/aiService.js"
+        ],
+        "backend/scripts/check_student_test.js": [
+          "backend/models/BaiTest.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/GiaoVien.js",
+          "backend/models/HocSinh.js"
+        ],
+        "backend/scripts/migrate-add-lophoc-nhom.js": [
+          "backend/models/BaoCao.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/DiemSo.js",
+          "backend/models/LopHoc.js",
+          "backend/models/Nhom.js",
+          "backend/models/TienDo.js"
+        ],
+        "backend/scripts/reset_test_data.js": [
+          "backend/models/BaiTest.js",
+          "backend/models/BaoCao.js",
+          "backend/models/DangKyDeTai.js",
+          "backend/models/DeTai.js",
+          "backend/models/DiemSo.js",
+          "backend/models/GiaoVien.js",
+          "backend/models/HocSinh.js",
+          "backend/models/KetQuaTest.js",
+          "backend/models/LopHoc.js",
+          "backend/models/MonHoc.js",
+          "backend/models/Nhom.js",
+          "backend/models/TienDo.js"
+        ],
+        "backend/scripts/seed_giao_duc_pho_thong.js": [
+          "backend/models/DeTai.js",
+          "backend/models/GiaoVien.js",
+          "backend/models/HocSinh.js",
+          "backend/models/LopHoc.js",
+          "backend/models/MonHoc.js"
+        ],
+        "backend/scripts/seed_khoaluan_tests_rubrics.js": [
+          "backend/models/BaiTest.js",
+          "backend/models/DeTai.js"
+        ],
+        "backend/scripts/seed_topic_13dhth04.js": [
+          "backend/models/DeTai.js",
+          "backend/models/GiaoVien.js",
+          "backend/models/LopHoc.js",
+          "backend/models/MonHoc.js"
+        ],
+        "backend/services/aiService.js": [
+          "backend/config/logger.js"
+        ],
+        "backend/services/ipfsService.js": [
+          "backend/config/logger.js"
+        ],
+        "backend/services/matchingService.js": [
+          "backend/config/logger.js"
+        ],
+        "backend/services/thesisContractService.js": [
+          "backend/config/logger.js",
+          "backend/models/BaoCao.js",
+          "backend/models/DeTai.js"
+        ]
+      },
+      "neighborMap": {
+        "backend/models/HocSinh.js": [
+          {
+            "path": "backend/controllers/blockchainController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/deTaiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/hocSinhController.js",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/loiMoiLopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/lopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/nhomController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/models/KetQuaTest.js": [
+          {
+            "path": "backend/controllers/baiTestController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/models/LoiMoiLopHoc.js": [
+          {
+            "path": "backend/controllers/loiMoiLopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/models/LopHoc.js": [
+          {
+            "path": "backend/controllers/deTaiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/loiMoiLopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/lopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/monHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/nhomController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/models/MonHoc.js": [
+          {
+            "path": "backend/controllers/monHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/models/Nhom.js": [
+          {
+            "path": "backend/controllers/deTaiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/lopHocController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/nhomController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/models/RubricsTemplate.js": [
+          {
+            "path": "backend/controllers/deTaiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/rubricsController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/models/TienDo.js": [
+          {
+            "path": "backend/controllers/tienDoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/backfill-pdf-extraction.js": [
+          {
+            "path": "backend/config/db.js",
+            "batchIndex": 8,
+            "symbols": []
+          },
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/BaoCao.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/check_student_test.js": [
+          {
+            "path": "backend/models/BaiTest.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DangKyDeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/GiaoVien.js",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/migrate-add-lophoc-nhom.js": [
+          {
+            "path": "backend/models/BaoCao.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DangKyDeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DiemSo.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/reset_test_data.js": [
+          {
+            "path": "backend/models/BaiTest.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/BaoCao.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DangKyDeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DiemSo.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/GiaoVien.js",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/seed_giao_duc_pho_thong.js": [
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/GiaoVien.js",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/seed_khoaluan_tests_rubrics.js": [
+          {
+            "path": "backend/models/BaiTest.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/seed_topic_13dhth04.js": [
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/GiaoVien.js",
+            "batchIndex": 7,
+            "symbols": []
+          }
+        ],
+        "backend/services/aiService.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/aiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/aiK12Controller.js",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/baoCaoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/tienDoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/services/ipfsService.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/baoCaoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/services/matchingService.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/aiController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/aiK12Controller.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/services/thesisContractService.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/BaoCao.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/baiTestController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/baoCaoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/diemSoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/controllers/tienDoController.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "ml-service/app.py",
+          "language": "python",
+          "sizeLines": 65,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/models/phobert_analyzer.py",
+          "language": "python",
+          "sizeLines": 239,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/models/sbert_matcher.py",
+          "language": "python",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/routes/analyze.py",
+          "language": "python",
+          "sizeLines": 101,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/routes/compare_code.py",
+          "language": "python",
+          "sizeLines": 62,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/routes/extract_pdf.py",
+          "language": "python",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/routes/match.py",
+          "language": "python",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/utils/log_config.py",
+          "language": "python",
+          "sizeLines": 57,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/utils/pdf_chunker.py",
+          "language": "python",
+          "sizeLines": 173,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/utils/pdf_extractor.py",
+          "language": "python",
+          "sizeLines": 112,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/utils/text_preprocessing.py",
+          "language": "python",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "ml-service/utils/text_security.py",
+          "language": "python",
+          "sizeLines": 56,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "ml-service/app.py": [
+          "ml-service/routes/analyze.py",
+          "ml-service/routes/compare_code.py",
+          "ml-service/routes/extract_pdf.py",
+          "ml-service/routes/match.py",
+          "ml-service/utils/log_config.py"
+        ],
+        "ml-service/models/phobert_analyzer.py": [
+          "ml-service/utils/pdf_chunker.py",
+          "ml-service/utils/text_preprocessing.py"
+        ],
+        "ml-service/models/sbert_matcher.py": [],
+        "ml-service/routes/analyze.py": [
+          "ml-service/models/phobert_analyzer.py",
+          "ml-service/utils/text_security.py"
+        ],
+        "ml-service/routes/compare_code.py": [],
+        "ml-service/routes/extract_pdf.py": [
+          "ml-service/utils/pdf_extractor.py"
+        ],
+        "ml-service/routes/match.py": [
+          "ml-service/models/sbert_matcher.py"
+        ],
+        "ml-service/utils/log_config.py": [],
+        "ml-service/utils/pdf_chunker.py": [],
+        "ml-service/utils/pdf_extractor.py": [],
+        "ml-service/utils/text_preprocessing.py": [],
+        "ml-service/utils/text_security.py": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": "backend/controllers/giaoVienController.js",
+          "language": "javascript",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/models/GiaoVien.js",
+          "language": "javascript",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/check_lecturers.js",
+          "language": "javascript",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/check_users_and_teachers.js",
+          "language": "javascript",
+          "sizeLines": 36,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seed_khoaluan_phong.js",
+          "language": "javascript",
+          "sizeLines": 73,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seed_khoaluan_wallet.js",
+          "language": "javascript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/controllers/giaoVienController.js": [
+          "backend/models/GiaoVien.js"
+        ],
+        "backend/models/GiaoVien.js": [],
+        "backend/scripts/check_lecturers.js": [
+          "backend/models/GiaoVien.js"
+        ],
+        "backend/scripts/check_users_and_teachers.js": [
+          "backend/models/GiaoVien.js"
+        ],
+        "backend/scripts/seed_khoaluan_phong.js": [
+          "backend/models/DeTai.js",
+          "backend/models/GiaoVien.js"
+        ],
+        "backend/scripts/seed_khoaluan_wallet.js": [
+          "backend/models/DeTai.js",
+          "backend/models/GiaoVien.js"
+        ]
+      },
+      "neighborMap": {
+        "backend/controllers/giaoVienController.js": [
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "backend/models/GiaoVien.js": [
+          {
+            "path": "backend/controllers/adminController.js",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/check_student_test.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/reset_test_data.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_giao_duc_pho_thong.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/seed_topic_13dhth04.js",
+            "batchIndex": 5,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/seed_khoaluan_phong.js": [
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ],
+        "backend/scripts/seed_khoaluan_wallet.js": [
+          {
+            "path": "backend/models/DeTai.js",
+            "batchIndex": 4,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": "backend/config/db.js",
+          "language": "javascript",
+          "sizeLines": 15,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/debug-payment.js",
+          "language": "javascript",
+          "sizeLines": 165,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/impersonate-accounts.js",
+          "language": "javascript",
+          "sizeLines": 133,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seed-ai-model-metadata.js",
+          "language": "javascript",
+          "sizeLines": 238,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/test-payment-direct.js",
+          "language": "javascript",
+          "sizeLines": 123,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "backend/config/db.js": [
+          "backend/config/logger.js"
+        ],
+        "backend/scripts/debug-payment.js": [
+          "backend/config/db.js"
+        ],
+        "backend/scripts/impersonate-accounts.js": [
+          "backend/config/db.js"
+        ],
+        "backend/scripts/seed-ai-model-metadata.js": [
+          "backend/config/db.js"
+        ],
+        "backend/scripts/test-payment-direct.js": [
+          "backend/config/db.js"
+        ]
+      },
+      "neighborMap": {
+        "backend/config/db.js": [
+          {
+            "path": "backend/config/logger.js",
+            "batchIndex": 4,
+            "symbols": []
+          },
+          {
+            "path": "backend/scripts/backfill-pdf-extraction.js",
+            "batchIndex": 5,
+            "symbols": []
+          },
+          {
+            "path": "backend/server.js",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 9,
+      "files": [
+        {
+          "path": "frontend/src/components/LoginPage.js",
+          "language": "javascript",
+          "sizeLines": 741,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/MetaMaskGuideModal.js",
+          "language": "javascript",
+          "sizeLines": 411,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/QrScanner.js",
+          "language": "javascript",
+          "sizeLines": 199,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/components/RoleSelection.js",
+          "language": "javascript",
+          "sizeLines": 162,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "frontend/src/components/LoginPage.js": [
+          "frontend/src/components/MetaMaskGuideModal.js",
+          "frontend/src/components/QrScanner.js",
+          "frontend/src/components/RoleSelection.js",
+          "frontend/src/services/authService.js"
+        ],
+        "frontend/src/components/MetaMaskGuideModal.js": [],
+        "frontend/src/components/QrScanner.js": [],
+        "frontend/src/components/RoleSelection.js": []
+      },
+      "neighborMap": {
+        "frontend/src/components/LoginPage.js": [
+          {
+            "path": "frontend/src/services/authService.js",
+            "batchIndex": 3,
+            "symbols": []
+          },
+          {
+            "path": "frontend/src/App.js",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 10,
+      "files": [
+        {
+          "path": ".ua/tmp/commit.txt",
+          "language": "txt",
+          "sizeLines": 1,
+          "fileCategory": "docs"
+        },
+        {
+          "path": ".ua/tmp/readme.txt",
+          "language": "txt",
+          "sizeLines": 60,
+          "fileCategory": "docs"
+        },
+        {
+          "path": ".ua/tmp/tree.txt",
+          "language": "txt",
+          "sizeLines": 29,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        ".ua/tmp/commit.txt": [],
+        ".ua/tmp/readme.txt": [],
+        ".ua/tmp/tree.txt": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 11,
+      "files": [
+        {
+          "path": "backend/.env.example",
+          "language": "config",
+          "sizeLines": 11,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/.env.render",
+          "language": "config",
+          "sizeLines": 22,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/README.md",
+          "language": "markdown",
+          "sizeLines": 20,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "backend/deployment.json",
+          "language": "json",
+          "sizeLines": 16,
+          "fileCategory": "config"
+        },
+        {
+          "path": "backend/package.json",
+          "language": "json",
+          "sizeLines": 65,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "backend/.env.example": [],
+        "backend/.env.render": [],
+        "backend/README.md": [],
+        "backend/deployment.json": [],
+        "backend/package.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 12,
+      "files": [
+        {
+          "path": "frontend/.env.example",
+          "language": "config",
+          "sizeLines": 4,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/jsconfig.json",
+          "language": "json",
+          "sizeLines": 4,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/netlify.toml",
+          "language": "toml",
+          "sizeLines": 14,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/package.json",
+          "language": "json",
+          "sizeLines": 56,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "frontend/.env.example": [],
+        "frontend/jsconfig.json": [],
+        "frontend/netlify.toml": [],
+        "frontend/package.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 13,
+      "files": [
+        {
+          "path": "ml-service/.env.example",
+          "language": "config",
+          "sizeLines": 4,
+          "fileCategory": "config"
+        },
+        {
+          "path": "ml-service/README.md",
+          "language": "markdown",
+          "sizeLines": 76,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "ml-service/requirements.txt",
+          "language": "txt",
+          "sizeLines": 16,
+          "fileCategory": "docs"
+        }
+      ],
+      "batchImportData": {
+        "ml-service/.env.example": [],
+        "ml-service/README.md": [],
+        "ml-service/requirements.txt": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 14,
+      "files": [
+        {
+          "path": ".DS_Store",
+          "language": "unknown",
+          "sizeLines": 2,
+          "fileCategory": "code"
+        },
+        {
+          "path": ".ua/tmp/run-scanner.mjs",
+          "language": "javascript",
+          "sizeLines": 37,
+          "fileCategory": "code"
+        },
+        {
+          "path": "README.md",
+          "language": "markdown",
+          "sizeLines": 60,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "backend/.DS_Store",
+          "language": "unknown",
+          "sizeLines": 1,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/contracts/K12CredentialRegistry.sol",
+          "language": "sol",
+          "sizeLines": 89,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/contracts/README.md",
+          "language": "markdown",
+          "sizeLines": 161,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "backend/contracts/ThesisManagement.sol",
+          "language": "sol",
+          "sizeLines": 120,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/contracts/ThesisManagementV2.sol",
+          "language": "sol",
+          "sizeLines": 204,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/hardhat.config.js",
+          "language": "javascript",
+          "sizeLines": 33,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/healthcheck.js",
+          "language": "javascript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/middleware/cspHeader.js",
+          "language": "javascript",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/migrate_sv.js",
+          "language": "javascript",
+          "sizeLines": 20,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/check-node.js",
+          "language": "javascript",
+          "sizeLines": 46,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/check-payroll-contract.js",
+          "language": "javascript",
+          "sizeLines": 120,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/check_khoaluan_topics.js",
+          "language": "javascript",
+          "sizeLines": 23,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/deploy-hrpayroll.js",
+          "language": "javascript",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/deploy-thesis-v2.js",
+          "language": "javascript",
+          "sizeLines": 30,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/deploy-thesis.js",
+          "language": "javascript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/deploy.js",
+          "language": "javascript",
+          "sizeLines": 14,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/fixIndexes.js",
+          "language": "javascript",
+          "sizeLines": 98,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/gen-postman.js",
+          "language": "javascript",
+          "sizeLines": 353,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/get-token.js",
+          "language": "javascript",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/importFromJson.js",
+          "language": "javascript",
+          "sizeLines": 108,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seedDepartments.js",
+          "language": "javascript",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seedEmployees.js",
+          "language": "javascript",
+          "sizeLines": 100,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".DS_Store": [],
+        ".ua/tmp/run-scanner.mjs": [],
+        "README.md": [],
+        "backend/.DS_Store": [],
+        "backend/contracts/K12CredentialRegistry.sol": [],
+        "backend/contracts/README.md": [],
+        "backend/contracts/ThesisManagement.sol": [],
+        "backend/contracts/ThesisManagementV2.sol": [],
+        "backend/hardhat.config.js": [],
+        "backend/healthcheck.js": [],
+        "backend/middleware/cspHeader.js": [],
+        "backend/migrate_sv.js": [],
+        "backend/scripts/check-node.js": [],
+        "backend/scripts/check-payroll-contract.js": [],
+        "backend/scripts/check_khoaluan_topics.js": [],
+        "backend/scripts/deploy-hrpayroll.js": [],
+        "backend/scripts/deploy-thesis-v2.js": [],
+        "backend/scripts/deploy-thesis.js": [],
+        "backend/scripts/deploy.js": [],
+        "backend/scripts/fixIndexes.js": [],
+        "backend/scripts/gen-postman.js": [],
+        "backend/scripts/get-token.js": [],
+        "backend/scripts/importFromJson.js": [],
+        "backend/scripts/seedDepartments.js": [],
+        "backend/scripts/seedEmployees.js": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 15,
+      "files": [
+        {
+          "path": "backend/scripts/seedMockWorkData.js",
+          "language": "javascript",
+          "sizeLines": 93,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seedRoles.js",
+          "language": "javascript",
+          "sizeLines": 205,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/seedSuperAdmin.js",
+          "language": "javascript",
+          "sizeLines": 50,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/test-task-payment.js",
+          "language": "javascript",
+          "sizeLines": 175,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/test_k12_api.js",
+          "language": "javascript",
+          "sizeLines": 271,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/test_phase3.js",
+          "language": "javascript",
+          "sizeLines": 167,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/test_phase4.js",
+          "language": "javascript",
+          "sizeLines": 128,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/test_phase5.js",
+          "language": "javascript",
+          "sizeLines": 114,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/test_phase5_1.js",
+          "language": "javascript",
+          "sizeLines": 122,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/scripts/transfer-tokens-to-contract.js",
+          "language": "javascript",
+          "sizeLines": 67,
+          "fileCategory": "code"
+        },
+        {
+          "path": "backend/services/authService.js",
+          "language": "javascript",
+          "sizeLines": 25,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docker/backend.Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docker/docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 71,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "docker/frontend.Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 32,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/_headers",
+          "language": "unknown",
+          "sizeLines": 8,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/_redirects",
+          "language": "unknown",
+          "sizeLines": 2,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/public/index.html",
+          "language": "html",
+          "sizeLines": 19,
+          "fileCategory": "markup"
+        },
+        {
+          "path": "frontend/public/manifest.json",
+          "language": "json",
+          "sizeLines": 15,
+          "fileCategory": "config"
+        },
+        {
+          "path": "frontend/src/theme/adminTheme.js",
+          "language": "javascript",
+          "sizeLines": 262,
+          "fileCategory": "code"
+        },
+        {
+          "path": "frontend/src/utils/domain.js",
+          "language": "javascript",
+          "sizeLines": 24,
+          "fileCategory": "code"
+        },
+        {
+          "path": "package.json",
+          "language": "json",
+          "sizeLines": 11,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        "backend/scripts/seedMockWorkData.js": [],
+        "backend/scripts/seedRoles.js": [],
+        "backend/scripts/seedSuperAdmin.js": [],
+        "backend/scripts/test-task-payment.js": [],
+        "backend/scripts/test_k12_api.js": [],
+        "backend/scripts/test_phase3.js": [],
+        "backend/scripts/test_phase4.js": [],
+        "backend/scripts/test_phase5.js": [],
+        "backend/scripts/test_phase5_1.js": [],
+        "backend/scripts/transfer-tokens-to-contract.js": [],
+        "backend/services/authService.js": [],
+        "docker/backend.Dockerfile": [],
+        "docker/docker-compose.yml": [],
+        "docker/frontend.Dockerfile": [],
+        "frontend/public/_headers": [],
+        "frontend/public/_redirects": [],
+        "frontend/public/index.html": [],
+        "frontend/public/manifest.json": [],
+        "frontend/src/theme/adminTheme.js": [],
+        "frontend/src/utils/domain.js": [],
+        "package.json": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

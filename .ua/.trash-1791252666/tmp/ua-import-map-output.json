@@ -1,0 +1,656 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 204,
+    "filesWithImports": 99,
+    "totalEdges": 342
+  },
+  "failures": [],
+  "importMap": {
+    ".DS_Store": [],
+    ".ua/tmp/commit.txt": [],
+    ".ua/tmp/readme.txt": [],
+    ".ua/tmp/run-scanner.mjs": [],
+    ".ua/tmp/tree.txt": [],
+    "README.md": [],
+    "backend/.DS_Store": [],
+    "backend/.env.example": [],
+    "backend/.env.render": [],
+    "backend/README.md": [],
+    "backend/config/db.js": [
+      "backend/config/logger.js"
+    ],
+    "backend/config/logger.js": [],
+    "backend/config/web3.js": [],
+    "backend/contracts/K12CredentialRegistry.sol": [],
+    "backend/contracts/README.md": [],
+    "backend/contracts/ThesisManagement.sol": [],
+    "backend/contracts/ThesisManagementV2.sol": [],
+    "backend/controllers/adminController.js": [
+      "backend/models/Admin.js",
+      "backend/models/GiaoVien.js",
+      "backend/models/RoleRequest.js"
+    ],
+    "backend/controllers/aiController.js": [
+      "backend/config/logger.js",
+      "backend/services/aiService.js",
+      "backend/services/matchingService.js"
+    ],
+    "backend/controllers/aiK12Controller.js": [
+      "backend/config/logger.js",
+      "backend/models/Challenge.js",
+      "backend/models/Student.js",
+      "backend/models/Submission.js",
+      "backend/services/aiService.js",
+      "backend/services/matchingService.js"
+    ],
+    "backend/controllers/authController.js": [
+      "backend/config/web3.js",
+      "backend/models/Admin.js",
+      "backend/models/RoleRequest.js",
+      "backend/models/Student.js",
+      "backend/models/Teacher.js"
+    ],
+    "backend/controllers/baiTestController.js": [
+      "backend/config/logger.js",
+      "backend/models/BaiTest.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/KetQuaTest.js",
+      "backend/services/thesisContractService.js"
+    ],
+    "backend/controllers/baoCaoController.js": [
+      "backend/config/logger.js",
+      "backend/models/BaoCao.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/DiemSo.js",
+      "backend/services/aiService.js",
+      "backend/services/ipfsService.js",
+      "backend/services/thesisContractService.js"
+    ],
+    "backend/controllers/blockchainController.js": [
+      "backend/models/BaoCao.js",
+      "backend/models/DeTai.js",
+      "backend/models/DiemSo.js",
+      "backend/models/HocSinh.js"
+    ],
+    "backend/controllers/challengeController.js": [
+      "backend/config/logger.js",
+      "backend/models/Challenge.js"
+    ],
+    "backend/controllers/credentialController.js": [
+      "backend/config/logger.js",
+      "backend/models/Achievement.js",
+      "backend/models/EducationalCredential.js",
+      "backend/models/Student.js",
+      "backend/models/Teacher.js",
+      "backend/utils/canonicalCredential.js"
+    ],
+    "backend/controllers/deTaiController.js": [
+      "backend/config/logger.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/HocSinh.js",
+      "backend/models/LopHoc.js",
+      "backend/models/Nhom.js",
+      "backend/models/RubricsTemplate.js"
+    ],
+    "backend/controllers/diemSoController.js": [
+      "backend/config/logger.js",
+      "backend/models/AILog.js",
+      "backend/models/BaoCao.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/DiemSo.js",
+      "backend/services/thesisContractService.js"
+    ],
+    "backend/controllers/evaluationController.js": [
+      "backend/models/Achievement.js",
+      "backend/models/ChallengeParticipation.js",
+      "backend/models/Evaluation.js",
+      "backend/models/LearningResult.js",
+      "backend/models/Submission.js"
+    ],
+    "backend/controllers/giaoVienController.js": [
+      "backend/models/GiaoVien.js"
+    ],
+    "backend/controllers/hocSinhController.js": [
+      "backend/models/HocSinh.js"
+    ],
+    "backend/controllers/loiMoiLopHocController.js": [
+      "backend/config/logger.js",
+      "backend/models/HocSinh.js",
+      "backend/models/LoiMoiLopHoc.js",
+      "backend/models/LopHoc.js"
+    ],
+    "backend/controllers/lopHocController.js": [
+      "backend/config/logger.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/HocSinh.js",
+      "backend/models/LopHoc.js",
+      "backend/models/Nhom.js"
+    ],
+    "backend/controllers/monHocController.js": [
+      "backend/config/logger.js",
+      "backend/models/DeTai.js",
+      "backend/models/LopHoc.js",
+      "backend/models/MonHoc.js"
+    ],
+    "backend/controllers/nhomController.js": [
+      "backend/config/logger.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/HocSinh.js",
+      "backend/models/LopHoc.js",
+      "backend/models/Nhom.js"
+    ],
+    "backend/controllers/participationController.js": [
+      "backend/models/Challenge.js",
+      "backend/models/ChallengeParticipation.js",
+      "backend/models/Student.js"
+    ],
+    "backend/controllers/qrController.js": [
+      "backend/models/QrCode.js"
+    ],
+    "backend/controllers/rubricsController.js": [
+      "backend/config/logger.js",
+      "backend/models/DeTai.js",
+      "backend/models/RubricsTemplate.js"
+    ],
+    "backend/controllers/submissionController.js": [
+      "backend/models/Challenge.js",
+      "backend/models/ChallengeParticipation.js",
+      "backend/models/Submission.js"
+    ],
+    "backend/controllers/tienDoController.js": [
+      "backend/config/logger.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/TienDo.js",
+      "backend/services/aiService.js",
+      "backend/services/thesisContractService.js"
+    ],
+    "backend/deployment.json": [],
+    "backend/hardhat.config.js": [],
+    "backend/healthcheck.js": [],
+    "backend/middleware/authz.js": [],
+    "backend/middleware/cspHeader.js": [],
+    "backend/migrate_sv.js": [],
+    "backend/models/AILog.js": [],
+    "backend/models/Achievement.js": [],
+    "backend/models/Admin.js": [],
+    "backend/models/BaiTest.js": [],
+    "backend/models/BaoCao.js": [],
+    "backend/models/Challenge.js": [],
+    "backend/models/ChallengeParticipation.js": [],
+    "backend/models/DangKyDeTai.js": [],
+    "backend/models/DeTai.js": [],
+    "backend/models/DiemSo.js": [],
+    "backend/models/DuAn.js": [
+      "backend/models/DeTai.js"
+    ],
+    "backend/models/EducationalCredential.js": [],
+    "backend/models/Evaluation.js": [],
+    "backend/models/GiaoVien.js": [],
+    "backend/models/HocSinh.js": [],
+    "backend/models/KetQuaTest.js": [],
+    "backend/models/LearningResult.js": [],
+    "backend/models/LoiMoiLopHoc.js": [],
+    "backend/models/LopHoc.js": [],
+    "backend/models/MonHoc.js": [],
+    "backend/models/Nhom.js": [],
+    "backend/models/QrCode.js": [],
+    "backend/models/RoleRequest.js": [],
+    "backend/models/RubricsTemplate.js": [],
+    "backend/models/Student.js": [],
+    "backend/models/Submission.js": [],
+    "backend/models/Teacher.js": [],
+    "backend/models/TienDo.js": [],
+    "backend/package.json": [],
+    "backend/routes/achievementRoutes.js": [
+      "backend/controllers/authController.js",
+      "backend/middleware/authz.js",
+      "backend/models/Achievement.js"
+    ],
+    "backend/routes/aiRoutes.js": [
+      "backend/controllers/aiK12Controller.js",
+      "backend/controllers/authController.js",
+      "backend/middleware/authz.js"
+    ],
+    "backend/routes/challengeRoutes.js": [
+      "backend/controllers/authController.js",
+      "backend/controllers/challengeController.js",
+      "backend/controllers/participationController.js",
+      "backend/middleware/authz.js"
+    ],
+    "backend/routes/credentialRoutes.js": [
+      "backend/controllers/authController.js",
+      "backend/controllers/credentialController.js",
+      "backend/middleware/authz.js"
+    ],
+    "backend/routes/participationRoutes.js": [
+      "backend/controllers/authController.js",
+      "backend/controllers/participationController.js",
+      "backend/controllers/submissionController.js"
+    ],
+    "backend/routes/submissionRoutes.js": [
+      "backend/controllers/authController.js",
+      "backend/controllers/evaluationController.js",
+      "backend/middleware/authz.js"
+    ],
+    "backend/scripts/backfill-pdf-extraction.js": [
+      "backend/config/db.js",
+      "backend/config/logger.js",
+      "backend/models/BaoCao.js",
+      "backend/services/aiService.js"
+    ],
+    "backend/scripts/check-node.js": [],
+    "backend/scripts/check-payroll-contract.js": [],
+    "backend/scripts/check_khoaluan_topics.js": [],
+    "backend/scripts/check_lecturers.js": [
+      "backend/models/GiaoVien.js"
+    ],
+    "backend/scripts/check_student_test.js": [
+      "backend/models/BaiTest.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/GiaoVien.js",
+      "backend/models/HocSinh.js"
+    ],
+    "backend/scripts/check_users_and_teachers.js": [
+      "backend/models/GiaoVien.js"
+    ],
+    "backend/scripts/debug-payment.js": [
+      "backend/config/db.js"
+    ],
+    "backend/scripts/deploy-hrpayroll.js": [],
+    "backend/scripts/deploy-thesis-v2.js": [],
+    "backend/scripts/deploy-thesis.js": [],
+    "backend/scripts/deploy.js": [],
+    "backend/scripts/fixIndexes.js": [],
+    "backend/scripts/gen-postman.js": [],
+    "backend/scripts/get-token.js": [],
+    "backend/scripts/impersonate-accounts.js": [
+      "backend/config/db.js"
+    ],
+    "backend/scripts/importFromJson.js": [],
+    "backend/scripts/migrate-add-lophoc-nhom.js": [
+      "backend/models/BaoCao.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/DiemSo.js",
+      "backend/models/LopHoc.js",
+      "backend/models/Nhom.js",
+      "backend/models/TienDo.js"
+    ],
+    "backend/scripts/reset_test_data.js": [
+      "backend/models/BaiTest.js",
+      "backend/models/BaoCao.js",
+      "backend/models/DangKyDeTai.js",
+      "backend/models/DeTai.js",
+      "backend/models/DiemSo.js",
+      "backend/models/GiaoVien.js",
+      "backend/models/HocSinh.js",
+      "backend/models/KetQuaTest.js",
+      "backend/models/LopHoc.js",
+      "backend/models/MonHoc.js",
+      "backend/models/Nhom.js",
+      "backend/models/TienDo.js"
+    ],
+    "backend/scripts/seed-ai-model-metadata.js": [
+      "backend/config/db.js"
+    ],
+    "backend/scripts/seedAdmin.js": [
+      "backend/models/Admin.js"
+    ],
+    "backend/scripts/seedDepartments.js": [],
+    "backend/scripts/seedEmployees.js": [],
+    "backend/scripts/seedMockWorkData.js": [],
+    "backend/scripts/seedRoles.js": [],
+    "backend/scripts/seedSuperAdmin.js": [],
+    "backend/scripts/seed_giao_duc_pho_thong.js": [
+      "backend/models/DeTai.js",
+      "backend/models/GiaoVien.js",
+      "backend/models/HocSinh.js",
+      "backend/models/LopHoc.js",
+      "backend/models/MonHoc.js"
+    ],
+    "backend/scripts/seed_k12.js": [
+      "backend/models/Challenge.js",
+      "backend/models/Student.js",
+      "backend/models/Teacher.js"
+    ],
+    "backend/scripts/seed_khoaluan_phong.js": [
+      "backend/models/DeTai.js",
+      "backend/models/GiaoVien.js"
+    ],
+    "backend/scripts/seed_khoaluan_tests_rubrics.js": [
+      "backend/models/BaiTest.js",
+      "backend/models/DeTai.js"
+    ],
+    "backend/scripts/seed_khoaluan_wallet.js": [
+      "backend/models/DeTai.js",
+      "backend/models/GiaoVien.js"
+    ],
+    "backend/scripts/seed_topic_13dhth04.js": [
+      "backend/models/DeTai.js",
+      "backend/models/GiaoVien.js",
+      "backend/models/LopHoc.js",
+      "backend/models/MonHoc.js"
+    ],
+    "backend/scripts/test-payment-direct.js": [
+      "backend/config/db.js"
+    ],
+    "backend/scripts/test-task-payment.js": [],
+    "backend/scripts/test_k12_api.js": [],
+    "backend/scripts/test_phase3.js": [],
+    "backend/scripts/test_phase4.js": [],
+    "backend/scripts/test_phase5.js": [],
+    "backend/scripts/test_phase5_1.js": [],
+    "backend/scripts/transfer-tokens-to-contract.js": [],
+    "backend/server.js": [
+      "backend/config/db.js",
+      "backend/config/logger.js",
+      "backend/controllers/adminController.js",
+      "backend/controllers/aiController.js",
+      "backend/controllers/authController.js",
+      "backend/controllers/baiTestController.js",
+      "backend/controllers/baoCaoController.js",
+      "backend/controllers/blockchainController.js",
+      "backend/controllers/deTaiController.js",
+      "backend/controllers/diemSoController.js",
+      "backend/controllers/giaoVienController.js",
+      "backend/controllers/hocSinhController.js",
+      "backend/controllers/loiMoiLopHocController.js",
+      "backend/controllers/lopHocController.js",
+      "backend/controllers/monHocController.js",
+      "backend/controllers/nhomController.js",
+      "backend/controllers/qrController.js",
+      "backend/controllers/rubricsController.js",
+      "backend/controllers/tienDoController.js",
+      "backend/middleware/authz.js",
+      "backend/routes/achievementRoutes.js",
+      "backend/routes/aiRoutes.js",
+      "backend/routes/challengeRoutes.js",
+      "backend/routes/credentialRoutes.js",
+      "backend/routes/participationRoutes.js",
+      "backend/routes/submissionRoutes.js"
+    ],
+    "backend/services/aiService.js": [
+      "backend/config/logger.js"
+    ],
+    "backend/services/authService.js": [],
+    "backend/services/ipfsService.js": [
+      "backend/config/logger.js"
+    ],
+    "backend/services/matchingService.js": [
+      "backend/config/logger.js"
+    ],
+    "backend/services/thesisContractService.js": [
+      "backend/config/logger.js",
+      "backend/models/BaoCao.js",
+      "backend/models/DeTai.js"
+    ],
+    "backend/utils/canonicalCredential.js": [],
+    "docker/backend.Dockerfile": [],
+    "docker/docker-compose.yml": [],
+    "docker/frontend.Dockerfile": [],
+    "frontend/.env.example": [],
+    "frontend/jsconfig.json": [],
+    "frontend/netlify.toml": [],
+    "frontend/package.json": [],
+    "frontend/public/_headers": [],
+    "frontend/public/_redirects": [],
+    "frontend/public/index.html": [],
+    "frontend/public/manifest.json": [],
+    "frontend/src/App.js": [
+      "frontend/src/components/LoginPage.js",
+      "frontend/src/components/PendingApproval.js",
+      "frontend/src/components/admin/AdminDashboard.js",
+      "frontend/src/components/admin/AdminRequests.js",
+      "frontend/src/components/debug/BlockchainDebugPage.js",
+      "frontend/src/components/layout/MainLayout.js",
+      "frontend/src/components/lecturer/ClassManagement.js",
+      "frontend/src/components/lecturer/CourseManagement.js",
+      "frontend/src/components/lecturer/EntranceTestManager.js",
+      "frontend/src/components/lecturer/LecturerDashboard.js",
+      "frontend/src/components/lecturer/RubricsManagement.js",
+      "frontend/src/components/lecturer/ScoreComparison.js",
+      "frontend/src/components/lecturer/StudentManagement.js",
+      "frontend/src/components/lecturer/SubmissionReview.js",
+      "frontend/src/components/lecturer/TopicManagement.js",
+      "frontend/src/components/shared/CredentialVerify.jsx",
+      "frontend/src/components/student/AchievementList.jsx",
+      "frontend/src/components/student/ChallengeList.jsx",
+      "frontend/src/components/student/EntranceTest.js",
+      "frontend/src/components/student/GroupManagement.js",
+      "frontend/src/components/student/ProgressLog.js",
+      "frontend/src/components/student/ProgressTracking.js",
+      "frontend/src/components/student/ReportUpload.js",
+      "frontend/src/components/student/StudentDashboard.js",
+      "frontend/src/components/student/StudentSubmissionView.jsx",
+      "frontend/src/components/student/TopicRegistration.js",
+      "frontend/src/components/teacher/ChallengeManagement.jsx",
+      "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/contexts/LecturerClassContext.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/AuthContext.js": [
+      "frontend/src/services/apiService.js"
+    ],
+    "frontend/src/components/LoginPage.js": [
+      "frontend/src/components/MetaMaskGuideModal.js",
+      "frontend/src/components/QrScanner.js",
+      "frontend/src/components/RoleSelection.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/MetaMaskGuideModal.js": [],
+    "frontend/src/components/MobileLogin.js": [
+      "frontend/src/services/apiService.js"
+    ],
+    "frontend/src/components/PendingApproval.js": [
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/QrAuthentication.js": [
+      "frontend/src/services/apiService.js"
+    ],
+    "frontend/src/components/QrScanner.js": [],
+    "frontend/src/components/RoleSelection.js": [],
+    "frontend/src/components/admin/AdminDashboard.js": [
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/admin/AdminRequests.js": [
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/common/ClassSelector.js": [
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/contexts/LecturerClassContext.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/debug/BlockchainDebugPage.js": [
+      "frontend/src/services/apiService.js"
+    ],
+    "frontend/src/components/layout/MainLayout.js": [
+      "frontend/src/components/common/ClassSelector.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/lecturer/ClassManagement.js": [
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js"
+    ],
+    "frontend/src/components/lecturer/CourseManagement.js": [
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js"
+    ],
+    "frontend/src/components/lecturer/EntranceTestManager.js": [
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/lecturer/LecturerDashboard.js": [
+      "frontend/src/components/QrAuthentication.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/lecturer/RubricsManagement.js": [
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/lecturer/ScoreComparison.js": [
+      "frontend/src/contexts/LecturerClassContext.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/lecturer/StudentManagement.js": [
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js"
+    ],
+    "frontend/src/components/lecturer/SubmissionReview.js": [
+      "frontend/src/contexts/LecturerClassContext.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/lecturer/TopicManagement.js": [
+      "frontend/src/contexts/LecturerClassContext.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js"
+    ],
+    "frontend/src/components/shared/CredentialVerify.jsx": [],
+    "frontend/src/components/student/AchievementList.jsx": [
+      "frontend/src/services/apiService.js",
+      "frontend/src/services/challengeService.js"
+    ],
+    "frontend/src/components/student/ChallengeList.jsx": [
+      "frontend/src/services/challengeService.js"
+    ],
+    "frontend/src/components/student/EntranceTest.js": [
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js",
+      "frontend/src/services/nhomService.js"
+    ],
+    "frontend/src/components/student/GroupManagement.js": [
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js",
+      "frontend/src/services/nhomService.js"
+    ],
+    "frontend/src/components/student/ProgressLog.js": [
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/student/ProgressTracking.js": [
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/student/ReportUpload.js": [
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/components/student/StudentDashboard.js": [
+      "frontend/src/components/QrAuthentication.js",
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/hooks/useResponsive.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js"
+    ],
+    "frontend/src/components/student/StudentSubmissionView.jsx": [
+      "frontend/src/services/challengeService.js"
+    ],
+    "frontend/src/components/student/TopicRegistration.js": [
+      "frontend/src/contexts/ClassContext.js",
+      "frontend/src/services/aiService.js",
+      "frontend/src/services/authService.js",
+      "frontend/src/services/nhomService.js"
+    ],
+    "frontend/src/components/teacher/ChallengeManagement.jsx": [
+      "frontend/src/services/authService.js",
+      "frontend/src/services/challengeService.js"
+    ],
+    "frontend/src/components/teacher/TeacherChallengeDetail.jsx": [
+      "frontend/src/services/challengeService.js"
+    ],
+    "frontend/src/contexts/ClassContext.js": [
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js"
+    ],
+    "frontend/src/contexts/LecturerClassContext.js": [
+      "frontend/src/services/authService.js",
+      "frontend/src/services/managementService.js"
+    ],
+    "frontend/src/hooks/useResponsive.js": [],
+    "frontend/src/index.js": [
+      "frontend/src/App.js"
+    ],
+    "frontend/src/services/aiService.js": [
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/services/apiService.js": [
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/services/authService.js": [],
+    "frontend/src/services/challengeService.js": [
+      "frontend/src/services/apiService.js"
+    ],
+    "frontend/src/services/kpiService.js": [
+      "frontend/src/services/apiService.js"
+    ],
+    "frontend/src/services/managementService.js": [
+      "frontend/src/services/apiService.js"
+    ],
+    "frontend/src/services/nhomService.js": [
+      "frontend/src/services/authService.js"
+    ],
+    "frontend/src/theme/adminTheme.js": [],
+    "frontend/src/utils/domain.js": [],
+    "ml-service/.env.example": [],
+    "ml-service/README.md": [],
+    "ml-service/app.py": [
+      "ml-service/routes/analyze.py",
+      "ml-service/routes/compare_code.py",
+      "ml-service/routes/extract_pdf.py",
+      "ml-service/routes/match.py",
+      "ml-service/utils/log_config.py"
+    ],
+    "ml-service/models/phobert_analyzer.py": [
+      "ml-service/utils/pdf_chunker.py",
+      "ml-service/utils/text_preprocessing.py"
+    ],
+    "ml-service/models/sbert_matcher.py": [],
+    "ml-service/requirements.txt": [],
+    "ml-service/routes/analyze.py": [
+      "ml-service/models/phobert_analyzer.py",
+      "ml-service/utils/text_security.py"
+    ],
+    "ml-service/routes/compare_code.py": [],
+    "ml-service/routes/extract_pdf.py": [
+      "ml-service/utils/pdf_extractor.py"
+    ],
+    "ml-service/routes/match.py": [
+      "ml-service/models/sbert_matcher.py"
+    ],
+    "ml-service/utils/log_config.py": [],
+    "ml-service/utils/pdf_chunker.py": [],
+    "ml-service/utils/pdf_extractor.py": [],
+    "ml-service/utils/text_preprocessing.py": [],
+    "ml-service/utils/text_security.py": [],
+    "package.json": []
+  }
+}

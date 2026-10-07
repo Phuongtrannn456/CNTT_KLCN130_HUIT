@@ -14,7 +14,7 @@ const generateChallenge = async (req, res) => {
   try {
     const { walletAddress } = req.body;
     if (!walletAddress || !ethers.isAddress(walletAddress)) {
-      return res.status(400).json({ success: false, message: 'Invalid wallet address' });
+      return res.status(400).json({ success: false, message: 'Địa chỉ ví không hợp lệ' });
     }
 
     const nonce = uuidv4().substring(0, 8);
@@ -28,9 +28,9 @@ const generateChallenge = async (req, res) => {
       expiresAt: Date.now() + 5 * 60 * 1000
     });
 
-    res.json({ success: true, challengeId, challenge, message: 'Please sign this message' });
+    res.json({ success: true, challengeId, challenge, message: 'Vui lòng ký thông báo này' });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Failed to generate challenge' });
+    res.status(500).json({ success: false, message: 'Tạo mã thử thách thất bại' });
   }
 };
 
@@ -40,7 +40,7 @@ const verifySignature = async (req, res) => {
     const challengeData = challenges.get(challengeId);
     
     if (!challengeData || challengeData.expiresAt < Date.now()) {
-      return res.status(400).json({ success: false, message: 'Challenge expired' });
+      return res.status(400).json({ success: false, message: 'Mã thử thách đã hết hạn' });
     }
 
     const { challenge, walletAddress } = challengeData;
@@ -53,7 +53,7 @@ const verifySignature = async (req, res) => {
     }
 
     if (!isValidSignature) {
-      return res.status(401).json({ success: false, message: 'Invalid signature.' });
+      return res.status(401).json({ success: false, message: 'Chữ ký không hợp lệ.' });
     }
 
     // Identify user role
@@ -110,10 +110,10 @@ const verifySignature = async (req, res) => {
         role_id,
         name: userRecord.fullName || userRecord.HoTen // handle Admin which might still use HoTen
       },
-      message: 'Authentication successful'
+      message: 'Xác thực thành công'
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Authentication failed' });
+    res.status(500).json({ success: false, message: 'Xác thực thất bại' });
   }
 };
 
@@ -131,7 +131,7 @@ const getProfile = async (req, res) => {
       user = await Admin.findById(id);
     }
     
-    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+    if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy người dùng' });
     res.json({ success: true, user: { ...user._doc, role_id } });
   } catch (error) {
     res.status(500).json({ success: false });
@@ -142,10 +142,10 @@ const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   let token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : authHeader;
 
-  if (!token) return res.status(401).json({ success: false, message: 'Access token required' });
+  if (!token) return res.status(401).json({ success: false, message: 'Yêu cầu token truy cập' });
 
   jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key', { clockTolerance: 300 }, (err, user) => {
-    if (err) return res.status(403).json({ success: false, message: 'Invalid token' });
+    if (err) return res.status(401).json({ success: false, message: 'Token không hợp lệ hoặc đã hết hạn' });
     req.user = user;
     next();
   });
@@ -166,7 +166,7 @@ const generateQrSession = async (req, res) => {
 
     res.json({ success: true, sessionId, challenge });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Failed to generate QR session' });
+    res.status(500).json({ success: false, message: 'Tạo phiên QR thất bại' });
   }
 };
 
@@ -174,12 +174,12 @@ const verifyQrSignature = async (req, res) => {
   try {
     const { sessionId, walletAddress, signature } = req.body;
     if (!sessionId || !walletAddress || !signature) {
-      return res.status(400).json({ success: false, message: 'Missing parameters' });
+      return res.status(400).json({ success: false, message: 'Thiếu tham số' });
     }
 
     const sessionData = qrSessions.get(sessionId);
     if (!sessionData || sessionData.expiresAt < Date.now()) {
-      return res.status(400).json({ success: false, message: 'Session expired or invalid' });
+      return res.status(400).json({ success: false, message: 'Phiên đăng nhập hết hạn hoặc không hợp lệ' });
     }
 
     let isValidSignature = false;
@@ -255,7 +255,7 @@ const verifyQrSignature = async (req, res) => {
       message: 'Đăng nhập QR thành công'
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Authentication failed' });
+    res.status(500).json({ success: false, message: 'Xác thực thất bại' });
   }
 };
 
@@ -264,7 +264,7 @@ const registerWithRole = async (req, res) => {
     const { walletAddress, role, hoTen, email, chuyenNganh } = req.body; // chuyenNganh kept for legacy API compat
 
     if (!walletAddress || !role) {
-      return res.status(400).json({ success: false, message: 'Missing required fields' });
+      return res.status(400).json({ success: false, message: 'Thiếu các trường bắt buộc' });
     }
 
     const lowerWallet = walletAddress.toLowerCase();
@@ -300,27 +300,25 @@ const registerWithRole = async (req, res) => {
         message: 'Đăng ký Học sinh thành công'
       });
     } 
-    else if (role === 'TEACHER_ROLE') {
-      const newUser = new Teacher({
-        teacherId: `TC${uuidv4().substring(0, 6).toUpperCase()}`,
-        fullName: hoTen || 'Giáo Viên Mới',
-        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-        department: chuyenNganh || '',
-        walletAddress: lowerWallet
-      });
-      await newUser.save();
+    else if (role === 'TEACHER_ROLE' || role === 'LECTURER_ROLE') {
+      const existingRequest = await RoleRequest.findOne({ walletAddress: lowerWallet, status: 'pending' });
+      if (existingRequest) {
+        return res.json({ success: true, isPending: true, message: 'Yêu cầu của bạn đang chờ duyệt.' });
+      }
 
-      const token = jwt.sign(
-        { id: newUser._id, role_id: 'TEACHER_ROLE' },
-        process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' }
-      );
+      const newRequest = new RoleRequest({
+        walletAddress: lowerWallet,
+        hoTen: hoTen || 'Giáo Viên Mới',
+        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
+        chuyenNganh: chuyenNganh || '',
+        requestedRole: 'LECTURER_ROLE'
+      });
+      await newRequest.save();
 
       return res.json({
         success: true,
-        token,
-        user: { id: newUser._id, role_id: 'TEACHER_ROLE', name: newUser.fullName },
-        message: 'Đăng ký Giáo viên thành công'
+        isPending: true,
+        message: 'Yêu cầu đăng ký Giáo viên đã được gửi. Vui lòng chờ Admin phê duyệt.'
       });
     }
 

@@ -1,0 +1,2043 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 34,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 34,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 34,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "backend/config/web3.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 299,
+      "nonEmptyLines": 268,
+      "functions": [
+        {
+          "name": "initializeWeb3",
+          "startLine": 155,
+          "endLine": 195,
+          "params": []
+        },
+        {
+          "name": "getContract",
+          "startLine": 198,
+          "endLine": 215,
+          "params": [
+            "contractName",
+            "abi"
+          ]
+        },
+        {
+          "name": "getQRAuthContract",
+          "startLine": 218,
+          "endLine": 220,
+          "params": []
+        },
+        {
+          "name": "getConsentContract",
+          "startLine": 223,
+          "endLine": 225,
+          "params": []
+        },
+        {
+          "name": "getKpiContract",
+          "startLine": 228,
+          "endLine": 230,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "initializeWeb3",
+          "callee": "console.log",
+          "lineNumber": 160
+        },
+        {
+          "caller": "initializeWeb3",
+          "callee": "provider.getNetwork",
+          "lineNumber": 169
+        },
+        {
+          "caller": "initializeWeb3",
+          "callee": "console.log",
+          "lineNumber": 171
+        },
+        {
+          "caller": "initializeWeb3",
+          "callee": "ethers.Wallet.fromPhrase(web3Config.wallet.mnemonic).connect",
+          "lineNumber": 181
+        },
+        {
+          "caller": "initializeWeb3",
+          "callee": "ethers.Wallet.fromPhrase",
+          "lineNumber": 181
+        },
+        {
+          "caller": "initializeWeb3",
+          "callee": "console.log",
+          "lineNumber": 183
+        },
+        {
+          "caller": "initializeWeb3",
+          "callee": "console.log",
+          "lineNumber": 187
+        },
+        {
+          "caller": "initializeWeb3",
+          "callee": "console.log",
+          "lineNumber": 190
+        },
+        {
+          "caller": "getContract",
+          "callee": "initializeWeb3",
+          "lineNumber": 200
+        },
+        {
+          "caller": "getQRAuthContract",
+          "callee": "getContract",
+          "lineNumber": 219
+        },
+        {
+          "caller": "getConsentContract",
+          "callee": "getContract",
+          "lineNumber": 224
+        },
+        {
+          "caller": "getKpiContract",
+          "callee": "getContract",
+          "lineNumber": 229
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/adminController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 212,
+      "nonEmptyLines": 187,
+      "functions": [
+        {
+          "name": "getPendingRequests",
+          "startLine": 7,
+          "endLine": 15,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "approveRequest",
+          "startLine": 17,
+          "endLine": 71,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "rejectRequest",
+          "startLine": 73,
+          "endLine": 110,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getProcessedRequests",
+          "startLine": 112,
+          "endLine": 175,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getRequestDetail",
+          "startLine": 177,
+          "endLine": 193,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getAllLecturers",
+          "startLine": 195,
+          "endLine": 203,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getPendingRequests",
+          "callee": "RoleRequest.find({ status: 'pending' }).sort",
+          "lineNumber": 9
+        },
+        {
+          "caller": "getPendingRequests",
+          "callee": "RoleRequest.find",
+          "lineNumber": 9
+        },
+        {
+          "caller": "getPendingRequests",
+          "callee": "res.json",
+          "lineNumber": 10
+        },
+        {
+          "caller": "getPendingRequests",
+          "callee": "console.error",
+          "lineNumber": 12
+        },
+        {
+          "caller": "getPendingRequests",
+          "callee": "res.status(500).json",
+          "lineNumber": 13
+        },
+        {
+          "caller": "getPendingRequests",
+          "callee": "res.status",
+          "lineNumber": 13
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "RoleRequest.findById",
+          "lineNumber": 22
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "res.status(400).json",
+          "lineNumber": 24
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "res.status",
+          "lineNumber": 24
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "request.save",
+          "lineNumber": 31
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "uuidv4().substring(0, 6).toUpperCase",
+          "lineNumber": 35
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "uuidv4().substring",
+          "lineNumber": 35
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "uuidv4",
+          "lineNumber": 35
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "newGiaoVien.save",
+          "lineNumber": 41
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "jwt.sign",
+          "lineNumber": 44
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "req.app.get",
+          "lineNumber": 51
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "io.to(`pending:${request.walletAddress.toLowerCase()}`).emit",
+          "lineNumber": 53
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "io.to",
+          "lineNumber": 53
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "request.walletAddress.toLowerCase",
+          "lineNumber": 53
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "res.json",
+          "lineNumber": 66
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "console.error",
+          "lineNumber": 68
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "res.status(500).json",
+          "lineNumber": 69
+        },
+        {
+          "caller": "approveRequest",
+          "callee": "res.status",
+          "lineNumber": 69
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "res.status(400).json",
+          "lineNumber": 80
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "res.status",
+          "lineNumber": 80
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "RoleRequest.findById",
+          "lineNumber": 83
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "res.status(400).json",
+          "lineNumber": 85
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "res.status",
+          "lineNumber": 85
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "request.save",
+          "lineNumber": 93
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "req.app.get",
+          "lineNumber": 96
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "io.to(`pending:${request.walletAddress.toLowerCase()}`).emit",
+          "lineNumber": 98
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "io.to",
+          "lineNumber": 98
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "request.walletAddress.toLowerCase",
+          "lineNumber": 98
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "res.json",
+          "lineNumber": 105
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "console.error",
+          "lineNumber": 107
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "res.status(500).json",
+          "lineNumber": 108
+        },
+        {
+          "caller": "rejectRequest",
+          "callee": "res.status",
+          "lineNumber": 108
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "parseInt",
+          "lineNumber": 114
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "parseInt",
+          "lineNumber": 115
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "req.query.search?.trim",
+          "lineNumber": 118
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "['approved', 'rejected'].includes",
+          "lineNumber": 123
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "endDate.setHours",
+          "lineNumber": 146
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "Promise.all",
+          "lineNumber": 151
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "RoleRequest.find(filter)\n        .sort({ reviewedAt: -1, createdAt: -1 })\n        .skip(skip)\n        .limit(limit)\n        .populate('reviewedBy', 'HoTen')\n        .lean",
+          "lineNumber": 152
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "RoleRequest.find(filter)\n        .sort({ reviewedAt: -1, createdAt: -1 })\n        .skip(skip)\n        .limit(limit)\n        .populate",
+          "lineNumber": 152
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "RoleRequest.find(filter)\n        .sort({ reviewedAt: -1, createdAt: -1 })\n        .skip(skip)\n        .limit",
+          "lineNumber": 152
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "RoleRequest.find(filter)\n        .sort({ reviewedAt: -1, createdAt: -1 })\n        .skip",
+          "lineNumber": 152
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "RoleRequest.find(filter)\n        .sort",
+          "lineNumber": 152
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "RoleRequest.find",
+          "lineNumber": 152
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "RoleRequest.countDocuments",
+          "lineNumber": 158
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "res.json",
+          "lineNumber": 161
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "Math.ceil",
+          "lineNumber": 168
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "console.error",
+          "lineNumber": 172
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "res.status(500).json",
+          "lineNumber": 173
+        },
+        {
+          "caller": "getProcessedRequests",
+          "callee": "res.status",
+          "lineNumber": 173
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "RoleRequest.findById(id)\n      .populate('reviewedBy', 'HoTen')\n      .lean",
+          "lineNumber": 180
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "RoleRequest.findById(id)\n      .populate",
+          "lineNumber": 180
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "RoleRequest.findById",
+          "lineNumber": 180
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "res.status(404).json",
+          "lineNumber": 185
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "res.status",
+          "lineNumber": 185
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "res.json",
+          "lineNumber": 188
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "console.error",
+          "lineNumber": 190
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "res.status(500).json",
+          "lineNumber": 191
+        },
+        {
+          "caller": "getRequestDetail",
+          "callee": "res.status",
+          "lineNumber": 191
+        },
+        {
+          "caller": "getAllLecturers",
+          "callee": "GiaoVien.find().sort",
+          "lineNumber": 197
+        },
+        {
+          "caller": "getAllLecturers",
+          "callee": "GiaoVien.find",
+          "lineNumber": 197
+        },
+        {
+          "caller": "getAllLecturers",
+          "callee": "res.json",
+          "lineNumber": 198
+        },
+        {
+          "caller": "getAllLecturers",
+          "callee": "console.error",
+          "lineNumber": 200
+        },
+        {
+          "caller": "getAllLecturers",
+          "callee": "res.status(500).json",
+          "lineNumber": 201
+        },
+        {
+          "caller": "getAllLecturers",
+          "callee": "res.status",
+          "lineNumber": 201
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/aiK12Controller.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 177,
+      "nonEmptyLines": 156,
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/authController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 344,
+      "nonEmptyLines": 291,
+      "functions": [
+        {
+          "name": "generateChallenge",
+          "startLine": 13,
+          "endLine": 35,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "verifySignature",
+          "startLine": 37,
+          "endLine": 118,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "logout",
+          "startLine": 120,
+          "endLine": 120,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "getProfile",
+          "startLine": 122,
+          "endLine": 139,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "authenticateToken",
+          "startLine": 141,
+          "endLine": 152,
+          "params": [
+            "req",
+            "res",
+            "next"
+          ]
+        },
+        {
+          "name": "generateQrSession",
+          "startLine": 154,
+          "endLine": 171,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "verifyQrSignature",
+          "startLine": 173,
+          "endLine": 260,
+          "params": [
+            "req",
+            "res"
+          ]
+        },
+        {
+          "name": "registerWithRole",
+          "startLine": 262,
+          "endLine": 333,
+          "params": [
+            "req",
+            "res"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "generateChallenge",
+          "callee": "ethers.isAddress",
+          "lineNumber": 16
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "res.status(400).json",
+          "lineNumber": 17
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "res.status",
+          "lineNumber": 17
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "uuidv4().substring",
+          "lineNumber": 20
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "uuidv4",
+          "lineNumber": 20
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "new Date().toISOString",
+          "lineNumber": 21
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "uuidv4",
+          "lineNumber": 23
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "challenges.set",
+          "lineNumber": 25
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 27
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "Date.now",
+          "lineNumber": 28
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "res.json",
+          "lineNumber": 31
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "res.status(500).json",
+          "lineNumber": 33
+        },
+        {
+          "caller": "generateChallenge",
+          "callee": "res.status",
+          "lineNumber": 33
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "challenges.get",
+          "lineNumber": 40
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "Date.now",
+          "lineNumber": 42
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.status(400).json",
+          "lineNumber": 43
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.status",
+          "lineNumber": 43
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "web3Utils.verifySignature",
+          "lineNumber": 50
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.status(401).json",
+          "lineNumber": 56
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.status",
+          "lineNumber": 56
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "Admin.findOne",
+          "lineNumber": 61
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 61
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "Teacher.findOne",
+          "lineNumber": 66
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 66
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "Student.findOne",
+          "lineNumber": 71
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 71
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "startOfDay.setHours",
+          "lineNumber": 74
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "endOfDay.setHours",
+          "lineNumber": 76
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "RoleRequest.countDocuments",
+          "lineNumber": 78
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 79
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "challenges.delete",
+          "lineNumber": 84
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.json",
+          "lineNumber": 85
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 88
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "jwt.sign",
+          "lineNumber": 97
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "challenges.delete",
+          "lineNumber": 103
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.json",
+          "lineNumber": 105
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.status(500).json",
+          "lineNumber": 116
+        },
+        {
+          "caller": "verifySignature",
+          "callee": "res.status",
+          "lineNumber": 116
+        },
+        {
+          "caller": "logout",
+          "callee": "res.json",
+          "lineNumber": 120
+        },
+        {
+          "caller": "getProfile",
+          "callee": "Teacher.findById",
+          "lineNumber": 127
+        },
+        {
+          "caller": "getProfile",
+          "callee": "Student.findById",
+          "lineNumber": 129
+        },
+        {
+          "caller": "getProfile",
+          "callee": "Admin.findById",
+          "lineNumber": 131
+        },
+        {
+          "caller": "getProfile",
+          "callee": "res.status(404).json",
+          "lineNumber": 134
+        },
+        {
+          "caller": "getProfile",
+          "callee": "res.status",
+          "lineNumber": 134
+        },
+        {
+          "caller": "getProfile",
+          "callee": "res.json",
+          "lineNumber": 135
+        },
+        {
+          "caller": "getProfile",
+          "callee": "res.status(500).json",
+          "lineNumber": 137
+        },
+        {
+          "caller": "getProfile",
+          "callee": "res.status",
+          "lineNumber": 137
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "authHeader.startsWith",
+          "lineNumber": 143
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "authHeader.split",
+          "lineNumber": 143
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "res.status(401).json",
+          "lineNumber": 145
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "res.status",
+          "lineNumber": 145
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "jwt.verify",
+          "lineNumber": 147
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "res.status(403).json",
+          "lineNumber": 148
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "res.status",
+          "lineNumber": 148
+        },
+        {
+          "caller": "authenticateToken",
+          "callee": "next",
+          "lineNumber": 150
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "uuidv4",
+          "lineNumber": 156
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "uuidv4().substring",
+          "lineNumber": 157
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "uuidv4",
+          "lineNumber": 157
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "new Date().toISOString",
+          "lineNumber": 158
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "qrSessions.set",
+          "lineNumber": 161
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "Date.now",
+          "lineNumber": 163
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "res.json",
+          "lineNumber": 167
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "res.status(500).json",
+          "lineNumber": 169
+        },
+        {
+          "caller": "generateQrSession",
+          "callee": "res.status",
+          "lineNumber": 169
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status(400).json",
+          "lineNumber": 177
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status",
+          "lineNumber": 177
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "qrSessions.get",
+          "lineNumber": 180
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "Date.now",
+          "lineNumber": 181
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status(400).json",
+          "lineNumber": 182
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status",
+          "lineNumber": 182
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "web3Utils.verifySignature",
+          "lineNumber": 187
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status(401).json",
+          "lineNumber": 193
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status",
+          "lineNumber": 193
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "Admin.findOne",
+          "lineNumber": 198
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 198
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "Teacher.findOne",
+          "lineNumber": 203
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 203
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "Student.findOne",
+          "lineNumber": 208
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 208
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "startOfDay.setHours",
+          "lineNumber": 211
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "endOfDay.setHours",
+          "lineNumber": 213
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "RoleRequest.countDocuments",
+          "lineNumber": 215
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 216
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "qrSessions.delete",
+          "lineNumber": 221
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.json",
+          "lineNumber": 222
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 225
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "jwt.sign",
+          "lineNumber": 233
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "req.app.get",
+          "lineNumber": 239
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "io.to(`qr:${sessionId}`).emit",
+          "lineNumber": 241
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "io.to",
+          "lineNumber": 241
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "qrSessions.delete",
+          "lineNumber": 251
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.json",
+          "lineNumber": 253
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status(500).json",
+          "lineNumber": 258
+        },
+        {
+          "caller": "verifyQrSignature",
+          "callee": "res.status",
+          "lineNumber": 258
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status(400).json",
+          "lineNumber": 267
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status",
+          "lineNumber": 267
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "walletAddress.toLowerCase",
+          "lineNumber": 270
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "Student.findOne",
+          "lineNumber": 273
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "Teacher.findOne",
+          "lineNumber": 274
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "Admin.findOne",
+          "lineNumber": 275
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status(400).json",
+          "lineNumber": 278
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status",
+          "lineNumber": 278
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4().substring(0, 6).toUpperCase",
+          "lineNumber": 283
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4().substring",
+          "lineNumber": 283
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4",
+          "lineNumber": 283
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4().substring",
+          "lineNumber": 285
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4",
+          "lineNumber": 285
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "newUser.save",
+          "lineNumber": 288
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "jwt.sign",
+          "lineNumber": 290
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.json",
+          "lineNumber": 296
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4().substring(0, 6).toUpperCase",
+          "lineNumber": 305
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4().substring",
+          "lineNumber": 305
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4",
+          "lineNumber": 305
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4().substring",
+          "lineNumber": 307
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "uuidv4",
+          "lineNumber": 307
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "newUser.save",
+          "lineNumber": 311
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "jwt.sign",
+          "lineNumber": 313
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.json",
+          "lineNumber": 319
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status(400).json",
+          "lineNumber": 327
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status",
+          "lineNumber": 327
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "console.error",
+          "lineNumber": 330
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status(500).json",
+          "lineNumber": 331
+        },
+        {
+          "caller": "registerWithRole",
+          "callee": "res.status",
+          "lineNumber": 331
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/challengeController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 92,
+      "nonEmptyLines": 80,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/credentialController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 249,
+      "nonEmptyLines": 205,
+      "functions": [
+        {
+          "name": "getContract",
+          "startLine": 19,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "uuidToBytes32",
+          "startLine": 26,
+          "endLine": 26,
+          "params": [
+            "uuid"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "uuidToBytes32",
+          "callee": "ethers.keccak256",
+          "lineNumber": 26
+        },
+        {
+          "caller": "uuidToBytes32",
+          "callee": "ethers.toUtf8Bytes",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/evaluationController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 127,
+      "nonEmptyLines": 108,
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/hocSinhController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 141,
+      "nonEmptyLines": 121,
+      "functions": [
+        {
+          "name": "invalidateSvCache",
+          "startLine": 7,
+          "endLine": 9,
+          "params": []
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/participationController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 103,
+      "nonEmptyLines": 85,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/qrController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 67,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/controllers/submissionController.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 82,
+      "nonEmptyLines": 68,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/middleware/authz.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 11,
+      "functions": [
+        {
+          "name": "requireRole",
+          "startLine": 2,
+          "endLine": 10,
+          "params": [
+            "...roles"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "requireRole",
+          "callee": "res.status(401).json",
+          "lineNumber": 4
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status",
+          "lineNumber": 4
+        },
+        {
+          "caller": "requireRole",
+          "callee": "roles.includes",
+          "lineNumber": 6
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status(403).json",
+          "lineNumber": 7
+        },
+        {
+          "caller": "requireRole",
+          "callee": "res.status",
+          "lineNumber": 7
+        },
+        {
+          "caller": "requireRole",
+          "callee": "next",
+          "lineNumber": 9
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Achievement.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 20,
+      "nonEmptyLines": 15,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Admin.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Challenge.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 26,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/ChallengeParticipation.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 14,
+      "nonEmptyLines": 11,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/EducationalCredential.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 36,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Evaluation.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 21,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/LearningResult.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 15,
+      "nonEmptyLines": 11,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/QrCode.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 46,
+      "nonEmptyLines": 43,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/RoleRequest.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 47,
+      "nonEmptyLines": 44,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Student.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 14,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Submission.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 16,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/models/Teacher.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/achievementRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 19,
+      "nonEmptyLines": 17,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/aiRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/challengeRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 17,
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/credentialRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 14,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/participationRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 12,
+      "nonEmptyLines": 9,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/routes/submissionRoutes.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 16,
+      "nonEmptyLines": 12,
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seedAdmin.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "seedAdmin",
+          "startLine": 7,
+          "endLine": 35,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedAdmin",
+          "callee": "mongoose.connect",
+          "lineNumber": 9
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "console.log",
+          "lineNumber": 13
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "Admin.findOne",
+          "lineNumber": 15
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "console.log",
+          "lineNumber": 17
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "process.exit",
+          "lineNumber": 18
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "newAdmin.save",
+          "lineNumber": 26
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "console.log",
+          "lineNumber": 27
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "console.log",
+          "lineNumber": 28
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "process.exit",
+          "lineNumber": 30
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "console.error",
+          "lineNumber": 32
+        },
+        {
+          "caller": "seedAdmin",
+          "callee": "process.exit",
+          "lineNumber": 33
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/scripts/seed_k12.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 214,
+      "nonEmptyLines": 200,
+      "functions": [
+        {
+          "name": "seedK12",
+          "startLine": 22,
+          "endLine": 212,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 24
+        },
+        {
+          "caller": "seedK12",
+          "callee": "MONGODB_URI.replace",
+          "lineNumber": 24
+        },
+        {
+          "caller": "seedK12",
+          "callee": "mongoose.connect",
+          "lineNumber": 25
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 26
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 31
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Teacher.findOneAndUpdate",
+          "lineNumber": 53
+        },
+        {
+          "caller": "seedK12",
+          "callee": "teachers.push",
+          "lineNumber": 58
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 65
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Student.findOneAndUpdate",
+          "lineNumber": 107
+        },
+        {
+          "caller": "seedK12",
+          "callee": "students.push",
+          "lineNumber": 112
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 113
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 119
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Date.now",
+          "lineNumber": 128
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Date.now",
+          "lineNumber": 129
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Date.now",
+          "lineNumber": 148
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Date.now",
+          "lineNumber": 161
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Date.now",
+          "lineNumber": 162
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Date.now",
+          "lineNumber": 175
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Challenge.findOneAndUpdate",
+          "lineNumber": 184
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 189
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 190
+        },
+        {
+          "caller": "seedK12",
+          "callee": "doc.eligibleGrades.join",
+          "lineNumber": 190
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Teacher.countDocuments",
+          "lineNumber": 196
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Student.countDocuments",
+          "lineNumber": 197
+        },
+        {
+          "caller": "seedK12",
+          "callee": "Challenge.countDocuments",
+          "lineNumber": 198
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 200
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 201
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 202
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 203
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 204
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.log",
+          "lineNumber": 205
+        },
+        {
+          "caller": "seedK12",
+          "callee": "process.exit",
+          "lineNumber": 207
+        },
+        {
+          "caller": "seedK12",
+          "callee": "console.error",
+          "lineNumber": 209
+        },
+        {
+          "caller": "seedK12",
+          "callee": "process.exit",
+          "lineNumber": 210
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/server.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 401,
+      "nonEmptyLines": 357,
+      "metrics": {
+        "importCount": 26,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "backend/utils/canonicalCredential.js",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 37,
+      "nonEmptyLines": 31,
+      "functions": [
+        {
+          "name": "createCanonicalHash",
+          "startLine": 7,
+          "endLine": 33,
+          "params": [
+            "credentialData"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "createCanonicalHash",
+          "callee": "credentialData.challenge.toString",
+          "lineNumber": 12
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "new Date(credentialData.metadata.issuedAt).toISOString",
+          "lineNumber": 13
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "credentialData.issuerWallet.toLowerCase",
+          "lineNumber": 14
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "credentialData.studentWallet.toLowerCase",
+          "lineNumber": 15
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "Object.keys(payload).sort",
+          "lineNumber": 20
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "Object.keys",
+          "lineNumber": 20
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "JSON.stringify",
+          "lineNumber": 27
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "ethers.keccak256",
+          "lineNumber": 30
+        },
+        {
+          "caller": "createCanonicalHash",
+          "callee": "ethers.toUtf8Bytes",
+          "lineNumber": 30
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

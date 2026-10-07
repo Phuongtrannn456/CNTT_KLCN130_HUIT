@@ -1,41 +1,51 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import authService from './services/authService';
+import { Spin } from 'antd';
+
+// Static imports for core components
 import LoginPage from './components/LoginPage';
+import MobileLogin from './components/MobileLogin';
 import CredentialVerify from './components/shared/CredentialVerify';
 import MainLayout from './components/layout/MainLayout';
-// Legacy Lecturer Components
-import LecturerDashboard from './components/lecturer/LecturerDashboard';
-import TopicManagement from './components/lecturer/TopicManagement';
-import SubmissionReview from './components/lecturer/SubmissionReview';
-import RubricsManagement from './components/lecturer/RubricsManagement';
-import ScoreComparison from './components/lecturer/ScoreComparison';
-import EntranceTestManager from './components/lecturer/EntranceTestManager';
-import CourseManagement from './components/lecturer/CourseManagement';
-import ClassManagement from './components/lecturer/ClassManagement';
-import StudentManagement from './components/lecturer/StudentManagement';
-// New Teacher Components
-import ChallengeManagement from './components/teacher/ChallengeManagement';
-// Student Components
-import StudentDashboard from './components/student/StudentDashboard';
-import TopicRegistration from './components/student/TopicRegistration';
-import ChallengeList from './components/student/ChallengeList';
-import StudentSubmissionView from './components/student/StudentSubmissionView';
-import AchievementList from './components/student/AchievementList';
-import TeacherChallengeDetail from './components/teacher/TeacherChallengeDetail';
-import ReportUpload from './components/student/ReportUpload';
-import ProgressTracking from './components/student/ProgressTracking';
-import ProgressLog from './components/student/ProgressLog';
-import EntranceTest from './components/student/EntranceTest';
-import GroupManagement from './components/student/GroupManagement';
-// Admin & Others
-import BlockchainDebugPage from './components/debug/BlockchainDebugPage';
-import AdminDashboard from './components/admin/AdminDashboard';
-import AdminRequests from './components/admin/AdminRequests';
 import PendingApproval from './components/PendingApproval';
+
 // Contexts
 import { ClassProvider } from './contexts/ClassContext';
 import { LecturerClassProvider } from './contexts/LecturerClassContext';
+
+// Dynamic imports (Code Splitting)
+const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard'));
+const AdminRequests = React.lazy(() => import('./components/admin/AdminRequests'));
+
+const ChallengeManagement = React.lazy(() => import('./components/teacher/ChallengeManagement'));
+const TeacherChallengeDetail = React.lazy(() => import('./components/teacher/TeacherChallengeDetail'));
+const TopicManagement = React.lazy(() => import('./components/lecturer/TopicManagement'));
+const SubmissionReview = React.lazy(() => import('./components/lecturer/SubmissionReview'));
+const RubricsManagement = React.lazy(() => import('./components/lecturer/RubricsManagement'));
+const ScoreComparison = React.lazy(() => import('./components/lecturer/ScoreComparison'));
+const EntranceTestManager = React.lazy(() => import('./components/lecturer/EntranceTestManager'));
+const CourseManagement = React.lazy(() => import('./components/lecturer/CourseManagement'));
+const ClassManagement = React.lazy(() => import('./components/lecturer/ClassManagement'));
+const StudentManagement = React.lazy(() => import('./components/lecturer/StudentManagement'));
+const BlockchainDebugPage = React.lazy(() => import('./components/debug/BlockchainDebugPage'));
+
+const ChallengeList = React.lazy(() => import('./components/student/ChallengeList'));
+const StudentSubmissionView = React.lazy(() => import('./components/student/StudentSubmissionView'));
+const AchievementList = React.lazy(() => import('./components/student/AchievementList'));
+const StudentDashboard = React.lazy(() => import('./components/student/StudentDashboard'));
+const TopicRegistration = React.lazy(() => import('./components/student/TopicRegistration'));
+const ReportUpload = React.lazy(() => import('./components/student/ReportUpload'));
+const ProgressTracking = React.lazy(() => import('./components/student/ProgressTracking'));
+const ProgressLog = React.lazy(() => import('./components/student/ProgressLog'));
+const EntranceTest = React.lazy(() => import('./components/student/EntranceTest'));
+const GroupManagement = React.lazy(() => import('./components/student/GroupManagement'));
+
+const GlobalLoader = () => (
+  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <Spin size="large" />
+  </div>
+);
 
 // Protected Route component
 function ProtectedRoute({ children, allowedRoles }) {
@@ -76,7 +86,6 @@ function PublicRoute({ children }) {
   return children;
 }
 
-// Helper to handle raw /dashboard fallback
 function RoleRedirect() {
   const user = authService.getCurrentUser();
   if (!user) return <Navigate to="/" replace />;
@@ -88,70 +97,70 @@ function RoleRedirect() {
 function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <Routes>
-        <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
-        <Route path="/dashboard" element={<RoleRedirect />} />
-        <Route path="/verify/:credentialId" element={<CredentialVerify />} />
-        <Route path="/pending-approval" element={<PendingApproval />} />
+      <Suspense fallback={<GlobalLoader />}>
+        <Routes>
+          <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
+          <Route path="/mobile-login" element={<MobileLogin />} />
+          <Route path="/dashboard" element={<RoleRedirect />} />
+          <Route path="/verify/:credentialId" element={<CredentialVerify />} />
+          <Route path="/pending-approval" element={<PendingApproval />} />
 
-        {/* Nested User Routes under MainLayout */}
-        <Route path="/admin" element={
-          <ProtectedRoute allowedRoles={['ADMIN_ROLE']}>
-            <MainLayout />
-          </ProtectedRoute>
-        }>
-          <Route index element={<AdminDashboard />} />
-          <Route path="requests" element={<AdminRequests />} />
-        </Route>
-
-        <Route path="/teacher" element={
-          <ProtectedRoute allowedRoles={['TEACHER_ROLE']}>
-            <LecturerClassProvider>
+          {/* Nested User Routes under MainLayout */}
+          <Route path="/admin" element={
+            <ProtectedRoute allowedRoles={['ADMIN_ROLE']}>
               <MainLayout />
-            </LecturerClassProvider>
-          </ProtectedRoute>
-        }>
-          <Route index element={<Navigate to="/teacher/challenges" replace />} />
-          <Route path="challenges" element={<ChallengeManagement />} />
-          <Route path="challenges/:id/participants" element={<TeacherChallengeDetail />} />
-          
-          {/* Legacy Lecturer Routes - still kept but not on menu by default */}
-          <Route path="topics" element={<TopicManagement />} />
-          <Route path="review" element={<SubmissionReview />} />
-          <Route path="rubrics" element={<RubricsManagement />} />
-          <Route path="comparison" element={<ScoreComparison />} />
-          <Route path="entrance-test/:deTaiId" element={<EntranceTestManager />} />
-          <Route path="courses" element={<CourseManagement />} />
-          <Route path="classes" element={<ClassManagement />} />
-          <Route path="students" element={<StudentManagement />} />
-          <Route path="blockchain" element={<BlockchainDebugPage />} />
-        </Route>
+            </ProtectedRoute>
+          }>
+            <Route index element={<AdminDashboard />} />
+            <Route path="requests" element={<AdminRequests />} />
+          </Route>
 
-        <Route path="/student" element={
-          <ProtectedRoute allowedRoles={['STUDENT_ROLE']}>
-            <ClassProvider>
-              <MainLayout />
-            </ClassProvider>
-          </ProtectedRoute>
-        }>
-          <Route index element={<Navigate to="/student/challenges" replace />} />
-          <Route path="challenges" element={<ChallengeList />} />
-          <Route path="submissions/:id" element={<StudentSubmissionView />} />
-          <Route path="achievements" element={<AchievementList />} />
-          
-          {/* Legacy Student Routes */}
-          <Route path="dashboard" element={<StudentDashboard />} />
-          <Route path="register" element={<TopicRegistration />} />
-          <Route path="upload" element={<ReportUpload />} />
-          <Route path="progress-log" element={<ProgressLog />} />
-          <Route path="progress" element={<ProgressTracking />} />
-          <Route path="group" element={<GroupManagement />} />
-          <Route path="entrance-test/:deTaiId" element={<EntranceTest />} />
-        </Route>
+          <Route path="/teacher" element={
+            <ProtectedRoute allowedRoles={['TEACHER_ROLE']}>
+              <LecturerClassProvider>
+                <MainLayout />
+              </LecturerClassProvider>
+            </ProtectedRoute>
+          }>
+            <Route index element={<Navigate to="/teacher/challenges" replace />} />
+            <Route path="challenges" element={<ChallengeManagement />} />
+            <Route path="challenges/:id/participants" element={<TeacherChallengeDetail />} />
+            
+            <Route path="topics" element={<TopicManagement />} />
+            <Route path="review" element={<SubmissionReview />} />
+            <Route path="rubrics" element={<RubricsManagement />} />
+            <Route path="comparison" element={<ScoreComparison />} />
+            <Route path="entrance-test/:deTaiId" element={<EntranceTestManager />} />
+            <Route path="courses" element={<CourseManagement />} />
+            <Route path="classes" element={<ClassManagement />} />
+            <Route path="students" element={<StudentManagement />} />
+            <Route path="blockchain" element={<BlockchainDebugPage />} />
+          </Route>
 
-        {/* Unknown */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          <Route path="/student" element={
+            <ProtectedRoute allowedRoles={['STUDENT_ROLE']}>
+              <ClassProvider>
+                <MainLayout />
+              </ClassProvider>
+            </ProtectedRoute>
+          }>
+            <Route index element={<Navigate to="/student/challenges" replace />} />
+            <Route path="challenges" element={<ChallengeList />} />
+            <Route path="submissions/:id" element={<StudentSubmissionView />} />
+            <Route path="achievements" element={<AchievementList />} />
+            
+            <Route path="dashboard" element={<StudentDashboard />} />
+            <Route path="register" element={<TopicRegistration />} />
+            <Route path="upload" element={<ReportUpload />} />
+            <Route path="progress-log" element={<ProgressLog />} />
+            <Route path="progress" element={<ProgressTracking />} />
+            <Route path="group" element={<GroupManagement />} />
+            <Route path="entrance-test/:deTaiId" element={<EntranceTest />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }

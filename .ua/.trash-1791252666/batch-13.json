@@ -1,0 +1,29 @@
+{
+  "nodes": [
+    {
+      "id": "config:ml-service/.env.example",
+      "type": "config",
+      "name": ".env.example",
+      "filePath": "ml-service/.env.example",
+      "summary": "Component responsible for .env.example functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:ml-service/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "ml-service/README.md",
+      "summary": "Component responsible for README.md functionality.",
+      "tags": [
+        "docs",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": []
+}

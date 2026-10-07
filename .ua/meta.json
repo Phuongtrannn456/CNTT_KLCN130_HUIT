@@ -1,0 +1,6 @@
+{
+  "lastAnalyzedAt": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')",
+  "gitCommitHash": "$(cat $PROJECT_ROOT/.ua/tmp/commit.txt)",
+  "version": "1.0.0",
+  "analyzedFiles": 204
+}

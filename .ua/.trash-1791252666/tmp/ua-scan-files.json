@@ -1,0 +1,1258 @@
+{
+  "scriptCompleted": true,
+  "contentDigest": "24021cf4c07f147bccd3178614456fa60db737e34c805c2cf6098c64779b1beb",
+  "files": [
+    {
+      "path": ".DS_Store",
+      "language": "unknown",
+      "sizeLines": 2,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".ua/tmp/commit.txt",
+      "language": "txt",
+      "sizeLines": 1,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".ua/tmp/readme.txt",
+      "language": "txt",
+      "sizeLines": 60,
+      "fileCategory": "docs"
+    },
+    {
+      "path": ".ua/tmp/run-scanner.mjs",
+      "language": "javascript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": ".ua/tmp/tree.txt",
+      "language": "txt",
+      "sizeLines": 29,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "README.md",
+      "language": "markdown",
+      "sizeLines": 60,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "backend/.DS_Store",
+      "language": "unknown",
+      "sizeLines": 1,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/.env.example",
+      "language": "config",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/.env.render",
+      "language": "config",
+      "sizeLines": 22,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/README.md",
+      "language": "markdown",
+      "sizeLines": 20,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "backend/config/db.js",
+      "language": "javascript",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/config/logger.js",
+      "language": "javascript",
+      "sizeLines": 58,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/config/web3.js",
+      "language": "javascript",
+      "sizeLines": 299,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/contracts/K12CredentialRegistry.sol",
+      "language": "sol",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/contracts/README.md",
+      "language": "markdown",
+      "sizeLines": 161,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "backend/contracts/ThesisManagement.sol",
+      "language": "sol",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/contracts/ThesisManagementV2.sol",
+      "language": "sol",
+      "sizeLines": 204,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/adminController.js",
+      "language": "javascript",
+      "sizeLines": 212,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/aiController.js",
+      "language": "javascript",
+      "sizeLines": 53,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/aiK12Controller.js",
+      "language": "javascript",
+      "sizeLines": 177,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/authController.js",
+      "language": "javascript",
+      "sizeLines": 344,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/baiTestController.js",
+      "language": "javascript",
+      "sizeLines": 491,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/baoCaoController.js",
+      "language": "javascript",
+      "sizeLines": 412,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/blockchainController.js",
+      "language": "javascript",
+      "sizeLines": 386,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/challengeController.js",
+      "language": "javascript",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/credentialController.js",
+      "language": "javascript",
+      "sizeLines": 249,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/deTaiController.js",
+      "language": "javascript",
+      "sizeLines": 663,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/diemSoController.js",
+      "language": "javascript",
+      "sizeLines": 627,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/evaluationController.js",
+      "language": "javascript",
+      "sizeLines": 127,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/giaoVienController.js",
+      "language": "javascript",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/hocSinhController.js",
+      "language": "javascript",
+      "sizeLines": 141,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/loiMoiLopHocController.js",
+      "language": "javascript",
+      "sizeLines": 254,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/lopHocController.js",
+      "language": "javascript",
+      "sizeLines": 355,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/monHocController.js",
+      "language": "javascript",
+      "sizeLines": 145,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/nhomController.js",
+      "language": "javascript",
+      "sizeLines": 445,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/participationController.js",
+      "language": "javascript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/qrController.js",
+      "language": "javascript",
+      "sizeLines": 79,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/rubricsController.js",
+      "language": "javascript",
+      "sizeLines": 198,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/submissionController.js",
+      "language": "javascript",
+      "sizeLines": 82,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/controllers/tienDoController.js",
+      "language": "javascript",
+      "sizeLines": 724,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/deployment.json",
+      "language": "json",
+      "sizeLines": 16,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/hardhat.config.js",
+      "language": "javascript",
+      "sizeLines": 33,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/healthcheck.js",
+      "language": "javascript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/authz.js",
+      "language": "javascript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/middleware/cspHeader.js",
+      "language": "javascript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/migrate_sv.js",
+      "language": "javascript",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/AILog.js",
+      "language": "javascript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Achievement.js",
+      "language": "javascript",
+      "sizeLines": 20,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Admin.js",
+      "language": "javascript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/BaiTest.js",
+      "language": "javascript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/BaoCao.js",
+      "language": "javascript",
+      "sizeLines": 22,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Challenge.js",
+      "language": "javascript",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/ChallengeParticipation.js",
+      "language": "javascript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/DangKyDeTai.js",
+      "language": "javascript",
+      "sizeLines": 35,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/DeTai.js",
+      "language": "javascript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/DiemSo.js",
+      "language": "javascript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/DuAn.js",
+      "language": "javascript",
+      "sizeLines": 5,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/EducationalCredential.js",
+      "language": "javascript",
+      "sizeLines": 44,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Evaluation.js",
+      "language": "javascript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/GiaoVien.js",
+      "language": "javascript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/HocSinh.js",
+      "language": "javascript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/KetQuaTest.js",
+      "language": "javascript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/LearningResult.js",
+      "language": "javascript",
+      "sizeLines": 15,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/LoiMoiLopHoc.js",
+      "language": "javascript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/LopHoc.js",
+      "language": "javascript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/MonHoc.js",
+      "language": "javascript",
+      "sizeLines": 13,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Nhom.js",
+      "language": "javascript",
+      "sizeLines": 17,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/QrCode.js",
+      "language": "javascript",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/RoleRequest.js",
+      "language": "javascript",
+      "sizeLines": 47,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/RubricsTemplate.js",
+      "language": "javascript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Student.js",
+      "language": "javascript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Submission.js",
+      "language": "javascript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/Teacher.js",
+      "language": "javascript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/models/TienDo.js",
+      "language": "javascript",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/package.json",
+      "language": "json",
+      "sizeLines": 65,
+      "fileCategory": "config"
+    },
+    {
+      "path": "backend/routes/achievementRoutes.js",
+      "language": "javascript",
+      "sizeLines": 19,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/aiRoutes.js",
+      "language": "javascript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/challengeRoutes.js",
+      "language": "javascript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/credentialRoutes.js",
+      "language": "javascript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/participationRoutes.js",
+      "language": "javascript",
+      "sizeLines": 12,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/routes/submissionRoutes.js",
+      "language": "javascript",
+      "sizeLines": 16,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/backfill-pdf-extraction.js",
+      "language": "javascript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/check-node.js",
+      "language": "javascript",
+      "sizeLines": 46,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/check-payroll-contract.js",
+      "language": "javascript",
+      "sizeLines": 120,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/check_khoaluan_topics.js",
+      "language": "javascript",
+      "sizeLines": 23,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/check_lecturers.js",
+      "language": "javascript",
+      "sizeLines": 18,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/check_student_test.js",
+      "language": "javascript",
+      "sizeLines": 61,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/check_users_and_teachers.js",
+      "language": "javascript",
+      "sizeLines": 36,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/debug-payment.js",
+      "language": "javascript",
+      "sizeLines": 165,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/deploy-hrpayroll.js",
+      "language": "javascript",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/deploy-thesis-v2.js",
+      "language": "javascript",
+      "sizeLines": 30,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/deploy-thesis.js",
+      "language": "javascript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/deploy.js",
+      "language": "javascript",
+      "sizeLines": 14,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/fixIndexes.js",
+      "language": "javascript",
+      "sizeLines": 98,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/gen-postman.js",
+      "language": "javascript",
+      "sizeLines": 353,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/get-token.js",
+      "language": "javascript",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/impersonate-accounts.js",
+      "language": "javascript",
+      "sizeLines": 133,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/importFromJson.js",
+      "language": "javascript",
+      "sizeLines": 108,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/migrate-add-lophoc-nhom.js",
+      "language": "javascript",
+      "sizeLines": 223,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/reset_test_data.js",
+      "language": "javascript",
+      "sizeLines": 207,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seed-ai-model-metadata.js",
+      "language": "javascript",
+      "sizeLines": 238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seedAdmin.js",
+      "language": "javascript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seedDepartments.js",
+      "language": "javascript",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seedEmployees.js",
+      "language": "javascript",
+      "sizeLines": 100,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seedMockWorkData.js",
+      "language": "javascript",
+      "sizeLines": 93,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seedRoles.js",
+      "language": "javascript",
+      "sizeLines": 205,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seedSuperAdmin.js",
+      "language": "javascript",
+      "sizeLines": 50,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seed_giao_duc_pho_thong.js",
+      "language": "javascript",
+      "sizeLines": 198,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seed_k12.js",
+      "language": "javascript",
+      "sizeLines": 214,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seed_khoaluan_phong.js",
+      "language": "javascript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seed_khoaluan_tests_rubrics.js",
+      "language": "javascript",
+      "sizeLines": 284,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seed_khoaluan_wallet.js",
+      "language": "javascript",
+      "sizeLines": 55,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/seed_topic_13dhth04.js",
+      "language": "javascript",
+      "sizeLines": 102,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/test-payment-direct.js",
+      "language": "javascript",
+      "sizeLines": 123,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/test-task-payment.js",
+      "language": "javascript",
+      "sizeLines": 175,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/test_k12_api.js",
+      "language": "javascript",
+      "sizeLines": 271,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/test_phase3.js",
+      "language": "javascript",
+      "sizeLines": 167,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/test_phase4.js",
+      "language": "javascript",
+      "sizeLines": 128,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/test_phase5.js",
+      "language": "javascript",
+      "sizeLines": 114,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/test_phase5_1.js",
+      "language": "javascript",
+      "sizeLines": 122,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/scripts/transfer-tokens-to-contract.js",
+      "language": "javascript",
+      "sizeLines": 67,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/server.js",
+      "language": "javascript",
+      "sizeLines": 401,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/aiService.js",
+      "language": "javascript",
+      "sizeLines": 103,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/authService.js",
+      "language": "javascript",
+      "sizeLines": 25,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/ipfsService.js",
+      "language": "javascript",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/matchingService.js",
+      "language": "javascript",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/services/thesisContractService.js",
+      "language": "javascript",
+      "sizeLines": 273,
+      "fileCategory": "code"
+    },
+    {
+      "path": "backend/utils/canonicalCredential.js",
+      "language": "javascript",
+      "sizeLines": 37,
+      "fileCategory": "code"
+    },
+    {
+      "path": "docker/backend.Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "docker/docker-compose.yml",
+      "language": "yaml",
+      "sizeLines": 71,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "docker/frontend.Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/.env.example",
+      "language": "config",
+      "sizeLines": 4,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/jsconfig.json",
+      "language": "json",
+      "sizeLines": 4,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/netlify.toml",
+      "language": "toml",
+      "sizeLines": 14,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/package.json",
+      "language": "json",
+      "sizeLines": 56,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/public/_headers",
+      "language": "unknown",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/_redirects",
+      "language": "unknown",
+      "sizeLines": 2,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/public/index.html",
+      "language": "html",
+      "sizeLines": 19,
+      "fileCategory": "markup"
+    },
+    {
+      "path": "frontend/public/manifest.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    },
+    {
+      "path": "frontend/src/App.js",
+      "language": "javascript",
+      "sizeLines": 159,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/AuthContext.js",
+      "language": "javascript",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/LoginPage.js",
+      "language": "javascript",
+      "sizeLines": 741,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/MetaMaskGuideModal.js",
+      "language": "javascript",
+      "sizeLines": 411,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/MobileLogin.js",
+      "language": "javascript",
+      "sizeLines": 194,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/PendingApproval.js",
+      "language": "javascript",
+      "sizeLines": 130,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/QrAuthentication.js",
+      "language": "javascript",
+      "sizeLines": 238,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/QrScanner.js",
+      "language": "javascript",
+      "sizeLines": 199,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/RoleSelection.js",
+      "language": "javascript",
+      "sizeLines": 162,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminDashboard.js",
+      "language": "javascript",
+      "sizeLines": 138,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/admin/AdminRequests.js",
+      "language": "javascript",
+      "sizeLines": 537,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/common/ClassSelector.js",
+      "language": "javascript",
+      "sizeLines": 106,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/debug/BlockchainDebugPage.js",
+      "language": "javascript",
+      "sizeLines": 604,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/layout/MainLayout.js",
+      "language": "javascript",
+      "sizeLines": 168,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/ClassManagement.js",
+      "language": "javascript",
+      "sizeLines": 680,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/CourseManagement.js",
+      "language": "javascript",
+      "sizeLines": 301,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/EntranceTestManager.js",
+      "language": "javascript",
+      "sizeLines": 401,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/LecturerDashboard.js",
+      "language": "javascript",
+      "sizeLines": 72,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/RubricsManagement.js",
+      "language": "javascript",
+      "sizeLines": 380,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/ScoreComparison.js",
+      "language": "javascript",
+      "sizeLines": 831,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/StudentManagement.js",
+      "language": "javascript",
+      "sizeLines": 256,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/SubmissionReview.js",
+      "language": "javascript",
+      "sizeLines": 1603,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/lecturer/TopicManagement.js",
+      "language": "javascript",
+      "sizeLines": 929,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/shared/CredentialVerify.jsx",
+      "language": "javascript",
+      "sizeLines": 157,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/AchievementList.jsx",
+      "language": "javascript",
+      "sizeLines": 160,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/ChallengeList.jsx",
+      "language": "javascript",
+      "sizeLines": 166,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/EntranceTest.js",
+      "language": "javascript",
+      "sizeLines": 399,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/GroupManagement.js",
+      "language": "javascript",
+      "sizeLines": 488,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/ProgressLog.js",
+      "language": "javascript",
+      "sizeLines": 604,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/ProgressTracking.js",
+      "language": "javascript",
+      "sizeLines": 282,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/ReportUpload.js",
+      "language": "javascript",
+      "sizeLines": 294,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/StudentDashboard.js",
+      "language": "javascript",
+      "sizeLines": 560,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/StudentSubmissionView.jsx",
+      "language": "javascript",
+      "sizeLines": 179,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/student/TopicRegistration.js",
+      "language": "javascript",
+      "sizeLines": 700,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/teacher/ChallengeManagement.jsx",
+      "language": "javascript",
+      "sizeLines": 286,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/components/teacher/TeacherChallengeDetail.jsx",
+      "language": "javascript",
+      "sizeLines": 327,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/contexts/ClassContext.js",
+      "language": "javascript",
+      "sizeLines": 96,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/contexts/LecturerClassContext.js",
+      "language": "javascript",
+      "sizeLines": 92,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/hooks/useResponsive.js",
+      "language": "javascript",
+      "sizeLines": 8,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/index.js",
+      "language": "javascript",
+      "sizeLines": 272,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/aiService.js",
+      "language": "javascript",
+      "sizeLines": 335,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/apiService.js",
+      "language": "javascript",
+      "sizeLines": 164,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/authService.js",
+      "language": "javascript",
+      "sizeLines": 309,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/challengeService.js",
+      "language": "javascript",
+      "sizeLines": 89,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/kpiService.js",
+      "language": "javascript",
+      "sizeLines": 7,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/managementService.js",
+      "language": "javascript",
+      "sizeLines": 115,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/services/nhomService.js",
+      "language": "javascript",
+      "sizeLines": 95,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/theme/adminTheme.js",
+      "language": "javascript",
+      "sizeLines": 262,
+      "fileCategory": "code"
+    },
+    {
+      "path": "frontend/src/utils/domain.js",
+      "language": "javascript",
+      "sizeLines": 24,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/.env.example",
+      "language": "config",
+      "sizeLines": 4,
+      "fileCategory": "config"
+    },
+    {
+      "path": "ml-service/README.md",
+      "language": "markdown",
+      "sizeLines": 76,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "ml-service/app.py",
+      "language": "python",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/models/phobert_analyzer.py",
+      "language": "python",
+      "sizeLines": 239,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/models/sbert_matcher.py",
+      "language": "python",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/requirements.txt",
+      "language": "txt",
+      "sizeLines": 16,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "ml-service/routes/analyze.py",
+      "language": "python",
+      "sizeLines": 101,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/routes/compare_code.py",
+      "language": "python",
+      "sizeLines": 62,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/routes/extract_pdf.py",
+      "language": "python",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/routes/match.py",
+      "language": "python",
+      "sizeLines": 32,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/utils/log_config.py",
+      "language": "python",
+      "sizeLines": 57,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/utils/pdf_chunker.py",
+      "language": "python",
+      "sizeLines": 173,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/utils/pdf_extractor.py",
+      "language": "python",
+      "sizeLines": 112,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/utils/text_preprocessing.py",
+      "language": "python",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    },
+    {
+      "path": "ml-service/utils/text_security.py",
+      "language": "python",
+      "sizeLines": 56,
+      "fileCategory": "code"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 11,
+      "fileCategory": "config"
+    }
+  ],
+  "totalFiles": 204,
+  "filteredByIgnore": 0,
+  "estimatedComplexity": "large",
+  "failures": [],
+  "stats": {
+    "filesScanned": 204,
+    "byCategory": {
+      "code": 183,
+      "docs": 8,
+      "config": 11,
+      "infra": 1,
+      "markup": 1
+    },
+    "byLanguage": {
+      "unknown": 4,
+      "txt": 4,
+      "javascript": 162,
+      "markdown": 4,
+      "config": 4,
+      "sol": 3,
+      "json": 6,
+      "dockerfile": 2,
+      "yaml": 1,
+      "toml": 1,
+      "html": 1,
+      "python": 12
+    }
+  }
+}

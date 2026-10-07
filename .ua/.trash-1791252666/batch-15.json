@@ -1,0 +1,543 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/scripts/seedMockWorkData.js",
+      "type": "file",
+      "name": "seedMockWorkData.js",
+      "filePath": "backend/scripts/seedMockWorkData.js",
+      "summary": "Component responsible for seedMockWorkData.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seedMockWorkData.js:seedMockData",
+      "type": "function",
+      "name": "seedMockData",
+      "filePath": "backend/scripts/seedMockWorkData.js",
+      "lineRange": [
+        39,
+        90
+      ],
+      "summary": "Function seedMockData",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seedRoles.js",
+      "type": "file",
+      "name": "seedRoles.js",
+      "filePath": "backend/scripts/seedRoles.js",
+      "summary": "Component responsible for seedRoles.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seedRoles.js:seedRoles",
+      "type": "function",
+      "name": "seedRoles",
+      "filePath": "backend/scripts/seedRoles.js",
+      "lineRange": [
+        170,
+        202
+      ],
+      "summary": "Function seedRoles",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seedSuperAdmin.js",
+      "type": "file",
+      "name": "seedSuperAdmin.js",
+      "filePath": "backend/scripts/seedSuperAdmin.js",
+      "summary": "Component responsible for seedSuperAdmin.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seedSuperAdmin.js:seedSuperAdmin",
+      "type": "function",
+      "name": "seedSuperAdmin",
+      "filePath": "backend/scripts/seedSuperAdmin.js",
+      "lineRange": [
+        18,
+        48
+      ],
+      "summary": "Function seedSuperAdmin",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/test-task-payment.js",
+      "type": "file",
+      "name": "test-task-payment.js",
+      "filePath": "backend/scripts/test-task-payment.js",
+      "summary": "Component responsible for test-task-payment.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/test-task-payment.js:testTaskPayment",
+      "type": "function",
+      "name": "testTaskPayment",
+      "filePath": "backend/scripts/test-task-payment.js",
+      "lineRange": [
+        17,
+        155
+      ],
+      "summary": "Function testTaskPayment",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/test_k12_api.js",
+      "type": "file",
+      "name": "test_k12_api.js",
+      "filePath": "backend/scripts/test_k12_api.js",
+      "summary": "Component responsible for test_k12_api.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/test_k12_api.js:req",
+      "type": "function",
+      "name": "req",
+      "filePath": "backend/scripts/test_k12_api.js",
+      "lineRange": [
+        33,
+        57
+      ],
+      "summary": "Function req",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/test_k12_api.js:loginWithWallet",
+      "type": "function",
+      "name": "loginWithWallet",
+      "filePath": "backend/scripts/test_k12_api.js",
+      "lineRange": [
+        59,
+        72
+      ],
+      "summary": "Function loginWithWallet",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/test_k12_api.js:run",
+      "type": "function",
+      "name": "run",
+      "filePath": "backend/scripts/test_k12_api.js",
+      "lineRange": [
+        80,
+        269
+      ],
+      "summary": "Function run",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/test_phase3.js",
+      "type": "file",
+      "name": "test_phase3.js",
+      "filePath": "backend/scripts/test_phase3.js",
+      "summary": "Component responsible for test_phase3.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/test_phase3.js:req",
+      "type": "function",
+      "name": "req",
+      "filePath": "backend/scripts/test_phase3.js",
+      "lineRange": [
+        16,
+        37
+      ],
+      "summary": "Function req",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/test_phase3.js:run",
+      "type": "function",
+      "name": "run",
+      "filePath": "backend/scripts/test_phase3.js",
+      "lineRange": [
+        52,
+        166
+      ],
+      "summary": "Function run",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/test_phase4.js",
+      "type": "file",
+      "name": "test_phase4.js",
+      "filePath": "backend/scripts/test_phase4.js",
+      "summary": "Component responsible for test_phase4.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/test_phase4.js:runTests",
+      "type": "function",
+      "name": "runTests",
+      "filePath": "backend/scripts/test_phase4.js",
+      "lineRange": [
+        19,
+        126
+      ],
+      "summary": "Function runTests",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/test_phase5.js",
+      "type": "file",
+      "name": "test_phase5.js",
+      "filePath": "backend/scripts/test_phase5.js",
+      "summary": "Component responsible for test_phase5.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/test_phase5.js:runTests",
+      "type": "function",
+      "name": "runTests",
+      "filePath": "backend/scripts/test_phase5.js",
+      "lineRange": [
+        16,
+        112
+      ],
+      "summary": "Function runTests",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/test_phase5_1.js",
+      "type": "file",
+      "name": "test_phase5_1.js",
+      "filePath": "backend/scripts/test_phase5_1.js",
+      "summary": "Component responsible for test_phase5_1.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/test_phase5_1.js:runTests",
+      "type": "function",
+      "name": "runTests",
+      "filePath": "backend/scripts/test_phase5_1.js",
+      "lineRange": [
+        16,
+        120
+      ],
+      "summary": "Function runTests",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/transfer-tokens-to-contract.js",
+      "type": "file",
+      "name": "transfer-tokens-to-contract.js",
+      "filePath": "backend/scripts/transfer-tokens-to-contract.js",
+      "summary": "Component responsible for transfer-tokens-to-contract.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/transfer-tokens-to-contract.js:transferTokens",
+      "type": "function",
+      "name": "transferTokens",
+      "filePath": "backend/scripts/transfer-tokens-to-contract.js",
+      "lineRange": [
+        12,
+        56
+      ],
+      "summary": "Function transferTokens",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/services/authService.js",
+      "type": "file",
+      "name": "authService.js",
+      "filePath": "backend/services/authService.js",
+      "summary": "Component responsible for authService.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/services/authService.js:verifyToken",
+      "type": "function",
+      "name": "verifyToken",
+      "filePath": "backend/services/authService.js",
+      "lineRange": [
+        9,
+        20
+      ],
+      "summary": "Function verifyToken",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker/docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker/docker-compose.yml",
+      "summary": "Component responsible for docker-compose.yml functionality.",
+      "tags": [
+        "infra",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "config:frontend/public/manifest.json",
+      "type": "config",
+      "name": "manifest.json",
+      "filePath": "frontend/public/manifest.json",
+      "summary": "Component responsible for manifest.json functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/theme/adminTheme.js",
+      "type": "file",
+      "name": "adminTheme.js",
+      "filePath": "frontend/src/theme/adminTheme.js",
+      "summary": "Component responsible for adminTheme.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/utils/domain.js",
+      "type": "file",
+      "name": "domain.js",
+      "filePath": "frontend/src/utils/domain.js",
+      "summary": "Component responsible for domain.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:frontend/src/utils/domain.js:getDomainTerminology",
+      "type": "function",
+      "name": "getDomainTerminology",
+      "filePath": "frontend/src/utils/domain.js",
+      "lineRange": [
+        1,
+        24
+      ],
+      "summary": "Function getDomainTerminology",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Component responsible for package.json functionality.",
+      "tags": [
+        "config",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/scripts/seedMockWorkData.js",
+      "target": "function:backend/scripts/seedMockWorkData.js:seedMockData",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seedRoles.js",
+      "target": "function:backend/scripts/seedRoles.js:seedRoles",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seedSuperAdmin.js",
+      "target": "function:backend/scripts/seedSuperAdmin.js:seedSuperAdmin",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test-task-payment.js",
+      "target": "function:backend/scripts/test-task-payment.js:testTaskPayment",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_k12_api.js",
+      "target": "function:backend/scripts/test_k12_api.js:req",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_k12_api.js",
+      "target": "function:backend/scripts/test_k12_api.js:loginWithWallet",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_k12_api.js",
+      "target": "function:backend/scripts/test_k12_api.js:run",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_phase3.js",
+      "target": "function:backend/scripts/test_phase3.js:req",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_phase3.js",
+      "target": "function:backend/scripts/test_phase3.js:run",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_phase4.js",
+      "target": "function:backend/scripts/test_phase4.js:runTests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_phase5.js",
+      "target": "function:backend/scripts/test_phase5.js:runTests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/test_phase5_1.js",
+      "target": "function:backend/scripts/test_phase5_1.js:runTests",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/transfer-tokens-to-contract.js",
+      "target": "function:backend/scripts/transfer-tokens-to-contract.js:transferTokens",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/services/authService.js",
+      "target": "function:backend/services/authService.js:verifyToken",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/utils/domain.js",
+      "target": "function:frontend/src/utils/domain.js:getDomainTerminology",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

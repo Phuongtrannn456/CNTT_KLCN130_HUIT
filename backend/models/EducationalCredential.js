@@ -31,12 +31,12 @@ const educationalCredentialSchema = new mongoose.Schema({
     network: { type: String },
     contractAddress: { type: String },
     transactionHash: { type: String },
-    blockNumber: { type: Number }
+    blockNumber: { type: String }
   },
 
   nonce: {
-    type: Number,
-    default: () => Math.floor(Math.random() * 1000000) // Simple nonce for signature
+    type: String,
+    default: () => require('crypto').randomBytes(16).toString('hex') // Simple nonce for signature
   }
 
 }, { timestamps: true });

@@ -61,7 +61,7 @@ const ChallengeList = () => {
     }
   };
 
-  if (loading) return <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>;
+  if (loading) return <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" aria-label="Đang tải dữ liệu" /></div>;
 
   const renderChallengeCard = (chal, extra = null) => {
     const isJoined = participations.includes(chal._id);
@@ -84,26 +84,26 @@ const ChallengeList = () => {
           
           <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid #f0f0f0' }}>
             <div style={{ marginBottom: '8px' }}>
-              <Text type="secondary"><FileTextOutlined /> Môn học: </Text>
+              <Text style={{ color: '#595959' }}><FileTextOutlined aria-hidden="true" /> Môn học: </Text>
               <Tag color="blue">{chal.subject}</Tag>
             </div>
             
             <div style={{ marginBottom: '8px' }}>
-              <Text type="secondary"><UserOutlined /> Khối lớp: </Text>
+              <Text style={{ color: '#595959' }}><UserOutlined aria-hidden="true" /> Khối lớp: </Text>
               {chal.eligibleGrades?.join(', ') || 'Tất cả'}
             </div>
 
             {chal.deadline && (
               <div style={{ marginBottom: '16px' }}>
-                <Text type="secondary"><ClockCircleOutlined /> Hạn nộp: </Text>
-                <Text type={isExpired ? 'danger' : 'secondary'}>
+                <Text style={{ color: '#595959' }}><ClockCircleOutlined aria-hidden="true" /> Hạn nộp: </Text>
+                <Text style={{ color: isExpired ? '#cf1322' : '#595959' }}>
                   {dayjs(chal.deadline).format('DD/MM/YYYY HH:mm')}
                 </Text>
               </div>
             )}
 
             {isJoined ? (
-              <Button type="primary" block onClick={() => navigate(`/student/submissions/${chal._id}`)}>
+              <Button type="primary" block onClick={() => navigate(`/student/submissions/${chal._id}`)} aria-label={`Vào không gian làm bài ${chal.title}`}>
                 Vào không gian làm bài
               </Button>
             ) : (
@@ -112,6 +112,7 @@ const ChallengeList = () => {
                 block 
                 onClick={() => handleJoin(chal._id)}
                 disabled={isClosed || isExpired}
+                aria-label={`Tham gia ngay ${chal.title}`}
               >
                 Tham gia ngay
               </Button>
@@ -125,18 +126,18 @@ const ChallengeList = () => {
   return (
     <div style={{ padding: '24px' }}>
       <Title level={2} style={{ marginBottom: '24px' }}>
-        <AppstoreOutlined style={{ marginRight: '10px' }} />
+        <AppstoreOutlined aria-hidden="true" style={{ marginRight: '10px' }} />
         Khám phá Cuộc thi & Dự án Học tập
       </Title>
 
       <div style={{ marginBottom: 32 }}>
-        <Title level={4}><StarOutlined style={{ color: '#faad14', marginRight: 8 }}/> Gợi ý cho bạn (AI Matching)</Title>
+        <Title level={3}><StarOutlined aria-hidden="true" style={{ color: '#d48806', marginRight: 8 }}/> Gợi ý cho bạn (AI Matching)</Title>
         {aiLoading ? (
-          <Spin tip="AI đang phân tích gợi ý..." />
+          <Spin tip="AI đang phân tích gợi ý..." aria-label="Đang tải gợi ý" />
         ) : !aiAvailable ? (
           <Alert type="warning" message="AI Gợi ý hiện không khả dụng. Bạn vẫn có thể xem toàn bộ danh sách bên dưới." showIcon />
         ) : recommendations.length === 0 ? (
-          <Text type="secondary">Chưa có gợi ý nào phù hợp nhất với bạn lúc này.</Text>
+          <Text style={{ color: '#595959' }}>Chưa có gợi ý nào phù hợp nhất với bạn lúc này.</Text>
         ) : (
           <Row gutter={[24, 24]}>
             {recommendations.map(rec => renderChallengeCard(rec.challenge, (
@@ -151,7 +152,7 @@ const ChallengeList = () => {
         )}
       </div>
 
-      <Title level={4}>Tất cả Cuộc thi / Dự án</Title>
+      <Title level={3}>Tất cả Cuộc thi / Dự án</Title>
       {challenges.length === 0 ? (
         <Empty description="Hiện chưa có Cuộc thi / Dự án nào phù hợp với bạn" style={{ marginTop: '50px' }} />
       ) : (

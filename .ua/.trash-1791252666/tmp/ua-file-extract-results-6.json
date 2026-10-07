@@ -1,0 +1,2350 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 12,
+  "filesSkipped": [],
+  "filesUnreadable": [],
+  "analysisOutcomes": {
+    "structure": {
+      "succeeded": 12,
+      "failed": 0
+    },
+    "callGraph": {
+      "succeeded": 12,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "results": [
+    {
+      "path": "ml-service/app.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 65,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "verify_internal_token",
+          "startLine": 42,
+          "endLine": 50,
+          "params": [
+            "request",
+            "call_next"
+          ]
+        },
+        {
+          "name": "healthz",
+          "startLine": 61,
+          "endLine": 65,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "verify_internal_token",
+          "line": 41,
+          "isDefault": false
+        },
+        {
+          "name": "healthz",
+          "line": 60,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "verify_internal_token",
+          "callee": "path.startswith",
+          "lineNumber": 44
+        },
+        {
+          "caller": "verify_internal_token",
+          "callee": "path.startswith",
+          "lineNumber": 44
+        },
+        {
+          "caller": "verify_internal_token",
+          "callee": "path.startswith",
+          "lineNumber": 44
+        },
+        {
+          "caller": "verify_internal_token",
+          "callee": "path.startswith",
+          "lineNumber": 44
+        },
+        {
+          "caller": "verify_internal_token",
+          "callee": "request.headers.get",
+          "lineNumber": 45
+        },
+        {
+          "caller": "verify_internal_token",
+          "callee": "logger.warning",
+          "lineNumber": 48
+        },
+        {
+          "caller": "verify_internal_token",
+          "callee": "JSONResponse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "verify_internal_token",
+          "callee": "call_next",
+          "lineNumber": 50
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "ml-service/models/phobert_analyzer.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 239,
+      "nonEmptyLines": 197,
+      "classes": [
+        {
+          "name": "PhoBertAnalyzer",
+          "startLine": 13,
+          "endLine": 239,
+          "methods": [
+            "__init__",
+            "_calc_repetition_ratio",
+            "_get_embedding",
+            "analyze",
+            "analyze_with_rubrics"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "PhoBertAnalyzer",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "torch.cuda.is_available",
+          "lineNumber": 21
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.info",
+          "lineNumber": 22
+        },
+        {
+          "caller": "__init__",
+          "callee": "AutoTokenizer.from_pretrained",
+          "lineNumber": 23
+        },
+        {
+          "caller": "__init__",
+          "callee": "AutoModel.from_pretrained(self.model_name).to",
+          "lineNumber": 24
+        },
+        {
+          "caller": "__init__",
+          "callee": "AutoModel.from_pretrained",
+          "lineNumber": 24
+        },
+        {
+          "caller": "__init__",
+          "callee": "self.model.eval",
+          "lineNumber": 25
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.info",
+          "lineNumber": 26
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "s.strip",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "text.split",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "len",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "s.strip",
+          "lineNumber": 30
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "set",
+          "lineNumber": 33
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "s.lower",
+          "lineNumber": 33
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "len",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_calc_repetition_ratio",
+          "callee": "len",
+          "lineNumber": 34
+        },
+        {
+          "caller": "_get_embedding",
+          "callee": "self.tokenizer(text, return_tensors='pt', padding=True, truncation=True, max_length=256).to",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_get_embedding",
+          "callee": "self.tokenizer",
+          "lineNumber": 38
+        },
+        {
+          "caller": "_get_embedding",
+          "callee": "torch.no_grad",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_get_embedding",
+          "callee": "self.model",
+          "lineNumber": 40
+        },
+        {
+          "caller": "analyze",
+          "callee": "time.time",
+          "lineNumber": 45
+        },
+        {
+          "caller": "analyze",
+          "callee": "normalize_text",
+          "lineNumber": 47
+        },
+        {
+          "caller": "analyze",
+          "callee": "extract_requirement_hits",
+          "lineNumber": 57
+        },
+        {
+          "caller": "analyze",
+          "callee": "self._calc_repetition_ratio",
+          "lineNumber": 60
+        },
+        {
+          "caller": "analyze",
+          "callee": "self._get_embedding",
+          "lineNumber": 68
+        },
+        {
+          "caller": "analyze",
+          "callee": "normalize_text",
+          "lineNumber": 71
+        },
+        {
+          "caller": "analyze",
+          "callee": "self._get_embedding",
+          "lineNumber": 72
+        },
+        {
+          "caller": "analyze",
+          "callee": "F.cosine_similarity(doc_emb, req_emb).item",
+          "lineNumber": 73
+        },
+        {
+          "caller": "analyze",
+          "callee": "F.cosine_similarity",
+          "lineNumber": 73
+        },
+        {
+          "caller": "analyze",
+          "callee": "logger.debug",
+          "lineNumber": 74
+        },
+        {
+          "caller": "analyze",
+          "callee": "max",
+          "lineNumber": 78
+        },
+        {
+          "caller": "analyze",
+          "callee": "len",
+          "lineNumber": 79
+        },
+        {
+          "caller": "analyze",
+          "callee": "min",
+          "lineNumber": 80
+        },
+        {
+          "caller": "analyze",
+          "callee": "len",
+          "lineNumber": 80
+        },
+        {
+          "caller": "analyze",
+          "callee": "issues.append",
+          "lineNumber": 83
+        },
+        {
+          "caller": "analyze",
+          "callee": "issues.append",
+          "lineNumber": 91
+        },
+        {
+          "caller": "analyze",
+          "callee": "round",
+          "lineNumber": 93
+        },
+        {
+          "caller": "analyze",
+          "callee": "min",
+          "lineNumber": 93
+        },
+        {
+          "caller": "analyze",
+          "callee": "max",
+          "lineNumber": 93
+        },
+        {
+          "caller": "analyze",
+          "callee": "len",
+          "lineNumber": 95
+        },
+        {
+          "caller": "analyze",
+          "callee": "issues.append",
+          "lineNumber": 96
+        },
+        {
+          "caller": "analyze",
+          "callee": "\"; \".join",
+          "lineNumber": 100
+        },
+        {
+          "caller": "analyze",
+          "callee": "int",
+          "lineNumber": 102
+        },
+        {
+          "caller": "analyze",
+          "callee": "time.time",
+          "lineNumber": 102
+        },
+        {
+          "caller": "analyze",
+          "callee": "logger.info",
+          "lineNumber": 103
+        },
+        {
+          "caller": "analyze",
+          "callee": "len",
+          "lineNumber": 103
+        },
+        {
+          "caller": "analyze",
+          "callee": "len",
+          "lineNumber": 103
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "time.time",
+          "lineNumber": 124
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "normalize_text",
+          "lineNumber": 125
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "chunk_text",
+          "lineNumber": 137
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "logger.info",
+          "lineNumber": 138
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 138
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 138
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 138
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 144
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "self._get_embedding",
+          "lineNumber": 145
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "chunk_embeddings.append",
+          "lineNumber": 146
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "rubric.get",
+          "lineNumber": 154
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "rubric.get",
+          "lineNumber": 155
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "' '.join",
+          "lineNumber": 155
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "self._get_embedding",
+          "lineNumber": 156
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "normalize_text",
+          "lineNumber": 156
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "enumerate",
+          "lineNumber": 160
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "F.cosine_similarity(chunk_emb, criteria_emb).item",
+          "lineNumber": 161
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "F.cosine_similarity",
+          "lineNumber": 161
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "chunk_similarities.append",
+          "lineNumber": 162
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "max",
+          "lineNumber": 165
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "kw.lower",
+          "lineNumber": 169
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "best_chunk.content.lower",
+          "lineNumber": 171
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "sum",
+          "lineNumber": 172
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 173
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "logger.debug",
+          "lineNumber": 179
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "rubric.get",
+          "lineNumber": 182
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "max",
+          "lineNumber": 183
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "min",
+          "lineNumber": 183
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "round",
+          "lineNumber": 184
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "rubric.get",
+          "lineNumber": 187
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "float",
+          "lineNumber": 193
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "np.mean",
+          "lineNumber": 193
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "float",
+          "lineNumber": 194
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "np.std",
+          "lineNumber": 194
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "min",
+          "lineNumber": 195
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "max",
+          "lineNumber": 196
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "logger.debug",
+          "lineNumber": 206
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "results.append",
+          "lineNumber": 208
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "round",
+          "lineNumber": 214
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "round",
+          "lineNumber": 222
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "int",
+          "lineNumber": 224
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "time.time",
+          "lineNumber": 224
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "logger.info",
+          "lineNumber": 225
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 225
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 225
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 237
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 237
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ml-service/models/sbert_matcher.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 48,
+      "classes": [
+        {
+          "name": "SbertMatcher",
+          "startLine": 9,
+          "endLine": 62,
+          "methods": [
+            "__init__",
+            "match"
+          ],
+          "properties": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "SbertMatcher",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "__init__",
+          "callee": "torch.cuda.is_available",
+          "lineNumber": 17
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.info",
+          "lineNumber": 18
+        },
+        {
+          "caller": "__init__",
+          "callee": "SentenceTransformer(self.model_name).to",
+          "lineNumber": 19
+        },
+        {
+          "caller": "__init__",
+          "callee": "SentenceTransformer",
+          "lineNumber": 19
+        },
+        {
+          "caller": "__init__",
+          "callee": "logger.info",
+          "lineNumber": 20
+        },
+        {
+          "caller": "match",
+          "callee": "float",
+          "lineNumber": 23
+        },
+        {
+          "caller": "match",
+          "callee": "student.get",
+          "lineNumber": 23
+        },
+        {
+          "caller": "match",
+          "callee": "student.get",
+          "lineNumber": 24
+        },
+        {
+          "caller": "match",
+          "callee": "major_scores.items",
+          "lineNumber": 27
+        },
+        {
+          "caller": "match",
+          "callee": "float",
+          "lineNumber": 27
+        },
+        {
+          "caller": "match",
+          "callee": "\", \".join",
+          "lineNumber": 28
+        },
+        {
+          "caller": "match",
+          "callee": "self.model.encode",
+          "lineNumber": 31
+        },
+        {
+          "caller": "match",
+          "callee": "topic.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "match",
+          "callee": "\", \".join",
+          "lineNumber": 36
+        },
+        {
+          "caller": "match",
+          "callee": "self.model.encode",
+          "lineNumber": 39
+        },
+        {
+          "caller": "match",
+          "callee": "util.cos_sim(student_vector, topic_vector).item",
+          "lineNumber": 42
+        },
+        {
+          "caller": "match",
+          "callee": "util.cos_sim",
+          "lineNumber": 42
+        },
+        {
+          "caller": "match",
+          "callee": "max",
+          "lineNumber": 45
+        },
+        {
+          "caller": "match",
+          "callee": "min",
+          "lineNumber": 46
+        },
+        {
+          "caller": "match",
+          "callee": "max",
+          "lineNumber": 50
+        },
+        {
+          "caller": "match",
+          "callee": "min",
+          "lineNumber": 50
+        },
+        {
+          "caller": "match",
+          "callee": "recommendations.append",
+          "lineNumber": 52
+        },
+        {
+          "caller": "match",
+          "callee": "topic.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "match",
+          "callee": "topic.get",
+          "lineNumber": 54
+        },
+        {
+          "caller": "match",
+          "callee": "round",
+          "lineNumber": 55
+        },
+        {
+          "caller": "match",
+          "callee": "recommendations.sort",
+          "lineNumber": 61
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 0,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ml-service/routes/analyze.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 101,
+      "nonEmptyLines": 74,
+      "functions": [
+        {
+          "name": "analyze_report",
+          "startLine": 37,
+          "endLine": 66,
+          "params": [
+            "request",
+            "payload"
+          ]
+        },
+        {
+          "name": "analyze_with_rubrics",
+          "startLine": 71,
+          "endLine": 101,
+          "params": [
+            "request",
+            "payload"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "AnalyzeRequest",
+          "startLine": 17,
+          "endLine": 19,
+          "methods": [],
+          "properties": [
+            "text",
+            "topic_requirements"
+          ]
+        },
+        {
+          "name": "RubricItem",
+          "startLine": 22,
+          "endLine": 27,
+          "methods": [],
+          "properties": [
+            "TenTieuChi",
+            "MoTa",
+            "TrongSo",
+            "DiemToiDa",
+            "GoiYChoAI"
+          ]
+        },
+        {
+          "name": "AnalyzeRubricsRequest",
+          "startLine": 30,
+          "endLine": 32,
+          "methods": [],
+          "properties": [
+            "text",
+            "rubrics"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "AnalyzeRequest",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "RubricItem",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "AnalyzeRubricsRequest",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "analyze_report",
+          "line": 35,
+          "isDefault": false
+        },
+        {
+          "name": "analyze_with_rubrics",
+          "line": 69,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "analyze_report",
+          "callee": "logger.info",
+          "lineNumber": 38
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "len",
+          "lineNumber": 38
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "len",
+          "lineNumber": 38
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "scan_injection",
+          "lineNumber": 43
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "security_flags.extend",
+          "lineNumber": 45
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "logger.warning",
+          "lineNumber": 46
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "check_repetition",
+          "lineNumber": 49
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "security_flags.append",
+          "lineNumber": 51
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "check_type_token_ratio",
+          "lineNumber": 54
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "security_flags.append",
+          "lineNumber": 55
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "analyzer.analyze",
+          "lineNumber": 58
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "logger.info",
+          "lineNumber": 65
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "result.get",
+          "lineNumber": 65
+        },
+        {
+          "caller": "analyze_report",
+          "callee": "len",
+          "lineNumber": 65
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "logger.info",
+          "lineNumber": 72
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 72
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 72
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "scan_injection",
+          "lineNumber": 77
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "security_flags.extend",
+          "lineNumber": 79
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "logger.warning",
+          "lineNumber": 80
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "check_repetition",
+          "lineNumber": 83
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "security_flags.append",
+          "lineNumber": 85
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "check_type_token_ratio",
+          "lineNumber": 88
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "security_flags.append",
+          "lineNumber": 89
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "r.model_dump",
+          "lineNumber": 92
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "analyzer.analyze_with_rubrics",
+          "lineNumber": 93
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "logger.info",
+          "lineNumber": 100
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "result.get",
+          "lineNumber": 100
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 100
+        },
+        {
+          "caller": "analyze_with_rubrics",
+          "callee": "len",
+          "lineNumber": 100
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 5,
+        "functionCount": 2,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "ml-service/routes/compare_code.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 62,
+      "nonEmptyLines": 49,
+      "functions": [
+        {
+          "name": "get_model",
+          "startLine": 12,
+          "endLine": 18,
+          "params": []
+        },
+        {
+          "name": "compare_code",
+          "startLine": 27,
+          "endLine": 62,
+          "params": [
+            "payload"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "CompareCodeRequest",
+          "startLine": 21,
+          "endLine": 23,
+          "methods": [],
+          "properties": [
+            "student_code",
+            "answer_code"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "get_model",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "CompareCodeRequest",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "compare_code",
+          "line": 26,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "get_model",
+          "callee": "logger.info",
+          "lineNumber": 15
+        },
+        {
+          "caller": "get_model",
+          "callee": "SentenceTransformer",
+          "lineNumber": 16
+        },
+        {
+          "caller": "get_model",
+          "callee": "logger.info",
+          "lineNumber": 17
+        },
+        {
+          "caller": "compare_code",
+          "callee": "payload.student_code.strip",
+          "lineNumber": 32
+        },
+        {
+          "caller": "compare_code",
+          "callee": "payload.answer_code.strip",
+          "lineNumber": 32
+        },
+        {
+          "caller": "compare_code",
+          "callee": "get_model",
+          "lineNumber": 35
+        },
+        {
+          "caller": "compare_code",
+          "callee": "model.encode",
+          "lineNumber": 38
+        },
+        {
+          "caller": "compare_code",
+          "callee": "model.encode",
+          "lineNumber": 39
+        },
+        {
+          "caller": "compare_code",
+          "callee": "util.cos_sim(student_vec, answer_vec).item",
+          "lineNumber": 42
+        },
+        {
+          "caller": "compare_code",
+          "callee": "util.cos_sim",
+          "lineNumber": 42
+        },
+        {
+          "caller": "compare_code",
+          "callee": "max",
+          "lineNumber": 43
+        },
+        {
+          "caller": "compare_code",
+          "callee": "min",
+          "lineNumber": 43
+        },
+        {
+          "caller": "compare_code",
+          "callee": "round",
+          "lineNumber": 44
+        },
+        {
+          "caller": "compare_code",
+          "callee": "logger.info",
+          "lineNumber": 56
+        },
+        {
+          "caller": "compare_code",
+          "callee": "len",
+          "lineNumber": 56
+        },
+        {
+          "caller": "compare_code",
+          "callee": "len",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 2,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ml-service/routes/extract_pdf.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 22,
+      "functions": [
+        {
+          "name": "extract_pdf",
+          "startLine": 12,
+          "endLine": 34,
+          "params": [
+            "file"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "extract_pdf",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "extract_pdf",
+          "callee": "File",
+          "lineNumber": 12
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "file.content_type.lower",
+          "lineNumber": 13
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "HTTPException",
+          "lineNumber": 14
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "file.read",
+          "lineNumber": 16
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "len",
+          "lineNumber": 18
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "HTTPException",
+          "lineNumber": 19
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "file_bytes.startswith",
+          "lineNumber": 22
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "HTTPException",
+          "lineNumber": 23
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "len",
+          "lineNumber": 25
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "HTTPException",
+          "lineNumber": 26
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "logger.info",
+          "lineNumber": 28
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "len",
+          "lineNumber": 28
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "extract_pdf_text",
+          "lineNumber": 30
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "logger.info",
+          "lineNumber": 32
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "len",
+          "lineNumber": 32
+        },
+        {
+          "caller": "extract_pdf",
+          "callee": "len",
+          "lineNumber": 32
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "ml-service/routes/match.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 32,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "match_student",
+          "startLine": 29,
+          "endLine": 32,
+          "params": [
+            "payload"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "StudentPayload",
+          "startLine": 13,
+          "endLine": 15,
+          "methods": [],
+          "properties": [
+            "gpa",
+            "major_scores"
+          ]
+        },
+        {
+          "name": "TopicPayload",
+          "startLine": 18,
+          "endLine": 20,
+          "methods": [],
+          "properties": [
+            "topic_id",
+            "requirements"
+          ]
+        },
+        {
+          "name": "MatchRequest",
+          "startLine": 23,
+          "endLine": 25,
+          "methods": [],
+          "properties": [
+            "student",
+            "topics"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "StudentPayload",
+          "line": 13,
+          "isDefault": false
+        },
+        {
+          "name": "TopicPayload",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "MatchRequest",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "match_student",
+          "line": 28,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "match_student",
+          "callee": "t.model_dump",
+          "lineNumber": 30
+        },
+        {
+          "caller": "match_student",
+          "callee": "matcher.match",
+          "lineNumber": 31
+        },
+        {
+          "caller": "match_student",
+          "callee": "payload.student.model_dump",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 1,
+        "classCount": 3
+      }
+    },
+    {
+      "path": "ml-service/utils/log_config.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 57,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "setup_logging",
+          "startLine": 6,
+          "endLine": 57,
+          "params": [
+            "level"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "setup_logging",
+          "line": 6,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "setup_logging",
+          "callee": "os.path.join",
+          "lineNumber": 14
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "os.path.dirname",
+          "lineNumber": 14
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "os.makedirs",
+          "lineNumber": 15
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "logging.Formatter",
+          "lineNumber": 19
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "logging.getLogger",
+          "lineNumber": 22
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "logger.setLevel",
+          "lineNumber": 23
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "logging.StreamHandler",
+          "lineNumber": 30
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "console_handler.setLevel",
+          "lineNumber": 31
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "console_handler.setFormatter",
+          "lineNumber": 32
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "logger.addHandler",
+          "lineNumber": 33
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "RotatingFileHandler",
+          "lineNumber": 36
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "os.path.join",
+          "lineNumber": 37
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "file_handler.setLevel",
+          "lineNumber": 42
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "file_handler.setFormatter",
+          "lineNumber": 43
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "logger.addHandler",
+          "lineNumber": 44
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "RotatingFileHandler",
+          "lineNumber": 47
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "os.path.join",
+          "lineNumber": 48
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "error_handler.setLevel",
+          "lineNumber": 53
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "error_handler.setFormatter",
+          "lineNumber": 54
+        },
+        {
+          "caller": "setup_logging",
+          "callee": "logger.addHandler",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "ml-service/utils/pdf_chunker.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 173,
+      "nonEmptyLines": 140,
+      "functions": [
+        {
+          "name": "_detect_headings",
+          "startLine": 30,
+          "endLine": 68,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "chunk_text",
+          "startLine": 71,
+          "endLine": 127,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "_split_by_paragraphs",
+          "startLine": 130,
+          "endLine": 173,
+          "params": [
+            "text",
+            "max_words"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "TextChunk",
+          "startLine": 6,
+          "endLine": 11,
+          "methods": [],
+          "properties": [
+            "index",
+            "heading",
+            "level",
+            "content",
+            "char_count"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "TextChunk",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "_detect_headings",
+          "line": 30,
+          "isDefault": false
+        },
+        {
+          "name": "chunk_text",
+          "line": 71,
+          "isDefault": false
+        },
+        {
+          "name": "_split_by_paragraphs",
+          "line": 130,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "_detect_headings",
+          "callee": "re.finditer",
+          "lineNumber": 39
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "headings.append",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.start",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.group(1).strip",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.group",
+          "lineNumber": 40
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "re.finditer",
+          "lineNumber": 44
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.group(1).strip",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.group",
+          "lineNumber": 45
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "re.match",
+          "lineNumber": 47
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "headings.append",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.start",
+          "lineNumber": 48
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "re.finditer",
+          "lineNumber": 52
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "headings.append",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.start",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.group(1).strip",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "match.group",
+          "lineNumber": 53
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "headings.sort",
+          "lineNumber": 56
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "abs",
+          "lineNumber": 61
+        },
+        {
+          "caller": "_detect_headings",
+          "callee": "deduped.append",
+          "lineNumber": 66
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "text.strip",
+          "lineNumber": 82
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "TextChunk",
+          "lineNumber": 83
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 84
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "_detect_headings",
+          "lineNumber": 86
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 90
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "text[:headings[0][0]].strip",
+          "lineNumber": 93
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 94
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "chunks.append",
+          "lineNumber": 95
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "TextChunk",
+          "lineNumber": 95
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 100
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "enumerate",
+          "lineNumber": 103
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 105
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 108
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "text[pos:end_pos].strip",
+          "lineNumber": 110
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 111
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "chunks.append",
+          "lineNumber": 112
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "TextChunk",
+          "lineNumber": 112
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 113
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 117
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 121
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "_split_by_paragraphs",
+          "lineNumber": 122
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "TextChunk",
+          "lineNumber": 124
+        },
+        {
+          "caller": "chunk_text",
+          "callee": "len",
+          "lineNumber": 126
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "re.split",
+          "lineNumber": 133
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "para.strip",
+          "lineNumber": 140
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "len",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "para.split",
+          "lineNumber": 144
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "'\\n\\n'.join",
+          "lineNumber": 148
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "chunks.append",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "TextChunk",
+          "lineNumber": 149
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "len",
+          "lineNumber": 150
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "len",
+          "lineNumber": 151
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "len",
+          "lineNumber": 154
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "current_content.append",
+          "lineNumber": 159
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "'\\n\\n'.join",
+          "lineNumber": 164
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "chunks.append",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "TextChunk",
+          "lineNumber": 165
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "len",
+          "lineNumber": 166
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "len",
+          "lineNumber": 167
+        },
+        {
+          "caller": "_split_by_paragraphs",
+          "callee": "len",
+          "lineNumber": 170
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 4,
+        "functionCount": 3,
+        "classCount": 1
+      }
+    },
+    {
+      "path": "ml-service/utils/pdf_extractor.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 112,
+      "nonEmptyLines": 97,
+      "functions": [
+        {
+          "name": "extract_pdf_text",
+          "startLine": 8,
+          "endLine": 97,
+          "params": [
+            "file_bytes"
+          ]
+        },
+        {
+          "name": "_check_injection_hints",
+          "startLine": 100,
+          "endLine": 112,
+          "params": [
+            "text",
+            "warnings"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "extract_pdf_text",
+          "line": 8,
+          "isDefault": false
+        },
+        {
+          "name": "_check_injection_hints",
+          "line": 100,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "extract_pdf_text",
+          "callee": "pdfplumber.open",
+          "lineNumber": 26
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "io.BytesIO",
+          "lineNumber": 26
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "len",
+          "lineNumber": 27
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "page.extract_text",
+          "lineNumber": 29
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "pages_text.append",
+          "lineNumber": 30
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "float",
+          "lineNumber": 35
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "char.get",
+          "lineNumber": 35
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "warnings.append",
+          "lineNumber": 36
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "'\\n\\n'.join(pages_text).strip",
+          "lineNumber": 41
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "'\\n\\n'.join",
+          "lineNumber": 41
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "logger.error",
+          "lineNumber": 43
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "len",
+          "lineNumber": 48
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "_check_injection_hints",
+          "lineNumber": 49
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "fitz.open",
+          "lineNumber": 62
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "len",
+          "lineNumber": 63
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "range",
+          "lineNumber": 66
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "doc.load_page",
+          "lineNumber": 67
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "page.get_pixmap",
+          "lineNumber": 68
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "Image.frombytes",
+          "lineNumber": 69
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "pytesseract.image_to_string",
+          "lineNumber": 70
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "ocr_pages.append",
+          "lineNumber": 71
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "doc.close",
+          "lineNumber": 73
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "'\\n\\n'.join(ocr_pages).strip",
+          "lineNumber": 74
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "'\\n\\n'.join",
+          "lineNumber": 74
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "len",
+          "lineNumber": 76
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "warnings.append",
+          "lineNumber": 77
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "_check_injection_hints",
+          "lineNumber": 78
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "warnings.append",
+          "lineNumber": 86
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "logger.error",
+          "lineNumber": 88
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "warnings.append",
+          "lineNumber": 89
+        },
+        {
+          "caller": "extract_pdf_text",
+          "callee": "str",
+          "lineNumber": 89
+        },
+        {
+          "caller": "_check_injection_hints",
+          "callee": "re.search",
+          "lineNumber": 110
+        },
+        {
+          "caller": "_check_injection_hints",
+          "callee": "warnings.append",
+          "lineNumber": 111
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "ml-service/utils/text_preprocessing.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "normalize_text",
+          "startLine": 4,
+          "endLine": 14,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "extract_requirement_hits",
+          "startLine": 16,
+          "endLine": 28,
+          "params": [
+            "text",
+            "requirements"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "normalize_text",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "extract_requirement_hits",
+          "line": 16,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalize_text",
+          "callee": "text.strip",
+          "lineNumber": 6
+        },
+        {
+          "caller": "normalize_text",
+          "callee": "word_tokenize",
+          "lineNumber": 9
+        },
+        {
+          "caller": "normalize_text",
+          "callee": "text.lower",
+          "lineNumber": 12
+        },
+        {
+          "caller": "normalize_text",
+          "callee": "re.sub",
+          "lineNumber": 13
+        },
+        {
+          "caller": "extract_requirement_hits",
+          "callee": "normalize_text",
+          "lineNumber": 19
+        },
+        {
+          "caller": "extract_requirement_hits",
+          "callee": "normalize_text",
+          "lineNumber": 22
+        },
+        {
+          "caller": "extract_requirement_hits",
+          "callee": "req_norm.replace",
+          "lineNumber": 24
+        },
+        {
+          "caller": "extract_requirement_hits",
+          "callee": "normalized.replace",
+          "lineNumber": 25
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "ml-service/utils/text_security.py",
+      "language": "python",
+      "fileCategory": "code",
+      "totalLines": 56,
+      "nonEmptyLines": 47,
+      "functions": [
+        {
+          "name": "scan_injection",
+          "startLine": 15,
+          "endLine": 22,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "check_repetition",
+          "startLine": 24,
+          "endLine": 48,
+          "params": [
+            "text",
+            "threshold"
+          ]
+        },
+        {
+          "name": "check_type_token_ratio",
+          "startLine": 50,
+          "endLine": 56,
+          "params": [
+            "text",
+            "threshold"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "scan_injection",
+          "line": 15,
+          "isDefault": false
+        },
+        {
+          "name": "check_repetition",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "check_type_token_ratio",
+          "line": 50,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "scan_injection",
+          "callee": "re.search",
+          "lineNumber": 19
+        },
+        {
+          "caller": "scan_injection",
+          "callee": "alerts.append",
+          "lineNumber": 20
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "s.strip",
+          "lineNumber": 29
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "re.split",
+          "lineNumber": 29
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "len",
+          "lineNumber": 29
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "s.strip",
+          "lineNumber": 29
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "len",
+          "lineNumber": 30
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "set",
+          "lineNumber": 33
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "len",
+          "lineNumber": 34
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "len",
+          "lineNumber": 34
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "text.split",
+          "lineNumber": 37
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "' '.join",
+          "lineNumber": 38
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "range",
+          "lineNumber": 38
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "len",
+          "lineNumber": 38
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "set",
+          "lineNumber": 39
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "len",
+          "lineNumber": 40
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "len",
+          "lineNumber": 40
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "round",
+          "lineNumber": 45
+        },
+        {
+          "caller": "check_repetition",
+          "callee": "round",
+          "lineNumber": 46
+        },
+        {
+          "caller": "check_type_token_ratio",
+          "callee": "re.findall",
+          "lineNumber": 52
+        },
+        {
+          "caller": "check_type_token_ratio",
+          "callee": "text.lower",
+          "lineNumber": 52
+        },
+        {
+          "caller": "check_type_token_ratio",
+          "callee": "len",
+          "lineNumber": 53
+        },
+        {
+          "caller": "check_type_token_ratio",
+          "callee": "len",
+          "lineNumber": 55
+        },
+        {
+          "caller": "check_type_token_ratio",
+          "callee": "set",
+          "lineNumber": 55
+        },
+        {
+          "caller": "check_type_token_ratio",
+          "callee": "len",
+          "lineNumber": 55
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

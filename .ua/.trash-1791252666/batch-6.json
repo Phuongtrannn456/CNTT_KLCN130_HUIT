@@ -1,0 +1,756 @@
+{
+  "nodes": [
+    {
+      "id": "file:ml-service/app.py",
+      "type": "file",
+      "name": "app.py",
+      "filePath": "ml-service/app.py",
+      "summary": "Component responsible for app.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ml-service/models/phobert_analyzer.py",
+      "type": "file",
+      "name": "phobert_analyzer.py",
+      "filePath": "ml-service/models/phobert_analyzer.py",
+      "summary": "Component responsible for phobert_analyzer.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ml-service/models/phobert_analyzer.py:PhoBertAnalyzer",
+      "type": "class",
+      "name": "PhoBertAnalyzer",
+      "filePath": "ml-service/models/phobert_analyzer.py",
+      "lineRange": [
+        13,
+        239
+      ],
+      "summary": "Class PhoBertAnalyzer",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ml-service/models/sbert_matcher.py",
+      "type": "file",
+      "name": "sbert_matcher.py",
+      "filePath": "ml-service/models/sbert_matcher.py",
+      "summary": "Component responsible for sbert_matcher.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ml-service/models/sbert_matcher.py:SbertMatcher",
+      "type": "class",
+      "name": "SbertMatcher",
+      "filePath": "ml-service/models/sbert_matcher.py",
+      "lineRange": [
+        9,
+        62
+      ],
+      "summary": "Class SbertMatcher",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ml-service/routes/analyze.py",
+      "type": "file",
+      "name": "analyze.py",
+      "filePath": "ml-service/routes/analyze.py",
+      "summary": "Component responsible for analyze.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/routes/analyze.py:analyze_report",
+      "type": "function",
+      "name": "analyze_report",
+      "filePath": "ml-service/routes/analyze.py",
+      "lineRange": [
+        37,
+        66
+      ],
+      "summary": "Function analyze_report",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:ml-service/routes/analyze.py:analyze_with_rubrics",
+      "type": "function",
+      "name": "analyze_with_rubrics",
+      "filePath": "ml-service/routes/analyze.py",
+      "lineRange": [
+        71,
+        101
+      ],
+      "summary": "Function analyze_with_rubrics",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:ml-service/routes/analyze.py:AnalyzeRequest",
+      "type": "class",
+      "name": "AnalyzeRequest",
+      "filePath": "ml-service/routes/analyze.py",
+      "lineRange": [
+        17,
+        19
+      ],
+      "summary": "Class AnalyzeRequest",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ml-service/routes/analyze.py:RubricItem",
+      "type": "class",
+      "name": "RubricItem",
+      "filePath": "ml-service/routes/analyze.py",
+      "lineRange": [
+        22,
+        27
+      ],
+      "summary": "Class RubricItem",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ml-service/routes/analyze.py:AnalyzeRubricsRequest",
+      "type": "class",
+      "name": "AnalyzeRubricsRequest",
+      "filePath": "ml-service/routes/analyze.py",
+      "lineRange": [
+        30,
+        32
+      ],
+      "summary": "Class AnalyzeRubricsRequest",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ml-service/routes/compare_code.py",
+      "type": "file",
+      "name": "compare_code.py",
+      "filePath": "ml-service/routes/compare_code.py",
+      "summary": "Component responsible for compare_code.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/routes/compare_code.py:compare_code",
+      "type": "function",
+      "name": "compare_code",
+      "filePath": "ml-service/routes/compare_code.py",
+      "lineRange": [
+        27,
+        62
+      ],
+      "summary": "Function compare_code",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:ml-service/routes/compare_code.py:CompareCodeRequest",
+      "type": "class",
+      "name": "CompareCodeRequest",
+      "filePath": "ml-service/routes/compare_code.py",
+      "lineRange": [
+        21,
+        23
+      ],
+      "summary": "Class CompareCodeRequest",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ml-service/routes/extract_pdf.py",
+      "type": "file",
+      "name": "extract_pdf.py",
+      "filePath": "ml-service/routes/extract_pdf.py",
+      "summary": "Component responsible for extract_pdf.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/routes/extract_pdf.py:extract_pdf",
+      "type": "function",
+      "name": "extract_pdf",
+      "filePath": "ml-service/routes/extract_pdf.py",
+      "lineRange": [
+        12,
+        34
+      ],
+      "summary": "Function extract_pdf",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ml-service/routes/match.py",
+      "type": "file",
+      "name": "match.py",
+      "filePath": "ml-service/routes/match.py",
+      "summary": "Component responsible for match.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ml-service/routes/match.py:StudentPayload",
+      "type": "class",
+      "name": "StudentPayload",
+      "filePath": "ml-service/routes/match.py",
+      "lineRange": [
+        13,
+        15
+      ],
+      "summary": "Class StudentPayload",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ml-service/routes/match.py:TopicPayload",
+      "type": "class",
+      "name": "TopicPayload",
+      "filePath": "ml-service/routes/match.py",
+      "lineRange": [
+        18,
+        20
+      ],
+      "summary": "Class TopicPayload",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:ml-service/routes/match.py:MatchRequest",
+      "type": "class",
+      "name": "MatchRequest",
+      "filePath": "ml-service/routes/match.py",
+      "lineRange": [
+        23,
+        25
+      ],
+      "summary": "Class MatchRequest",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ml-service/utils/log_config.py",
+      "type": "file",
+      "name": "log_config.py",
+      "filePath": "ml-service/utils/log_config.py",
+      "summary": "Component responsible for log_config.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/utils/log_config.py:setup_logging",
+      "type": "function",
+      "name": "setup_logging",
+      "filePath": "ml-service/utils/log_config.py",
+      "lineRange": [
+        6,
+        57
+      ],
+      "summary": "Function setup_logging",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ml-service/utils/pdf_chunker.py",
+      "type": "file",
+      "name": "pdf_chunker.py",
+      "filePath": "ml-service/utils/pdf_chunker.py",
+      "summary": "Component responsible for pdf_chunker.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/utils/pdf_chunker.py:_detect_headings",
+      "type": "function",
+      "name": "_detect_headings",
+      "filePath": "ml-service/utils/pdf_chunker.py",
+      "lineRange": [
+        30,
+        68
+      ],
+      "summary": "Function _detect_headings",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:ml-service/utils/pdf_chunker.py:chunk_text",
+      "type": "function",
+      "name": "chunk_text",
+      "filePath": "ml-service/utils/pdf_chunker.py",
+      "lineRange": [
+        71,
+        127
+      ],
+      "summary": "Function chunk_text",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:ml-service/utils/pdf_chunker.py:_split_by_paragraphs",
+      "type": "function",
+      "name": "_split_by_paragraphs",
+      "filePath": "ml-service/utils/pdf_chunker.py",
+      "lineRange": [
+        130,
+        173
+      ],
+      "summary": "Function _split_by_paragraphs",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:ml-service/utils/pdf_chunker.py:TextChunk",
+      "type": "class",
+      "name": "TextChunk",
+      "filePath": "ml-service/utils/pdf_chunker.py",
+      "lineRange": [
+        6,
+        11
+      ],
+      "summary": "Class TextChunk",
+      "tags": [
+        "class",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:ml-service/utils/pdf_extractor.py",
+      "type": "file",
+      "name": "pdf_extractor.py",
+      "filePath": "ml-service/utils/pdf_extractor.py",
+      "summary": "Component responsible for pdf_extractor.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/utils/pdf_extractor.py:extract_pdf_text",
+      "type": "function",
+      "name": "extract_pdf_text",
+      "filePath": "ml-service/utils/pdf_extractor.py",
+      "lineRange": [
+        8,
+        97
+      ],
+      "summary": "Function extract_pdf_text",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:ml-service/utils/pdf_extractor.py:_check_injection_hints",
+      "type": "function",
+      "name": "_check_injection_hints",
+      "filePath": "ml-service/utils/pdf_extractor.py",
+      "lineRange": [
+        100,
+        112
+      ],
+      "summary": "Function _check_injection_hints",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ml-service/utils/text_preprocessing.py",
+      "type": "file",
+      "name": "text_preprocessing.py",
+      "filePath": "ml-service/utils/text_preprocessing.py",
+      "summary": "Component responsible for text_preprocessing.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/utils/text_preprocessing.py:normalize_text",
+      "type": "function",
+      "name": "normalize_text",
+      "filePath": "ml-service/utils/text_preprocessing.py",
+      "lineRange": [
+        4,
+        14
+      ],
+      "summary": "Function normalize_text",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:ml-service/utils/text_preprocessing.py:extract_requirement_hits",
+      "type": "function",
+      "name": "extract_requirement_hits",
+      "filePath": "ml-service/utils/text_preprocessing.py",
+      "lineRange": [
+        16,
+        28
+      ],
+      "summary": "Function extract_requirement_hits",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ml-service/utils/text_security.py",
+      "type": "file",
+      "name": "text_security.py",
+      "filePath": "ml-service/utils/text_security.py",
+      "summary": "Component responsible for text_security.py functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:ml-service/utils/text_security.py:check_repetition",
+      "type": "function",
+      "name": "check_repetition",
+      "filePath": "ml-service/utils/text_security.py",
+      "lineRange": [
+        24,
+        48
+      ],
+      "summary": "Function check_repetition",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:ml-service/app.py",
+      "target": "file:ml-service/routes/analyze.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/app.py",
+      "target": "file:ml-service/routes/compare_code.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/app.py",
+      "target": "file:ml-service/routes/extract_pdf.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/app.py",
+      "target": "file:ml-service/routes/match.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/app.py",
+      "target": "file:ml-service/utils/log_config.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/models/phobert_analyzer.py",
+      "target": "class:ml-service/models/phobert_analyzer.py:PhoBertAnalyzer",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/models/phobert_analyzer.py",
+      "target": "file:ml-service/utils/pdf_chunker.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/models/phobert_analyzer.py",
+      "target": "file:ml-service/utils/text_preprocessing.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/models/sbert_matcher.py",
+      "target": "class:ml-service/models/sbert_matcher.py:SbertMatcher",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/analyze.py",
+      "target": "function:ml-service/routes/analyze.py:analyze_report",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/analyze.py",
+      "target": "function:ml-service/routes/analyze.py:analyze_with_rubrics",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/analyze.py",
+      "target": "class:ml-service/routes/analyze.py:AnalyzeRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/analyze.py",
+      "target": "class:ml-service/routes/analyze.py:RubricItem",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/analyze.py",
+      "target": "class:ml-service/routes/analyze.py:AnalyzeRubricsRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/analyze.py",
+      "target": "file:ml-service/models/phobert_analyzer.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/routes/analyze.py",
+      "target": "file:ml-service/utils/text_security.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/routes/compare_code.py",
+      "target": "function:ml-service/routes/compare_code.py:compare_code",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/compare_code.py",
+      "target": "class:ml-service/routes/compare_code.py:CompareCodeRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/extract_pdf.py",
+      "target": "function:ml-service/routes/extract_pdf.py:extract_pdf",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/extract_pdf.py",
+      "target": "file:ml-service/utils/pdf_extractor.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/routes/match.py",
+      "target": "class:ml-service/routes/match.py:StudentPayload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/match.py",
+      "target": "class:ml-service/routes/match.py:TopicPayload",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/match.py",
+      "target": "class:ml-service/routes/match.py:MatchRequest",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/routes/match.py",
+      "target": "file:ml-service/models/sbert_matcher.py",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:ml-service/utils/log_config.py",
+      "target": "function:ml-service/utils/log_config.py:setup_logging",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/pdf_chunker.py",
+      "target": "function:ml-service/utils/pdf_chunker.py:_detect_headings",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/pdf_chunker.py",
+      "target": "function:ml-service/utils/pdf_chunker.py:chunk_text",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/pdf_chunker.py",
+      "target": "function:ml-service/utils/pdf_chunker.py:_split_by_paragraphs",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/pdf_chunker.py",
+      "target": "class:ml-service/utils/pdf_chunker.py:TextChunk",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/pdf_extractor.py",
+      "target": "function:ml-service/utils/pdf_extractor.py:extract_pdf_text",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/pdf_extractor.py",
+      "target": "function:ml-service/utils/pdf_extractor.py:_check_injection_hints",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/text_preprocessing.py",
+      "target": "function:ml-service/utils/text_preprocessing.py:normalize_text",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/text_preprocessing.py",
+      "target": "function:ml-service/utils/text_preprocessing.py:extract_requirement_hits",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:ml-service/utils/text_security.py",
+      "target": "function:ml-service/utils/text_security.py:check_repetition",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

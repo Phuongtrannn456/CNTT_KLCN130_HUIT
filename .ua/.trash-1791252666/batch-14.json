@@ -1,0 +1,660 @@
+{
+  "nodes": [
+    {
+      "id": "file:.ua/tmp/run-scanner.mjs",
+      "type": "file",
+      "name": "run-scanner.mjs",
+      "filePath": ".ua/tmp/run-scanner.mjs",
+      "summary": "Component responsible for run-scanner.mjs functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "Component responsible for README.md functionality.",
+      "tags": [
+        "docs",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:backend/contracts/README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "backend/contracts/README.md",
+      "summary": "Component responsible for README.md functionality.",
+      "tags": [
+        "docs",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/hardhat.config.js",
+      "type": "file",
+      "name": "hardhat.config.js",
+      "filePath": "backend/hardhat.config.js",
+      "summary": "Component responsible for hardhat.config.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/healthcheck.js",
+      "type": "file",
+      "name": "healthcheck.js",
+      "filePath": "backend/healthcheck.js",
+      "summary": "Component responsible for healthcheck.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/middleware/cspHeader.js",
+      "type": "file",
+      "name": "cspHeader.js",
+      "filePath": "backend/middleware/cspHeader.js",
+      "summary": "Component responsible for cspHeader.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/middleware/cspHeader.js:cspHeader",
+      "type": "function",
+      "name": "cspHeader",
+      "filePath": "backend/middleware/cspHeader.js",
+      "lineRange": [
+        1,
+        27
+      ],
+      "summary": "Function cspHeader",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/migrate_sv.js",
+      "type": "file",
+      "name": "migrate_sv.js",
+      "filePath": "backend/migrate_sv.js",
+      "summary": "Component responsible for migrate_sv.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/scripts/check-node.js",
+      "type": "file",
+      "name": "check-node.js",
+      "filePath": "backend/scripts/check-node.js",
+      "summary": "Component responsible for check-node.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/check-node.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/scripts/check-node.js",
+      "lineRange": [
+        3,
+        38
+      ],
+      "summary": "Function main",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/check-payroll-contract.js",
+      "type": "file",
+      "name": "check-payroll-contract.js",
+      "filePath": "backend/scripts/check-payroll-contract.js",
+      "summary": "Component responsible for check-payroll-contract.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/check-payroll-contract.js:checkPayrollContract",
+      "type": "function",
+      "name": "checkPayrollContract",
+      "filePath": "backend/scripts/check-payroll-contract.js",
+      "lineRange": [
+        14,
+        109
+      ],
+      "summary": "Function checkPayrollContract",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/check_khoaluan_topics.js",
+      "type": "file",
+      "name": "check_khoaluan_topics.js",
+      "filePath": "backend/scripts/check_khoaluan_topics.js",
+      "summary": "Component responsible for check_khoaluan_topics.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/check_khoaluan_topics.js:check",
+      "type": "function",
+      "name": "check",
+      "filePath": "backend/scripts/check_khoaluan_topics.js",
+      "lineRange": [
+        4,
+        21
+      ],
+      "summary": "Function check",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/deploy-hrpayroll.js",
+      "type": "file",
+      "name": "deploy-hrpayroll.js",
+      "filePath": "backend/scripts/deploy-hrpayroll.js",
+      "summary": "Component responsible for deploy-hrpayroll.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/deploy-hrpayroll.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/scripts/deploy-hrpayroll.js",
+      "lineRange": [
+        11,
+        98
+      ],
+      "summary": "Function main",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/deploy-thesis-v2.js",
+      "type": "file",
+      "name": "deploy-thesis-v2.js",
+      "filePath": "backend/scripts/deploy-thesis-v2.js",
+      "summary": "Component responsible for deploy-thesis-v2.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/deploy-thesis-v2.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/scripts/deploy-thesis-v2.js",
+      "lineRange": [
+        4,
+        25
+      ],
+      "summary": "Function main",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/deploy-thesis.js",
+      "type": "file",
+      "name": "deploy-thesis.js",
+      "filePath": "backend/scripts/deploy-thesis.js",
+      "summary": "Component responsible for deploy-thesis.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/deploy-thesis.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/scripts/deploy-thesis.js",
+      "lineRange": [
+        6,
+        19
+      ],
+      "summary": "Function main",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/deploy.js",
+      "type": "file",
+      "name": "deploy.js",
+      "filePath": "backend/scripts/deploy.js",
+      "summary": "Component responsible for deploy.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/scripts/fixIndexes.js",
+      "type": "file",
+      "name": "fixIndexes.js",
+      "filePath": "backend/scripts/fixIndexes.js",
+      "summary": "Component responsible for fixIndexes.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/fixIndexes.js:fixIndexes",
+      "type": "function",
+      "name": "fixIndexes",
+      "filePath": "backend/scripts/fixIndexes.js",
+      "lineRange": [
+        8,
+        96
+      ],
+      "summary": "Function fixIndexes",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/gen-postman.js",
+      "type": "file",
+      "name": "gen-postman.js",
+      "filePath": "backend/scripts/gen-postman.js",
+      "summary": "Component responsible for gen-postman.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/gen-postman.js:listSaver",
+      "type": "function",
+      "name": "listSaver",
+      "filePath": "backend/scripts/gen-postman.js",
+      "lineRange": [
+        29,
+        39
+      ],
+      "summary": "Function listSaver",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/gen-postman.js:createSaver",
+      "type": "function",
+      "name": "createSaver",
+      "filePath": "backend/scripts/gen-postman.js",
+      "lineRange": [
+        41,
+        51
+      ],
+      "summary": "Function createSaver",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/gen-postman.js:fieldSaver",
+      "type": "function",
+      "name": "fieldSaver",
+      "filePath": "backend/scripts/gen-postman.js",
+      "lineRange": [
+        54,
+        64
+      ],
+      "summary": "Function fieldSaver",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/gen-postman.js:buildUrl",
+      "type": "function",
+      "name": "buildUrl",
+      "filePath": "backend/scripts/gen-postman.js",
+      "lineRange": [
+        239,
+        251
+      ],
+      "summary": "Function buildUrl",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/gen-postman.js:jwtPrereq",
+      "type": "function",
+      "name": "jwtPrereq",
+      "filePath": "backend/scripts/gen-postman.js",
+      "lineRange": [
+        254,
+        265
+      ],
+      "summary": "Function jwtPrereq",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:backend/scripts/gen-postman.js:buildCollection",
+      "type": "function",
+      "name": "buildCollection",
+      "filePath": "backend/scripts/gen-postman.js",
+      "lineRange": [
+        267,
+        302
+      ],
+      "summary": "Function buildCollection",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/get-token.js",
+      "type": "file",
+      "name": "get-token.js",
+      "filePath": "backend/scripts/get-token.js",
+      "summary": "Component responsible for get-token.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/get-token.js:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "backend/scripts/get-token.js",
+      "lineRange": [
+        33,
+        70
+      ],
+      "summary": "Function main",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/importFromJson.js",
+      "type": "file",
+      "name": "importFromJson.js",
+      "filePath": "backend/scripts/importFromJson.js",
+      "summary": "Component responsible for importFromJson.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/importFromJson.js:importData",
+      "type": "function",
+      "name": "importData",
+      "filePath": "backend/scripts/importFromJson.js",
+      "lineRange": [
+        35,
+        101
+      ],
+      "summary": "Function importData",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seedDepartments.js",
+      "type": "file",
+      "name": "seedDepartments.js",
+      "filePath": "backend/scripts/seedDepartments.js",
+      "summary": "Component responsible for seedDepartments.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seedDepartments.js:seedDepartments",
+      "type": "function",
+      "name": "seedDepartments",
+      "filePath": "backend/scripts/seedDepartments.js",
+      "lineRange": [
+        15,
+        47
+      ],
+      "summary": "Function seedDepartments",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seedEmployees.js",
+      "type": "file",
+      "name": "seedEmployees.js",
+      "filePath": "backend/scripts/seedEmployees.js",
+      "summary": "Component responsible for seedEmployees.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seedEmployees.js:seedEmployees",
+      "type": "function",
+      "name": "seedEmployees",
+      "filePath": "backend/scripts/seedEmployees.js",
+      "lineRange": [
+        65,
+        97
+      ],
+      "summary": "Function seedEmployees",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/middleware/cspHeader.js",
+      "target": "function:backend/middleware/cspHeader.js:cspHeader",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/check-node.js",
+      "target": "function:backend/scripts/check-node.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/check-payroll-contract.js",
+      "target": "function:backend/scripts/check-payroll-contract.js:checkPayrollContract",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/check_khoaluan_topics.js",
+      "target": "function:backend/scripts/check_khoaluan_topics.js:check",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/deploy-hrpayroll.js",
+      "target": "function:backend/scripts/deploy-hrpayroll.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/deploy-thesis-v2.js",
+      "target": "function:backend/scripts/deploy-thesis-v2.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/deploy-thesis.js",
+      "target": "function:backend/scripts/deploy-thesis.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/fixIndexes.js",
+      "target": "function:backend/scripts/fixIndexes.js:fixIndexes",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/gen-postman.js",
+      "target": "function:backend/scripts/gen-postman.js:listSaver",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/gen-postman.js",
+      "target": "function:backend/scripts/gen-postman.js:createSaver",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/gen-postman.js",
+      "target": "function:backend/scripts/gen-postman.js:fieldSaver",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/gen-postman.js",
+      "target": "function:backend/scripts/gen-postman.js:buildUrl",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/gen-postman.js",
+      "target": "function:backend/scripts/gen-postman.js:jwtPrereq",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/gen-postman.js",
+      "target": "function:backend/scripts/gen-postman.js:buildCollection",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/get-token.js",
+      "target": "function:backend/scripts/get-token.js:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/importFromJson.js",
+      "target": "function:backend/scripts/importFromJson.js:importData",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seedDepartments.js",
+      "target": "function:backend/scripts/seedDepartments.js:seedDepartments",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seedEmployees.js",
+      "target": "function:backend/scripts/seedEmployees.js:seedEmployees",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    }
+  ]
+}

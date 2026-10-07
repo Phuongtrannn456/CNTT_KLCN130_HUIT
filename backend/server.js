@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cspHeader = require('./middleware/cspHeader');
 const bodyParser = require('body-parser');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -37,6 +38,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
+app.use(cspHeader);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // HTTP Request Logging (Morgan → Winston)
@@ -206,35 +208,21 @@ app.post('/api/admin/approve/:id', ...requireAdmin, adminController.approveReque
 app.post('/api/admin/reject/:id', ...requireAdmin, adminController.rejectRequest);
 app.get('/api/admin/lecturers', ...requireAdmin, adminController.getAllLecturers);
 
-// 3. Học Sinh (và Alias: Học Sinh)
-app.get('/api/hocsinh', hocSinhController.getAll);
-app.get('/api/hocsinh/:id', hocSinhController.getById);
-app.post('/api/hocsinh', hocSinhController.create);
-app.put('/api/hocsinh/:id', hocSinhController.update);
-app.put('/api/hocsinh/:id/profile', hocSinhController.updateProfile);
-app.get('/api/hocsinh/masv/:maSV', hocSinhController.findByMaHS);
-app.delete('/api/hocsinh/:id', hocSinhController.delete);
-// Alias Học Sinh
-app.get('/api/hocsinh', hocSinhController.getAll);
-app.get('/api/hocsinh/:id', hocSinhController.getById);
-app.post('/api/hocsinh', hocSinhController.create);
-app.put('/api/hocsinh/:id', hocSinhController.update);
-app.put('/api/hocsinh/:id/profile', hocSinhController.updateProfile);
-app.get('/api/hocsinh/mahs/:maSV', hocSinhController.findByMaHS);
-app.delete('/api/hocsinh/:id', hocSinhController.delete);
+// 3. Học Sinh
+app.get('/api/hocsinh', ...requireAuth, hocSinhController.getAll);
+app.get('/api/hocsinh/:id', ...requireAuth, hocSinhController.getById);
+app.post('/api/hocsinh', ...requireAdmin, hocSinhController.create);
+app.put('/api/hocsinh/:id', ...requireAuth, hocSinhController.update);
+app.put('/api/hocsinh/:id/profile', ...requireAuth, hocSinhController.updateProfile);
+app.get('/api/hocsinh/masv/:maSV', ...requireAuth, hocSinhController.findByMaHS);
+app.delete('/api/hocsinh/:id', ...requireAdmin, hocSinhController.delete);
 
-// 4. Giáo Viên (và Alias: Giáo Viên)
-app.get('/api/giaovien', giaoVienController.getAll);
-app.get('/api/giaovien/:id', giaoVienController.getById);
-app.post('/api/giaovien', giaoVienController.create);
-app.put('/api/giaovien/:id', giaoVienController.update);
-app.delete('/api/giaovien/:id', giaoVienController.delete);
-// Alias Giáo Viên
-app.get('/api/giaovien', giaoVienController.getAll);
-app.get('/api/giaovien/:id', giaoVienController.getById);
-app.post('/api/giaovien', giaoVienController.create);
-app.put('/api/giaovien/:id', giaoVienController.update);
-app.delete('/api/giaovien/:id', giaoVienController.delete);
+// 4. Giáo Viên
+app.get('/api/giaovien', ...requireAuth, giaoVienController.getAll);
+app.get('/api/giaovien/:id', ...requireAuth, giaoVienController.getById);
+app.post('/api/giaovien', ...requireAdmin, giaoVienController.create);
+app.put('/api/giaovien/:id', ...requireAuth, giaoVienController.update);
+app.delete('/api/giaovien/:id', ...requireAdmin, giaoVienController.delete);
 
 // 5. Đề Tài (và Alias: Dự Án)
 app.get('/api/detai', deTaiController.getAll);
@@ -370,10 +358,10 @@ app.use((err, req, res, next) => {
 });
 
 // 13. Quản Lý Môn Học
-app.get('/api/monhoc/giaovien/:gvId', monHocController.getByGiaoVien);
-app.post('/api/monhoc', monHocController.create);
-app.put('/api/monhoc/:id', monHocController.update);
-app.delete('/api/monhoc/:id', monHocController.delete);
+app.get('/api/monhoc/giaovien/:gvId', ...requireTeacher, monHocController.getByGiaoVien);
+app.post('/api/monhoc', ...requireTeacher, monHocController.create);
+app.put('/api/monhoc/:id', ...requireTeacher, monHocController.update);
+app.delete('/api/monhoc/:id', ...requireTeacher, monHocController.delete);
 
 // 14. Quản Lý Lớp Học
 app.get('/api/lophoc/giaovien/:gvId', ...requireTeacher, lopHocController.getByGiaoVien);

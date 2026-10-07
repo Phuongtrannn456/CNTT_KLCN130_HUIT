@@ -1,0 +1,219 @@
+{
+  "nodes": [
+    {
+      "id": "file:backend/controllers/giaoVienController.js",
+      "type": "file",
+      "name": "giaoVienController.js",
+      "filePath": "backend/controllers/giaoVienController.js",
+      "summary": "Component responsible for giaoVienController.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/models/GiaoVien.js",
+      "type": "file",
+      "name": "GiaoVien.js",
+      "filePath": "backend/models/GiaoVien.js",
+      "summary": "Component responsible for GiaoVien.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:backend/scripts/check_lecturers.js",
+      "type": "file",
+      "name": "check_lecturers.js",
+      "filePath": "backend/scripts/check_lecturers.js",
+      "summary": "Component responsible for check_lecturers.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/check_lecturers.js:check",
+      "type": "function",
+      "name": "check",
+      "filePath": "backend/scripts/check_lecturers.js",
+      "lineRange": [
+        5,
+        16
+      ],
+      "summary": "Function check",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/check_users_and_teachers.js",
+      "type": "file",
+      "name": "check_users_and_teachers.js",
+      "filePath": "backend/scripts/check_users_and_teachers.js",
+      "summary": "Component responsible for check_users_and_teachers.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/check_users_and_teachers.js:check",
+      "type": "function",
+      "name": "check",
+      "filePath": "backend/scripts/check_users_and_teachers.js",
+      "lineRange": [
+        5,
+        34
+      ],
+      "summary": "Function check",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seed_khoaluan_phong.js",
+      "type": "file",
+      "name": "seed_khoaluan_phong.js",
+      "filePath": "backend/scripts/seed_khoaluan_phong.js",
+      "summary": "Component responsible for seed_khoaluan_phong.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seed_khoaluan_phong.js:seed",
+      "type": "function",
+      "name": "seed",
+      "filePath": "backend/scripts/seed_khoaluan_phong.js",
+      "lineRange": [
+        6,
+        71
+      ],
+      "summary": "Function seed",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:backend/scripts/seed_khoaluan_wallet.js",
+      "type": "file",
+      "name": "seed_khoaluan_wallet.js",
+      "filePath": "backend/scripts/seed_khoaluan_wallet.js",
+      "summary": "Component responsible for seed_khoaluan_wallet.js functionality.",
+      "tags": [
+        "code",
+        "auto-extracted"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:backend/scripts/seed_khoaluan_wallet.js:seed",
+      "type": "function",
+      "name": "seed",
+      "filePath": "backend/scripts/seed_khoaluan_wallet.js",
+      "lineRange": [
+        6,
+        53
+      ],
+      "summary": "Function seed",
+      "tags": [
+        "function",
+        "auto-extracted"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:backend/controllers/giaoVienController.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/check_lecturers.js",
+      "target": "function:backend/scripts/check_lecturers.js:check",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/check_lecturers.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/check_users_and_teachers.js",
+      "target": "function:backend/scripts/check_users_and_teachers.js:check",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/check_users_and_teachers.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_phong.js",
+      "target": "function:backend/scripts/seed_khoaluan_phong.js:seed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_phong.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_phong.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_wallet.js",
+      "target": "function:backend/scripts/seed_khoaluan_wallet.js:seed",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_wallet.js",
+      "target": "file:backend/models/DeTai.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:backend/scripts/seed_khoaluan_wallet.js",
+      "target": "file:backend/models/GiaoVien.js",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

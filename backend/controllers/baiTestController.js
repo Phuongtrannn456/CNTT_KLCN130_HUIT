@@ -298,9 +298,13 @@ exports.submitTest = async (req, res) => {
                 let similarity = 0;
                 try {
                     const axios = require('axios');
-                    const response = await axios.post('http://127.0.0.1:8001/compare-code', {
+                    const ML_URL = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8001';
+                    const response = await axios.post(`${ML_URL}/compare-code`, {
                         student_code: svAnswer, answer_code: cauHoi.DapAnMau || ''
-                    }, { timeout: 15000 });
+                    }, { 
+                        timeout: 15000,
+                        headers: { 'X-Internal-Token': process.env.ML_INTERNAL_TOKEN || '' }
+                    });
                     similarity = response.data.similarity || 0;
                 } catch (aiErr) {
                     logger.warn(`[TEST] SBERT compare-code failed: ${aiErr.message}`);
