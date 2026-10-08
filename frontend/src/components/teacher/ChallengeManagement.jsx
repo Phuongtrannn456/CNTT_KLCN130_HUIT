@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Table, Button, Space, Modal, Form, Input, Select, DatePicker, message, Card, Typography, Tag, Popconfirm } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import challengeService from '../../services/challengeService';
@@ -9,6 +10,7 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const ChallengeManagement = () => {
+  const navigate = useNavigate();
   const [challenges, setChallenges] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -31,6 +33,7 @@ const ChallengeManagement = () => {
   };
 
   useEffect(() => {
+    document.title = 'Quản lý Dự án & Cuộc thi - Web3 Giáo Dục Phổ Thông';
     fetchChallenges();
   }, []);
 
@@ -145,18 +148,19 @@ const ChallengeManagement = () => {
           <Space size="middle">
             <Button 
               type="primary" 
-              onClick={() => { window.location.href = `/teacher/challenges/${record._id}/participants`; }} 
+              onClick={() => navigate(`/teacher/challenges/${record._id}/participants`)} 
               disabled={!isOwner}
+              aria-label={`Chấm bài cho ${record.title}`}
             >
               Chấm bài
             </Button>
-            <Button type="text" icon={<EditOutlined />} onClick={() => handleEdit(record)} disabled={!isOwner}>Sửa</Button>
+            <Button type="text" icon={<EditOutlined />} onClick={() => handleEdit(record)} disabled={!isOwner} aria-label={`Sửa ${record.title}`}>Sửa</Button>
             {isOwner ? (
               <Popconfirm title="Xóa Challenge này?" onConfirm={() => handleDelete(record._id)} okText="Xóa" cancelText="Hủy">
-                <Button type="text" danger icon={<DeleteOutlined />}>Xóa</Button>
+                <Button type="text" danger icon={<DeleteOutlined />} aria-label={`Xóa ${record.title}`}>Xóa</Button>
               </Popconfirm>
             ) : (
-              <Button type="text" danger disabled icon={<DeleteOutlined />}>Xóa</Button>
+              <Button type="text" danger disabled icon={<DeleteOutlined />} aria-label="Không có quyền xóa">Xóa</Button>
             )}
           </Space>
         );

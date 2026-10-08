@@ -12,6 +12,10 @@ const StudentManagement = () => {
 
   const currentUser = authService.getCurrentUser();
 
+  useEffect(() => {
+    document.title = 'Quản lý Học sinh - Web3 Giáo Dục Phổ Thông';
+  }, []);
+
   const { data: rawData = [], isLoading: loading } = useQuery({
     queryKey: ['students-by-gv', currentUser?.id],
     queryFn: async () => {

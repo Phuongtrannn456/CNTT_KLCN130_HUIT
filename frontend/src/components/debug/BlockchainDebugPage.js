@@ -176,6 +176,7 @@ const BlockchainDebugPage = () => {
   };
 
   useEffect(() => {
+    document.title = 'Đối chiếu Blockchain & Web3 Verification - Web3 Giáo Dục Phổ Thông';
     fetchContracts();
     fetchDbRecords();
   }, []);

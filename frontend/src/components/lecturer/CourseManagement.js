@@ -19,6 +19,10 @@ const CourseManagement = () => {
   const currentUser = authService.getCurrentUser();
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    document.title = 'Quản lý Môn học - Web3 Giáo Dục Phổ Thông';
+  }, []);
+
   const { data: { monHocs = [], allTopics = [] } = {}, isLoading: loading } = useQuery({
     queryKey: ['courses', currentUser?.id],
     queryFn: async () => {

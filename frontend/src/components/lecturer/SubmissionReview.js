@@ -82,6 +82,10 @@ const SubmissionReview = () => {
   const user = authService.getCurrentUser();
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    document.title = 'Chấm điểm (AI) & Đánh giá Báo cáo - Web3 Giáo Dục Phổ Thông';
+  }, []);
+
   const { data: { submissions = [], progressPendingMap = {} } = {}, isLoading: loading } = useQuery({
     queryKey: ['submissions', user?.id],
     queryFn: async () => {
