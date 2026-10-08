@@ -16,6 +16,10 @@ const EntranceTestManager = () => {
   const user = authService.getCurrentUser();
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    document.title = 'Quản lý Bài Test Đầu Vào - Web3 Giáo Dục Phổ Thông';
+  }, []);
+
   const [saving, setSaving] = useState(false);
   const [tieuDe, setTieuDe] = useState('');
   const [moTa, setMoTa] = useState('');

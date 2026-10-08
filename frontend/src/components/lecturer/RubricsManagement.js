@@ -19,6 +19,10 @@ const RubricsManagement = () => {
   const userId = useMemo(() => user?.id, [user?.id]);
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    document.title = 'Quản lý Rubrics Template - Web3 Giáo Dục Phổ Thông';
+  }, []);
+
   const { data: templates = [], isLoading: loading } = useQuery({
     queryKey: ['rubrics-templates', userId],
     queryFn: async () => {

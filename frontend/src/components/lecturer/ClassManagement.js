@@ -14,6 +14,10 @@ const ClassManagement = () => {
   const currentUser = authService.getCurrentUser();
   const queryClient = useQueryClient();
 
+  useEffect(() => {
+    document.title = 'Quản lý Lớp học - Web3 Giáo Dục Phổ Thông';
+  }, []);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [detailVisible, setDetailVisible] = useState(false);

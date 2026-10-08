@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Table, Typography, Tag, Button, Spin, message, Modal, Input, InputNumber, Form, Alert, Select, Divider, Space, Row, Col } from 'antd';
 import { EyeOutlined, CheckCircleOutlined, RobotOutlined } from '@ant-design/icons';
@@ -33,18 +33,22 @@ const TeacherChallengeDetail = () => {
     setLoading(true);
     try {
       const chalRes = await challengeService.getChallengeById(challengeId);
-      if (chalRes.success) setChallenge(chalRes.challenge);
+      if (chalRes.success) {
+        setChallenge(chalRes.challenge);
+        document.title = `Chi tiết Dự án: ${chalRes.challenge?.title || ''} - Web3 Giáo Dục Phổ Thông`;
+      }
 
       const partsRes = await challengeService.getParticipants(challengeId);
       if (partsRes.success) setParticipants(partsRes.participants);
     } catch (error) {
-      message.error(error.response?.data?.message || 'L?i khi l?y d? li?u');
+      message.error(error.response?.data?.message || 'Lỗi khi lấy dữ liệu');
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    document.title = 'Chi tiết Dự án & Học sinh tham gia - Web3 Giáo Dục Phổ Thông';
     fetchData();
   }, [challengeId]);
 

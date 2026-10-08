@@ -28,6 +28,10 @@ const ScoreComparison = () => {
 
   const user = authService.getCurrentUser();
 
+  useEffect(() => {
+    document.title = 'So sánh Điểm AI & Giáo viên - Web3 Giáo Dục Phổ Thông';
+  }, []);
+
   const { data: comparisons = [], isLoading: loading } = useQuery({
     queryKey: ['score-comparison', user?.id],
     queryFn: async () => {
