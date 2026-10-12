@@ -11,6 +11,10 @@ const studentSchema = new mongoose.Schema({
   skills: [{ type: String }],
   walletAddress: { type: String, required: true, unique: true },
   profileUpdated: { type: Boolean, default: false }
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+studentSchema.virtual('WalletAddress').get(function() {
+  return this.walletAddress;
+});
 
 module.exports = mongoose.model('Student', studentSchema);

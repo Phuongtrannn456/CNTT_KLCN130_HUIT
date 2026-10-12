@@ -19,6 +19,10 @@ const hocSinhSchema = new mongoose.Schema({
   TruongHoc: { type: String, default: '' },
   HanhKiem: { type: String, enum: ['Tốt', 'Khá', 'Trung bình', 'Yếu'], default: 'Tốt' },
   DiemTongKet: { type: Number, default: 0 }
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+hocSinhSchema.virtual('walletAddress').get(function() {
+  return this.WalletAddress;
+});
 
 module.exports = mongoose.model('HocSinh', hocSinhSchema);

@@ -8,7 +8,13 @@ const giaoVienSchema = new mongoose.Schema({
   WalletAddress: { type: String, required: true, unique: true },
   // === Mở rộng cho hệ thống K-12 (Giáo dục phổ thông) ===
   ToBoMon: { type: String, default: '' },
-  ChuNhiemLop: { type: String, default: '' }
-}, { timestamps: true });
+  ChuNhiemLop: { type: String, default: '' },
+  CredentialId: { type: String, default: null },
+  IsActive: { type: Boolean, default: true }
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+giaoVienSchema.virtual('walletAddress').get(function() {
+  return this.WalletAddress;
+});
 
 module.exports = mongoose.model('GiaoVien', giaoVienSchema);

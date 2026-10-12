@@ -1,7 +1,9 @@
 const EducationalCredential = require('../models/EducationalCredential');
 const Achievement = require('../models/Achievement');
 const Student = require('../models/Student');
+const HocSinh = require('../models/HocSinh');
 const Teacher = require('../models/Teacher');
+const GiaoVien = require('../models/GiaoVien');
 const { createCanonicalHash } = require('../utils/canonicalCredential');
 const { ethers } = require('ethers');
 const logger = require('../config/logger');
@@ -85,7 +87,8 @@ exports.generateClaimMessage = async (req, res) => {
 exports.claimCredential = async (req, res) => {
   try {
     const { credentialId, signature } = req.body;
-    const student = await Student.findById(req.user.id);
+    const student = await Student.findById(req.user.id) || await HocSinh.findById(req.user.id);
+    if (!student) return res.status(404).json({ success: false, message: 'Không tìm thấy thông tin học sinh' });
     
     const credential = await EducationalCredential.findOne({ credentialId, student: student._id })
       .populate('issuer')
@@ -94,10 +97,12 @@ exports.claimCredential = async (req, res) => {
     if (!credential) return res.status(404).json({ success: false, message: 'Không tìm thấy' });
     if (credential.status !== 'PENDING_CLAIM') return res.status(400).json({ success: false, message: 'Trạng thái không hợp lệ' });
 
+    const studentWallet = (student.walletAddress || student.WalletAddress || '').toLowerCase();
+
     const expectedMessage = `Yêu cầu cấp Web3 Credential cho thành tích: ${credential.metadata.achievementType}\nCredential ID: ${credential.credentialId}\nNonce: ${credential.nonce}`;
     const recoveredAddress = ethers.verifyMessage(expectedMessage, signature);
     
-    if (recoveredAddress.toLowerCase() !== student.walletAddress.toLowerCase()) {
+    if (recoveredAddress.toLowerCase() !== studentWallet) {
       return res.status(400).json({ success: false, message: 'Chữ ký không hợp lệ' });
     }
 
@@ -105,12 +110,14 @@ exports.claimCredential = async (req, res) => {
     credential.nonce += 1;
     credential.status = 'PENDING_CHAIN';
 
+    const issuerWallet = (credential.issuer?.walletAddress || credential.issuer?.WalletAddress || '0x0000000000000000000000000000000000000000').toLowerCase();
+
     const hashData = createCanonicalHash({
       credentialId: credential.credentialId,
       metadata: credential.metadata,
       challenge: credential.challenge._id,
-      issuerWallet: credential.issuer.walletAddress || '0x0000000000000000000000000000000000000000',
-      studentWallet: student.walletAddress
+      issuerWallet,
+      studentWallet
     });
 
     credential.canonicalHash = hashData.hash;
@@ -127,8 +134,8 @@ exports.claimCredential = async (req, res) => {
       const tx = await contract.issueCredential(
         uuidToBytes32(credential.credentialId),
         hashData.hash,
-        student.walletAddress,
-        credential.issuer.walletAddress || '0x0000000000000000000000000000000000000000'
+        studentWallet,
+        issuerWallet
       );
       
       const receipt = await tx.wait();

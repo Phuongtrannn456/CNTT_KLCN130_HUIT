@@ -1,6 +1,7 @@
 const Admin = require('../models/Admin');
 const RoleRequest = require('../models/RoleRequest');
 const GiaoVien = require('../models/GiaoVien');
+const Teacher = require('../models/Teacher');
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 
@@ -30,19 +31,51 @@ const approveRequest = async (req, res) => {
     request.reviewedAt = new Date();
     await request.save();
 
-    // Create GiaoVien
-    const newGiaoVien = new GiaoVien({
-      MaGV: `GV${uuidv4().substring(0, 6).toUpperCase()}`,
-      HoTen: request.hoTen,
-      Email: request.email,
-      ChuyenNganh: request.chuyenNganh,
-      WalletAddress: request.walletAddress
-    });
-    await newGiaoVien.save();
+    const lowerWallet = request.walletAddress.toLowerCase();
+
+    // Check if GiaoVien already exists (Idempotent handling)
+    let existingGV = await GiaoVien.findOne({ WalletAddress: lowerWallet });
+    let gvId;
+    let gvHoTen = request.hoTen;
+
+    if (existingGV) {
+      gvId = existingGV._id;
+      gvHoTen = existingGV.HoTen;
+    } else {
+      // Create GiaoVien
+      const newGiaoVien = new GiaoVien({
+        MaGV: `GV${uuidv4().substring(0, 6).toUpperCase()}`,
+        HoTen: request.hoTen,
+        Email: request.email,
+        ChuyenNganh: request.chuyenNganh,
+        WalletAddress: lowerWallet
+      });
+      await newGiaoVien.save();
+      gvId = newGiaoVien._id;
+      gvHoTen = newGiaoVien.HoTen;
+
+      // Đồng bộ sang model Teacher để tương thích với K-12
+      try {
+        await Teacher.findOneAndUpdate(
+          { walletAddress: lowerWallet },
+          {
+            $setOnInsert: { _id: newGiaoVien._id },
+            teacherId: newGiaoVien.MaGV,
+            fullName: newGiaoVien.HoTen,
+            email: newGiaoVien.Email,
+            department: newGiaoVien.ChuyenNganh || '',
+            walletAddress: lowerWallet
+          },
+          { upsert: true, new: true }
+        );
+      } catch (syncErr) {
+        console.warn('[ADMIN] Sync Teacher warning:', syncErr.message);
+      }
+    }
 
     // Generate Token
     const token = jwt.sign(
-      { id: newGiaoVien._id, walletAddress: newGiaoVien.WalletAddress, role_id: 'LECTURER_ROLE' },
+      { id: gvId, role_id: 'TEACHER_ROLE', walletAddress: lowerWallet },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
@@ -50,15 +83,15 @@ const approveRequest = async (req, res) => {
     // Emit Socket
     const io = req.app.get('io');
     if (io) {
-      io.to(`pending:${request.walletAddress.toLowerCase()}`).emit('request_result', {
+      io.to(`pending:${lowerWallet}`).emit('request_result', {
         success: true,
         status: 'approved',
         token,
         user: {
-          id: newGiaoVien._id,
-          walletAddress: newGiaoVien.WalletAddress,
-          role_id: 'LECTURER_ROLE',
-          name: newGiaoVien.HoTen
+          id: gvId,
+          walletAddress: lowerWallet,
+          role_id: 'TEACHER_ROLE',
+          name: gvHoTen
         }
       });
     }

@@ -5,8 +5,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["web3", "education", "blockchain", "ai", "huit"],
+  "keywords": [
+    "web3",
+    "education",
+    "blockchain",
+    "ai",
+    "huit"
+  ],
   "author": "Phuongtrannn456",
   "license": "ISC",
-  "description": "Nền tảng Web3 & AI cho Giáo dục Phổ thông - Khóa luận cử nhân CNTT130 HUIT"
+  "description": "Nền tảng Web3 & AI cho Giáo dục Phổ thông - Khóa luận cử nhân CNTT130 HUIT",
+  "dependencies": {
+    "@metamask/connect-evm": "^2.1.1"
+  }
 }

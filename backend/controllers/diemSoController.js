@@ -378,7 +378,13 @@ exports.getDiemByHocSinh = async (req, res) => {
                     .populate('GiaoVienCam', 'HoTen Email');
 
                 if (leaderGrades.length > 0) {
-                    list = list.concat(leaderGrades);
+                    // Chuyển sang plain object và gán HocSinh thành hsId của thành viên đang tra cứu
+                    const memberGrades = leaderGrades.map(g => {
+                        const obj = g.toObject();
+                        obj.HocSinh = hsId;
+                        return obj;
+                    });
+                    list = list.concat(memberGrades);
                 }
             }
         }

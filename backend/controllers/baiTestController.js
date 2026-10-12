@@ -1,6 +1,7 @@
 const BaiTest = require('../models/BaiTest');
 const KetQuaTest = require('../models/KetQuaTest');
 const DeTai = require('../models/DeTai');
+const { closeCompetingRegistrations, claimTopicForRegistration, rollbackTopicClaim } = require('../utils/registrationUtil');
 const DangKyDeTai = require('../models/DangKyDeTai');
 const logger = require('../config/logger');
 
@@ -165,28 +166,65 @@ async function tryClaimWinner(dangKyId, deTaiId, thoiGianSubmit, io) {
         return 'waiting';
     }
 
-    // 3. Không ai trước mình → Claim winner (atomic)
-    const winner = await DangKyDeTai.findOneAndUpdate(
-        { _id: dangKyId, TrangThai: { $in: ['DaSubmit', 'ChoDoi'] } },
-        { TrangThai: 'DaDuyet' },
-        { new: true }
-    ).populate('Nhom');
+    // Lấy thông tin nhóm từ đăng ký
+    const dangKy = await DangKyDeTai.findById(dangKyId);
+    if (!dangKy) return 'lost';
 
-    if (!winner) {
-        // Ai đó đã claim trước → thua
+    // 3. Không ai trước mình → Claim winner (atomic trên DeTai)
+    const oldDeTai = await claimTopicForRegistration(deTaiId, dangKyId, dangKy.Nhom);
+
+    if (!oldDeTai) {
+        // Đề tài đã chốt (ai đó đã claim trước) → thua
+        await DangKyDeTai.findOneAndUpdate(
+            { _id: dangKyId, TrangThai: { $in: ['DaSubmit', 'ChoDoi'] } },
+            { TrangThai: 'Thua' }
+        );
         return 'lost';
     }
 
-    // THẮNG! → Đánh thua tất cả nhóm khác
-    await DangKyDeTai.updateMany(
-        { DeTai: deTaiId, _id: { $ne: dangKyId }, TrangThai: { $in: ['ChoTest', 'DangLamTest', 'DaSubmit', 'ChoDoi'] } },
-        { TrangThai: 'Thua' }
-    );
+    let isWinnerSet = false;
+    try {
+        // Đã lock thành công → Cập nhật thành DaDuyet
+        const winner = await DangKyDeTai.findOneAndUpdate(
+            { _id: dangKyId, TrangThai: { $in: ['DaSubmit', 'ChoDoi'] } },
+            { TrangThai: 'DaDuyet' },
+            { new: true }
+        ).populate('Nhom');
 
-    // Chốt đề tài + đóng bài test
-    await DeTai.findByIdAndUpdate(deTaiId, { TrangThai: 'DaChot' });
+        if (!winner) {
+            // Rất hiếm: Nhóm không còn hợp lệ (bị xóa hoặc đã đổi trạng thái ngoài dự kiến)
+            // Nhả khóa DeTai (Rollback)
+            await rollbackTopicClaim(deTaiId, dangKyId, oldDeTai.TrangThai);
+            return 'lost';
+        }
+        
+        isWinnerSet = true;
+
+        // THẮNG! → Đánh thua tất cả nhóm khác
+        try {
+            await closeCompetingRegistrations(deTaiId, dangKyId, null, 'Thua');
+        } catch (err) {
+            logger.error(`[TEST] closeCompetingRegistrations failed for topic ${deTaiId}: ${err.message}`);
+        }
+    } catch (error) {
+        logger.error(`[TEST] Exception inside tryClaimWinner: ${error.message}`);
+        if (!isWinnerSet) {
+            await rollbackTopicClaim(deTaiId, dangKyId, oldDeTai.TrangThai);
+        }
+        return 'error';
+    }
+
+    // Đóng bài test
     const baiTest = await BaiTest.findOne({ DeTai: deTaiId });
     if (baiTest) await BaiTest.findByIdAndUpdate(baiTest._id, { TrangThai: 'DaDong' });
+
+    // Invalidate cache đề tài ngay lập tức để đồng bộ UI
+    try {
+        const { invalidateDeTaiCache } = require('./deTaiController');
+        if (typeof invalidateDeTaiCache === 'function') invalidateDeTaiCache();
+    } catch (e) {
+        // ignore cache invalidation failure
+    }
 
     // Emit WebSocket
     if (io) {
@@ -238,6 +276,17 @@ exports.submitTest = async (req, res) => {
         // Kiểm tra đã nộp chưa
         const existingResult = await KetQuaTest.findOne({ BaiTest: baiTest._id, HocSinh: hocSinhId });
         if (existingResult) return res.status(400).json({ error: 'Bạn đã nộp bài test này rồi.' });
+
+        // === Kiểm tra thời gian làm bài (Server-side Timeout Enforcement) ===
+        if (thoiGianBatDau && baiTest.ThoiGianLam) {
+            const startTime = new Date(thoiGianBatDau).getTime();
+            const now = Date.now();
+            const elapsedMinutes = (now - startTime) / (60 * 1000);
+            const graceMinutes = 2; // Cho phép 2 phút độ trễ mạng
+            if (elapsedMinutes > baiTest.ThoiGianLam + graceMinutes) {
+                return res.status(400).json({ error: 'Đã hết thời gian làm bài test.', code: 'TEST_TIMEOUT' });
+            }
+        }
 
         // === 1. GHI ThoiGianSubmit NGAY LẬP TỨC (trước khi AI chấm) ===
         const thoiGianSubmit = new Date();
@@ -298,9 +347,15 @@ exports.submitTest = async (req, res) => {
                 let similarity = 0;
                 try {
                     const axios = require('axios');
-                    const response = await axios.post('http://127.0.0.1:8001/compare-code', {
+                    const response = await axios.post(process.env.ML_SERVICE_URL ? `${process.env.ML_SERVICE_URL}/compare-code` : 'http://127.0.0.1:8001/compare-code', {
                         student_code: svAnswer, answer_code: cauHoi.DapAnMau || ''
-                    }, { timeout: 15000 });
+                    }, {
+                        headers: {
+                            'X-Internal-Token': process.env.INTERNAL_TOKEN || '',
+                            'X-Forwarded-For': req.ip
+                        },
+                        timeout: 15000 
+                    });
                     similarity = response.data.similarity || 0;
                 } catch (aiErr) {
                     logger.warn(`[TEST] SBERT compare-code failed: ${aiErr.message}`);
@@ -351,25 +406,42 @@ exports.submitTest = async (req, res) => {
 
         if (dangKy) {
             if (!isDat) {
-                // Không đạt ngưỡng → TuChoi
-                await DangKyDeTai.findByIdAndUpdate(dangKy._id, { TrangThai: 'TuChoi' });
-                competitionResult = 'rejected';
-                logger.info(`[TEST] REJECTED: ${hocSinhId} scored ${phanTram}% < ${nguongDat}%`);
+                // Không đạt ngưỡng → TuChoi (chỉ update khi nhóm vẫn đang chờ kết quả chấm)
+                const updatedStatus = await DangKyDeTai.findOneAndUpdate(
+                    { _id: dangKy._id, TrangThai: { $in: ['DaSubmit', 'ChoDoi'] } },
+                    { TrangThai: 'TuChoi' }
+                );
 
-                // Kiểm tra nhóm ChoDoi có thể claim winner
-                await resolveWaitingGroups(baiTest.DeTai, io);
+                if (!updatedStatus) {
+                    logger.info(`[TEST] Nhóm ${dangKy.Nhom || dangKy._id} rớt điểm test nhưng không update thành TuChoi do đã bị chốt Thua trước đó.`);
+                    competitionResult = 'lost';
+                } else {
+                    competitionResult = 'rejected';
+                    logger.info(`[TEST] REJECTED: ${hocSinhId} scored ${phanTram}% < ${nguongDat}%`);
 
-                // Emit status update
-                if (io) {
-                    io.to(`competition:${baiTest.DeTai}`).emit('competition:status', {
-                        deTaiId: baiTest.DeTai.toString(),
-                        nhomId: (nhomId || dangKy.Nhom || '').toString(),
-                        status: 'TuChoi'
-                    });
+                    // Kiểm tra nhóm ChoDoi có thể claim winner
+                    await resolveWaitingGroups(baiTest.DeTai, io);
+
+                    // Emit status update
+                    if (io) {
+                        io.to(`competition:${baiTest.DeTai}`).emit('competition:status', {
+                            deTaiId: baiTest.DeTai.toString(),
+                            nhomId: (nhomId || dangKy.Nhom || '').toString(),
+                            status: 'TuChoi'
+                        });
+                    }
                 }
             } else {
                 // Đạt ngưỡng → tryClaimWinner (Hybrid)
                 competitionResult = await tryClaimWinner(dangKy._id, baiTest.DeTai, thoiGianSubmit, io);
+                if (competitionResult === 'error') {
+                    logger.error(`[TEST] tryClaimWinner trả về lỗi cho đăng ký ${dangKy._id}. Xem log bên trong tryClaimWinner.`);
+                    // Đưa nhóm về ChoDoi để không bị kẹt DaSubmit (chỉ update nếu hiện tại đang DaSubmit)
+                    await DangKyDeTai.findOneAndUpdate(
+                        { _id: dangKy._id, TrangThai: 'DaSubmit' },
+                        { TrangThai: 'ChoDoi' }
+                    );
+                }
                 logger.info(`[TEST] ${hocSinhId} scored ${phanTram}% >= ${nguongDat}% | competition=${competitionResult}`);
             }
         }
@@ -421,20 +493,64 @@ exports.selectWinner = async (req, res) => {
         const baiTest = await BaiTest.findById(req.params.id);
         if (!baiTest) return res.status(404).json({ error: 'Không tìm thấy bài test.' });
 
-        // Duyệt nhóm thắng
-        await DangKyDeTai.findByIdAndUpdate(dangKyId, { TrangThai: 'DaDuyet' });
+        const dangKy = await DangKyDeTai.findById(dangKyId);
+        if (!dangKy) return res.status(404).json({ error: 'Không tìm thấy đăng ký.' });
 
-        // Từ chối các nhóm còn lại
-        await DangKyDeTai.updateMany(
-            { DeTai: baiTest.DeTai, _id: { $ne: dangKyId }, TrangThai: 'ChoTest' },
-            { TrangThai: 'TuChoi' }
-        );
+        if (String(dangKy.DeTai) !== String(baiTest.DeTai)) {
+            return res.status(400).json({ error: 'Đăng ký này không thuộc bài test của đề tài này.' });
+        }
 
-        // Đóng bài test
-        await BaiTest.findByIdAndUpdate(baiTest._id, { TrangThai: 'DaDong' });
+        if (['Thua', 'TuChoi'].includes(dangKy.TrangThai)) {
+            return res.status(400).json({ error: 'Đăng ký này đã thua hoặc bị từ chối, không thể chọn thắng.' });
+        }
 
-        logger.info(`[TEST] Winner selected: registration ${dangKyId} for topic ${baiTest.DeTai}`);
-        res.json({ message: 'Đã chọn nhóm thắng và duyệt đề tài!' });
+        // Khóa đề tài nguyên tử
+        const oldDeTai = await claimTopicForRegistration(baiTest.DeTai, dangKyId, dangKy.Nhom);
+        if (!oldDeTai) {
+            return res.status(400).json({ error: 'Đề tài này đã được chốt cho một nhóm khác.' });
+        }
+
+        let isWinnerSet = false;
+        try {
+            // Duyệt nhóm thắng với điều kiện trạng thái hiện tại
+            const winner = await DangKyDeTai.findOneAndUpdate(
+                { _id: dangKyId, TrangThai: { $in: ['ChoDuyet', 'ChoTest', 'DangLamTest', 'DaSubmit', 'ChoDoi'] } },
+                { TrangThai: 'DaDuyet' },
+                { new: true }
+            );
+
+            if (!winner) {
+                await rollbackTopicClaim(baiTest.DeTai, dangKyId, oldDeTai.TrangThai);
+                return res.status(404).json({ error: 'Không thể cập nhật đăng ký này thành DaDuyet.' });
+            }
+            
+            isWinnerSet = true;
+
+            // Từ chối các nhóm còn lại
+            try {
+                await closeCompetingRegistrations(baiTest.DeTai, dangKyId, null, 'Thua');
+            } catch (err) {
+                logger.error(`[TEST] closeCompetingRegistrations failed for topic ${baiTest.DeTai}: ${err.message}`);
+            }
+
+            // Đóng bài test
+            await BaiTest.findByIdAndUpdate(baiTest._id, { TrangThai: 'DaDong' });
+
+            // Invalidate cache đề tài
+            try {
+                const { invalidateDeTaiCache } = require('./deTaiController');
+                if (typeof invalidateDeTaiCache === 'function') invalidateDeTaiCache();
+            } catch (e) {}
+
+            logger.info(`[TEST] Winner selected: registration ${dangKyId} for topic ${baiTest.DeTai}`);
+            res.json({ message: 'Đã chọn nhóm thắng và duyệt đề tài!' });
+        } catch (err) {
+            logger.error(`[TEST] Select winner exception: ${err.message}`);
+            if (!isWinnerSet) {
+                await rollbackTopicClaim(baiTest.DeTai, dangKyId, oldDeTai.TrangThai);
+            }
+            throw err;
+        }
     } catch (err) {
         logger.error(`[TEST] Select winner failed: ${err.message}`);
         res.status(500).json({ error: err.message });
@@ -451,11 +567,22 @@ exports.deleteTest = async (req, res) => {
         await BaiTest.findByIdAndDelete(baiTest._id);
         await DeTai.findByIdAndUpdate(baiTest.DeTai, { CoBaiTest: false });
 
-        res.json({ message: 'Đã xóa bài test.' });
+        // Rollback các nhóm đang kẹt ở trạng thái làm test về ChoDuyet
+        await DangKyDeTai.updateMany(
+            { DeTai: baiTest.DeTai, TrangThai: { $in: ['ChoTest', 'DangLamTest', 'DaSubmit', 'ChoDoi'] } },
+            { TrangThai: 'ChoDuyet' }
+        );
+
+        res.json({ message: 'Đã xóa bài test và cập nhật lại trạng thái đăng ký đề tài.' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Hàm nội bộ được export để test tự động
+if (process.env.NODE_ENV === 'test') {
+    exports.tryClaimWinnerForTest = tryClaimWinner;
+}
 
 // Kiểm tra SV đã làm test chưa
 exports.checkSubmitted = async (req, res) => {

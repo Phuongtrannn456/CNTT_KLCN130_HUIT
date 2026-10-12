@@ -27,23 +27,49 @@ exports.submitWork = async (req, res) => {
       // return res.status(403).json({ success: false, message: 'Đã quá hạn nộp bài' });
     }
 
-    // 3. Tính toán version
-    const existingSubmissionsCount = await Submission.countDocuments({ participation: participationId });
-    const version = existingSubmissionsCount + 1;
+    // --- MỚI: Chống bấm trùng ---
+    const recentSub = await Submission.findOne({ participation: participationId }).sort({ createdAt: -1 });
+    if (recentSub) {
+      const timeDiff = new Date() - recentSub.createdAt;
+      // Dưới 5 giây và cùng nội dung
+      if (timeDiff < 5000 && recentSub.content === content && JSON.stringify(recentSub.attachments) === JSON.stringify(attachments)) {
+        return res.status(201).json({ success: true, message: 'Nộp bài thành công', submission: recentSub });
+      }
+    }
 
-    // 4. Lưu submission
-    const submission = new Submission({
-      participation: participationId,
-      student: studentId,
-      challenge: challenge._id,
-      content,
-      attachments,
-      version,
-      isLate,
-      status: 'Submitted'
-    });
+    // 3. Tính toán version (có retry)
+    let submission;
+    let attempts = 0;
+    while (attempts < 3) {
+      try {
+        const existingSubmissionsCount = await Submission.countDocuments({ participation: participationId });
+        const version = existingSubmissionsCount + 1;
 
-    await submission.save();
+        submission = new Submission({
+          participation: participationId,
+          student: studentId,
+          challenge: challenge._id,
+          content,
+          attachments,
+          version,
+          isLate,
+          status: 'Submitted'
+        });
+
+        await submission.save();
+        break; // Thành công
+      } catch (err) {
+        if (err.code === 11000) {
+          attempts++;
+          if (attempts >= 3) {
+            return res.status(409).json({ success: false, message: 'Hệ thống đang bận, vui lòng nộp lại.' });
+          }
+          await new Promise(r => setTimeout(r, Math.random() * 200 + 50));
+        } else {
+          throw err;
+        }
+      }
+    }
 
     res.status(201).json({ success: true, message: 'Nộp bài thành công', submission });
   } catch (error) {

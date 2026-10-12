@@ -1,5 +1,6 @@
 const Challenge = require('../models/Challenge');
 const Student = require('../models/Student');
+const HocSinh = require('../models/HocSinh');
 const Submission = require('../models/Submission');
 const matchingService = require('../services/matchingService');
 const aiService = require('../services/aiService');
@@ -8,7 +9,22 @@ const logger = require('../config/logger');
 // 4.1 AI Matching
 exports.getRecommendedChallenges = async (req, res) => {
   try {
-    const student = await Student.findById(req.user.id);
+    let student = await Student.findById(req.user.id);
+    if (!student) {
+      const hs = await HocSinh.findById(req.user.id);
+      if (hs) {
+        student = {
+          _id: hs._id,
+          studentId: hs.MaHS,
+          fullName: hs.HoTen,
+          email: hs.Email,
+          gradeLevel: hs.KhoiLop || 10,
+          skills: hs.KyNang || [],
+          gpa: hs.DiemTongKet || hs.GPA || 0,
+          walletAddress: hs.WalletAddress
+        };
+      }
+    }
     if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
 
     // Filter cơ bản bằng DB
@@ -31,7 +47,7 @@ exports.getRecommendedChallenges = async (req, res) => {
 
     try {
       // Gọi AI Service
-      const result = await matchingService.matchStudentToTopics(student, topicsPayload);
+      const result = await matchingService.matchStudentToTopics(student, topicsPayload, req.ip);
       
       // Map ngược lại
       const recommendations = result.recommendations.map(rec => {
@@ -78,7 +94,7 @@ exports.analyzeSubmission = async (req, res) => {
     }
 
     try {
-      const result = await aiService.analyzeReport(submission.content, [submission.challenge.description]);
+      const result = await aiService.analyzeReport(submission.content, [submission.challenge.description], req.ip);
       
       return res.status(200).json({
         success: true,
@@ -125,7 +141,7 @@ exports.suggestEvaluation = async (req, res) => {
     }));
 
     try {
-      const result = await aiService.analyzeWithRubrics(submission.content, mappedRubrics);
+      const result = await aiService.analyzeWithRubrics(submission.content, mappedRubrics, req.ip);
       
       // Validate Output
       let aiTotalScore = parseFloat(result.score) || 0;

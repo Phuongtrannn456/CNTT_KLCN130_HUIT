@@ -7,9 +7,9 @@ services:
     container_name: web3-hr-mongodb
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password123
-      MONGO_INITDB_DATABASE: web3_hr_db
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:?Thiếu MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:?Thiếu MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB:?Thiếu MONGO_DB}
     ports:
       - "27017:27017"
     volumes:
@@ -28,9 +28,10 @@ services:
     environment:
       NODE_ENV: development
       PORT: 5000
-      MONGODB_URI: mongodb://admin:password123@mongodb:27017/web3_hr_db?authSource=admin
-      JWT_SECRET: your-super-secret-jwt-key-change-in-production
-      WEB3_PROVIDER_URL: https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID
+      MONGODB_URI: ${MONGO_URI:?Thiếu MONGO_URI}
+      JWT_SECRET: ${JWT_SECRET:?Thiếu JWT_SECRET}
+      WEB3_PROVIDER_URL: ${WEB3_PROVIDER_URL:?Thiếu WEB3_PROVIDER_URL}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Thiếu INTERNAL_TOKEN}
     ports:
       - "5000:5000"
     depends_on:

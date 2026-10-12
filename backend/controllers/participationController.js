@@ -1,5 +1,6 @@
 const Challenge = require('../models/Challenge');
 const Student = require('../models/Student');
+const HocSinh = require('../models/HocSinh');
 const ChallengeParticipation = require('../models/ChallengeParticipation');
 
 exports.joinChallenge = async (req, res) => {
@@ -29,8 +30,31 @@ exports.joinChallenge = async (req, res) => {
       return res.status(403).json({ success: false, message: 'Challenge đã quá hạn đăng ký' });
     }
 
-    // 3. Lấy Student và check eligibility
-    const student = await Student.findById(studentId);
+    // 3. Lấy Student và check eligibility (fallback sang HocSinh nếu chưa có bên Student)
+    let student = await Student.findById(studentId);
+    if (!student) {
+      const hs = await HocSinh.findById(studentId);
+      if (hs) {
+        student = await Student.findOneAndUpdate(
+          { walletAddress: hs.WalletAddress.toLowerCase() },
+          {
+            $setOnInsert: { _id: hs._id },
+            studentId: hs.MaHS,
+            fullName: hs.HoTen,
+            email: hs.Email,
+            gradeLevel: hs.KhoiLop || 10,
+            school: hs.TruongHoc || '',
+            conduct: hs.HanhKiem || 'Tốt',
+            gpa: hs.DiemTongKet || hs.GPA || 0,
+            skills: hs.KyNang || [],
+            walletAddress: hs.WalletAddress.toLowerCase(),
+            profileUpdated: hs.DaCapNhatHoSo || false
+          },
+          { upsert: true, new: true }
+        );
+      }
+    }
+
     if (!student) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy thông tin Student' });
     }
@@ -69,13 +93,21 @@ exports.getChallengeParticipants = async (req, res) => {
     const challengeId = req.params.id;
     const teacherId = req.user.id;
 
-    // Check challenge ownership
-    const challenge = await Challenge.findById(challengeId);
-    if (!challenge) {
-      return res.status(404).json({ success: false, message: 'Không tìm thấy Challenge' });
+    // Check challenge ownership (hỗ trợ dual model GiaoVien & Teacher)
+    let isOwner = challenge.createdBy.toString() === teacherId;
+    if (!isOwner) {
+      const Teacher = require('../models/Teacher');
+      const GiaoVien = require('../models/GiaoVien');
+      const teacher = (await Teacher.findById(teacherId)) || (await GiaoVien.findById(teacherId));
+      const creator = (await Teacher.findById(challenge.createdBy)) || (await GiaoVien.findById(challenge.createdBy));
+      if (teacher && creator) {
+        const w1 = (teacher.walletAddress || teacher.WalletAddress || '').toLowerCase();
+        const w2 = (creator.walletAddress || creator.WalletAddress || '').toLowerCase();
+        if (w1 && w1 === w2) isOwner = true;
+      }
     }
-    
-    if (challenge.createdBy.toString() !== teacherId) {
+
+    if (!isOwner && req.user.role_id !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Không có quyền xem danh sách tham gia của Challenge này' });
     }
 
@@ -92,7 +124,23 @@ exports.getChallengeParticipants = async (req, res) => {
 exports.getMyParticipations = async (req, res) => {
   try {
     const studentId = req.user.id;
-    const participations = await ChallengeParticipation.find({ student: studentId })
+    const studentIds = [studentId];
+    const hs = await HocSinh.findById(studentId);
+    if (hs && hs.WalletAddress) {
+      const s = await Student.findOne({ walletAddress: hs.WalletAddress.toLowerCase() });
+      if (s && !studentIds.some(id => id.toString() === s._id.toString())) {
+        studentIds.push(s._id);
+      }
+    }
+    const sObj = await Student.findById(studentId);
+    if (sObj && sObj.walletAddress) {
+      const h = await HocSinh.findOne({ WalletAddress: sObj.walletAddress.toLowerCase() });
+      if (h && !studentIds.some(id => id.toString() === h._id.toString())) {
+        studentIds.push(h._id);
+      }
+    }
+
+    const participations = await ChallengeParticipation.find({ student: { $in: studentIds } })
       .populate('challenge', 'title subject deadline challengeType status');
 
     res.status(200).json({ success: true, participations });

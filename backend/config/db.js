@@ -3,12 +3,24 @@ const logger = require('./logger');
 require('dotenv').config();
 
 const connectDB = async () => {
+  const primaryUri = process.env.MONGODB_URI;
+  const localUri = 'mongodb://127.0.0.1:27017/web3giangvien';
+
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://nguyenhuy4435:nhathuy812@clusterweb3.5tqfgfq.mongodb.net/web3');
+    if (!primaryUri) throw new Error('Thiếu MONGODB_URI');
+    const conn = await mongoose.connect(primaryUri, { serverSelectionTimeoutMS: 4000 });
     logger.info(`[DB] MongoDB Connected: ${conn.connection.host}`);
+    return conn;
   } catch (error) {
-    logger.error(`[DB] MongoDB connection failed: ${error.message}`);
-    process.exit(1);
+    logger.warn(`[DB] Kết nối MongoDB Atlas không thành công (${error.message}). Đang tự động chuyển sang MongoDB Local...`);
+    try {
+      const conn = await mongoose.connect(localUri);
+      logger.info(`[DB] MongoDB Local Connected: ${conn.connection.host}`);
+      return conn;
+    } catch (localErr) {
+      logger.error(`[DB] MongoDB Local cũng thất bại: ${localErr.message}`);
+      process.exit(1);
+    }
   }
 };
 

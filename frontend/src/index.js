@@ -32,7 +32,7 @@ window.addEventListener('unhandledrejection', (event) => {
 
 window.addEventListener('load', () => {
   if (typeof window.ethereum !== 'undefined') {
-
+    console.log('MetaMask is installed!');
   }
 });
 
@@ -269,4 +269,4 @@ root.render(
 );
 
 // Test render
-
+console.log('React app rendered successfully');

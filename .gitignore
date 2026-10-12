@@ -65,3 +65,14 @@ SKILL.md
 SKILL_WEB3GIANGVIEN.md
 .claude/
 
+
+# Environment
+.env.*
+!.env.example
+
+# Logs and scratch
+*.log
+diff_*.txt
+*_out.txt
+test_out.txt
+pytest_out.txt

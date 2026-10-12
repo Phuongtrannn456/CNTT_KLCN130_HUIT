@@ -21,6 +21,7 @@ import authService from '../services/authService';
 // Role constants
 const STUDENT_ROLE = 'STUDENT_ROLE';
 const TEACHER_ROLE = 'TEACHER_ROLE';
+const LECTURER_ROLE = 'LECTURER_ROLE';
 const ADMIN_ROLE = 'ADMIN_ROLE';
 
 // --- Animated Gradient Text Component ---
@@ -48,7 +49,7 @@ function AnimatedGradientText({ children, sx }) {
 
 // --- Main LoginPage Component ---
 function LoginPage() {
-
+  console.log('LoginPage component rendered');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isVerySmall = useMediaQuery(theme.breakpoints.down(400));
@@ -119,7 +120,7 @@ function LoginPage() {
       }
 
       const qrWallet = (qrInfo.walletAddress || qrInfo.wallet_address).toLowerCase();
-
+      console.log('QR scanned wallet:', qrWallet);
 
       // Kiểm tra MetaMask
       if (!authService.isMetaMaskInstalled()) {
@@ -129,10 +130,10 @@ function LoginPage() {
       }
 
       // Kết nối MetaMask trên PC
-
+      console.log('Connecting MetaMask...');
       await authService.initializeProvider();
       const walletAddress = await authService.getWalletAddress();
-
+      console.log('MetaMask wallet:', walletAddress);
       setConnectedWallet(walletAddress);
 
       // Kiểm tra ví MetaMask khớp với QR
@@ -145,7 +146,7 @@ function LoginPage() {
       }
 
       // Xác thực MetaMask (ký challenge)
-
+      console.log('Authenticating...');
       const result = await authService.authenticate();
       
       /* DISABLED: Admin approval flow
@@ -266,7 +267,7 @@ function LoginPage() {
     setLoading(true);
     setError('');
     try {
-      await authService.registerWithRole(tempWallet, TEACHER_ROLE, formData);
+      await authService.registerWithRole(tempWallet, LECTURER_ROLE, formData);
       window.location.href = '/dashboard';
     } catch (err) {
       setError(err.message || 'Lỗi khi đăng ký Giáo viên');
@@ -312,7 +313,7 @@ function LoginPage() {
 
   // --- Logged In View ---
   if (isAuthenticated && user) {
-    const isLecturer = user.role_id === TEACHER_ROLE;
+    const isLecturer = user.role_id === TEACHER_ROLE || user.role_id === LECTURER_ROLE;
     const isAdmin = user.role_id === ADMIN_ROLE;
     
     const roleDisplayName = isAdmin ? 'Ban Quản Trị' : (isLecturer ? 'Giáo viên' : 'Học sinh');
@@ -402,17 +403,17 @@ function LoginPage() {
                   color="primary"
                 />
 
-                {!isLecturer && !isAdmin && user.MaHS && (
+                {!isLecturer && !isAdmin && (user.MaHS || user.MaSV) && (
                   <Chip
-                    label={`Mã SV: ${user.MaHS}`}
+                    label={`Mã HS: ${user.MaHS || user.MaSV}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
                 )}
 
-                {isLecturer && user.MaGV && (
+                {isLecturer && (user.MaGV || user.teacherId) && (
                   <Chip
-                    label={`Mã GV: ${user.MaGV}`}
+                    label={`Mã GV: ${user.MaGV || user.teacherId}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />

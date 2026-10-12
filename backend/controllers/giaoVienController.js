@@ -45,7 +45,16 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const updated = await GiaoVien.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const targetId = req.params.id;
+        const requesterId = req.user?.id;
+        const requesterRole = req.user?.role_id;
+
+        // Chỉ chính giáo viên đó hoặc ADMIN mới có quyền sửa
+        if (requesterRole !== 'ADMIN_ROLE' && requesterId !== targetId) {
+            return res.status(403).json({ error: 'Bạn không có quyền sửa thông tin của giảng viên này.' });
+        }
+
+        const updated = await GiaoVien.findByIdAndUpdate(targetId, req.body, { new: true });
         invalidateGvCache();
         res.json(updated);
     } catch (err) {

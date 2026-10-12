@@ -18,4 +18,6 @@ const submissionSchema = new mongoose.Schema({
   status: { type: String, enum: ['Submitted', 'Evaluated'], default: 'Submitted' }
 }, { timestamps: true });
 
+submissionSchema.index({ participation: 1, version: 1 }, { unique: true });
+
 module.exports = mongoose.model('Submission', submissionSchema);
