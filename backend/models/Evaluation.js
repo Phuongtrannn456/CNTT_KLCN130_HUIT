@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const evaluationSchema = new mongoose.Schema({
   submission: { type: mongoose.Schema.Types.ObjectId, ref: 'Submission', required: true },
-  evaluator: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: true },
+  evaluator: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
   
   rubricScores: [{
     criteriaName: { type: String },

@@ -1,7 +1,6 @@
 const Admin = require('../models/Admin');
 const RoleRequest = require('../models/RoleRequest');
 const GiaoVien = require('../models/GiaoVien');
-const Teacher = require('../models/Teacher');
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 
@@ -53,24 +52,6 @@ const approveRequest = async (req, res) => {
       await newGiaoVien.save();
       gvId = newGiaoVien._id;
       gvHoTen = newGiaoVien.HoTen;
-
-      // Đồng bộ sang model Teacher để tương thích với K-12
-      try {
-        await Teacher.findOneAndUpdate(
-          { walletAddress: lowerWallet },
-          {
-            $setOnInsert: { _id: newGiaoVien._id },
-            teacherId: newGiaoVien.MaGV,
-            fullName: newGiaoVien.HoTen,
-            email: newGiaoVien.Email,
-            department: newGiaoVien.ChuyenNganh || '',
-            walletAddress: lowerWallet
-          },
-          { upsert: true, new: true }
-        );
-      } catch (syncErr) {
-        console.warn('[ADMIN] Sync Teacher warning:', syncErr.message);
-      }
     }
 
     // Generate Token
@@ -227,7 +208,7 @@ const getRequestDetail = async (req, res) => {
 
 const getAllLecturers = async (req, res) => {
   try {
-    const lecturers = await GiaoVien.find().sort({ createdAt: -1 });
+    const lecturers = await GiaoVien.find().sort({ createdAt: -1 }).lean();
     res.json({ success: true, lecturers });
   } catch (error) {
     console.error('getAllLecturers error:', error);

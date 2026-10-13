@@ -1,4 +1,5 @@
 const Challenge = require('../models/Challenge');
+const GiaoVien = require('../models/GiaoVien');
 const logger = require('../config/logger');
 
 exports.createChallenge = async (req, res) => {
@@ -48,7 +49,16 @@ exports.updateChallenge = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy Challenge' });
     }
     
-    if (challenge.createdBy.toString() !== teacherId) {
+    let isOwner = challenge.createdBy.toString() === teacherId;
+    if (!isOwner && req.user?.walletAddress) {
+      const creator = await GiaoVien.findById(challenge.createdBy);
+      if (creator) {
+        const cw = (creator.WalletAddress || '').toLowerCase();
+        if (cw && cw === req.user.walletAddress.toLowerCase()) isOwner = true;
+      }
+    }
+
+    if (!isOwner && req.user?.role_id !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Không có quyền sửa Challenge này' });
     }
     
@@ -70,8 +80,26 @@ exports.deleteChallenge = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy Challenge' });
     }
     
-    if (challenge.createdBy.toString() !== teacherId) {
+    let isOwner = challenge.createdBy.toString() === teacherId;
+    if (!isOwner && req.user?.walletAddress) {
+      const creator = await GiaoVien.findById(challenge.createdBy);
+      if (creator) {
+        const cw = (creator.WalletAddress || '').toLowerCase();
+        if (cw && cw === req.user.walletAddress.toLowerCase()) isOwner = true;
+      }
+    }
+
+    if (!isOwner && req.user?.role_id !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Không có quyền xóa Challenge này' });
+    }
+
+    const ChallengeParticipation = require('../models/ChallengeParticipation');
+    const participantsCount = await ChallengeParticipation.countDocuments({ challenge: id });
+    if (participantsCount > 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: `Không thể xóa Challenge này vì đã có ${participantsCount} học sinh tham gia. Bạn có thể cập nhật trạng thái sang 'Closed' thay vì xóa.` 
+      });
     }
     
     await Challenge.findByIdAndDelete(id);

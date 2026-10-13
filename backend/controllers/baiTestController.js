@@ -5,6 +5,24 @@ const { closeCompetingRegistrations, claimTopicForRegistration, rollbackTopicCla
 const DangKyDeTai = require('../models/DangKyDeTai');
 const logger = require('../config/logger');
 
+// Helper kiểm tra quyền sở hữu đề tài của giáo viên
+async function checkTeacherOwnership(deTaiId, user) {
+    if (!user) return false;
+    if (user.role_id === 'ADMIN_ROLE') return true;
+    const deTai = await DeTai.findById(deTaiId);
+    if (!deTai) return false;
+    if (String(deTai.GiaoVienHuongDan) === String(user.id)) return true;
+    if (user.walletAddress) {
+        const GiaoVien = require('../models/GiaoVien');
+        const gv = await GiaoVien.findById(deTai.GiaoVienHuongDan);
+        if (gv) {
+            const gw = (gv.WalletAddress || '').toLowerCase();
+            if (gw && gw === user.walletAddress.toLowerCase()) return true;
+        }
+    }
+    return false;
+}
+
 // GV tạo bài test cho đề tài
 exports.createTest = async (req, res) => {
     try {
@@ -12,6 +30,12 @@ exports.createTest = async (req, res) => {
 
         const deTai = await DeTai.findById(deTaiId);
         if (!deTai) return res.status(404).json({ error: 'Không tìm thấy đề tài.' });
+
+        // Kiểm tra quyền giáo viên phụ trách
+        const isOwner = await checkTeacherOwnership(deTaiId, req.user);
+        if (!isOwner) {
+            return res.status(403).json({ error: 'Chỉ giáo viên hướng dẫn của đề tài hoặc Ban Giám Hiệu mới có quyền tạo bài test.' });
+        }
 
         // Kiểm tra đã có bài test chưa
         const existing = await BaiTest.findOne({ DeTai: deTaiId });
@@ -46,6 +70,11 @@ exports.createTest = async (req, res) => {
 // Lấy bài test theo đề tài
 exports.getTestByTopic = async (req, res) => {
     try {
+        const isOwner = await checkTeacherOwnership(req.params.deTaiId, req.user);
+        if (!isOwner) {
+            return res.status(403).json({ error: 'Chỉ giáo viên phụ trách đề tài hoặc Ban Giám Hiệu mới có quyền truy cập.' });
+        }
+
         const baiTest = await BaiTest.findOne({ DeTai: req.params.deTaiId }).populate('DeTai', 'TenDeTai MaDeTai');
         if (!baiTest) return res.status(404).json({ error: 'Chưa có bài test cho đề tài này.' });
         res.json(baiTest);
@@ -317,12 +346,23 @@ exports.submitTest = async (req, res) => {
             return res.status(403).json({ error: 'Chỉ trưởng nhóm được nộp bài test đại diện cho nhóm.', code: 'KHONG_PHAI_TRUONG_NHOM' });
         }
 
-        // Cập nhật ThoiGianSubmit + TrangThai = DaSubmit
+        // Cập nhật ThoiGianSubmit + TrangThai = DaSubmit (Atomic để tránh ghi đè kết quả nếu đề tài đã chốt)
         if (dangKy) {
-            await DangKyDeTai.findByIdAndUpdate(dangKy._id, {
-                ThoiGianSubmit: thoiGianSubmit,
-                TrangThai: 'DaSubmit'
-            });
+            const updatedDangKy = await DangKyDeTai.findOneAndUpdate(
+                { _id: dangKy._id, TrangThai: { $in: ['ChoTest', 'DangLamTest'] } },
+                {
+                    ThoiGianSubmit: thoiGianSubmit,
+                    TrangThai: 'DaSubmit'
+                },
+                { new: true }
+            );
+
+            if (!updatedDangKy) {
+                return res.status(409).json({
+                    error: 'Bài test hoặc trạng thái đăng ký của bạn không còn hợp lệ (có thể đề tài đã được chốt cho nhóm khác hoặc thời gian làm bài đã kết thúc).',
+                    code: 'TEST_ALREADY_CLOSED'
+                });
+            }
         }
 
         // === 2. AI CHẤM ĐIỂM ===
@@ -476,6 +516,14 @@ exports.submitTest = async (req, res) => {
 // GV xem kết quả tất cả SV cho 1 bài test
 exports.getTestResults = async (req, res) => {
     try {
+        const baiTest = await BaiTest.findById(req.params.id);
+        if (!baiTest) return res.status(404).json({ error: 'Không tìm thấy bài test.' });
+
+        const isOwner = await checkTeacherOwnership(baiTest.DeTai, req.user);
+        if (!isOwner) {
+            return res.status(403).json({ error: 'Chỉ giáo viên phụ trách đề tài hoặc Ban Giám Hiệu mới có quyền xem kết quả test.' });
+        }
+
         const results = await KetQuaTest.find({ BaiTest: req.params.id })
             .populate('HocSinh', 'HoTen MaHS Email')
             .populate('Nhom', 'TenNhom')
@@ -492,6 +540,11 @@ exports.selectWinner = async (req, res) => {
         const { dangKyId } = req.body;
         const baiTest = await BaiTest.findById(req.params.id);
         if (!baiTest) return res.status(404).json({ error: 'Không tìm thấy bài test.' });
+
+        const isOwner = await checkTeacherOwnership(baiTest.DeTai, req.user);
+        if (!isOwner) {
+            return res.status(403).json({ error: 'Chỉ giáo viên phụ trách đề tài hoặc Ban Giám Hiệu mới có quyền chọn nhóm thắng.' });
+        }
 
         const dangKy = await DangKyDeTai.findById(dangKyId);
         if (!dangKy) return res.status(404).json({ error: 'Không tìm thấy đăng ký.' });
@@ -562,6 +615,11 @@ exports.deleteTest = async (req, res) => {
     try {
         const baiTest = await BaiTest.findById(req.params.id);
         if (!baiTest) return res.status(404).json({ error: 'Không tìm thấy bài test.' });
+
+        const isOwner = await checkTeacherOwnership(baiTest.DeTai, req.user);
+        if (!isOwner) {
+            return res.status(403).json({ error: 'Chỉ giáo viên phụ trách đề tài hoặc Ban Giám Hiệu mới có quyền xóa bài test.' });
+        }
 
         await KetQuaTest.deleteMany({ BaiTest: baiTest._id });
         await BaiTest.findByIdAndDelete(baiTest._id);

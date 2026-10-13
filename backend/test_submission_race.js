@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Submission = require('./models/Submission');
 const Challenge = require('./models/Challenge');
 const ChallengeParticipation = require('./models/ChallengeParticipation');
-const Student = require('./models/Student');
-const Teacher = require('./models/Teacher');
+const HocSinh = require('./models/HocSinh');
+const GiaoVien = require('./models/GiaoVien');
 const submissionController = require('./controllers/submissionController');
 
 const mockRes = () => {
@@ -23,8 +23,8 @@ async function runTests() {
     }
     await mongoose.connection.db.dropDatabase();
 
-    const gv = await Teacher.create({ teacherId: 'GV1', fullName: 'GV', email: 'gv@test.com', walletAddress: '0x1' });
-    const hs = await Student.create({ studentId: 'HS1', fullName: 'HS', email: 'hs@test.com', walletAddress: '0x2' });
+    const gv = await GiaoVien.create({ MaGV: 'GV1', HoTen: 'GV', Email: 'gv@test.com', WalletAddress: '0x1' });
+    const hs = await HocSinh.create({ MaHS: 'HS1', HoTen: 'HS', Email: 'hs@test.com', WalletAddress: '0x2' });
     const challenge = await Challenge.create({ challengeId: 'C1', title: 'C1', description: 'Desc', createdBy: gv._id, deadline: new Date(Date.now() + 86400000) });
     const participation = await ChallengeParticipation.create({ challenge: challenge._id, student: hs._id, status: 'JOINED' });
 

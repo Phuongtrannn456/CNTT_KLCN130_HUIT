@@ -36,6 +36,7 @@ exports.create = async (req, res) => {
     try {
         const newGV = new GiaoVien(req.body);
         await newGV.save();
+
         invalidateGvCache();
         res.status(201).json(newGV);
     } catch (err) {

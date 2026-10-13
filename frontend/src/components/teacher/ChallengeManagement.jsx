@@ -140,7 +140,11 @@ const ChallengeManagement = () => {
       title: 'Thao tác',
       key: 'action',
       render: (_, record) => {
-        const isOwner = record.createdBy?._id === currentUser?.id;
+        const creatorWallet = (record.createdBy?.walletAddress || '').toLowerCase();
+        const userWallet = (currentUser?.walletAddress || '').toLowerCase();
+        const isOwner = record.createdBy?._id === currentUser?.id || 
+          (creatorWallet && userWallet && creatorWallet === userWallet) ||
+          currentUser?.role_id === 'ADMIN_ROLE';
         return (
           <Space size="middle">
             <Button 

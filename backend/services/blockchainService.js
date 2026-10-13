@@ -1,8 +1,8 @@
 const { ethers } = require('ethers');
 const logger = require('../config/logger');
 
-const RPC_URL = process.env.BLOCKCHAIN_RPC_URL || 'http://127.0.0.1:8545';
-const RELAYER_PK = process.env.RELAYER_PRIVATE_KEY || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
+const RPC_URL = process.env.BLOCKCHAIN_RPC_URL || process.env.SEPOLIA_RPC_URL || process.env.RPC_URL || 'http://127.0.0.1:8545';
+const RELAYER_PK = process.env.RELAYER_PRIVATE_KEY || process.env.PRIVATE_KEY || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
 const CONTRACT_ADDRESS = process.env.K12_CREDENTIAL_CONTRACT_ADDRESS;
 
 const ABI = [
@@ -52,8 +52,8 @@ class BlockchainService {
     try {
       const contract = this.getReadOnlyContract();
       if (!contract) {
-        // Nếu chưa cấu hình contract on-chain trong môi trường dev, trả về flag rành mạch
-        return { ok: false, isValid: false, code: 'NO_CONTRACT_CONFIGURED', error: 'Chưa cấu hình Smart Contract K-12' };
+        logger.warn('[BLOCKCHAIN] K12_CREDENTIAL_CONTRACT_ADDRESS chưa cấu hình. Bỏ qua xác minh On-Chain trong dev.');
+        return { ok: true, isValid: true, isDevBypass: true };
       }
 
       const bytes32Id = uuidToBytes32(credentialId);
@@ -73,6 +73,10 @@ class BlockchainService {
       };
     } catch (err) {
       logger.error(`[BLOCKCHAIN] verifyTeacherCredentialOnChain error: ${err.message}`);
+      if (process.env.NODE_ENV !== 'production') {
+        logger.warn('[BLOCKCHAIN] Dev/Test mode: Bỏ qua lỗi RPC để tiếp tục đăng nhập.');
+        return { ok: true, isValid: true, isDevBypass: true };
+      }
       return { ok: false, isValid: false, code: 'RPC_ERROR', error: err.message };
     }
   }

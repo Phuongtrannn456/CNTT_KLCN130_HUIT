@@ -3,8 +3,6 @@ const { ethers } = require('ethers');
 const { v4: uuidv4 } = require('uuid');
 const GiaoVien = require('../models/GiaoVien');
 const HocSinh = require('../models/HocSinh');
-const Teacher = require('../models/Teacher');
-const Student = require('../models/Student');
 const Admin = require('../models/Admin');
 const RoleRequest = require('../models/RoleRequest');
 const { web3Utils } = require('../config/web3');
@@ -24,96 +22,7 @@ setInterval(() => {
   }
 }, 5 * 60 * 1000);
 
-// Đồng bộ 2 chiều giữa mô hình Legacy (GiaoVien, HocSinh) và K-12 (Teacher, Student) để tương thích 100%
-const ensureUserDualSync = async (userRecord, role_id) => {
-  try {
-    if (role_id === 'TEACHER_ROLE') {
-      const wallet = (userRecord.WalletAddress || userRecord.walletAddress || '').toLowerCase();
-      // Nếu là GiaoVien, đảm bảo Teacher có cùng _id
-      if (userRecord.MaGV) {
-        await Teacher.findOneAndUpdate(
-          { walletAddress: wallet },
-          {
-            $setOnInsert: { _id: userRecord._id },
-            teacherId: userRecord.MaGV,
-            fullName: userRecord.HoTen,
-            email: userRecord.Email,
-            department: userRecord.ToBoMon || userRecord.ChuyenNganh || '',
-            homeroomClass: userRecord.ChuNhiemLop || '',
-            walletAddress: wallet,
-            credentialId: userRecord.CredentialId || null,
-            isActive: userRecord.IsActive !== false
-          },
-          { upsert: true, new: true }
-        );
-      } else if (userRecord.teacherId) {
-        // Nếu là Teacher, đảm bảo GiaoVien có cùng _id
-        await GiaoVien.findOneAndUpdate(
-          { WalletAddress: wallet },
-          {
-            $setOnInsert: { _id: userRecord._id },
-            MaGV: userRecord.teacherId,
-            HoTen: userRecord.fullName,
-            Email: userRecord.email,
-            ChuyenNganh: userRecord.department || '',
-            ToBoMon: userRecord.department || '',
-            ChuNhiemLop: userRecord.homeroomClass || '',
-            WalletAddress: wallet,
-            CredentialId: userRecord.credentialId || null,
-            IsActive: userRecord.isActive !== false
-          },
-          { upsert: true, new: true }
-        );
-      }
-    } else if (role_id === 'STUDENT_ROLE') {
-      const wallet = (userRecord.WalletAddress || userRecord.walletAddress || '').toLowerCase();
-      // Nếu là HocSinh, đảm bảo Student có cùng _id
-      if (userRecord.MaHS) {
-        await Student.findOneAndUpdate(
-          { walletAddress: wallet },
-          {
-            $setOnInsert: { _id: userRecord._id },
-            studentId: userRecord.MaHS,
-            fullName: userRecord.HoTen,
-            email: userRecord.Email,
-            gradeLevel: userRecord.KhoiLop || 10,
-            school: userRecord.TruongHoc || '',
-            conduct: userRecord.HanhKiem || 'Tốt',
-            gpa: userRecord.DiemTongKet || userRecord.GPA || 0,
-            skills: userRecord.KyNang || [],
-            walletAddress: wallet,
-            profileUpdated: userRecord.DaCapNhatHoSo || false
-          },
-          { upsert: true, new: true }
-        );
-      } else if (userRecord.studentId) {
-        // Nếu là Student, đảm bảo HocSinh có cùng _id
-        await HocSinh.findOneAndUpdate(
-          { WalletAddress: wallet },
-          {
-            $setOnInsert: { _id: userRecord._id },
-            MaHS: userRecord.studentId,
-            HoTen: userRecord.fullName,
-            Email: userRecord.email,
-            KhoiLop: userRecord.gradeLevel || 10,
-            TruongHoc: userRecord.school || '',
-            HanhKiem: userRecord.conduct || 'Tốt',
-            DiemTongKet: userRecord.gpa || 0,
-            GPA: userRecord.gpa || 0,
-            KyNang: userRecord.skills || [],
-            WalletAddress: wallet,
-            DaCapNhatHoSo: userRecord.profileUpdated || false
-          },
-          { upsert: true, new: true }
-        );
-      }
-    }
-  } catch (err) {
-    // Không block luồng chính nếu sync gặp lỗi
-    console.warn('[AUTH] Dual sync warning:', err.message);
-  }
-};
-
+// GiaoVien và HocSinh là các model chuẩn duy nhất của hệ thống
 const generateChallenge = async (req, res) => {
   try {
     const { walletAddress } = req.body;
@@ -168,27 +77,24 @@ const verifySignature = async (req, res) => {
     let role_id = 'STUDENT_ROLE';
     const lowerWallet = walletAddress.toLowerCase();
     
-    // 1. Kiểm tra Admin ứng dụng (Cấu hình riêng biệt)
+    // 1. Kiểm tra Admin
     let userRecord = await Admin.findOne({ WalletAddress: lowerWallet });
     if (userRecord) {
       role_id = 'ADMIN_ROLE';
     } else {
       // 2. Kiểm tra Giáo viên
-      userRecord = await GiaoVien.findOne({ WalletAddress: lowerWallet }) ||
-                   await Teacher.findOne({ walletAddress: lowerWallet });
+      userRecord = await GiaoVien.findOne({ WalletAddress: lowerWallet });
       
       if (userRecord) {
-        // Kiểm tra trạng thái hoạt động trong database
-        if (userRecord.isActive === false || userRecord.IsActive === false) {
+        if (userRecord.IsActive === false) {
           return res.status(403).json({ success: false, message: 'Tài khoản Giáo viên này đã bị thu hồi hoặc vô hiệu hóa.' });
         }
 
         // Nếu giáo viên có gắn Credential ID, xác minh On-Chain tính hợp lệ
-        const credId = userRecord.credentialId || userRecord.CredentialId;
+        const credId = userRecord.CredentialId;
         if (credId) {
           const onChainStatus = await blockchainService.verifyTeacherCredentialOnChain(credId, lowerWallet);
           if (!onChainStatus.ok) {
-            // Lỗi RPC Blockchain -> Fail-safe: Báo lỗi rõ ràng, không âm thầm cấp quyền sai
             return res.status(503).json({ 
               success: false, 
               message: 'Lỗi xác minh chứng thực Giáo viên trên Blockchain. Vui lòng thử lại sau.' 
@@ -203,15 +109,12 @@ const verifySignature = async (req, res) => {
         }
 
         role_id = 'TEACHER_ROLE';
-        await ensureUserDualSync(userRecord, role_id);
       } else {
         // 3. Kiểm tra Học sinh hiện có
-        userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet }) ||
-                     await Student.findOne({ walletAddress: lowerWallet });
+        userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet });
         
         if (userRecord) {
           role_id = 'STUDENT_ROLE';
-          await ensureUserDualSync(userRecord, role_id);
         } else {
           // 4. Ví mới hoàn toàn -> Tự động khởi tạo Học sinh mặc định (Không cho tự phong Giáo viên)
           userRecord = new HocSinh({
@@ -223,7 +126,6 @@ const verifySignature = async (req, res) => {
           });
           await userRecord.save();
           role_id = 'STUDENT_ROLE';
-          await ensureUserDualSync(userRecord, role_id);
         }
       }
     }
@@ -258,18 +160,30 @@ const logout = async (req, res) => { res.json({ success: true }); };
 
 const getProfile = async (req, res) => {
   try {
-    const { id, role_id } = req.user;
+    const { id, role_id, walletAddress } = req.user;
     let user;
+    const lowerWallet = (walletAddress || '').toLowerCase();
+
     if (role_id === 'TEACHER_ROLE') {
       user = await GiaoVien.findById(id);
+      if (!user && lowerWallet) {
+        user = await GiaoVien.findOne({ WalletAddress: lowerWallet });
+      }
     } else if (role_id === 'STUDENT_ROLE') {
       user = await HocSinh.findById(id);
+      if (!user && lowerWallet) {
+        user = await HocSinh.findOne({ WalletAddress: lowerWallet });
+      }
     } else if (role_id === 'ADMIN_ROLE') {
       user = await Admin.findById(id);
+      if (!user && lowerWallet) {
+        user = await Admin.findOne({ WalletAddress: lowerWallet });
+      }
     }
     
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
-    res.json({ success: true, user: { ...user._doc, role_id } });
+    const userDoc = user.toObject ? user.toObject() : (user._doc || user);
+    res.json({ success: true, user: { ...userDoc, role_id } });
   } catch (error) {
     res.status(500).json({ success: false });
   }
@@ -342,15 +256,14 @@ const verifyQrSignature = async (req, res) => {
     if (userRecord) {
       role_id = 'ADMIN_ROLE';
     } else {
-      userRecord = await GiaoVien.findOne({ WalletAddress: lowerWallet }) ||
-                   await Teacher.findOne({ walletAddress: lowerWallet });
+      userRecord = await GiaoVien.findOne({ WalletAddress: lowerWallet });
       
       if (userRecord) {
-        if (userRecord.isActive === false || userRecord.IsActive === false) {
+        if (userRecord.IsActive === false) {
           return res.status(403).json({ success: false, message: 'Tài khoản Giáo viên này đã bị thu hồi hoặc vô hiệu hóa.' });
         }
 
-        const credId = userRecord.credentialId || userRecord.CredentialId;
+        const credId = userRecord.CredentialId;
         if (credId) {
           const onChainStatus = await blockchainService.verifyTeacherCredentialOnChain(credId, lowerWallet);
           if (!onChainStatus.ok) {
@@ -368,13 +281,10 @@ const verifyQrSignature = async (req, res) => {
         }
 
         role_id = 'TEACHER_ROLE';
-        await ensureUserDualSync(userRecord, role_id);
       } else {
-        userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet }) ||
-                     await Student.findOne({ walletAddress: lowerWallet });
+        userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet });
         if (userRecord) {
           role_id = 'STUDENT_ROLE';
-          await ensureUserDualSync(userRecord, role_id);
         } else {
           userRecord = new HocSinh({
             MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
@@ -385,7 +295,6 @@ const verifyQrSignature = async (req, res) => {
           });
           await userRecord.save();
           role_id = 'STUDENT_ROLE';
-          await ensureUserDualSync(userRecord, role_id);
         }
       }
     }
@@ -408,7 +317,7 @@ const verifyQrSignature = async (req, res) => {
           id: userRecord._id,
           role_id,
           walletAddress: lowerWallet,
-          name: userRecord.HoTen || userRecord.fullName || 'User'
+          name: userRecord.HoTen || 'User'
         }
       });
     }
@@ -443,11 +352,11 @@ const registerWithRole = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Ví này đã được đăng ký.' });
     }
 
-    // Bảo mật RBAC: Chặn việc client tự gửi role = TEACHER_ROLE để tự cấp quyền
-    if (role === 'TEACHER_ROLE') {
+    // Bảo mật RBAC: Chặn việc client tự phong quyền Giáo viên hoặc Quản trị viên
+    if (['TEACHER_ROLE', 'LECTURER_ROLE', 'ADMIN_ROLE'].includes(role)) {
       return res.status(403).json({ 
         success: false, 
-        message: 'Không thể tự phong quyền Giáo viên. Quyền Giáo viên cần được Ban Giám Hiệu cấp chứng thực On-Chain.' 
+        message: 'Không thể tự phong quyền Giáo viên hoặc Quản trị viên. Danh sách Giáo viên do Ban Giám Hiệu nhà trường quản lý.' 
       });
     }
 
@@ -459,7 +368,6 @@ const registerWithRole = async (req, res) => {
       WalletAddress: lowerWallet
     });
     await newUser.save();
-    await ensureUserDualSync(newUser, 'STUDENT_ROLE');
 
     const token = jwt.sign(
       { id: newUser._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet },
@@ -473,9 +381,6 @@ const registerWithRole = async (req, res) => {
       user: { id: newUser._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet, name: newUser.HoTen },
       message: 'Đăng ký Học sinh thành công'
     });
-
-    return res.status(400).json({ success: false, message: 'Role không hợp lệ.' });
-
   } catch (error) {
     console.error('Register Role error:', error);
     res.status(500).json({ success: false, message: 'Đăng ký thất bại' });

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const submissionSchema = new mongoose.Schema({
   participation: { type: mongoose.Schema.Types.ObjectId, ref: 'ChallengeParticipation', required: true },
-  student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true },
+  student: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   challenge: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge', required: true },
   
   content: { type: String, default: '' },

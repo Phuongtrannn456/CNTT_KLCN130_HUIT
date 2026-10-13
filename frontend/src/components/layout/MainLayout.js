@@ -78,22 +78,22 @@ const MainLayout = () => {
   }, [isAdmin, fetchPendingRequestsCount]);
 
   const studentMenuItems = [
-    { key: '/student', icon: <Monitor size={18} />, label: 'Dashboard Học Sinh' },
+    { key: '/student/challenges', icon: <Award size={18} />, label: 'Dự Án & Thử Thách K-12' },
+    { key: '/student/achievements', icon: <ShieldCheck size={18} />, label: 'Chứng Nhận & Web3 SBT' },
+    { key: '/student', icon: <Monitor size={18} />, label: 'Dashboard Đề Tài' },
     { key: '/student/group', icon: <BookOpen size={18} />, label: 'Nhóm Học Sinh' },
-    { key: '/student/challenges', icon: <Award size={18} />, label: 'Đăng Ký Dự Án' },
     { key: '/student/upload', icon: <FileText size={18} />, label: 'Nộp Báo Cáo Dự Án' },
     { key: '/student/progress-log', icon: <CheckCircle size={18} />, label: 'Nhật Ký Tiến Độ' },
     { key: '/student/progress', icon: <UserIcon size={18} />, label: 'Kết Quả & Điểm' }
   ];
 
   const teacherMenuItems = [
-    { key: '/teacher', icon: <Monitor size={18} />, label: 'Dashboard Giáo Viên' },
-    { key: '/teacher/challenges', icon: <Award size={18} />, label: 'Quản Lý Dự Án' },
+    { key: '/teacher/challenges', icon: <Award size={18} />, label: 'Quản Lý Challenge K-12' },
     { key: '/teacher/courses', icon: <BookOpen size={18} />, label: 'Quản Lý Môn Học' },
     { key: '/teacher/classes', icon: <School size={18} />, label: 'Quản Lý Lớp Học' },
     { key: '/teacher/students', icon: <Users size={18} />, label: 'Quản Lý Học Sinh' },
     { key: '/teacher/rubrics', icon: <ClipboardList size={18} />, label: 'Tiêu Chí Rubrics' },
-    { key: '/teacher/review', icon: <FileText size={18} />, label: 'Chấm Điểm (AI)' },
+    { key: '/teacher/review', icon: <FileText size={18} />, label: 'Chấm Điểm Báo Cáo (AI)' },
     { key: '/teacher/comparison', icon: <BarChart2 size={18} />, label: 'So Sánh AI & Giáo Viên' },
     { key: '/teacher/blockchain', icon: <ShieldCheck size={18} />, label: 'Đối Chiếu Blockchain' }
   ];
