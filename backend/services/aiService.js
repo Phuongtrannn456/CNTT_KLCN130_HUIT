@@ -7,7 +7,7 @@ const FASTAPI_ENDPOINT = `${ML_SERVICE_URL}/analyze-report`;
 const RUBRICS_ENDPOINT = `${ML_SERVICE_URL}/analyze-with-rubrics`;
 
 // Gọi sang local FastAPI ML Service (chạy PhoBERT)
-exports.analyzeReport = async (text, topicRequirements) => {
+exports.analyzeReport = async (text, topicRequirements, clientIp) => {
     try {
         logger.info(`[AI] Calling FastAPI /analyze-report | textLength=${text.length}`);
         const startTime = Date.now();
@@ -21,8 +21,10 @@ exports.analyzeReport = async (text, topicRequirements) => {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Internal-Token': process.env.INTERNAL_TOKEN || ''
-                }
+                    'X-Internal-Token': process.env.INTERNAL_TOKEN || '',
+                    ...(clientIp && { 'X-Forwarded-For': clientIp })
+                },
+                timeout: 30000 // 30s timeout
             }
         );
 
@@ -47,7 +49,7 @@ exports.analyzeReport = async (text, topicRequirements) => {
 };
 
 // Gọi PhoBERT phân tích theo Rubrics (có chunking)
-exports.analyzeWithRubrics = async (text, rubrics) => {
+exports.analyzeWithRubrics = async (text, rubrics, clientIp) => {
     try {
         logger.info(`[AI] Calling FastAPI /analyze-with-rubrics | criteria=${rubrics.length} | textLength=${text.length}`);
         const startTime = Date.now();
@@ -58,9 +60,10 @@ exports.analyzeWithRubrics = async (text, rubrics) => {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Internal-Token': process.env.INTERNAL_TOKEN || ''
+                    'X-Internal-Token': process.env.INTERNAL_TOKEN || '',
+                    ...(clientIp && { 'X-Forwarded-For': clientIp })
                 },
-                timeout: 60000  // 60s timeout cho phân tích nhiều chunks
+                timeout: 30000  // 30s timeout cho phân tích nhiều chunks
             }
         );
 
@@ -78,7 +81,7 @@ const fs = require('fs');
 
 const EXTRACT_PDF_ENDPOINT = `${ML_SERVICE_URL}/extract-pdf`;
 
-exports.extractPdf = async (filePath) => {
+exports.extractPdf = async (filePath, clientIp) => {
     try {
         const form = new FormData();
         form.append('file', fs.createReadStream(filePath), {
@@ -89,7 +92,8 @@ exports.extractPdf = async (filePath) => {
         const response = await axios.post(EXTRACT_PDF_ENDPOINT, form, {
             headers: {
                 ...form.getHeaders(),
-                'X-Internal-Token': process.env.INTERNAL_TOKEN || ''
+                'X-Internal-Token': process.env.INTERNAL_TOKEN || '',
+                ...(clientIp && { 'X-Forwarded-For': clientIp })
             },
             timeout: 120000 // 2 phút cho OCR
         });

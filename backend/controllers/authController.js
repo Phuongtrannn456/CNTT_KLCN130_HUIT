@@ -1,15 +1,28 @@
 const jwt = require('jsonwebtoken');
 const { ethers } = require('ethers');
 const { v4: uuidv4 } = require('uuid');
-const Student = require('../models/Student');
-const Teacher = require('../models/Teacher');
+const GiaoVien = require('../models/GiaoVien');
+const HocSinh = require('../models/HocSinh');
 const Admin = require('../models/Admin');
 const RoleRequest = require('../models/RoleRequest');
 const { web3Utils } = require('../config/web3');
+const blockchainService = require('../services/blockchainService');
 
 const challenges = new Map();
 const qrSessions = new Map();
 
+// Tự động dọn dẹp các challenge và qrSession đã hết hạn mỗi 5 phút (tránh rò rỉ bộ nhớ)
+setInterval(() => {
+  const now = Date.now();
+  for (const [id, data] of challenges.entries()) {
+    if (data.expiresAt < now) challenges.delete(id);
+  }
+  for (const [id, data] of qrSessions.entries()) {
+    if (data.expiresAt < now) qrSessions.delete(id);
+  }
+}, 5 * 60 * 1000);
+
+// GiaoVien và HocSinh là các model chuẩn duy nhất của hệ thống
 const generateChallenge = async (req, res) => {
   try {
     const { walletAddress } = req.body;
@@ -40,8 +53,12 @@ const verifySignature = async (req, res) => {
     const challengeData = challenges.get(challengeId);
     
     if (!challengeData || challengeData.expiresAt < Date.now()) {
-      return res.status(400).json({ success: false, message: 'Challenge expired' });
+      challenges.delete(challengeId);
+      return res.status(400).json({ success: false, message: 'Challenge expired or invalid' });
     }
+
+    // Atomic single-use: Xóa ngay challenge để chống replay attack
+    challenges.delete(challengeId);
 
     const { challenge, walletAddress } = challengeData;
     let isValidSignature = false;
@@ -53,54 +70,75 @@ const verifySignature = async (req, res) => {
     }
 
     if (!isValidSignature) {
-      return res.status(401).json({ success: false, message: 'Invalid signature.' });
+      return res.status(401).json({ success: false, message: 'Chữ ký không hợp lệ.' });
     }
 
-    // Identify user role
+    // Identify user role (Strict RBAC - Never accept role from client)
     let role_id = 'STUDENT_ROLE';
-    let userRecord = await Admin.findOne({ WalletAddress: walletAddress.toLowerCase() });
-
+    const lowerWallet = walletAddress.toLowerCase();
+    
+    // 1. Kiểm tra Admin
+    let userRecord = await Admin.findOne({ WalletAddress: lowerWallet });
     if (userRecord) {
       role_id = 'ADMIN_ROLE';
     } else {
-      userRecord = await Teacher.findOne({ walletAddress: walletAddress.toLowerCase() });
+      // 2. Kiểm tra Giáo viên
+      userRecord = await GiaoVien.findOne({ WalletAddress: lowerWallet });
       
       if (userRecord) {
+        if (userRecord.IsActive === false) {
+          return res.status(403).json({ success: false, message: 'Tài khoản Giáo viên này đã bị thu hồi hoặc vô hiệu hóa.' });
+        }
+
+        // Nếu giáo viên có gắn Credential ID, xác minh On-Chain tính hợp lệ
+        const credId = userRecord.CredentialId;
+        if (credId) {
+          const onChainStatus = await blockchainService.verifyTeacherCredentialOnChain(credId, lowerWallet);
+          if (!onChainStatus.ok) {
+            return res.status(503).json({ 
+              success: false, 
+              message: 'Lỗi xác minh chứng thực Giáo viên trên Blockchain. Vui lòng thử lại sau.' 
+            });
+          }
+          if (!onChainStatus.isValid) {
+            return res.status(403).json({ 
+              success: false, 
+              message: 'Chứng thực Giáo viên trên Blockchain đã hết hiệu lực hoặc bị thu hồi.' 
+            });
+          }
+        }
+
         role_id = 'TEACHER_ROLE';
       } else {
-        userRecord = await Student.findOne({ walletAddress: walletAddress.toLowerCase() });
-        if (!userRecord) {
-          const startOfDay = new Date();
-          startOfDay.setHours(0, 0, 0, 0);
-          const endOfDay = new Date();
-          endOfDay.setHours(23, 59, 59, 999);
-          
-          const rejectedCountToday = await RoleRequest.countDocuments({
-            walletAddress: walletAddress.toLowerCase(),
-            status: 'rejected',
-            createdAt: { $gte: startOfDay, $lte: endOfDay }
+        // 3. Kiểm tra Học sinh hiện có
+        userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet });
+        
+        if (userRecord) {
+          role_id = 'STUDENT_ROLE';
+        } else {
+          // 4. Ví mới hoàn toàn -> Tự động khởi tạo Học sinh mặc định (Không cho tự phong Giáo viên)
+          userRecord = new HocSinh({
+            MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
+            HoTen: 'Học Sinh Mới',
+            Email: `${uuidv4().substring(0, 6)}@school.edu.vn`,
+            WalletAddress: lowerWallet,
+            DaCapNhatHoSo: false
           });
-
-          challenges.delete(challengeId);
-          return res.json({
-            success: true,
-            needsRoleSelection: true,
-            walletAddress: walletAddress.toLowerCase(),
-            rejectedCountToday,
-            message: 'Vui lòng chọn vai trò để tiếp tục'
-          });
+          await userRecord.save();
+          role_id = 'STUDENT_ROLE';
         }
       }
     }
 
-    // JWT payload: no walletAddress required as per strict instruction
     const token = jwt.sign(
-      { id: userRecord._id, role_id },
+      { 
+        id: userRecord._id, 
+        role_id, 
+        walletAddress: lowerWallet 
+      },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
-
-    challenges.delete(challengeId);
 
     res.json({
       success: true,
@@ -108,7 +146,8 @@ const verifySignature = async (req, res) => {
       user: {
         id: userRecord._id,
         role_id,
-        name: userRecord.fullName || userRecord.HoTen // handle Admin which might still use HoTen
+        walletAddress: lowerWallet,
+        name: userRecord.HoTen || userRecord.fullName || 'User'
       },
       message: 'Authentication successful'
     });
@@ -121,18 +160,30 @@ const logout = async (req, res) => { res.json({ success: true }); };
 
 const getProfile = async (req, res) => {
   try {
-    const { id, role_id } = req.user;
+    const { id, role_id, walletAddress } = req.user;
     let user;
+    const lowerWallet = (walletAddress || '').toLowerCase();
+
     if (role_id === 'TEACHER_ROLE') {
-      user = await Teacher.findById(id);
+      user = await GiaoVien.findById(id);
+      if (!user && lowerWallet) {
+        user = await GiaoVien.findOne({ WalletAddress: lowerWallet });
+      }
     } else if (role_id === 'STUDENT_ROLE') {
-      user = await Student.findById(id);
+      user = await HocSinh.findById(id);
+      if (!user && lowerWallet) {
+        user = await HocSinh.findOne({ WalletAddress: lowerWallet });
+      }
     } else if (role_id === 'ADMIN_ROLE') {
       user = await Admin.findById(id);
+      if (!user && lowerWallet) {
+        user = await Admin.findOne({ WalletAddress: lowerWallet });
+      }
     }
     
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
-    res.json({ success: true, user: { ...user._doc, role_id } });
+    const userDoc = user.toObject ? user.toObject() : (user._doc || user);
+    res.json({ success: true, user: { ...userDoc, role_id } });
   } catch (error) {
     res.status(500).json({ success: false });
   }
@@ -179,8 +230,12 @@ const verifyQrSignature = async (req, res) => {
 
     const sessionData = qrSessions.get(sessionId);
     if (!sessionData || sessionData.expiresAt < Date.now()) {
+      qrSessions.delete(sessionId);
       return res.status(400).json({ success: false, message: 'Session expired or invalid' });
     }
+
+    // Atomic single-use
+    qrSessions.delete(sessionId);
 
     let isValidSignature = false;
     try {
@@ -193,45 +248,63 @@ const verifyQrSignature = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Chữ ký không hợp lệ.' });
     }
 
-    // Identify user role
+    // Identify user role (Strict RBAC)
     let role_id = 'STUDENT_ROLE';
-    let userRecord = await Admin.findOne({ WalletAddress: walletAddress.toLowerCase() });
+    const lowerWallet = walletAddress.toLowerCase();
+    let userRecord = await Admin.findOne({ WalletAddress: lowerWallet });
 
     if (userRecord) {
       role_id = 'ADMIN_ROLE';
     } else {
-      userRecord = await Teacher.findOne({ walletAddress: walletAddress.toLowerCase() });
+      userRecord = await GiaoVien.findOne({ WalletAddress: lowerWallet });
       
       if (userRecord) {
+        if (userRecord.IsActive === false) {
+          return res.status(403).json({ success: false, message: 'Tài khoản Giáo viên này đã bị thu hồi hoặc vô hiệu hóa.' });
+        }
+
+        const credId = userRecord.CredentialId;
+        if (credId) {
+          const onChainStatus = await blockchainService.verifyTeacherCredentialOnChain(credId, lowerWallet);
+          if (!onChainStatus.ok) {
+            return res.status(503).json({ 
+              success: false, 
+              message: 'Lỗi xác minh chứng thực Giáo viên trên Blockchain. Vui lòng thử lại sau.' 
+            });
+          }
+          if (!onChainStatus.isValid) {
+            return res.status(403).json({ 
+              success: false, 
+              message: 'Chứng thực Giáo viên trên Blockchain đã hết hiệu lực hoặc bị thu hồi.' 
+            });
+          }
+        }
+
         role_id = 'TEACHER_ROLE';
       } else {
-        userRecord = await Student.findOne({ walletAddress: walletAddress.toLowerCase() });
-        if (!userRecord) {
-          const startOfDay = new Date();
-          startOfDay.setHours(0, 0, 0, 0);
-          const endOfDay = new Date();
-          endOfDay.setHours(23, 59, 59, 999);
-
-          const rejectedCountToday = await RoleRequest.countDocuments({
-            walletAddress: walletAddress.toLowerCase(),
-            status: 'rejected',
-            createdAt: { $gte: startOfDay, $lte: endOfDay }
+        userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet });
+        if (userRecord) {
+          role_id = 'STUDENT_ROLE';
+        } else {
+          userRecord = new HocSinh({
+            MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
+            HoTen: 'Học Sinh Mới',
+            Email: `${uuidv4().substring(0, 6)}@school.edu.vn`,
+            WalletAddress: lowerWallet,
+            DaCapNhatHoSo: false
           });
-
-          qrSessions.delete(sessionId);
-          return res.json({
-            success: true,
-            needsRoleSelection: true,
-            walletAddress: walletAddress.toLowerCase(),
-            rejectedCountToday,
-            message: 'Vui lòng chọn vai trò để tiếp tục'
-          });
+          await userRecord.save();
+          role_id = 'STUDENT_ROLE';
         }
       }
     }
 
     const token = jwt.sign(
-      { id: userRecord._id, role_id },
+      { 
+        id: userRecord._id, 
+        role_id, 
+        walletAddress: lowerWallet 
+      },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
@@ -243,7 +316,8 @@ const verifyQrSignature = async (req, res) => {
         user: {
           id: userRecord._id,
           role_id,
-          name: userRecord.fullName || userRecord.HoTen
+          walletAddress: lowerWallet,
+          name: userRecord.HoTen || 'User'
         }
       });
     }
@@ -261,71 +335,52 @@ const verifyQrSignature = async (req, res) => {
 
 const registerWithRole = async (req, res) => {
   try {
-    const { walletAddress, role, hoTen, email, chuyenNganh } = req.body; // chuyenNganh kept for legacy API compat
+    const { walletAddress, role, hoTen, email } = req.body;
 
-    if (!walletAddress || !role) {
-      return res.status(400).json({ success: false, message: 'Missing required fields' });
+    if (!walletAddress) {
+      return res.status(400).json({ success: false, message: 'Missing walletAddress' });
     }
 
     const lowerWallet = walletAddress.toLowerCase();
 
     // Check if already registered
-    const exists = await Student.findOne({ walletAddress: lowerWallet }) || 
-                   await Teacher.findOne({ walletAddress: lowerWallet }) ||
+    const exists = await HocSinh.findOne({ WalletAddress: lowerWallet }) || 
+                   await GiaoVien.findOne({ WalletAddress: lowerWallet }) ||
                    await Admin.findOne({ WalletAddress: lowerWallet });
                    
     if (exists) {
       return res.status(400).json({ success: false, message: 'Ví này đã được đăng ký.' });
     }
 
-    if (role === 'STUDENT_ROLE') {
-      const newUser = new Student({
-        studentId: `ST${uuidv4().substring(0, 6).toUpperCase()}`,
-        fullName: hoTen || 'Học Sinh Mới',
-        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-        walletAddress: lowerWallet
-      });
-      await newUser.save();
-
-      const token = jwt.sign(
-        { id: newUser._id, role_id: 'STUDENT_ROLE' },
-        process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' }
-      );
-
-      return res.json({
-        success: true,
-        token,
-        user: { id: newUser._id, role_id: 'STUDENT_ROLE', name: newUser.fullName },
-        message: 'Đăng ký Học sinh thành công'
-      });
-    } 
-    else if (role === 'TEACHER_ROLE') {
-      const newUser = new Teacher({
-        teacherId: `TC${uuidv4().substring(0, 6).toUpperCase()}`,
-        fullName: hoTen || 'Giáo Viên Mới',
-        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-        department: chuyenNganh || '',
-        walletAddress: lowerWallet
-      });
-      await newUser.save();
-
-      const token = jwt.sign(
-        { id: newUser._id, role_id: 'TEACHER_ROLE' },
-        process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' }
-      );
-
-      return res.json({
-        success: true,
-        token,
-        user: { id: newUser._id, role_id: 'TEACHER_ROLE', name: newUser.fullName },
-        message: 'Đăng ký Giáo viên thành công'
+    // Bảo mật RBAC: Chặn việc client tự phong quyền Giáo viên hoặc Quản trị viên
+    if (['TEACHER_ROLE', 'LECTURER_ROLE', 'ADMIN_ROLE'].includes(role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Không thể tự phong quyền Giáo viên hoặc Quản trị viên. Danh sách Giáo viên do Ban Giám Hiệu nhà trường quản lý.' 
       });
     }
 
-    return res.status(400).json({ success: false, message: 'Role không hợp lệ.' });
+    // Chỉ cho phép đăng ký vai trò Học sinh mặc định
+    const newUser = new HocSinh({
+      MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
+      HoTen: hoTen || 'Học Sinh Mới',
+      Email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
+      WalletAddress: lowerWallet
+    });
+    await newUser.save();
 
+    const token = jwt.sign(
+      { id: newUser._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet },
+      process.env.JWT_SECRET || 'your-secret-key',
+      { expiresIn: '24h' }
+    );
+
+    return res.json({
+      success: true,
+      token,
+      user: { id: newUser._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet, name: newUser.HoTen },
+      message: 'Đăng ký Học sinh thành công'
+    });
   } catch (error) {
     console.error('Register Role error:', error);
     res.status(500).json({ success: false, message: 'Đăng ký thất bại' });

@@ -1,13 +1,13 @@
 const EducationalCredential = require('../models/EducationalCredential');
 const Achievement = require('../models/Achievement');
-const Student = require('../models/Student');
-const Teacher = require('../models/Teacher');
+const HocSinh = require('../models/HocSinh');
+const GiaoVien = require('../models/GiaoVien');
 const { createCanonicalHash } = require('../utils/canonicalCredential');
 const { ethers } = require('ethers');
 const logger = require('../config/logger');
 
-const RPC_URL = process.env.BLOCKCHAIN_RPC_URL || 'http://127.0.0.1:8545';
-const RELAYER_PK = process.env.RELAYER_PRIVATE_KEY || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'; 
+const RPC_URL = process.env.BLOCKCHAIN_RPC_URL || process.env.SEPOLIA_RPC_URL || process.env.RPC_URL || 'http://127.0.0.1:8545';
+const RELAYER_PK = process.env.RELAYER_PRIVATE_KEY || process.env.PRIVATE_KEY || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'; 
 const CONTRACT_ADDRESS = process.env.K12_CREDENTIAL_CONTRACT_ADDRESS;
 
 const abi = [
@@ -27,9 +27,24 @@ const uuidToBytes32 = (uuid) => ethers.keccak256(ethers.toUtf8Bytes(uuid));
 
 exports.getMyCredentials = async (req, res) => {
   try {
+    let studentIds = [req.user.id];
+    let issuerIds = [req.user.id];
+    if (req.user.walletAddress) {
+      const lowerWallet = req.user.walletAddress.toLowerCase();
+      const hs = await HocSinh.findOne({ WalletAddress: lowerWallet });
+      if (hs && !studentIds.some(id => id.toString() === hs._id.toString())) {
+        studentIds.push(hs._id);
+      }
+
+      const gv = await GiaoVien.findOne({ WalletAddress: lowerWallet });
+      if (gv && !issuerIds.some(id => id.toString() === gv._id.toString())) {
+        issuerIds.push(gv._id);
+      }
+    }
+
     const query = req.user.role_id === 'STUDENT_ROLE' 
-      ? { student: req.user.id } 
-      : { issuer: req.user.id };
+      ? { student: { $in: studentIds } } 
+      : { issuer: { $in: issuerIds } };
     
     const credentials = await EducationalCredential.find(query)
       .populate('challenge', 'title subject challengeType')
@@ -85,7 +100,8 @@ exports.generateClaimMessage = async (req, res) => {
 exports.claimCredential = async (req, res) => {
   try {
     const { credentialId, signature } = req.body;
-    const student = await Student.findById(req.user.id);
+    const student = await Student.findById(req.user.id) || await HocSinh.findById(req.user.id);
+    if (!student) return res.status(404).json({ success: false, message: 'Không tìm thấy thông tin học sinh' });
     
     const credential = await EducationalCredential.findOne({ credentialId, student: student._id })
       .populate('issuer')
@@ -94,10 +110,12 @@ exports.claimCredential = async (req, res) => {
     if (!credential) return res.status(404).json({ success: false, message: 'Không tìm thấy' });
     if (credential.status !== 'PENDING_CLAIM') return res.status(400).json({ success: false, message: 'Trạng thái không hợp lệ' });
 
+    const studentWallet = (student.walletAddress || student.WalletAddress || '').toLowerCase();
+
     const expectedMessage = `Yêu cầu cấp Web3 Credential cho thành tích: ${credential.metadata.achievementType}\nCredential ID: ${credential.credentialId}\nNonce: ${credential.nonce}`;
     const recoveredAddress = ethers.verifyMessage(expectedMessage, signature);
     
-    if (recoveredAddress.toLowerCase() !== student.walletAddress.toLowerCase()) {
+    if (recoveredAddress.toLowerCase() !== studentWallet) {
       return res.status(400).json({ success: false, message: 'Chữ ký không hợp lệ' });
     }
 
@@ -105,12 +123,14 @@ exports.claimCredential = async (req, res) => {
     credential.nonce += 1;
     credential.status = 'PENDING_CHAIN';
 
+    const issuerWallet = (credential.issuer?.walletAddress || credential.issuer?.WalletAddress || '0x0000000000000000000000000000000000000000').toLowerCase();
+
     const hashData = createCanonicalHash({
       credentialId: credential.credentialId,
       metadata: credential.metadata,
       challenge: credential.challenge._id,
-      issuerWallet: credential.issuer.walletAddress || '0x0000000000000000000000000000000000000000',
-      studentWallet: student.walletAddress
+      issuerWallet,
+      studentWallet
     });
 
     credential.canonicalHash = hashData.hash;
@@ -127,8 +147,8 @@ exports.claimCredential = async (req, res) => {
       const tx = await contract.issueCredential(
         uuidToBytes32(credential.credentialId),
         hashData.hash,
-        student.walletAddress,
-        credential.issuer.walletAddress || '0x0000000000000000000000000000000000000000'
+        studentWallet,
+        issuerWallet
       );
       
       const receipt = await tx.wait();
@@ -168,15 +188,34 @@ exports.verifyCredential = async (req, res) => {
 
     if (!credential) return res.status(404).json({ success: false, message: 'Credential không tồn tại' });
     
+    let challengeTitle = credential.challenge?.title;
+    if (!challengeTitle && credential.challenge) {
+      const Challenge = require('../models/Challenge');
+      const c = await Challenge.findById(credential.challenge);
+      if (c) challengeTitle = c.title;
+    }
+
+    let issuerWallet = credential.issuer?.WalletAddress || credential.issuer?.walletAddress;
+    if (!issuerWallet && credential.issuer) {
+      const gv = await GiaoVien.findById(credential.issuer);
+      if (gv) issuerWallet = gv.WalletAddress || gv.walletAddress;
+    }
+
+    let studentWallet = credential.student?.WalletAddress || credential.student?.walletAddress;
+    if (!studentWallet && credential.student) {
+      const hs = await HocSinh.findById(credential.student);
+      if (hs) studentWallet = hs.WalletAddress || hs.walletAddress;
+    }
+
     // DO NOT expose fullName, email, school, gpa, studentId, or submission content.
     const publicData = {
       credentialId: credential.credentialId,
       status: credential.status,
-      challenge: credential.challenge.title, // Only public title
-      achievementType: credential.metadata.achievementType,
-      issuerWallet: credential.issuer.walletAddress,
-      studentWallet: credential.student.walletAddress,
-      issuedAt: credential.metadata.issuedAt,
+      challenge: challengeTitle || 'N/A', // Only public title
+      achievementType: credential.metadata?.achievementType || 'N/A',
+      issuerWallet: (issuerWallet || '').toLowerCase(),
+      studentWallet: (studentWallet || '').toLowerCase(),
+      issuedAt: credential.metadata?.issuedAt,
       blockchain: credential.blockchain
     };
 
@@ -190,7 +229,7 @@ exports.verifyCredential = async (req, res) => {
     try {
       const onChainData = await contract.verifyCredential(uuidToBytes32(credentialId));
       const hashMatch = onChainData.metadataHash === credential.canonicalHash;
-      const ownershipMatch = onChainData.studentWallet.toLowerCase() === credential.student.walletAddress.toLowerCase();
+      const ownershipMatch = onChainData.studentWallet.toLowerCase() === (studentWallet || '').toLowerCase();
       const isValid = onChainData.isValid;
 
       // Ensure that revoked is strictly failed
@@ -224,7 +263,15 @@ exports.revokeCredential = async (req, res) => {
     if (!credential) return res.status(404).json({ success: false, message: 'Not found' });
     
     // Auth: Only creator of challenge can revoke
-    if (credential.challenge.createdBy.toString() !== req.user.id) {
+    let isOwner = credential.challenge.createdBy.toString() === req.user.id;
+    if (!isOwner && req.user?.walletAddress) {
+      const creator = (await Teacher.findById(credential.challenge.createdBy)) || (await GiaoVien.findById(credential.challenge.createdBy));
+      if (creator) {
+        const cw = (creator.walletAddress || creator.WalletAddress || '').toLowerCase();
+        if (cw && cw === req.user.walletAddress.toLowerCase()) isOwner = true;
+      }
+    }
+    if (!isOwner && req.user?.role_id !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Unauthorized to revoke' });
     }
 

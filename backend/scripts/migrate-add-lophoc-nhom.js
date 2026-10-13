@@ -14,7 +14,8 @@ const dryRun = process.argv.includes('--dry-run');
 
 async function migrate() {
   console.log(`Starting migration... Dry-run mode: ${dryRun}`);
-  const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://nguyenhuy4435:nhathuy812@clusterweb3.5tqfgfq.mongodb.net/web3';
+  const mongoUri = process.env.MONGODB_URI;
+  if (!mongoUri) throw new Error('Thiếu MONGODB_URI');
   
   try {
     await mongoose.connect(mongoUri);

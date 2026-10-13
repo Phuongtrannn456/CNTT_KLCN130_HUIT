@@ -46,7 +46,7 @@ const AchievementList = () => {
       const signer = await provider.getSigner();
 
       // 1. Lấy claim message từ backend
-      const msgRes = await apiService.get(`/credentials/claim-message/${ach._id}`);
+      const msgRes = await apiService.get(`/credentials/claim-message/${achievementId}`);
       const { messageToSign, credentialId } = msgRes.data;
 
       // 2. Ký message bằng MetaMask
@@ -124,13 +124,15 @@ const AchievementList = () => {
                           <Button 
                             type="primary" 
                             ghost 
-                            onClick={() => window.open(`/verify/${ach.credentialId}`, '_blank')}
+                            onClick={() => window.open(`/verify/${credential?.credentialId}`, '_blank')}
                           >
                             Xác minh (Verify)
                           </Button>
                           <Button icon={<ShareAltOutlined />} onClick={() => {
-                            navigator.clipboard.writeText(`${window.location.origin}/verify/${ach.credentialId}`);
-                            message.success('Đã copy link xác minh!');
+                            if (credential?.credentialId) {
+                              navigator.clipboard.writeText(`${window.location.origin}/verify/${credential.credentialId}`);
+                              message.success('Đã copy link xác minh!');
+                            }
                           }}>Chia sẻ</Button>
                         </Space>
                       </div>

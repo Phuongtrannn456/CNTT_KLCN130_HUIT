@@ -56,7 +56,10 @@ tienDoSchema.index(
     { DeTai: 1, HocSinh: 1, TuanSo: 1, LanNopLai: 1 },
     { unique: true, partialFilterExpression: { TuanSo: { $type: 'number' } } }
 );
+tienDoSchema.index(
+    { DeTai: 1, Nhom: 1, TuanSo: 1, LanNopLai: 1 },
+    { unique: true, sparse: true, partialFilterExpression: { TuanSo: { $type: 'number' } } }
+);
 tienDoSchema.index({ DeTai: 1, HocSinh: 1, createdAt: -1 });
-tienDoSchema.index({ DeTai: 1, Nhom: 1, TuanSo: 1 }, { sparse: true });
 
 module.exports = mongoose.model('TienDo', tienDoSchema);

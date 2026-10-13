@@ -29,6 +29,8 @@ const deTaiSchema = new mongoose.Schema({
   LopHoc: [{ type: mongoose.Schema.Types.ObjectId, ref: 'LopHoc' }],
   CoBaiTest: { type: Boolean, default: false },       // Có yêu cầu bài test cạnh tranh không
   TrangThai: { type: String, enum: ['MoDangKy', 'DaChot', 'HoanThanh'], default: 'MoDangKy' },
+  NhomThang: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },
+  DangKyThang: { type: mongoose.Schema.Types.ObjectId, ref: 'DangKyDeTai' },
   LoaiDeTai: { type: String, enum: ['MonHoc', 'KhoaLuan'], default: 'MonHoc' },
   // === Mở rộng cho hệ thống K-12 (Giáo dục phổ thông) ===
   KhoiLopYeuCau: [{ type: Number, min: 1, max: 12 }]

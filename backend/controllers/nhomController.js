@@ -132,7 +132,11 @@ exports.getNhomById = async (req, res) => {
 exports.inviteMember = async (req, res) => {
   try {
     const { id } = req.params;
-    const { maSV } = req.body;
+    const targetMa = (req.body.maHS || req.body.maSV || '').trim();
+
+    if (!targetMa) {
+      return res.status(400).json({ error: 'Mã học sinh là bắt buộc.' });
+    }
 
     const nhom = await Nhom.findById(id);
     if (!nhom) return res.status(404).json({ error: 'Không tìm thấy nhóm.' });
@@ -148,8 +152,8 @@ exports.inviteMember = async (req, res) => {
     }
 
     // Tìm SV được mời
-    const svMoi = await HocSinh.findOne({ MaHS: maSV });
-    if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã SV này.' });
+    const svMoi = await HocSinh.findOne({ MaHS: targetMa });
+    if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã HS này.' });
 
     // MỚI: Nếu nhóm thuộc lớp → kiểm tra SV được mời phải thuộc cùng lớp
     if (nhom.LopHoc) {
@@ -412,10 +416,13 @@ exports.deleteNhom = async (req, res) => {
       return res.status(403).json({ error: 'Chỉ trưởng nhóm mới có quyền xóa nhóm.' });
     }
 
-    // Check nhóm đã đăng ký đề tài nào chưa
-    const hasReg = await DangKyDeTai.findOne({ Nhom: id });
+    // Check nhóm đã đăng ký đề tài nào đang hoạt động chưa
+    const hasReg = await DangKyDeTai.findOne({
+      Nhom: id,
+      TrangThai: { $nin: ['Thua', 'TuChoi'] }
+    });
     if (hasReg) {
-      return res.status(400).json({ error: 'Nhóm đã đăng ký đề tài. Không thể xóa.' });
+      return res.status(400).json({ error: 'Nhóm đang có đề tài được đăng ký hoặc đang thực hiện. Không thể xóa.' });
     }
 
     await Nhom.findByIdAndDelete(id);

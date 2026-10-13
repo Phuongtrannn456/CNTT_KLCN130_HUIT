@@ -1,8 +1,7 @@
 /**
  * Script Khởi tạo Dữ liệu Mẫu cho Nền tảng Web3 Giáo Dục Phổ Thông (K-12)
  * 
- * Sử dụng Models K-12 mới: Teacher, Student, Challenge
- * Không sử dụng Models legacy: GiaoVien, HocSinh, DeTai
+ * Sử dụng Models chuẩn: GiaoVien, HocSinh, Challenge
  * 
  * Chạy lệnh: node scripts/seed_k12.js
  * 
@@ -13,8 +12,8 @@
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const mongoose = require('mongoose');
 
-const Teacher = require('../models/Teacher');
-const Student = require('../models/Student');
+const GiaoVien = require('../models/GiaoVien');
+const HocSinh = require('../models/HocSinh');
 const Challenge = require('../models/Challenge');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giaovien';
@@ -26,91 +25,94 @@ async function seedK12() {
     console.log('✅ Kết nối MongoDB thành công!');
 
     // ========================================
-    // 1. Tạo Teacher (Giáo viên phổ thông)
+    // 1. Tạo Giáo viên phổ thông
     // ========================================
-    console.log('\n--- 1. Tạo Teacher ---');
+    console.log('\n--- 1. Tạo Giáo Viên ---');
     const teachersData = [
       {
-        teacherId: 'TC_TOAN_01',
-        fullName: 'Thầy Nguyễn Văn Toàn',
-        email: 'nguyenvantoan@thpt.edu.vn',
-        department: 'Tổ Toán - Tin học',
-        homeroomClass: '10A1',
-        walletAddress: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8'
+        MaGV: 'TC_TOAN_01',
+        HoTen: 'Thầy Nguyễn Văn Toàn',
+        Email: 'nguyenvantoan@thpt.edu.vn',
+        ToBoMon: 'Tổ Toán - Tin học',
+        ChuNhiemLop: '10A1',
+        WalletAddress: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8'.toLowerCase()
       },
       {
-        teacherId: 'TC_STEM_02',
-        fullName: 'Cô Trần Thị Mai',
-        email: 'tranthimai@thpt.edu.vn',
-        department: 'Tổ Khoa Học Tự Nhiên & STEM',
-        homeroomClass: '11A2',
-        walletAddress: '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc'
+        MaGV: 'TC_STEM_02',
+        HoTen: 'Cô Trần Thị Mai',
+        Email: 'tranthimai@thpt.edu.vn',
+        ToBoMon: 'Tổ Khoa Học Tự Nhiên & STEM',
+        ChuNhiemLop: '11A2',
+        WalletAddress: '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc'.toLowerCase()
       }
     ];
 
     const teachers = [];
     for (const t of teachersData) {
-      const doc = await Teacher.findOneAndUpdate(
-        { teacherId: t.teacherId },
+      const doc = await GiaoVien.findOneAndUpdate(
+        { WalletAddress: t.WalletAddress },
         t,
         { upsert: true, new: true }
       );
       teachers.push(doc);
-      console.log(`  ✓ Teacher: ${doc.fullName} (${doc.department}) | wallet: ${doc.walletAddress}`);
+      console.log(`  ✓ Giáo viên: ${doc.HoTen} (${doc.ToBoMon}) | wallet: ${doc.WalletAddress}`);
     }
 
     // ========================================
-    // 2. Tạo Student (Học sinh phổ thông)
+    // 2. Tạo Học sinh phổ thông
     // ========================================
-    console.log('\n--- 2. Tạo Student ---');
+    console.log('\n--- 2. Tạo Học Sinh ---');
     const studentsData = [
       {
-        studentId: 'ST_1001',
-        fullName: 'Lê Minh Khôi',
-        email: 'leminhkhoi@thpt.edu.vn',
-        gradeLevel: 10,
-        school: 'THPT Nguyễn Trãi',
-        conduct: 'Tốt',
-        gpa: 8.8,
-        skills: ['Python Cơ Bản', 'Tư Duy Logic', 'Arduino'],
-        walletAddress: '0x90f79bf6eb2c4f870365e785982e1f101e93b906',
-        profileUpdated: true
+        MaHS: 'ST_1001',
+        HoTen: 'Lê Minh Khôi',
+        Email: 'leminhkhoi@thpt.edu.vn',
+        KhoiLop: 10,
+        TruongHoc: 'THPT Nguyễn Trãi',
+        HanhKiem: 'Tốt',
+        DiemTongKet: 8.8,
+        GPA: 8.8,
+        KyNang: ['Python Cơ Bản', 'Tư Duy Logic', 'Arduino'],
+        WalletAddress: '0x90f79bf6eb2c4f870365e785982e1f101e93b906'.toLowerCase(),
+        DaCapNhatHoSo: true
       },
       {
-        studentId: 'ST_1102',
-        fullName: 'Phạm Thu Hà',
-        email: 'phamthuha@thpt.edu.vn',
-        gradeLevel: 11,
-        school: 'THPT Nguyễn Trãi',
-        conduct: 'Tốt',
-        gpa: 8.5,
-        skills: ['Thực Nghiệm Vật Lý', 'Phân Tích Dữ Liệu', 'Web3'],
-        walletAddress: '0x15d34aaf54267db7d7c367839aaf71a00a2c6a65',
-        profileUpdated: true
+        MaHS: 'ST_1102',
+        HoTen: 'Phạm Thu Hà',
+        Email: 'phamthuha@thpt.edu.vn',
+        KhoiLop: 11,
+        TruongHoc: 'THPT Nguyễn Trãi',
+        HanhKiem: 'Tốt',
+        DiemTongKet: 8.5,
+        GPA: 8.5,
+        KyNang: ['Thực Nghiệm Vật Lý', 'Phân Tích Dữ Liệu', 'Web3'],
+        WalletAddress: '0x15d34aaf54267db7d7c367839aaf71a00a2c6a65'.toLowerCase(),
+        DaCapNhatHoSo: true
       },
       {
-        studentId: 'ST_1203',
-        fullName: 'Trần Quốc Bảo',
-        email: 'tranquocbao@thpt.edu.vn',
-        gradeLevel: 12,
-        school: 'THPT Lê Quý Đôn',
-        conduct: 'Khá',
-        gpa: 7.5,
-        skills: ['ReactJS', 'Lập Trình Web', 'Blockchain Cơ Bản'],
-        walletAddress: '0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc',
-        profileUpdated: true
+        MaHS: 'ST_1203',
+        HoTen: 'Trần Quốc Bảo',
+        Email: 'tranquocbao@thpt.edu.vn',
+        KhoiLop: 12,
+        TruongHoc: 'THPT Lê Quý Đôn',
+        HanhKiem: 'Khá',
+        DiemTongKet: 7.5,
+        GPA: 7.5,
+        KyNang: ['ReactJS', 'Lập Trình Web', 'Blockchain Cơ Bản'],
+        WalletAddress: '0x9965507d1a55bcc2695c58ba16fb37d819b0a4dc'.toLowerCase(),
+        DaCapNhatHoSo: true
       }
     ];
 
     const students = [];
     for (const s of studentsData) {
-      const doc = await Student.findOneAndUpdate(
-        { studentId: s.studentId },
+      const doc = await HocSinh.findOneAndUpdate(
+        { WalletAddress: s.WalletAddress },
         s,
         { upsert: true, new: true }
       );
       students.push(doc);
-      console.log(`  ✓ Student: ${doc.fullName} (Lớp ${doc.gradeLevel}) | wallet: ${doc.walletAddress}`);
+      console.log(`  ✓ Học sinh: ${doc.HoTen} (Lớp ${doc.KhoiLop}) | wallet: ${doc.WalletAddress}`);
     }
 
     // ========================================
@@ -193,15 +195,15 @@ async function seedK12() {
     // ========================================
     // Tổng kết
     // ========================================
-    const totalTeachers = await Teacher.countDocuments();
-    const totalStudents = await Student.countDocuments();
+    const totalTeachers = await GiaoVien.countDocuments();
+    const totalStudents = await HocSinh.countDocuments();
     const totalChallenges = await Challenge.countDocuments();
 
     console.log('\n========================================');
     console.log('🎉 Hoàn tất seed K-12!');
-    console.log(`   Teachers:   ${totalTeachers}`);
-    console.log(`   Students:   ${totalStudents}`);
-    console.log(`   Challenges: ${totalChallenges}`);
+    console.log(`   Giáo viên (GiaoVien): ${totalTeachers}`);
+    console.log(`   Học sinh (HocSinh):   ${totalStudents}`);
+    console.log(`   Challenges:           ${totalChallenges}`);
     console.log('========================================');
 
     process.exit(0);

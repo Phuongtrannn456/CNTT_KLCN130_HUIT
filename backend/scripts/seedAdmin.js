@@ -6,7 +6,9 @@ const adminWallet = '0x3081F8965F007A78C1502b51DAC0bD54E6f6dBBF'.toLowerCase();
 
 async function seedAdmin() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://nguyenhuy4435:nhathuy812@clusterweb3.5tqfgfq.mongodb.net/test', {
+    const uri = process.env.MONGODB_URI;
+    if (!uri) throw new Error('Thiếu MONGODB_URI');
+    await mongoose.connect(uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

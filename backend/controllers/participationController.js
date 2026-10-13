@@ -1,5 +1,6 @@
 const Challenge = require('../models/Challenge');
-const Student = require('../models/Student');
+const HocSinh = require('../models/HocSinh');
+const GiaoVien = require('../models/GiaoVien');
 const ChallengeParticipation = require('../models/ChallengeParticipation');
 
 exports.joinChallenge = async (req, res) => {
@@ -9,7 +10,7 @@ exports.joinChallenge = async (req, res) => {
 
     // 1. Validate roles
     if (req.user.role_id !== 'STUDENT_ROLE') {
-      return res.status(403).json({ success: false, message: 'Chỉ Student mới được tham gia Challenge' });
+      return res.status(403).json({ success: false, message: 'Chỉ Học sinh mới được tham gia Challenge' });
     }
 
     // 2. Lấy Challenge
@@ -29,17 +30,22 @@ exports.joinChallenge = async (req, res) => {
       return res.status(403).json({ success: false, message: 'Challenge đã quá hạn đăng ký' });
     }
 
-    // 3. Lấy Student và check eligibility
-    const student = await Student.findById(studentId);
-    if (!student) {
-      return res.status(404).json({ success: false, message: 'Không tìm thấy thông tin Student' });
+    // 3. Lấy HocSinh và check eligibility
+    let student = await HocSinh.findById(studentId);
+    if (!student && req.user?.walletAddress) {
+      student = await HocSinh.findOne({ WalletAddress: req.user.walletAddress.toLowerCase() });
     }
 
+    if (!student) {
+      return res.status(404).json({ success: false, message: 'Không tìm thấy thông tin Học sinh' });
+    }
+
+    const studentGrade = student.KhoiLop || student.gradeLevel;
     if (challenge.eligibleGrades && challenge.eligibleGrades.length > 0) {
-      if (!student.gradeLevel || !challenge.eligibleGrades.includes(student.gradeLevel)) {
+      if (!studentGrade || !challenge.eligibleGrades.includes(studentGrade)) {
         return res.status(403).json({ 
           success: false, 
-          message: `Khối lớp ${student.gradeLevel || 'N/A'} không phù hợp với yêu cầu của Challenge (Khối ${challenge.eligibleGrades.join(', ')})` 
+          message: `Khối lớp ${studentGrade || 'N/A'} không phù hợp với yêu cầu của Challenge (Khối ${challenge.eligibleGrades.join(', ')})` 
         });
       }
     }
@@ -69,18 +75,29 @@ exports.getChallengeParticipants = async (req, res) => {
     const challengeId = req.params.id;
     const teacherId = req.user.id;
 
-    // Check challenge ownership
     const challenge = await Challenge.findById(challengeId);
     if (!challenge) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy Challenge' });
     }
-    
-    if (challenge.createdBy.toString() !== teacherId) {
+
+    // Check challenge ownership
+    let isOwner = challenge.createdBy.toString() === teacherId;
+    if (!isOwner) {
+      const teacher = await GiaoVien.findById(teacherId);
+      const creator = await GiaoVien.findById(challenge.createdBy);
+      if (teacher && creator) {
+        const w1 = (teacher.WalletAddress || '').toLowerCase();
+        const w2 = (creator.WalletAddress || '').toLowerCase();
+        if (w1 && w1 === w2) isOwner = true;
+      }
+    }
+
+    if (!isOwner && req.user.role_id !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Không có quyền xem danh sách tham gia của Challenge này' });
     }
 
     const participants = await ChallengeParticipation.find({ challenge: challengeId })
-      .populate('student', 'fullName email gradeLevel studentId walletAddress');
+      .populate('student', 'HoTen fullName Email email KhoiLop gradeLevel MaHS studentId WalletAddress walletAddress');
 
     res.status(200).json({ success: true, participants });
   } catch (error) {
@@ -92,7 +109,16 @@ exports.getChallengeParticipants = async (req, res) => {
 exports.getMyParticipations = async (req, res) => {
   try {
     const studentId = req.user.id;
-    const participations = await ChallengeParticipation.find({ student: studentId })
+    let query = { student: studentId };
+
+    if (req.user?.walletAddress) {
+      const hs = await HocSinh.findOne({ WalletAddress: req.user.walletAddress.toLowerCase() });
+      if (hs && hs._id.toString() !== studentId) {
+        query = { student: { $in: [studentId, hs._id] } };
+      }
+    }
+
+    const participations = await ChallengeParticipation.find(query)
       .populate('challenge', 'title subject deadline challengeType status');
 
     res.status(200).json({ success: true, participations });

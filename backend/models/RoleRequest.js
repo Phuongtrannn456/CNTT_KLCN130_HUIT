@@ -22,7 +22,7 @@ const RoleRequestSchema = new mongoose.Schema({
   },
   requestedRole: {
     type: String,
-    default: 'LECTURER_ROLE'
+    default: 'TEACHER_ROLE'
   },
   status: {
     type: String,

@@ -22,7 +22,7 @@ const challengeSchema = new mongoose.Schema({
   deadline: { type: Date, required: true },
   registrationDeadline: { type: Date },
   
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: true },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
   subject: { type: String }, // Môn học (VD: Toán, STEM, Tin học)
   
   status: { type: String, enum: ['Open', 'Closed', 'Completed'], default: 'Open' },

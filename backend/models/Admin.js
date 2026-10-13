@@ -13,6 +13,10 @@ const AdminSchema = new mongoose.Schema({
     required: true,
     default: 'Super Admin'
   }
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+AdminSchema.virtual('walletAddress').get(function() {
+  return this.WalletAddress;
+});
 
 module.exports = mongoose.model('Admin', AdminSchema);

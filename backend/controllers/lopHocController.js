@@ -56,10 +56,13 @@ exports.getDetail = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    // MỚI: Query trực tiếp theo LopHoc, fallback MonHoc cho data cũ
+    // Query trực tiếp theo LopHoc, fallback chỉ lấy đề tài legacy chưa gán LopHoc nào của cùng môn học
     let deTais = await DeTai.find({ LopHoc: id }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
     if (deTais.length === 0) {
-      deTais = await DeTai.find({ MonHoc: lopHoc.MonHoc._id }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
+      deTais = await DeTai.find({
+        MonHoc: lopHoc.MonHoc._id,
+        $or: [{ LopHoc: id }, { LopHoc: null }, { LopHoc: { $exists: false } }]
+      }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
     }
 
     // Lấy danh sách đăng ký đề tài của các SV trong lớp
@@ -230,14 +233,34 @@ exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const lopHoc = await LopHoc.findByIdAndDelete(id);
+    const lopHoc = await LopHoc.findById(id);
     if (!lopHoc) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
+    // Kiểm tra nếu lớp vẫn còn học sinh
+    if (lopHoc.HocSinh && lopHoc.HocSinh.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Không thể xóa lớp học vì vẫn còn ${lopHoc.HocSinh.length} học sinh trong danh sách lớp.`
+      });
+    }
+
+    // Kiểm tra nếu có đề tài đang gắn với lớp học này
+    const DeTai = require('../models/DeTai');
+    const existingDeTai = await DeTai.findOne({ LopHoc: id });
+    if (existingDeTai) {
+      return res.status(400).json({
+        success: false,
+        message: 'Không thể xóa lớp học vì vẫn còn đề tài thuộc lớp học này.'
+      });
+    }
+
+    await LopHoc.findByIdAndDelete(id);
+
     logger.info(`[LopHoc] Deleted: ${lopHoc.MaLopHoc}`);
     invalidateLopHocCache();
-    res.json({ success: true, message: 'Đã xóa lớp học' });
+    res.json({ success: true, message: 'Đã xóa lớp học thành công' });
   } catch (error) {
     logger.error(`[LopHoc] delete error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi xóa lớp học' });

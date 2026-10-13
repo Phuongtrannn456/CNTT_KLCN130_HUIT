@@ -45,7 +45,16 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const updated = await HocSinh.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const targetId = req.params.id;
+        const requesterId = req.user?.id;
+        const requesterRole = req.user?.role_id;
+
+        // Chỉ chính học sinh đó hoặc ADMIN mới có quyền sửa
+        if (requesterRole !== 'ADMIN_ROLE' && requesterId !== targetId) {
+            return res.status(403).json({ error: 'Bạn không có quyền sửa thông tin của học sinh này.' });
+        }
+
+        const updated = await HocSinh.findByIdAndUpdate(targetId, req.body, { new: true });
         invalidateSvCache();
         res.json(updated);
     } catch (err) {
@@ -67,15 +76,23 @@ exports.delete = async (req, res) => {
 exports.updateProfile = async (req, res) => {
     try {
         const { id } = req.params;
+        const requesterId = req.user?.id;
+        const requesterRole = req.user?.role_id;
+
+        // Chỉ chính học sinh đó hoặc ADMIN mới được cập nhật profile này
+        if (requesterRole !== 'ADMIN_ROLE' && requesterId !== id) {
+            return res.status(403).json({ error: 'Bạn không có quyền cập nhật hồ sơ của học sinh này.' });
+        }
+
         const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang } = req.body;
 
         // Validate fields cơ bản
         if (!HoTen || !MaHS || !Email) {
-            return res.status(400).json({ error: 'Họ tên, Mã SV và Email là bắt buộc.' });
+            return res.status(400).json({ error: 'Họ tên, Mã HS và Email là bắt buộc.' });
         }
 
         if (GPA === undefined || GPA === null || GPA === '') {
-            return res.status(400).json({ error: 'Vui lòng nhập GPA để hệ thống AI có thể gợi ý đề tài chính xác.' });
+            return res.status(400).json({ error: 'Vui lòng nhập GPA/điểm trung bình để hệ thống AI có thể gợi ý đề tài chính xác.' });
         }
 
         if (!BangDiemKyNang || !Array.isArray(BangDiemKyNang) || BangDiemKyNang.length === 0) {
@@ -85,10 +102,10 @@ exports.updateProfile = async (req, res) => {
         // Auto-generate KyNang string array for backward compatibility
         const KyNang = BangDiemKyNang.map(item => item.TenKyNang).filter(Boolean);
 
-        // Kiểm tra trùng MaHS với SV khác
+        // Kiểm tra trùng MaHS với HS khác
         const duplicateMaHS = await HocSinh.findOne({ MaHS, _id: { $ne: id } });
         if (duplicateMaHS) {
-            return res.status(400).json({ error: 'Mã SV đã tồn tại trong hệ thống.' });
+            return res.status(400).json({ error: 'Mã HS đã tồn tại trong hệ thống.' });
         }
 
         // Kiểm tra trùng Email với SV khác

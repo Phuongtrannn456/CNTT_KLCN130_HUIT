@@ -1,5 +1,6 @@
 const Challenge = require('../models/Challenge');
-const Student = require('../models/Student');
+const HocSinh = require('../models/HocSinh');
+const GiaoVien = require('../models/GiaoVien');
 const Submission = require('../models/Submission');
 const matchingService = require('../services/matchingService');
 const aiService = require('../services/aiService');
@@ -8,13 +9,18 @@ const logger = require('../config/logger');
 // 4.1 AI Matching
 exports.getRecommendedChallenges = async (req, res) => {
   try {
-    const student = await Student.findById(req.user.id);
+    let student = await HocSinh.findById(req.user.id);
+    if (!student && req.user?.walletAddress) {
+      student = await HocSinh.findOne({ WalletAddress: { $regex: new RegExp(`^${req.user.walletAddress}$`, 'i') } });
+    }
     if (!student) return res.status(404).json({ success: false, message: 'Student not found' });
+
+    const studentGrade = student.KhoiLop || student.gradeLevel || 10;
 
     // Filter cơ bản bằng DB
     const openChallenges = await Challenge.find({ 
       status: 'Open',
-      eligibleGrades: student.gradeLevel 
+      eligibleGrades: studentGrade 
     });
 
     if (openChallenges.length === 0) {
@@ -31,7 +37,16 @@ exports.getRecommendedChallenges = async (req, res) => {
 
     try {
       // Gọi AI Service
-      const result = await matchingService.matchStudentToTopics(student, topicsPayload);
+      const result = await matchingService.matchStudentToTopics({
+        _id: student._id,
+        studentId: student.MaHS || student.studentId,
+        fullName: student.HoTen || student.fullName,
+        email: student.Email || student.email,
+        gradeLevel: studentGrade,
+        skills: student.KyNang || student.skills || [],
+        gpa: student.DiemTongKet || student.GPA || 0,
+        walletAddress: student.WalletAddress || student.walletAddress
+      }, topicsPayload, req.ip);
       
       // Map ngược lại
       const recommendations = result.recommendations.map(rec => {
@@ -69,16 +84,37 @@ exports.analyzeSubmission = async (req, res) => {
     const submission = await Submission.findById(req.params.submissionId).populate('challenge');
     if (!submission) return res.status(404).json({ success: false, message: 'Submission not found' });
 
-    // Authorization
-    if (req.user.role_id === 'STUDENT_ROLE' && submission.student.toString() !== req.user.id) {
-      return res.status(403).json({ success: false, message: 'Unauthorized' });
+    // Authorization: Hỗ trợ theo ID hoặc walletAddress
+    if (req.user.role_id === 'STUDENT_ROLE') {
+      let isStudentOwner = submission.student.toString() === req.user.id;
+      if (!isStudentOwner && req.user?.walletAddress) {
+        const subStudent = await HocSinh.findById(submission.student);
+        if (subStudent) {
+          const sw = (subStudent.WalletAddress || '').toLowerCase();
+          if (sw && sw === req.user.walletAddress.toLowerCase()) isStudentOwner = true;
+        }
+      }
+      if (!isStudentOwner) {
+        return res.status(403).json({ success: false, message: 'Unauthorized' });
+      }
     }
-    if (req.user.role_id === 'TEACHER_ROLE' && submission.challenge.createdBy.toString() !== req.user.id) {
-      return res.status(403).json({ success: false, message: 'Unauthorized' });
+
+    if (req.user.role_id === 'TEACHER_ROLE' || req.user.role_id === 'LECTURER_ROLE') {
+      let isTeacherOwner = submission.challenge.createdBy.toString() === req.user.id;
+      if (!isTeacherOwner && req.user?.walletAddress) {
+        const creator = await GiaoVien.findById(submission.challenge.createdBy);
+        if (creator) {
+          const cw = (creator.WalletAddress || '').toLowerCase();
+          if (cw && cw === req.user.walletAddress.toLowerCase()) isTeacherOwner = true;
+        }
+      }
+      if (!isTeacherOwner && req.user.role_id !== 'ADMIN_ROLE') {
+        return res.status(403).json({ success: false, message: 'Unauthorized' });
+      }
     }
 
     try {
-      const result = await aiService.analyzeReport(submission.content, [submission.challenge.description]);
+      const result = await aiService.analyzeReport(submission.content, [submission.challenge.description], req.ip);
       
       return res.status(200).json({
         success: true,
@@ -106,8 +142,21 @@ exports.suggestEvaluation = async (req, res) => {
     const submission = await Submission.findById(req.params.submissionId).populate('challenge');
     if (!submission) return res.status(404).json({ success: false, message: 'Submission not found' });
 
-    // Authorization: Chỉ Teacher sở hữu Challenge mới được gợi ý chấm
-    if (req.user.role_id !== 'TEACHER_ROLE' || submission.challenge.createdBy.toString() !== req.user.id) {
+    // Authorization: Chỉ Teacher sở hữu Challenge (hoặc Admin) mới được gợi ý chấm
+    if (req.user.role_id !== 'TEACHER_ROLE' && req.user.role_id !== 'LECTURER_ROLE' && req.user.role_id !== 'ADMIN_ROLE') {
+      return res.status(403).json({ success: false, message: 'Unauthorized' });
+    }
+
+    let isOwner = submission.challenge.createdBy.toString() === req.user.id;
+    if (!isOwner && req.user?.walletAddress) {
+      const creator = await GiaoVien.findById(submission.challenge.createdBy);
+      if (creator) {
+        const cw = (creator.WalletAddress || '').toLowerCase();
+        if (cw && cw === req.user.walletAddress.toLowerCase()) isOwner = true;
+      }
+    }
+
+    if (!isOwner && req.user.role_id !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Unauthorized' });
     }
 
@@ -125,7 +174,7 @@ exports.suggestEvaluation = async (req, res) => {
     }));
 
     try {
-      const result = await aiService.analyzeWithRubrics(submission.content, mappedRubrics);
+      const result = await aiService.analyzeWithRubrics(submission.content, mappedRubrics, req.ip);
       
       // Validate Output
       let aiTotalScore = parseFloat(result.score) || 0;

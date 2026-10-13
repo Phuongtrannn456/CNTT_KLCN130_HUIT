@@ -6,7 +6,7 @@ const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://127.0.0.1:8001';
 const FASTAPI_ENDPOINT = `${ML_SERVICE_URL}/match-student`;
 
 // Sử dụng Sentence Transformers trên FastAPI (SBERT) để tính vector similarity
-exports.matchStudentToTopics = async (studentProfile, topics) => {
+exports.matchStudentToTopics = async (studentProfile, topics, clientIp) => {
     try {
         logger.info(`[AI] Calling FastAPI /match-student | topics=${topics.length}`);
 
@@ -59,7 +59,8 @@ exports.matchStudentToTopics = async (studentProfile, topics) => {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-Internal-Token': process.env.INTERNAL_TOKEN || ''
+                    'X-Internal-Token': process.env.INTERNAL_TOKEN || '',
+                    ...(clientIp && { 'X-Forwarded-For': clientIp })
                 }
             }
         );

@@ -71,7 +71,7 @@ exports.uploadBaoCao = async (req, res) => {
 
         const acceptedMembers = getAcceptedMembers(dangKy);
         const acceptedMemberIds = acceptedMembers.map(tv => tv.HocSinh.toString());
-        const leaderId = dangKy.HocSinh.toString();
+        const leaderId = (dangKy.TruongNhom || dangKy.HocSinh).toString();
         const isGroupTopic = (deTai.SoLuongHocSinh || 1) > 1;
 
         if (isGroupTopic && requesterId !== leaderId) {
@@ -118,7 +118,7 @@ exports.uploadBaoCao = async (req, res) => {
         let extractionResult = { text: '', page_count: 0, method: 'failed', warnings: [] };
         try {
             const aiService = require('../services/aiService');
-            extractionResult = await aiService.extractPdf(req.file.path);
+            extractionResult = await aiService.extractPdf(req.file.path, req.ip);
             logger.info(`[REPORT] PDF extracted | method=${extractionResult.method} | pages=${extractionResult.page_count} | textLen=${extractionResult.text ? extractionResult.text.length : 0}`);
             if (extractionResult.warnings && extractionResult.warnings.length > 0) {
                 logger.warn(`[REPORT] PDF warnings: ${extractionResult.warnings.join('; ')}`);

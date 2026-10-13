@@ -18,8 +18,13 @@ from routes.extract_pdf import router as extract_pdf_router
 # Khởi tạo logging cho ML Service
 logger = setup_logging()
 
+import hmac
+
+from utils.ip import get_real_ip
+
 # Khởi tạo slowapi Limiter
-limiter = Limiter(key_func=get_remote_address)
+limiter = Limiter(key_func=get_real_ip)
+
 
 app = FastAPI(title="Web3 Giáo Dục Phổ Thông ML Service", version="1.0.0")
 app.state.limiter = limiter
@@ -37,13 +42,21 @@ app.add_middleware(
 
 # Internal Token verification middleware
 INTERNAL_TOKEN = os.getenv('INTERNAL_TOKEN')
+if not INTERNAL_TOKEN:
+    import sys
+    logger.error("FATAL ERROR: INTERNAL_TOKEN is missing or empty. ML-Service cannot start safely.")
+    sys.exit(1)
 
 @app.middleware("http")
 async def verify_internal_token(request: Request, call_next):
     path = request.url.path
-    if path.startswith('/analyze') or path.startswith('/extract') or path.startswith('/match') or path.startswith('/compare-code'):
-        token = request.headers.get('X-Internal-Token')
-        if INTERNAL_TOKEN and token != INTERNAL_TOKEN:
+    if path not in ["/healthz", "/docs", "/openapi.json"]:
+        token = request.headers.get('X-Internal-Token', '')
+        is_trusted = False
+        if INTERNAL_TOKEN and token:
+            is_trusted = hmac.compare_digest(token.encode('utf-8'), INTERNAL_TOKEN.encode('utf-8'))
+        
+        if not is_trusted:
             token_preview = (token[:4] + '****') if token else 'NONE'
             logger.warning(f"[SECURITY] Unauthorized access blocked | path={path} | token_preview={token_preview}")
             return JSONResponse(status_code=403, content={'detail': 'Unauthorized'})
