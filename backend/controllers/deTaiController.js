@@ -53,6 +53,7 @@ exports.getAll = async (req, res) => {
         const regCountMap = {};
         const chotMap = {};
         activeRegs.forEach(r => {
+            if (!r.DeTai) return;
             const deTaiId = r.DeTai.toString();
             regCountMap[deTaiId] = (regCountMap[deTaiId] || 0) + 1;
             if (r.TrangThai === 'DaDuyet') chotMap[deTaiId] = true;
@@ -252,7 +253,7 @@ exports.registerTopic = async (req, res) => {
             }
         }
 
-        // MỚI: SV chỉ đăng ký 1 đề tài trong mỗi lớp (theo LopHoc)
+        // MỚI: HS chỉ đăng ký 1 đề tài trong mỗi lớp (theo LopHoc)
         if (nhom.LopHoc) {
             const lopHocDeTais = await DeTai.find({ LopHoc: nhom.LopHoc }).select('_id');
             const lopDeTaiIds = lopHocDeTais.map(d => d._id);
@@ -614,7 +615,7 @@ exports.approveRegistration = async (req, res) => {
 exports.inviteMember = async (req, res) => {
     try {
         const { id } = req.params; // deTaiId
-        const maHS = (req.body.maHS || req.body.maSV || '').trim();
+        const maHS = (req.body.maHS || '').trim();
         const jwtPayloadId = req.user.id; // Lấy từ token (nếu có user object)
 
         if (!maHS) {
@@ -622,15 +623,15 @@ exports.inviteMember = async (req, res) => {
         }
 
         // B1: Tìm Học sinh được mời qua mã HS
-        const svMoi = await HocSinh.findOne({ MaHS: maHS });
-        if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã HS này.' });
+        const hsMoi = await HocSinh.findOne({ MaHS: maHS });
+        if (!hsMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã HS này.' });
 
         // B2: Kiểm tra học sinh được mời đã đăng ký đề tài nào chưa
         const existingReg = await DangKyDeTai.findOne({
             TrangThai: { $ne: 'TuChoi' },
             $or: [
-                { HocSinh: svMoi._id },
-                { 'ThanhVien.HocSinh': svMoi._id, 'ThanhVien.TrangThaiTV': { $in: ['DaMoi', 'DaChapNhan'] } }
+                { HocSinh: hsMoi._id },
+                { 'ThanhVien.HocSinh': hsMoi._id, 'ThanhVien.TrangThaiTV': { $in: ['DaMoi', 'DaChapNhan'] } }
             ]
         });
 
@@ -656,13 +657,13 @@ exports.inviteMember = async (req, res) => {
 
         // B5: Thêm vào nhóm (trạng thái DaMoi)
         dangKy.ThanhVien.push({
-            HocSinh: svMoi._id,
+            HocSinh: hsMoi._id,
             VaiTro: 'ThanhVien',
             TrangThaiTV: 'DaMoi'
         });
         await dangKy.save();
 
-        logger.info(`[TOPIC] Student ${svMoi.MaHS} invited to topic ${id} by leader ${jwtPayloadId}`);
+        logger.info(`[TOPIC] Student ${hsMoi.MaHS} invited to topic ${id} by leader ${jwtPayloadId}`);
         res.json({ message: 'Đã gửi lời mời thành công!' });
     } catch (err) {
         logger.error(`[TOPIC] Invite member failed: ${err.message}`);
@@ -687,7 +688,7 @@ exports.getMyInvitations = async (req, res) => {
     }
 };
 
-// SV Trả lời lời mời (Đồng ý / Từ chối)
+// HS Trả lời lời mời (Đồng ý / Từ chối)
 exports.respondToInvitation = async (req, res) => {
     try {
         const { id } = req.params; // DangKyDeTai ID (invitationId)

@@ -8,10 +8,7 @@ async function seedAdmin() {
   try {
     const uri = process.env.MONGODB_URI;
     if (!uri) throw new Error('Thiếu MONGODB_URI');
-    await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(uri);
     console.log('Connected to MongoDB');
 
     const existingAdmin = await Admin.findOne({ WalletAddress: adminWallet });

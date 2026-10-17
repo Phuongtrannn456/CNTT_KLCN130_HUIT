@@ -36,7 +36,7 @@ const TopicRegistration = () => {
 
       if (!user || !selectedClassId) return result;
 
-      // 0. Lấy nhóm của SV
+      // 0. Lấy nhóm của HS
       try {
         const nhomRes = await nhomService.getNhomByHocSinh(user.id, selectedClassId);
         result.myNhom = nhomRes.nhom;
@@ -44,7 +44,7 @@ const TopicRegistration = () => {
         console.warn('Không lấy được thông tin nhóm');
       }
 
-      // 1. Kiểm tra SV đã đăng ký đề tài nào chưa
+      // 1. Kiểm tra HS đã đăng ký đề tài nào chưa
       if (selectedClassId === 'KHOA_LUAN') {
         const regsRes = await aiApiService.getMyRegistrations(user.id);
         const klRegs = (regsRes.registrations || []).filter(r => r.DeTai?.LoaiDeTai === 'KhoaLuan');
@@ -89,17 +89,17 @@ const TopicRegistration = () => {
         return result;
       }
 
-      // 3. Lấy profile SV thật từ DB
+      // 3. Lấy profile HS thật từ DB
       let studentProfile = { chuyen_nganh: '', ky_nang: [] };
       try {
-        const svProfile = await aiApiService.getStudentProfile(user.id);
+        const hsProfile = await aiApiService.getStudentProfile(user.id);
         studentProfile = {
-          chuyen_nganh: svProfile.ChuyenNganh || '',
-          ky_nang: svProfile.KyNang || [],
-          gpa: svProfile.GPA || 0
+          chuyen_nganh: hsProfile.ChuyenNganh || '',
+          ky_nang: hsProfile.KyNang || [],
+          gpa: hsProfile.GPA || 0
         };
       } catch (e) {
-        console.warn('Không lấy được profile SV, dùng default');
+        console.warn('Không lấy được profile HS, dùng default');
       }
 
       // 4. Gọi SBERT matching với profile thật

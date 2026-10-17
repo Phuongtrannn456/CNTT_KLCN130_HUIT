@@ -6,7 +6,7 @@ const baoCaoSchema = new mongoose.Schema({
   Nhom: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },
   TieuDe: { type: String, required: true },
   IPFS_CID: { type: String, required: true }, // Nơi lưu trữ hash của file PDF trên mạng IPFS
-  SubmitTxHash: { type: String, default: null }, // Mã giao dịch khi SV nộp bài lên Blockchain
+  SubmitTxHash: { type: String, default: null }, // Mã giao dịch khi HS nộp bài lên Blockchain
   NgayNop: { type: Date, default: Date.now },
   ExtractedText: { type: String, default: null },
   ExtractedAt: { type: Date, default: null },

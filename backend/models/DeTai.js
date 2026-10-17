@@ -19,7 +19,7 @@ const deTaiSchema = new mongoose.Schema({
     GoiYChoAI: [{ type: String }]                          // Keywords cho AI matching (VD: ["React","API"])
   }],
   SuDungRubrics: { type: Boolean, default: false },        // Có dùng Rubrics không
-  HienThiChiTietChoSV: { type: Boolean, default: false },  // GV quyết định SV có xem chi tiết không
+  HienThiChiTietChoSV: { type: Boolean, default: false },  // GV quyết định HS có xem chi tiết không
   SoLuongHocSinh: { type: Number, default: 1, min: 1 },
   Deadline: { type: Date, required: true },           // (giữ tương thích) hạn tổng quát
   HanDangKy: { type: Date },                           // Hạn chót đăng ký đề tài (sau hạn này không cho đăng ký)
@@ -34,6 +34,10 @@ const deTaiSchema = new mongoose.Schema({
   LoaiDeTai: { type: String, enum: ['MonHoc', 'KhoaLuan'], default: 'MonHoc' },
   // === Mở rộng cho hệ thống K-12 (Giáo dục phổ thông) ===
   KhoiLopYeuCau: [{ type: Number, min: 1, max: 12 }]
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+deTaiSchema.virtual('HienThiChiTietChoHS')
+  .get(function() { return this.HienThiChiTietChoSV; })
+  .set(function(val) { this.HienThiChiTietChoSV = val; });
 
 module.exports = mongoose.model('DeTai', deTaiSchema);

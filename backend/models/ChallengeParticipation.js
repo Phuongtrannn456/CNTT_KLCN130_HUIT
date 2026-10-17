@@ -5,7 +5,7 @@ const challengeParticipationSchema = new mongoose.Schema({
   challenge: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge', required: true },
   status: { type: String, enum: ['JOINED', 'DROPPED', 'COMPLETED'], default: 'JOINED' },
   joinedAt: { type: Date, default: Date.now },
-  team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' } // Phục vụ Phase sau nếu có Team
+  team: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' } // Phục vụ Phase sau nếu có Nhom
 }, { timestamps: true });
 
 // Mỗi Student chỉ được Join một Challenge 1 lần

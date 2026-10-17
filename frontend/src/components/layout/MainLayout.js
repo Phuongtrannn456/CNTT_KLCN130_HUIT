@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Layout, Menu, Button, Avatar, theme, Dropdown, Badge } from 'antd';
-import { BookOpen, LogOut, FileText, User as UserIcon, Monitor, CheckCircle, Award, ClipboardList, BarChart2, School, Users, GraduationCap, Bell, ShieldCheck } from 'lucide-react';
+import { BookOpen, LogOut, FileText, User as UserIcon, Monitor, CheckCircle, Award, ClipboardList, BarChart2, School, Users, GraduationCap, Bell, ShieldCheck, Layers, PlusCircle, ShieldAlert } from 'lucide-react';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import authService from '../../services/authService';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { useIsMobile } from '../../hooks/useResponsive';
 import ClassSelector from '../common/ClassSelector';
+import AiCopilotWidget from '../shared/AiCopilotWidget';
 
 const { Header, Content, Sider } = Layout;
 
@@ -78,17 +79,21 @@ const MainLayout = () => {
   }, [isAdmin, fetchPendingRequestsCount]);
 
   const studentMenuItems = [
+    { key: '/student/exam-room', icon: <ShieldAlert size={18} style={{ color: '#722ed1' }} />, label: 'Phòng Thi AI (Chống Gian Lận)' },
     { key: '/student/challenges', icon: <Award size={18} />, label: 'Dự Án & Thử Thách K-12' },
     { key: '/student/achievements', icon: <ShieldCheck size={18} />, label: 'Chứng Nhận & Web3 SBT' },
-    { key: '/student', icon: <Monitor size={18} />, label: 'Dashboard Đề Tài' },
+    { key: '/student/dashboard', icon: <Monitor size={18} />, label: 'Dashboard Đề Tài' },
     { key: '/student/group', icon: <BookOpen size={18} />, label: 'Nhóm Học Sinh' },
+    { key: '/student/register', icon: <PlusCircle size={18} />, label: 'Đăng Ký Đề Tài / Dự Án' },
     { key: '/student/upload', icon: <FileText size={18} />, label: 'Nộp Báo Cáo Dự Án' },
     { key: '/student/progress-log', icon: <CheckCircle size={18} />, label: 'Nhật Ký Tiến Độ' },
     { key: '/student/progress', icon: <UserIcon size={18} />, label: 'Kết Quả & Điểm' }
   ];
 
   const teacherMenuItems = [
+    { key: '/teacher/exam-manager', icon: <ShieldAlert size={18} style={{ color: '#722ed1' }} />, label: 'Giám Sát Thi Cử (AI)' },
     { key: '/teacher/challenges', icon: <Award size={18} />, label: 'Quản Lý Challenge K-12' },
+    { key: '/teacher/topics', icon: <Layers size={18} />, label: 'Đề Tài / Dự Án Học Tập' },
     { key: '/teacher/courses', icon: <BookOpen size={18} />, label: 'Quản Lý Môn Học' },
     { key: '/teacher/classes', icon: <School size={18} />, label: 'Quản Lý Lớp Học' },
     { key: '/teacher/students', icon: <Users size={18} />, label: 'Quản Lý Học Sinh' },
@@ -145,7 +150,7 @@ const MainLayout = () => {
             items: [
               { key: 'wallet', label: `Ví: ${currentUser?.walletAddress?.substring(0, 6)}...` },
               { type: 'divider' },
-              { key: 'profile', icon: <UserIcon size={16} />, label: 'Hồ sơ cá nhân', onClick: () => navigate(isTeacher ? '/teacher' : '/student') },
+              { key: 'profile', icon: <UserIcon size={16} />, label: 'Hồ sơ cá nhân', onClick: () => navigate(isTeacher ? '/teacher/classes' : '/student/dashboard') },
               { type: 'divider' },
               { key: 'logout', danger: true, icon: <LogOut size={16} />, label: 'Đăng xuất', onClick: handleLogout }
             ]
@@ -160,6 +165,10 @@ const MainLayout = () => {
           {/* Output nested routes here */}
           <Outlet />
         </Content>
+        {/* Floating AI Copilot Assistant Widget - Ẩn hoàn toàn trong chế độ thi chống gian lận */}
+        {!location.pathname.includes('/entrance-test') && !location.pathname.includes('/exam-room') && (
+          <AiCopilotWidget />
+        )}
       </Layout>
     </Layout>
   );

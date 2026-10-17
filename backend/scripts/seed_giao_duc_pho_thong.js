@@ -137,8 +137,8 @@ async function seedGiaoDucPhoThong() {
     const hs2 = await HocSinh.findOne({ MaHS: 'HS_1102' });
 
     // Thêm học sinh vào lớp học
-    await LopHoc.findByIdAndUpdate(lop10A1._id, { $addToSet: { DanhSachHocSinh: hs1._id } });
-    await LopHoc.findByIdAndUpdate(lop11A2._id, { $addToSet: { DanhSachHocSinh: hs2._id } });
+    await LopHoc.findByIdAndUpdate(lop10A1._id, { $addToSet: { HocSinh: hs1._id } });
+    await LopHoc.findByIdAndUpdate(lop11A2._id, { $addToSet: { HocSinh: hs2._id } });
 
     // 5. Tạo Dự Án Học Tập & Đề Tài STEM Mẫu
     console.log('\n--- 5. Tạo Dự án học tập & Đề tài STEM mẫu ---');

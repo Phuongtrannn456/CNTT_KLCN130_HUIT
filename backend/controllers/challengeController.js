@@ -31,7 +31,7 @@ exports.createChallenge = async (req, res) => {
 
 exports.getChallenges = async (req, res) => {
   try {
-    const challenges = await Challenge.find().populate('createdBy', 'fullName department');
+    const challenges = await Challenge.find().populate('createdBy', 'HoTen ToBoMon ChuyenNganh fullName department WalletAddress walletAddress');
     res.status(200).json({ success: true, challenges });
   } catch (error) {
     logger.error('Lỗi lấy danh sách Challenge:', error);
@@ -111,7 +111,7 @@ exports.deleteChallenge = async (req, res) => {
 };
 exports.getChallengeById = async (req, res) => {
   try {
-    const challenge = await Challenge.findById(req.params.id).populate('createdBy', 'fullName department');
+    const challenge = await Challenge.findById(req.params.id).populate('createdBy', 'HoTen ToBoMon ChuyenNganh fullName department WalletAddress walletAddress');
     if (!challenge) return res.status(404).json({ success: false, message: 'Challenge not found' });
     res.status(200).json({ success: true, challenge });
   } catch (error) {

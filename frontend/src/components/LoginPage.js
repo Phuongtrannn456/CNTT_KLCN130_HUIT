@@ -3,7 +3,7 @@ import {
   Container, Box, Typography, Button, Paper, Alert,
   CircularProgress, Fade, Grow, Avatar, Chip, Link,
   useTheme, useMediaQuery, Tabs, Tab, Dialog,
-  DialogTitle, DialogContent, DialogActions
+  DialogTitle, DialogContent, DialogActions, Divider
 } from '@mui/material';
 import {
   AccountBalanceWallet as WalletIcon,
@@ -11,7 +11,10 @@ import {
   ChevronRight as ChevronRightIcon,
   Language as LanguageIcon,
   HelpOutline as HelpIcon,
-  QrCodeScanner as QrCodeScannerIcon
+  QrCodeScanner as QrCodeScannerIcon,
+  PlayArrow as PlayIcon,
+  School as SchoolIcon,
+  SupervisorAccount as TeacherIcon
 } from '@mui/icons-material';
 import MetaMaskGuideModal from './MetaMaskGuideModal';
 import QrScanner from './QrScanner';
@@ -220,6 +223,33 @@ function LoginPage() {
     }
   };
 
+  const handleDemoLogin = async (role, directToExam = false) => {
+    setLoading(true);
+    setError('');
+    setSuccess('');
+    try {
+      const result = await authService.demoLogin(role);
+      const roleText = role === 'teacher' ? 'Giáo viên (Thầy Toàn)' : 'Học sinh (Lê Minh Khôi)';
+      setSuccess(`Đăng nhập thành công với vai trò ${roleText}! Đang chuyển hướng...`);
+      setIsAuthenticated(true);
+      setUser(result.user);
+
+      setTimeout(() => {
+        if (directToExam && result.demoDeTaiId) {
+          window.location.href = `/student/entrance-test/${result.demoDeTaiId}`;
+        } else if (directToExam && role === 'teacher' && result.demoDeTaiId) {
+          window.location.href = `/teacher/entrance-test/${result.demoDeTaiId}`;
+        } else {
+          redirectUserByRole(result.user?.role_id);
+        }
+      }, 600);
+    } catch (err) {
+      setError(err.message || 'Lỗi đăng nhập tài khoản demo.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
     setError('');
@@ -353,9 +383,9 @@ function LoginPage() {
                   color="primary"
                 />
 
-                {!isLecturer && !isAdmin && (user.MaHS || user.MaSV) && (
+                {!isLecturer && !isAdmin && user.MaHS && (
                   <Chip
-                    label={`Mã HS: ${user.MaHS || user.MaSV}`}
+                    label={`Mã HS: ${user.MaHS}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -369,9 +399,17 @@ function LoginPage() {
                   />
                 )}
 
-                {user.ChuyenNganh && (
+                {isLecturer && (user.ToBoMon || user.ChuyenNganh) && (
                   <Chip
-                    label={`Chuyên ngành: ${user.ChuyenNganh}`}
+                    label={`Tổ bộ môn: ${user.ToBoMon || user.ChuyenNganh}`}
+                    variant="outlined"
+                    size={styles.chipSize}
+                  />
+                )}
+
+                {!isLecturer && !isAdmin && (user.KhoiLop || user.ChuyenNganh) && (
+                  <Chip
+                    label={user.KhoiLop ? `Khối lớp: ${user.KhoiLop}` : `Lĩnh vực: ${user.ChuyenNganh}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -501,7 +539,8 @@ function LoginPage() {
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
               <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
                 <Tab label="Ví MetaMask" />
-                <Tab label="Quét QR Code" />
+                <Tab label="Quét QR" />
+                <Tab label="⚡ Thử Nghiệm" sx={{ color: '#722ed1', fontWeight: 'bold' }} />
               </Tabs>
             </Box>
 
@@ -616,6 +655,88 @@ function LoginPage() {
                 </Typography>
               </>
             )}
+
+            {tabValue === 2 && (
+              <>
+                <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: '#722ed1' }}>
+                  Trải nghiệm Nhanh Phòng Thi & Hệ Thống
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
+                  Không cần cài đặt ví MetaMask. Bấm chọn tài khoản để trải nghiệm ngay:
+                </Typography>
+
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    fullWidth
+                    onClick={() => handleDemoLogin('student', true)}
+                    disabled={loading}
+                    startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <PlayIcon />}
+                    sx={{
+                      py: 1.5,
+                      fontWeight: 'bold',
+                      background: 'linear-gradient(135deg, #722ed1 0%, #1890ff 100%)',
+                      boxShadow: '0 4px 14px rgba(114, 46, 209, 0.4)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #531dab 0%, #096dd9 100%)',
+                        transform: 'translateY(-1px)'
+                      }
+                    }}
+                  >
+                    🎯 Vào Thẳng Phòng Thi Giám Sát AI
+                  </Button>
+
+                  <Button
+                    variant="outlined"
+                    size="medium"
+                    fullWidth
+                    onClick={() => handleDemoLogin('student', false)}
+                    disabled={loading}
+                    startIcon={<SchoolIcon />}
+                    sx={{ py: 1, borderColor: '#1890ff', color: '#1890ff', fontWeight: 600 }}
+                  >
+                    Đăng nhập Học Sinh (Lê Minh Khôi)
+                  </Button>
+
+                  <Button
+                    variant="outlined"
+                    size="medium"
+                    fullWidth
+                    onClick={() => handleDemoLogin('teacher', false)}
+                    disabled={loading}
+                    startIcon={<TeacherIcon />}
+                    sx={{ py: 1, borderColor: '#52c41a', color: '#52c41a', fontWeight: 600 }}
+                  >
+                    Đăng nhập Giáo Viên (Thầy Toàn)
+                  </Button>
+                </Box>
+              </>
+            )}
+
+            <Divider sx={{ my: 2.5 }}>
+              <Chip label="HOẶC VÀO THI TRỰC TIẾP" size="small" sx={{ fontSize: '0.72rem', fontWeight: 600 }} />
+            </Divider>
+
+            <Button
+              variant="text"
+              size="medium"
+              fullWidth
+              onClick={() => handleDemoLogin('student', true)}
+              disabled={loading}
+              startIcon={<PlayIcon />}
+              sx={{
+                color: '#722ed1',
+                fontWeight: 'bold',
+                background: 'rgba(114, 46, 209, 0.08)',
+                py: 1.2,
+                '&:hover': {
+                  background: 'rgba(114, 46, 209, 0.16)'
+                }
+              }}
+            >
+              🚀 Vào Thẳng Phòng Thi Giám Sát AI (Học Sinh)
+            </Button>
           </Paper>
         </Grow>
 

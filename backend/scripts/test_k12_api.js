@@ -1,7 +1,7 @@
 /**
  * Test End-to-End Backend K-12
  * 
- * Chạy: MONGODB_URI=mongodb://127.0.0.1:27017/web3k12 node scripts/test_k12_api.js
+ * Chạy: MONGODB_URI=mongodb://127.0.0.1:27017/web3giaovien node scripts/test_k12_api.js
  * 
  * Test bao gồm:
  * 1. Auth flow (ký challenge bằng ethers.js test wallet)

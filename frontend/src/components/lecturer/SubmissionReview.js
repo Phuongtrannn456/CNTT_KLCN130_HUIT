@@ -758,7 +758,7 @@ const SubmissionReview = () => {
     {
       title: 'Mã HS',
       dataIndex: ['student', 'MaHS'],
-      key: 'maSV'
+      key: 'maHS'
     },
     {
       title: 'Trạng Thái Nộp',

@@ -167,8 +167,16 @@ const TeacherChallengeDetail = () => {
   };
 
   const columns = [
-    { title: 'Học sinh', dataIndex: ['student', 'fullName'], key: 'name' },
-    { title: 'Khối lớp', dataIndex: ['student', 'gradeLevel'], key: 'grade' },
+    { 
+      title: 'Học sinh', 
+      key: 'name',
+      render: (_, record) => record.student?.fullName || record.student?.HoTen || 'N/A'
+    },
+    { 
+      title: 'Khối lớp', 
+      key: 'grade',
+      render: (_, record) => record.student?.gradeLevel || record.student?.KhoiLop || 'N/A'
+    },
     { 
       title: 'Ngày tham gia', 
       key: 'joinedAt', 
@@ -203,7 +211,7 @@ const TeacherChallengeDetail = () => {
       </Card>
 
       <Modal
-        title={`Đánh giá bài nộp: ${selectedParticipation?.student?.fullName || ""}`}
+        title={`Đánh giá bài nộp: ${selectedParticipation?.student?.fullName || selectedParticipation?.student?.HoTen || ""}`}
         open={isEvalModalVisible}
         onCancel={() => setIsEvalModalVisible(false)}
         footer={null}
@@ -288,8 +296,8 @@ const TeacherChallengeDetail = () => {
               <Col span={12}>
                 <Card title="Quyết định của Giáo viên" size="small" style={{ height: '100%' }}>
                   <Form form={form} layout="vertical" onFinish={onEvalSubmit} initialValues={{ status: 'DRAFT' }}>
-                    <Form.Item name="teacherTotalScore" label="Điểm số chính thức" rules={[{ required: true, message: 'Vui lòng nhập điểm' }]}>
-                      <InputNumber min={0} max={100} step={0.5} disabled={isFinalized} style={{ width: '100%' }} />
+                    <Form.Item name="teacherTotalScore" label="Điểm số chính thức (Thang 10 chuẩn K-12)" rules={[{ required: true, message: 'Vui lòng nhập điểm (0 - 10)' }]}>
+                      <InputNumber min={0} max={10} step={0.25} placeholder="0 - 10" disabled={isFinalized} style={{ width: '100%' }} />
                     </Form.Item>
                     
                     <Form.Item name="teacherFeedback" label="Nhận xét chính thức" rules={[{ required: true, message: 'Vui lòng nhập nhận xét' }]}>

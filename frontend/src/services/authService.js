@@ -178,6 +178,25 @@ class AuthService {
     }
   }
 
+  // Demo Login (Quick experience without MetaMask extension)
+  async demoLogin(role = 'student') {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/auth/demo-login`, { role });
+      if (!response.data.success) {
+        throw new Error(response.data.message || 'Demo login failed');
+      }
+
+      this.user = response.data.user;
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
+
+      return response.data;
+    } catch (error) {
+      console.error('Demo login error:', error);
+      throw error;
+    }
+  }
+
   // Logout
   async logout() {
     try {

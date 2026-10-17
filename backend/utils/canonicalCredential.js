@@ -10,7 +10,7 @@ function createCanonicalHash(credentialData) {
     credentialId: credentialData.credentialId,
     achievementType: credentialData.metadata.achievementType,
     challengeId: credentialData.challenge.toString(),
-    issuedAt: new Date(credentialData.metadata.issuedAt).toISOString(),
+    issuedAt: credentialData.metadata?.issuedAt ? new Date(credentialData.metadata.issuedAt).toISOString() : new Date().toISOString(),
     issuerWallet: credentialData.issuerWallet.toLowerCase(),
     studentWallet: credentialData.studentWallet.toLowerCase(),
     version: credentialData.metadata.version || '1.0'

@@ -50,7 +50,14 @@ exports.update = async (req, res) => {
         const requesterRole = req.user?.role_id;
 
         // Chỉ chính học sinh đó hoặc ADMIN mới có quyền sửa
-        if (requesterRole !== 'ADMIN_ROLE' && requesterId !== targetId) {
+        let isAllowed = requesterRole === 'ADMIN_ROLE' || String(requesterId) === String(targetId);
+        if (!isAllowed && req.user?.walletAddress) {
+            const hs = await HocSinh.findById(targetId);
+            if (hs && hs.WalletAddress?.toLowerCase() === req.user.walletAddress.toLowerCase()) {
+                isAllowed = true;
+            }
+        }
+        if (!isAllowed) {
             return res.status(403).json({ error: 'Bạn không có quyền sửa thông tin của học sinh này.' });
         }
 
@@ -80,11 +87,18 @@ exports.updateProfile = async (req, res) => {
         const requesterRole = req.user?.role_id;
 
         // Chỉ chính học sinh đó hoặc ADMIN mới được cập nhật profile này
-        if (requesterRole !== 'ADMIN_ROLE' && requesterId !== id) {
+        let isProfileAllowed = requesterRole === 'ADMIN_ROLE' || String(requesterId) === String(id);
+        if (!isProfileAllowed && req.user?.walletAddress) {
+            const hs = await HocSinh.findById(id);
+            if (hs && hs.WalletAddress?.toLowerCase() === req.user.walletAddress.toLowerCase()) {
+                isProfileAllowed = true;
+            }
+        }
+        if (!isProfileAllowed) {
             return res.status(403).json({ error: 'Bạn không có quyền cập nhật hồ sơ của học sinh này.' });
         }
 
-        const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang } = req.body;
+        const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang, KhoiLop, gradeLevel, TruongHoc, school, HanhKiem } = req.body;
 
         // Validate fields cơ bản
         if (!HoTen || !MaHS || !Email) {
@@ -108,13 +122,17 @@ exports.updateProfile = async (req, res) => {
             return res.status(400).json({ error: 'Mã HS đã tồn tại trong hệ thống.' });
         }
 
-        // Kiểm tra trùng Email với SV khác
+        // Kiểm tra trùng Email với HS khác
         const duplicateEmail = await HocSinh.findOne({ Email, _id: { $ne: id } });
         if (duplicateEmail) {
             return res.status(400).json({ error: 'Email đã tồn tại trong hệ thống.' });
         }
 
-        const updated = await HocSinh.findByIdAndUpdate(id, {
+        const effectiveGrade = KhoiLop !== undefined && KhoiLop !== null && KhoiLop !== '' 
+            ? Number(KhoiLop) 
+            : (gradeLevel !== undefined && gradeLevel !== null && gradeLevel !== '' ? Number(gradeLevel) : undefined);
+
+        const updateData = {
             HoTen,
             MaHS,
             Email,
@@ -123,7 +141,19 @@ exports.updateProfile = async (req, res) => {
             KyNang: KyNang || [],
             BangDiemKyNang: BangDiemKyNang || [],
             DaCapNhatHoSo: true
-        }, { new: true });
+        };
+
+        if (effectiveGrade !== undefined && !isNaN(effectiveGrade)) {
+            updateData.KhoiLop = effectiveGrade;
+        }
+        if (TruongHoc || school) {
+            updateData.TruongHoc = TruongHoc || school;
+        }
+        if (HanhKiem) {
+            updateData.HanhKiem = HanhKiem;
+        }
+
+        const updated = await HocSinh.findByIdAndUpdate(id, updateData, { new: true });
 
         if (!updated) return res.status(404).json({ error: 'Không tìm thấy học sinh.' });
 
@@ -137,19 +167,19 @@ exports.updateProfile = async (req, res) => {
 // Tìm học sinh theo MaHS (dùng cho chức năng mời vào nhóm)
 exports.findByMaHS = async (req, res) => {
     try {
-        const { maSV } = req.params;
-        const sv = await HocSinh.findOne({ MaHS: maSV });
-        if (!sv) return res.status(404).json({ error: 'Không tìm thấy học sinh với mã này.' });
+        const maHocSinh = req.params.maHS;
+        const hs = await HocSinh.findOne({ MaHS: maHocSinh });
+        if (!hs) return res.status(404).json({ error: 'Không tìm thấy học sinh với mã này.' });
         // Chỉ trả về thông tin cần thiết (không trả wallet)
         res.json({
-            _id: sv._id,
-            MaHS: sv.MaHS,
-            HoTen: sv.HoTen,
-            Email: sv.Email,
-            GPA: sv.GPA,
-            ChuyenNganh: sv.ChuyenNganh,
-            KyNang: sv.KyNang,
-            BangDiemKyNang: sv.BangDiemKyNang
+            _id: hs._id,
+            MaHS: hs.MaHS,
+            HoTen: hs.HoTen,
+            Email: hs.Email,
+            GPA: hs.GPA,
+            ChuyenNganh: hs.ChuyenNganh,
+            KyNang: hs.KyNang,
+            BangDiemKyNang: hs.BangDiemKyNang
         });
     } catch (err) {
         res.status(500).json({ error: err.message });

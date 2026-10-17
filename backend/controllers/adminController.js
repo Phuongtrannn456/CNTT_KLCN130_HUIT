@@ -208,8 +208,8 @@ const getRequestDetail = async (req, res) => {
 
 const getAllLecturers = async (req, res) => {
   try {
-    const lecturers = await GiaoVien.find().sort({ createdAt: -1 }).lean();
-    res.json({ success: true, lecturers });
+    const teachers = await GiaoVien.find().sort({ createdAt: -1 }).lean();
+    res.json({ success: true, lecturers: teachers, teachers, giaoViens: teachers });
   } catch (error) {
     console.error('getAllLecturers error:', error);
     res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách Giáo viên.' });
@@ -222,5 +222,6 @@ module.exports = {
   rejectRequest,
   getProcessedRequests,
   getRequestDetail,
-  getAllLecturers
+  getAllLecturers,
+  getAllGiaoVien: getAllLecturers
 };

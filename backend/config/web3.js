@@ -73,15 +73,11 @@ const web3Config = {
     }
   },
 
-  // Contract Addresses (update with deployed contract addresses)
+  // Contract Addresses
   contracts: {
-    employeeRegistry: process.env.EMPLOYEE_REGISTRY_CONTRACT || '0x0000000000000000000000000000000000000000',
-    kpiContract: process.env.KPI_CONTRACT || '0x0000000000000000000000000000000000000000',
-    payrollContract: process.env.PAYROLL_CONTRACT || '0x0000000000000000000000000000000000000000',
-    attendanceContract: process.env.ATTENDANCE_CONTRACT || '0x0000000000000000000000000000000000000000',
     qrAuthentication: process.env.QR_AUTH_CONTRACT || '0x5FbDB2315678afecb367f032d93F642f64180aa3',
-    consentManagement: process.env.CONSENT_CONTRACT || '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
-    kpiManagement: process.env.KPI_MANAGEMENT_CONTRACT || '0x0000000000000000000000000000000000000000'
+    k12CredentialRegistry: process.env.K12_CREDENTIAL_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000',
+    thesisManagement: process.env.THESIS_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000'
   },
 
   // Contract ABIs
@@ -97,34 +93,6 @@ const web3Config = {
       "function tokenURI(uint256 tokenId) external view returns (string memory)",
       "function ownerOf(uint256 tokenId) external view returns (address)",
       "function balanceOf(address owner) external view returns (uint256)"
-    ],
-    consentManagement: [
-      "function giveConsent(string memory employeeDid, string memory consentType, string memory purpose, uint256 duration, string memory ipfsHash) external returns (uint256)",
-      "function revokeConsent(uint256 consentId) external",
-      "function isConsentValid(uint256 consentId) external view returns (bool)",
-      "function hasActiveConsent(string memory employeeDid, string memory consentType) external view returns (bool)",
-      "function getEmployeeConsents(string memory employeeDid) external view returns (uint256[] memory)",
-      "function getWalletConsents(address walletAddress) external view returns (uint256[] memory)",
-      "function getConsent(uint256 consentId) external view returns (tuple(uint256 consentId, string employeeDid, address walletAddress, string consentType, string purpose, uint256 issuedAt, uint256 expiresAt, bool isActive, string ipfsHash))"
-    ],
-    kpiManagement: [
-      "function createKpiCriteria(string memory kpiId, string memory tenKpi, string memory moTa, string memory loaiKpi, string memory donViDo, uint256 trongSo, uint256 nguongDat, uint256 nguongXuatSac, string[] memory apDungChoChucVu, string memory chuKyDanhGia) external",
-      "function updateKpiCriteria(string memory kpiId, string memory tenKpi, string memory moTa, string memory donViDo, uint256 trongSo, uint256 nguongDat, uint256 nguongXuatSac, string[] memory apDungChoChucVu, string memory chuKyDanhGia) external",
-      "function deactivateKpiCriteria(string memory kpiId) external",
-      "function createKpiEvaluation(string memory employeeDid, string memory kpiId, string memory kyDanhGia, uint256 ngayBatDau, uint256 ngayKetThuc, uint256 giaTriThucTe, string memory nguoiDanhGiaDid, string memory nhanXet) external returns (uint256)",
-      "function updateKpiEvaluation(uint256 evaluationId, uint256 giaTriThucTe, string memory nhanXet, string memory trangThai) external",
-      "function approveKpiEvaluation(uint256 evaluationId) external",
-      "function getKpiCriteria(string memory kpiId) external view returns (tuple(string kpiId, string tenKpi, string moTa, string loaiKpi, string donViDo, uint256 trongSo, uint256 nguongDat, uint256 nguongXuatSac, string[] apDungChoChucVu, string chuKyDanhGia, bool isActive, uint256 createdAt))",
-      "function getKpiEvaluation(uint256 evaluationId) external view returns (tuple(uint256 evaluationId, string employeeDid, string kpiId, string kyDanhGia, uint256 ngayBatDau, uint256 ngayKetThuc, uint256 giaTriThucTe, uint256 diemSo, string xepLoai, string nguoiDanhGiaDid, string nhanXet, string trangThai, uint256 createdAt, uint256 updatedAt))",
-      "function getEmployeeEvaluations(string memory employeeDid) external view returns (uint256[] memory)",
-      "function getKpiEvaluationsByCriteria(string memory kpiId) external view returns (uint256[] memory)",
-      "function getEvaluationsByPeriod(string memory kyDanhGia) external view returns (uint256[] memory)",
-      "function getEmployeeKpiSummary(string memory employeeDid, string memory kyDanhGia) external view returns (uint256 totalScore, uint256 evaluationCount, string overallRanking)",
-      "function isKpiCriteriaActive(string memory kpiId) external view returns (bool)",
-      "function getTotalKpiCriteria() external view returns (uint256)",
-      "function getTotalEvaluations() external view returns (uint256)",
-      "function grantEvaluatorRole(address account) external",
-      "function grantEmployeeRole(address account) external"
     ]
   },
 
@@ -219,16 +187,6 @@ function getQRAuthContract() {
   return getContract('qrAuthentication');
 }
 
-// Get Consent Management contract instance
-function getConsentContract() {
-  return getContract('consentManagement');
-}
-
-// Get KPI Management contract instance
-function getKpiContract() {
-  return getContract('kpiManagement');
-}
-
 // Utility functions
 const web3Utils = {
   // Convert DID to bytes32
@@ -291,8 +249,6 @@ module.exports = {
   initializeWeb3,
   getContract,
   getQRAuthContract,
-  getConsentContract,
-  getKpiContract,
   web3Utils,
   provider,
   signer

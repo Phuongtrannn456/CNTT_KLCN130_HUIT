@@ -72,6 +72,7 @@ SKILL_WEB3GIANGVIEN.md
 
 # Logs and scratch
 *.log
+*.ps1
 diff_*.txt
 *_out.txt
 test_out.txt

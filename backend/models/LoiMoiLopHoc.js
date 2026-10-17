@@ -11,7 +11,7 @@ const loiMoiLopHocSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
-// Mỗi SV chỉ có 1 lời mời active cho 1 lớp
+// Mỗi HS chỉ có 1 lời mời active cho 1 lớp
 loiMoiLopHocSchema.index({ LopHoc: 1, HocSinh: 1 }, { unique: true });
 
 module.exports = mongoose.model('LoiMoiLopHoc', loiMoiLopHocSchema);

@@ -51,8 +51,15 @@ exports.update = async (req, res) => {
         const requesterRole = req.user?.role_id;
 
         // Chỉ chính giáo viên đó hoặc ADMIN mới có quyền sửa
-        if (requesterRole !== 'ADMIN_ROLE' && requesterId !== targetId) {
-            return res.status(403).json({ error: 'Bạn không có quyền sửa thông tin của giảng viên này.' });
+        let isAllowed = requesterRole === 'ADMIN_ROLE' || String(requesterId) === String(targetId);
+        if (!isAllowed && req.user?.walletAddress) {
+            const gv = await GiaoVien.findById(targetId);
+            if (gv && gv.WalletAddress?.toLowerCase() === req.user.walletAddress.toLowerCase()) {
+                isAllowed = true;
+            }
+        }
+        if (!isAllowed) {
+            return res.status(403).json({ error: 'Bạn không có quyền sửa thông tin của giáo viên này.' });
         }
 
         const updated = await GiaoVien.findByIdAndUpdate(targetId, req.body, { new: true });

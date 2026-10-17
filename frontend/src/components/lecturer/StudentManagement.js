@@ -47,20 +47,20 @@ const StudentManagement = () => {
     return Object.values(map);
   }, [rawData]);
 
-  const filteredData = groupedData.filter(sv => {
+  const filteredData = groupedData.filter(hs => {
     if (!searchText) return true;
     const text = searchText.toLowerCase();
     // Search across all basic fields + class/subject names
-    const classTexts = (sv.classes || []).map(c =>
+    const classTexts = (hs.classes || []).map(c =>
       `${c.lopHoc?.MaLopHoc || ''} ${c.lopHoc?.TenLopHoc || ''} ${c.monHoc?.TenMonHoc || ''} ${c.monHoc?.MaMonHoc || ''} ${c.giaoVien?.HoTen || ''}`
     ).join(' ').toLowerCase();
 
     return (
-      sv.MaHS?.toLowerCase().includes(text) ||
-      sv.HoTen?.toLowerCase().includes(text) ||
-      sv.Email?.toLowerCase().includes(text) ||
-      sv.ChuyenNganh?.toLowerCase().includes(text) ||
-      sv.WalletAddress?.toLowerCase().includes(text) ||
+      hs.MaHS?.toLowerCase().includes(text) ||
+      hs.HoTen?.toLowerCase().includes(text) ||
+      hs.Email?.toLowerCase().includes(text) ||
+      hs.ChuyenNganh?.toLowerCase().includes(text) ||
+      hs.WalletAddress?.toLowerCase().includes(text) ||
       classTexts.includes(text)
     );
   });

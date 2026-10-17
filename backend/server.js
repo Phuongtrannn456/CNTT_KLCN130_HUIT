@@ -205,16 +205,28 @@ app.use('/api/participations', require('./routes/participationRoutes'));
 app.use('/api/submissions', require('./routes/submissionRoutes'));
 app.use('/api/achievements', require('./routes/achievementRoutes'));
 app.use('/api/ai', require('./routes/aiRoutes'));
+app.use('/api/ai/assistant', require('./routes/aiAssistantRoutes'));
 app.use('/api/credentials', require('./routes/credentialRoutes'));
 
 // --- Legacy Auth Routes ---
 app.post('/api/auth/challenge', loginLimiter, authController.generateChallenge);
 app.post('/api/auth/verify', loginLimiter, authController.verifySignature);
 app.post('/api/auth/register-role', authController.registerWithRole);
+app.post('/api/auth/demo-login', authController.demoLogin);
 app.get('/api/auth/profile', ...requireAuth, authController.getProfile);
 app.post('/api/auth/logout', authController.authenticateToken, authController.logout);
 app.get('/api/auth/qr-session', loginLimiter, authController.generateQrSession);
 app.post('/api/auth/qr-submit', loginLimiter, authController.verifyQrSignature);
+app.get('/api/baitest/demo-topic', async (req, res) => {
+  try {
+    const DeTai = require('./models/DeTai');
+    const topic = await DeTai.findOne({ CoBaiTest: true });
+    if (!topic) return res.status(404).json({ error: 'Chưa có đề tài test' });
+    res.json({ deTaiId: topic._id, title: topic.TenDeTai });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // 2b. QR Routes
 app.get('/api/qr/me', ...requireAuth, qrController.getQrCode);
@@ -227,6 +239,8 @@ app.get('/api/admin/requests/:id', ...requireAdmin, adminController.getRequestDe
 app.post('/api/admin/approve/:id', ...requireAdmin, adminController.approveRequest);
 app.post('/api/admin/reject/:id', ...requireAdmin, adminController.rejectRequest);
 app.get('/api/admin/lecturers', ...requireAdmin, adminController.getAllLecturers);
+app.get('/api/admin/giaovien', ...requireAdmin, adminController.getAllLecturers);
+app.get('/api/admin/teachers', ...requireAdmin, adminController.getAllLecturers);
 
 // 3. Học Sinh
 app.get('/api/hocsinh', ...requireAuth, hocSinhController.getAll);
@@ -234,8 +248,7 @@ app.get('/api/hocsinh/:id', ...requireAuth, hocSinhController.getById);
 app.post('/api/hocsinh', ...requireAdmin, hocSinhController.create);
 app.put('/api/hocsinh/:id', ...requireAuth, hocSinhController.update);
 app.put('/api/hocsinh/:id/profile', ...requireAuth, hocSinhController.updateProfile);
-app.get('/api/hocsinh/mahs/:maSV', ...requireAuth, hocSinhController.findByMaHS);
-app.get('/api/hocsinh/masv/:maSV', ...requireAuth, hocSinhController.findByMaHS);
+app.get('/api/hocsinh/mahs/:maHS', ...requireAuth, hocSinhController.findByMaHS);
 app.delete('/api/hocsinh/:id', ...requireAdmin, hocSinhController.delete);
 
 // 4. Giáo Viên
@@ -305,7 +318,7 @@ app.put('/api/tiendo/:id/retry-blockchain', ...requireTeacher, tienDoController.
 app.get('/api/tiendo/:id/ai-suggest', ...requireTeacher, tienDoController.aiSuggestProgress);
 app.put('/api/tiendo/:id/nhanxet', ...requireTeacher, tienDoController.commentProgress);
 app.put('/api/tiendo/:id', ...requireStudent, tienDoController.updateProgressEntry);
-app.get('/api/tiendo/:hsId', ...requireAuth, tienDoController.getProgressBySV);
+app.get('/api/tiendo/:hsId', ...requireAuth, tienDoController.getProgressByHocSinh);
 
 // 9. AI / ML Services
 app.post('/api/ai/analyze-report', ...requireTeacher, aiLimiter, aiController.analyzeReport);
@@ -330,6 +343,7 @@ app.get('/api/baitest/:id/results', ...requireTeacher, baiTestController.getTest
 app.post('/api/baitest/:id/select-winner', ...requireTeacher, baiTestController.selectWinner);
 app.delete('/api/baitest/:id', ...requireTeacher, baiTestController.deleteTest);
 app.get('/api/baitest/check/:deTaiId/:hocSinhId', ...requireAuth, baiTestController.checkSubmitted);
+app.post('/api/baitest/:deTaiId/reset-student-test', ...requireAuth, baiTestController.resetStudentTest);
 
 // 12. Quản Lý Nhóm
 app.post('/api/nhom', ...requireStudent, nhomController.createNhom);

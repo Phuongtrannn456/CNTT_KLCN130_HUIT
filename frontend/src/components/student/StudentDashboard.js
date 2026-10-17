@@ -118,6 +118,7 @@ const StudentDashboard = () => {
         MaHS: values.MaHS,
         Email: values.Email,
         GPA: values.GPA || 0,
+        KhoiLop: values.KhoiLop || 10,
         ChuyenNganh: values.ChuyenNganh || '',
         BangDiemKyNang: bangDiem
       });
@@ -147,6 +148,7 @@ const StudentDashboard = () => {
         MaHS: studentProfile.MaHS,
         Email: studentProfile.Email,
         GPA: studentProfile.GPA,
+        KhoiLop: studentProfile.KhoiLop || 10,
         ChuyenNganh: studentProfile.ChuyenNganh,
         KyNang: currentKyNang,
         Scores: currentScores
@@ -282,8 +284,9 @@ const StudentDashboard = () => {
               <Text>{studentProfile?.Email || 'Chưa cập nhật'}</Text>
             </div>
             <div style={{ marginBottom: 8 }}>
-              <Text type="secondary">Khối lớp / Ban: </Text>
-              <Text>{studentProfile?.ChuyenNganh || '—'}</Text>
+              <Text type="secondary">Khối lớp: </Text>
+              <Text strong>{studentProfile?.KhoiLop ? `Khối ${studentProfile.KhoiLop}` : 'Chưa cập nhật'}</Text>
+              {studentProfile?.ChuyenNganh ? <Text type="secondary"> ({studentProfile.ChuyenNganh})</Text> : null}
             </div>
             <Divider style={{ margin: '12px 0' }} />
             <div>
@@ -462,6 +465,7 @@ const StudentDashboard = () => {
             MaHS: studentProfile?.MaHS || '',
             Email: studentProfile?.Email || '',
             GPA: studentProfile?.GPA || 0,
+            KhoiLop: studentProfile?.KhoiLop || 10,
             ChuyenNganh: studentProfile?.ChuyenNganh || '',
             KyNang: studentProfile?.KyNang || [],
             Scores: studentProfile?.BangDiemKyNang?.reduce((acc, curr) => {
@@ -487,12 +491,25 @@ const StudentDashboard = () => {
             </Col>
           </Row>
 
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
+              <Form.Item name="KhoiLop" label="Khối Lớp (K-12)" rules={[{ required: true, message: 'Vui lòng chọn khối lớp!' }]}>
+                <Select size="large" placeholder="Chọn khối lớp">
+                  <Select.Option value={10}>Khối 10</Select.Option>
+                  <Select.Option value={11}>Khối 11</Select.Option>
+                  <Select.Option value={12}>Khối 12</Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item name="ChuyenNganh" label="Chuyên Ban / Tổ Hợp">
+                <Input placeholder="Tự Nhiên / STEM / Tin học" size="large" />
+              </Form.Item>
+            </Col>
+          </Row>
+
           <Form.Item name="Email" label="Email" rules={[{ required: true, type: 'email', message: 'Email không hợp lệ!' }]}>
             <Input placeholder="hocsinh@thpt.edu.vn" size="large" />
-          </Form.Item>
-
-          <Form.Item name="ChuyenNganh" label="Khối Lớp / Chuyên Ban">
-            <Input placeholder="Khối 10 Tự Nhiên / STEM" size="large" />
           </Form.Item>
 
           <style>

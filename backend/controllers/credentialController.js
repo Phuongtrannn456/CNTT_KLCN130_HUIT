@@ -48,8 +48,8 @@ exports.getMyCredentials = async (req, res) => {
     
     const credentials = await EducationalCredential.find(query)
       .populate('challenge', 'title subject challengeType')
-      .populate('issuer', 'fullName')
-      .populate('student', 'fullName');
+      .populate('issuer', 'HoTen fullName WalletAddress walletAddress')
+      .populate('student', 'HoTen fullName WalletAddress walletAddress');
     
     res.status(200).json({ success: true, credentials });
   } catch (err) {
@@ -64,7 +64,15 @@ exports.generateClaimMessage = async (req, res) => {
 
     const achievement = await Achievement.findById(achievementId).populate('challenge').populate('issuer');
     if (!achievement) return res.status(404).json({ success: false, message: 'Achievement không tồn tại' });
-    if (achievement.student.toString() !== studentId) return res.status(403).json({ success: false, message: 'Không có quyền' });
+
+    let isStudentOwner = achievement.student.toString() === studentId;
+    if (!isStudentOwner && req.user?.walletAddress) {
+      const currentHs = await HocSinh.findOne({ WalletAddress: req.user.walletAddress.toLowerCase() });
+      if (currentHs && currentHs._id.toString() === achievement.student.toString()) {
+        isStudentOwner = true;
+      }
+    }
+    if (!isStudentOwner) return res.status(403).json({ success: false, message: 'Không có quyền' });
 
     let credential = await EducationalCredential.findOne({ achievement: achievementId });
     
@@ -75,7 +83,7 @@ exports.generateClaimMessage = async (req, res) => {
 
     if (!credential) {
       credential = new EducationalCredential({
-        student: studentId,
+        student: achievement.student,
         achievement: achievementId,
         challenge: achievement.challenge._id,
         issuer: achievement.issuer._id,
@@ -100,10 +108,16 @@ exports.generateClaimMessage = async (req, res) => {
 exports.claimCredential = async (req, res) => {
   try {
     const { credentialId, signature } = req.body;
-    const student = await Student.findById(req.user.id) || await HocSinh.findById(req.user.id);
+    let student = await HocSinh.findById(req.user.id);
+    if (!student && req.user?.walletAddress) {
+      student = await HocSinh.findOne({ WalletAddress: req.user.walletAddress.toLowerCase() });
+    }
     if (!student) return res.status(404).json({ success: false, message: 'Không tìm thấy thông tin học sinh' });
     
-    const credential = await EducationalCredential.findOne({ credentialId, student: student._id })
+    const credential = await EducationalCredential.findOne({
+      credentialId,
+      $or: [{ student: student._id }, { student: req.user.id }]
+    })
       .populate('issuer')
       .populate('challenge');
       
@@ -183,8 +197,8 @@ exports.verifyCredential = async (req, res) => {
     // Privacy Fix: Only populate what is strictly non-PII
     const credential = await EducationalCredential.findOne({ credentialId })
       .populate('challenge', 'title') 
-      .populate('issuer', 'walletAddress')
-      .populate('student', 'walletAddress'); 
+      .populate('issuer', 'WalletAddress walletAddress')
+      .populate('student', 'WalletAddress walletAddress'); 
 
     if (!credential) return res.status(404).json({ success: false, message: 'Credential không tồn tại' });
     
@@ -265,7 +279,7 @@ exports.revokeCredential = async (req, res) => {
     // Auth: Only creator of challenge can revoke
     let isOwner = credential.challenge.createdBy.toString() === req.user.id;
     if (!isOwner && req.user?.walletAddress) {
-      const creator = (await Teacher.findById(credential.challenge.createdBy)) || (await GiaoVien.findById(credential.challenge.createdBy));
+      const creator = await GiaoVien.findById(credential.challenge.createdBy);
       if (creator) {
         const cw = (creator.walletAddress || creator.WalletAddress || '').toLowerCase();
         if (cw && cw === req.user.walletAddress.toLowerCase()) isOwner = true;

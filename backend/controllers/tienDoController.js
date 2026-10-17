@@ -55,17 +55,29 @@ const validateRubricsTuan = (rubricsTuan) => {
     return { ok: true };
 };
 
-const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId) => {
+const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId, user) => {
     const deTai = await DeTai.findById(deTaiId);
     if (!deTai) {
         return { ok: false, error: 'Không tìm thấy đề tài', code: 'DETAI_KHONG_TON_TAI' };
     }
 
-    if (String(deTai.GiaoVienHuongDan) !== String(giaoVienId)) {
-        return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
+    if (String(deTai.GiaoVienHuongDan) === String(giaoVienId)) {
+        return { ok: true, deTai };
     }
 
-    return { ok: true, deTai };
+    if (user?.role_id === 'ADMIN_ROLE') {
+        return { ok: true, deTai };
+    }
+
+    if (user?.walletAddress) {
+        const GiaoVien = require('../models/GiaoVien');
+        const gv = await GiaoVien.findById(deTai.GiaoVienHuongDan);
+        if (gv && (gv.WalletAddress || '').toLowerCase() === user.walletAddress.toLowerCase()) {
+            return { ok: true, deTai };
+        }
+    }
+
+    return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
 };
 
 const assertHocSinhBelongsToDangKy = async (deTaiId, hocSinhId) => {
@@ -171,7 +183,7 @@ const defaultRubricsTuan = [
     { MaTieuChi: 'KE_HOACH', TenTieuChi: 'Kế hoạch tuần sau', TrongSo: 15, DiemToiDa: 10 }
 ];
 
-// 1. Tạo entry tiến độ mới (SV)
+// 1. Tạo entry tiến độ mới (HS)
 exports.createProgressEntry = async (req, res) => {
     try {
         const {
@@ -282,7 +294,7 @@ exports.createProgressEntry = async (req, res) => {
     }
 };
 
-// 2. Lấy tiến độ của 1 SV theo Đề tài (SV xem của mình)
+// 2. Lấy tiến độ của 1 HS theo Đề tài (HS xem của mình)
 exports.getProgressByHocSinh = async (req, res) => {
     try {
         const { hsId } = req.params;
@@ -350,7 +362,7 @@ exports.getProgressByTopic = async (req, res) => {
     }
 };
 
-// 3.1. Lấy chi tiết tiến độ theo ID (GV/SV)
+// 3.1. Lấy chi tiết tiến độ theo ID (GV/HS)
 exports.getProgressDetail = async (req, res) => {
     try {
         const { id } = req.params;
@@ -381,7 +393,7 @@ exports.getProgressDetail = async (req, res) => {
         }
 
         if (requesterId && !isOwner && !isMemberOfGroup) {
-            const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai._id || progress.DeTai, requesterId);
+            const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai._id || progress.DeTai, requesterId, req.user);
             if (!ownerCheck.ok) {
                 return res.status(403).json({ error: ownerCheck.error, code: ownerCheck.code });
             }
@@ -433,7 +445,7 @@ exports.getProgressDetail = async (req, res) => {
     }
 };
 
-// 3.2. SV cập nhật tiến độ khi được phép
+// 3.2. HS cập nhật tiến độ khi được phép
 exports.updateProgressEntry = async (req, res) => {
     try {
         const { id } = req.params;
@@ -579,7 +591,7 @@ exports.evaluateProgress = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId, req.user);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -659,7 +671,7 @@ exports.commentProgress = async (req, res) => {
 
         const requesterId = req.user?.id || req.user?._id;
         if (requesterId) {
-            const ownerCheck = await assertGiaoVienOwnsDeTai(updated.DeTai, requesterId);
+            const ownerCheck = await assertGiaoVienOwnsDeTai(updated.DeTai, requesterId, req.user);
             if (!ownerCheck.ok) {
                 return res.status(403).json({ error: ownerCheck.error, code: ownerCheck.code });
             }
@@ -685,7 +697,7 @@ exports.aiSuggestProgress = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId, req.user);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -766,7 +778,7 @@ exports.retryBlockchain = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId, req.user);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });

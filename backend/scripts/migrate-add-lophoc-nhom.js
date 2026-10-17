@@ -199,7 +199,7 @@ async function migrate() {
       }
       
       if (matchedNhomId) {
-        console.log(`DiemSo (SV ${ds.HocSinh}) (${ds._id}): Associating with Nhom ${matchedNhomId}`);
+        console.log(`DiemSo (HS ${ds.HocSinh}) (${ds._id}): Associating with Nhom ${matchedNhomId}`);
         if (!dryRun) {
           ds.Nhom = matchedNhomId;
           if (ds.DiemGoc === undefined) {
@@ -208,7 +208,7 @@ async function migrate() {
           await ds.save();
         }
       } else {
-        console.log(`DiemSo (SV ${ds.HocSinh}) (${ds._id}): No Nhom found for HocSinh ${ds.HocSinh}`);
+        console.log(`DiemSo (HS ${ds.HocSinh}) (${ds._id}): No Nhom found for HocSinh ${ds.HocSinh}`);
       }
     }
     
