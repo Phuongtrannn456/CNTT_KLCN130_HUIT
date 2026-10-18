@@ -33,7 +33,10 @@ const TeacherChallengeDetail = () => {
     setLoading(true);
     try {
       const chalRes = await challengeService.getChallengeById(challengeId);
-      if (chalRes.success) setChallenge(chalRes.challenge);
+      if (chalRes.success) {
+        setChallenge(chalRes.challenge);
+        document.title = `Chi tiết Dự án: ${chalRes.challenge?.title || ''} - Web3 Giáo Dục Phổ Thông`;
+      }
 
       const partsRes = await challengeService.getParticipants(challengeId);
       if (partsRes.success) setParticipants(partsRes.participants);
@@ -45,6 +48,7 @@ const TeacherChallengeDetail = () => {
   };
 
   useEffect(() => {
+    document.title = 'Chi tiết Dự án & Học sinh tham gia - Web3 Giáo Dục Phổ Thông';
     fetchData();
   }, [challengeId]);
 
