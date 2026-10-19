@@ -495,23 +495,16 @@ const TopicRegistration = () => {
                   )}
                 />
 
-                {/* Form mời thành viên - Chỉ hiển thị nếu chưa full và là Trưởng nhóm */}
                 {fullRegistration.ThanhVien?.length < fullRegistration.DeTai.SoLuongHocSinh &&
                   fullRegistration.ThanhVien?.find(tv => tv.HocSinh?._id === authService.getCurrentUser().id)?.VaiTro === 'TruongNhom' && (
-                    <>
-                      <Divider style={{ margin: '12px 0' }} />
-                      <Space>
-                        <Input
-                          placeholder="Nhập Mã Học Sinh để mời"
-                          value={inviteMaHS}
-                          onChange={e => setInviteMaHS(e.target.value)}
-                          style={{ width: 250 }}
-                        />
-                        <Button type="primary" onClick={handleInviteMember} loading={inviting}>
-                          Gửi Lời Mời
-                        </Button>
-                      </Space>
-                    </>
+                    <div style={{ marginTop: 12 }}>
+                      <Alert
+                        type="info"
+                        showIcon
+                        message="Bổ sung hoặc thay đổi thành viên nhóm"
+                        description={<span>Danh sách thành viên được quản lý và chốt danh sách tại trang <a style={{ fontWeight: 'bold' }} onClick={() => navigate('/student/group')}>Quản Lý Nhóm</a> trước khi đăng ký đề tài.</span>}
+                      />
+                    </div>
                   )}
               </div>
             )}

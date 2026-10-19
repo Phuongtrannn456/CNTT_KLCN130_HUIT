@@ -4,6 +4,7 @@ import { Target, Award, BookOpen, ShieldCheck, BrainCircuit, ExternalLink, Edit2
 import authService from '../../services/authService';
 import aiApiService from '../../services/aiService';
 import managementService from '../../services/managementService';
+import nhomService from '../../services/nhomService';
 import { useIsMobile } from '../../hooks/useResponsive';
 import QrAuthentication from '../QrAuthentication';
 import { useClassContext } from '../../contexts/ClassContext';
@@ -41,8 +42,12 @@ const StudentDashboard = () => {
         result.studentProfile = profile;
 
         // Lấy danh sách lời mời nhóm
-        const invs = await aiApiService.getMyInvitations(user.id);
-        result.invitations = Array.isArray(invs) ? invs : [];
+        try {
+          const invs = await nhomService.getPendingInvites(user.id);
+          result.invitations = Array.isArray(invs) ? invs : [];
+        } catch (eInv) {
+          console.warn('Không lấy được lời mời nhóm:', eInv);
+        }
 
         // Lấy danh sách lời mời lớp học
         try {
@@ -52,7 +57,7 @@ const StudentDashboard = () => {
           console.warn('Không lấy được lời mời lớp học:', e2);
         }
       } catch (e) {
-        console.warn('Không lấy được hồ sơ HS hoặc lời mời:', e);
+        console.warn('Không lấy được hồ sơ HS:', e);
       }
 
       if (selectedClassId) {
@@ -157,9 +162,9 @@ const StudentDashboard = () => {
     setEditingProfile(true);
   };
 
-  const handleRespondInvitation = async (invitationId, accept) => {
+  const handleRespondInvitation = async (nhomId, accept) => {
     try {
-      await aiApiService.respondToInvitation(invitationId, accept);
+      await nhomService.respondToInvite(nhomId, user.id, accept);
       message.success(accept ? 'Đã tham gia nhóm thành công!' : 'Đã từ chối lời mời');
       queryClient.invalidateQueries({ queryKey: ['student-dashboard'] });
     } catch (e) {
@@ -218,8 +223,8 @@ const StudentDashboard = () => {
       {invitations.length > 0 && invitations.map(inv => (
         <Alert
           key={inv._id}
-          message={`📩 Bạn có lời mời tham gia nhóm Dự án: ${inv.DeTai?.TenDeTai}`}
-          description={`Trưởng nhóm: ${inv.HocSinh?.HoTen} (${inv.HocSinh?.MaHS}). Bạn có muốn tham gia dự án không?`}
+          message={`📩 Bạn có lời mời tham gia nhóm: ${inv.TenNhom || 'Nhóm học tập'}`}
+          description={`Trưởng nhóm: ${inv.TruongNhom?.HoTen || 'Chưa rõ'} (${inv.TruongNhom?.MaHS || 'N/A'}). Bạn có muốn tham gia nhóm này không?`}
           type="info"
           showIcon
           style={{ marginBottom: 24, border: '1px solid #1677ff', background: '#e6f4ff' }}

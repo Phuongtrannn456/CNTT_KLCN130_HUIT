@@ -11,6 +11,9 @@ const HocSinh = require('../models/HocSinh');
 const MonHoc = require('../models/MonHoc');
 const LopHoc = require('../models/LopHoc');
 const DeTai = require('../models/DeTai');
+const BaiTest = require('../models/BaiTest');
+const Nhom = require('../models/Nhom');
+const DangKyDeTai = require('../models/DangKyDeTai');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giaovien';
 
@@ -179,12 +182,111 @@ async function seedGiaoDucPhoThong() {
         LoaiDeTai: 'KhoaLuan',
         SoLuongHocSinh: 2,
         TrangThai: 'MoDangKy'
+      },
+      {
+        MaDeTai: 'DT_STEM_DEMO',
+        TenDeTai: 'Mô hình giám sát phòng học thông minh IoT & AI (Thực nghiệm tuyển chọn STEM)',
+        MoTa: 'Ứng dụng vi điều khiển ESP32, cảm biến môi trường và thị giác máy tính AI để phân tích điều kiện học tập chuẩn STEM. Đề tài mở bài test trực tuyến đánh giá năng lực tư duy logic và liêm chính học thuật.',
+        YeuCau: ['Python / C++', 'Cảm biến IoT', 'Webcam AI Proctoring', 'Web3 Credential'],
+        Deadline: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        GiaoVienHuongDan: gv1._id,
+        LopHoc: [lop10A1._id],
+        MonHoc: mhStem._id,
+        LoaiDeTai: 'MonHoc',
+        SoLuongHocSinh: 1,
+        TrangThai: 'MoDangKy',
+        CoBaiTest: true
       }
     ];
 
     for (const p of projects) {
       await DeTai.findOneAndUpdate({ MaDeTai: p.MaDeTai }, p, { upsert: true, new: true });
       console.log(`✓ Đã cập nhật Dự án: ${p.TenDeTai}`);
+    }
+
+    // 6. Tạo Bài Test Cạnh Tranh & Phòng Thi Mẫu Cho Đề Tài Demo
+    console.log('\n--- 6. Tạo Bài Test tuyển chọn & Đăng ký cho Học sinh Demo ---');
+    const demoDeTai = await DeTai.findOne({ MaDeTai: 'DT_STEM_DEMO' });
+    if (demoDeTai) {
+      await BaiTest.deleteOne({ DeTai: demoDeTai._id });
+      const test = new BaiTest({
+        DeTai: demoDeTai._id,
+        TieuDe: 'Bài Đánh Giá Năng Lực Tuyển Chọn Đề Tài STEM AI & IoT',
+        MoTa: 'Bài kiểm tra trực tuyến giám sát AI toàn diện (Webcam, chống gian lận đa màn hình, khóa phím tắt, còi báo động). Vui lòng duy trì toàn màn hình và bật camera trong suốt quá trình làm bài.',
+        ThoiGianLam: 15,
+        NguongDat: 70,
+        CauHoi: [
+          {
+            LoaiCauHoi: 'TracNghiem',
+            NoiDung: 'Trong mô hình IoT thu thập dữ liệu cảm biến DHT22 về trạm quan trắc trường học, giao thức truyền thông nhẹ nào thường được ưu tiên để tiết kiệm năng lượng và băng thông?',
+            LuaChon: [
+              'A. MQTT (Message Queuing Telemetry Transport)',
+              'B. FTP (File Transfer Protocol)',
+              'C. SMTP (Simple Mail Transfer Protocol)',
+              'D. Telnet'
+            ],
+            DapAnDung: 'A',
+            Diem: 3
+          },
+          {
+            LoaiCauHoi: 'TracNghiem',
+            NoiDung: 'Khi ghi nhận kết quả và chứng nhận học tập số lên mạng lưới Blockchain công khai, loại token nào phù hợp nhất để biểu thị thành tích gắn liền với danh tính học sinh (không thể chuyển nhượng)?',
+            LuaChon: [
+              'A. ERC-20 (Fungible Token)',
+              'B. Soulbound Token (SBT) / Non-transferable ERC-721',
+              'C. Bitcoin UTXO',
+              'D. Meme Token'
+            ],
+            DapAnDung: 'B',
+            Diem: 3
+          },
+          {
+            LoaiCauHoi: 'Code',
+            NoiDung: 'Viết một hàm Python `kiem_tra_nhiet_do(temp)`: nếu `temp > 35.0` thì trả về chuỗi "CANH_BAO_QUAT_KHO", nếu `temp < 18.0` trả về "CANH_BAO_LANH", còn lại trả về "BINH_THUONG".',
+            DapAnDung: 'def kiem_tra_nhiet_do(temp):\n    if temp > 35.0:\n        return "CANH_BAO_QUAT_KHO"\n    elif temp < 18.0:\n        return "CANH_BAO_LANH"\n    return "BINH_THUONG"',
+            Diem: 4
+          }
+        ]
+      });
+      await test.save();
+      console.log(`✓ Đã cập nhật Bài Test tuyển chọn cho đề tài: ${demoDeTai.TenDeTai}`);
+
+      // Tạo nhóm mẫu và đăng ký đề tài cho hs1 (HS_1001) để có thể vào test trực tiếp
+      let demoNhom = await Nhom.findOne({ TenNhom: 'Nhóm STEM Tiên Phong 10A1' });
+      if (!demoNhom) {
+        demoNhom = new Nhom({
+          TenNhom: 'Nhóm STEM Tiên Phong 10A1',
+          TruongNhom: hs1._id,
+          LopHoc: lop10A1._id,
+          SoLuong: 1,
+          DaChot: true,
+          ThanhVien: [{
+            HocSinh: hs1._id,
+            VaiTro: 'TruongNhom',
+            TrangThai: 'DaChapNhan'
+          }]
+        });
+        await demoNhom.save();
+      }
+
+      await DangKyDeTai.findOneAndUpdate(
+        { DeTai: demoDeTai._id, HocSinh: hs1._id },
+        {
+          DeTai: demoDeTai._id,
+          Nhom: demoNhom._id,
+          TruongNhom: hs1._id,
+          HocSinh: hs1._id,
+          ThanhVien: [{
+            HocSinh: hs1._id,
+            VaiTro: 'TruongNhom',
+            TrangThaiTV: 'DaChapNhan'
+          }],
+          TrangThai: 'ChoTest',
+          NgayDangKy: new Date()
+        },
+        { upsert: true, new: true }
+      );
+      console.log(`✓ Đã tạo Đăng ký đề tài sẵn sàng cho Học sinh Demo (${hs1.HoTen})`);
     }
 
     console.log('\n🎉 Hoàn tất khởi tạo dữ liệu mẫu Nền tảng Web3 Giáo Dục Phổ Thông!');

@@ -179,12 +179,12 @@ async function generateContextAwareResponse(question, user, ctx, history) {
     if (has('nhom', 'thanh vien', 'truong nhom', 'ban cung nhom')) {
       // Hướng dẫn tạo nhóm / mời bạn
       if (has('tao nhom', 'cach tao', 'moi ban', 'nhan loi moi', 'ma hs', 'cho nhom')) {
-        return `Chào bạn **${user.name}**! Dưới đây là hướng dẫn quy trình làm việc nhóm:\n\n### 👥 Hướng Dẫn Quản Lý Nhóm Học Tập:\n1. **Tạo nhóm mới:** Vào mục **Quản lý nhóm**, bấm nút **"Tạo Nhóm Mới"**, đặt tên nhóm và chọn số lượng thành viên dự kiến (từ 2 - 5 học sinh).\n2. **Mời thành viên:** Trưởng nhóm nhập **Mã Học Sinh (Mã HS)** của bạn học để gửi lời mời.\n3. **Chấp nhận lời mời:** Thành viên được mời sẽ thấy thông báo trong mục nhóm và bấm **"Chấp nhận"**.\n4. **Chốt nhóm (Bắt buộc):** Sau khi đủ thành viên, trưởng nhóm bấm **"Chốt nhóm"** để cố định danh sách và bắt đầu đăng ký đề tài.\n\n👉 [Xem Trang Quản Lý Nhóm](/student/groups)`;
+        return `Chào bạn **${user.name}**! Dưới đây là hướng dẫn quy trình làm việc nhóm:\n\n### 👥 Hướng Dẫn Quản Lý Nhóm Học Tập:\n1. **Tạo nhóm mới:** Vào mục **Quản lý nhóm**, bấm nút **"Tạo Nhóm Mới"**, đặt tên nhóm và chọn số lượng thành viên dự kiến (từ 2 - 5 học sinh).\n2. **Mời thành viên:** Trưởng nhóm nhập **Mã Học Sinh (Mã HS)** của bạn học để gửi lời mời.\n3. **Chấp nhận lời mời:** Thành viên được mời sẽ thấy thông báo trong mục nhóm và bấm **"Chấp nhận"**.\n4. **Chốt nhóm (Bắt buộc):** Sau khi đủ thành viên, trưởng nhóm bấm **"Chốt nhóm"** để cố định danh sách và bắt đầu đăng ký đề tài.\n\n👉 [Xem Trang Quản Lý Nhóm](/student/group)`;
       }
 
       // Tra cứu thông tin nhóm hiện tại
       if (!ctx.myNhom) {
-        return `Chào bạn **${user.name}**! Hiện tại bạn **chưa tham gia nhóm nào** trên hệ thống.\n\n👉 Bạn hãy vào mục **Quản lý nhóm** để tạo nhóm mới hoặc liên hệ trưởng nhóm gửi lời mời qua Mã HS của bạn nhé!\n\n👉 [Đến Trang Quản Lý Nhóm](/student/groups)`;
+        return `Chào bạn **${user.name}**! Hiện tại bạn **chưa tham gia nhóm nào** trên hệ thống.\n\n👉 Bạn hãy vào mục **Quản lý nhóm** để tạo nhóm mới hoặc liên hệ trưởng nhóm gửi lời mời qua Mã HS của bạn nhé!\n\n👉 [Đến Trang Quản Lý Nhóm](/student/group)`;
       }
 
       const n = ctx.myNhom;
@@ -205,7 +205,7 @@ async function generateContextAwareResponse(question, user, ctx, history) {
 ${members}
 
 ${!n.DaChot && isTruongNhom ? '⚠️ **Lưu ý:** Bạn cần bấm **"Chốt nhóm"** trong trang quản lý nhóm sau khi đủ bạn để có thể đăng ký đề tài cạnh tranh.' : ''}
-👉 [Đến Trang Quản Lý Nhóm](/student/groups)`;
+👉 [Đến Trang Quản Lý Nhóm](/student/group)`;
     }
 
     // --- A2. ĐỀ TÀI & TIẾN ĐỘ DUYỆT ---
@@ -304,7 +304,7 @@ ${isDisqualified ? `⚠️ **Lý do đình chỉ:** ${r.LyDoHuy || 'Vi phạm qu
    - Các cải tiến dự kiến nâng cấp trong tương lai.
 6. **5. Tài liệu tham khảo:** Trích dẫn các bài báo khoa học, datasheet linh kiện.
 
-👉 [Đến Mục Nộp Báo Cáo](/student/submissions)`;
+👉 [Đến Mục Nộp Báo Cáo](/student/upload)`;
     }
 
     // --- A5. HỖ TRỢ LẬP TRÌNH STEM & IOT ---
@@ -396,7 +396,7 @@ for cycle in range(1, 6):
 ### 📑 Chi Tiết Đề Tài:
 ${topicSummary || 'Thầy/Cô chưa tạo đề tài nào trên hệ thống.'}
 
-👉 [Đến Mục Quản Lý Đề Tài](/lecturer/topics)`;
+👉 [Đến Mục Quản Lý Đề Tài](/teacher/topics)`;
     }
 
     // --- B2. AN NINH PHÒNG THI & XỬ LÝ VI PHẠM ---
@@ -416,7 +416,7 @@ ${vList || '✅ **An toàn tuyệt đối!** Hiện tại không có trường h
 1. **In Biên Bản Kỷ Luật:** Vào mục **Quản lý đề tài** $\rightarrow$ chọn đề tài $\rightarrow$ tab **Kết quả test** $\rightarrow$ bấm nút **"In BB"** để trích xuất văn bản xử lý chuẩn Bộ GD&ĐT.
 2. **Cấp Quyền Thi Lại:** Bấm nút **"Thi lại"** bên cạnh tên học sinh để xóa lịch sử vi phạm và cho phép em làm lại bài nếu có lý do chính đáng.
 
-👉 [Đến Trang Quản Lý Đề Tài](/lecturer/topics)`;
+👉 [Đến Trang Quản Lý Đề Tài](/teacher/topics)`;
     }
 
     // --- B3. SOẠN THẢO ĐỀ TÀI STEM GDPT 2018 ---
@@ -434,7 +434,7 @@ ${vList || '✅ **An toàn tuyệt đối!** Hiện tại không có trường h
 ### 🌟 Dự Án 3: "Robot Cứu Hộ & Dò Tìm Khí Độc Trong Phòng Thí Nghiệm"
 * **Môn tích hợp:** Vật lý (Cơ học chuyển động bánh xe Omni, sóng Radio), Tin học (C++ Arduino), Hóa học (Cảm biến khí Gas/CO2 MQ-2).
 
-👉 [Đến Trang Tạo Đề Tài Mới](/lecturer/topics)`;
+👉 [Đến Trang Tạo Đề Tài Mới](/teacher/topics)`;
     }
 
     // --- B4. KHUNG RUBRICS & ĐÁNH GIÁ ---
@@ -453,7 +453,7 @@ ${vList || '✅ **An toàn tuyệt đối!** Hiện tại không có trường h
 4. **Báo cáo khoa học & Kỹ năng trình bày (Trọng số: 15%):**
    - Trình bày bài viết theo chuẩn IMRaD, lập luận logic, hình ảnh minh chứng rõ ràng.
 
-👉 [Xem Bảng Điểm & Rubrics](/lecturer/scores)`;
+👉 [Xem Bảng Điểm & Rubrics](/teacher/rubrics)`;
     }
 
     // --- FALLBACK GIÁO VIÊN TỔNG HỢP ---

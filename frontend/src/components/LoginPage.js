@@ -165,6 +165,14 @@ function LoginPage() {
       console.log('Authenticating...');
       const result = await authService.authenticate();
 
+      if (result.isPending) {
+        setSuccess('Yêu cầu cấp quyền Giáo viên của bạn đang chờ Admin phê duyệt. Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = '/pending-approval';
+        }, 1000);
+        return;
+      }
+
       setSuccess('Đăng nhập bằng QR thành công! Đang chuyển hướng...');
       setIsAuthenticated(true);
       setUser(result.user);
@@ -201,6 +209,14 @@ function LoginPage() {
       setConnectedWallet(walletAddress);
 
       const result = await authService.authenticate();
+
+      if (result.isPending) {
+        setSuccess('Yêu cầu cấp quyền Giáo viên của bạn đang chờ Admin phê duyệt. Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = '/pending-approval';
+        }, 1000);
+        return;
+      }
 
       setSuccess('Đăng nhập thành công! Đang chuyển hướng...');
       setIsAuthenticated(true);

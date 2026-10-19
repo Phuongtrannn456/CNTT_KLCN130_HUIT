@@ -1,6 +1,7 @@
 const Admin = require('../models/Admin');
 const RoleRequest = require('../models/RoleRequest');
 const GiaoVien = require('../models/GiaoVien');
+const HocSinh = require('../models/HocSinh');
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken');
 
@@ -53,6 +54,9 @@ const approveRequest = async (req, res) => {
       gvId = newGiaoVien._id;
       gvHoTen = newGiaoVien.HoTen;
     }
+
+    // Dọn dẹp bản ghi HocSinh trùng ví (nếu có do auto-creation trước đó)
+    await HocSinh.deleteOne({ WalletAddress: lowerWallet });
 
     // Generate Token
     const token = jwt.sign(

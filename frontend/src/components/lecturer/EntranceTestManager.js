@@ -422,7 +422,7 @@ const EntranceTestManager = () => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <Title level={3} style={{ margin: 0 }}><Space><ListChecks size={24} /> Quản Lý Bài Test Cạnh Tranh</Space></Title>
-        <Button icon={<ArrowLeft size={14} />} onClick={() => navigate('/lecturer/topics')}>Quay về Đề Tài</Button>
+        <Button icon={<ArrowLeft size={14} />} onClick={() => navigate('/teacher/topics')}>Quay về Đề Tài</Button>
       </div>
       {topic && (
         <Alert message={`Đề tài: ${topic.TenDeTai}`} type="info" showIcon style={{ marginBottom: 16 }} />

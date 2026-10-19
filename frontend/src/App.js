@@ -194,10 +194,19 @@ function App() {
           <Route path="progress-log" element={<ProgressLog />} />
           <Route path="progress" element={<ProgressTracking />} />
           <Route path="group" element={<GroupManagement />} />
+          <Route path="groups" element={<Navigate to="/student/group" replace />} />
+          <Route path="submissions" element={<Navigate to="/student/challenges" replace />} />
           <Route path="entrance-test/:deTaiId" element={<EntranceTest />} />
         </Route>
 
         {/* Backward Compatibility */}
+        <Route path="/lecturer/topics" element={<Navigate to="/teacher/topics" replace />} />
+        <Route path="/lecturer/review" element={<Navigate to="/teacher/review" replace />} />
+        <Route path="/lecturer/rubrics" element={<Navigate to="/teacher/rubrics" replace />} />
+        <Route path="/lecturer/comparison" element={<Navigate to="/teacher/comparison" replace />} />
+        <Route path="/lecturer/courses" element={<Navigate to="/teacher/courses" replace />} />
+        <Route path="/lecturer/classes" element={<Navigate to="/teacher/classes" replace />} />
+        <Route path="/lecturer/students" element={<Navigate to="/teacher/students" replace />} />
         <Route path="/lecturer/*" element={<Navigate to="/teacher/challenges" replace />} />
 
         {/* Unknown */}

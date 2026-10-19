@@ -156,6 +156,22 @@ exports.startTest = async (req, res) => {
             });
         }
         if (!dangKy) {
+            // Hỗ trợ tự động liên kết nếu là đề tài Demo hoặc bài test dùng thử trực tiếp
+            if (deTaiDoc?.MaDeTai === 'DT_STEM_DEMO' || deTaiDoc?.TenDeTai?.includes('Thực nghiệm')) {
+                dangKy = await DangKyDeTai.findOneAndUpdate(
+                    { DeTai: baiTest.DeTai, HocSinh: hocSinhId },
+                    {
+                        DeTai: baiTest.DeTai,
+                        HocSinh: hocSinhId,
+                        TruongNhom: hocSinhId,
+                        TrangThai: 'ChoTest',
+                        NgayDangKy: new Date()
+                    },
+                    { upsert: true, new: true }
+                );
+            }
+        }
+        if (!dangKy) {
             return res.status(403).json({
                 error: 'Bạn hoặc nhóm của bạn chưa đăng ký đề tài này.',
                 code: 'CHUA_DANG_KY_DE_TAI'
@@ -366,6 +382,23 @@ exports.submitTest = async (req, res) => {
             }
         }
         if (!dangKy) {
+            const deTaiDoc = await DeTai.findById(baiTest.DeTai);
+            if (deTaiDoc?.MaDeTai === 'DT_STEM_DEMO' || deTaiDoc?.TenDeTai?.includes('Thực nghiệm')) {
+                dangKy = await DangKyDeTai.findOneAndUpdate(
+                    { DeTai: baiTest.DeTai, HocSinh: hocSinhId },
+                    {
+                        DeTai: baiTest.DeTai,
+                        HocSinh: hocSinhId,
+                        TruongNhom: hocSinhId,
+                        TrangThai: 'DangLamTest',
+                        NgayDangKy: new Date(),
+                        ThoiGianBatDau: serverStartTime || new Date(Date.now() - 60000)
+                    },
+                    { upsert: true, new: true }
+                );
+            }
+        }
+        if (!dangKy) {
             return res.status(403).json({
                 error: 'Bạn hoặc nhóm của bạn chưa đăng ký đề tài này.',
                 code: 'CHUA_DANG_KY_DE_TAI'
@@ -484,7 +517,7 @@ exports.submitTest = async (req, res) => {
             BaiTest: baiTest._id,
             DeTai: baiTest.DeTai,
             HocSinh: hocSinhId,
-            Nhom: nhomId || dangKy?.Nhom || null,
+            Nhom: dangKy?.Nhom || nhomId || null,
             DangKyDeTai: dangKy?._id || null,
             TraLoi: ketQuaTraLoi,
             TongDiem: Math.round(tongDiem * 100) / 100,

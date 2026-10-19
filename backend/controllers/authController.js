@@ -110,13 +110,24 @@ const verifySignature = async (req, res) => {
 
         role_id = 'TEACHER_ROLE';
       } else {
-        // 3. Kiểm tra Học sinh hiện có
+        // 3. Kiểm tra xem ví này có đang gửi yêu cầu cấp quyền Giáo viên chờ duyệt không
+        const pendingRequest = await RoleRequest.findOne({ walletAddress: lowerWallet, status: 'pending' });
+        if (pendingRequest) {
+          return res.json({
+            success: true,
+            isPending: true,
+            message: 'Yêu cầu cấp quyền Giáo viên của bạn đang chờ Ban Giám Hiệu phê duyệt.',
+            walletAddress: lowerWallet
+          });
+        }
+
+        // 4. Kiểm tra Học sinh hiện có
         userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet });
         
         if (userRecord) {
           role_id = 'STUDENT_ROLE';
         } else {
-          // 4. Ví mới hoàn toàn -> Tự động khởi tạo Học sinh mặc định (Không cho tự phong Giáo viên)
+          // 5. Ví mới hoàn toàn -> Tự động khởi tạo Học sinh mặc định (Không cho tự phong Giáo viên)
           userRecord = new HocSinh({
             MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
             HoTen: 'Học Sinh Mới',
@@ -307,6 +318,24 @@ const verifyQrSignature = async (req, res) => {
 
         role_id = 'TEACHER_ROLE';
       } else {
+        const pendingRequest = await RoleRequest.findOne({ walletAddress: lowerWallet, status: 'pending' });
+        if (pendingRequest) {
+          const io = req.app.get('io');
+          if (io) {
+            io.to(`qr:${sessionId}`).emit('qr:pending', {
+              isPending: true,
+              message: 'Yêu cầu cấp quyền Giáo viên của bạn đang chờ phê duyệt.',
+              walletAddress: lowerWallet
+            });
+          }
+          qrSessions.delete(sessionId);
+          return res.json({
+            success: true,
+            isPending: true,
+            message: 'Yêu cầu quyền Giáo viên đang chờ duyệt'
+          });
+        }
+
         userRecord = await HocSinh.findOne({ WalletAddress: lowerWallet });
         if (userRecord) {
           role_id = 'STUDENT_ROLE';
@@ -472,7 +501,10 @@ const demoLogin = async (req, res) => {
     }
 
     const DeTai = require('../models/DeTai');
-    const demoTopic = await DeTai.findOne({ MaDeTai: 'DT_STEM_DEMO' });
+    let demoTopic = await DeTai.findOne({ MaDeTai: 'DT_STEM_DEMO' });
+    if (!demoTopic) {
+      demoTopic = await DeTai.findOne({ CoBaiTest: true });
+    }
 
     const lowerWallet = (userRecord.WalletAddress || '').toLowerCase();
     const token = jwt.sign(

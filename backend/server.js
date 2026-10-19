@@ -220,8 +220,11 @@ app.post('/api/auth/qr-submit', loginLimiter, authController.verifyQrSignature);
 app.get('/api/baitest/demo-topic', async (req, res) => {
   try {
     const DeTai = require('./models/DeTai');
-    const topic = await DeTai.findOne({ CoBaiTest: true });
-    if (!topic) return res.status(404).json({ error: 'Chưa có đề tài test' });
+    let topic = await DeTai.findOne({ MaDeTai: 'DT_STEM_DEMO' });
+    if (!topic) {
+      topic = await DeTai.findOne({ CoBaiTest: true });
+    }
+    if (!topic) return res.status(404).json({ error: 'Hiện tại chưa có đề tài nào mở bài test trực tuyến.' });
     res.json({ deTaiId: topic._id, title: topic.TenDeTai });
   } catch (err) {
     res.status(500).json({ error: err.message });
