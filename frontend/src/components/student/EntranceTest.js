@@ -876,17 +876,9 @@ const EntranceTest = () => {
           <Space wrap style={{ width: '100%', justifyContent: 'center' }}>
             <Button
               type="primary"
-              style={{ background: '#722ed1', borderColor: '#722ed1' }}
-              onClick={async () => {
-                try {
-                  await authService.demoLogin('student');
-                  window.location.reload();
-                } catch (e) {
-                  navigate('/');
-                }
-              }}
+              onClick={() => navigate('/')}
             >
-              🔄 Đăng nhập lại nhanh (1-Click)
+              🔑 Đăng nhập lại
             </Button>
             <Button onClick={() => refetch()}>
               Thử tải lại

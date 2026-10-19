@@ -3,6 +3,7 @@ const KetQuaTest = require('../models/KetQuaTest');
 const DeTai = require('../models/DeTai');
 const { closeCompetingRegistrations, claimTopicForRegistration, rollbackTopicClaim } = require('../utils/registrationUtil');
 const DangKyDeTai = require('../models/DangKyDeTai');
+const Nhom = require('../models/Nhom');
 const logger = require('../config/logger');
 
 // Helper kiểm tra quyền sở hữu đề tài của giáo viên
@@ -156,32 +157,30 @@ exports.startTest = async (req, res) => {
             });
         }
         if (!dangKy) {
-            // Hỗ trợ tự động liên kết nếu là đề tài Demo hoặc bài test dùng thử trực tiếp
-            if (deTaiDoc?.MaDeTai === 'DT_STEM_DEMO' || deTaiDoc?.TenDeTai?.includes('Thực nghiệm')) {
-                dangKy = await DangKyDeTai.findOneAndUpdate(
-                    { DeTai: baiTest.DeTai, HocSinh: hocSinhId },
-                    {
-                        DeTai: baiTest.DeTai,
-                        HocSinh: hocSinhId,
-                        TruongNhom: hocSinhId,
-                        TrangThai: 'ChoTest',
-                        NgayDangKy: new Date()
-                    },
-                    { upsert: true, new: true }
-                );
-            }
-        }
-        if (!dangKy) {
             return res.status(403).json({
                 error: 'Bạn hoặc nhóm của bạn chưa đăng ký đề tài này.',
                 code: 'CHUA_DANG_KY_DE_TAI'
             });
         }
 
-        // #13: chỉ trưởng nhóm hoặc cá nhân đăng ký được làm bài test
-        const isAuthorized = dangKy.TruongNhom ? String(dangKy.TruongNhom) === String(hocSinhId) : (dangKy.HocSinh ? String(dangKy.HocSinh) === String(hocSinhId) : true);
+        // Ràng buộc quy trình: nếu đăng ký theo nhóm, danh sách nhóm phải được chốt trước khi làm bài test
+        if (dangKy.Nhom) {
+            const nhomDoc = await Nhom.findById(dangKy.Nhom);
+            if (nhomDoc && !nhomDoc.DaChot) {
+                return res.status(400).json({
+                    error: 'Nhóm học sinh chưa được chốt danh sách thành viên. Vui lòng hoàn tất chốt nhóm trước khi làm bài test.',
+                    code: 'NHOM_CHUA_CHOT'
+                });
+            }
+        }
+
+        // #13: chỉ trưởng nhóm hoặc cá nhân đại diện đăng ký mới có quyền bắt đầu làm bài test
+        const isAuthorized = dangKy.TruongNhom ? String(dangKy.TruongNhom) === String(hocSinhId) : (dangKy.HocSinh ? String(dangKy.HocSinh) === String(hocSinhId) : false);
         if (!isAuthorized) {
-            return res.status(403).json({ error: 'Chỉ trưởng nhóm hoặc học sinh đăng ký được làm bài test đại diện cho nhóm.', code: 'KHONG_PHAI_TRUONG_NHOM' });
+            return res.status(403).json({
+                error: 'Chỉ nhóm trưởng hoặc học sinh đại diện mới có quyền bắt đầu làm bài test.',
+                code: 'KHONG_PHAI_TRUONG_NHOM'
+            });
         }
 
         const thoiGianBatDau = new Date();
@@ -382,33 +381,30 @@ exports.submitTest = async (req, res) => {
             }
         }
         if (!dangKy) {
-            const deTaiDoc = await DeTai.findById(baiTest.DeTai);
-            if (deTaiDoc?.MaDeTai === 'DT_STEM_DEMO' || deTaiDoc?.TenDeTai?.includes('Thực nghiệm')) {
-                dangKy = await DangKyDeTai.findOneAndUpdate(
-                    { DeTai: baiTest.DeTai, HocSinh: hocSinhId },
-                    {
-                        DeTai: baiTest.DeTai,
-                        HocSinh: hocSinhId,
-                        TruongNhom: hocSinhId,
-                        TrangThai: 'DangLamTest',
-                        NgayDangKy: new Date(),
-                        ThoiGianBatDau: serverStartTime || new Date(Date.now() - 60000)
-                    },
-                    { upsert: true, new: true }
-                );
-            }
-        }
-        if (!dangKy) {
             return res.status(403).json({
                 error: 'Bạn hoặc nhóm của bạn chưa đăng ký đề tài này.',
                 code: 'CHUA_DANG_KY_DE_TAI'
             });
         }
 
-        // #13: chỉ trưởng nhóm hoặc cá nhân đăng ký được nộp bài test đại diện cho cả nhóm
-        const isSubmitAuthorized = dangKy ? (dangKy.TruongNhom ? String(dangKy.TruongNhom) === String(hocSinhId) : (dangKy.HocSinh ? String(dangKy.HocSinh) === String(hocSinhId) : true)) : true;
-        if (dangKy && !isSubmitAuthorized) {
-            return res.status(403).json({ error: 'Chỉ trưởng nhóm hoặc học sinh đăng ký được nộp bài test.', code: 'KHONG_PHAI_TRUONG_NHOM' });
+        // Ràng buộc quy trình: nếu đăng ký theo nhóm, danh sách nhóm phải được chốt trước khi nộp bài test
+        if (dangKy.Nhom) {
+            const nhomDoc = await Nhom.findById(dangKy.Nhom);
+            if (nhomDoc && !nhomDoc.DaChot) {
+                return res.status(400).json({
+                    error: 'Nhóm học sinh chưa được chốt danh sách thành viên. Không thể nộp bài test.',
+                    code: 'NHOM_CHUA_CHOT'
+                });
+            }
+        }
+
+        // #13: chỉ trưởng nhóm hoặc cá nhân đại diện đăng ký mới có quyền nộp bài test đại diện cho cả nhóm
+        const isSubmitAuthorized = dangKy.TruongNhom ? String(dangKy.TruongNhom) === String(hocSinhId) : (dangKy.HocSinh ? String(dangKy.HocSinh) === String(hocSinhId) : false);
+        if (!isSubmitAuthorized) {
+            return res.status(403).json({
+                error: 'Chỉ nhóm trưởng hoặc học sinh đại diện mới có quyền nộp bài test.',
+                code: 'KHONG_PHAI_TRUONG_NHOM'
+            });
         }
 
         // Cập nhật ThoiGianSubmit + TrangThai = DaSubmit (Atomic để tránh ghi đè kết quả nếu đề tài đã chốt)
@@ -797,23 +793,20 @@ exports.resetStudentTest = async (req, res) => {
         let targetHocSinhId = null;
         const isTeacherOrAdmin = user.role_id === 'TEACHER_ROLE' || user.role_id === 'ADMIN_ROLE';
 
-        if (isTeacherOrAdmin) {
-            const isOwner = await checkTeacherOwnership(deTaiId, user);
-            if (!isOwner) {
-                return res.status(403).json({ error: 'Chỉ giáo viên phụ trách đề tài hoặc Quản trị viên mới có quyền cấp quyền thi lại.' });
-            }
-            targetHocSinhId = req.body?.hocSinhId;
-            if (!targetHocSinhId) {
-                return res.status(400).json({ error: 'Vui lòng cung cấp mã học sinh cần cấp quyền thi lại.' });
-            }
-        } else {
-            // Học sinh gọi: chỉ cho phép trong môi trường dev hoặc nếu có cờ demo
-            const allowSelfReset = process.env.NODE_ENV !== 'production' || process.env.ALLOW_STUDENT_SELF_RESET === 'true';
-            if (!allowSelfReset) {
-                return res.status(403).json({ error: 'Chỉ giáo viên phụ trách mới có quyền cấp phép làm lại bài thi.' });
-            }
-            // Học sinh chỉ được reset chính mình, TUYỆT ĐỐI không được reset tài khoản khác (chống IDOR)
-            targetHocSinhId = user.id;
+        if (!isTeacherOrAdmin) {
+            return res.status(403).json({
+                error: 'Chỉ giáo viên phụ trách đề tài hoặc Quản trị viên mới có quyền cấp phép làm lại bài thi.',
+                code: 'FORBIDDEN'
+            });
+        }
+
+        const isOwner = await checkTeacherOwnership(deTaiId, user);
+        if (!isOwner) {
+            return res.status(403).json({ error: 'Chỉ giáo viên phụ trách đề tài hoặc Quản trị viên mới có quyền cấp quyền thi lại.' });
+        }
+        targetHocSinhId = req.body?.hocSinhId;
+        if (!targetHocSinhId) {
+            return res.status(400).json({ error: 'Vui lòng cung cấp mã học sinh cần cấp quyền thi lại.' });
         }
 
         await KetQuaTest.deleteMany({ DeTai: deTaiId, HocSinh: targetHocSinhId });

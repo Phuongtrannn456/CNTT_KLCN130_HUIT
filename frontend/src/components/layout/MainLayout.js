@@ -79,7 +79,6 @@ const MainLayout = () => {
   }, [isAdmin, fetchPendingRequestsCount]);
 
   const studentMenuItems = [
-    { key: '/student/exam-room', icon: <ShieldAlert size={18} style={{ color: '#722ed1' }} />, label: 'Phòng Thi AI (Chống Gian Lận)' },
     { key: '/student/challenges', icon: <Award size={18} />, label: 'Dự Án & Thử Thách K-12' },
     { key: '/student/achievements', icon: <ShieldCheck size={18} />, label: 'Chứng Nhận & Web3 SBT' },
     { key: '/student/dashboard', icon: <Monitor size={18} />, label: 'Dashboard Đề Tài' },
@@ -91,7 +90,6 @@ const MainLayout = () => {
   ];
 
   const teacherMenuItems = [
-    { key: '/teacher/exam-manager', icon: <ShieldAlert size={18} style={{ color: '#722ed1' }} />, label: 'Giám Sát Thi Cử (AI)' },
     { key: '/teacher/challenges', icon: <Award size={18} />, label: 'Quản Lý Challenge K-12' },
     { key: '/teacher/topics', icon: <Layers size={18} />, label: 'Đề Tài / Dự Án Học Tập' },
     { key: '/teacher/courses', icon: <BookOpen size={18} />, label: 'Quản Lý Môn Học' },

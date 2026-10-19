@@ -85,52 +85,6 @@ function RoleRedirect() {
   return <Navigate to="/student/challenges" replace />;
 }
 
-function StudentExamRedirect() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/baitest/demo-topic`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.deTaiId) {
-          navigate(`/student/entrance-test/${data.deTaiId}`, { replace: true });
-        } else {
-          navigate('/student/challenges', { replace: true });
-        }
-      })
-      .catch(() => navigate('/student/challenges', { replace: true }));
-  }, [navigate]);
-
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh', flexDirection: 'column', gap: 16 }}>
-      <div style={{ fontSize: 18, fontWeight: 'bold', color: '#722ed1' }}>Đang kết nối phòng thi AI...</div>
-      <div style={{ color: '#888' }}>Hệ thống đang chuẩn bị môi trường thi toàn màn hình</div>
-    </div>
-  );
-}
-
-function TeacherExamRedirect() {
-  const navigate = useNavigate();
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/baitest/demo-topic`)
-      .then(res => res.json())
-      .then(data => {
-        if (data.deTaiId) {
-          navigate(`/teacher/entrance-test/${data.deTaiId}`, { replace: true });
-        } else {
-          navigate('/teacher/challenges', { replace: true });
-        }
-      })
-      .catch(() => navigate('/teacher/challenges', { replace: true }));
-  }, [navigate]);
-
-  return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh', flexDirection: 'column', gap: 16 }}>
-      <div style={{ fontSize: 18, fontWeight: 'bold', color: '#722ed1' }}>Đang tải bảng giám thị...</div>
-      <div style={{ color: '#888' }}>Kết nối dữ liệu giám sát thi chống gian lận</div>
-    </div>
-  );
-}
-
 function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
@@ -158,7 +112,6 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Navigate to="/teacher/challenges" replace />} />
-          <Route path="exam-manager" element={<TeacherExamRedirect />} />
           <Route path="challenges" element={<ChallengeManagement />} />
           <Route path="challenges/:id/participants" element={<TeacherChallengeDetail />} />
           
@@ -182,7 +135,6 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Navigate to="/student/challenges" replace />} />
-          <Route path="exam-room" element={<StudentExamRedirect />} />
           <Route path="challenges" element={<ChallengeList />} />
           <Route path="submissions/:id" element={<StudentSubmissionView />} />
           <Route path="achievements" element={<AchievementList />} />

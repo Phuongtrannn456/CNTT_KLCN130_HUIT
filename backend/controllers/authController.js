@@ -469,66 +469,10 @@ const registerWithRole = async (req, res) => {
 };
 
 const demoLogin = async (req, res) => {
-  try {
-    const { role } = req.body;
-    let userRecord = null;
-    let role_id = 'STUDENT_ROLE';
-
-    if (role === 'teacher') {
-      userRecord = await GiaoVien.findOne({
-        $or: [
-          { WalletAddress: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8' },
-          { MaGV: 'TC_TOAN_01' }
-        ]
-      });
-      role_id = 'TEACHER_ROLE';
-    } else if (role === 'admin') {
-      userRecord = await Admin.findOne();
-      role_id = 'ADMIN_ROLE';
-    } else {
-      userRecord = await HocSinh.findOne({
-        $or: [
-          { WalletAddress: '0x90f79bf6eb2c4f870365e785982e1f101e93b906' },
-          { MaHS: 'HS_1001' },
-          { MaHS: 'ST_1001' }
-        ]
-      });
-      role_id = 'STUDENT_ROLE';
-    }
-
-    if (!userRecord) {
-      return res.status(404).json({ success: false, message: 'Tài khoản demo chưa được tạo. Vui lòng kiểm tra dữ liệu seed.' });
-    }
-
-    const DeTai = require('../models/DeTai');
-    let demoTopic = await DeTai.findOne({ MaDeTai: 'DT_STEM_DEMO' });
-    if (!demoTopic) {
-      demoTopic = await DeTai.findOne({ CoBaiTest: true });
-    }
-
-    const lowerWallet = (userRecord.WalletAddress || '').toLowerCase();
-    const token = jwt.sign(
-      { id: userRecord._id, role_id, walletAddress: lowerWallet },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '24h' }
-    );
-
-    return res.json({
-      success: true,
-      token,
-      user: {
-        id: userRecord._id,
-        role_id,
-        walletAddress: lowerWallet,
-        name: userRecord.HoTen || userRecord.name || 'Người dùng Demo',
-        Email: userRecord.Email
-      },
-      demoDeTaiId: demoTopic ? demoTopic._id : null,
-      message: 'Đăng nhập Demo thành công'
-    });
-  } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
-  }
+  return res.status(403).json({
+    success: false,
+    message: 'Chức năng thử nghiệm đã được đóng. Vui lòng xác thực bằng ví Web3 (MetaMask) hoặc quét mã QR hợp lệ.'
+  });
 };
 
 module.exports = { 

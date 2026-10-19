@@ -3,7 +3,7 @@ import {
   Container, Box, Typography, Button, Paper, Alert,
   CircularProgress, Fade, Grow, Avatar, Chip, Link,
   useTheme, useMediaQuery, Tabs, Tab, Dialog,
-  DialogTitle, DialogContent, DialogActions, Divider
+  DialogTitle, DialogContent, DialogActions, Divider, TextField
 } from '@mui/material';
 import {
   AccountBalanceWallet as WalletIcon,
@@ -12,8 +12,6 @@ import {
   Language as LanguageIcon,
   HelpOutline as HelpIcon,
   QrCodeScanner as QrCodeScannerIcon,
-  PlayArrow as PlayIcon,
-  School as SchoolIcon,
   SupervisorAccount as TeacherIcon
 } from '@mui/icons-material';
 import MetaMaskGuideModal from './MetaMaskGuideModal';
@@ -239,30 +237,43 @@ function LoginPage() {
     }
   };
 
-  const handleDemoLogin = async (role, directToExam = false) => {
-    setLoading(true);
-    setError('');
-    setSuccess('');
-    try {
-      const result = await authService.demoLogin(role);
-      const roleText = role === 'teacher' ? 'Giáo viên (Thầy Toàn)' : 'Học sinh (Lê Minh Khôi)';
-      setSuccess(`Đăng nhập thành công với vai trò ${roleText}! Đang chuyển hướng...`);
-      setIsAuthenticated(true);
-      setUser(result.user);
+  // Teacher Role Request State
+  const [teacherModalOpen, setTeacherModalOpen] = useState(false);
+  const [teacherFormData, setTeacherFormData] = useState({ hoTen: '', email: '', chuyenNganh: '' });
+  const [teacherSubmitting, setTeacherSubmitting] = useState(false);
+  const [teacherError, setTeacherError] = useState('');
 
+  const handleTeacherRequestSubmit = async (e) => {
+    e?.preventDefault();
+    if (!teacherFormData.hoTen.trim() || !teacherFormData.email.trim()) {
+      setTeacherError('Vui lòng điền đầy đủ họ tên và email.');
+      return;
+    }
+    setTeacherSubmitting(true);
+    setTeacherError('');
+    try {
+      if (!authService.isMetaMaskInstalled()) {
+        setGuideModalOpen(true);
+        throw new Error('Vui lòng cài đặt tiện ích MetaMask để liên kết ví của bạn.');
+      }
+      await authService.initializeProvider();
+      const walletAddress = await authService.getWalletAddress();
+      
+      await authService.registerWithRole(walletAddress, 'TEACHER_ROLE', {
+        hoTen: teacherFormData.hoTen.trim(),
+        email: teacherFormData.email.trim(),
+        chuyenNganh: teacherFormData.chuyenNganh.trim() || 'Giáo Dục Phổ Thông'
+      });
+
+      setTeacherModalOpen(false);
+      setSuccess('Gửi yêu cầu thành công! Đang chuyển đến trang theo dõi phê duyệt...');
       setTimeout(() => {
-        if (directToExam && result.demoDeTaiId) {
-          window.location.href = `/student/entrance-test/${result.demoDeTaiId}`;
-        } else if (directToExam && role === 'teacher' && result.demoDeTaiId) {
-          window.location.href = `/teacher/entrance-test/${result.demoDeTaiId}`;
-        } else {
-          redirectUserByRole(result.user?.role_id);
-        }
-      }, 600);
+        window.location.href = '/pending-approval';
+      }, 1000);
     } catch (err) {
-      setError(err.message || 'Lỗi đăng nhập tài khoản demo.');
+      setTeacherError(err.message || 'Lỗi gửi yêu cầu.');
     } finally {
-      setLoading(false);
+      setTeacherSubmitting(false);
     }
   };
 
@@ -556,7 +567,6 @@ function LoginPage() {
               <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
                 <Tab label="Ví MetaMask" />
                 <Tab label="Quét QR" />
-                <Tab label="⚡ Thử Nghiệm" sx={{ color: '#722ed1', fontWeight: 'bold' }} />
               </Tabs>
             </Box>
 
@@ -672,89 +682,90 @@ function LoginPage() {
               </>
             )}
 
-            {tabValue === 2 && (
-              <>
-                <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold', color: '#722ed1' }}>
-                  Trải nghiệm Nhanh Phòng Thi & Hệ Thống
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5 }}>
-                  Không cần cài đặt ví MetaMask. Bấm chọn tài khoản để trải nghiệm ngay:
-                </Typography>
-
-                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    fullWidth
-                    onClick={() => handleDemoLogin('student', true)}
-                    disabled={loading}
-                    startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <PlayIcon />}
-                    sx={{
-                      py: 1.5,
-                      fontWeight: 'bold',
-                      background: 'linear-gradient(135deg, #722ed1 0%, #1890ff 100%)',
-                      boxShadow: '0 4px 14px rgba(114, 46, 209, 0.4)',
-                      '&:hover': {
-                        background: 'linear-gradient(135deg, #531dab 0%, #096dd9 100%)',
-                        transform: 'translateY(-1px)'
-                      }
-                    }}
-                  >
-                    🎯 Vào Thẳng Phòng Thi Giám Sát AI
-                  </Button>
-
-                  <Button
-                    variant="outlined"
-                    size="medium"
-                    fullWidth
-                    onClick={() => handleDemoLogin('student', false)}
-                    disabled={loading}
-                    startIcon={<SchoolIcon />}
-                    sx={{ py: 1, borderColor: '#1890ff', color: '#1890ff', fontWeight: 600 }}
-                  >
-                    Đăng nhập Học Sinh (Lê Minh Khôi)
-                  </Button>
-
-                  <Button
-                    variant="outlined"
-                    size="medium"
-                    fullWidth
-                    onClick={() => handleDemoLogin('teacher', false)}
-                    disabled={loading}
-                    startIcon={<TeacherIcon />}
-                    sx={{ py: 1, borderColor: '#52c41a', color: '#52c41a', fontWeight: 600 }}
-                  >
-                    Đăng nhập Giáo Viên (Thầy Toàn)
-                  </Button>
-                </Box>
-              </>
-            )}
-
-            <Divider sx={{ my: 2.5 }}>
-              <Chip label="HOẶC VÀO THI TRỰC TIẾP" size="small" sx={{ fontSize: '0.72rem', fontWeight: 600 }} />
-            </Divider>
-
-            <Button
-              variant="text"
-              size="medium"
-              fullWidth
-              onClick={() => handleDemoLogin('student', true)}
-              disabled={loading}
-              startIcon={<PlayIcon />}
-              sx={{
-                color: '#722ed1',
-                fontWeight: 'bold',
-                background: 'rgba(114, 46, 209, 0.08)',
-                py: 1.2,
-                '&:hover': {
-                  background: 'rgba(114, 46, 209, 0.16)'
-                }
-              }}
-            >
-              🚀 Vào Thẳng Phòng Thi Giám Sát AI (Học Sinh)
-            </Button>
+            <Divider sx={{ my: 3 }} />
+            <Box sx={{ textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
+                Bạn là Giáo viên mới tham gia hệ thống?
+              </Typography>
+              <Button
+                variant="text"
+                size="small"
+                onClick={() => {
+                  setTeacherError('');
+                  setTeacherModalOpen(true);
+                }}
+                startIcon={<TeacherIcon fontSize="small" />}
+                sx={{ textTransform: 'none', fontWeight: 600, color: 'primary.main', mt: 0.5 }}
+              >
+                Gửi yêu cầu cấp quyền Giảng dạy
+              </Button>
+            </Box>
           </Paper>
         </Grow>
+
+        {/* Teacher Request Dialog */}
+        <Dialog
+          open={teacherModalOpen}
+          onClose={() => !teacherSubmitting && setTeacherModalOpen(false)}
+          maxWidth="xs"
+          fullWidth
+        >
+          <DialogTitle sx={{ fontWeight: 'bold' }}>
+            Đăng Ký Quyền Giáo Viên
+          </DialogTitle>
+          <form onSubmit={handleTeacherRequestSubmit}>
+            <DialogContent>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Điền thông tin và kết nối ví MetaMask để gửi đơn cấp quyền tới Ban Quản Trị phê duyệt.
+              </Typography>
+              {teacherError && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {teacherError}
+                </Alert>
+              )}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <TextField
+                  label="Họ và tên Giáo viên"
+                  required
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.hoTen}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, hoTen: e.target.value })}
+                />
+                <TextField
+                  label="Email trường học / cá nhân"
+                  type="email"
+                  required
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.email}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, email: e.target.value })}
+                />
+                <TextField
+                  label="Tổ bộ môn / Chuyên môn"
+                  placeholder="Ví dụ: STEM, Tin học, Toán học"
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.chuyenNganh}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, chuyenNganh: e.target.value })}
+                />
+              </Box>
+            </DialogContent>
+            <DialogActions sx={{ px: 3, pb: 2.5 }}>
+              <Button onClick={() => setTeacherModalOpen(false)} disabled={teacherSubmitting}>
+                Hủy
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={teacherSubmitting}
+                startIcon={teacherSubmitting ? <CircularProgress size={18} color="inherit" /> : <TeacherIcon />}
+              >
+                {teacherSubmitting ? 'Đang gửi...' : 'Gửi Yêu Cầu'}
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
 
         {/* QR Scanner Dialog */}
         <Dialog
