@@ -193,7 +193,8 @@ const updateProfile = async (req, res) => {
         : parseInt(String(gradeLevel).replace(/\D/g, ''), 10);
 
       if (!isNaN(numericGrade) && numericGrade >= 1 && numericGrade <= 12) {
-        if (!user.gradeLevel || req.user.role === 'admin') {
+        const isAdmin = user.role === 'admin' || req.user?.role === 'admin' || req.user?.role_id === 'ADMIN_ROLE';
+        if (!user.gradeLevel || isAdmin) {
           user.gradeLevel = numericGrade;
         }
       }
