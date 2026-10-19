@@ -11,8 +11,8 @@ exports.evaluateSubmission = async (req, res) => {
     const teacherId = req.user.id;
     const { rubricScores, teacherTotalScore, teacherFeedback, status, aiTotalScore, aiFeedback } = req.body; // status: DRAFT / FINAL
 
-    if (teacherTotalScore !== undefined && (teacherTotalScore < 0 || teacherTotalScore > 100)) {
-      return res.status(400).json({ success: false, message: 'Điểm số phải nằm trong khoảng từ 0 đến 100' });
+    if (teacherTotalScore !== undefined && (teacherTotalScore < 0 || teacherTotalScore > 10)) {
+      return res.status(400).json({ success: false, message: 'Điểm số phải nằm trong khoảng từ 0 đến 10 (thang điểm 10 chuẩn K-12)' });
     }
 
     // 1. Kiểm tra Submission
@@ -75,10 +75,12 @@ exports.evaluateSubmission = async (req, res) => {
       await Submission.findByIdAndUpdate(submissionId, { status: 'Evaluated' });
       await ChallengeParticipation.findByIdAndUpdate(submission.participation._id, { status: 'COMPLETED' });
 
-      // Tính Final Grade
+      // Tính Final Grade theo chuẩn K-12
       let finalGrade = 'Đạt';
-      if (evaluation.teacherTotalScore >= 8) finalGrade = 'Xuất sắc';
-      else if (evaluation.teacherTotalScore < 5) finalGrade = 'Không đạt';
+      if (evaluation.teacherTotalScore >= 8.5) finalGrade = 'Xuất sắc';
+      else if (evaluation.teacherTotalScore >= 6.5) finalGrade = 'Khá';
+      else if (evaluation.teacherTotalScore >= 5.0) finalGrade = 'Đạt';
+      else finalGrade = 'Không đạt';
 
       // Tránh duplicate LearningResult
       let lr = await LearningResult.findOne({ student: submission.student, challenge: challenge._id });
@@ -92,18 +94,20 @@ exports.evaluateSubmission = async (req, res) => {
         await lr.save();
       }
 
-      // Step 4.2: Tạo Achievement off-chain (tiền đề cho Web3 credential)
-      const Achievement = require('../models/Achievement');
-      let ach = await Achievement.findOne({ student: submission.student, challenge: challenge._id, achievementType: 'Challenge Completed' });
-      if (!ach) {
-        ach = new Achievement({
-          learningResult: lr._id,
-          student: submission.student,
-          challenge: challenge._id,
-          issuer: teacherId,
-          achievementType: 'Challenge Completed'
-        });
-        await ach.save();
+      // Step 4.2: Tạo Achievement off-chain (tiền đề cho Web3 credential) khi đạt kết quả Đạt trở lên (>= 5.0)
+      if (evaluation.teacherTotalScore >= 5.0) {
+        const Achievement = require('../models/Achievement');
+        let ach = await Achievement.findOne({ student: submission.student, challenge: challenge._id, achievementType: 'Challenge Completed' });
+        if (!ach) {
+          ach = new Achievement({
+            learningResult: lr._id,
+            student: submission.student,
+            challenge: challenge._id,
+            issuer: challenge.createdBy || teacherId,
+            achievementType: 'Challenge Completed'
+          });
+          await ach.save();
+        }
       }
     }
 

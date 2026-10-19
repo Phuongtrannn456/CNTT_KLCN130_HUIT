@@ -1,6 +1,6 @@
 import logging
 from fastapi import APIRouter, Request
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict, AliasChoices
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
@@ -20,11 +20,13 @@ class AnalyzeRequest(BaseModel):
 
 
 class RubricItem(BaseModel):
-    TenTieuChi: str
-    MoTa: str = ""
-    TrongSo: float
-    DiemToiDa: float = 10
-    GoiYChoAI: list[str] = Field(default_factory=list)
+    model_config = ConfigDict(populate_by_name=True)
+
+    TenTieuChi: str = Field(..., validation_alias=AliasChoices('TenTieuChi', 'criteriaName', 'criteria'))
+    MoTa: str = Field(default="", validation_alias=AliasChoices('MoTa', 'description'))
+    TrongSo: float = Field(default=0.0, validation_alias=AliasChoices('TrongSo', 'weight'))
+    DiemToiDa: float = Field(default=10.0, validation_alias=AliasChoices('DiemToiDa', 'maxScore', 'max_score'))
+    GoiYChoAI: list[str] = Field(default_factory=list, validation_alias=AliasChoices('GoiYChoAI', 'aiKeywords'))
 
 
 class AnalyzeRubricsRequest(BaseModel):

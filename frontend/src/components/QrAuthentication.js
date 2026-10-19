@@ -31,7 +31,11 @@ function QrAuthentication({ user }) {
       }
     } catch (err) {
       console.error('Error fetching QR code:', err);
-      setError('Không thể tải mã QR. Vui lòng thử lại sau.');
+      if (err.response?.status === 404) {
+        setQrCodeData(null);
+      } else {
+        setError(err.response?.data?.message || 'Không thể tải mã QR. Vui lòng thử lại sau.');
+      }
     } finally {
       setLoading(false);
     }

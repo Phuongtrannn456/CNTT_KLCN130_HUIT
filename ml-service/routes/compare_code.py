@@ -26,7 +26,7 @@ class CompareCodeRequest(BaseModel):
 @router.post("/compare-code")
 def compare_code(payload: CompareCodeRequest):
     """
-    So sánh code sinh viên với code mẫu giảng viên bằng SBERT.
+    So sánh code học sinh với code mẫu giáo viên bằng SBERT.
     Trả về cosine similarity (0-1).
     """
     if not payload.student_code.strip() or not payload.answer_code.strip():

@@ -3,7 +3,7 @@ import {
   Container, Box, Typography, Button, Paper, Alert,
   CircularProgress, Fade, Grow, Avatar, Chip, Link,
   useTheme, useMediaQuery, Tabs, Tab, Dialog,
-  DialogTitle, DialogContent, DialogActions
+  DialogTitle, DialogContent, DialogActions, Divider, TextField
 } from '@mui/material';
 import {
   AccountBalanceWallet as WalletIcon,
@@ -11,10 +11,12 @@ import {
   ChevronRight as ChevronRightIcon,
   Language as LanguageIcon,
   HelpOutline as HelpIcon,
-  QrCodeScanner as QrCodeScannerIcon
+  QrCodeScanner as QrCodeScannerIcon,
+  SupervisorAccount as TeacherIcon
 } from '@mui/icons-material';
 import MetaMaskGuideModal from './MetaMaskGuideModal';
 import QrScanner from './QrScanner';
+import RoleSelection from './RoleSelection';
 import authService from '../services/authService';
 
 // Role constants
@@ -71,6 +73,10 @@ function LoginPage() {
   const [user, setUser] = useState(null);
   const [connectedWallet, setConnectedWallet] = useState(null);
   const [tabValue, setTabValue] = useState(0);
+
+  // Role Selection State for new/unregistered wallets
+  const [needsRoleSelection, setNeedsRoleSelection] = useState(false);
+  const [pendingWallet, setPendingWallet] = useState('');
 
   // QR Login State
   const [qrScannerOpen, setQrScannerOpen] = useState(false);
@@ -162,6 +168,20 @@ function LoginPage() {
       console.log('Authenticating...');
       const result = await authService.authenticate();
 
+      if (result.isPending) {
+        setSuccess('Yêu cầu cấp quyền Giáo viên của bạn đang chờ Admin phê duyệt. Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = '/pending-approval';
+        }, 1000);
+        return;
+      }
+
+      if (result.needsRoleSelection) {
+        setPendingWallet(result.walletAddress || qrWallet);
+        setNeedsRoleSelection(true);
+        return;
+      }
+
       setSuccess('Đăng nhập bằng QR thành công! Đang chuyển hướng...');
       setIsAuthenticated(true);
       setUser(result.user);
@@ -199,6 +219,20 @@ function LoginPage() {
 
       const result = await authService.authenticate();
 
+      if (result.isPending) {
+        setSuccess('Yêu cầu cấp quyền Giáo viên của bạn đang chờ Admin phê duyệt. Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = '/pending-approval';
+        }, 1000);
+        return;
+      }
+
+      if (result.needsRoleSelection) {
+        setPendingWallet(result.walletAddress || walletAddress);
+        setNeedsRoleSelection(true);
+        return;
+      }
+
       setSuccess('Đăng nhập thành công! Đang chuyển hướng...');
       setIsAuthenticated(true);
       setUser(result.user);
@@ -217,6 +251,106 @@ function LoginPage() {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSelectStudent = async (studentData) => {
+    setLoading(true);
+    setError('');
+    try {
+      const regResult = await authService.registerWithRole(pendingWallet, STUDENT_ROLE, studentData);
+      if (regResult?.token) {
+        setSuccess('Đăng ký tài khoản học sinh thành công! Đang chuyển hướng...');
+        setIsAuthenticated(true);
+        setUser(regResult.user);
+        setTimeout(() => {
+          redirectUserByRole(STUDENT_ROLE);
+        }, 1000);
+      }
+    } catch (err) {
+      setError(err.message || 'Lỗi khi đăng ký tài khoản học sinh.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelectTeacher = async (teacherData) => {
+    setLoading(true);
+    setError('');
+    try {
+      const regResult = await authService.registerWithRole(pendingWallet, TEACHER_ROLE, {
+        hoTen: teacherData.hoTen,
+        email: teacherData.email,
+        toBoMon: teacherData.chuyenNganh || teacherData.toBoMon,
+        chuyenNganh: teacherData.chuyenNganh || teacherData.toBoMon,
+        maGV: teacherData.maGV,
+        pin: teacherData.pin
+      });
+
+      if (regResult?.token) {
+        setSuccess(regResult.message || 'Kích hoạt tài khoản Giáo viên thành công! Đang chuyển hướng...');
+        setIsAuthenticated(true);
+        setUser(regResult.user);
+        setTimeout(() => {
+          redirectUserByRole(TEACHER_ROLE);
+        }, 1000);
+      } else {
+        setSuccess('Yêu cầu cấp quyền Giáo viên đã được gửi. Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = '/pending-approval';
+        }, 1000);
+      }
+    } catch (err) {
+      setError(err.message || 'Lỗi khi kích hoạt tài khoản giáo viên.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancelRoleSelection = () => {
+    setNeedsRoleSelection(false);
+    setPendingWallet('');
+    setError('');
+    setSuccess('');
+  };
+
+  // Teacher Role Request State
+  const [teacherModalOpen, setTeacherModalOpen] = useState(false);
+  const [teacherFormData, setTeacherFormData] = useState({ hoTen: '', email: '', chuyenNganh: '' });
+  const [teacherSubmitting, setTeacherSubmitting] = useState(false);
+  const [teacherError, setTeacherError] = useState('');
+
+  const handleTeacherRequestSubmit = async (e) => {
+    e?.preventDefault();
+    if (!teacherFormData.hoTen.trim() || !teacherFormData.email.trim()) {
+      setTeacherError('Vui lòng điền đầy đủ họ tên và email.');
+      return;
+    }
+    setTeacherSubmitting(true);
+    setTeacherError('');
+    try {
+      if (!authService.isMetaMaskInstalled()) {
+        setGuideModalOpen(true);
+        throw new Error('Vui lòng cài đặt tiện ích MetaMask để liên kết ví của bạn.');
+      }
+      await authService.initializeProvider();
+      const walletAddress = await authService.getWalletAddress();
+      
+      await authService.registerWithRole(walletAddress, 'TEACHER_ROLE', {
+        hoTen: teacherFormData.hoTen.trim(),
+        email: teacherFormData.email.trim(),
+        chuyenNganh: teacherFormData.chuyenNganh.trim() || 'Giáo Dục Phổ Thông'
+      });
+
+      setTeacherModalOpen(false);
+      setSuccess('Gửi yêu cầu thành công! Đang chuyển đến trang theo dõi phê duyệt...');
+      setTimeout(() => {
+        window.location.href = '/pending-approval';
+      }, 1000);
+    } catch (err) {
+      setTeacherError(err.message || 'Lỗi gửi yêu cầu.');
+    } finally {
+      setTeacherSubmitting(false);
     }
   };
 
@@ -353,9 +487,9 @@ function LoginPage() {
                   color="primary"
                 />
 
-                {!isLecturer && !isAdmin && (user.MaHS || user.MaSV) && (
+                {!isLecturer && !isAdmin && user.MaHS && (
                   <Chip
-                    label={`Mã HS: ${user.MaHS || user.MaSV}`}
+                    label={`Mã HS: ${user.MaHS}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -369,9 +503,17 @@ function LoginPage() {
                   />
                 )}
 
-                {user.ChuyenNganh && (
+                {isLecturer && (user.ToBoMon || user.ChuyenNganh) && (
                   <Chip
-                    label={`Chuyên ngành: ${user.ChuyenNganh}`}
+                    label={`Tổ bộ môn: ${user.ToBoMon || user.ChuyenNganh}`}
+                    variant="outlined"
+                    size={styles.chipSize}
+                  />
+                )}
+
+                {!isLecturer && !isAdmin && (user.KhoiLop || user.ChuyenNganh) && (
+                  <Chip
+                    label={user.KhoiLop ? `Khối lớp: ${user.KhoiLop}` : `Lĩnh vực: ${user.ChuyenNganh}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -487,6 +629,17 @@ function LoginPage() {
           </Box>
         </Fade>
 
+        {needsRoleSelection ? (
+          <RoleSelection
+            walletAddress={pendingWallet}
+            onSelectStudent={handleSelectStudent}
+            onSelectLecturer={handleSelectTeacher}
+            onCancel={handleCancelRoleSelection}
+            loading={loading}
+            errorMessage={error}
+            successMessage={success}
+          />
+        ) : (
         <Grow in={true} timeout={1500}>
           <Paper
             elevation={3}
@@ -501,7 +654,7 @@ function LoginPage() {
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
               <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
                 <Tab label="Ví MetaMask" />
-                <Tab label="Quét QR Code" />
+                <Tab label="Quét QR" />
               </Tabs>
             </Box>
 
@@ -616,8 +769,75 @@ function LoginPage() {
                 </Typography>
               </>
             )}
+
+            {/* Anti-spam: Đã ẩn nút đăng ký giáo viên tự do ngoài trang chủ để tránh spam. Giáo viên kích hoạt tài khoản chính thức qua mã GV khi kết nối ví. */}
           </Paper>
         </Grow>
+        )}
+
+        {/* Teacher Request Dialog */}
+        <Dialog
+          open={teacherModalOpen}
+          onClose={() => !teacherSubmitting && setTeacherModalOpen(false)}
+          maxWidth="xs"
+          fullWidth
+        >
+          <DialogTitle sx={{ fontWeight: 'bold' }}>
+            Đăng Ký Quyền Giáo Viên
+          </DialogTitle>
+          <form onSubmit={handleTeacherRequestSubmit}>
+            <DialogContent>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Điền thông tin và kết nối ví MetaMask để gửi đơn cấp quyền tới Ban Quản Trị phê duyệt.
+              </Typography>
+              {teacherError && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {teacherError}
+                </Alert>
+              )}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <TextField
+                  label="Họ và tên Giáo viên"
+                  required
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.hoTen}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, hoTen: e.target.value })}
+                />
+                <TextField
+                  label="Email trường học / cá nhân"
+                  type="email"
+                  required
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.email}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, email: e.target.value })}
+                />
+                <TextField
+                  label="Tổ bộ môn / Chuyên môn"
+                  placeholder="Ví dụ: STEM, Tin học, Toán học"
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.chuyenNganh}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, chuyenNganh: e.target.value })}
+                />
+              </Box>
+            </DialogContent>
+            <DialogActions sx={{ px: 3, pb: 2.5 }}>
+              <Button onClick={() => setTeacherModalOpen(false)} disabled={teacherSubmitting}>
+                Hủy
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={teacherSubmitting}
+                startIcon={teacherSubmitting ? <CircularProgress size={18} color="inherit" /> : <TeacherIcon />}
+              >
+                {teacherSubmitting ? 'Đang gửi...' : 'Gửi Yêu Cầu'}
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
 
         {/* QR Scanner Dialog */}
         <Dialog

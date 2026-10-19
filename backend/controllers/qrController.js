@@ -25,8 +25,26 @@ const qrController = {
       const { id: userId, role_id } = req.user;
       const walletAddress = await resolveWalletAddress(req.user);
 
+      let effectiveUserId = userId;
+      if (walletAddress) {
+        let localDoc = null;
+        if (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') {
+          localDoc = await GiaoVien.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else if (role_id === 'ADMIN_ROLE') {
+          localDoc = await Admin.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else {
+          localDoc = await HocSinh.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        }
+        if (localDoc) {
+          effectiveUserId = localDoc._id;
+        }
+      }
+
       let qrCode = await QrCode.findOne({
-        user_id: userId,
+        $or: [
+          { user_id: effectiveUserId },
+          { wallet_address: walletAddress }
+        ],
         status: 'active'
       });
 
@@ -38,7 +56,7 @@ const qrController = {
         const roleModel = (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'Admin' : 'HocSinh');
 
         qrCode = new QrCode({
-          user_id: userId,
+          user_id: effectiveUserId,
           wallet_address: walletAddress,
           role: role_id,
           role_model: roleModel,
@@ -64,9 +82,24 @@ const qrController = {
       const { id: userId, role_id } = req.user;
       const walletAddress = await resolveWalletAddress(req.user);
 
+      let effectiveUserId = userId;
+      if (walletAddress) {
+        let localDoc = null;
+        if (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') {
+          localDoc = await GiaoVien.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else if (role_id === 'ADMIN_ROLE') {
+          localDoc = await Admin.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else {
+          localDoc = await HocSinh.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        }
+        if (localDoc) {
+          effectiveUserId = localDoc._id;
+        }
+      }
+
       // Vô hiệu hóa mã cũ
       await QrCode.updateMany(
-        { user_id: userId },
+        { $or: [{ user_id: effectiveUserId }, { wallet_address: walletAddress }] },
         { $set: { status: 'inactive' } }
       );
 
@@ -74,7 +107,7 @@ const qrController = {
       const roleModel = (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'Admin' : 'HocSinh');
 
       const newQrCode = new QrCode({
-        user_id: userId,
+        user_id: effectiveUserId,
         wallet_address: walletAddress,
         role: role_id,
         role_model: roleModel,

@@ -105,7 +105,7 @@ const StudentSubmissionView = () => {
           <Descriptions.Item label="Trạng thái"><Tag color={isClosed ? 'red' : 'green'}>{challenge.status}</Tag></Descriptions.Item>
           <Descriptions.Item label="Hạn nộp">{challenge.deadline ? dayjs(challenge.deadline).format('DD/MM/YYYY HH:mm') : 'Không có'}</Descriptions.Item>
           <Descriptions.Item label="Khối lớp">{challenge.eligibleGrades?.join(', ') || 'Tất cả'}</Descriptions.Item>
-          <Descriptions.Item label="Giáo viên tạo">{challenge.createdBy?.fullName || 'N/A'}</Descriptions.Item>
+          <Descriptions.Item label="Giáo viên tạo">{challenge.createdBy?.fullName || challenge.createdBy?.HoTen || 'N/A'}</Descriptions.Item>
         </Descriptions>
         <div style={{ marginTop: '16px' }}>
           <Text strong>Mô tả:</Text>
@@ -129,9 +129,20 @@ const StudentSubmissionView = () => {
         <div style={{ marginTop: '24px' }}>
           {hasFinalResult ? (
             <Card title="Kết quả Đánh giá" style={{ borderColor: '#52c41a' }} headStyle={{ backgroundColor: '#f6ffed' }}>
-              <Alert message="Chúc mừng bạn đã hoàn thành!" type="success" showIcon style={{ marginBottom: 16 }} />
+              <Alert 
+                message="Chúc mừng bạn đã hoàn thành bài thi!" 
+                description="Bạn đã được giáo viên đánh giá hoàn tất. Hãy kiểm tra thành tích để nhận chứng nhận Web3 on-chain!"
+                type="success" 
+                showIcon 
+                style={{ marginBottom: 16 }} 
+                action={
+                  <Button size="middle" type="primary" onClick={() => navigate('/student/achievements')}>
+                    Xem Thành Tích Web3
+                  </Button>
+                }
+              />
               <Descriptions column={1} bordered>
-                <Descriptions.Item label="Điểm số"><Text strong style={{ fontSize: '18px' }}>{evaluation.teacherTotalScore}</Text></Descriptions.Item>
+                <Descriptions.Item label="Điểm số"><Text strong style={{ fontSize: '18px', color: '#52c41a' }}>{evaluation.teacherTotalScore} / 10</Text></Descriptions.Item>
                 <Descriptions.Item label="Nhận xét của giáo viên">{evaluation.teacherFeedback || 'Không có'}</Descriptions.Item>
               </Descriptions>
             </Card>

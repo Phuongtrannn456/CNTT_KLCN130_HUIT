@@ -224,7 +224,7 @@ const CourseManagement = () => {
                             <a
                               style={{ fontWeight: 600, color: '#1677ff' }}
                               onClick={() => {
-                                navigate('/lecturer/topics', { state: { highlightTopicId: topicRecord._id } });
+                                navigate('/teacher/topics', { state: { highlightTopicId: topicRecord._id } });
                               }}
                             >
                               {text}

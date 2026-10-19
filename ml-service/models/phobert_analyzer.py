@@ -148,6 +148,7 @@ class PhoBertAnalyzer:
         # === BƯỚC 3+4+5: EMBED TIÊU CHÍ + SIMILARITY MATRIX + MAX ===
         results = []
         total_weighted_score = 0
+        total_weights = 0
 
         for rubric in rubrics:
             # Tạo text đại diện cho tiêu chí (kết hợp GoiYChoAI)
@@ -186,7 +187,8 @@ class PhoBertAnalyzer:
             # Trọng số
             trong_so = rubric.get('TrongSo', 0)
             if diem_toi_da > 0:
-                total_weighted_score += score / diem_toi_da * trong_so
+                total_weighted_score += (score / diem_toi_da) * trong_so
+                total_weights += trong_so
 
             # === ADAPTIVE THRESHOLD dựa trên phân phối similarity của tiêu chí này ===
             all_sims = [s for _, s in chunk_similarities]
@@ -219,7 +221,12 @@ class PhoBertAnalyzer:
             })
 
         # Tổng điểm trên thang 10
-        final_score = round(total_weighted_score / 10, 2)
+        if total_weights > 0:
+            final_score = round((total_weighted_score / total_weights) * 10, 2)
+        elif results:
+            final_score = round(sum(r['AI_DiemTieuChi'] for r in results) / len(results), 2)
+        else:
+            final_score = 0.0
 
         elapsed = int((time.time() - start_time) * 1000)
         logger.info(f"[AI] Rubrics analysis completed | score={final_score} | criteria={len(rubrics)} | chunks={len(chunks)} | time={elapsed}ms")

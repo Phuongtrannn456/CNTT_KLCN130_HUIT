@@ -21,7 +21,7 @@ const educationalCredentialSchema = new mongoose.Schema({
 
   status: { 
     type: String, 
-    enum: ['DRAFT', 'PENDING_CLAIM', 'PENDING_CHAIN', 'ANCHORED', 'REVOKED', 'SUPERSEDED'], 
+    enum: ['DRAFT', 'PENDING_CLAIM', 'PENDING_CHAIN', 'ANCHORED', 'REVOKED', 'SUPERSEDED', 'FAILED'], 
     default: 'PENDING_CLAIM' 
   },
   

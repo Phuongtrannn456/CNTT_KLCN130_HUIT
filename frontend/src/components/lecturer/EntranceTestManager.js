@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button, Input, Select, InputNumber, Space, Typography, Table, Tag, Modal, message, Tabs, Empty, Badge, Popconfirm, Alert, Descriptions } from 'antd';
-import { Plus, Trash2, Trophy, Code2, ListChecks, ShieldCheck, ArrowLeft } from 'lucide-react';
+import { Plus, Trash2, Trophy, Code2, ListChecks, ShieldCheck, ArrowLeft, Printer, RotateCcw } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Editor from '@monaco-editor/react';
+import io from 'socket.io-client';
 import aiApiService from '../../services/aiService';
 import authService from '../../services/authService';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
+
+const SOCKET_URL = process.env.REACT_APP_SOCKET_URL || (process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:5000');
 
 const EntranceTestManager = () => {
   const { deTaiId } = useParams();
@@ -22,6 +26,28 @@ const EntranceTestManager = () => {
   const [thoiGianLam, setThoiGianLam] = useState(30);
   const [nguongDat, setNguongDat] = useState(75);
   const [cauHoi, setCauHoi] = useState([]);
+  const [selectedViolationLog, setSelectedViolationLog] = useState(null);
+
+  // Lắng nghe cập nhật phòng thi thời gian thực
+  useEffect(() => {
+    if (!deTaiId) return;
+    const socket = io(SOCKET_URL, { transports: ['websocket', 'polling'] });
+    socket.emit('competition:join', { deTaiId, nhomId: 'lecturer' });
+
+    socket.on('competition:winner', (data) => {
+      message.info(`🏆 Đã xác định nhóm thắng cuộc: ${data.winnerName || ''}`);
+      queryClient.invalidateQueries({ queryKey: ['entrance-test', deTaiId] });
+    });
+
+    socket.on('competition:status', () => {
+      queryClient.invalidateQueries({ queryKey: ['entrance-test', deTaiId] });
+    });
+
+    return () => {
+      socket.emit('competition:leave', { deTaiId });
+      socket.disconnect();
+    };
+  }, [deTaiId, queryClient]);
 
   const { data: testData = {}, isLoading: loading } = useQuery({
     queryKey: ['entrance-test', deTaiId, user?.id],
@@ -60,6 +86,103 @@ const EntranceTestManager = () => {
   });
 
   const { topic = null, baiTest = null, results = [], registrations = [] } = testData;
+
+  const handleResetStudent = async (hocSinhId) => {
+    if (!hocSinhId) return;
+    try {
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+      await axios.post(`${API_URL}/baitest/${deTaiId}/reset-student-test`, { hocSinhId }, {
+        headers: { Authorization: `Bearer ${authService.getToken()}` }
+      });
+      message.success('Đã cấp quyền làm lại bài test thành công cho học sinh!');
+      setSelectedViolationLog(null);
+      queryClient.invalidateQueries({ queryKey: ['entrance-test', deTaiId] });
+    } catch (err) {
+      message.error(err.response?.data?.error || 'Lỗi cấp quyền thi lại.');
+    }
+  };
+
+  const handlePrintViolationReport = (record) => {
+    if (!record) return;
+    const printWindow = window.open('', '_blank', 'width=850,height=900');
+    if (!printWindow) {
+      message.warning('Trình duyệt đã chặn cửa sổ pop-up in ấn. Vui lòng cho phép pop-up để in.');
+      return;
+    }
+    const violationRows = (record.LichSuViPham || []).map((vp, idx) => `
+      <tr>
+        <td style="border: 1px solid #333; padding: 6px; text-align: center;">${idx + 1}</td>
+        <td style="border: 1px solid #333; padding: 6px;">${vp.LoaiViPham || 'Vi phạm'}</td>
+        <td style="border: 1px solid #333; padding: 6px;">${vp.ChiTiet || ''}</td>
+        <td style="border: 1px solid #333; padding: 6px; text-align: center;">${vp.ThoiDiem ? new Date(vp.ThoiDiem).toLocaleTimeString('vi-VN') : 'N/A'}</td>
+      </tr>
+    `).join('');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>BIÊN BẢN VI PHẠM PHÒNG THI AI</title>
+        <style>
+          body { font-family: 'Times New Roman', serif; padding: 30px; font-size: 14pt; line-height: 1.5; }
+          .center { text-align: center; }
+          .title { font-weight: bold; font-size: 16pt; margin: 20px 0 10px 0; }
+          table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 12pt; }
+          .sig-table { width: 100%; margin-top: 40px; border: none; }
+          .sig-table td { border: none; text-align: center; }
+        </style>
+      </head>
+      <body>
+        <div class="center">
+          <b>BỘ GIÁO DỤC VÀ ĐÀO TẠO - TRƯỜNG ĐẠI HỌC</b><br>
+          <b>HỆ THỐNG GIÁM SÁT THI TRỰC TUYẾN AI PROCTORING</b>
+          <p>-----------------------------------</p>
+          <div class="title">BIÊN BẢN GHI NHẬN HÀNH VI VI PHẠM QUY CHẾ PHÒNG THI</div>
+          <i>(Tự động trích xuất bởi Hệ thống Giám sát Liêm chính Học thuật AI)</i>
+        </div>
+
+        <p style="margin-top: 25px;">
+          Vào hồi ${new Date(record.ThoiGianNop || Date.now()).toLocaleTimeString('vi-VN')}, ngày ${new Date(record.ThoiGianNop || Date.now()).toLocaleDateString('vi-VN')}, hệ thống ghi nhận trường hợp vi phạm quy chế thi trực tuyến đối với thí sinh sau:
+        </p>
+
+        <table style="border: none; margin-bottom: 20px;">
+          <tr><td style="border:none; width: 220px;"><b>Họ và tên thí sinh:</b></td><td style="border:none;">${record.HocSinh?.HoTen || 'N/A'}</td></tr>
+          <tr><td style="border:none;"><b>Mã số học sinh/SV:</b></td><td style="border:none;">${record.HocSinh?.MaHS || 'N/A'}</td></tr>
+          <tr><td style="border:none;"><b>Đề tài bài test:</b></td><td style="border:none;">${topic?.TenDeTai || deTaiId}</td></tr>
+          <tr><td style="border:none;"><b>Kết luận giám sát AI:</b></td><td style="border:none; color: red;"><b>${record.BiHuyKetQua ? 'ĐÌNH CHỈ THI (0 ĐIỂM)' : record.AI_CheatAssessment}</b> (Chỉ số nghi vấn: ${record.AI_CheatScore || 0}%)</td></tr>
+          <tr><td style="border:none;"><b>Lý do xử lý:</b></td><td style="border:none;">${record.LyDoHuy || 'Vi phạm quy chế 1 màn hình duy nhất hoặc mở công cụ DevTools / F12.'}</td></tr>
+        </table>
+
+        <b>DANH SÁCH CÁC HÀNH VI VI PHẠM ĐÃ GHI NHẬN:</b>
+        <table>
+          <thead>
+            <tr style="background: #f0f0f0;">
+              <th style="border: 1px solid #333; padding: 6px; width: 40px;">STT</th>
+              <th style="border: 1px solid #333; padding: 6px; width: 150px;">Phân loại</th>
+              <th style="border: 1px solid #333; padding: 6px;">Chi tiết hành vi</th>
+              <th style="border: 1px solid #333; padding: 6px; width: 110px;">Thời điểm</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${violationRows || '<tr><td colspan="4" style="text-align:center; padding: 10px;">Không có vi phạm chi tiết</td></tr>'}
+          </tbody>
+        </table>
+
+        <table class="sig-table">
+          <tr>
+            <td style="width: 50%;"><b>HỌC SINH VI PHẠM</b><br><i>(Đã xem biên bản)</i><br><br><br><br><b>${record.HocSinh?.HoTen || ''}</b></td>
+            <td style="width: 50%;"><b>GIÁO VIÊN / HỆ THỐNG AI</b><br><i>(Xác thực điện tử)</i><br><br><br><br><b>AI PROCTOR GUARDIAN</b></td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    setTimeout(() => {
+      printWindow.print();
+    }, 500);
+  };
 
   // Thêm câu hỏi
   const addTracNghiem = () => {
@@ -213,12 +336,83 @@ const EntranceTestManager = () => {
       ),
     },
     {
+      title: 'Giám sát AI (Chống gian lận)',
+      key: 'proctoring',
+      width: 220,
+      render: (_, r) => {
+        const isDisqualified = r.BiHuyKetQua;
+        const assessment = r.AI_CheatAssessment || 'Liêm chính';
+        const color = isDisqualified ? 'red' : assessment === 'Liêm chính' ? 'green' : assessment === 'Nghi vấn nhẹ' ? 'orange' : 'red';
+        const hasViolations = (r.SoLanChuyenTab > 0) || (r.SoLanThoatFullscreen > 0) || (r.LichSuViPham?.length > 0) || isDisqualified;
+
+        return (
+          <div>
+            <Tag color={color} style={{ fontWeight: 700 }}>
+              {isDisqualified ? '🛑 ĐÌNH CHỈ THI (ĐIỂM 0)' : assessment === 'Liêm chính' ? '🟢 Liêm chính' : assessment === 'Nghi vấn nhẹ' ? '🟡 Nghi vấn nhẹ' : '🔴 Vi phạm quy chế'}
+            </Tag>
+            {hasViolations ? (
+              <div style={{ marginTop: 4 }}>
+                <Button 
+                  type="link" 
+                  size="small" 
+                  danger={isDisqualified}
+                  style={{ padding: 0, fontSize: 12, fontWeight: isDisqualified ? 600 : 400 }}
+                  onClick={() => setSelectedViolationLog(r)}
+                >
+                  Xem bằng chứng vi phạm ({r.SoLanThoatFullscreen || 0} thoát FS, {r.SoLanChuyenTab || 0} tab)
+                </Button>
+              </div>
+            ) : (
+              <div style={{ fontSize: 11, color: '#8c8c8c', marginTop: 2 }}>Duy trì 1 màn hình 100%</div>
+            )}
+          </div>
+        );
+      }
+    },
+    {
       title: 'Blockchain',
       key: 'tx',
       width: 100,
       render: (_, r) => r.TxHash
         ? <Tag color="green" icon={<ShieldCheck size={10} />}>On-chain</Tag>
         : <Tag color="default">Chưa ghi</Tag>,
+    },
+    {
+      title: 'Hành Động',
+      key: 'action',
+      width: 170,
+      render: (_, r) => (
+        <Space size="small">
+          {(r.BiHuyKetQua || (r.LichSuViPham && r.LichSuViPham.length > 0)) && (
+            <Button
+              type="text"
+              danger
+              size="small"
+              icon={<Printer size={13} />}
+              onClick={() => handlePrintViolationReport(r)}
+              title="In biên bản vi phạm kỷ luật phòng thi"
+            >
+              In BB
+            </Button>
+          )}
+          <Popconfirm
+            title="Cấp quyền làm lại bài test?"
+            description={`Xóa kết quả hiện tại và cho phép thí sinh ${r.HocSinh?.HoTen || ''} làm lại bài?`}
+            onConfirm={() => handleResetStudent(r.HocSinh?._id || r.HocSinh)}
+            okText="Đồng ý"
+            cancelText="Hủy"
+          >
+            <Button
+              type="primary"
+              ghost
+              size="small"
+              icon={<RotateCcw size={13} />}
+            >
+              Thi lại
+            </Button>
+          </Popconfirm>
+        </Space>
+      ),
     },
   ];
 
@@ -228,7 +422,7 @@ const EntranceTestManager = () => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <Title level={3} style={{ margin: 0 }}><Space><ListChecks size={24} /> Quản Lý Bài Test Cạnh Tranh</Space></Title>
-        <Button icon={<ArrowLeft size={14} />} onClick={() => navigate('/lecturer/topics')}>Quay về Đề Tài</Button>
+        <Button icon={<ArrowLeft size={14} />} onClick={() => navigate('/teacher/topics')}>Quay về Đề Tài</Button>
       </div>
       {topic && (
         <Alert message={`Đề tài: ${topic.TenDeTai}`} type="info" showIcon style={{ marginBottom: 16 }} />
@@ -394,6 +588,85 @@ const EntranceTestManager = () => {
           </Space>
         </Card>
       )}
+
+      {/* Modal Xem Chi Tiết Vi Phạm Phòng Thi */}
+      <Modal
+        title={`📋 Nhật Ký Giám Sát Phòng Thi: ${selectedViolationLog?.HocSinh?.HoTen || 'Học sinh'}`}
+        open={!!selectedViolationLog}
+        onOk={() => setSelectedViolationLog(null)}
+        onCancel={() => setSelectedViolationLog(null)}
+        footer={[
+          <Button key="print" icon={<Printer size={14} />} onClick={() => handlePrintViolationReport(selectedViolationLog)}>
+            In Biên Bản Kỷ Luật
+          </Button>,
+          <Popconfirm
+            key="reset"
+            title="Cấp quyền làm lại bài test?"
+            description={`Xóa kết quả vi phạm và cho phép thí sinh ${selectedViolationLog?.HocSinh?.HoTen || ''} làm lại bài?`}
+            onConfirm={() => handleResetStudent(selectedViolationLog?.HocSinh?._id || selectedViolationLog?.HocSinh)}
+            okText="Cấp quyền"
+            cancelText="Hủy"
+          >
+            <Button type="primary" danger ghost icon={<RotateCcw size={14} />}>
+              Cấp Quyền Thi Lại
+            </Button>
+          </Popconfirm>,
+          <Button key="close" type="primary" onClick={() => setSelectedViolationLog(null)}>
+            Đóng
+          </Button>
+        ]}
+        width={650}
+      >
+        {selectedViolationLog && (
+          <div>
+            {selectedViolationLog.BiHuyKetQua && (
+              <Alert 
+                type="error" 
+                showIcon 
+                message="BÀI THI ĐÃ BỊ ĐÌNH CHỈ & HỦY TOÀN BỘ ĐIỂM SỐ (ĐIỂM 0)"
+                description={selectedViolationLog.LyDoHuy || 'Học sinh vi phạm nghiêm trọng quy chế thi 1 màn hình duy nhất.'}
+                style={{ marginBottom: 16 }}
+              />
+            )}
+            <Descriptions bordered column={2} size="small" style={{ marginBottom: 16 }}>
+              <Descriptions.Item label="Học sinh">{selectedViolationLog.HocSinh?.HoTen} ({selectedViolationLog.HocSinh?.MaHS})</Descriptions.Item>
+              <Descriptions.Item label="Đánh giá AI">
+                <Tag color={selectedViolationLog.AI_CheatAssessment === 'Liêm chính' ? 'green' : selectedViolationLog.AI_CheatAssessment === 'Nghi vấn nhẹ' ? 'orange' : 'red'}>
+                  {selectedViolationLog.AI_CheatAssessment || 'Liêm chính'}
+                </Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="Thoát toàn màn hình">{selectedViolationLog.SoLanThoatFullscreen || 0} lần</Descriptions.Item>
+              <Descriptions.Item label="Chuyển tab / Ẩn cửa sổ">{selectedViolationLog.SoLanChuyenTab || 0} lần</Descriptions.Item>
+              <Descriptions.Item label="Điểm nghi vấn gian lận" span={2}>
+                <Text strong style={{ color: selectedViolationLog.AI_CheatScore > 50 ? '#f5222d' : '#faad14' }}>
+                  {selectedViolationLog.AI_CheatScore || 0}%
+                </Text>
+              </Descriptions.Item>
+            </Descriptions>
+
+            <Title level={5}>Lịch Sử Vi Phạm Theo Mốc Thời Gian:</Title>
+            {(!selectedViolationLog.LichSuViPham || selectedViolationLog.LichSuViPham.length === 0) ? (
+              <Alert message="Không có vi phạm nào được ghi nhận. Học sinh tuân thủ nghiêm túc 1 màn hình duy nhất." type="success" showIcon />
+            ) : (
+              <div style={{ maxHeight: 250, overflowY: 'auto' }}>
+                {selectedViolationLog.LichSuViPham.map((vp, idx) => (
+                  <div key={idx} style={{ padding: '8px 12px', marginBottom: 6, background: '#fff1f0', border: '1px solid #ffa39e', borderRadius: 6 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Tag color="red">{vp.LoaiViPham || 'Vi phạm'}</Tag>
+                      <Text type="secondary" style={{ fontSize: 12 }}>
+                        {vp.ThoiDiem ? new Date(vp.ThoiDiem).toLocaleTimeString('vi-VN') : 'N/A'}
+                      </Text>
+                    </div>
+                    <div style={{ marginTop: 4, fontSize: 13, color: '#cf1322' }}>
+                      {vp.ChiTiet || 'Rời khỏi màn hình làm bài'}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

@@ -3,6 +3,7 @@ const KetQuaTest = require('../models/KetQuaTest');
 const DeTai = require('../models/DeTai');
 const { closeCompetingRegistrations, claimTopicForRegistration, rollbackTopicClaim } = require('../utils/registrationUtil');
 const DangKyDeTai = require('../models/DangKyDeTai');
+const Nhom = require('../models/Nhom');
 const logger = require('../config/logger');
 
 // Helper kiểm tra quyền sở hữu đề tài của giáo viên
@@ -83,7 +84,7 @@ exports.getTestByTopic = async (req, res) => {
     }
 };
 
-// Lấy bài test cho SV (ẩn đáp án)
+// Lấy bài test cho HS (ẩn đáp án)
 exports.getTestForStudent = async (req, res) => {
     try {
         const baiTest = await BaiTest.findOne({ DeTai: req.params.deTaiId }).populate('DeTai', 'TenDeTai MaDeTai');
@@ -116,7 +117,7 @@ exports.getTestForStudent = async (req, res) => {
     }
 };
 
-// SV (trưởng nhóm) bắt đầu làm bài → ChoTest chuyển sang DangLamTest
+// HS (trưởng nhóm) bắt đầu làm bài → ChoTest chuyển sang DangLamTest
 exports.startTest = async (req, res) => {
     try {
         const hocSinhId = req.user?.id || req.body.hocSinhId;
@@ -126,7 +127,17 @@ exports.startTest = async (req, res) => {
         if (!baiTest) return res.status(404).json({ error: 'Không tìm thấy bài test.' });
         if (baiTest.TrangThai === 'DaDong') return res.status(400).json({ error: 'Bài test đã đóng.' });
 
-        // Tìm đăng ký hợp lệ của nhóm/SV cho đề tài
+        // Kiểm tra xem đề tài đã có người thắng hoặc đã chốt chưa
+        const existingWinner = await DangKyDeTai.findOne({ DeTai: baiTest.DeTai, TrangThai: 'DaDuyet' });
+        if (existingWinner) {
+            return res.status(400).json({ error: 'Đề tài này đã có nhóm thi đạt và được duyệt. Bài test đã kết thúc.', code: 'TOPIC_ALREADY_ASSIGNED' });
+        }
+        const deTaiDoc = await DeTai.findById(baiTest.DeTai);
+        if (deTaiDoc && deTaiDoc.TrangThai === 'DaChot') {
+            return res.status(400).json({ error: 'Đề tài đã chốt danh sách thực hiện.', code: 'TOPIC_ALREADY_CLOSED' });
+        }
+
+        // Tìm đăng ký hợp lệ của nhóm/HS cho đề tài
         let dangKy = null;
         if (nhomId) {
             dangKy = await DangKyDeTai.findOne({
@@ -146,22 +157,42 @@ exports.startTest = async (req, res) => {
             });
         }
         if (!dangKy) {
-            return res.status(404).json({ error: 'Không tìm thấy đăng ký hợp lệ để làm bài test.' });
+            return res.status(403).json({
+                error: 'Bạn hoặc nhóm của bạn chưa đăng ký đề tài này.',
+                code: 'CHUA_DANG_KY_DE_TAI'
+            });
         }
 
-        // #13: chỉ trưởng nhóm được làm/nộp bài test đại diện nhóm
-        if (String(dangKy.TruongNhom) !== String(hocSinhId)) {
-            return res.status(403).json({ error: 'Chỉ trưởng nhóm được làm bài test đại diện cho nhóm.', code: 'KHONG_PHAI_TRUONG_NHOM' });
+        // Ràng buộc quy trình: nếu đăng ký theo nhóm, danh sách nhóm phải được chốt trước khi làm bài test
+        if (dangKy.Nhom) {
+            const nhomDoc = await Nhom.findById(dangKy.Nhom);
+            if (nhomDoc && !nhomDoc.DaChot) {
+                return res.status(400).json({
+                    error: 'Nhóm học sinh chưa được chốt danh sách thành viên. Vui lòng hoàn tất chốt nhóm trước khi làm bài test.',
+                    code: 'NHOM_CHUA_CHOT'
+                });
+            }
         }
 
-        if (dangKy.TrangThai === 'ChoTest') {
-            await DangKyDeTai.findByIdAndUpdate(dangKy._id, { TrangThai: 'DangLamTest' });
+        // #13: chỉ trưởng nhóm hoặc cá nhân đại diện đăng ký mới có quyền bắt đầu làm bài test
+        const isAuthorized = dangKy.TruongNhom ? String(dangKy.TruongNhom) === String(hocSinhId) : (dangKy.HocSinh ? String(dangKy.HocSinh) === String(hocSinhId) : false);
+        if (!isAuthorized) {
+            return res.status(403).json({
+                error: 'Chỉ nhóm trưởng hoặc học sinh đại diện mới có quyền bắt đầu làm bài test.',
+                code: 'KHONG_PHAI_TRUONG_NHOM'
+            });
         }
 
-        logger.info(`[TEST] DangKy ${dangKy._id} started test for topic ${baiTest.DeTai}`);
+        const thoiGianBatDau = new Date();
+        await DangKyDeTai.findByIdAndUpdate(dangKy._id, { 
+            TrangThai: 'DangLamTest',
+            ThoiGianBatDau: thoiGianBatDau
+        });
+
+        logger.info(`[TEST] DangKy ${dangKy._id} started test for topic ${baiTest.DeTai} at ${thoiGianBatDau.toISOString()}`);
         res.json({
             message: 'Bắt đầu làm bài test.',
-            thoiGianBatDau: new Date(),
+            thoiGianBatDau: thoiGianBatDau,
             thoiGianLam: baiTest.ThoiGianLam,
             dangKyId: dangKy._id
         });
@@ -293,7 +324,7 @@ async function resolveWaitingGroups(deTaiId, io) {
     }
 }
 
-// SV nộp bài test → AI chấm tự động → Hybrid competition logic
+// HS nộp bài test → AI chấm tự động → Hybrid competition logic
 exports.submitTest = async (req, res) => {
     try {
         const { nhomId, traLoi, thoiGianBatDau } = req.body;
@@ -306,21 +337,7 @@ exports.submitTest = async (req, res) => {
         const existingResult = await KetQuaTest.findOne({ BaiTest: baiTest._id, HocSinh: hocSinhId });
         if (existingResult) return res.status(400).json({ error: 'Bạn đã nộp bài test này rồi.' });
 
-        // === Kiểm tra thời gian làm bài (Server-side Timeout Enforcement) ===
-        if (thoiGianBatDau && baiTest.ThoiGianLam) {
-            const startTime = new Date(thoiGianBatDau).getTime();
-            const now = Date.now();
-            const elapsedMinutes = (now - startTime) / (60 * 1000);
-            const graceMinutes = 2; // Cho phép 2 phút độ trễ mạng
-            if (elapsedMinutes > baiTest.ThoiGianLam + graceMinutes) {
-                return res.status(400).json({ error: 'Đã hết thời gian làm bài test.', code: 'TEST_TIMEOUT' });
-            }
-        }
-
-        // === 1. GHI ThoiGianSubmit NGAY LẬP TỨC (trước khi AI chấm) ===
-        const thoiGianSubmit = new Date();
-
-        // Tìm đăng ký của nhóm/SV cho đề tài này
+        // Tìm đăng ký của nhóm/HS cho đề tài này
         let dangKy = null;
         if (nhomId) {
             dangKy = await DangKyDeTai.findOne({
@@ -340,10 +357,54 @@ exports.submitTest = async (req, res) => {
                 ]
             });
         }
+        // === 1. GHI ThoiGianSubmit NGAY LẬP TỨC (trước khi AI chấm) ===
+        const thoiGianSubmit = new Date();
 
-        // #13: chỉ trưởng nhóm được nộp bài test đại diện cho cả nhóm
-        if (dangKy && String(dangKy.TruongNhom) !== String(hocSinhId)) {
-            return res.status(403).json({ error: 'Chỉ trưởng nhóm được nộp bài test đại diện cho nhóm.', code: 'KHONG_PHAI_TRUONG_NHOM' });
+        // === Kiểm tra thời gian làm bài trên Server (Server-side Timing & Anti-bot Check) ===
+        const serverStartTime = dangKy?.ThoiGianBatDau || (thoiGianBatDau ? new Date(thoiGianBatDau) : null);
+        if (serverStartTime && baiTest.ThoiGianLam) {
+            const startTime = new Date(serverStartTime).getTime();
+            const now = thoiGianSubmit.getTime();
+            const elapsedMinutes = (now - startTime) / (60 * 1000);
+            const graceMinutes = 2; // Cho phép 2 phút độ trễ mạng
+            if (elapsedMinutes > baiTest.ThoiGianLam + graceMinutes) {
+                return res.status(400).json({ error: 'Đã hết thời gian làm bài test.', code: 'TEST_TIMEOUT' });
+            }
+            // Anti-bot check: bài thi nhiều câu hỏi nhưng nộp dưới 10 giây
+            const elapsedSeconds = (now - startTime) / 1000;
+            if (baiTest.CauHoi.length >= 3 && elapsedSeconds < 10) {
+                logger.warn(`[CHEAT DETECTED] Student ${hocSinhId} submitted in ${elapsedSeconds}s (bot script suspected).`);
+                return res.status(400).json({
+                    error: 'Phát hiện hành vi nộp bài quá nhanh bất thường (nghi vấn can thiệp bằng bot/script tự động). Bài thi bị hủy.',
+                    code: 'SUSPICIOUS_BOT_SUBMIT'
+                });
+            }
+        }
+        if (!dangKy) {
+            return res.status(403).json({
+                error: 'Bạn hoặc nhóm của bạn chưa đăng ký đề tài này.',
+                code: 'CHUA_DANG_KY_DE_TAI'
+            });
+        }
+
+        // Ràng buộc quy trình: nếu đăng ký theo nhóm, danh sách nhóm phải được chốt trước khi nộp bài test
+        if (dangKy.Nhom) {
+            const nhomDoc = await Nhom.findById(dangKy.Nhom);
+            if (nhomDoc && !nhomDoc.DaChot) {
+                return res.status(400).json({
+                    error: 'Nhóm học sinh chưa được chốt danh sách thành viên. Không thể nộp bài test.',
+                    code: 'NHOM_CHUA_CHOT'
+                });
+            }
+        }
+
+        // #13: chỉ trưởng nhóm hoặc cá nhân đại diện đăng ký mới có quyền nộp bài test đại diện cho cả nhóm
+        const isSubmitAuthorized = dangKy.TruongNhom ? String(dangKy.TruongNhom) === String(hocSinhId) : (dangKy.HocSinh ? String(dangKy.HocSinh) === String(hocSinhId) : false);
+        if (!isSubmitAuthorized) {
+            return res.status(403).json({
+                error: 'Chỉ nhóm trưởng hoặc học sinh đại diện mới có quyền nộp bài test.',
+                code: 'KHONG_PHAI_TRUONG_NHOM'
+            });
         }
 
         // Cập nhật ThoiGianSubmit + TrangThai = DaSubmit (Atomic để tránh ghi đè kết quả nếu đề tài đã chốt)
@@ -372,23 +433,23 @@ exports.submitTest = async (req, res) => {
 
         for (let i = 0; i < baiTest.CauHoi.length; i++) {
             const cauHoi = baiTest.CauHoi[i];
-            const svAnswer = traLoi?.[i] || '';
+            const hsAnswer = traLoi?.[i] || '';
             diemToiDa += cauHoi.Diem || 1;
 
             if (cauHoi.LoaiCauHoi === 'TracNghiem') {
-                const isCorrect = svAnswer.toUpperCase().trim() === (cauHoi.DapAnDung || '').toUpperCase().trim();
+                const isCorrect = hsAnswer.toUpperCase().trim() === (cauHoi.DapAnDung || '').toUpperCase().trim();
                 const diem = isCorrect ? (cauHoi.Diem || 1) : 0;
                 tongDiem += diem;
                 ketQuaTraLoi.push({
                     CauHoiIndex: i, LoaiCauHoi: 'TracNghiem',
-                    TraLoiText: svAnswer, Diem: diem, DiemToiDa: cauHoi.Diem || 1, DungSai: isCorrect
+                    TraLoiText: hsAnswer, Diem: diem, DiemToiDa: cauHoi.Diem || 1, DungSai: isCorrect
                 });
             } else if (cauHoi.LoaiCauHoi === 'Code') {
                 let similarity = 0;
                 try {
                     const axios = require('axios');
                     const response = await axios.post(process.env.ML_SERVICE_URL ? `${process.env.ML_SERVICE_URL}/compare-code` : 'http://127.0.0.1:8001/compare-code', {
-                        student_code: svAnswer, answer_code: cauHoi.DapAnMau || ''
+                        student_code: hsAnswer, answer_code: cauHoi.DapAnMau || ''
                     }, {
                         headers: {
                             'X-Internal-Token': process.env.INTERNAL_TOKEN || '',
@@ -404,7 +465,7 @@ exports.submitTest = async (req, res) => {
                 tongDiem += diem;
                 ketQuaTraLoi.push({
                     CauHoiIndex: i, LoaiCauHoi: 'Code',
-                    TraLoiText: svAnswer, Diem: diem, DiemToiDa: cauHoi.Diem || 1,
+                    TraLoiText: hsAnswer, Diem: diem, DiemToiDa: cauHoi.Diem || 1,
                     AI_Similarity: Math.round(similarity * 100) / 100
                 });
             }
@@ -422,31 +483,63 @@ exports.submitTest = async (req, res) => {
             logger.warn(`[TEST] Blockchain submit failed (non-blocking): ${bcErr.message}`);
         }
 
+        // === 3b. TÍNH ĐIỂM NGHI VẤN GIAN LẬN AI ===
+        const { soLanChuyenTab = 0, soLanThoatFullscreen = 0, lichSuViPham = [] } = req.body;
+        let aiCheatScore = 0;
+        aiCheatScore += (parseInt(soLanThoatFullscreen, 10) || 0) * 35;
+        aiCheatScore += (parseInt(soLanChuyenTab, 10) || 0) * 25;
+        if (Array.isArray(lichSuViPham) && lichSuViPham.length > 0) {
+            aiCheatScore = Math.max(aiCheatScore, lichSuViPham.length * 20);
+        }
+        if (aiCheatScore > 100) aiCheatScore = 100;
+
+        const { violationReason = '' } = req.body;
+        let aiCheatAssessment = 'Liêm chính';
+        let biHuyKetQua = false;
+        let lyDoHuy = '';
+
+        if (violationReason || aiCheatScore >= 50 || soLanThoatFullscreen >= 2 || soLanChuyenTab >= 2) {
+            aiCheatAssessment = 'Vi phạm quy chế';
+            aiCheatScore = 100;
+            biHuyKetQua = true;
+            lyDoHuy = violationReason || `Đình chỉ thi do vi phạm quy chế (${soLanThoatFullscreen} lần thoát toàn màn hình, ${soLanChuyenTab} lần đổi tab).`;
+            tongDiem = 0; // Hủy toàn bộ điểm số
+        } else if (aiCheatScore > 0) {
+            aiCheatAssessment = 'Nghi vấn nhẹ';
+        }
+
         // === 4. LƯU KẾT QUẢ ===
         const ketQua = await KetQuaTest.create({
             BaiTest: baiTest._id,
             DeTai: baiTest.DeTai,
             HocSinh: hocSinhId,
-            Nhom: nhomId || dangKy?.Nhom || null,
+            Nhom: dangKy?.Nhom || nhomId || null,
             DangKyDeTai: dangKy?._id || null,
             TraLoi: ketQuaTraLoi,
             TongDiem: Math.round(tongDiem * 100) / 100,
             DiemToiDa: diemToiDa,
             TxHash: txHash,
             ThoiGianBatDau: thoiGianBatDau ? new Date(thoiGianBatDau) : null,
-            ThoiGianNop: thoiGianSubmit
+            ThoiGianNop: thoiGianSubmit,
+            SoLanChuyenTab: parseInt(soLanChuyenTab, 10) || 0,
+            SoLanThoatFullscreen: parseInt(soLanThoatFullscreen, 10) || 0,
+            LichSuViPham: Array.isArray(lichSuViPham) ? lichSuViPham : [],
+            AI_CheatScore: aiCheatScore,
+            AI_CheatAssessment: aiCheatAssessment,
+            BiHuyKetQua: biHuyKetQua,
+            LyDoHuy: lyDoHuy
         });
 
         // === 5. HYBRID COMPETITION LOGIC ===
-        const phanTram = diemToiDa > 0 ? Math.round((tongDiem / diemToiDa) * 100) : 0;
+        const phanTram = (diemToiDa > 0 && !biHuyKetQua) ? Math.round((tongDiem / diemToiDa) * 100) : 0;
         const nguongDat = baiTest.NguongDat || 75;
-        const isDat = phanTram >= nguongDat;
+        const isDat = !biHuyKetQua && (phanTram >= nguongDat);
         const io = req.app.get('io');
         let competitionResult = 'none';
 
         if (dangKy) {
-            if (!isDat) {
-                // Không đạt ngưỡng → TuChoi (chỉ update khi nhóm vẫn đang chờ kết quả chấm)
+            if (biHuyKetQua || !isDat) {
+                // Vi phạm gian lận hoặc không đạt ngưỡng → TuChoi ngay lập tức
                 const updatedStatus = await DangKyDeTai.findOneAndUpdate(
                     { _id: dangKy._id, TrangThai: { $in: ['DaSubmit', 'ChoDoi'] } },
                     { TrangThai: 'TuChoi' }
@@ -513,7 +606,7 @@ exports.submitTest = async (req, res) => {
     }
 };
 
-// GV xem kết quả tất cả SV cho 1 bài test
+// GV xem kết quả tất cả HS cho 1 bài test
 exports.getTestResults = async (req, res) => {
     try {
         const baiTest = await BaiTest.findById(req.params.id);
@@ -642,15 +735,30 @@ if (process.env.NODE_ENV === 'test') {
     exports.tryClaimWinnerForTest = tryClaimWinner;
 }
 
-// Kiểm tra SV đã làm test chưa
+// Kiểm tra HS đã làm test chưa
 exports.checkSubmitted = async (req, res) => {
     try {
         const { deTaiId, hocSinhId } = req.params;
         const baiTest = await BaiTest.findOne({ DeTai: deTaiId });
         if (!baiTest) return res.json({ hasTest: false });
 
-        const result = await KetQuaTest.findOne({ BaiTest: baiTest._id, HocSinh: hocSinhId })
+        let result = await KetQuaTest.findOne({ BaiTest: baiTest._id, HocSinh: hocSinhId })
             .populate('DangKyDeTai');
+
+        if (!result) {
+            const dangKy = await DangKyDeTai.findOne({
+                DeTai: deTaiId,
+                $or: [
+                    { HocSinh: hocSinhId },
+                    { TruongNhom: hocSinhId },
+                    { 'ThanhVien.HocSinh': hocSinhId }
+                ]
+            });
+            if (dangKy) {
+                result = await KetQuaTest.findOne({ BaiTest: baiTest._id, DangKyDeTai: dangKy._id })
+                    .populate('DangKyDeTai');
+            }
+        }
 
         let competitionResult = undefined;
         if (result && result.DangKyDeTai) {
@@ -674,3 +782,43 @@ exports.checkSubmitted = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+// Giáo viên/Admin cấp quyền làm lại bài test (hoặc HS tự reset trong môi trường test/demo)
+exports.resetStudentTest = async (req, res) => {
+    try {
+        const deTaiId = req.params.deTaiId;
+        const user = req.user;
+        if (!user) return res.status(401).json({ error: 'Chưa đăng nhập', code: 'UNAUTHORIZED' });
+
+        let targetHocSinhId = null;
+        const isTeacherOrAdmin = user.role_id === 'TEACHER_ROLE' || user.role_id === 'ADMIN_ROLE';
+
+        if (!isTeacherOrAdmin) {
+            return res.status(403).json({
+                error: 'Chỉ giáo viên phụ trách đề tài hoặc Quản trị viên mới có quyền cấp phép làm lại bài thi.',
+                code: 'FORBIDDEN'
+            });
+        }
+
+        const isOwner = await checkTeacherOwnership(deTaiId, user);
+        if (!isOwner) {
+            return res.status(403).json({ error: 'Chỉ giáo viên phụ trách đề tài hoặc Quản trị viên mới có quyền cấp quyền thi lại.' });
+        }
+        targetHocSinhId = req.body?.hocSinhId;
+        if (!targetHocSinhId) {
+            return res.status(400).json({ error: 'Vui lòng cung cấp mã học sinh cần cấp quyền thi lại.' });
+        }
+
+        await KetQuaTest.deleteMany({ DeTai: deTaiId, HocSinh: targetHocSinhId });
+        await DangKyDeTai.updateMany(
+            { DeTai: deTaiId, $or: [{ HocSinh: targetHocSinhId }, { TruongNhom: targetHocSinhId }] },
+            { TrangThai: 'ChoTest', ThoiGianSubmit: null, ThoiGianBatDau: null }
+        );
+
+        logger.info(`[TEST] Reset test attempt for student ${targetHocSinhId} on topic ${deTaiId} by user ${user.id} (${user.role_id})`);
+        res.json({ success: true, message: 'Đã xóa kết quả thi cũ, thí sinh có thể làm lại bài thi.' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+

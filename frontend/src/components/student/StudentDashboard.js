@@ -4,6 +4,7 @@ import { Target, Award, BookOpen, ShieldCheck, BrainCircuit, ExternalLink, Edit2
 import authService from '../../services/authService';
 import aiApiService from '../../services/aiService';
 import managementService from '../../services/managementService';
+import nhomService from '../../services/nhomService';
 import { useIsMobile } from '../../hooks/useResponsive';
 import QrAuthentication from '../QrAuthentication';
 import { useClassContext } from '../../contexts/ClassContext';
@@ -41,8 +42,12 @@ const StudentDashboard = () => {
         result.studentProfile = profile;
 
         // Lấy danh sách lời mời nhóm
-        const invs = await aiApiService.getMyInvitations(user.id);
-        result.invitations = Array.isArray(invs) ? invs : [];
+        try {
+          const invs = await nhomService.getPendingInvites(user.id);
+          result.invitations = Array.isArray(invs) ? invs : [];
+        } catch (eInv) {
+          console.warn('Không lấy được lời mời nhóm:', eInv);
+        }
 
         // Lấy danh sách lời mời lớp học
         try {
@@ -52,7 +57,7 @@ const StudentDashboard = () => {
           console.warn('Không lấy được lời mời lớp học:', e2);
         }
       } catch (e) {
-        console.warn('Không lấy được hồ sơ HS hoặc lời mời:', e);
+        console.warn('Không lấy được hồ sơ HS:', e);
       }
 
       if (selectedClassId) {
@@ -117,7 +122,7 @@ const StudentDashboard = () => {
         HoTen: values.HoTen,
         MaHS: values.MaHS,
         Email: values.Email,
-        GPA: values.GPA || 0,
+        KhoiLop: values.KhoiLop || 10,
         ChuyenNganh: values.ChuyenNganh || '',
         BangDiemKyNang: bangDiem
       });
@@ -147,6 +152,7 @@ const StudentDashboard = () => {
         MaHS: studentProfile.MaHS,
         Email: studentProfile.Email,
         GPA: studentProfile.GPA,
+        KhoiLop: studentProfile.KhoiLop || 10,
         ChuyenNganh: studentProfile.ChuyenNganh,
         KyNang: currentKyNang,
         Scores: currentScores
@@ -155,9 +161,9 @@ const StudentDashboard = () => {
     setEditingProfile(true);
   };
 
-  const handleRespondInvitation = async (invitationId, accept) => {
+  const handleRespondInvitation = async (nhomId, accept) => {
     try {
-      await aiApiService.respondToInvitation(invitationId, accept);
+      await nhomService.respondToInvite(nhomId, user.id, accept);
       message.success(accept ? 'Đã tham gia nhóm thành công!' : 'Đã từ chối lời mời');
       queryClient.invalidateQueries({ queryKey: ['student-dashboard'] });
     } catch (e) {
@@ -216,8 +222,8 @@ const StudentDashboard = () => {
       {invitations.length > 0 && invitations.map(inv => (
         <Alert
           key={inv._id}
-          message={`📩 Bạn có lời mời tham gia nhóm Dự án: ${inv.DeTai?.TenDeTai}`}
-          description={`Trưởng nhóm: ${inv.HocSinh?.HoTen} (${inv.HocSinh?.MaHS}). Bạn có muốn tham gia dự án không?`}
+          message={`📩 Bạn có lời mời tham gia nhóm: ${inv.TenNhom || 'Nhóm học tập'}`}
+          description={`Trưởng nhóm: ${inv.TruongNhom?.HoTen || 'Chưa rõ'} (${inv.TruongNhom?.MaHS || 'N/A'}). Bạn có muốn tham gia nhóm này không?`}
           type="info"
           showIcon
           style={{ marginBottom: 24, border: '1px solid #1677ff', background: '#e6f4ff' }}
@@ -282,8 +288,9 @@ const StudentDashboard = () => {
               <Text>{studentProfile?.Email || 'Chưa cập nhật'}</Text>
             </div>
             <div style={{ marginBottom: 8 }}>
-              <Text type="secondary">Khối lớp / Ban: </Text>
-              <Text>{studentProfile?.ChuyenNganh || '—'}</Text>
+              <Text type="secondary">Khối lớp: </Text>
+              <Text strong>{studentProfile?.KhoiLop ? `Khối ${studentProfile.KhoiLop}` : 'Chưa cập nhật'}</Text>
+              {studentProfile?.ChuyenNganh ? <Text type="secondary"> ({studentProfile.ChuyenNganh})</Text> : null}
             </div>
             <Divider style={{ margin: '12px 0' }} />
             <div>
@@ -439,16 +446,16 @@ const StudentDashboard = () => {
       <Modal
         title={needsProfileUpdate ? "⚡ Hoàn Tất Hồ Sơ Cá Nhân (Bắt Buộc)" : "Chỉnh Sửa Hồ Sơ Cá Nhân"}
         open={editingProfile}
-        onCancel={needsProfileUpdate ? undefined : () => setEditingProfile(false)}
-        closable={!needsProfileUpdate}
-        maskClosable={!needsProfileUpdate}
+        onCancel={() => setEditingProfile(false)}
+        closable={true}
+        maskClosable={true}
         footer={null}
         width={isMobile ? '95vw' : 600}
       >
         {needsProfileUpdate && (
           <Alert
-            message="Bạn cần điền đầy đủ thông tin trước khi sử dụng hệ thống"
-            type="warning"
+            message="Bạn nên điền thông tin để giáo viên quản lý lớp học dễ dàng nhận diện"
+            type="info"
             showIcon
             style={{ marginBottom: 16 }}
           />
@@ -461,13 +468,9 @@ const StudentDashboard = () => {
             HoTen: studentProfile?.HoTen || '',
             MaHS: studentProfile?.MaHS || '',
             Email: studentProfile?.Email || '',
-            GPA: studentProfile?.GPA || 0,
+            KhoiLop: studentProfile?.KhoiLop || 10,
             ChuyenNganh: studentProfile?.ChuyenNganh || '',
-            KyNang: studentProfile?.KyNang || [],
-            Scores: studentProfile?.BangDiemKyNang?.reduce((acc, curr) => {
-              acc[curr.TenKyNang] = curr.Diem;
-              return acc;
-            }, {}) || {}
+            KyNang: studentProfile?.KyNang || []
           }}
         >
           <Form.Item name="HoTen" label="Họ và Tên" rules={[{ required: true, message: 'Vui lòng nhập họ tên!' }]}>
@@ -481,19 +484,32 @@ const StudentDashboard = () => {
               </Form.Item>
             </Col>
             <Col xs={24} sm={12}>
-              <Form.Item name="GPA" label="Điểm TB Học Tập (GPA)" rules={[{ required: true, message: 'Vui lòng nhập điểm GPA!' }]}>
-                <InputNumber min={0} max={10} step={0.1} style={{ width: '100%' }} size="large" placeholder="8.5" />
+              <Form.Item name="KhoiLop" label="Khối Lớp (K-12)" rules={[{ required: true, message: 'Vui lòng chọn khối lớp!' }]}>
+                <Select size="large" placeholder="Chọn khối lớp">
+                  <Select.Option value={6}>Khối 6</Select.Option>
+                  <Select.Option value={7}>Khối 7</Select.Option>
+                  <Select.Option value={8}>Khối 8</Select.Option>
+                  <Select.Option value={9}>Khối 9</Select.Option>
+                  <Select.Option value={10}>Khối 10</Select.Option>
+                  <Select.Option value={11}>Khối 11</Select.Option>
+                  <Select.Option value={12}>Khối 12</Select.Option>
+                </Select>
               </Form.Item>
             </Col>
           </Row>
 
-          <Form.Item name="Email" label="Email" rules={[{ required: true, type: 'email', message: 'Email không hợp lệ!' }]}>
-            <Input placeholder="hocsinh@thpt.edu.vn" size="large" />
-          </Form.Item>
-
-          <Form.Item name="ChuyenNganh" label="Khối Lớp / Chuyên Ban">
-            <Input placeholder="Khối 10 Tự Nhiên / STEM" size="large" />
-          </Form.Item>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} sm={12}>
+              <Form.Item name="Email" label="Email" rules={[{ required: true, type: 'email', message: 'Email không hợp lệ!' }]}>
+                <Input placeholder="hocsinh@thpt.edu.vn" size="large" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12}>
+              <Form.Item name="ChuyenNganh" label="Chuyên Ban / Tổ Hợp">
+                <Input placeholder="Tự Nhiên / STEM / Tin học" size="large" />
+              </Form.Item>
+            </Col>
+          </Row>
 
           <style>
             {`
@@ -504,11 +520,11 @@ const StudentDashboard = () => {
             `}
           </style>
 
-          <Form.Item name="KyNang" label="Kỹ Năng (Dùng cho AI SBERT Matching)" rules={[{ required: true, message: 'Vui lòng chọn ít nhất 1 kỹ năng!' }]} tooltip="Nhập kỹ năng và nhấn Enter">
+          <Form.Item name="KyNang" label="Định Hướng / Kỹ Năng Yêu Thích (Dùng cho AI Matching)" tooltip="Chọn hoặc gõ kỹ năng và nhấn Enter">
             <Select 
               mode="tags" 
               style={{ width: '100%' }} 
-              placeholder="Python, Khám phá STEM, Tư duy logic..." 
+              placeholder="Python, Khám phá STEM, Tư duy logic, Lắp ráp mạch..." 
               size="large"
               popupClassName="skill-select-dropdown"
             >
@@ -522,35 +538,15 @@ const StudentDashboard = () => {
             </Select>
           </Form.Item>
 
-          <Form.Item noStyle shouldUpdate={(prevValues, currentValues) => prevValues.KyNang !== currentValues.KyNang}>
-            {({ getFieldValue }) => {
-              const kyNangList = getFieldValue('KyNang') || [];
-              if (kyNangList.length === 0) return null;
-              return (
-                <div style={{ marginTop: 16, marginBottom: 24, padding: 16, background: '#f5f5f5', borderRadius: 8 }}>
-                  <div style={{ marginBottom: 12, fontWeight: 500 }}>Nhập điểm cho từng kỹ năng:</div>
-                  {kyNangList.map(skill => (
-                    <Space key={skill} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                      <Input value={skill} disabled style={{ width: 250 }} />
-                      <Form.Item
-                        name={['Scores', skill]}
-                        rules={[{ required: true, message: 'Nhập điểm' }]}
-                        initialValue={8.0}
-                        style={{ marginBottom: 0 }}
-                      >
-                        <InputNumber min={0} max={10} step={0.1} placeholder="Điểm (Thang 10)" style={{ width: 150 }} />
-                      </Form.Item>
-                    </Space>
-                  ))}
-                </div>
-              );
-            }}
-          </Form.Item>
-
-          <Button type="primary" htmlType="submit" loading={savingProfile} size="large" style={{ width: '100%' }}
-            icon={<Save size={16} />}>
-            {needsProfileUpdate ? 'Hoàn Tất Hồ Sơ & Bắt Đầu' : 'Lưu Thay Đổi'}
-          </Button>
+          <Space style={{ width: '100%', justifyContent: 'flex-end', marginTop: 8 }}>
+            <Button size="large" onClick={() => setEditingProfile(false)}>
+              Đóng / Để sau
+            </Button>
+            <Button type="primary" htmlType="submit" loading={savingProfile} size="large"
+              icon={<Save size={16} />}>
+              {needsProfileUpdate ? 'Hoàn Tất Hồ Sơ & Bắt Đầu' : 'Lưu Thay Đổi'}
+            </Button>
+          </Space>
         </Form>
       </Modal>
     </div>

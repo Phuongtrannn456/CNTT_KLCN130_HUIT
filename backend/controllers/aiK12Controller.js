@@ -56,7 +56,9 @@ exports.getRecommendedChallenges = async (req, res) => {
           matchScore: rec.matchScore,
           reasoning: `AI đánh giá mức độ phù hợp: ${Math.round(rec.matchScore * 100)}% dựa trên kỹ năng của bạn.`
         };
-      }).sort((a, b) => b.matchScore - a.matchScore);
+      })
+      .filter(r => Boolean(r.challenge))
+      .sort((a, b) => b.matchScore - a.matchScore);
 
       return res.status(200).json({ success: true, aiAvailable: true, recommendations });
     } catch (aiError) {
@@ -160,17 +162,22 @@ exports.suggestEvaluation = async (req, res) => {
       return res.status(403).json({ success: false, message: 'Unauthorized' });
     }
 
-    const rubrics = submission.challenge.rubrics;
+    let rubrics = submission.challenge.rubrics;
     if (!rubrics || rubrics.length === 0) {
-      return res.status(400).json({ success: false, message: 'Challenge does not have rubrics' });
+      rubrics = [
+        { criteriaName: 'Nội dung & Kiến thức', description: 'Độ chính xác và chiều sâu kiến thức môn học', weight: 40, maxScore: 10, aiKeywords: ['kiến thức', 'nội dung', 'chính xác', 'lý thuyết'] },
+        { criteriaName: 'Phương pháp & Thực nghiệm', description: 'Tính ứng dụng và triển khai thực nghiệm', weight: 35, maxScore: 10, aiKeywords: ['phương pháp', 'thực hành', 'thực nghiệm', 'triển khai', 'kỹ thuật'] },
+        { criteriaName: 'Hình thức & Trình bày', description: 'Cấu trúc bài làm rõ ràng, diễn đạt mạch lạc', weight: 25, maxScore: 10, aiKeywords: ['trình bày', 'báo cáo', 'kết luận', 'hình thức', 'logic'] }
+      ];
     }
 
-    // Map rubrics to FastAPI format
+    // Map rubrics to FastAPI format (hỗ trợ cả format tiếng Việt và tiếng Anh)
     const mappedRubrics = rubrics.map(r => ({
-      criteria: r.criteriaName,
-      description: r.description,
-      weight: r.weight,
-      max_score: r.maxScore
+      TenTieuChi: r.criteriaName || r.TenTieuChi,
+      MoTa: r.description || r.MoTa || '',
+      TrongSo: r.weight !== undefined ? r.weight : (r.TrongSo || 0),
+      DiemToiDa: r.maxScore !== undefined ? r.maxScore : (r.DiemToiDa || 10),
+      GoiYChoAI: r.aiKeywords || r.GoiYChoAI || []
     }));
 
     try {
@@ -180,31 +187,33 @@ exports.suggestEvaluation = async (req, res) => {
       let aiTotalScore = parseFloat(result.score) || 0;
       let rubricScores = [];
 
-      if (result.details && Array.isArray(result.details)) {
-        rubricScores = result.details.map((d, index) => {
-          let score = parseFloat(d.score) || 0;
-          const max = mappedRubrics[index]?.max_score || 10;
+      // FastAPI PhoBERT trả về `rubrics_result` (hoặc fallback `details`)
+      const rawDetails = result.rubrics_result || result.details || [];
+      if (Array.isArray(rawDetails) && rawDetails.length > 0) {
+        rubricScores = rawDetails.map((d, index) => {
+          let score = parseFloat(d.AI_DiemTieuChi !== undefined ? d.AI_DiemTieuChi : d.score) || 0;
+          const max = mappedRubrics[index]?.DiemToiDa || 10;
           if (score < 0) score = 0;
           if (score > max) score = max;
           
           return {
-            criteriaName: mappedRubrics[index].criteria,
+            criteriaName: mappedRubrics[index]?.TenTieuChi || `Tiêu chí ${index + 1}`,
             aiScore: score,
-            aiFeedback: d.feedback || 'Không có nhận xét'
+            aiFeedback: d.AI_NhanXetTieuChi || d.feedback || 'Đạt yêu cầu.'
           };
         });
       } else {
-        const chunkScore = aiTotalScore / rubrics.length;
+        const chunkScore = aiTotalScore / (rubrics.length || 1);
         rubricScores = rubrics.map(r => ({
-          criteriaName: r.criteriaName,
-          aiScore: Math.min(chunkScore, r.maxScore),
+          criteriaName: r.criteriaName || r.TenTieuChi,
+          aiScore: Math.min(chunkScore, r.maxScore || 10),
           aiFeedback: 'Dựa trên phân tích tổng thể.'
         }));
       }
 
-      const maxTotal = rubrics.reduce((sum, r) => sum + r.maxScore, 0);
+      const maxTotal = mappedRubrics.reduce((sum, r) => sum + (r.DiemToiDa || 10), 0);
       if (aiTotalScore < 0) aiTotalScore = 0;
-      if (aiTotalScore > maxTotal) aiTotalScore = maxTotal;
+      if (maxTotal > 0 && aiTotalScore > maxTotal) aiTotalScore = maxTotal;
 
       return res.status(200).json({
         success: true,

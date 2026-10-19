@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const connectDB = async () => {
   const primaryUri = process.env.MONGODB_URI;
-  const localUri = 'mongodb://127.0.0.1:27017/web3giangvien';
+  const localUri = 'mongodb://127.0.0.1:27017/web3giaovien';
 
   try {
     if (!primaryUri) throw new Error('Thiếu MONGODB_URI');

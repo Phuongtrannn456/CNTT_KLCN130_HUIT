@@ -90,7 +90,9 @@ const AchievementList = () => {
       ) : (
         <Row gutter={[24, 24]}>
           {achievements.map((ach) => {
-            const credential = credentials.find(c => c.achievement === ach._id || (c.achievement && c.achievement._id === ach._id));
+            const credential = credentials.find(c => 
+              String(c.achievement?._id || c.achievement || '') === String(ach._id)
+            );
             const isAnchored = credential && credential.status === 'ANCHORED';
             const isPending = credential && credential.status === 'PENDING_CHAIN';
 
@@ -107,7 +109,7 @@ const AchievementList = () => {
                   </div>
                   <div style={{ marginBottom: 8 }}>
                     <Text type="secondary">Cấp bởi: </Text>
-                    <Text>{ach.issuer?.fullName || 'N/A'}</Text>
+                    <Text>{ach.issuer?.fullName || ach.issuer?.HoTen || 'N/A'}</Text>
                   </div>
                   <div style={{ marginBottom: 16 }}>
                     <Text type="secondary">Ngày cấp: </Text>

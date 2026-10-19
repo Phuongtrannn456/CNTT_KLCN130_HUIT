@@ -19,7 +19,7 @@ const nhomService = {
     return response.data;
   },
 
-  // Lấy nhóm của SV
+  // Lấy nhóm của HS
   getNhomByHocSinh: async (hsId, lopHocId) => {
     let query = '';
     if (lopHocId === 'KHOA_LUAN') {
@@ -31,7 +31,7 @@ const nhomService = {
     return response.data;
   },
 
-  // Lấy tất cả nhóm của SV
+  // Lấy tất cả nhóm của HS
   getAllNhomByHocSinh: async (hsId) => {
     const response = await axios.get(`${API_URL}/nhom/hocsinh/${hsId}/all`, { headers: getAuthHeaders() });
     return response.data;
@@ -44,8 +44,8 @@ const nhomService = {
   },
 
   // Mời thành viên
-  inviteMember: async (nhomId, maSV) => {
-    const response = await axios.post(`${API_URL}/nhom/${nhomId}/invite`, { maSV }, { headers: getAuthHeaders() });
+  inviteMember: async (nhomId, maHS) => {
+    const response = await axios.post(`${API_URL}/nhom/${nhomId}/invite`, { maHS }, { headers: getAuthHeaders() });
     return response.data;
   },
 

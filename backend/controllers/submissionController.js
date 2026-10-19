@@ -73,7 +73,7 @@ exports.submitWork = async (req, res) => {
 
         submission = new Submission({
           participation: participationId,
-          student: studentId,
+          student: participation.student || studentId,
           challenge: challenge._id,
           content,
           attachments,

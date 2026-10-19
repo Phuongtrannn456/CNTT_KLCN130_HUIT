@@ -53,7 +53,6 @@ Body mẫu:
 ```json
 {
   "student": {
-    "gpa": 3.2,
     "major_scores": {
       "nlp": 8.0,
       "web3": 7.5

@@ -315,9 +315,9 @@ const GroupManagement = () => {
           <List
             dataSource={nhom.ThanhVien}
             renderItem={tv => {
-              const sv = tv.HocSinh;
+              const hs = tv.HocSinh;
               const isTVLeader = tv.VaiTro === 'TruongNhom';
-              const isMe = sv?._id === user?.id;
+              const isMe = hs?._id === user?.id;
 
               return (
                 <List.Item
@@ -328,7 +328,7 @@ const GroupManagement = () => {
                       ) : null,
                       <Tooltip title="Xóa khỏi nhóm">
                         <Button size="small" danger icon={<Trash2 size={14} />}
-                          onClick={() => handleKick(sv?._id, sv?.HoTen || 'N/A')}
+                          onClick={() => handleKick(hs?._id, hs?.HoTen || 'N/A')}
                         />
                       </Tooltip>
                     ].filter(Boolean) : [
@@ -347,8 +347,8 @@ const GroupManagement = () => {
                     avatar={<div style={{ fontSize: 24 }}>{isTVLeader ? '👑' : '👤'}</div>}
                     title={
                       <Space>
-                        <Text strong>{sv?.HoTen || 'Đang tải...'}</Text>
-                        <Text type="secondary">({sv?.MaHS || ''})</Text>
+                        <Text strong>{hs?.HoTen || 'Đang tải...'}</Text>
+                        <Text type="secondary">({hs?.MaHS || ''})</Text>
                         {isTVLeader && <Tag color="gold">Trưởng nhóm</Tag>}
                         {isMe && <Tag color="blue">Bạn</Tag>}
                       </Space>

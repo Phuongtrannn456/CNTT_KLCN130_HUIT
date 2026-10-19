@@ -17,8 +17,8 @@ export const AuthProvider = ({ children }) => {
           // Set token for future API calls
           apiService.setAuthToken(token);
           // Fetch user profile
-          const userProfile = await apiService.get('/ho-so-nhan-vien/me');
-          setUser(userProfile.data);
+          const userProfile = await apiService.get('/auth/profile');
+          setUser(userProfile.data?.user || userProfile.data);
         } catch (error) {
           console.error('Failed to initialize auth:', error);
           // Token is invalid, clear it
