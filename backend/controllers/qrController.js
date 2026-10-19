@@ -25,7 +25,7 @@ const qrController = {
         const newHash = crypto.randomBytes(32).toString('hex');
         
         // Xác định role model dựa trên role_id
-        const roleModel = role_id === 'LECTURER_ROLE' ? 'GiaoVien' : 'HocSinh';
+        const roleModel = (role_id === 'LECTURER_ROLE' || role_id === 'TEACHER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'User' : 'HocSinh');
 
         qrCode = new QrCode({
           user_id: userId,
@@ -64,7 +64,7 @@ const qrController = {
       );
 
       const newHash = crypto.randomBytes(32).toString('hex');
-      const roleModel = role_id === 'LECTURER_ROLE' ? 'GiaoVien' : 'HocSinh';
+      const roleModel = (role_id === 'LECTURER_ROLE' || role_id === 'TEACHER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'User' : 'HocSinh');
 
       const newQrCode = new QrCode({
         user_id: userId,

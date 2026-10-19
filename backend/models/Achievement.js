@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const achievementSchema = new mongoose.Schema({
   learningResult: { type: mongoose.Schema.Types.ObjectId, ref: 'LearningResult', required: true },
-  student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true },
+  student: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   challenge: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge', required: true },
-  issuer: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: true },
+  issuer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   
   achievementType: { type: String, required: true }, // VD: "Challenge Completed"
   issuedAt: { type: Date, default: Date.now }

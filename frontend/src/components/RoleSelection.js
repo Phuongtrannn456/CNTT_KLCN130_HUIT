@@ -1,17 +1,29 @@
 import React, { useState } from 'react';
 import {
   Box, Typography, Paper, Grid, Button,
-  Dialog, DialogTitle, DialogContent, DialogActions, TextField, CircularProgress
+  Dialog, DialogTitle, DialogContent, DialogActions, TextField, CircularProgress, Alert
 } from '@mui/material';
-import { School as SchoolIcon, AccountBox as TeacherIcon, ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
+import { School as SchoolIcon, AccountBox as TeacherIcon, ArrowForward as ArrowForwardIcon, Security as SecurityIcon } from '@mui/icons-material';
 
 const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loading, rejectedCountToday = 0 }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ hoTen: '', email: '', chuyenNganh: '' });
+  const [formData, setFormData] = useState({ 
+    schoolToken: '', 
+    chuyenNganh: 'Tổ Toán - Tin học & STEM' 
+  });
+
+  const shortAddr = walletAddress ? walletAddress.slice(2, 8).toLowerCase() : 'k12';
+  const didPseudonym = `Teacher_DID#${shortAddr}`;
+  const didEmail = `did_${shortAddr}@k12.did`;
 
   const handleLecturerSubmit = () => {
-    if (!formData.hoTen || !formData.email || !formData.chuyenNganh) return;
-    onSelectLecturer(formData);
+    if (!formData.chuyenNganh) return;
+    onSelectLecturer({
+      hoTen: didPseudonym,
+      email: didEmail,
+      chuyenNganh: formData.chuyenNganh,
+      schoolToken: formData.schoolToken
+    });
   };
 
   return (
@@ -93,43 +105,30 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
             >
               Vào với tư cách Giáo Viên
             </Button>
-            {/* DISABLED: Admin approval flow
-            {rejectedCountToday > 0 && (
-              <Typography variant="caption" color={rejectedCountToday >= 3 ? "error" : "text.secondary"} mt={2} display="block">
-                Đã bị từ chối {rejectedCountToday}/3 lần hôm nay
-              </Typography>
-            )}
-            */}
           </Paper>
         </Grid>
       </Grid>
 
-      {/* Modal Nhập thông tin Giáo viên */}
+      {/* Modal Xác thực vai trò Giáo viên (Zero-PII Token / Invite Code) */}
       <Dialog open={modalOpen} onClose={() => setModalOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 'bold' }}>Thông tin Giáo Viên</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 'bold' }}>Xác thực Vai trò Giáo Viên</DialogTitle>
         <DialogContent dividers>
+          <Alert severity="info" icon={<SecurityIcon />} sx={{ mb: 2 }}>
+            <strong>Cơ chế Zero-PII:</strong> Bạn không cần cung cấp Họ tên thật. Danh tính đại diện trên hệ thống sẽ tự động gán là: <code>{didPseudonym}</code>.
+          </Alert>
           <Typography variant="body2" color="text.secondary" mb={2}>
-            Vui lòng cung cấp thông tin để hoàn tất đăng ký Giáo viên.
+            Vui lòng nhập Mã xác thực trường cấp và Tổ chuyên môn để kích hoạt quyền Giáo viên:
           </Typography>
           <TextField
             autoFocus
             margin="dense"
-            label="Họ và Tên"
+            label="Mã xác thực trường cấp (School Invite Token / Code)"
+            placeholder="Ví dụ: STEM_TEACHER_2026 hoặc mã token trường cấp"
             type="text"
             fullWidth
             variant="outlined"
-            value={formData.hoTen}
-            onChange={(e) => setFormData({ ...formData, hoTen: e.target.value })}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            margin="dense"
-            label="Email"
-            type="email"
-            fullWidth
-            variant="outlined"
-            value={formData.email}
-            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            value={formData.schoolToken}
+            onChange={(e) => setFormData({ ...formData, schoolToken: e.target.value })}
             sx={{ mb: 2 }}
           />
           <TextField
@@ -140,6 +139,17 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
             variant="outlined"
             value={formData.chuyenNganh}
             onChange={(e) => setFormData({ ...formData, chuyenNganh: e.target.value })}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            margin="dense"
+            label="Định danh hiển thị ẩn danh (DID Pseudonym)"
+            type="text"
+            fullWidth
+            disabled
+            variant="filled"
+            value={didPseudonym}
+            helperText="Được mã hóa tự động từ địa chỉ ví MetaMask"
           />
         </DialogContent>
         <DialogActions sx={{ p: 2 }}>
@@ -148,10 +158,10 @@ const RoleSelection = ({ walletAddress, onSelectStudent, onSelectLecturer, loadi
             onClick={handleLecturerSubmit}
             variant="contained"
             color="success"
-            disabled={!formData.hoTen || !formData.email || !formData.chuyenNganh || loading}
+            disabled={!formData.chuyenNganh || loading}
             startIcon={loading ? <CircularProgress size={20} /> : null}
           >
-            Đăng ký Giáo Viên
+            Kích hoạt quyền Giáo Viên
           </Button>
         </DialogActions>
       </Dialog>

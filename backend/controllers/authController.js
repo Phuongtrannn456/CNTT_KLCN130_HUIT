@@ -1,10 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { ethers } = require('ethers');
 const { v4: uuidv4 } = require('uuid');
-const Student = require('../models/Student');
-const Teacher = require('../models/Teacher');
-const Admin = require('../models/Admin');
-const RoleRequest = require('../models/RoleRequest');
+const User = require('../models/User');
 const { web3Utils } = require('../config/web3');
 
 const challenges = new Map();
@@ -28,10 +25,41 @@ const generateChallenge = async (req, res) => {
       expiresAt: Date.now() + 5 * 60 * 1000
     });
 
-    res.json({ success: true, challengeId, challenge, message: 'Vui lòng ký thông báo này' });
+    res.json({ success: true, challenge, challengeId });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Tạo mã thử thách thất bại' });
+    res.status(500).json({ success: false, message: 'Lỗi server' });
   }
+};
+
+const _loginUser = async (walletAddress) => {
+  const lowerWallet = walletAddress.toLowerCase();
+  let userRecord = await User.findOne({ walletAddress: lowerWallet });
+  
+  if (!userRecord) {
+    const isAdmin = lowerWallet === '0xe5d499c6946b69a74d77b063be4492a12cdfd119';
+    userRecord = new User({
+      walletAddress: lowerWallet,
+      role: isAdmin ? 'admin' : 'guest'
+    });
+    await userRecord.save();
+  }
+
+  // Convert role to role_id for frontend compatibility
+  const roleMap = {
+    'admin': 'ADMIN_ROLE',
+    'teacher': 'TEACHER_ROLE',
+    'student': 'STUDENT_ROLE',
+    'guest': 'GUEST_ROLE'
+  };
+  const role_id = roleMap[userRecord.role] || 'GUEST_ROLE';
+
+  const token = jwt.sign(
+    { id: userRecord._id, role_id },
+    process.env.JWT_SECRET || 'your-secret-key',
+    { expiresIn: '24h' }
+  );
+
+  return { token, userRecord, role_id };
 };
 
 const verifySignature = async (req, res) => {
@@ -56,51 +84,9 @@ const verifySignature = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Chữ ký không hợp lệ.' });
     }
 
-    // Identify user role
-    let role_id = 'STUDENT_ROLE';
-    let userRecord = await Admin.findOne({ WalletAddress: walletAddress.toLowerCase() });
-
-    if (userRecord) {
-      role_id = 'ADMIN_ROLE';
-    } else {
-      userRecord = await Teacher.findOne({ walletAddress: walletAddress.toLowerCase() });
-      
-      if (userRecord) {
-        role_id = 'TEACHER_ROLE';
-      } else {
-        userRecord = await Student.findOne({ walletAddress: walletAddress.toLowerCase() });
-        if (!userRecord) {
-          const startOfDay = new Date();
-          startOfDay.setHours(0, 0, 0, 0);
-          const endOfDay = new Date();
-          endOfDay.setHours(23, 59, 59, 999);
-          
-          const rejectedCountToday = await RoleRequest.countDocuments({
-            walletAddress: walletAddress.toLowerCase(),
-            status: 'rejected',
-            createdAt: { $gte: startOfDay, $lte: endOfDay }
-          });
-
-          challenges.delete(challengeId);
-          return res.json({
-            success: true,
-            needsRoleSelection: true,
-            walletAddress: walletAddress.toLowerCase(),
-            rejectedCountToday,
-            message: 'Vui lòng chọn vai trò để tiếp tục'
-          });
-        }
-      }
-    }
-
-    // JWT payload: no walletAddress required as per strict instruction
-    const token = jwt.sign(
-      { id: userRecord._id, role_id },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '24h' }
-    );
-
     challenges.delete(challengeId);
+
+    const { token, userRecord, role_id } = await _loginUser(walletAddress);
 
     res.json({
       success: true,
@@ -108,33 +94,106 @@ const verifySignature = async (req, res) => {
       user: {
         id: userRecord._id,
         role_id,
-        name: userRecord.fullName || userRecord.HoTen // handle Admin which might still use HoTen
-      },
-      message: 'Xác thực thành công'
+        name: userRecord.fullName,
+        walletAddress: userRecord.walletAddress
+      }
     });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Xác thực thất bại' });
   }
 };
 
-const logout = async (req, res) => { res.json({ success: true }); };
+const verifyQrSignature = async (req, res) => {
+  try {
+    const { sessionId, walletAddress, signature } = req.body;
+    if (!sessionId || !walletAddress || !signature) {
+      return res.status(400).json({ success: false, message: 'Thiếu tham số' });
+    }
+
+    const sessionData = qrSessions.get(sessionId);
+    if (!sessionData || sessionData.expiresAt < Date.now()) {
+      return res.status(400).json({ success: false, message: 'Phiên đăng nhập hết hạn hoặc không hợp lệ' });
+    }
+
+    let isValidSignature = false;
+    try {
+      isValidSignature = web3Utils.verifySignature(sessionData.challenge, signature, walletAddress);
+    } catch (e) {
+      isValidSignature = false;
+    }
+
+    if (!isValidSignature) {
+      return res.status(401).json({ success: false, message: 'Chữ ký không hợp lệ.' });
+    }
+
+    qrSessions.delete(sessionId);
+
+    const { token, userRecord, role_id } = await _loginUser(walletAddress);
+
+    const io = req.app.get('io');
+    if (io) {
+      io.to(`qr:${sessionId}`).emit('qr:success', {
+        token,
+        user: {
+          id: userRecord._id,
+          role_id,
+          name: userRecord.fullName,
+          walletAddress: userRecord.walletAddress
+        }
+      });
+    }
+
+    res.json({ success: true, message: 'Đăng nhập QR thành công' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Xác thực thất bại' });
+  }
+};
+
+const logout = async (req, res) => {
+  res.json({ success: true, message: 'Đăng xuất thành công' });
+};
 
 const getProfile = async (req, res) => {
   try {
-    const { id, role_id } = req.user;
-    let user;
-    if (role_id === 'TEACHER_ROLE') {
-      user = await Teacher.findById(id);
-    } else if (role_id === 'STUDENT_ROLE') {
-      user = await Student.findById(id);
-    } else if (role_id === 'ADMIN_ROLE') {
-      user = await Admin.findById(id);
-    }
-    
+    const { id } = req.user;
+    const user = await User.findById(id);
     if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy người dùng' });
-    res.json({ success: true, user: { ...user._doc, role_id } });
+
+    const roleMap = {
+      'admin': 'ADMIN_ROLE',
+      'teacher': 'TEACHER_ROLE',
+      'student': 'STUDENT_ROLE',
+      'guest': 'GUEST_ROLE'
+    };
+
+    res.json({ success: true, user: { ...user._doc, role_id: roleMap[user.role] } });
   } catch (error) {
     res.status(500).json({ success: false });
+  }
+};
+
+const updateProfile = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { skills, department, gradeLevel, school } = req.body;
+    
+    const user = await User.findById(id);
+    if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy người dùng' });
+
+    // Zero-PII: Khong cho phep nguoi dung nhap ten that hay email ca nhan
+    // He thong giu nguyen fullName va email la DID Pseudonym duoc sinh tu dia chi vi
+    if (skills && Array.isArray(skills)) user.skills = skills;
+    if (department) user.department = department;
+    if (gradeLevel) user.gradeLevel = gradeLevel;
+    if (school) user.school = school;
+    
+    user.profileUpdated = true;
+    await user.save();
+
+    res.json({ success: true, message: 'Cập nhật hồ sơ thành công (Zero-PII bảo toàn)', user: { ...user._doc } });
+  } catch (error) {
+    console.error('updateProfile error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi cập nhật hồ sơ' });
   }
 };
 
@@ -170,173 +229,15 @@ const generateQrSession = async (req, res) => {
   }
 };
 
-const verifyQrSignature = async (req, res) => {
-  try {
-    const { sessionId, walletAddress, signature } = req.body;
-    if (!sessionId || !walletAddress || !signature) {
-      return res.status(400).json({ success: false, message: 'Thiếu tham số' });
-    }
-
-    const sessionData = qrSessions.get(sessionId);
-    if (!sessionData || sessionData.expiresAt < Date.now()) {
-      return res.status(400).json({ success: false, message: 'Phiên đăng nhập hết hạn hoặc không hợp lệ' });
-    }
-
-    let isValidSignature = false;
-    try {
-      isValidSignature = web3Utils.verifySignature(sessionData.challenge, signature, walletAddress);
-    } catch (e) {
-      isValidSignature = false;
-    }
-
-    if (!isValidSignature) {
-      return res.status(401).json({ success: false, message: 'Chữ ký không hợp lệ.' });
-    }
-
-    // Identify user role
-    let role_id = 'STUDENT_ROLE';
-    let userRecord = await Admin.findOne({ WalletAddress: walletAddress.toLowerCase() });
-
-    if (userRecord) {
-      role_id = 'ADMIN_ROLE';
-    } else {
-      userRecord = await Teacher.findOne({ walletAddress: walletAddress.toLowerCase() });
-      
-      if (userRecord) {
-        role_id = 'TEACHER_ROLE';
-      } else {
-        userRecord = await Student.findOne({ walletAddress: walletAddress.toLowerCase() });
-        if (!userRecord) {
-          const startOfDay = new Date();
-          startOfDay.setHours(0, 0, 0, 0);
-          const endOfDay = new Date();
-          endOfDay.setHours(23, 59, 59, 999);
-
-          const rejectedCountToday = await RoleRequest.countDocuments({
-            walletAddress: walletAddress.toLowerCase(),
-            status: 'rejected',
-            createdAt: { $gte: startOfDay, $lte: endOfDay }
-          });
-
-          qrSessions.delete(sessionId);
-          return res.json({
-            success: true,
-            needsRoleSelection: true,
-            walletAddress: walletAddress.toLowerCase(),
-            rejectedCountToday,
-            message: 'Vui lòng chọn vai trò để tiếp tục'
-          });
-        }
-      }
-    }
-
-    const token = jwt.sign(
-      { id: userRecord._id, role_id },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '24h' }
-    );
-
-    const io = req.app.get('io');
-    if (io) {
-      io.to(`qr:${sessionId}`).emit('qr:success', {
-        token,
-        user: {
-          id: userRecord._id,
-          role_id,
-          name: userRecord.fullName || userRecord.HoTen
-        }
-      });
-    }
-
-    qrSessions.delete(sessionId);
-
-    res.json({
-      success: true,
-      message: 'Đăng nhập QR thành công'
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Xác thực thất bại' });
-  }
-};
-
-const registerWithRole = async (req, res) => {
-  try {
-    const { walletAddress, role, hoTen, email, chuyenNganh } = req.body; // chuyenNganh kept for legacy API compat
-
-    if (!walletAddress || !role) {
-      return res.status(400).json({ success: false, message: 'Thiếu các trường bắt buộc' });
-    }
-
-    const lowerWallet = walletAddress.toLowerCase();
-
-    // Check if already registered
-    const exists = await Student.findOne({ walletAddress: lowerWallet }) || 
-                   await Teacher.findOne({ walletAddress: lowerWallet }) ||
-                   await Admin.findOne({ WalletAddress: lowerWallet });
-                   
-    if (exists) {
-      return res.status(400).json({ success: false, message: 'Ví này đã được đăng ký.' });
-    }
-
-    if (role === 'STUDENT_ROLE') {
-      const newUser = new Student({
-        studentId: `ST${uuidv4().substring(0, 6).toUpperCase()}`,
-        fullName: hoTen || 'Học Sinh Mới',
-        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-        walletAddress: lowerWallet
-      });
-      await newUser.save();
-
-      const token = jwt.sign(
-        { id: newUser._id, role_id: 'STUDENT_ROLE' },
-        process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '24h' }
-      );
-
-      return res.json({
-        success: true,
-        token,
-        user: { id: newUser._id, role_id: 'STUDENT_ROLE', name: newUser.fullName },
-        message: 'Đăng ký Học sinh thành công'
-      });
-    } 
-    else if (role === 'TEACHER_ROLE' || role === 'LECTURER_ROLE') {
-      const existingRequest = await RoleRequest.findOne({ walletAddress: lowerWallet, status: 'pending' });
-      if (existingRequest) {
-        return res.json({ success: true, isPending: true, message: 'Yêu cầu của bạn đang chờ duyệt.' });
-      }
-
-      const newRequest = new RoleRequest({
-        walletAddress: lowerWallet,
-        hoTen: hoTen || 'Giáo Viên Mới',
-        email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-        chuyenNganh: chuyenNganh || '',
-        requestedRole: 'LECTURER_ROLE'
-      });
-      await newRequest.save();
-
-      return res.json({
-        success: true,
-        isPending: true,
-        message: 'Yêu cầu đăng ký Giáo viên đã được gửi. Vui lòng chờ Admin phê duyệt.'
-      });
-    }
-
-    return res.status(400).json({ success: false, message: 'Role không hợp lệ.' });
-
-  } catch (error) {
-    console.error('Register Role error:', error);
-    res.status(500).json({ success: false, message: 'Đăng ký thất bại' });
-  }
-};
+// Removed registerWithRole since we don't need manual role requests anymore, guests are auto-created
 
 module.exports = { 
   generateChallenge, 
   verifySignature, 
   logout, 
   getProfile, 
+  updateProfile,
   authenticateToken,
   generateQrSession,
-  verifyQrSignature,
-  registerWithRole
+  verifyQrSignature
 };

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const aiTrainingDataSchema = new mongoose.Schema({
     challengeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge' },
-    studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Student' },
-    teacherId: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher' },
+    studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    teacherId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     
     // Inputs to the model
     inputText: { type: String, required: true },

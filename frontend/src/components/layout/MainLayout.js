@@ -23,7 +23,7 @@ const MainLayout = () => {
     try {
       const token = authService.getToken();
       if (!token) return;
-      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/admin/requests`, {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5001/api'}/admin/requests`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.data.success) {
@@ -47,6 +47,14 @@ const MainLayout = () => {
     } else {
       setCurrentUser(user);
     }
+
+    // Listen for MetaMask account changes
+    authService.onAccountChange((newAccount) => {
+      // Always logout when account changes to force re-authentication
+      authService.logout();
+      navigate('/');
+    });
+
   }, [navigate]);
 
   const handleLogout = () => {
@@ -62,7 +70,7 @@ const MainLayout = () => {
       fetchPendingRequestsCount();
 
       try {
-        const socket = io(process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:5000', {
+        const socket = io(process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL.replace(/\/api\/?$/, '') : 'http://localhost:5001', {
           reconnectionAttempts: 2
         });
         socket.on('connect', () => socket.emit('admin:join'));
@@ -84,27 +92,31 @@ const MainLayout = () => {
   }, [isAdmin, fetchPendingRequestsCount]);
 
   const studentMenuItems = [
-    { key: '/student', icon: <Monitor size={18} aria-hidden="true" />, label: 'Dashboard Học Sinh' },
-    { key: '/student/group', icon: <BookOpen size={18} aria-hidden="true" />, label: 'Nhóm Học Sinh' },
-    { key: '/student/challenges', icon: <Award size={18} aria-hidden="true" />, label: 'Đăng Ký Dự Án' },
+    { key: '/student/dashboard', icon: <Monitor size={18} aria-hidden="true" />, label: 'Tổng Quan Học Sinh' },
+    { key: '/student/challenges', icon: <Award size={18} aria-hidden="true" />, label: 'Thử Thách & Dự Án STEM' },
+    { key: '/student/group', icon: <Users size={18} aria-hidden="true" />, label: 'Nhóm Học Tập' },
     { key: '/student/upload', icon: <FileText size={18} aria-hidden="true" />, label: 'Nộp Báo Cáo Dự Án' },
     { key: '/student/progress-log', icon: <CheckCircle size={18} aria-hidden="true" />, label: 'Nhật Ký Tiến Độ' },
-    { key: '/student/progress', icon: <UserIcon size={18} aria-hidden="true" />, label: 'Kết Quả & Điểm' }
+    { key: '/student/progress', icon: <BarChart2 size={18} aria-hidden="true" />, label: 'Kết Quả & Điểm Số' },
+    { key: '/student/achievements', icon: <GraduationCap size={18} aria-hidden="true" />, label: 'Chứng Chỉ & Thành Tích Web3' }
   ];
 
   const teacherMenuItems = [
-    { key: '/teacher', icon: <Monitor size={18} aria-hidden="true" />, label: 'Dashboard Giáo Viên' },
-    { key: '/teacher/challenges', icon: <Award size={18} aria-hidden="true" />, label: 'Quản Lý Dự Án' },
-    { key: '/teacher/courses', icon: <BookOpen size={18} aria-hidden="true" />, label: 'Quản Lý Môn Học' },
+    { key: '/teacher/dashboard', icon: <Monitor size={18} aria-hidden="true" />, label: 'Tổng Quan Giáo Viên' },
+    { key: '/teacher/challenges', icon: <Award size={18} aria-hidden="true" />, label: 'Thử Thách & Dự Án STEM' },
+    { key: '/teacher/topics', icon: <BookOpen size={18} aria-hidden="true" />, label: 'Đề Tài Nghiên Cứu' },
+    { key: '/teacher/courses', icon: <GraduationCap size={18} aria-hidden="true" />, label: 'Quản Lý Môn Học' },
     { key: '/teacher/classes', icon: <School size={18} aria-hidden="true" />, label: 'Quản Lý Lớp Học' },
     { key: '/teacher/students', icon: <Users size={18} aria-hidden="true" />, label: 'Quản Lý Học Sinh' },
     { key: '/teacher/rubrics', icon: <ClipboardList size={18} aria-hidden="true" />, label: 'Tiêu Chí Rubrics' },
-    { key: '/teacher/review', icon: <FileText size={18} aria-hidden="true" />, label: 'Chấm Điểm (AI)' },
-    { key: '/teacher/comparison', icon: <BarChart2 size={18} aria-hidden="true" />, label: 'So Sánh AI & Giáo Viên' },
+    { key: '/teacher/review', icon: <FileText size={18} aria-hidden="true" />, label: 'Chấm Điểm & Trợ Lý AI' },
+    { key: '/teacher/comparison', icon: <BarChart2 size={18} aria-hidden="true" />, label: 'Đối Soát AI & Giáo Viên' },
     { key: '/teacher/blockchain', icon: <ShieldCheck size={18} aria-hidden="true" />, label: 'Đối Chiếu Blockchain' }
   ];
 
   const adminMenuItems = [
+    { key: "/admin/users", icon: <Users size={18} aria-hidden="true" />, label: "Quản lý Tài khoản" },
+
     { key: '/admin', icon: <Monitor size={18} aria-hidden="true" />, label: 'Dashboard Quản Trị' },
     { 
       key: '/admin/requests', 
@@ -118,7 +130,23 @@ const MainLayout = () => {
     }
   ];
 
-  const menuItems = isAdmin ? adminMenuItems : (isTeacher ? teacherMenuItems : studentMenuItems);
+  const guestMenuItems = [
+    { key: '/profile', icon: <UserIcon size={18} aria-hidden="true" />, label: 'Hồ sơ cá nhân' }
+  ];
+
+  const isGuest = currentUser?.role_id === 'GUEST_ROLE';
+
+  const menuItems = isAdmin ? adminMenuItems : (isTeacher ? teacherMenuItems : (isGuest ? guestMenuItems : studentMenuItems));
+
+  const getActiveMenuKey = () => {
+    const pathname = location.pathname;
+    if (pathname === '/student' || pathname === '/student/') return '/student/dashboard';
+    if (pathname === '/teacher' || pathname === '/teacher/') return '/teacher/dashboard';
+    if (pathname.startsWith('/student/submissions')) return '/student/challenges';
+    if (pathname.startsWith('/teacher/challenges')) return '/teacher/challenges';
+    if (pathname.startsWith('/teacher/entrance-test')) return '/teacher/topics';
+    return pathname;
+  };
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -129,7 +157,7 @@ const MainLayout = () => {
         <Menu
           theme="light"
           mode="inline"
-          selectedKeys={[location.pathname]}
+          selectedKeys={[getActiveMenuKey()]}
           items={menuItems}
           onClick={(e) => navigate(e.key)}
         />
@@ -137,13 +165,13 @@ const MainLayout = () => {
       <Layout>
         <Header style={{ padding: isMobile ? '0 12px' : '0 24px', background: colorBgContainer, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            {!isAdmin && <ClassSelector />}
+            {!isAdmin && currentUser?.role_id !== 'GUEST_ROLE' && !location.pathname.startsWith('/profile') && <ClassSelector />}
           </div>
           <Dropdown menu={{
             items: [
               { key: 'wallet', label: `Ví: ${currentUser?.walletAddress?.substring(0, 6)}...` },
               { type: 'divider' },
-              { key: 'profile', icon: <UserIcon size={16} aria-hidden="true" />, label: 'Hồ sơ cá nhân', onClick: () => navigate(isTeacher ? '/teacher' : '/student') },
+              { key: 'profile', icon: <UserIcon size={16} aria-hidden="true" />, label: 'Hồ sơ cá nhân', onClick: () => navigate('/profile') },
               { type: 'divider' },
               { key: 'logout', danger: true, icon: <LogOut size={16} aria-hidden="true" />, label: 'Đăng xuất', onClick: handleLogout }
             ]

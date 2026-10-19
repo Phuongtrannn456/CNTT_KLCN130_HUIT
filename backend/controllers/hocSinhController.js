@@ -25,27 +25,26 @@ exports.getAll = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        let item = await HocSinh.findById(req.params.id);
-        if (!item) {
-            const student = await Student.findById(req.params.id);
-            if (student) {
-                // Map Student fields to HocSinh format
-                item = {
-                    _id: student._id,
-                    HoTen: student.fullName,
-                    MaHS: student.studentId,
-                    Email: student.email,
-                    GPA: student.gpa || 0,
-                    ChuyenNganh: student.school || '',
-                    KhoiLop: student.gradeLevel || null,
-                    KyNang: student.skills || [],
-                    BangDiemKyNang: [],
-                    DaCapNhatHoSo: student.profileUpdated,
-                    WalletAddress: student.walletAddress
-                };
-            }
-        }
-        if(!item) return res.status(404).json({ error: 'Not found' });
+        let user = await HocSinh.findById(req.params.id).lean();
+        if(!user) return res.status(404).json({ error: 'Not found' });
+        
+        const item = {
+            _id: user._id,
+            HoTen: user.fullName || user.HoTen,
+            hoTen: user.fullName || user.hoTen,
+            MaHS: user.schoolId || user.MaHS,
+            Email: user.email || user.Email,
+            GPA: user.gpa || user.GPA || 0,
+            ChuyenNganh: user.chuyenNganh || user.ChuyenNganh || user.school || 'Tự Nhiên & STEM',
+            KhoiLop: user.gradeLevel || user.KhoiLop || 10,
+            gradeLevel: user.gradeLevel || user.KhoiLop || 10,
+            KyNang: user.skills || user.KyNang || [],
+            skills: user.skills || user.KyNang || [],
+            BangDiemKyNang: user.BangDiemKyNang || [],
+            DaCapNhatHoSo: !!(user.profileUpdated || user.DaCapNhatHoSo),
+            profileUpdated: !!(user.profileUpdated || user.DaCapNhatHoSo),
+            WalletAddress: user.walletAddress
+        };
         res.json(item);
     } catch (err) {
         res.status(500).json({ error: err.message });

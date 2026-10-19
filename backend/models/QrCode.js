@@ -13,13 +13,13 @@ const qrCodeSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['LECTURER_ROLE', 'STUDENT_ROLE'],
+    enum: ['LECTURER_ROLE', 'STUDENT_ROLE', 'TEACHER_ROLE', 'ADMIN_ROLE', 'GUEST_ROLE'],
     required: true
   },
   role_model: {
     type: String,
     required: true,
-    enum: ['GiaoVien', 'HocSinh']
+    enum: ['GiaoVien', 'HocSinh', 'Teacher', 'Student', 'User']
   },
   qr_hash: {
     type: String,

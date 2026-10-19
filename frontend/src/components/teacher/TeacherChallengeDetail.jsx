@@ -1,7 +1,7 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Table, Typography, Tag, Button, Spin, message, Modal, Input, InputNumber, Form, Alert, Select, Divider, Space, Row, Col } from 'antd';
-import { EyeOutlined, CheckCircleOutlined, RobotOutlined } from '@ant-design/icons';
+import { EyeOutlined, CheckCircleOutlined, RobotOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import challengeService from '../../services/challengeService';
 import dayjs from 'dayjs';
 
@@ -88,7 +88,7 @@ const TeacherChallengeDetail = () => {
         }
       }
     } catch (error) {
-      message.error('L?i khi l?y b�i n?p');
+      message.error('Lỗi khi lấy bài nộp');
     } finally {
       setEvalLoading(false);
     }
@@ -101,12 +101,12 @@ const TeacherChallengeDetail = () => {
       const res = await challengeService.analyzeSubmission(studentSubmissions[0]._id);
       if (res.success && res.aiAvailable) {
         setAiAnalysisResult(res.analysis);
-        message.success('AI ph�n t�ch th�nh c�ng!');
+        message.success('AI phân tích thành công!');
       } else {
-        message.warning('AI hi?n kh�ng kh? d?ng.');
+        message.warning('AI hiện không khả dụng.');
       }
     } catch (error) {
-      message.error('L?i khi g?i AI ph�n t�ch.');
+      message.error('Lỗi khi gọi AI phân tích.');
     } finally {
       setAiAnalyzing(false);
     }
@@ -119,17 +119,17 @@ const TeacherChallengeDetail = () => {
       const res = await challengeService.suggestEvaluation(studentSubmissions[0]._id);
       if (res.success && res.aiAvailable) {
         setAiSuggestionResult(res.suggestion);
-        // T? d?ng di?n di?m g?i � v�o form (nhung teacher v?n c� th? s?a)
+        // Tự động điền điểm gợi ý vào form (nhưng teacher vẫn có thể sửa)
         form.setFieldsValue({
           teacherTotalScore: res.suggestion.aiTotalScore,
           teacherFeedback: res.suggestion.aiFeedback
         });
-        message.success('AI g?i � ch?m di?m th�nh c�ng!');
+        message.success('AI gợi ý chấm điểm thành công!');
       } else {
-        message.warning('AI hi?n kh�ng kh? d?ng.');
+        message.warning('AI hiện không khả dụng.');
       }
     } catch (error) {
-      message.error('L?i khi g?i AI g?i � ch?m di?m.');
+      message.error('Lỗi khi gọi AI gợi ý chấm điểm.');
     } finally {
       setAiSuggesting(false);
     }
@@ -139,7 +139,7 @@ const TeacherChallengeDetail = () => {
     if (studentSubmissions.length === 0) return;
     const latestSub = studentSubmissions[0];
     
-    // ��ng g�i c? AI suggestions (n?u c�) d? backend luu
+    // Đóng gói cả AI suggestions (nếu có) để backend lưu
     const payload = {
       teacherTotalScore: values.teacherTotalScore,
       teacherFeedback: values.teacherFeedback,
@@ -153,7 +153,6 @@ const TeacherChallengeDetail = () => {
         criteriaName: r.criteriaName,
         aiScore: r.aiScore,
         aiFeedback: r.aiFeedback,
-        // teacherScore c� th? map th�m UI cho t?ng rubric trong tuong lai
       }));
     }
     
@@ -167,28 +166,28 @@ const TeacherChallengeDetail = () => {
           });
         } catch (e) { console.warn("Training data save failed", e); }
       }
-      message.success('Luu d�nh gi� th�nh c�ng');
+      message.success('Lưu đánh giá thành công');
       setIsEvalModalVisible(false);
       fetchData(); // Refresh to show if finalized
     } catch (error) {
-      message.error(error.response?.data?.message || 'L?i khi luu d�nh gi�');
+      message.error(error.response?.data?.message || 'Lỗi khi lưu đánh giá');
     }
   };
 
   const columns = [
-    { title: 'H?c sinh', dataIndex: ['student', 'fullName'], key: 'name' },
-    { title: 'Kh?i l?p', dataIndex: ['student', 'gradeLevel'], key: 'grade' },
+    { title: 'Học sinh', dataIndex: ['student', 'fullName'], key: 'name' },
+    { title: 'Khối lớp', dataIndex: ['student', 'gradeLevel'], key: 'grade' },
     { 
-      title: 'Ng�y tham gia', 
+      title: 'Ngày tham gia', 
       key: 'joinedAt', 
       render: (_, record) => dayjs(record.joinedAt).format('DD/MM/YYYY HH:mm') 
     },
     {
-      title: 'Thao t�c',
+      title: 'Thao tác',
       key: 'action',
       render: (_, record) => (
         <Button type="primary" icon={<EyeOutlined />} onClick={() => handleReview(record)}>
-          Xem & Ch?m b�i
+          Xem & Chấm bài
         </Button>
       )
     }
@@ -200,9 +199,11 @@ const TeacherChallengeDetail = () => {
 
   return (
     <div style={{ padding: '24px' }}>
-      <Button onClick={() => navigate(-1)} style={{ marginBottom: '16px' }}>Quay l?i Qu?n l� Challenge</Button>
+      <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/teacher/challenges')} style={{ marginBottom: '16px' }}>
+        Quay lại Quản lý Challenge
+      </Button>
       
-      <Card title={<Title level={3} style={{ margin: 0 }}>Danh s�ch Tham gia: {challenge?.title}</Title>}>
+      <Card title={<Title level={3} style={{ margin: 0 }}>Danh sách Tham gia: {challenge?.title}</Title>}>
         <Table 
           columns={columns} 
           dataSource={participants} 
@@ -221,12 +222,12 @@ const TeacherChallengeDetail = () => {
         {evalLoading ? (
           <div style={{ textAlign: 'center', padding: '20px' }}><Spin /></div>
         ) : studentSubmissions.length === 0 ? (
-          <Alert message="H?c sinh chua n?p b�i" type="info" showIcon />
+          <Alert message="Học sinh chưa nộp bài" type="info" showIcon />
         ) : (
           <div>
             <Card type="inner" title={`Bài nộp mới nhất (Version ${studentSubmissions[0].version})`}>
-              <Text type="secondary">Th?i gian n?p: {dayjs(studentSubmissions[0].createdAt).format('DD/MM/YYYY HH:mm')}</Text>
-              {studentSubmissions[0].isLate && <Tag color="red" style={{ marginLeft: 8 }}>N?p mu?n</Tag>}
+              <Text type="secondary">Thời gian nộp: {dayjs(studentSubmissions[0].createdAt).format('DD/MM/YYYY HH:mm')}</Text>
+              {studentSubmissions[0].isLate && <Tag color="red" style={{ marginLeft: 8 }}>Nộp muộn</Tag>}
               
               <div style={{ marginTop: 16, padding: 16, backgroundColor: '#f9f9f9', borderRadius: 4, whiteSpace: 'pre-wrap' }}>
                 {studentSubmissions[0].content}
@@ -235,7 +236,7 @@ const TeacherChallengeDetail = () => {
               {!isFinalized && (
                 <div style={{ marginTop: 16 }}>
                   <Button type="dashed" icon={<RobotOutlined />} loading={aiAnalyzing} onClick={handleAiAnalysis}>
-                    AI Ph�n T�ch B�i N?p
+                    AI Phân Tích Bài Nộp
                   </Button>
                 </div>
               )}
@@ -244,12 +245,12 @@ const TeacherChallengeDetail = () => {
             {aiAnalysisResult && (
               <Alert 
                 style={{ marginTop: 16 }}
-                message="K?t qu? Ph�n t�ch t? AI (Tham kh?o)"
+                message="Kết quả Phân tích từ AI (Tham khảo)"
                 description={
                   <div>
-                    <p><b>�i?m m?nh:</b> {aiAnalysisResult.strengths}</p>
-                    <p><b>�i?m y?u:</b> {aiAnalysisResult.weaknesses}</p>
-                    <p><b>V?n d? ph�t hi?n:</b> {aiAnalysisResult.issues?.join(', ') || 'Kh�ng'}</p>
+                    <p><b>Điểm mạnh:</b> {aiAnalysisResult.strengths}</p>
+                    <p><b>Điểm yếu:</b> {aiAnalysisResult.weaknesses}</p>
+                    <p><b>Vấn đề phát hiện:</b> {aiAnalysisResult.issues?.join(', ') || 'Không'}</p>
                   </div>
                 }
                 type="info"
@@ -259,13 +260,13 @@ const TeacherChallengeDetail = () => {
 
             <Divider />
 
-            <Title level={4}>��nh gi� & Ch?m di?m</Title>
+            <Title level={4}>Đánh giá & Chấm điểm</Title>
             {isFinalized ? (
-              <Alert message="B�i n�y d� ch?t di?m (FINAL). Kh�ng th? s?a d?i." type="success" showIcon style={{ marginBottom: 16 }} />
+              <Alert message="Bài này đã chốt điểm (FINAL). Không thể sửa đổi." type="success" showIcon style={{ marginBottom: 16 }} />
             ) : (
               <div style={{ marginBottom: 16 }}>
                 <Button type="primary" ghost icon={<RobotOutlined />} loading={aiSuggesting} onClick={handleAiSuggest}>
-                  G?i � ch?m di?m (AI Suggested Evaluation)
+                  Gợi ý chấm điểm (AI Suggested Evaluation)
                 </Button>
               </div>
             )}
@@ -273,11 +274,11 @@ const TeacherChallengeDetail = () => {
             <Row gutter={24}>
               {/* AI Column */}
               <Col span={12}>
-                <Card title="G?i � t? AI" size="small" style={{ height: '100%', backgroundColor: '#f0f5ff' }}>
+                <Card title="Gợi ý từ AI" size="small" style={{ height: '100%', backgroundColor: '#f0f5ff' }}>
                   {aiSuggestionResult ? (
                     <div>
-                      <Title level={5} style={{ color: '#1890ff' }}>T?ng di?m AI: {aiSuggestionResult.aiTotalScore}</Title>
-                      <Paragraph><b>Nh?n x�t:</b> {aiSuggestionResult.aiFeedback}</Paragraph>
+                      <Title level={5} style={{ color: '#1890ff' }}>Tổng điểm AI: {aiSuggestionResult.aiTotalScore}</Title>
+                      <Paragraph><b>Nhận xét:</b> {aiSuggestionResult.aiFeedback}</Paragraph>
                       
                       {aiSuggestionResult.rubricScores?.map((r, idx) => (
                         <div key={idx} style={{ marginBottom: 8, padding: 8, background: '#fff', borderRadius: 4 }}>
@@ -288,34 +289,34 @@ const TeacherChallengeDetail = () => {
                       ))}
                     </div>
                   ) : (
-                    <Text type="secondary">Chua c� g?i �. B?m n�t ph�a tr�n d? AI t? d?ng d�nh gi�.</Text>
+                    <Text type="secondary">Chưa có gợi ý. Bấm nút phía trên để AI tự động đánh giá.</Text>
                   )}
                 </Card>
               </Col>
 
               {/* Teacher Column */}
               <Col span={12}>
-                <Card title="Quy?t d?nh c?a Gi�o vi�n" size="small" style={{ height: '100%' }}>
+                <Card title="Quyết định của Giáo viên" size="small" style={{ height: '100%' }}>
                   <Form form={form} layout="vertical" onFinish={onEvalSubmit} initialValues={{ status: 'DRAFT' }}>
-                    <Form.Item name="teacherTotalScore" label="�i?m s? ch�nh th?c" rules={[{ required: true, message: 'Nh?p di?m' }]}>
+                    <Form.Item name="teacherTotalScore" label="Điểm số chính thức" rules={[{ required: true, message: 'Nhập điểm' }]}>
                       <InputNumber min={0} max={100} step={0.5} disabled={isFinalized} style={{ width: '100%' }} />
                     </Form.Item>
                     
-                    <Form.Item name="teacherFeedback" label="Nh?n x�t ch�nh th?c" rules={[{ required: true, message: 'Nh?p nh?n x�t' }]}>
+                    <Form.Item name="teacherFeedback" label="Nhận xét chính thức" rules={[{ required: true, message: 'Nhập nhận xét' }]}>
                       <Input.TextArea rows={6} disabled={isFinalized} />
                     </Form.Item>
 
-                    <Form.Item name="status" label="Tr?ng th�i">
+                    <Form.Item name="status" label="Trạng thái">
                       <Select disabled={isFinalized}>
-                        <Select.Option value="DRAFT">Luu Nh�p (H?c sinh chua xem du?c)</Select.Option>
-                        <Select.Option value="FINAL">Ch?t �i?m (FINAL - Ph�t Achievement)</Select.Option>
+                        <Select.Option value="DRAFT">Lưu Nháp (Học sinh chưa xem được)</Select.Option>
+                        <Select.Option value="FINAL">Chốt Điểm (FINAL - Phát Achievement)</Select.Option>
                       </Select>
                     </Form.Item>
 
                     {!isFinalized && (
                       <Form.Item>
                         <Button type="primary" htmlType="submit" icon={<CheckCircleOutlined />} block size="large">
-                          Luu K?t Qu?
+                          Lưu Kết Quả
                         </Button>
                       </Form.Item>
                     )}
@@ -332,4 +333,3 @@ const TeacherChallengeDetail = () => {
 };
 
 export default TeacherChallengeDetail;
-

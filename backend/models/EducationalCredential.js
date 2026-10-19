@@ -8,10 +8,10 @@ const educationalCredentialSchema = new mongoose.Schema({
     unique: true, 
     default: () => uuidv4() 
   },
-  student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student', required: true },
+  student: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   achievement: { type: mongoose.Schema.Types.ObjectId, ref: 'Achievement', required: true, unique: true }, // 1 Achievement -> 1 Credential
   challenge: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge', required: true },
-  issuer: { type: mongoose.Schema.Types.ObjectId, ref: 'Teacher', required: true },
+  issuer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   
   metadata: {
     achievementType: { type: String, required: true },

@@ -435,7 +435,7 @@ const TopicManagement = () => {
             {record.TrangThai === 'MoDangKy' && (
               <Tooltip title="Bài test"><span>
                 <Button size="small" icon={<ListChecks size={12} />}
-                  onClick={() => navigate(`/lecturer/entrance-test/${record._id}`)}
+                  onClick={() => navigate(`/teacher/entrance-test/${record._id}`)}
                   style={{ fontSize: 12, padding: '0 6px', height: 24 }}
                   disabled={!isOwner} />
               </span></Tooltip>

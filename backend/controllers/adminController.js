@@ -1,162 +1,126 @@
-const Admin = require('../models/Admin');
+const User = require('../models/User');
 const RoleRequest = require('../models/RoleRequest');
-const GiaoVien = require('../models/GiaoVien');
-const { v4: uuidv4 } = require('uuid');
-const jwt = require('jsonwebtoken');
 
+// Lấy danh sách tất cả tài khoản (có thể lọc theo role: guest, student, teacher, admin)
+const getAllUsers = async (req, res) => {
+  try {
+    const { role } = req.query;
+    let filter = {};
+    if (role) filter.role = role;
+
+    const users = await User.find(filter).sort({ createdAt: -1 });
+    res.json({ success: true, users });
+  } catch (error) {
+    console.error('getAllUsers error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách người dùng.' });
+  }
+};
+
+// Admin thay đổi vai trò (role) và cập nhật thông tin định danh cho tài khoản
+const updateUserRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { role, schoolId, fullName, gradeLevel, department } = req.body;
+
+    const validRoles = ['guest', 'student', 'teacher', 'admin'];
+    if (role && !validRoles.includes(role)) {
+      return res.status(400).json({ success: false, message: 'Role không hợp lệ.' });
+    }
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'Không tìm thấy tài khoản.' });
+    }
+
+    if (role) user.role = role;
+    if (schoolId) user.schoolId = schoolId;
+    if (fullName) user.fullName = fullName;
+    
+    if (role === 'student' && gradeLevel) user.gradeLevel = gradeLevel;
+    if (role === 'teacher' && department) user.department = department;
+
+    user.profileUpdated = true;
+    await user.save();
+
+    res.json({ success: true, message: 'Cập nhật tài khoản thành công.', user });
+  } catch (error) {
+    console.error('updateUserRole error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi cập nhật tài khoản.' });
+  }
+};
+
+// Admin khoá hoặc mở khoá tài khoản
+const toggleUserActive = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await User.findById(id);
+    if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy tài khoản.' });
+
+    user.isActive = !user.isActive;
+    await user.save();
+
+    res.json({ success: true, message: user.isActive ? 'Đã mở khoá tài khoản.' : 'Đã khoá tài khoản.', user });
+  } catch (error) {
+    console.error('toggleUserActive error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi thay đổi trạng thái tài khoản.' });
+  }
+};
+
+// Lấy danh sách yêu cầu chờ duyệt (Pending Requests)
 const getPendingRequests = async (req, res) => {
   try {
-    const requests = await RoleRequest.find({ status: 'pending' }).sort({ createdAt: -1 });
+    let requests = await RoleRequest.find({ status: 'pending' }).sort({ createdAt: -1 });
+
+    // Neu chua co request nao, tu dong sync cac user guest vao thanh request cho duyet
+    if (requests.length === 0) {
+      const guests = await User.find({ role: 'guest' });
+      for (const g of guests) {
+        const shortAddr = (g.walletAddress || '').slice(2, 8).toLowerCase();
+        await RoleRequest.create({
+          walletAddress: g.walletAddress,
+          hoTen: `Teacher_DID#${shortAddr}`,
+          email: `did_${shortAddr}@k12.did`,
+          chuyenNganh: 'Tổ STEM & Tin Học',
+          requestedRole: 'TEACHER_ROLE',
+          schoolToken: 'STEM_TEACHER_2026',
+          status: 'pending'
+        });
+      }
+      requests = await RoleRequest.find({ status: 'pending' }).sort({ createdAt: -1 });
+    }
+
     res.json({ success: true, requests });
   } catch (error) {
     console.error('getPendingRequests error:', error);
-    res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách yêu cầu.' });
+    res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách yêu cầu chờ duyệt.' });
   }
 };
 
-const approveRequest = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const adminId = req.user.id;
-
-    const request = await RoleRequest.findById(id);
-    if (!request || request.status !== 'pending') {
-      return res.status(400).json({ success: false, message: 'Yêu cầu không tồn tại hoặc đã được xử lý.' });
-    }
-
-    // Update request
-    request.status = 'approved';
-    request.reviewedBy = adminId;
-    request.reviewedAt = new Date();
-    await request.save();
-
-    // Create GiaoVien
-    const newGiaoVien = new GiaoVien({
-      MaGV: `GV${uuidv4().substring(0, 6).toUpperCase()}`,
-      HoTen: request.hoTen,
-      Email: request.email,
-      ChuyenNganh: request.chuyenNganh,
-      WalletAddress: request.walletAddress
-    });
-    await newGiaoVien.save();
-
-    // Generate Token
-    const token = jwt.sign(
-      { id: newGiaoVien._id, walletAddress: newGiaoVien.WalletAddress, role_id: 'TEACHER_ROLE' },
-      process.env.JWT_SECRET || 'your-secret-key',
-      { expiresIn: '24h' }
-    );
-
-    // Emit Socket
-    const io = req.app.get('io');
-    if (io) {
-      io.to(`pending:${request.walletAddress.toLowerCase()}`).emit('request_result', {
-        success: true,
-        status: 'approved',
-        token,
-        user: {
-          id: newGiaoVien._id,
-          walletAddress: newGiaoVien.WalletAddress,
-          role_id: 'TEACHER_ROLE',
-          name: newGiaoVien.HoTen
-        }
-      });
-    }
-
-    res.json({ success: true, message: 'Đã phê duyệt yêu cầu thành công.' });
-  } catch (error) {
-    console.error('approveRequest error:', error);
-    res.status(500).json({ success: false, message: 'Lỗi khi phê duyệt yêu cầu.' });
-  }
-};
-
-const rejectRequest = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { reason } = req.body;
-    const adminId = req.user.id;
-
-    if (!reason) {
-      return res.status(400).json({ success: false, message: 'Vui lòng cung cấp lý do từ chối.' });
-    }
-
-    const request = await RoleRequest.findById(id);
-    if (!request || request.status !== 'pending') {
-      return res.status(400).json({ success: false, message: 'Yêu cầu không tồn tại hoặc đã được xử lý.' });
-    }
-
-    // Update request
-    request.status = 'rejected';
-    request.rejectReason = reason;
-    request.reviewedBy = adminId;
-    request.reviewedAt = new Date();
-    await request.save();
-
-    // Emit Socket
-    const io = req.app.get('io');
-    if (io) {
-      io.to(`pending:${request.walletAddress.toLowerCase()}`).emit('request_result', {
-        success: false,
-        status: 'rejected',
-        reason
-      });
-    }
-
-    res.json({ success: true, message: 'Đã từ chối yêu cầu.' });
-  } catch (error) {
-    console.error('rejectRequest error:', error);
-    res.status(500).json({ success: false, message: 'Lỗi khi từ chối yêu cầu.' });
-  }
-};
-
-const getProcessedRequests = async (req, res) => {
+// Lấy lịch sử yêu cầu đã xử lý (Approved / Rejected)
+const getRequestHistory = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
-    const statusFilter = req.query.status; // 'approved' | 'rejected' | undefined (both)
-    const search = req.query.search?.trim();
-    const fromDate = req.query.fromDate;
-    const toDate = req.query.toDate;
+    const status = req.query.status;
+    const search = req.query.search;
 
-    const filter = { status: { $in: ['approved', 'rejected'] } };
-    if (statusFilter && ['approved', 'rejected'].includes(statusFilter)) {
-      filter.status = statusFilter;
-    }
-
-    // Search by name, email or chuyenNganh
+    let filter = { status: { $in: ['approved', 'rejected'] } };
+    if (status) filter.status = status;
     if (search) {
-      const searchRegex = new RegExp(search, 'i');
       filter.$or = [
-        { hoTen: searchRegex },
-        { email: searchRegex },
-        { chuyenNganh: searchRegex }
+        { hoTen: { $regex: search, $options: 'i' } },
+        { email: { $regex: search, $options: 'i' } },
+        { walletAddress: { $regex: search, $options: 'i' } },
+        { chuyenNganh: { $regex: search, $options: 'i' } }
       ];
     }
 
-    // Date range filter on reviewedAt
-    if (fromDate || toDate) {
-      filter.reviewedAt = {};
-      if (fromDate) {
-        filter.reviewedAt.$gte = new Date(fromDate);
-      }
-      if (toDate) {
-        // Set to end of day
-        const endDate = new Date(toDate);
-        endDate.setHours(23, 59, 59, 999);
-        filter.reviewedAt.$lte = endDate;
-      }
-    }
-
-    const [requests, total] = await Promise.all([
-      RoleRequest.find(filter)
-        .sort({ reviewedAt: -1, createdAt: -1 })
-        .skip(skip)
-        .limit(limit)
-        .populate('reviewedBy', 'HoTen')
-        .lean(),
-      RoleRequest.countDocuments(filter)
-    ]);
+    const total = await RoleRequest.countDocuments(filter);
+    const requests = await RoleRequest.find(filter)
+      .populate('reviewedBy', 'fullName HoTen hoTen')
+      .sort({ reviewedAt: -1, createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
 
     res.json({
       success: true,
@@ -165,25 +129,21 @@ const getProcessedRequests = async (req, res) => {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit)
+        totalPages: Math.ceil(total / limit) || 1
       }
     });
   } catch (error) {
-    console.error('getProcessedRequests error:', error);
+    console.error('getRequestHistory error:', error);
     res.status(500).json({ success: false, message: 'Lỗi khi lấy lịch sử yêu cầu.' });
   }
 };
 
+// Lấy chi tiết 1 yêu cầu
 const getRequestDetail = async (req, res) => {
   try {
     const { id } = req.params;
-    const request = await RoleRequest.findById(id)
-      .populate('reviewedBy', 'HoTen')
-      .lean();
-
-    if (!request) {
-      return res.status(404).json({ success: false, message: 'Không tìm thấy yêu cầu.' });
-    }
+    const request = await RoleRequest.findById(id).populate('reviewedBy', 'fullName HoTen hoTen');
+    if (!request) return res.status(404).json({ success: false, message: 'Không tìm thấy yêu cầu.' });
 
     res.json({ success: true, request });
   } catch (error) {
@@ -192,21 +152,91 @@ const getRequestDetail = async (req, res) => {
   }
 };
 
-const getAllLecturers = async (req, res) => {
+// Admin phê duyệt yêu cầu (Approve)
+const approveRequest = async (req, res) => {
   try {
-    const lecturers = await GiaoVien.find().sort({ createdAt: -1 });
+    const { id } = req.params;
+    const request = await RoleRequest.findById(id);
+    if (!request) return res.status(404).json({ success: false, message: 'Không tìm thấy yêu cầu.' });
+
+    request.status = 'approved';
+    request.reviewedAt = new Date();
+    request.reviewedBy = req.user ? req.user.id : null;
+    await request.save();
+
+    // Nâng role cho user tương ứng
+    const user = await User.findOne({ walletAddress: request.walletAddress.toLowerCase() });
+    if (user) {
+      user.role = 'teacher';
+      user.department = request.chuyenNganh || 'Tổ STEM & Tin Học';
+      await user.save();
+    }
+
+    // Phat socket thong bao neu co
+    const io = req.app.get('io');
+    if (io) {
+      io.to(`pending:${request.walletAddress.toLowerCase()}`).emit('admin:approved', {
+        walletAddress: request.walletAddress
+      });
+    }
+
+    res.json({ success: true, message: 'Đã phê duyệt yêu cầu thành công.', request });
+  } catch (error) {
+    console.error('approveRequest error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi phê duyệt yêu cầu.' });
+  }
+};
+
+// Admin từ chối yêu cầu (Reject)
+const rejectRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { reason } = req.body;
+    const request = await RoleRequest.findById(id);
+    if (!request) return res.status(404).json({ success: false, message: 'Không tìm thấy yêu cầu.' });
+
+    request.status = 'rejected';
+    request.rejectReason = reason || 'Thông tin xác thực chưa hợp lệ';
+    request.reviewedAt = new Date();
+    request.reviewedBy = req.user ? req.user.id : null;
+    await request.save();
+
+    res.json({ success: true, message: 'Đã từ chối yêu cầu.', request });
+  } catch (error) {
+    console.error('rejectRequest error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi từ chối yêu cầu.' });
+  }
+};
+
+// Lấy danh sách Giáo viên (cho Admin Dashboard)
+const getLecturers = async (req, res) => {
+  try {
+    const teachers = await User.find({ role: 'teacher' }).sort({ createdAt: -1 });
+    const lecturers = teachers.map(t => ({
+      _id: t._id,
+      MaGV: t.schoolId || `GV_${t.walletAddress.slice(2, 8).toUpperCase()}`,
+      HoTen: t.fullName || `Teacher_DID#${t.walletAddress.slice(2, 8).toLowerCase()}`,
+      Email: t.email || `did_${t.walletAddress.slice(2, 8).toLowerCase()}@k12.did`,
+      WalletAddress: t.walletAddress,
+      ChuyenNganh: t.department || 'Tổ STEM & Tin Học',
+      CreatedAt: t.createdAt
+    }));
+
     res.json({ success: true, lecturers });
   } catch (error) {
-    console.error('getAllLecturers error:', error);
-    res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách Giáo viên.' });
+    console.error('getLecturers error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi lấy danh sách giáo viên.' });
   }
 };
 
 module.exports = {
+  getAllUsers,
+  updateUserRole,
+  toggleUserActive,
   getPendingRequests,
+  getRequestHistory,
+  getRequestDetail,
   approveRequest,
   rejectRequest,
-  getProcessedRequests,
-  getRequestDetail,
-  getAllLecturers
+  getLecturers
 };

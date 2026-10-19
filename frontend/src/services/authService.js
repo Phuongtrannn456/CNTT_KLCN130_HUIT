@@ -8,6 +8,26 @@ class AuthService {
     this.provider = null;
     this.signer = null;
     this.user = null;
+    this.setupGlobalWalletListeners();
+  }
+
+  setupGlobalWalletListeners() {
+    if (typeof window !== 'undefined' && window.ethereum) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        const currentUser = this.getCurrentUser();
+        if (currentUser) {
+          const userWallet = currentUser.walletAddress || currentUser.wallet_address;
+          if (accounts.length === 0 || (userWallet && accounts[0].toLowerCase() !== userWallet.toLowerCase())) {
+            console.log('Tài khoản MetaMask thay đổi, tự động đăng xuất để bảo mật.');
+            this.logout().then(() => {
+              window.location.href = '/login';
+            }).catch(() => {
+              window.location.href = '/login';
+            });
+          }
+        }
+      });
+    }
   }
 
   // Check if MetaMask is installed

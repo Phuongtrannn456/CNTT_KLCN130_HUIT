@@ -191,8 +191,11 @@ app.use('/api/credentials', require('./routes/credentialRoutes'));
 // --- Legacy Auth Routes ---
 app.post('/api/auth/challenge', loginLimiter, authController.generateChallenge);
 app.post('/api/auth/verify', loginLimiter, authController.verifySignature);
-app.post('/api/auth/register-role', authController.registerWithRole);
+// Removed register-role as users are auto-created
 app.post('/api/auth/logout', authController.authenticateToken, authController.logout);
+app.get("/api/auth/profile", authController.authenticateToken, authController.getProfile);
+app.put("/api/auth/profile", authController.authenticateToken, authController.updateProfile);
+
 app.get('/api/auth/qr-session', loginLimiter, authController.generateQrSession);
 app.post('/api/auth/qr-submit', loginLimiter, authController.verifyQrSignature);
 
@@ -201,12 +204,18 @@ app.get('/api/qr/me', ...requireAuth, qrController.getQrCode);
 app.post('/api/qr/generate', ...requireAuth, qrController.generateQrCode);
 
 // 2c. Admin Routes
-app.get('/api/admin/requests', ...requireAdmin, adminController.getPendingRequests);
-app.get('/api/admin/requests/history', ...requireAdmin, adminController.getProcessedRequests);
-app.get('/api/admin/requests/:id', ...requireAdmin, adminController.getRequestDetail);
-app.post('/api/admin/approve/:id', ...requireAdmin, adminController.approveRequest);
-app.post('/api/admin/reject/:id', ...requireAdmin, adminController.rejectRequest);
-app.get('/api/admin/lecturers', ...requireAdmin, adminController.getAllLecturers);
+app.get("/api/admin/users", ...requireAdmin, adminController.getAllUsers);
+app.put("/api/admin/users/:id/role", ...requireAdmin, adminController.updateUserRole);
+app.put("/api/admin/users/:id/toggle-active", ...requireAdmin, adminController.toggleUserActive);
+app.get("/api/admin/requests", ...requireAdmin, adminController.getPendingRequests);
+app.get("/api/admin/requests/history", ...requireAdmin, adminController.getRequestHistory);
+app.get("/api/admin/requests/:id", ...requireAdmin, adminController.getRequestDetail);
+app.post("/api/admin/requests/:id/approve", ...requireAdmin, adminController.approveRequest);
+app.post("/api/admin/requests/:id/reject", ...requireAdmin, adminController.rejectRequest);
+app.post("/api/admin/approve/:id", ...requireAdmin, adminController.approveRequest);
+app.post("/api/admin/reject/:id", ...requireAdmin, adminController.rejectRequest);
+app.get("/api/admin/lecturers", ...requireAdmin, adminController.getLecturers);
+
 
 // 3. Học Sinh
 app.get('/api/hocsinh', ...requireAuth, hocSinhController.getAll);

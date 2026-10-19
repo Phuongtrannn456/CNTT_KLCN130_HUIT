@@ -110,7 +110,7 @@ const ProgressTracking = () => {
       <Typography>
         <Title level={2}>Tiến Độ Xét Duyệt</Title>
         <Paragraph>
-          Theo dõi toàn bộ quá trình Đồ án của bạn từ lúc đăng ký cho đến khi điểm được xác thực trên Blockchain.
+          Theo dõi toàn bộ quá trình Dự án STEM / Thử thách học tập từ lúc đăng ký cho đến khi điểm được xác thực trên Blockchain.
         </Paragraph>
       </Typography>
 

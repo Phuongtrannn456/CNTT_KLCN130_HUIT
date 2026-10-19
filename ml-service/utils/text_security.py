@@ -12,6 +12,39 @@ INJECTION_PATTERNS = [
     r'\[\[.{0,50}\]\]',     # Potential template injection
 ]
 
+# Zero-PII Regex Patterns phục vụ cơ chế "Rọc phách" văn bản báo cáo
+PII_PATTERNS = [
+    # 1. Khai báo họ tên học sinh / sinh viên / tác giả
+    (r'(?i)\b(họ\s*(?:và|&)?\s*tên|họ\s*tên|sinh\s*viên\s*(?:thực\s*hiện)?|học\s*sinh\s*(?:thực\s*hiện)?|người\s*thực\s*hiện|tác\s*giả)\s*[:：\-]\s*([^\n\r,;.]+)', r'\1: [REDACTED_STUDENT_DID]'),
+    # 2. Khai báo giáo viên / giảng viên hướng dẫn
+    (r'(?i)\b(giáo\s*viên\s*hướng\s*dẫn|giảng\s*viên\s*hướng\s*dẫn|gvhd)\s*[:：\-]\s*([^\n\r,;.]+)', r'\1: [REDACTED_TEACHER_DID]'),
+    # 3. Mã số học sinh / mã số sinh viên
+    (r'(?i)\b(mssv|mshs|mã\s*số\s*(?:học\s*sinh|sinh\s*viên)|mã\s*(?:học\s*sinh|sinh\s*viên))\s*[:：\-]?\s*([a-zA-Z0-9_\-]+)', r'\1: [REDACTED_DID_CODE]'),
+    # 4. Số điện thoại di động
+    (r'(?i)\b(?:sđt|số\s*điện\s*thoại|tel|phone)\s*[:：\-]?\s*(?:\+84|0)[0-9]{8,10}\b', r'[REDACTED_PHONE]'),
+    # 5. Email cá nhân (ngoại trừ domain k12.did)
+    (r'\b[A-Za-z0-9._%+-]+@(?!k12\.did)[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b', r'[REDACTED_EMAIL]')
+]
+
+def redact_pii(text: str) -> tuple[str, list[str]]:
+    """
+    Rọc phách tự động - Loại bỏ PII (Họ tên thật, MSSV/MSHS, Email cá nhân, SĐT)
+    thay thế bằng [REDACTED_DID] để bảo đảm cơ chế Web3 Zero-PII / Pure Pseudonymity.
+    Trả về (redacted_text, alerts).
+    """
+    alerts = []
+    redacted_text = text
+    found_pii = False
+    for pattern, replacement in PII_PATTERNS:
+        if re.search(pattern, redacted_text):
+            found_pii = True
+            redacted_text = re.sub(pattern, replacement, redacted_text)
+    
+    if found_pii:
+        alerts.append("Hệ thống đã tự động 'rọc phách' (Zero-PII Redaction): Đã ẩn danh Họ tên thật, MSSV/MSHS, SĐT, Email trong nội dung bài nộp.")
+    
+    return redacted_text, alerts
+
 def scan_injection(text: str) -> list[str]:
     """Trả về danh sách cảnh báo injection, rỗng nếu sạch."""
     alerts = []

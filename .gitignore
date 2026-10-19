@@ -3,6 +3,8 @@ dist/
 build/
 node_modules/
 .env
+.DS_Store
+*.DS_Store
 
 # Python
 __pycache__/
@@ -70,3 +72,7 @@ SKILL_WEB3GIANGVIEN.md
 backend/.env.render
 backend/.env
 backend/uploads/
+
+# AI Agent / Analysis Files
+.ua/
+

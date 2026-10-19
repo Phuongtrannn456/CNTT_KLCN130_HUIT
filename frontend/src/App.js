@@ -17,7 +17,12 @@ import { LecturerClassProvider } from './contexts/LecturerClassContext';
 // Dynamic imports (Code Splitting)
 const AdminDashboard = React.lazy(() => import('./components/admin/AdminDashboard'));
 const AdminRequests = React.lazy(() => import('./components/admin/AdminRequests'));
+const UserManager = React.lazy(() => import("./pages/admin/UserManager"));
+const UserProfile = React.lazy(() => import("./components/UserProfile"));
 
+
+
+const TeacherDashboard = React.lazy(() => import('./components/lecturer/LecturerDashboard'));
 const ChallengeManagement = React.lazy(() => import('./components/teacher/ChallengeManagement'));
 const TeacherChallengeDetail = React.lazy(() => import('./components/teacher/TeacherChallengeDetail'));
 const TopicManagement = React.lazy(() => import('./components/lecturer/TopicManagement'));
@@ -80,8 +85,9 @@ function PublicRoute({ children }) {
 
   if (isAuthenticated && currentUser) {
     if (currentUser.role_id === 'ADMIN_ROLE') return <Navigate to="/admin" replace />;
-    if (currentUser.role_id === 'TEACHER_ROLE') return <Navigate to="/teacher/challenges" replace />;
-    return <Navigate to="/student/challenges" replace />;
+    if (currentUser.role_id === 'TEACHER_ROLE') return <Navigate to="/teacher/dashboard" replace />;
+    if (currentUser.role_id === 'STUDENT_ROLE') return <Navigate to="/student/dashboard" replace />;
+    return <Navigate to="/profile" replace />;
   }
   return children;
 }
@@ -90,8 +96,10 @@ function RoleRedirect() {
   const user = authService.getCurrentUser();
   if (!user) return <Navigate to="/" replace />;
   if (user.role_id === 'ADMIN_ROLE') return <Navigate to="/admin" replace />;
-  if (user.role_id === 'TEACHER_ROLE') return <Navigate to="/teacher/challenges" replace />;
-  return <Navigate to="/student/challenges" replace />;
+  if (user.role_id === 'TEACHER_ROLE') return <Navigate to="/teacher/dashboard" replace />;
+  if (user.role_id === 'STUDENT_ROLE') return <Navigate to="/student/dashboard" replace />;
+  // Guests have no dashboard, just go to profile pending approval
+  return <Navigate to="/profile" replace />;
 }
 
 function App() {
@@ -99,6 +107,10 @@ function App() {
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Suspense fallback={<GlobalLoader />}>
         <Routes>
+          <Route path="/profile" element={<ProtectedRoute allowedRoles={["ADMIN_ROLE", "TEACHER_ROLE", "STUDENT_ROLE", "GUEST_ROLE"]}><MainLayout /></ProtectedRoute>}>
+            <Route index element={<UserProfile />} />
+          </Route>
+
           <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/mobile-login" element={<MobileLogin />} />
           <Route path="/dashboard" element={<RoleRedirect />} />
@@ -112,6 +124,8 @@ function App() {
             </ProtectedRoute>
           }>
             <Route index element={<AdminDashboard />} />
+            <Route path="users" element={<UserManager />} />
+
             <Route path="requests" element={<AdminRequests />} />
           </Route>
 
@@ -122,7 +136,8 @@ function App() {
               </LecturerClassProvider>
             </ProtectedRoute>
           }>
-            <Route index element={<Navigate to="/teacher/challenges" replace />} />
+            <Route index element={<Navigate to="/teacher/dashboard" replace />} />
+            <Route path="dashboard" element={<TeacherDashboard />} />
             <Route path="challenges" element={<ChallengeManagement />} />
             <Route path="challenges/:id/participants" element={<TeacherChallengeDetail />} />
             
@@ -144,12 +159,12 @@ function App() {
               </ClassProvider>
             </ProtectedRoute>
           }>
-            <Route index element={<Navigate to="/student/challenges" replace />} />
+            <Route index element={<Navigate to="/student/dashboard" replace />} />
+            <Route path="dashboard" element={<StudentDashboard />} />
             <Route path="challenges" element={<ChallengeList />} />
             <Route path="submissions/:id" element={<StudentSubmissionView />} />
             <Route path="achievements" element={<AchievementList />} />
             
-            <Route path="dashboard" element={<StudentDashboard />} />
             <Route path="register" element={<TopicRegistration />} />
             <Route path="upload" element={<ReportUpload />} />
             <Route path="progress-log" element={<ProgressLog />} />
@@ -157,6 +172,10 @@ function App() {
             <Route path="group" element={<GroupManagement />} />
             <Route path="entrance-test/:deTaiId" element={<EntranceTest />} />
           </Route>
+
+          {/* Backward compatibility redirects for legacy /lecturer URLs */}
+          <Route path="/lecturer/*" element={<Navigate to="/teacher" replace />} />
+          <Route path="/lecturer" element={<Navigate to="/teacher" replace />} />
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

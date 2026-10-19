@@ -20,8 +20,12 @@ contract K12CredentialRegistry {
     address public owner;
     mapping(address => bool) public authorizedIssuers;
 
+    // === KPI CONSTRAINT (Dieu kien dat chi so danh gia toi thieu) ===
+    uint8 public minKpiScore = 70; // Nguong KPI toi thieu: 70 tuong ung 7.0/10 diem de cap chung chi
+
     event CredentialIssued(bytes32 indexed credentialId, address indexed studentWallet, address indexed issuerWallet, bytes32 metadataHash);
     event CredentialRevoked(bytes32 indexed credentialId);
+    event MinKpiScoreUpdated(uint8 oldScore, uint8 newScore);
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not owner");
@@ -38,6 +42,11 @@ contract K12CredentialRegistry {
         authorizedIssuers[msg.sender] = true; // Deployer is also an issuer (Relayer)
     }
 
+    function setMinKpiScore(uint8 _minKpiScore) external onlyOwner {
+        emit MinKpiScoreUpdated(minKpiScore, _minKpiScore);
+        minKpiScore = _minKpiScore;
+    }
+
     function addIssuer(address _issuer) external onlyOwner {
         authorizedIssuers[_issuer] = true;
     }
@@ -46,12 +55,16 @@ contract K12CredentialRegistry {
         authorizedIssuers[_issuer] = false;
     }
 
-    function issueCredential(
+    /// @notice Cap chung chi co kiem tra rang buoc diem KPI toi thieu
+    function issueCredentialWithKPI(
         bytes32 _credentialId,
         bytes32 _metadataHash,
         address _studentWallet,
-        address _issuerWallet
-    ) external onlyIssuer {
+        address _issuerWallet,
+        uint8 _kpiScore
+    ) public onlyIssuer {
+        // Rang buoc KPI truc tiep tren Smart Contract: Chi cap khi diem KPI >= minKpiScore (70 = 7.0 diem)
+        require(_kpiScore >= minKpiScore, "Chua dat KPI toi thieu");
         require(credentials[_credentialId].issuedAt == 0, "Credential already exists");
         require(_studentWallet != address(0), "Invalid student wallet");
 
@@ -64,6 +77,16 @@ contract K12CredentialRegistry {
         });
 
         emit CredentialIssued(_credentialId, _studentWallet, _issuerWallet, _metadataHash);
+    }
+
+    /// @notice Ham cap chung chi tieu chuan (ngam dinh dat KPI toi thieu de tuong thich Backend hien tai)
+    function issueCredential(
+        bytes32 _credentialId,
+        bytes32 _metadataHash,
+        address _studentWallet,
+        address _issuerWallet
+    ) external onlyIssuer {
+        issueCredentialWithKPI(_credentialId, _metadataHash, _studentWallet, _issuerWallet, minKpiScore);
     }
 
     function revokeCredential(bytes32 _credentialId) external onlyIssuer {

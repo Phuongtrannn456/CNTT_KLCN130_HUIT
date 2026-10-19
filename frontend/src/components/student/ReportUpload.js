@@ -174,7 +174,7 @@ const ReportUpload = () => {
   return (
     <div style={{ maxWidth: isMobile ? '100%' : 800, margin: '0 auto', padding: isMobile ? '0 12px' : 0 }}>
       <Typography>
-        <Title level={2}>Nộp Báo Cáo Đồ Án</Title>
+        <Title level={2}>Nộp Báo Cáo Thử Thách & Dự Án</Title>
         <Paragraph>
           Tải lên báo cáo của bạn dưới định dạng PDF. Hệ thống sẽ tự động băm tài liệu của bạn (Hashing) và lưu trữ phi tập trung trên mạng <strong>IPFS / Filecoin</strong>.
         </Paragraph>
