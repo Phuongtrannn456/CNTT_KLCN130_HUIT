@@ -184,7 +184,21 @@ const updateProfile = async (req, res) => {
     // He thong giu nguyen fullName va email la DID Pseudonym duoc sinh tu dia chi vi
     if (skills && Array.isArray(skills)) user.skills = skills;
     if (department) user.department = department;
-    if (gradeLevel) user.gradeLevel = gradeLevel;
+
+    // Quy định Khối lớp (Grade Level): Học sinh chỉ được chọn 1 lần duy nhất khi tạo mới hồ sơ.
+    // Sau khi đã có khối lớp, chỉ có Admin mới có quyền điều chỉnh lại.
+    if (gradeLevel !== undefined && gradeLevel !== null && gradeLevel !== '') {
+      const numericGrade = typeof gradeLevel === 'number' 
+        ? gradeLevel 
+        : parseInt(String(gradeLevel).replace(/\D/g, ''), 10);
+
+      if (!isNaN(numericGrade) && numericGrade >= 1 && numericGrade <= 12) {
+        if (!user.gradeLevel || req.user.role === 'admin') {
+          user.gradeLevel = numericGrade;
+        }
+      }
+    }
+
     if (school) user.school = school;
     
     user.profileUpdated = true;

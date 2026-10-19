@@ -20,10 +20,15 @@ const UserProfile = () => {
       });
       if (res.data.success) {
         setProfile(res.data.user);
+        let currentGrade = res.data.user.gradeLevel;
+        if (typeof currentGrade === 'string') {
+          const parsed = parseInt(currentGrade.replace(/\D/g, ''), 10);
+          if (!isNaN(parsed)) currentGrade = parsed;
+        }
         form.setFieldsValue({
           skills: res.data.user.skills || [],
           department: res.data.user.department || '',
-          gradeLevel: res.data.user.gradeLevel || '',
+          gradeLevel: currentGrade || undefined,
           school: res.data.user.school || 'THPT Chuyên / K-12 STEM Partner'
         });
       }
@@ -112,6 +117,11 @@ const UserProfile = () => {
               {profile.schoolId || (isTeacher ? `GV_DID#${profile.walletAddress?.slice(2, 8).toUpperCase()}` : `HS_DID#${profile.walletAddress?.slice(2, 8).toUpperCase()}`)}
             </Tag>
           </Descriptions.Item>
+          {!isTeacher && profile.gradeLevel && (
+            <Descriptions.Item label="Khối học hiện tại">
+              <Tag color="geekblue" icon={<LockOutlined />}>Khối {profile.gradeLevel} (THPT K-12)</Tag>
+            </Descriptions.Item>
+          )}
         </Descriptions>
 
         <h3 style={{ marginBottom: 16 }}>Cập nhật Năng lực & Chuyên môn (Non-PII)</h3>
@@ -132,14 +142,33 @@ const UserProfile = () => {
             </Form.Item>
           ) : (
             <Form.Item 
-              label="Khối lớp THPT (Grade Level)" 
+              label={
+                <Space>
+                  <span>Khối lớp THPT (Grade Level)</span>
+                  {Boolean(profile.gradeLevel) && (
+                    <Tag color="orange" icon={<LockOutlined />}>Đã cố định</Tag>
+                  )}
+                </Space>
+              } 
               name="gradeLevel" 
               rules={[{ required: true, message: 'Vui lòng chọn khối lớp' }]}
+              extra={Boolean(profile.gradeLevel) ? (
+                <Text type="secondary" style={{ fontSize: 12 }}>
+                  <LockOutlined /> Khối lớp đã được thiết lập cố định. Để thay đổi, vui lòng liên hệ Quản trị viên (Admin).
+                </Text>
+              ) : (
+                <Text type="warning" style={{ fontSize: 12 }}>
+                  ⚠️ Lưu ý: Bạn chỉ được thiết lập Khối lớp 1 lần duy nhất khi khởi tạo hồ sơ.
+                </Text>
+              )}
             >
-              <Select placeholder="Chọn khối lớp K-12">
-                <Option value="Khối 10">Khối 10 (THPT K-12)</Option>
-                <Option value="Khối 11">Khối 11 (THPT K-12)</Option>
-                <Option value="Khối 12">Khối 12 (THPT K-12)</Option>
+              <Select 
+                placeholder="Chọn khối lớp K-12" 
+                disabled={Boolean(profile.gradeLevel)}
+              >
+                <Option value={10}>Khối 10 (THPT K-12)</Option>
+                <Option value={11}>Khối 11 (THPT K-12)</Option>
+                <Option value={12}>Khối 12 (THPT K-12)</Option>
               </Select>
             </Form.Item>
           )}
