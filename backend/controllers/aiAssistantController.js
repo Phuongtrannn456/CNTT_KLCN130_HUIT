@@ -1,3 +1,4 @@
+const axios = require('axios');
 const HocSinh = require('../models/HocSinh');
 const GiaoVien = require('../models/GiaoVien');
 const Nhom = require('../models/Nhom');
@@ -123,11 +124,30 @@ exports.chatWithAssistant = async (req, res) => {
       liveContext = { myTopics, totalRegistrations, approvedRegistrations, pendingRegistrations, recentResults, violations };
     }
 
-    const reply = await generateContextAwareResponse(cleanMsg, userInfo, liveContext, history);
+    // 1. Ưu tiên gọi Google Gemini API nếu có GEMINI_API_KEY
+    let reply = null;
+    let usedProvider = 'LOCAL_ENGINE';
+
+    if (process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY.trim() && process.env.GEMINI_API_KEY.trim() !== 'YOUR_GEMINI_API_KEY_HERE') {
+      try {
+        reply = await callGeminiApi({ prompt: cleanMsg, user: userInfo, liveContext, history });
+        if (reply) {
+          usedProvider = 'GEMINI_AI';
+        }
+      } catch (geminiErr) {
+        logger.warn(`[AI Assistant] Gemini API error: ${geminiErr.message}. Falling back to local engine.`);
+      }
+    }
+
+    // 2. Dự phòng máy học cục bộ nếu chưa có API key hoặc Gemini gặp sự cố mạng
+    if (!reply) {
+      reply = await generateContextAwareResponse(cleanMsg, userInfo, liveContext, history);
+    }
 
     return res.status(200).json({
       success: true,
       reply,
+      provider: usedProvider,
       userRole: role,
       timestamp: new Date()
     });
@@ -136,6 +156,115 @@ exports.chatWithAssistant = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Lỗi trợ lý AI: ' + error.message });
   }
 };
+
+/**
+ * Call Google Gemini API with system instructions enforcing concise, accurate, and objective answers.
+ */
+async function callGeminiApi({ prompt, user, liveContext, history }) {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || !apiKey.trim() || apiKey.trim() === 'YOUR_GEMINI_API_KEY_HERE') {
+    return null;
+  }
+
+  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey.trim()}`;
+
+  // Trích xuất ngữ cảnh hệ thống thực tế
+  let contextInfo = `[DỮ LIỆU THỰC TẾ HỆ THỐNG]:\n- Người dùng: ${user.name || 'Người dùng'} (Vai trò: ${user.role === 'STUDENT_ROLE' ? 'Học sinh K-12' : user.role === 'TEACHER_ROLE' ? 'Giáo viên K-12' : user.role})\n`;
+
+  if (user.role === 'STUDENT_ROLE') {
+    contextInfo += `- Trường: ${user.school || 'THPT'}, Khối: ${user.grade || 11}\n`;
+    if (liveContext.myNhom) {
+      const n = liveContext.myNhom;
+      const isLeader = String(n.TruongNhom?._id || n.TruongNhom) === String(user.id);
+      const memberNames = (n.ThanhVien || []).map(m => m.HocSinh?.HoTen || 'Thành viên').join(', ');
+      contextInfo += `- Nhóm nghiên cứu: "${n.TenNhom || 'Nhóm STEM'}" | Trưởng nhóm: ${n.TruongNhom?.HoTen || 'N/A'} (${isLeader ? 'chính là bạn' : 'bạn là thành viên'}) | Đã chốt danh sách: ${n.DaChot ? 'Có' : 'Chưa'} | Thành viên: ${memberNames}\n`;
+    } else {
+      contextInfo += `- Nhóm: Hiện tại chưa tham gia nhóm nào.\n`;
+    }
+
+    if (liveContext.myDangKy) {
+      const dk = liveContext.myDangKy;
+      contextInfo += `- Đề tài đã đăng ký: "${dk.DeTai?.TenDeTai || 'Đề tài STEM'}" (Mã: ${dk.DeTai?.MaDeTai || 'N/A'}, Trạng thái duyệt: ${dk.TrangThai})\n`;
+    } else {
+      contextInfo += `- Đề tài đã đăng ký: Chưa đăng ký đề tài nào.\n`;
+    }
+
+    if (liveContext.myTestResult) {
+      const tr = liveContext.myTestResult;
+      contextInfo += `- Kết quả test đầu vào: ${tr.TongDiem}/${tr.DiemToiDa} điểm | Vi phạm/Hủy bài: ${tr.BiHuyKetQua ? 'BỊ HỦY DO VI PHẠM' : 'Hợp lệ'} | Chỉ số AI Cheat: ${tr.AI_CheatScore || 0}%\n`;
+    }
+
+    if (liveContext.openTopics && liveContext.openTopics.length > 0) {
+      const topics = liveContext.openTopics.map(t => `"${t.TenDeTai}" (${t.MaDeTai || 'STEM'})`).join('; ');
+      contextInfo += `- Đề tài STEM đang mở: ${topics}\n`;
+    }
+  } else if (user.role === 'TEACHER_ROLE') {
+    contextInfo += `- Tổ bộ môn: ${user.department || 'Tự nhiên & Công nghệ'}\n`;
+    contextInfo += `- Đề tài phụ trách: ${liveContext.myTopics?.length || 0} đề tài | Tổng lượt đăng ký: ${liveContext.totalRegistrations || 0} (Đã duyệt: ${liveContext.approvedRegistrations || 0}, Đang chờ: ${liveContext.pendingRegistrations || 0})\n`;
+    contextInfo += `- Số ca nghi vấn gian lận phòng thi: ${liveContext.violations?.length || 0} ca\n`;
+  }
+
+  const systemInstructionText = `Bạn là Trợ lý AI Cố vấn Học tập & STEM K-12 chuyên nghiệp trên Nền tảng Giáo dục Phổ thông Web3 (chuẩn GDPT 2018 Việt Nam).
+
+QUY TẮC BẮT BUỘC VỀ PHONG CÁCH TRẢ LỜI:
+1. ĐÚNG TRỌNG TÂM, TUYỆT ĐỐI KHÔNG LAN MAN:
+   - Đi thẳng vào câu trả lời giải quyết đúng thắc mắc của người dùng.
+   - Trình bày ngắn gọn, súc tích (khoảng 2 - 4 gạch đầu dòng hoặc 1 - 2 đoạn văn ngắn).
+   - Tuyệt đối KHÔNG mở bài rườm rà (không viết "Chào bạn, hôm nay tôi sẽ giải thích...", không lặp lại câu hỏi của người dùng).
+   - Tuyệt đối không vòng vo sang các chủ đề không liên quan.
+2. CHÍNH XÁC VÀ KHÁCH QUAN:
+   - Kiến thức khoa học kỹ thuật, STEM (Vật lý, Hóa học, Sinh học, Tin học, Toán học, IoT, AI, Web3, năng lượng, pin, vi điều khiển...) phải đúng bản chất khoa học và thực tế khách quan.
+   - Nếu hỏi về số liệu cá nhân/hệ thống (nhóm, đề tài, điểm...), trả lời CHÍNH XÁC dựa trên mục [DỮ LIỆU THỰC TẾ HỆ THỐNG].
+3. LIÊM CHÍNH HỌC THUẬT:
+   - Điểm số học sinh do giáo viên chấm và hệ thống xác thực; học sinh không có quyền tự ý sửa điểm.
+   - Trong phòng thi 1 màn hình duy nhất, mọi hành vi chuyển tab hay thoát toàn màn hình đều bị ghi nhận vi phạm.
+4. ĐỊNH DẠNG:
+   - Trình bày Markdown sạch, đẹp. Dùng mũi tên '→' thay vì LaTeX '\\rightarrow' hay '$ ightarrow$'.`;
+
+  // History format for Gemini
+  const contents = [];
+  if (Array.isArray(history) && history.length > 0) {
+    for (const h of history.slice(-4)) {
+      if (h.content && typeof h.content === 'string') {
+        contents.push({
+          role: h.role === 'user' ? 'user' : 'model',
+          parts: [{ text: h.content.substring(0, 1000) }]
+        });
+      }
+    }
+  }
+
+  contents.push({
+    role: 'user',
+    parts: [{ text: `${contextInfo}\n[CÂU HỎI]: ${prompt}` }]
+  });
+
+  const payload = {
+    contents,
+    systemInstruction: {
+      parts: [{ text: systemInstructionText }]
+    },
+    generationConfig: {
+      temperature: 0.3,
+      maxOutputTokens: 2048,
+      thinkingConfig: {
+        thinkingBudget: 0
+      }
+    }
+  };
+
+  const res = await axios.post(url, payload, {
+    headers: { 'Content-Type': 'application/json' },
+    timeout: 12000
+  });
+
+  const geminiText = res.data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (geminiText && geminiText.trim()) {
+    return geminiText.trim();
+  }
+  return null;
+}
 
 /**
  * Advanced Multi-Layer Knowledge & Context Synthesis Engine
@@ -155,7 +284,9 @@ async function generateContextAwareResponse(question, user, ctx, history) {
   // ==========================================
   // 1. CHÀO HỎI & XÃ GIAO (GREETINGS)
   // ==========================================
-  if (has('xin chao', 'chao ban', 'hello', 'hi robot', 'chao bot', 'em chao thay', 'chao co') && qNorm.length < 30) {
+  const greetingWords = ['hi', 'hello', 'hey', 'alo', 'chao', 'xin chao', 'chao ban', 'chao bot', 'hi bot', 'hi robot', 'em chao thay', 'chao co'];
+  const isGreeting = greetingWords.some(w => qNorm === w || qNorm.startsWith(w + ' ') || qNorm.endsWith(' ' + w) || qNorm.includes(w));
+  if (isGreeting && qNorm.length < 35) {
     if (user.role === 'STUDENT_ROLE') {
       return `Chào bạn **${user.name}**! 👋\n\nMình là **AI STEM Mentor** của bạn trên hệ thống Web3 Giáo Dục K-12. Hôm nay mình có thể hỗ trợ gì cho bạn?\n\n* 👥 Tra cứu thành viên và trạng thái nhóm của bạn\n* 📌 Theo dõi tiến độ duyệt đề tài STEM\n* 📊 Xem kết quả bài test đầu vào & chỉ số liêm chính\n* 💡 Hướng dẫn cấu trúc bài báo cáo chuẩn IMRaD\n* 🐍 Hỗ trợ lập trình Python / Arduino / IoT\n* 🛡️ Hướng dẫn nhận Huy hiệu Web3 SBT vào ví MetaMask`;
     } else {
@@ -345,7 +476,7 @@ for cycle in range(1, 6):
 3. **Cách nhận vào ví cá nhân:**
    - Cài đặt tiện ích ví **MetaMask** trên trình duyệt.
    - Vào mục **"Thành tích & Chứng nhận"** trên menu bên trái.
-   - Bấm **"Nhận Huy Hiệu Web3"** $\rightarrow$ Ký xác thực trên MetaMask (hoàn toàn miễn phí, trường tài trợ gas).
+   - Bấm **"Nhận Huy Hiệu Web3"** → Ký xác thực trên MetaMask (hoàn toàn miễn phí, trường tài trợ gas).
 4. **Công nhận quốc tế:** Chứng chỉ có TxHash xác thực công khai, bạn có thể đính kèm vào hồ sơ xét tuyển Đại học hoặc du học!
 
 👉 [Xem Trang Thành Tích Web3](/student/achievements)`;
@@ -365,15 +496,39 @@ for cycle in range(1, 6):
 💡 *Lời khuyên:* Hãy chuẩn bị máy tính có webcam rõ nét, mạng ổn định và tập trung 100% vào bài thi!`;
     }
 
+    // --- A8. KIẾN THỨC KHOA HỌC / STEM DỰ PHÒNG (KHI CHƯA BẬT GEMINI) ---
+    if (has('pin', 'sac', 'chai pin', 'lithium', 'ac quy', 'dien nang')) {
+      return `### 🔋 Nguyên lý Pin & Quản lý Năng lượng trong Thiết bị:
+* **Bản chất khoa học:** Pin Lithium-ion chuyển hóa hóa năng thành điện năng nhờ dòng di chuyển ion $Li^+$ giữa cực âm (Graphite) và cực dương ($LiCoO_2$ hoặc $LiFePO_4$).
+* **Nguyên nhân chai pin:** Do chu kỳ sạc-xả liên tục làm thoái hóa cấu trúc mạng tinh thể điện cực và tích tụ màng thụ động hóa (SEI), gia tăng nội trở.
+* **Mẹo ứng dụng STEM:** Đối với mạch vi điều khiển (ESP32/Arduino), nên tích hợp IC quản lý sạc TP4056 và mạch bảo vệ quá áp để tăng tuổi thọ nguồn pin.`;
+    }
+
+    if (has('cam bien', 'sensor', 'quang tro', 'sieu am', 'dht11', 'mq2', 'adc')) {
+      return `### 📡 Phân loại Cảm biến trong Dự án STEM K-12:
+* **Cảm biến Analog (Biến trở, LDR, MQ-2):** Xuất tín hiệu điện áp liên tục (0 - 3.3V/5V), cần đọc qua chân ADC của vi điều khiển.
+* **Cảm biến Digital / Giao thức (DHT22, DS18B20, I2C BMP280):** Xuất dữ liệu số theo khung truyền chuẩn, độ chính xác cao và chống nhiễu tốt trên đường truyền dài.
+* **Nguyên tắc chọn:** Ưu tiên cảm biến có sẵn thư viện mã nguồn mở và hoạt động ở điện áp tương thích với mạch chính (3.3V hoặc 5V).`;
+    }
+
+    if (has('cau hoi co dinh', 'khong khach quan', 'sao toan cau', 'tu do', 'hoi gi cung duoc')) {
+      return `### 🤖 Về Tính Năng Hỏi Đáp AI của Hệ Thống:
+* Hệ thống đã được tích hợp **Google Gemini AI** để trả lời linh hoạt, khách quan và chính xác mọi câu hỏi khoa học, STEM và dự án nghiên cứu.
+* Các thẻ gợi ý bên dưới chỉ là **lối tắt nhanh** giúp bạn tra cứu tiến độ nhóm, điểm số và quy chế mà không cần gõ phím.
+* Bạn có thể thoải mái đặt bất kỳ câu hỏi chuyên môn nào (lập trình, thí nghiệm, giải thích định luật...) vào ô nhập liệu bên dưới!`;
+    }
+
     // --- FALLBACK HỌC SINH TỔNG HỢP ---
-    return `Chào bạn **${user.name}**! Mình là **AI STEM Mentor** đồng hành cùng bạn 🤖. Bạn có thể hỏi mình:
-* 👥 *"Nhóm của em hiện tại gồm những ai?"* $\rightarrow$ Tra cứu danh sách thành viên.
-* 📌 *"Đề tài của em đã được duyệt chưa?"* $\rightarrow$ Kiểm tra trạng thái hồ sơ.
-* 📊 *"Điểm bài test và vi phạm của em thế nào?"* $\rightarrow$ Xem chi tiết điểm số & blockchain.
-* 🔬 *"Gợi ý các đề tài STEM đang mở?"* $\rightarrow$ Xem danh sách dự án tiếp nhận.
-* 💡 *"Dàn ý báo cáo khoa học chuẩn IMRaD?"* $\rightarrow$ Hướng dẫn viết bài điểm cao.
-* 🐍 *"Code Python đọc cảm biến IoT thế nào?"* $\rightarrow$ Mẫu lập trình thực tế.
-* 🛡️ *"Cách nhận chứng chỉ số Web3 vào ví?"* $\rightarrow$ Hướng dẫn nhận Soulbound Token.`;
+    return `Chào bạn **${user.name}**! Mình là **AI STEM Mentor** đồng hành cùng bạn 🤖.
+
+Bạn có thể tự do đặt bất kỳ câu hỏi nào về **khoa học, lập trình, đề tài STEM**, hoặc tra cứu thông tin hệ thống:
+* 👥 *"Nhóm của em hiện tại gồm những ai?"* → Tra cứu danh sách thành viên.
+* 📌 *"Đề tài của em đã được duyệt chưa?"* → Kiểm tra trạng thái hồ sơ.
+* 📊 *"Điểm bài test và vi phạm của em thế nào?"* → Xem chi tiết điểm số & blockchain.
+* 🔬 *"Gợi ý các đề tài STEM đang mở?"* → Xem danh sách dự án tiếp nhận.
+* 💡 *"Dàn ý báo cáo khoa học chuẩn IMRaD?"* → Hướng dẫn viết bài điểm cao.
+* 🐍 *"Code Python đọc cảm biến IoT thế nào?"* → Mẫu lập trình thực tế.
+* 🛡️ *"Cách nhận chứng chỉ số Web3 vào ví?"* → Hướng dẫn nhận Soulbound Token.`;
   }
 
   // ==========================================
@@ -413,7 +568,7 @@ ${topicSummary || 'Thầy/Cô chưa tạo đề tài nào trên hệ thống.'}
 ${vList || '✅ **An toàn tuyệt đối!** Hiện tại không có trường hợp học sinh nào vi phạm quy chế thi.'}
 
 ### 🛠️ Các Thao Tác Giám Sát Dành Cho Thầy/Cô:
-1. **In Biên Bản Kỷ Luật:** Vào mục **Quản lý đề tài** $\rightarrow$ chọn đề tài $\rightarrow$ tab **Kết quả test** $\rightarrow$ bấm nút **"In BB"** để trích xuất văn bản xử lý chuẩn Bộ GD&ĐT.
+1. **In Biên Bản Kỷ Luật:** Vào mục **Quản lý đề tài** → chọn đề tài → tab **Kết quả test** → bấm nút **"In BB"** để trích xuất văn bản xử lý chuẩn Bộ GD&ĐT.
 2. **Cấp Quyền Thi Lại:** Bấm nút **"Thi lại"** bên cạnh tên học sinh để xóa lịch sử vi phạm và cho phép em làm lại bài nếu có lý do chính đáng.
 
 👉 [Đến Trang Quản Lý Đề Tài](/teacher/topics)`;
@@ -458,11 +613,11 @@ ${vList || '✅ **An toàn tuyệt đối!** Hiện tại không có trường h
 
     // --- FALLBACK GIÁO VIÊN TỔNG HỢP ---
     return `Kính chào Thầy/Cô **${user.name}**! Tôi là **AI Trợ Giảng Chuyên Môn** đồng hành cùng Thầy/Cô 🤖. Thầy/Cô có thể hỏi tôi:
-* 📊 *"Thống kê tình hình các nhóm đăng ký đề tài?"* $\rightarrow$ Báo cáo tổng thể đề tài.
-* 🚨 *"Báo cáo các trường hợp học sinh vi phạm phòng thi?"* $\rightarrow$ Tra cứu gian lận & đình chỉ.
-* 🎯 *"Gợi ý cấu trúc đề tài STEM liên môn GDPT 2018?"* $\rightarrow$ Ý tưởng dự án khoa học.
-* ⚖️ *"Xây dựng bộ tiêu chí Rubrics 100% chuẩn K-12?"* $\rightarrow$ Khung chấm điểm sư phạm.
-* 📝 *"Cách thiết kế bài test đầu vào & câu hỏi code?"* $\rightarrow$ Hướng dẫn ra đề cạnh tranh.`;
+* 📊 *"Thống kê tình hình các nhóm đăng ký đề tài?"* → Báo cáo tổng thể đề tài.
+* 🚨 *"Báo cáo các trường hợp học sinh vi phạm phòng thi?"* → Tra cứu gian lận & đình chỉ.
+* 🎯 *"Gợi ý cấu trúc đề tài STEM liên môn GDPT 2018?"* → Ý tưởng dự án khoa học.
+* ⚖️ *"Xây dựng bộ tiêu chí Rubrics 100% chuẩn K-12?"* → Khung chấm điểm sư phạm.
+* 📝 *"Cách thiết kế bài test đầu vào & câu hỏi code?"* → Hướng dẫn ra đề cạnh tranh.`;
   }
 
   // ==========================================

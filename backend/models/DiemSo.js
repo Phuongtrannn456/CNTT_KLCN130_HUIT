@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const diemSoSchema = new mongoose.Schema({
   BaoCao: { type: mongoose.Schema.Types.ObjectId, ref: 'BaoCao', required: true },
-  GiaoVienCam: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
-  GiaoVienCham: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien' },
+  GiaoVienCham: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
+  GiaoVienCam: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien' },
   HocSinh: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   DeTai: { type: mongoose.Schema.Types.ObjectId, ref: 'DeTai', required: true },
   Nhom: { type: mongoose.Schema.Types.ObjectId, ref: 'Nhom' },

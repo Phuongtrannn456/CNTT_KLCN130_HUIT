@@ -32,6 +32,7 @@ import GroupManagement from './components/student/GroupManagement';
 import BlockchainDebugPage from './components/debug/BlockchainDebugPage';
 import AdminDashboard from './components/admin/AdminDashboard';
 import AdminRequests from './components/admin/AdminRequests';
+import AdminStudentManagement from './components/admin/AdminStudentManagement';
 import PendingApproval from './components/PendingApproval';
 // Contexts
 import { ClassProvider } from './contexts/ClassContext';
@@ -101,6 +102,7 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<AdminDashboard />} />
+          <Route path="students" element={<AdminStudentManagement />} />
           <Route path="requests" element={<AdminRequests />} />
         </Route>
 

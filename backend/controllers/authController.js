@@ -127,16 +127,13 @@ const verifySignature = async (req, res) => {
         if (userRecord) {
           role_id = 'STUDENT_ROLE';
         } else {
-          // 5. Ví mới hoàn toàn -> Tự động khởi tạo Học sinh mặc định (Không cho tự phong Giáo viên)
-          userRecord = new HocSinh({
-            MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
-            HoTen: 'Học Sinh Mới',
-            Email: `${uuidv4().substring(0, 6)}@school.edu.vn`,
-            WalletAddress: lowerWallet,
-            DaCapNhatHoSo: false
+          // 5. Ví chưa đăng ký -> Trả về needsRoleSelection để người dùng chọn vai trò
+          return res.json({
+            success: true,
+            needsRoleSelection: true,
+            walletAddress: lowerWallet,
+            message: 'Ví chưa được liên kết với tài khoản nào. Vui lòng chọn vai trò để đăng ký.'
           });
-          await userRecord.save();
-          role_id = 'STUDENT_ROLE';
         }
       }
     }
@@ -340,15 +337,21 @@ const verifyQrSignature = async (req, res) => {
         if (userRecord) {
           role_id = 'STUDENT_ROLE';
         } else {
-          userRecord = new HocSinh({
-            MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
-            HoTen: 'Học Sinh Mới',
-            Email: `${uuidv4().substring(0, 6)}@school.edu.vn`,
-            WalletAddress: lowerWallet,
-            DaCapNhatHoSo: false
+          const io = req.app.get('io');
+          if (io) {
+            io.to(`qr:${sessionId}`).emit('qr:needsRoleSelection', {
+              needsRoleSelection: true,
+              walletAddress: lowerWallet,
+              message: 'Ví chưa được liên kết với tài khoản nào.'
+            });
+          }
+          qrSessions.delete(sessionId);
+          return res.json({
+            success: true,
+            needsRoleSelection: true,
+            walletAddress: lowerWallet,
+            message: 'Ví chưa được liên kết với tài khoản nào.'
           });
-          await userRecord.save();
-          role_id = 'STUDENT_ROLE';
         }
       }
     }
@@ -389,7 +392,7 @@ const verifyQrSignature = async (req, res) => {
 
 const registerWithRole = async (req, res) => {
   try {
-    const { walletAddress, role, hoTen, email } = req.body;
+    const { walletAddress, role, hoTen, email, maHS, chuyenNganh, toBoMon, khoiLop } = req.body;
 
     if (!walletAddress) {
       return res.status(400).json({ success: false, message: 'Missing walletAddress' });
@@ -398,39 +401,94 @@ const registerWithRole = async (req, res) => {
     const lowerWallet = walletAddress.toLowerCase();
 
     // Check if already registered
-    const exists = await HocSinh.findOne({ WalletAddress: lowerWallet }) || 
-                   await GiaoVien.findOne({ WalletAddress: lowerWallet }) ||
-                   await Admin.findOne({ WalletAddress: lowerWallet });
-                   
-    if (exists) {
-      return res.status(400).json({ success: false, message: 'Ví này đã được đăng ký.' });
+    const existsHocSinh = await HocSinh.findOne({ WalletAddress: lowerWallet });
+    const existsGiaoVien = await GiaoVien.findOne({ WalletAddress: lowerWallet });
+    const existsAdmin = await Admin.findOne({ WalletAddress: lowerWallet });
+
+    if (existsGiaoVien || existsAdmin) {
+      return res.status(400).json({ success: false, message: 'Ví này đã được liên kết với tài khoản khác trong hệ thống.' });
     }
 
-    // Nếu yêu cầu làm Giáo viên: Tạo RoleRequest để Ban Giám Hiệu duyệt
-    if (['TEACHER_ROLE', 'LECTURER_ROLE'].includes(role)) {
-      let existingReq = await RoleRequest.findOne({ walletAddress: lowerWallet, status: 'pending' });
-      if (!existingReq) {
-        existingReq = new RoleRequest({
-          walletAddress: lowerWallet,
-          hoTen: hoTen || 'Giáo Viên Mới',
-          email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-          chuyenNganh: req.body.chuyenNganh || 'Giáo Dục Phổ Thông',
-          requestedRole: 'TEACHER_ROLE',
-          status: 'pending'
-        });
-        await existingReq.save();
+    // Nếu đã tồn tại bản ghi HocSinh:
+    // Nếu là bản ghi tự sinh (HoTen là "Học Sinh Mới" hoặc chưa cập nhật hồ sơ) và người dùng muốn đăng ký Giáo viên hoặc đăng ký lại thông tin chính xác:
+    if (existsHocSinh) {
+      if (existsHocSinh.HoTen === 'Học Sinh Mới') {
+        await HocSinh.deleteOne({ _id: existsHocSinh._id });
+      } else {
+        return res.status(400).json({ success: false, message: 'Ví này đã được liên kết với một tài khoản Học sinh trong hệ thống.' });
+      }
+    }
 
-        const io = req.app.get('io');
-        if (io) {
-          io.to('admin:room').emit('new_role_request', existingReq);
+    // A. KÍCH HOẠT TÀI KHOẢN GIÁO VIÊN (Yêu cầu Mã Giáo Viên & Mã PIN do trường cấp)
+    if (['TEACHER_ROLE', 'LECTURER_ROLE'].includes(role)) {
+      const maGV = req.body.maGV || req.body.teacherId || req.body.maHS;
+      if (!maGV || !maGV.trim()) {
+        return res.status(400).json({
+          success: false,
+          message: 'Vui lòng cung cấp Mã Cán bộ / Giáo viên do nhà trường cấp.'
+        });
+      }
+
+      const cleanMaGV = maGV.trim().toUpperCase();
+      let teacher = await GiaoVien.findOne({
+        MaGV: { $regex: new RegExp(`^${cleanMaGV}$`, 'i') }
+      });
+
+      if (!teacher) {
+        return res.status(404).json({
+          success: false,
+          message: `Mã giáo viên "${cleanMaGV}" không tồn tại trong danh mục nhân sự nhà trường. Vui lòng liên hệ Ban Giám Hiệu.`
+        });
+      }
+
+      // Kiểm tra Mã PIN bảo mật nếu có
+      const pin = req.body.pin || req.body.activationPin;
+      if (teacher.ActivationPin) {
+        if (!pin || !pin.trim()) {
+          return res.status(400).json({
+            success: false,
+            message: 'Vui lòng nhập Mã PIN bảo mật do Ban Giám Hiệu cấp.'
+          });
+        }
+        if (teacher.ActivationPin.trim() !== pin.trim()) {
+          return res.status(400).json({
+            success: false,
+            message: 'Mã PIN bảo mật không chính xác. Vui lòng kiểm tra lại với Ban Giám Hiệu.'
+          });
         }
       }
 
+      // Kiểm tra nếu Mã GV đã được liên kết với một ví khác
+      if (teacher.WalletAddress && 
+          teacher.WalletAddress.toLowerCase() !== lowerWallet && 
+          !teacher.WalletAddress.startsWith('0x0000000000000000000000000000000000000000')) {
+        return res.status(400).json({
+          success: false,
+          message: `Mã giáo viên "${cleanMaGV}" (${teacher.HoTen}) đã được kích hoạt với một ví khác (${teacher.WalletAddress.substring(0, 6)}...${teacher.WalletAddress.slice(-4)}).`
+        });
+      }
+
+      // Kích hoạt liên kết ví với Giáo viên
+      teacher.WalletAddress = lowerWallet;
+      teacher.IsActivated = true;
+      teacher.ActivatedAt = new Date();
+      teacher.ActivationPin = null; // Đã kích hoạt -> hủy mã PIN dùng 1 lần
+      if (hoTen && hoTen.trim() && teacher.HoTen === 'Giáo Viên Mới') {
+        teacher.HoTen = hoTen.trim();
+      }
+      await teacher.save();
+
+      const token = jwt.sign(
+        { id: teacher._id, role_id: 'TEACHER_ROLE', walletAddress: lowerWallet },
+        process.env.JWT_SECRET || 'your-secret-key',
+        { expiresIn: '24h' }
+      );
+
       return res.json({
         success: true,
-        isPending: true,
-        message: 'Yêu cầu cấp quyền Giáo viên của bạn đã được gửi. Vui lòng chờ Ban Giám Hiệu phê duyệt.',
-        request: existingReq
+        token,
+        user: { id: teacher._id, role_id: 'TEACHER_ROLE', walletAddress: lowerWallet, name: teacher.HoTen },
+        message: `Kích hoạt thành công! Kính chào Thầy/Cô ${teacher.HoTen} (${teacher.MaGV})`
       });
     }
 
@@ -441,17 +499,74 @@ const registerWithRole = async (req, res) => {
       });
     }
 
-    // Chỉ cho phép đăng ký vai trò Học sinh mặc định
-    const newUser = new HocSinh({
-      MaHS: `HS${uuidv4().substring(0, 6).toUpperCase()}`,
-      HoTen: hoTen || 'Học Sinh Mới',
-      Email: email || `${uuidv4().substring(0, 6)}@school.edu.vn`,
-      WalletAddress: lowerWallet
+    // B. KÍCH HOẠT TÀI KHOẢN HỌC SINH (Yêu cầu Mã Học Sinh + Mã PIN bí mật 6 số do trường cấp)
+    if (!maHS || !maHS.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: 'Vui lòng nhập Mã Học Sinh (Mã HS) do nhà trường cấp để liên kết ví.'
+      });
+    }
+
+    const cleanMaHS = maHS.trim().toUpperCase();
+
+    // 1. Kiểm tra đối chiếu với Danh sách Học sinh chính thức của trường
+    let student = await HocSinh.findOne({
+      MaHS: { $regex: new RegExp(`^${cleanMaHS}$`, 'i') }
     });
-    await newUser.save();
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: `Mã học sinh "${cleanMaHS}" không tồn tại trong danh sách của nhà trường. Vui lòng kiểm tra lại hoặc liên hệ Văn phòng trường / GVCN.`
+      });
+    }
+
+    // 2. Kiểm tra Mã PIN bí mật 6 số (Chống cướp tài khoản, đảm bảo chính chủ học sinh)
+    const pin = req.body.pin || req.body.activationPin;
+    if (student.ActivationPin) {
+      if (!pin || !pin.trim()) {
+        return res.status(400).json({
+          success: false,
+          message: 'Vui lòng nhập Mã PIN kích hoạt 6 số do nhà trường cấp.'
+        });
+      }
+      if (student.ActivationPin.trim() !== pin.trim()) {
+        return res.status(400).json({
+          success: false,
+          message: 'Mã PIN kích hoạt không chính xác! Vui lòng kiểm tra lại phiếu thông tin do nhà trường cấp.'
+        });
+      }
+    }
+
+    // 3. Chống gian lận: 1 Mã Học Sinh chỉ được liên kết với 1 ví MetaMask duy nhất
+    if (student.WalletAddress && 
+        student.WalletAddress.toLowerCase() !== lowerWallet && 
+        !student.WalletAddress.startsWith('0x0000000000000000000000000000000000000000')) {
+      return res.status(400).json({
+        success: false,
+        message: `Mã học sinh "${cleanMaHS}" (${student.HoTen}) đã được kích hoạt với một ví khác (${student.WalletAddress.substring(0, 6)}...${student.WalletAddress.slice(-4)}). Nếu bạn làm mất ví hoặc đổi thiết bị, vui lòng liên hệ Ban Giám Hiệu/GVCN để cấp lại mã PIN mới.`
+      });
+    }
+
+    // 4. Liên kết ví MetaMask vào hồ sơ học sinh chính thức
+    student.WalletAddress = lowerWallet;
+    student.DaCapNhatHoSo = true;
+    student.IsActivated = true;
+    student.ActivatedAt = new Date();
+    student.ActivationPin = null; // Đã kích hoạt -> hủy mã PIN
+    if (hoTen && hoTen.trim() && (student.HoTen === 'Học Sinh Mới' || !student.HoTen)) {
+      student.HoTen = hoTen.trim();
+    }
+    if (email && email.trim() && (!student.Email || student.Email.includes('@school.edu.vn'))) {
+      student.Email = email.trim();
+    }
+    if (khoiLop) {
+      student.KhoiLop = Number(khoiLop);
+    }
+    await student.save();
 
     const token = jwt.sign(
-      { id: newUser._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet },
+      { id: student._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '24h' }
     );
@@ -459,12 +574,12 @@ const registerWithRole = async (req, res) => {
     return res.json({
       success: true,
       token,
-      user: { id: newUser._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet, name: newUser.HoTen },
-      message: 'Đăng ký Học sinh thành công'
+      user: { id: student._id, role_id: 'STUDENT_ROLE', walletAddress: lowerWallet, name: student.HoTen, maHS: student.MaHS },
+      message: `Kích hoạt thành công! Xin chào học sinh ${student.HoTen} (${student.MaHS})`
     });
   } catch (error) {
     console.error('Register Role error:', error);
-    res.status(500).json({ success: false, message: 'Đăng ký thất bại' });
+    res.status(500).json({ success: false, message: 'Kích hoạt tài khoản thất bại: ' + error.message });
   }
 };
 

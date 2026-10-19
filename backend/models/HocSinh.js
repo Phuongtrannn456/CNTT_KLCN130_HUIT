@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const hocSinhSchema = new mongoose.Schema({
-  MaHS: { type: String, required: true, unique: true },
-  HoTen: { type: String, required: true },
-  Email: { type: String, required: true, unique: true },
+  MaHS: { type: String, required: true, unique: true, uppercase: true, trim: true },
+  HoTen: { type: String, required: true, trim: true },
+  Email: { type: String, default: '', trim: true },
   GPA: { type: Number, default: 0 },
   ChuyenNganh: { type: String, default: '' },
   KyNang: [{ type: String }],
@@ -11,14 +11,19 @@ const hocSinhSchema = new mongoose.Schema({
     TenKyNang: { type: String, required: true },
     Diem: { type: Number, required: true, default: 8.0 }
   }],
-  WalletAddress: { type: String, required: true, unique: true },
+  WalletAddress: { type: String, required: true, unique: true, lowercase: true, trim: true },
   DaCapNhatHoSo: { type: Boolean, default: false },
   
   // === Mở rộng cho hệ thống K-12 (Giáo dục phổ thông) ===
   KhoiLop: { type: Number, min: 1, max: 12 },
   TruongHoc: { type: String, default: '' },
   HanhKiem: { type: String, enum: ['Tốt', 'Khá', 'Trung bình', 'Yếu'], default: 'Tốt' },
-  DiemTongKet: { type: Number, default: 0 }
+  DiemTongKet: { type: Number, default: 0 },
+
+  // === Xác thực định danh & Kích hoạt ví (Mô hình PIN bí mật 6 số) ===
+  ActivationPin: { type: String, default: null },
+  IsActivated: { type: Boolean, default: false },
+  ActivatedAt: { type: Date, default: null }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 // Bidirectional virtuals (Getters & Setters)

@@ -174,7 +174,8 @@ class AuthService {
       return response.data;
     } catch (error) {
       console.error('Register Role Error:', error);
-      throw error;
+      const msg = error.response?.data?.message || error.message || 'Kích hoạt tài khoản thất bại';
+      throw new Error(msg);
     }
   }
 

@@ -1,16 +1,21 @@
 const mongoose = require('mongoose');
 
 const giaoVienSchema = new mongoose.Schema({
-  MaGV: { type: String, required: true, unique: true },
-  HoTen: { type: String, required: true },
-  Email: { type: String, required: true, unique: true },
+  MaGV: { type: String, required: true, unique: true, uppercase: true, trim: true },
+  HoTen: { type: String, required: true, trim: true },
+  Email: { type: String, default: '', trim: true },
   ChuyenNganh: { type: String },
-  WalletAddress: { type: String, required: true, unique: true },
+  WalletAddress: { type: String, required: true, unique: true, lowercase: true, trim: true },
   // === Mở rộng cho hệ thống K-12 (Giáo dục phổ thông) ===
   ToBoMon: { type: String, default: '' },
   ChuNhiemLop: { type: String, default: '' },
   CredentialId: { type: String, default: null },
-  IsActive: { type: Boolean, default: true }
+  IsActive: { type: Boolean, default: true },
+
+  // === Xác thực định danh & Kích hoạt ví (Mô hình PIN bí mật 6 số) ===
+  ActivationPin: { type: String, default: null },
+  IsActivated: { type: Boolean, default: false },
+  ActivatedAt: { type: Date, default: null }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
 
 // Bidirectional virtuals (Getters & Setters)

@@ -89,15 +89,15 @@ const StudentManagement = () => {
       render: (text) => <Text type="secondary">{text}</Text>,
     },
     {
-      title: 'GPA',
+      title: 'ĐTB / GPA',
       dataIndex: 'GPA',
       key: 'GPA',
-      width: 80,
+      width: 90,
       align: 'center',
       sorter: (a, b) => (a.GPA || 0) - (b.GPA || 0),
       render: (val) => {
-        const color = val >= 3.2 ? 'green' : val >= 2.5 ? 'blue' : val >= 2.0 ? 'orange' : 'red';
-        return <Tag color={color}>{val?.toFixed(1) || '—'}</Tag>;
+        const color = val >= 8.0 ? 'green' : val >= 6.5 ? 'blue' : val >= 5.0 ? 'orange' : 'red';
+        return <Tag color={color}>{val !== null && val !== undefined ? Number(val).toFixed(1) : '—'}</Tag>;
       },
     },
     {

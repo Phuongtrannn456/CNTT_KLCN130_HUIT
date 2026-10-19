@@ -16,6 +16,7 @@ import {
 } from '@mui/icons-material';
 import MetaMaskGuideModal from './MetaMaskGuideModal';
 import QrScanner from './QrScanner';
+import RoleSelection from './RoleSelection';
 import authService from '../services/authService';
 
 // Role constants
@@ -72,6 +73,10 @@ function LoginPage() {
   const [user, setUser] = useState(null);
   const [connectedWallet, setConnectedWallet] = useState(null);
   const [tabValue, setTabValue] = useState(0);
+
+  // Role Selection State for new/unregistered wallets
+  const [needsRoleSelection, setNeedsRoleSelection] = useState(false);
+  const [pendingWallet, setPendingWallet] = useState('');
 
   // QR Login State
   const [qrScannerOpen, setQrScannerOpen] = useState(false);
@@ -171,6 +176,12 @@ function LoginPage() {
         return;
       }
 
+      if (result.needsRoleSelection) {
+        setPendingWallet(result.walletAddress || qrWallet);
+        setNeedsRoleSelection(true);
+        return;
+      }
+
       setSuccess('Đăng nhập bằng QR thành công! Đang chuyển hướng...');
       setIsAuthenticated(true);
       setUser(result.user);
@@ -216,6 +227,12 @@ function LoginPage() {
         return;
       }
 
+      if (result.needsRoleSelection) {
+        setPendingWallet(result.walletAddress || walletAddress);
+        setNeedsRoleSelection(true);
+        return;
+      }
+
       setSuccess('Đăng nhập thành công! Đang chuyển hướng...');
       setIsAuthenticated(true);
       setUser(result.user);
@@ -235,6 +252,66 @@ function LoginPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSelectStudent = async (studentData) => {
+    setLoading(true);
+    setError('');
+    try {
+      const regResult = await authService.registerWithRole(pendingWallet, STUDENT_ROLE, studentData);
+      if (regResult?.token) {
+        setSuccess('Đăng ký tài khoản học sinh thành công! Đang chuyển hướng...');
+        setIsAuthenticated(true);
+        setUser(regResult.user);
+        setTimeout(() => {
+          redirectUserByRole(STUDENT_ROLE);
+        }, 1000);
+      }
+    } catch (err) {
+      setError(err.message || 'Lỗi khi đăng ký tài khoản học sinh.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelectTeacher = async (teacherData) => {
+    setLoading(true);
+    setError('');
+    try {
+      const regResult = await authService.registerWithRole(pendingWallet, TEACHER_ROLE, {
+        hoTen: teacherData.hoTen,
+        email: teacherData.email,
+        toBoMon: teacherData.chuyenNganh || teacherData.toBoMon,
+        chuyenNganh: teacherData.chuyenNganh || teacherData.toBoMon,
+        maGV: teacherData.maGV,
+        pin: teacherData.pin
+      });
+
+      if (regResult?.token) {
+        setSuccess(regResult.message || 'Kích hoạt tài khoản Giáo viên thành công! Đang chuyển hướng...');
+        setIsAuthenticated(true);
+        setUser(regResult.user);
+        setTimeout(() => {
+          redirectUserByRole(TEACHER_ROLE);
+        }, 1000);
+      } else {
+        setSuccess('Yêu cầu cấp quyền Giáo viên đã được gửi. Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = '/pending-approval';
+        }, 1000);
+      }
+    } catch (err) {
+      setError(err.message || 'Lỗi khi kích hoạt tài khoản giáo viên.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancelRoleSelection = () => {
+    setNeedsRoleSelection(false);
+    setPendingWallet('');
+    setError('');
+    setSuccess('');
   };
 
   // Teacher Role Request State
@@ -552,6 +629,17 @@ function LoginPage() {
           </Box>
         </Fade>
 
+        {needsRoleSelection ? (
+          <RoleSelection
+            walletAddress={pendingWallet}
+            onSelectStudent={handleSelectStudent}
+            onSelectLecturer={handleSelectTeacher}
+            onCancel={handleCancelRoleSelection}
+            loading={loading}
+            errorMessage={error}
+            successMessage={success}
+          />
+        ) : (
         <Grow in={true} timeout={1500}>
           <Paper
             elevation={3}
@@ -682,26 +770,10 @@ function LoginPage() {
               </>
             )}
 
-            <Divider sx={{ my: 3 }} />
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
-                Bạn là Giáo viên mới tham gia hệ thống?
-              </Typography>
-              <Button
-                variant="text"
-                size="small"
-                onClick={() => {
-                  setTeacherError('');
-                  setTeacherModalOpen(true);
-                }}
-                startIcon={<TeacherIcon fontSize="small" />}
-                sx={{ textTransform: 'none', fontWeight: 600, color: 'primary.main', mt: 0.5 }}
-              >
-                Gửi yêu cầu cấp quyền Giảng dạy
-              </Button>
-            </Box>
+            {/* Anti-spam: Đã ẩn nút đăng ký giáo viên tự do ngoài trang chủ để tránh spam. Giáo viên kích hoạt tài khoản chính thức qua mã GV khi kết nối ví. */}
           </Paper>
         </Grow>
+        )}
 
         {/* Teacher Request Dialog */}
         <Dialog

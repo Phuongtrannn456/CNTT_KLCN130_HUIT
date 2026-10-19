@@ -167,7 +167,7 @@ exports.respondToInvite = async (req, res) => {
       (loiMoi.HocSinh.WalletAddress && loiMoi.HocSinh.WalletAddress.toLowerCase() === userWallet) ||
       (loiMoi.HocSinh.walletAddress && loiMoi.HocSinh.walletAddress.toLowerCase() === userWallet)
     );
-    const isAdmin = req.user?.role === 'ADMIN_ROLE';
+    const isAdmin = req.user?.role === 'ADMIN_ROLE' || req.user?.role_id === 'ADMIN_ROLE';
 
     if (!isDirectMatch && !isWalletMatch && !isAdmin) {
       return res.status(403).json({ success: false, message: 'Bạn không phải người được mời' });

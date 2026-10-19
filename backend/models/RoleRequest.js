@@ -16,9 +16,13 @@ const RoleRequestSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  toBoMon: {
+    type: String,
+    default: ''
+  },
   chuyenNganh: {
     type: String,
-    required: true
+    default: 'Giáo Dục Phổ Thông'
   },
   requestedRole: {
     type: String,

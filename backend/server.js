@@ -211,7 +211,7 @@ app.use('/api/credentials', require('./routes/credentialRoutes'));
 // --- Legacy Auth Routes ---
 app.post('/api/auth/challenge', loginLimiter, authController.generateChallenge);
 app.post('/api/auth/verify', loginLimiter, authController.verifySignature);
-app.post('/api/auth/register-role', authController.registerWithRole);
+app.post('/api/auth/register-role', loginLimiter, authController.registerWithRole);
 app.get('/api/auth/profile', ...requireAuth, authController.getProfile);
 app.post('/api/auth/logout', authController.authenticateToken, authController.logout);
 app.get('/api/auth/qr-session', loginLimiter, authController.generateQrSession);
@@ -231,7 +231,22 @@ app.get('/api/admin/lecturers', ...requireAdmin, adminController.getAllLecturers
 app.get('/api/admin/giaovien', ...requireAdmin, adminController.getAllLecturers);
 app.get('/api/admin/teachers', ...requireAdmin, adminController.getAllLecturers);
 
+// Admin Student Management (K-12 Roster & Bulk Import)
+app.get('/api/admin/students', ...requireAdmin, adminController.getAllStudents);
+app.post('/api/admin/students', ...requireAdmin, adminController.createStudent);
+app.post('/api/admin/students/bulk-import', ...requireAdmin, adminController.bulkImportStudents);
+app.post('/api/admin/students/:id/reset-pin', ...requireAdmin, adminController.resetStudentPin);
+app.delete('/api/admin/students/:id', ...requireAdmin, adminController.deleteStudent);
+
+// Admin Teacher Management
+app.post('/api/admin/teachers', ...requireAdmin, adminController.createTeacher);
+app.post('/api/admin/teachers/bulk-import', ...requireAdmin, adminController.bulkImportTeachers);
+app.post('/api/admin/teachers/:id/reset-pin', ...requireAdmin, adminController.resetTeacherPin);
+app.delete('/api/admin/teachers/:id', ...requireAdmin, adminController.deleteTeacher);
+
 // 3. Học Sinh
+app.get('/api/hocsinh/me/bang-diem', ...requireAuth, hocSinhController.getBangDiem);
+app.get('/api/hocsinh/:hsId/bang-diem', ...requireAuth, hocSinhController.getBangDiem);
 app.get('/api/hocsinh', ...requireAuth, hocSinhController.getAll);
 app.get('/api/hocsinh/:id', ...requireAuth, hocSinhController.getById);
 app.post('/api/hocsinh', ...requireAdmin, hocSinhController.create);

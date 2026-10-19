@@ -102,13 +102,14 @@ const MainLayout = () => {
   ];
 
   const adminMenuItems = [
-    { key: '/admin', icon: <Monitor size={18} />, label: 'Dashboard Quản Trị' },
+    { key: '/admin', icon: <Monitor size={18} />, label: 'Tổng Quan & Giáo Viên' },
+    { key: '/admin/students', icon: <Users size={18} />, label: 'Quản Lý Học Sinh (K-12)' },
     { 
       key: '/admin/requests', 
       icon: <Bell size={18} />, 
       label: (
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>Yêu cầu</span>
+          <span>Duyệt Giáo Viên</span>
           <Badge count={pendingRequestsCount} size="small" />
         </div>
       ) 

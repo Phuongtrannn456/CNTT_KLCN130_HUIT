@@ -333,6 +333,12 @@ const aiApiService = {
             diem, nhanXet
         }, { headers: getAuthHeaders() });
         return response.data;
+    },
+
+    getBangDiemHocSinh: async (hsId) => {
+        const id = hsId || 'me';
+        const response = await axios.get(`${API_URL}/hocsinh/${id}/bang-diem`, { headers: getAuthHeaders() });
+        return response.data;
     }
 };
 
