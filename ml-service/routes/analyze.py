@@ -5,7 +5,7 @@ from slowapi import Limiter
 from slowapi.util import get_remote_address
 
 from models.phobert_analyzer import PhoBertAnalyzer
-from utils.text_security import scan_injection, check_repetition, check_type_token_ratio
+from utils.text_security import scan_injection, check_repetition, check_type_token_ratio, redact_pii
 
 logger = logging.getLogger('ml-service')
 
@@ -41,28 +41,34 @@ def analyze_report(request: Request, payload: AnalyzeRequest):
     
     security_flags = []
     
+    # 0. Zero-PII Redaction ("Rọc phách" văn bản báo cáo)
+    cleaned_text, pii_alerts = redact_pii(payload.text)
+    if pii_alerts:
+        security_flags.extend(pii_alerts)
+    
     # 1. Injection check
-    injection_alerts = scan_injection(payload.text)
+    injection_alerts = scan_injection(cleaned_text)
     if injection_alerts:
         security_flags.extend(injection_alerts)
         logger.warning(f'[SECURITY] Injection detected | flags={injection_alerts}')
     
     # 2. Repetition check
-    rep_result = check_repetition(payload.text, threshold=0.20)
+    rep_result = check_repetition(cleaned_text, threshold=0.20)
     if rep_result['flagged']:
         security_flags.append(f"Nội dung lặp lại cao: {rep_result['repetition_rate']*100:.0f}%")
         
     # 3. Type-token ratio check
-    if check_type_token_ratio(payload.text):
+    if check_type_token_ratio(cleaned_text):
         security_flags.append('Từ vựng nghèo, nghi ngờ keyword stuffing')
         
-    # Gọi PhoBERT chấm điểm
-    result = analyzer.analyze(payload.text, payload.topic_requirements)
+    # Gọi PhoBERT chấm điểm với văn bản đã rọc phách Zero-PII
+    result = analyzer.analyze(cleaned_text, payload.topic_requirements)
     
-    # Trả thêm thông tin bảo mật
+    # Trả thêm thông tin bảo mật và văn bản đã ẩn danh
     result['security_flags'] = security_flags
     result['repetition_rate'] = rep_result['repetition_rate']
     result['trigram_repetition_rate'] = rep_result['trigram_repetition_rate']
+    result['redacted_text'] = cleaned_text
     
     logger.info(f"[AI] /analyze-report response | score={result.get('score')} | security_flags={len(security_flags)}")
     return result
@@ -75,29 +81,35 @@ def analyze_with_rubrics(request: Request, payload: AnalyzeRubricsRequest):
     
     security_flags = []
     
+    # 0. Zero-PII Redaction ("Rọc phách" văn bản báo cáo)
+    cleaned_text, pii_alerts = redact_pii(payload.text)
+    if pii_alerts:
+        security_flags.extend(pii_alerts)
+    
     # 1. Injection check
-    injection_alerts = scan_injection(payload.text)
+    injection_alerts = scan_injection(cleaned_text)
     if injection_alerts:
         security_flags.extend(injection_alerts)
         logger.warning(f'[SECURITY] Injection detected | flags={injection_alerts}')
     
     # 2. Repetition check
-    rep_result = check_repetition(payload.text, threshold=0.20)
+    rep_result = check_repetition(cleaned_text, threshold=0.20)
     if rep_result['flagged']:
         security_flags.append(f"Nội dung lặp lại cao: {rep_result['repetition_rate']*100:.0f}%")
         
     # 3. Type-token ratio check
-    if check_type_token_ratio(payload.text):
+    if check_type_token_ratio(cleaned_text):
         security_flags.append('Từ vựng nghèo, nghi ngờ keyword stuffing')
         
-    # Gọi PhoBERT chấm điểm
+    # Gọi PhoBERT chấm điểm với văn bản đã rọc phách Zero-PII
     rubrics_dicts = [r.model_dump() for r in payload.rubrics]
-    result = analyzer.analyze_with_rubrics(payload.text, rubrics_dicts)
+    result = analyzer.analyze_with_rubrics(cleaned_text, rubrics_dicts)
     
-    # Trả thêm thông tin bảo mật
+    # Trả thêm thông tin bảo mật và văn bản đã ẩn danh
     result['security_flags'] = security_flags
     result['repetition_rate'] = rep_result['repetition_rate']
     result['trigram_repetition_rate'] = rep_result['trigram_repetition_rate']
+    result['redacted_text'] = cleaned_text
     
     logger.info(f"[AI] /analyze-with-rubrics response | score={result.get('score')} | criteria={len(payload.rubrics)} | security_flags={len(security_flags)}")
     return result

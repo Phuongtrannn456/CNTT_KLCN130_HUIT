@@ -44,7 +44,7 @@ exports.analyzeReport = async (text, topicRequirements, clientIp) => {
         };
     } catch (error) {
         logger.error(`[AI] Service error: ${error.response?.data ? JSON.stringify(error.response.data) : error.message}`);
-        throw error;
+        return { score: null, feedback: "AI Service tạm thời không khả dụng. Vui lòng thử lại sau.", error: true };
     }
 };
 
@@ -72,7 +72,7 @@ exports.analyzeWithRubrics = async (text, rubrics, clientIp) => {
         return response.data;
     } catch (error) {
         logger.error(`[AI] Rubrics analysis error: ${error.response?.data ? JSON.stringify(error.response.data) : error.message}`);
-        throw error;
+        return { score: null, feedback: "AI Service tạm thời không khả dụng. Vui lòng thử lại sau.", error: true };
     }
 };
 

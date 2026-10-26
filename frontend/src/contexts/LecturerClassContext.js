@@ -86,7 +86,8 @@ export const LecturerClassProvider = ({ children }) => {
 export const useLecturerClassContext = () => {
   const context = useContext(LecturerClassContext);
   if (!context) {
-    throw new Error('useLecturerClassContext must be used within a LecturerClassProvider');
+    console.warn('useLecturerClassContext must be used within a LecturerClassProvider');
+    return { myClasses: [], selectedClassId: null, setSelectedClassId: () => {}, loading: false };
   }
   return context;
 };

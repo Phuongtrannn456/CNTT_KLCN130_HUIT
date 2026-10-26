@@ -90,7 +90,8 @@ export const ClassProvider = ({ children }) => {
 export const useClassContext = () => {
   const context = useContext(ClassContext);
   if (!context) {
-    throw new Error('useClassContext must be used within a ClassProvider');
+    console.warn('useClassContext must be used within a ClassProvider');
+    return { myClasses: [], selectedClassId: null, setSelectedClassId: () => {}, loading: false };
   }
   return context;
 };

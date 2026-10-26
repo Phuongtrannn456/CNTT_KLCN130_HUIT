@@ -1,0 +1,9 @@
+
+/* Tweak Ant Design contrast for Lighthouse */
+.ant-select-selection-placeholder {
+  color: #595959 !important;
+}
+
+.ant-empty-description {
+  color: #595959 !important;
+}

@@ -590,11 +590,48 @@ const demoLogin = async (req, res) => {
   });
 };
 
+const updateProfile = async (req, res) => {
+  try {
+    const { id } = req.user;
+    const { skills, department, gradeLevel, school, chuyenNganh } = req.body;
+    
+    let user = await HocSinh.findById(id);
+    if (!user) user = await GiaoVien.findById(id);
+    if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy người dùng' });
+
+    if (skills && Array.isArray(skills)) user.skills = skills;
+    if (department) user.department = department;
+    if (chuyenNganh) user.ChuyenNganh = chuyenNganh;
+    if (school) user.school = school;
+
+    // Quy định Khối lớp: Học sinh chỉ được chọn 1 lần duy nhất khi tạo mới hồ sơ.
+    if (gradeLevel !== undefined && gradeLevel !== null && gradeLevel !== '') {
+      const numericGrade = typeof gradeLevel === 'number' 
+        ? gradeLevel 
+        : parseInt(String(gradeLevel).replace(/\D/g, ''), 10);
+
+      if (!isNaN(numericGrade) && numericGrade >= 1 && numericGrade <= 12) {
+        const isAdmin = req.user?.role === 'admin' || req.user?.role_id === 'ADMIN_ROLE';
+        if (!user.KhoiLop || isAdmin) {
+          user.KhoiLop = numericGrade;
+        }
+      }
+    }
+    user.DaCapNhatHoSo = true;
+    await user.save();
+    res.json({ success: true, message: 'Cập nhật hồ sơ thành công', user: user.toJSON ? user.toJSON() : user });
+  } catch (error) {
+    console.error('updateProfile error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi cập nhật hồ sơ: ' + error.message });
+  }
+};
+
 module.exports = { 
   generateChallenge, 
   verifySignature, 
   logout, 
   getProfile, 
+  updateProfile,
   authenticateToken,
   generateQrSession,
   verifyQrSignature,

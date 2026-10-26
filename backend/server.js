@@ -213,6 +213,7 @@ app.post('/api/auth/challenge', loginLimiter, authController.generateChallenge);
 app.post('/api/auth/verify', loginLimiter, authController.verifySignature);
 app.post('/api/auth/register-role', loginLimiter, authController.registerWithRole);
 app.get('/api/auth/profile', ...requireAuth, authController.getProfile);
+app.put('/api/auth/profile', ...requireAuth, authController.updateProfile);
 app.post('/api/auth/logout', authController.authenticateToken, authController.logout);
 app.get('/api/auth/qr-session', loginLimiter, authController.generateQrSession);
 app.post('/api/auth/qr-submit', loginLimiter, authController.verifyQrSignature);

@@ -17,7 +17,9 @@ class PhoBertAnalyzer:
     """
 
     def __init__(self) -> None:
-        self.model_name = "vinai/phobert-base"
+        import os
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        self.model_name = os.path.join(current_dir, "phobert_finetuned")
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         logger.info(f"[AI] Loading {self.model_name} onto {self.device}...")
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)

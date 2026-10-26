@@ -11,7 +11,10 @@ const RELAYER_PK = process.env.RELAYER_PRIVATE_KEY || process.env.PRIVATE_KEY ||
 const CONTRACT_ADDRESS = process.env.K12_CREDENTIAL_CONTRACT_ADDRESS;
 
 const abi = [
+  "function minKpiScore() external view returns (uint8)",
+  "function setMinKpiScore(uint8 _minKpiScore) external",
   "function issueCredential(bytes32 _credentialId, bytes32 _metadataHash, address _studentWallet, address _issuerWallet) external",
+  "function issueCredentialWithKPI(bytes32 _credentialId, bytes32 _metadataHash, address _studentWallet, address _issuerWallet, uint8 _kpiScore) external",
   "function verifyCredential(bytes32 _credentialId) external view returns (bytes32 metadataHash, address studentWallet, address issuerWallet, uint256 issuedAt, bool isValid)",
   "function revokeCredential(bytes32 _credentialId) external"
 ];

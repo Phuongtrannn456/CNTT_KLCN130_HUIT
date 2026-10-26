@@ -13,4 +13,6 @@ router.post('/submissions/:submissionId/analyze', authenticateToken, aiControlle
 // Only Teacher can request suggested evaluation
 router.post('/submissions/:submissionId/evaluate-suggest', authenticateToken, requireRole('TEACHER_ROLE'), aiController.suggestEvaluation);
 
+// Active Learning Feedback Loop
+router.post('/submissions/:submissionId/training-data', authenticateToken, requireRole('TEACHER_ROLE'), aiController.saveTrainingData);
 module.exports = router;

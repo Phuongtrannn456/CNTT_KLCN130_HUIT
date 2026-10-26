@@ -44,8 +44,12 @@ def extract_pdf_text(file_bytes: bytes) -> dict:
         native_text = ''
         page_count = 0
 
+    from utils.text_security import redact_pii
+
     # Nếu native text đủ dài → dùng luôn
     if len(native_text) >= 200:
+        native_text, pii_warnings = redact_pii(native_text)
+        warnings.extend(pii_warnings)
         _check_injection_hints(native_text, warnings)
         return {
             'text': native_text,
@@ -74,6 +78,8 @@ def extract_pdf_text(file_bytes: bytes) -> dict:
         ocr_result = '\n\n'.join(ocr_pages).strip()
         
         if len(ocr_result) >= 50:
+            ocr_result, pii_warnings = redact_pii(ocr_result)
+            warnings.extend(pii_warnings)
             warnings.append('File PDF dạng scan - đã dùng OCR để đọc nội dung')
             _check_injection_hints(ocr_result, warnings)
             return {

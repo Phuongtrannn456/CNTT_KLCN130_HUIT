@@ -187,22 +187,32 @@ const AdminRequests = () => {
       render: (text) => new Date(text).toLocaleString('vi-VN'),
     },
     {
-      title: 'Họ và Tên',
+      title: 'Định danh DID',
       dataIndex: 'hoTen',
       key: 'hoTen',
+      render: (text, record) => (
+        <Tag color="cyan">
+          {text || (record.walletAddress ? `Teacher_DID#${record.walletAddress.slice(2, 8).toLowerCase()}` : 'DID')}
+        </Tag>
+      ),
     },
     {
-      title: 'Email',
+      title: 'Hộp thư DID / Token',
       dataIndex: 'email',
       key: 'email',
+      render: (text, record) => (
+        <Text style={{ fontFamily: 'monospace', fontSize: 12 }}>
+          {text || `did_${record.walletAddress?.slice(2, 8).toLowerCase()}@k12.did`}
+        </Text>
+      ),
     },
     {
-      title: 'Chuyên ngành',
+      title: 'Tổ chuyên môn STEM',
       dataIndex: 'chuyenNganh',
       key: 'chuyenNganh',
     },
     {
-      title: 'Ví MetaMask',
+      title: 'Ví Web3',
       dataIndex: 'walletAddress',
       key: 'walletAddress',
       render: (text) => text ? `${text.slice(0, 6)}...${text.slice(-4)}` : 'N/A',
@@ -249,17 +259,27 @@ const AdminRequests = () => {
       sorter: (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
     },
     {
-      title: 'Họ và Tên',
+      title: 'Định danh DID',
       dataIndex: 'hoTen',
       key: 'hoTen',
+      render: (text, record) => (
+        <Tag color="cyan">
+          {text || (record.walletAddress ? `Teacher_DID#${record.walletAddress.slice(2, 8).toLowerCase()}` : 'DID')}
+        </Tag>
+      ),
     },
     {
-      title: 'Email',
+      title: 'Hộp thư DID / Token',
       dataIndex: 'email',
       key: 'email',
+      render: (text, record) => (
+        <Text style={{ fontFamily: 'monospace', fontSize: 12 }}>
+          {text || `did_${record.walletAddress?.slice(2, 8).toLowerCase()}@k12.did`}
+        </Text>
+      ),
     },
     {
-      title: 'Chuyên ngành',
+      title: 'Tổ chuyên môn STEM',
       dataIndex: 'chuyenNganh',
       key: 'chuyenNganh',
     },
@@ -425,7 +445,15 @@ const AdminRequests = () => {
 
   return (
     <div style={{ padding: 24 }}>
-      <Title level={3} style={{ marginBottom: 24 }}>Quản lý Yêu cầu Phê duyệt</Title>
+      <Title level={3} style={{ marginBottom: 16 }}>Quản lý Yêu cầu Phê duyệt</Title>
+      
+      <Alert
+        type="info"
+        showIcon
+        style={{ marginBottom: 20, borderRadius: 8 }}
+        message="Quản trị Bảo mật Zero-PII (Pure Pseudonymity)"
+        description="Toàn bộ Giáo viên và Học sinh được định danh bằng mã DID và Địa chỉ ví Web3. Ban quản trị phê duyệt quyền hạn dựa trên Mã xác thực trường cấp và Tổ chuyên môn STEM, tuyệt đối không lưu trữ hay yêu cầu danh tính đời thực."
+      />
 
       {error && <Alert type="error" message={error} showIcon style={{ marginBottom: 16 }} />}
 
@@ -490,17 +518,25 @@ const AdminRequests = () => {
               )}
             </div>
 
-            <Descriptions column={1} bordered size="small" labelStyle={{ fontWeight: 600, width: 150 }}>
-              <Descriptions.Item label="Họ và Tên">{detailData.hoTen}</Descriptions.Item>
-              <Descriptions.Item label="Email">{detailData.email}</Descriptions.Item>
-              <Descriptions.Item label="Chuyên ngành">{detailData.chuyenNganh}</Descriptions.Item>
-              <Descriptions.Item label="Ví MetaMask">
-                <Text copyable={{ text: detailData.walletAddress }} style={{ wordBreak: 'break-all' }}>
+            <Descriptions column={1} bordered size="small" labelStyle={{ fontWeight: 600, width: 170 }}>
+              <Descriptions.Item label="Định danh DID">
+                <Tag color="cyan">
+                  {detailData.hoTen || (detailData.walletAddress ? `Teacher_DID#${detailData.walletAddress.slice(2, 8).toLowerCase()}` : 'DID')}
+                </Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="Hộp thư DID">
+                <Text style={{ fontFamily: 'monospace' }}>
+                  {detailData.email || `did_${detailData.walletAddress?.slice(2, 8).toLowerCase()}@k12.did`}
+                </Text>
+              </Descriptions.Item>
+              <Descriptions.Item label="Tổ chuyên môn STEM">{detailData.chuyenNganh}</Descriptions.Item>
+              <Descriptions.Item label="Ví Web3">
+                <Text copyable={{ text: detailData.walletAddress }} style={{ wordBreak: 'break-all', fontFamily: 'monospace' }}>
                   {detailData.walletAddress}
                 </Text>
               </Descriptions.Item>
               <Descriptions.Item label="Role yêu cầu">
-                <Tag color="blue">{detailData.requestedRole === 'LECTURER_ROLE' ? 'Giáo viên' : detailData.requestedRole}</Tag>
+                <Tag color="green">{detailData.requestedRole === 'LECTURER_ROLE' || detailData.requestedRole === 'TEACHER_ROLE' ? 'Giáo viên (K-12)' : detailData.requestedRole}</Tag>
               </Descriptions.Item>
               <Descriptions.Item label="Thời gian gửi">
                 {new Date(detailData.createdAt).toLocaleString('vi-VN')}

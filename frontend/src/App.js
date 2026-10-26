@@ -34,6 +34,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 import AdminRequests from './components/admin/AdminRequests';
 import AdminStudentManagement from './components/admin/AdminStudentManagement';
 import PendingApproval from './components/PendingApproval';
+import UserProfile from './components/UserProfile';
 // Contexts
 import { ClassProvider } from './contexts/ClassContext';
 import { LecturerClassProvider } from './contexts/LecturerClassContext';
@@ -92,6 +93,13 @@ function App() {
       <Routes>
         <Route path="/" element={<PublicRoute><LoginPage /></PublicRoute>} />
         <Route path="/dashboard" element={<RoleRedirect />} />
+        <Route path="/profile" element={
+          <ProtectedRoute allowedRoles={['ADMIN_ROLE', 'TEACHER_ROLE', 'STUDENT_ROLE', 'GUEST_ROLE']}>
+            <MainLayout />
+          </ProtectedRoute>
+        }>
+          <Route index element={<UserProfile />} />
+        </Route>
         <Route path="/verify/:credentialId" element={<CredentialVerify />} />
         <Route path="/pending-approval" element={<PendingApproval />} />
 

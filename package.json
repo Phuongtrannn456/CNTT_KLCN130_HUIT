@@ -1,11 +1,13 @@
 {
-  "name": "cntt-klcn130-huit-web3-giao-duc-pho-thong",
+  "name": "cntt_klcn130_huit",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "postinstall": "npm --prefix backend install",
     "build": "npm --prefix frontend install && npm --prefix frontend run build",
     "start": "node backend/server.js",
+    "dev": "npm --prefix backend run dev",
+    "start:sh": "./start.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

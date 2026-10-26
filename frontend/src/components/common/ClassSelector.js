@@ -7,9 +7,7 @@ import { useLecturerClassContext } from '../../contexts/LecturerClassContext';
 
 const { Option } = Select;
 
-// Định nghĩa CSS styles premium riêng cho Dự án STEM / Đề tài KHKT - Tông màu trắng đen đồng nhất
 const customStyles = `
-  /* Style nổi bật, premium cho Option Dự án STEM trong danh sách dropdown */
   .ant-select-dropdown .khoa-luan-option {
     font-weight: normal !important;
     color: #000000 !important;
@@ -25,6 +23,11 @@ const customStyles = `
   .ant-select-dropdown .khoa-luan-option:hover {
     background-color: #f5f5f5 !important;
     color: #000000 !important;
+  }
+  
+  .ant-select-selection-placeholder {
+    color: #595959 !important;
+    opacity: 1 !important;
   }
 `;
 
@@ -47,13 +50,14 @@ const StudentClassSelector = () => {
   const { myClasses, selectedClassId, setSelectedClassId, loading } = useClassContext();
 
   if (loading) {
-    return <Select loading disabled style={{ width: 220 }} placeholder="Đang tải lớp học..." />;
+    return <Select aria-label="Đang tải lớp học" loading disabled style={{ width: 220 }} placeholder="Đang tải lớp học..." />;
   }
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <BookOpen size={16} style={{ color: '#1890ff' }} />
+      <BookOpen size={16} aria-hidden="true" style={{ color: '#0050b3' }} />
       <Select
+        aria-label="Chọn lớp học"
         value={selectedClassId}
         onChange={setSelectedClassId}
         style={{ width: 350 }}
@@ -77,13 +81,14 @@ const LecturerClassSelector = () => {
   const { myClasses, selectedClassId, setSelectedClassId, loading } = useLecturerClassContext();
 
   if (loading) {
-    return <Select loading disabled style={{ width: 220 }} placeholder="Đang tải lớp học..." />;
+    return <Select aria-label="Đang tải lớp học" loading disabled style={{ width: 220 }} placeholder="Đang tải lớp học..." />;
   }
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-      <BookOpen size={16} style={{ color: '#1890ff' }} />
+      <BookOpen size={16} aria-hidden="true" style={{ color: '#0050b3' }} />
       <Select
+        aria-label="Chọn lớp học"
         value={selectedClassId}
         onChange={setSelectedClassId}
         style={{ width: 350 }}

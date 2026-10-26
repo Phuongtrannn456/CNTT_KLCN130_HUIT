@@ -5,6 +5,11 @@ contract ThesisManagementV2 {
     // === ACCESS CONTROL ===
     address public owner;
 
+    // === KPI CONSTRAINT ===
+    uint8 public minKpiScore = 70; // Nguong KPI toi thieu: 70 tuong ung 7.0/10 diem (thang diem x10)
+
+    event MinKpiScoreUpdated(uint8 oldScore, uint8 newScore);
+
     modifier onlyOwner() {
         require(msg.sender == owner, "Only owner can call this function");
         _;
@@ -12,6 +17,11 @@ contract ThesisManagementV2 {
 
     constructor() {
         owner = msg.sender;
+    }
+
+    function setMinKpiScore(uint8 _minKpiScore) external onlyOwner {
+        emit MinKpiScoreUpdated(minKpiScore, _minKpiScore);
+        minKpiScore = _minKpiScore;
     }
 
     // === STRUCTS (gas-optimized: bytes32 keys) ===
@@ -92,7 +102,7 @@ contract ThesisManagementV2 {
         bytes32 topicHash,
         string memory ipfsCID,
         uint256 timestamp
-    ) public {
+    ) public onlyOwner {
         require(topics[topicHash].exists, "Topic does not exist");
 
         Submission memory newSubmission = Submission({
@@ -128,6 +138,9 @@ contract ThesisManagementV2 {
             "Submission already graded"
         );
 
+        // Rang buoc KPI truc tiep tren Smart Contract: Chi chot diem / hoan thanh khi dat nguong KPI
+        require(grade >= minKpiScore, "Chua dat KPI toi thieu");
+
         submissions[topicHash][studentDID][submissionIndex].grade = grade;
         submissions[topicHash][studentDID][submissionIndex].feedback = feedback;
         submissions[topicHash][studentDID][submissionIndex].graded = true;
@@ -140,7 +153,7 @@ contract ThesisManagementV2 {
         bytes32 topicHash,
         bytes32 studentDID,
         uint16 score
-    ) public {
+    ) public onlyOwner {
         require(topics[topicHash].exists, "Topic does not exist");
 
         testResults[topicHash].push(TestResult({
@@ -159,7 +172,7 @@ contract ThesisManagementV2 {
         bytes32 studentDID,
         uint16 week,
         uint16 score
-    ) public {
+    ) public onlyOwner {
         require(topics[topicHash].exists, "Topic does not exist");
 
         progressLogs[topicHash][studentDID].push(ProgressRecord({
