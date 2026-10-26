@@ -19,12 +19,12 @@ const ClassManagement = () => {
   const [detailVisible, setDetailVisible] = useState(false);
   const [detailData, setDetailData] = useState(null);
   const [detailLoading, setDetailLoading] = useState(false);
-  const [addSvModalVisible, setAddSvModalVisible] = useState(false);
+  const [addHsModalVisible, setAddHsModalVisible] = useState(false);
   const [allHocSinh, setAllHocSinh] = useState([]);
-  const [selectedSvId, setSelectedSvId] = useState(null);
-  const [svSearchOptions, setSvSearchOptions] = useState([]);
+  const [selectedHsId, setSelectedHsId] = useState(null);
+  const [hsSearchOptions, setHsSearchOptions] = useState([]);
   const [form] = Form.useForm();
-  const [svSearchText, setSvSearchText] = useState('');
+  const [hsSearchText, setHsSearchText] = useState('');
   const [importModalVisible, setImportModalVisible] = useState(false);
   const [importText, setImportText] = useState('');
   // Lời mời pending
@@ -122,41 +122,41 @@ const ClassManagement = () => {
     }
   };
 
-  // Mở modal thêm SV → gửi lời mời thay vì add trực tiếp
-  const handleOpenAddSv = async () => {
+  // Mở modal thêm HS → gửi lời mời thay vì add trực tiếp
+  const handleOpenAddHs = async () => {
     try {
       const res = await managementService.getAllHocSinh();
-      const svList = Array.isArray(res) ? res : (res?.data || []);
-      setAllHocSinh(svList);
-      // Lọc ra SV chưa có trong lớp VÀ chưa có lời mời pending
-      const currentSvIds = (detailData?.lopHoc?.HocSinh || []).map(sv => sv._id);
-      const pendingSvIds = pendingInvites.map(inv => inv.HocSinh?._id);
-      const excludeIds = [...currentSvIds, ...pendingSvIds];
+      const hsList = Array.isArray(res) ? res : (res?.data || []);
+      setAllHocSinh(hsList);
+      // Lọc ra HS chưa có trong lớp VÀ chưa có lời mời pending
+      const currentHsIds = (detailData?.lopHoc?.HocSinh || []).map(hs => hs._id);
+      const pendingHsIds = pendingInvites.map(inv => inv.HocSinh?._id);
+      const excludeIds = [...currentHsIds, ...pendingHsIds];
       
-      setSvSearchOptions(
-        svList
-          .filter(sv => !excludeIds.includes(sv._id))
-          .map(sv => ({
-            value: sv._id,
-            label: `${sv.MaHS} - ${sv.HoTen} (${sv.Email})`,
+      setHsSearchOptions(
+        hsList
+          .filter(hs => !excludeIds.includes(hs._id))
+          .map(hs => ({
+            value: hs._id,
+            label: `${hs.MaHS} - ${hs.HoTen} (${hs.Email})`,
           }))
       );
-      setAddSvModalVisible(true);
+      setAddHsModalVisible(true);
     } catch (err) {
       message.error('Lỗi tải danh sách học sinh');
     }
   };
 
   // Gửi lời mời thay vì add trực tiếp
-  const handleInviteSv = async () => {
+  const handleInviteHs = async () => {
     if (!detailData?.lopHoc?._id) return;
     try {
       let res;
-      if (selectedSvId) {
-        res = await managementService.inviteHocSinhToLop(detailData.lopHoc._id, selectedSvId);
-      } else if (svSearchText.trim()) {
-        // Tìm SV theo MaHS rồi invite
-        const found = allHocSinh.find(sv => sv.MaHS === svSearchText.trim());
+      if (selectedHsId) {
+        res = await managementService.inviteHocSinhToLop(detailData.lopHoc._id, selectedHsId);
+      } else if (hsSearchText.trim()) {
+        // Tìm HS theo MaHS rồi invite
+        const found = allHocSinh.find(hs => hs.MaHS === hsSearchText.trim());
         if (found) {
           res = await managementService.inviteHocSinhToLop(detailData.lopHoc._id, found._id);
         } else {
@@ -169,9 +169,9 @@ const ClassManagement = () => {
 
       if (res.success) {
         message.success(res.message || 'Đã gửi lời mời. Chờ học sinh chấp nhận.');
-        setAddSvModalVisible(false);
-        setSelectedSvId(null);
-        setSvSearchText('');
+        setAddHsModalVisible(false);
+        setSelectedHsId(null);
+        setHsSearchText('');
         handleViewDetail({ _id: detailData.lopHoc._id });
       }
     } catch (err) {
@@ -180,7 +180,7 @@ const ClassManagement = () => {
   };
 
   // Import batch → invite batch
-  const handleImportSv = async () => {
+  const handleImportHs = async () => {
     if (!importText.trim() || !detailData?.lopHoc?._id) return;
     try {
       const danhSachMaHS = importText
@@ -218,7 +218,7 @@ const ClassManagement = () => {
     }
   };
 
-  const handleRemoveSv = async (hsId) => {
+  const handleRemoveHs = async (hsId) => {
     if (!detailData?.lopHoc?._id) return;
     try {
       const res = await managementService.removeHocSinhFromLop(detailData.lopHoc._id, hsId);
@@ -232,26 +232,26 @@ const ClassManagement = () => {
     }
   };
 
-  const handleSvSearch = (searchText) => {
-    const currentSvIds = (detailData?.lopHoc?.HocSinh || []).map(sv => sv._id);
-    const pendingSvIds = pendingInvites.map(inv => inv.HocSinh?._id);
-    const excludeIds = [...currentSvIds, ...pendingSvIds];
+  const handleHsSearch = (searchText) => {
+    const currentHsIds = (detailData?.lopHoc?.HocSinh || []).map(hs => hs._id);
+    const pendingHsIds = pendingInvites.map(inv => inv.HocSinh?._id);
+    const excludeIds = [...currentHsIds, ...pendingHsIds];
 
     const filtered = allHocSinh
-      .filter(sv => !excludeIds.includes(sv._id))
-      .filter(sv => {
+      .filter(hs => !excludeIds.includes(hs._id))
+      .filter(hs => {
         const text = searchText.toLowerCase();
         return (
-          sv.MaHS?.toLowerCase().includes(text) ||
-          sv.HoTen?.toLowerCase().includes(text) ||
-          sv.Email?.toLowerCase().includes(text)
+          hs.MaHS?.toLowerCase().includes(text) ||
+          hs.HoTen?.toLowerCase().includes(text) ||
+          hs.Email?.toLowerCase().includes(text)
         );
       })
-      .map(sv => ({
-        value: sv._id,
-        label: `${sv.MaHS} - ${sv.HoTen} (${sv.Email})`,
+      .map(hs => ({
+        value: hs._id,
+        label: `${hs.MaHS} - ${hs.HoTen} (${hs.Email})`,
       }));
-    setSvSearchOptions(filtered);
+    setHsSearchOptions(filtered);
   };
 
   // Trạng thái đăng ký
@@ -319,8 +319,8 @@ const ClassManagement = () => {
     },
   ];
 
-  // Bảng SV trong chi tiết lớp học
-  const svColumns = [
+  // Bảng HS trong chi tiết lớp học
+  const hsColumns = [
     {
       title: 'Mã HS',
       dataIndex: 'MaHS',
@@ -343,8 +343,8 @@ const ClassManagement = () => {
       title: '',
       key: 'remove',
       width: 50,
-      render: (_, sv) => (
-        <Popconfirm title="Xóa học sinh khỏi lớp?" onConfirm={() => handleRemoveSv(sv._id)} okText="Xóa" cancelText="Hủy" okButtonProps={{ danger: true }}>
+      render: (_, hs) => (
+        <Popconfirm title="Xóa học sinh khỏi lớp?" onConfirm={() => handleRemoveHs(hs._id)} okText="Xóa" cancelText="Hủy" okButtonProps={{ danger: true }}>
           <Button type="text" icon={<UserMinus size={14} />} danger size="small" />
         </Popconfirm>
       ),
@@ -483,7 +483,7 @@ const ClassManagement = () => {
                     <div>
                       <div style={{ marginBottom: 12, textAlign: 'right' }}>
                         <Space>
-                          <Button type="primary" icon={<UserPlus size={14} />} onClick={handleOpenAddSv}>
+                          <Button type="primary" icon={<UserPlus size={14} />} onClick={handleOpenAddHs}>
                             Mời Học Sinh
                           </Button>
                           <Button type="dashed" onClick={() => setImportModalVisible(true)}>
@@ -494,7 +494,7 @@ const ClassManagement = () => {
 
                       {/* Bảng học sinh đã trong lớp */}
                       <Table
-                        columns={svColumns}
+                        columns={hsColumns}
                         dataSource={detailData.lopHoc.HocSinh || []}
                         rowKey="_id"
                         pagination={false}
@@ -604,12 +604,12 @@ const ClassManagement = () => {
       {/* Modal Mời Học Sinh (trước đây là Thêm) */}
       <Modal
         title="Mời Học Sinh Vào Lớp"
-        open={addSvModalVisible}
-        onOk={handleInviteSv}
-        onCancel={() => { setAddSvModalVisible(false); setSelectedSvId(null); setSvSearchText(''); }}
+        open={addHsModalVisible}
+        onOk={handleInviteHs}
+        onCancel={() => { setAddHsModalVisible(false); setSelectedHsId(null); setHsSearchText(''); }}
         okText="Gửi Lời Mời"
         cancelText="Hủy"
-        okButtonProps={{ disabled: !selectedSvId && !svSearchText.trim() }}
+        okButtonProps={{ disabled: !selectedHsId && !hsSearchText.trim() }}
       >
         <div style={{ marginTop: 16 }}>
           <Alert
@@ -623,25 +623,25 @@ const ClassManagement = () => {
           </Text>
           <AutoComplete
             style={{ width: '100%' }}
-            options={svSearchOptions}
+            options={hsSearchOptions}
             onSearch={(text) => {
-              setSvSearchText(text);
-              handleSvSearch(text);
+              setHsSearchText(text);
+              handleHsSearch(text);
             }}
-            value={svSearchText}
+            value={hsSearchText}
             onChange={(val) => {
-              setSvSearchText(val);
-              const found = allHocSinh.find(sv => sv._id === val || sv.MaHS === val);
-              if (!found) setSelectedSvId(null);
+              setHsSearchText(val);
+              const found = allHocSinh.find(hs => hs._id === val || hs.MaHS === val);
+              if (!found) setSelectedHsId(null);
             }}
             onSelect={(value) => {
-              setSelectedSvId(value);
-              const sv = allHocSinh.find(s => s._id === value);
-              if (sv) setSvSearchText(sv.MaHS);
+              setSelectedHsId(value);
+              const hs = allHocSinh.find(s => s._id === value);
+              if (hs) setHsSearchText(hs.MaHS);
             }}
             placeholder="Gõ để tìm học sinh..."
             allowClear
-            onClear={() => { setSelectedSvId(null); setSvSearchText(''); }}
+            onClear={() => { setSelectedHsId(null); setHsSearchText(''); }}
           />
         </div>
       </Modal>
@@ -650,7 +650,7 @@ const ClassManagement = () => {
       <Modal
         title="Import Lời Mời Học Sinh"
         open={importModalVisible}
-        onOk={handleImportSv}
+        onOk={handleImportHs}
         onCancel={() => { setImportModalVisible(false); setImportText(''); }}
         okText="Gửi Lời Mời"
         cancelText="Hủy"

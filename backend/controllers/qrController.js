@@ -1,22 +1,50 @@
 const crypto = require('crypto');
 const QrCode = require('../models/QrCode');
-const Teacher = require('../models/Teacher');
-const Student = require('../models/Student');
 const GiaoVien = require('../models/GiaoVien');
 const HocSinh = require('../models/HocSinh');
+const Admin = require('../models/Admin');
+
+const resolveWalletAddress = async (user) => {
+  if (user.walletAddress) return user.walletAddress.toLowerCase();
+  
+  let doc;
+  if (user.role_id === 'TEACHER_ROLE' || user.role_id === 'LECTURER_ROLE') {
+    doc = await GiaoVien.findById(user.id);
+  } else if (user.role_id === 'ADMIN_ROLE') {
+    doc = await Admin.findById(user.id);
+  } else {
+    doc = await HocSinh.findById(user.id);
+  }
+  return (doc?.WalletAddress || doc?.walletAddress || '').toLowerCase();
+};
 
 const qrController = {
   // Lấy mã QR hiện tại của user
   getQrCode: async (req, res) => {
     try {
       const { id: userId, role_id } = req.user;
+      const walletAddress = await resolveWalletAddress(req.user);
 
-      const user = await Teacher.findById(userId) || await Student.findById(userId) || await GiaoVien.findById(userId) || await HocSinh.findById(userId);
-      if (!user?.walletAddress) return res.status(400).json({ message: 'Chưa liên kết ví Web3' });
-      const walletAddress = user.walletAddress.toLowerCase();
+      let effectiveUserId = userId;
+      if (walletAddress) {
+        let localDoc = null;
+        if (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') {
+          localDoc = await GiaoVien.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else if (role_id === 'ADMIN_ROLE') {
+          localDoc = await Admin.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else {
+          localDoc = await HocSinh.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        }
+        if (localDoc) {
+          effectiveUserId = localDoc._id;
+        }
+      }
 
       let qrCode = await QrCode.findOne({
-        user_id: userId,
+        $or: [
+          { user_id: effectiveUserId },
+          { wallet_address: walletAddress }
+        ],
         status: 'active'
       });
 
@@ -25,10 +53,10 @@ const qrController = {
         const newHash = crypto.randomBytes(32).toString('hex');
         
         // Xác định role model dựa trên role_id
-        const roleModel = (role_id === 'LECTURER_ROLE' || role_id === 'TEACHER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'User' : 'HocSinh');
+        const roleModel = (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'Admin' : 'HocSinh');
 
         qrCode = new QrCode({
-          user_id: userId,
+          user_id: effectiveUserId,
           wallet_address: walletAddress,
           role: role_id,
           role_model: roleModel,
@@ -52,22 +80,34 @@ const qrController = {
   generateQrCode: async (req, res) => {
     try {
       const { id: userId, role_id } = req.user;
+      const walletAddress = await resolveWalletAddress(req.user);
 
-      const user = await Teacher.findById(userId) || await Student.findById(userId) || await GiaoVien.findById(userId) || await HocSinh.findById(userId);
-      if (!user?.walletAddress) return res.status(400).json({ message: 'Chưa liên kết ví Web3' });
-      const walletAddress = user.walletAddress.toLowerCase();
+      let effectiveUserId = userId;
+      if (walletAddress) {
+        let localDoc = null;
+        if (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') {
+          localDoc = await GiaoVien.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else if (role_id === 'ADMIN_ROLE') {
+          localDoc = await Admin.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        } else {
+          localDoc = await HocSinh.findOne({ WalletAddress: { $regex: new RegExp(`^${walletAddress}$`, 'i') } });
+        }
+        if (localDoc) {
+          effectiveUserId = localDoc._id;
+        }
+      }
 
       // Vô hiệu hóa mã cũ
       await QrCode.updateMany(
-        { user_id: userId },
+        { $or: [{ user_id: effectiveUserId }, { wallet_address: walletAddress }] },
         { $set: { status: 'inactive' } }
       );
 
       const newHash = crypto.randomBytes(32).toString('hex');
-      const roleModel = (role_id === 'LECTURER_ROLE' || role_id === 'TEACHER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'User' : 'HocSinh');
+      const roleModel = (role_id === 'TEACHER_ROLE' || role_id === 'LECTURER_ROLE') ? 'GiaoVien' : (role_id === 'ADMIN_ROLE' ? 'Admin' : 'HocSinh');
 
       const newQrCode = new QrCode({
-        user_id: userId,
+        user_id: effectiveUserId,
         wallet_address: walletAddress,
         role: role_id,
         role_model: roleModel,

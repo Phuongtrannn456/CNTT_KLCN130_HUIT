@@ -231,13 +231,25 @@ const validateRubricsAgainstScore = (rubricsResult, diem) => {
     return { ok: true };
 };
 
-const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId) => {
+const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId, user) => {
     const deTai = await DeTai.findById(deTaiId);
     if (!deTai) {
         return { ok: false, error: 'Không tìm thấy đề tài', code: 'DETAI_KHONG_TON_TAI' };
     }
 
+    if (user && (user.role === 'ADMIN_ROLE' || user.role_id === 'ADMIN_ROLE')) {
+        return { ok: true, deTai };
+    }
+
     if (String(deTai.GiaoVienHuongDan) !== String(giaoVienId)) {
+        const userWallet = (user?.walletAddress || user?.WalletAddress || '').toLowerCase();
+        if (userWallet) {
+            const GiaoVien = require('../models/GiaoVien');
+            const gv = await GiaoVien.findById(deTai.GiaoVienHuongDan);
+            if (gv && (gv.WalletAddress || '').toLowerCase() === userWallet) {
+                return { ok: true, deTai };
+            }
+        }
         return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
     }
 
@@ -260,7 +272,7 @@ exports.chamDiem = async (req, res) => {
             return res.status(400).json({ error: rubricsValidation.error, code: rubricsValidation.code });
         }
 
-        const ownerCheck = await assertGiaoVienOwnsDeTai(deTaiId, giaoVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(deTaiId, giaoVienId, req.user);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -354,8 +366,8 @@ exports.getDiemByHocSinh = async (req, res) => {
             .populate('GiaoVienCham', 'HoTen Email')
             .populate('GiaoVienCam', 'HoTen Email');
 
-        // Fallback nhóm: nếu SV không có DiemSo riêng,
-        // kiểm tra xem SV có thuộc nhóm nào đã được chấm điểm không
+        // Fallback nhóm: nếu HS không có DiemSo riêng,
+        // kiểm tra xem HS có thuộc nhóm nào đã được chấm điểm không
         if (list.length === 0) {
             const groupRegs = await DangKyDeTai.find({
                 TrangThai: 'DaDuyet',
@@ -378,7 +390,13 @@ exports.getDiemByHocSinh = async (req, res) => {
                     .populate('GiaoVienCam', 'HoTen Email');
 
                 if (leaderGrades.length > 0) {
-                    list = list.concat(leaderGrades);
+                    // Chuyển sang plain object và gán HocSinh thành hsId của thành viên đang tra cứu
+                    const memberGrades = leaderGrades.map(g => {
+                        const obj = g.toObject();
+                        obj.HocSinh = hsId;
+                        return obj;
+                    });
+                    list = list.concat(memberGrades);
                 }
             }
         }
@@ -389,7 +407,7 @@ exports.getDiemByHocSinh = async (req, res) => {
     }
 };
 
-// Bảng so sánh điểm AI vs GV cho tất cả SV của 1 giáo viên
+// Thử lại ghi điểm lên Blockchain
 exports.retryBlockchain = async (req, res) => {
     try {
         const giaoVienId = req.user?.id || req.body.giaoVienId;
@@ -398,7 +416,7 @@ exports.retryBlockchain = async (req, res) => {
             return res.status(404).json({ error: 'Khong tim thay diem so', code: 'DIEMSO_KHONG_TON_TAI' });
         }
 
-        const ownerCheck = await assertGiaoVienOwnsDeTai(grade.DeTai, giaoVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(grade.DeTai, giaoVienId, req.user);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -545,15 +563,39 @@ exports.getComparison = async (req, res) => {
         const DeTai = require('../models/DeTai');
         const mongoose = require('mongoose');
 
-        // Tìm tất cả đề tài của GV
+        const LopHoc = require('../models/LopHoc');
+        let myClassIds = [];
+        try {
+            const myClasses = await LopHoc.find({
+                $or: [
+                    { GiaoVien: gvId },
+                    { GiaoVien: new mongoose.Types.ObjectId(gvId) }
+                ]
+            }).select('_id');
+            myClassIds = myClasses.map(c => c._id);
+        } catch (e) {
+            const myClasses = await LopHoc.find({ GiaoVien: gvId }).select('_id');
+            myClassIds = myClasses.map(c => c._id);
+        }
+
+        // Tìm tất cả đề tài của GV (trực tiếp hoặc qua lớp học)
         let myTopics;
         try {
             const objectId = new mongoose.Types.ObjectId(gvId);
             myTopics = await DeTai.find({
-                $or: [{ GiaoVienHuongDan: objectId }, { GiaoVienHuongDan: gvId }]
+                $or: [
+                    { GiaoVienHuongDan: objectId },
+                    { GiaoVienHuongDan: gvId },
+                    { LopHoc: { $in: myClassIds } }
+                ]
             });
         } catch (e) {
-            myTopics = await DeTai.find({ GiaoVienHuongDan: gvId });
+            myTopics = await DeTai.find({
+                $or: [
+                    { GiaoVienHuongDan: gvId },
+                    { LopHoc: { $in: myClassIds } }
+                ]
+            });
         }
 
         const topicIds = myTopics.map(t => t._id);
@@ -619,7 +661,7 @@ exports.getComparison = async (req, res) => {
     }
 };
 
-// MỚI: GV điều chỉnh điểm riêng cho 1 SV trong nhóm (ĐH/VÔ HIỆU HÓA)
+// MỚI: GV điều chỉnh điểm riêng cho 1 HS trong nhóm (ĐÃ VÔ HIỆU HÓA)
 exports.adjustGrade = async (req, res) => {
     return res.status(403).json({
         error: 'Chức năng điều chỉnh điểm cá nhân đã bị vô hiệu hóa để bảo toàn tính đồng nhất của điểm nhóm.'

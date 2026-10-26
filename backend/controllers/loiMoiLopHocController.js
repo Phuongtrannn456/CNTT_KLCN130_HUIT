@@ -7,20 +7,21 @@ const logger = require('../config/logger');
 exports.inviteHocSinh = async (req, res) => {
   try {
     const { lopId } = req.params;
-    const { hocSinhId, maSV } = req.body;
+    const { hocSinhId, maHS } = req.body;
+    const studentCode = maHS;
 
-    if (!hocSinhId && !maSV) {
-      return res.status(400).json({ success: false, message: 'Thiếu hocSinhId hoặc maSV' });
+    if (!hocSinhId && !studentCode) {
+      return res.status(400).json({ success: false, message: 'Thiếu hocSinhId hoặc maHS' });
     }
 
-    // Tìm SV
-    let sv;
+    // Tìm học sinh
+    let hs;
     if (hocSinhId) {
-      sv = await HocSinh.findById(hocSinhId);
+      hs = await HocSinh.findById(hocSinhId);
     } else {
-      sv = await HocSinh.findOne({ MaHS: maSV });
+      hs = await HocSinh.findOne({ MaHS: studentCode });
     }
-    if (!sv) {
+    if (!hs) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy học sinh' });
     }
 
@@ -30,13 +31,13 @@ exports.inviteHocSinh = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    // Kiểm tra SV đã có trong lớp chưa
-    if (lopHoc.HocSinh.some(hsId => hsId.equals(sv._id))) {
+    // Kiểm tra học sinh đã có trong lớp chưa
+    if (lopHoc.HocSinh.some(hsId => hsId.equals(hs._id))) {
       return res.status(409).json({ success: false, message: 'Học sinh đã có trong lớp này' });
     }
 
     // Kiểm tra đã có lời mời pending chưa
-    const existing = await LoiMoiLopHoc.findOne({ LopHoc: lopId, HocSinh: sv._id });
+    const existing = await LoiMoiLopHoc.findOne({ LopHoc: lopId, HocSinh: hs._id });
     if (existing) {
       if (existing.TrangThai === 'ChoChapNhan') {
         return res.status(409).json({ success: false, message: 'Đã gửi lời mời cho học sinh này rồi' });
@@ -45,20 +46,20 @@ exports.inviteHocSinh = async (req, res) => {
       if (existing.TrangThai === 'TuChoi' || existing.TrangThai === 'DaChapNhan') {
         existing.TrangThai = 'ChoChapNhan';
         await existing.save();
-        logger.info(`[LoiMoiLopHoc] Re-invited SV ${sv.MaHS} to class ${lopHoc.MaLopHoc}`);
+        logger.info(`[LoiMoiLopHoc] Re-invited HS ${hs.MaHS} to class ${lopHoc.MaLopHoc}`);
         return res.json({ success: true, message: 'Đã gửi lại lời mời cho học sinh', data: existing });
       }
     }
 
     const loiMoi = new LoiMoiLopHoc({
       LopHoc: lopId,
-      HocSinh: sv._id,
+      HocSinh: hs._id,
       GiaoVien: lopHoc.GiaoVien,
       TrangThai: 'ChoChapNhan'
     });
     await loiMoi.save();
 
-    logger.info(`[LoiMoiLopHoc] Invited SV ${sv.MaHS} to class ${lopHoc.MaLopHoc}`);
+    logger.info(`[LoiMoiLopHoc] Invited HS ${hs.MaHS} to class ${lopHoc.MaLopHoc}`);
     res.status(201).json({ success: true, message: 'Đã gửi lời mời. Chờ học sinh chấp nhận.', data: loiMoi });
   } catch (error) {
     logger.error(`[LoiMoiLopHoc] inviteHocSinh error: ${error.message}`);
@@ -81,29 +82,29 @@ exports.inviteBatch = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    const svList = await HocSinh.find({ MaHS: { $in: danhSachMaHS } });
-    const currentSvIds = lopHoc.HocSinh.map(id => id.toString());
+    const hsList = await HocSinh.find({ MaHS: { $in: danhSachMaHS } });
+    const currentHsIds = lopHoc.HocSinh.map(id => id.toString());
 
     let invitedCount = 0;
-    const duplicateSV = [];
+    const duplicateHS = [];
     const alreadyInClass = [];
     const notFoundMaHS = [...danhSachMaHS];
 
-    for (const sv of svList) {
-      const idx = notFoundMaHS.indexOf(sv.MaHS);
+    for (const hs of hsList) {
+      const idx = notFoundMaHS.indexOf(hs.MaHS);
       if (idx > -1) notFoundMaHS.splice(idx, 1);
 
       // Đã có trong lớp → bỏ qua
-      if (currentSvIds.includes(sv._id.toString())) {
-        alreadyInClass.push(sv.MaHS);
+      if (currentHsIds.includes(hs._id.toString())) {
+        alreadyInClass.push(hs.MaHS);
         continue;
       }
 
       // Kiểm tra lời mời đã tồn tại
-      const existing = await LoiMoiLopHoc.findOne({ LopHoc: lopId, HocSinh: sv._id });
+      const existing = await LoiMoiLopHoc.findOne({ LopHoc: lopId, HocSinh: hs._id });
       if (existing) {
         if (existing.TrangThai === 'ChoChapNhan') {
-          duplicateSV.push(sv.MaHS);
+          duplicateHS.push(hs.MaHS);
           continue;
         }
         // Re-invite nếu đã từ chối / đã chấp nhận trước đó
@@ -115,21 +116,21 @@ exports.inviteBatch = async (req, res) => {
 
       await LoiMoiLopHoc.create({
         LopHoc: lopId,
-        HocSinh: sv._id,
+        HocSinh: hs._id,
         GiaoVien: lopHoc.GiaoVien,
         TrangThai: 'ChoChapNhan'
       });
       invitedCount++;
     }
 
-    logger.info(`[LoiMoiLopHoc] Batch invite to ${lopHoc.MaLopHoc}: invited=${invitedCount}, duplicate=${duplicateSV.length}, inClass=${alreadyInClass.length}, notFound=${notFoundMaHS.length}`);
+    logger.info(`[LoiMoiLopHoc] Batch invite to ${lopHoc.MaLopHoc}: invited=${invitedCount}, duplicate=${duplicateHS.length}, inClass=${alreadyInClass.length}, notFound=${notFoundMaHS.length}`);
 
     res.json({
       success: true,
-      message: `Đã gửi lời mời: ${invitedCount}, đã mời trước: ${duplicateSV.length}, đã trong lớp: ${alreadyInClass.length}, không tìm thấy: ${notFoundMaHS.length}`,
+      message: `Đã gửi lời mời: ${invitedCount}, đã mời trước: ${duplicateHS.length}, đã trong lớp: ${alreadyInClass.length}, không tìm thấy: ${notFoundMaHS.length}`,
       data: {
         invitedCount,
-        duplicateSV,
+        duplicateHS,
         alreadyInClass,
         notFoundMaHS
       }
@@ -148,7 +149,7 @@ exports.respondToInvite = async (req, res) => {
 
     const loiMoi = await LoiMoiLopHoc.findById(id)
       .populate('LopHoc', 'MaLopHoc TenLopHoc')
-      .populate('HocSinh', 'MaHS HoTen');
+      .populate('HocSinh', 'MaHS HoTen WalletAddress');
 
     if (!loiMoi) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lời mời' });
@@ -158,9 +159,17 @@ exports.respondToInvite = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Lời mời đã được xử lý trước đó' });
     }
 
-    // Xác thực: SV phải là chủ lời mời
+    // Xác thực: HS phải là chủ lời mời
     const requesterId = req.user?.id || req.user?._id;
-    if (requesterId && !loiMoi.HocSinh._id.equals(requesterId)) {
+    const userWallet = (req.user?.walletAddress || req.user?.WalletAddress || '').toLowerCase();
+    const isDirectMatch = requesterId && (loiMoi.HocSinh._id.toString() === requesterId.toString());
+    const isWalletMatch = userWallet && (
+      (loiMoi.HocSinh.WalletAddress && loiMoi.HocSinh.WalletAddress.toLowerCase() === userWallet) ||
+      (loiMoi.HocSinh.walletAddress && loiMoi.HocSinh.walletAddress.toLowerCase() === userWallet)
+    );
+    const isAdmin = req.user?.role === 'ADMIN_ROLE' || req.user?.role_id === 'ADMIN_ROLE';
+
+    if (!isDirectMatch && !isWalletMatch && !isAdmin) {
       return res.status(403).json({ success: false, message: 'Bạn không phải người được mời' });
     }
 
@@ -168,20 +177,20 @@ exports.respondToInvite = async (req, res) => {
       loiMoi.TrangThai = 'DaChapNhan';
       await loiMoi.save();
 
-      // Push SV vào LopHoc.HocSinh[]
+      // Push HS vào LopHoc.HocSinh[]
       const lopHoc = await LopHoc.findById(loiMoi.LopHoc._id);
       if (lopHoc && !lopHoc.HocSinh.some(hsId => hsId.equals(loiMoi.HocSinh._id))) {
         lopHoc.HocSinh.push(loiMoi.HocSinh._id);
         await lopHoc.save();
       }
 
-      logger.info(`[LoiMoiLopHoc] SV ${loiMoi.HocSinh.MaHS} accepted invite to class ${loiMoi.LopHoc.MaLopHoc}`);
+      logger.info(`[LoiMoiLopHoc] HS ${loiMoi.HocSinh.MaHS} accepted invite to class ${loiMoi.LopHoc.MaLopHoc}`);
       res.json({ success: true, message: 'Đã chấp nhận lời mời. Bạn đã được thêm vào lớp.' });
     } else {
       loiMoi.TrangThai = 'TuChoi';
       await loiMoi.save();
 
-      logger.info(`[LoiMoiLopHoc] SV ${loiMoi.HocSinh.MaHS} rejected invite to class ${loiMoi.LopHoc.MaLopHoc}`);
+      logger.info(`[LoiMoiLopHoc] HS ${loiMoi.HocSinh.MaHS} rejected invite to class ${loiMoi.LopHoc.MaLopHoc}`);
       res.json({ success: true, message: 'Đã từ chối lời mời.' });
     }
   } catch (error) {

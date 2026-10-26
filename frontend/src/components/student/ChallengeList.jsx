@@ -140,10 +140,10 @@ const ChallengeList = () => {
           <Text style={{ color: '#595959' }}>Chưa có gợi ý nào phù hợp nhất với bạn lúc này.</Text>
         ) : (
           <Row gutter={[24, 24]}>
-            {recommendations.map(rec => renderChallengeCard(rec.challenge, (
+            {recommendations.map(rec => rec?.challenge && renderChallengeCard(rec.challenge, (
               <Alert 
                 type="info" 
-                message={`Độ phù hợp: ${Math.round(rec.matchScore * 100)}%`} 
+                message={rec.matchScore != null ? `Độ phù hợp: ${Math.round(rec.matchScore * 100)}%` : 'Gợi ý theo khối lớp'} 
                 description={rec.reasoning} 
                 showIcon 
               />

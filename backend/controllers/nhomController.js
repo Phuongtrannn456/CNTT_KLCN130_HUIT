@@ -3,7 +3,7 @@ const HocSinh = require('../models/HocSinh');
 const DangKyDeTai = require('../models/DangKyDeTai');
 const logger = require('../config/logger');
 
-// Tạo nhóm mới (SV tự động làm trưởng nhóm)
+// Tạo nhóm mới (HS tự động làm trưởng nhóm)
 exports.createNhom = async (req, res) => {
   try {
     const { tenNhom, soLuong, lopHocId } = req.body;
@@ -19,14 +19,14 @@ exports.createNhom = async (req, res) => {
       const LopHoc = require('../models/LopHoc');
       const lop = await LopHoc.findById(lopHocId);
       if (!lop) return res.status(404).json({ error: 'Không tìm thấy lớp học.' });
-      if (!lop.HocSinh.some(sv => sv.toString() === hocSinhId.toString())) {
+      if (!lop.HocSinh.some(hs => hs.toString() === hocSinhId.toString())) {
         return res.status(400).json({ error: 'Bạn không thuộc lớp học này.' });
       }
     }
 
-    // Check SV đã có nhóm chưa
-    // MỚI: Nếu có lopHocId, chỉ check SV đã có nhóm thuộc cùng lớp này chưa
-    // (SV có thể ở nhiều nhóm ở các lớp khác nhau, nhưng chỉ 1 nhóm mỗi lớp)
+    // Check HS đã có nhóm chưa
+    // MỚI: Nếu có lopHocId, chỉ check HS đã có nhóm thuộc cùng lớp này chưa
+    // (HS có thể ở nhiều nhóm ở các lớp khác nhau, nhưng chỉ 1 nhóm mỗi lớp)
     const nhomQuery = {
       $or: [
         { TruongNhom: hocSinhId },
@@ -62,7 +62,7 @@ exports.createNhom = async (req, res) => {
       .populate('ThanhVien.HocSinh')
       .populate('LopHoc', 'MaLopHoc TenLopHoc');
 
-    logger.info(`[NHOM] Created group "${tenNhom || nhom._id}" by SV ${hocSinhId}, max=${soLuong}`);
+    logger.info(`[NHOM] Created group "${tenNhom || nhom._id}" by HS ${hocSinhId}, max=${soLuong}`);
     res.status(201).json({ message: 'Tạo nhóm thành công!', data: populated });
   } catch (err) {
     logger.error(`[NHOM] Create failed: ${err.message}`);
@@ -70,7 +70,7 @@ exports.createNhom = async (req, res) => {
   }
 };
 
-// Lấy nhóm của 1 SV
+// Lấy nhóm của 1 HS
 exports.getNhomByHocSinh = async (req, res) => {
   try {
     const { hsId } = req.params;
@@ -95,7 +95,7 @@ exports.getNhomByHocSinh = async (req, res) => {
   }
 };
 
-// Lấy tất cả nhóm của 1 SV
+// Lấy tất cả nhóm của 1 HS
 exports.getAllNhomByHocSinh = async (req, res) => {
   try {
     const { hsId } = req.params;
@@ -132,7 +132,11 @@ exports.getNhomById = async (req, res) => {
 exports.inviteMember = async (req, res) => {
   try {
     const { id } = req.params;
-    const { maSV } = req.body;
+    const targetMa = (req.body.maHS || '').trim();
+
+    if (!targetMa) {
+      return res.status(400).json({ error: 'Mã học sinh là bắt buộc.' });
+    }
 
     const nhom = await Nhom.findById(id);
     if (!nhom) return res.status(404).json({ error: 'Không tìm thấy nhóm.' });
@@ -147,25 +151,25 @@ exports.inviteMember = async (req, res) => {
       return res.status(400).json({ error: `Nhóm đã đủ ${nhom.SoLuong} thành viên.` });
     }
 
-    // Tìm SV được mời
-    const svMoi = await HocSinh.findOne({ MaHS: maSV });
-    if (!svMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã SV này.' });
+    // Tìm HS được mời
+    const hsMoi = await HocSinh.findOne({ MaHS: targetMa });
+    if (!hsMoi) return res.status(404).json({ error: 'Không tìm thấy học sinh với Mã HS này.' });
 
-    // MỚI: Nếu nhóm thuộc lớp → kiểm tra SV được mời phải thuộc cùng lớp
+    // MỚI: Nếu nhóm thuộc lớp → kiểm tra HS được mời phải thuộc cùng lớp
     if (nhom.LopHoc) {
       const LopHoc = require('../models/LopHoc');
       const lop = await LopHoc.findById(nhom.LopHoc);
       if (lop) {
-        if (!lop.HocSinh.some(hsId => hsId.toString() === svMoi._id.toString())) {
+        if (!lop.HocSinh.some(hsId => hsId.toString() === hsMoi._id.toString())) {
           return res.status(400).json({ error: 'Học sinh được mời không thuộc lớp học của nhóm.' });
         }
       }
 
-      // Check SV đã ở nhóm khác TRONG CÙNG LỚP chưa
+      // Check HS đã ở nhóm khác TRONG CÙNG LỚP chưa
       const existingNhomQuery = {
         _id: { $ne: id },
         LopHoc: nhom.LopHoc,
-        'ThanhVien.HocSinh': svMoi._id,
+        'ThanhVien.HocSinh': hsMoi._id,
         'ThanhVien.TrangThai': { $in: ['DaMoi', 'DaChapNhan'] }
       };
       const existingNhom = await Nhom.findOne(existingNhomQuery);
@@ -173,7 +177,7 @@ exports.inviteMember = async (req, res) => {
         return res.status(400).json({ error: 'Học sinh này đã ở trong nhóm khác của lớp này.' });
       }
     } else {
-      // Với dự án STEM: chỉ chặn nếu SV được mời đã sở hữu (được duyệt) một đề tài dự án STEM rồi
+      // Với dự án STEM: chỉ chặn nếu HS được mời đã sở hữu (được duyệt) một đề tài dự án STEM rồi
       const DeTai = require('../models/DeTai');
       const DangKyDeTai = require('../models/DangKyDeTai');
       const khoaLuanTopics = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).select('_id');
@@ -183,9 +187,9 @@ exports.inviteMember = async (req, res) => {
         TrangThai: 'DaDuyet',
         DeTai: { $in: khoaLuanTopicIds },
         $or: [
-          { HocSinh: svMoi._id },
-          { TruongNhom: svMoi._id },
-          { 'ThanhVien.HocSinh': svMoi._id, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
+          { HocSinh: hsMoi._id },
+          { TruongNhom: hsMoi._id },
+          { 'ThanhVien.HocSinh': hsMoi._id, 'ThanhVien.TrangThaiTV': 'DaChapNhan' }
         ]
       });
       if (wonReg) {
@@ -193,23 +197,23 @@ exports.inviteMember = async (req, res) => {
       }
     }
 
-    // Check SV đã được mời vào nhóm này chưa
+    // Check HS đã được mời vào nhóm này chưa
     const alreadyInGroup = nhom.ThanhVien.find(
-      tv => tv.HocSinh.toString() === svMoi._id.toString() && tv.TrangThai !== 'TuChoi'
+      tv => tv.HocSinh.toString() === hsMoi._id.toString() && tv.TrangThai !== 'TuChoi'
     );
     if (alreadyInGroup) {
       return res.status(400).json({ error: 'Học sinh này đã có trong nhóm.' });
     }
 
     nhom.ThanhVien.push({
-      HocSinh: svMoi._id,
+      HocSinh: hsMoi._id,
       VaiTro: 'ThanhVien',
       TrangThai: 'DaMoi'
     });
     await nhom.save();
 
-    logger.info(`[NHOM] Invited ${maSV} to group ${id}`);
-    res.json({ message: `Đã gửi lời mời đến ${svMoi.HoTen || maSV}!` });
+    logger.info(`[NHOM] Invited ${targetMa} to group ${id}`);
+    res.json({ message: `Đã gửi lời mời đến ${hsMoi.HoTen || targetMa}!` });
   } catch (err) {
     logger.error(`[NHOM] Invite failed: ${err.message}`);
     res.status(500).json({ error: err.message });
@@ -234,7 +238,7 @@ exports.respondToInvite = async (req, res) => {
     }
 
     if (accept) {
-      // Check SV chưa ở nhóm khác TRONG CÙNG LỚP (double-check)
+      // Check HS chưa ở nhóm khác TRONG CÙNG LỚP (double-check)
       const existingNhomQuery = {
         _id: { $ne: id },
         'ThanhVien.HocSinh': hocSinhId,
@@ -250,12 +254,12 @@ exports.respondToInvite = async (req, res) => {
 
       nhom.ThanhVien[tvIndex].TrangThai = 'DaChapNhan';
       await nhom.save();
-      logger.info(`[NHOM] SV ${hocSinhId} accepted invite to group ${id}`);
+      logger.info(`[NHOM] HS ${hocSinhId} accepted invite to group ${id}`);
       res.json({ message: 'Đã chấp nhận gia nhập nhóm!' });
     } else {
       nhom.ThanhVien.splice(tvIndex, 1);
       await nhom.save();
-      logger.info(`[NHOM] SV ${hocSinhId} rejected invite to group ${id}`);
+      logger.info(`[NHOM] HS ${hocSinhId} rejected invite to group ${id}`);
       res.json({ message: 'Đã từ chối lời mời.' });
     }
   } catch (err) {
@@ -288,7 +292,7 @@ exports.kickMember = async (req, res) => {
     nhom.ThanhVien.splice(tvIndex, 1);
     await nhom.save();
 
-    logger.info(`[NHOM] Kicked SV ${hsId} from group ${id}`);
+    logger.info(`[NHOM] Kicked HS ${hsId} from group ${id}`);
     res.json({ message: 'Đã xóa thành viên khỏi nhóm.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -320,7 +324,7 @@ exports.leaveNhom = async (req, res) => {
     nhom.ThanhVien.splice(tvIndex, 1);
     await nhom.save();
 
-    logger.info(`[NHOM] SV ${hocSinhId} left group ${id}`);
+    logger.info(`[NHOM] HS ${hocSinhId} left group ${id}`);
     res.json({ message: 'Đã rời nhóm thành công.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -412,10 +416,13 @@ exports.deleteNhom = async (req, res) => {
       return res.status(403).json({ error: 'Chỉ trưởng nhóm mới có quyền xóa nhóm.' });
     }
 
-    // Check nhóm đã đăng ký đề tài nào chưa
-    const hasReg = await DangKyDeTai.findOne({ Nhom: id });
+    // Check nhóm đã đăng ký đề tài nào đang hoạt động chưa
+    const hasReg = await DangKyDeTai.findOne({
+      Nhom: id,
+      TrangThai: { $nin: ['Thua', 'TuChoi'] }
+    });
     if (hasReg) {
-      return res.status(400).json({ error: 'Nhóm đã đăng ký đề tài. Không thể xóa.' });
+      return res.status(400).json({ error: 'Nhóm đang có đề tài được đăng ký hoặc đang thực hiện. Không thể xóa.' });
     }
 
     await Nhom.findByIdAndDelete(id);
@@ -426,7 +433,7 @@ exports.deleteNhom = async (req, res) => {
   }
 };
 
-// Lấy lời mời đang chờ của 1 SV
+// Lấy lời mời đang chờ của 1 HS
 exports.getPendingInvites = async (req, res) => {
   try {
     const { hsId } = req.params;

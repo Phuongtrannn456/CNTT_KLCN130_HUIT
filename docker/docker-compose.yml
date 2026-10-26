@@ -1,34 +1,37 @@
 version: '3.8'
 
 services:
+  # MongoDB Database
   mongodb:
     image: mongo:7.0
-    container_name: kltn-mongodb
+    container_name: web3-hr-mongodb
     restart: unless-stopped
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password123
-      MONGO_INITDB_DATABASE: kltn_db
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:?Thiếu MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:?Thiếu MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DB:?Thiếu MONGO_DB}
     ports:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
       - ./mongo-init:/docker-entrypoint-initdb.d
     networks:
-      - kltn-network
+      - web3-hr-network
 
+  # Backend API
   backend:
     build:
       context: ../backend
       dockerfile: ../docker/backend.Dockerfile
-    container_name: kltn-backend
+    container_name: web3-hr-backend
     restart: unless-stopped
     environment:
       NODE_ENV: development
       PORT: 5000
-      MONGODB_URI: mongodb://admin:password123@mongodb:27017/kltn_db?authSource=admin
-      JWT_SECRET: your-super-secret-jwt-key-change-in-production
-      ML_SERVICE_URL: http://ml-service:8001
+      MONGODB_URI: ${MONGO_URI:?Thiếu MONGO_URI}
+      JWT_SECRET: ${JWT_SECRET:?Thiếu JWT_SECRET}
+      WEB3_PROVIDER_URL: ${WEB3_PROVIDER_URL:?Thiếu WEB3_PROVIDER_URL}
+      INTERNAL_TOKEN: ${INTERNAL_TOKEN:?Thiếu INTERNAL_TOKEN}
     ports:
       - "5000:5000"
     depends_on:
@@ -37,14 +40,15 @@ services:
       - ../backend:/app
       - /app/node_modules
     networks:
-      - kltn-network
+      - web3-hr-network
     command: npm run dev
 
+  # Frontend React App
   frontend:
     build:
       context: ../frontend
       dockerfile: ../docker/frontend.Dockerfile
-    container_name: kltn-frontend
+    container_name: web3-hr-frontend
     restart: unless-stopped
     environment:
       REACT_APP_API_URL: http://localhost:5000/api
@@ -57,24 +61,12 @@ services:
       - ../frontend:/app
       - /app/node_modules
     networks:
-      - kltn-network
+      - web3-hr-network
     command: npm start
-
-  ml-service:
-    container_name: kltn-ml
-    build:
-      context: ../ml-service
-      dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
-    environment:
-      - ML_INTERNAL_TOKEN=${ML_INTERNAL_TOKEN:-}
-    networks:
-      - kltn-network
 
 volumes:
   mongodb_data:
 
 networks:
-  kltn-network:
+  web3-hr-network:
     driver: bridge

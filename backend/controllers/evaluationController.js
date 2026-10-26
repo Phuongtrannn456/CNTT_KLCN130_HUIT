@@ -1,13 +1,19 @@
 const Evaluation = require('../models/Evaluation');
 const Submission = require('../models/Submission');
 const ChallengeParticipation = require('../models/ChallengeParticipation');
-const LearningResult = require('../models/LearningResult'); // Cần cho Step 4
+const LearningResult = require('../models/LearningResult');
+const GiaoVien = require('../models/GiaoVien');
+const HocSinh = require('../models/HocSinh');
 
 exports.evaluateSubmission = async (req, res) => {
   try {
     const { submissionId } = req.params;
     const teacherId = req.user.id;
-    const { rubricScores, teacherTotalScore, teacherFeedback, status } = req.body; // status: DRAFT / FINAL
+    const { rubricScores, teacherTotalScore, teacherFeedback, status, aiTotalScore, aiFeedback } = req.body; // status: DRAFT / FINAL
+
+    if (teacherTotalScore !== undefined && (teacherTotalScore < 0 || teacherTotalScore > 10)) {
+      return res.status(400).json({ success: false, message: 'Điểm số phải nằm trong khoảng từ 0 đến 10 (thang điểm 10 chuẩn K-12)' });
+    }
 
     // 1. Kiểm tra Submission
     const submission = await Submission.findById(submissionId).populate({
@@ -22,7 +28,16 @@ exports.evaluateSubmission = async (req, res) => {
     const challenge = submission.participation.challenge;
 
     // 2. Authorization
-    if (challenge.createdBy.toString() !== teacherId) {
+    let isOwner = challenge.createdBy.toString() === teacherId;
+    if (!isOwner && req.user?.walletAddress) {
+      const creator = await GiaoVien.findById(challenge.createdBy);
+      if (creator) {
+        const cw = (creator.WalletAddress || '').toLowerCase();
+        if (cw && cw === req.user.walletAddress.toLowerCase()) isOwner = true;
+      }
+    }
+
+    if (!isOwner && req.user?.role_id !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Chỉ giáo viên tạo Challenge mới được chấm bài' });
     }
 
@@ -37,12 +52,16 @@ exports.evaluateSubmission = async (req, res) => {
         submission: submissionId,
         evaluator: teacherId,
         rubricScores,
+        aiTotalScore,
+        aiFeedback,
         teacherTotalScore,
         teacherFeedback,
         status: status || 'DRAFT'
       });
     } else {
       evaluation.rubricScores = rubricScores !== undefined ? rubricScores : evaluation.rubricScores;
+      evaluation.aiTotalScore = aiTotalScore !== undefined ? aiTotalScore : evaluation.aiTotalScore;
+      evaluation.aiFeedback = aiFeedback !== undefined ? aiFeedback : evaluation.aiFeedback;
       evaluation.teacherTotalScore = teacherTotalScore !== undefined ? teacherTotalScore : evaluation.teacherTotalScore;
       evaluation.teacherFeedback = teacherFeedback !== undefined ? teacherFeedback : evaluation.teacherFeedback;
       evaluation.status = status || evaluation.status;
@@ -50,14 +69,20 @@ exports.evaluateSubmission = async (req, res) => {
 
     await evaluation.save();
 
-    // 4. Nếu FINAL, tạo LearningResult (STEP 4 trigger)
+    // 4. Nếu FINAL, tạo LearningResult và cập nhật trạng thái hoàn thành
     if (evaluation.status === 'FINAL') {
-      // Đơn giản hóa: tính Final Grade
-      let finalGrade = 'Đạt';
-      if (evaluation.teacherTotalScore >= 8) finalGrade = 'Xuất sắc';
-      else if (evaluation.teacherTotalScore < 5) finalGrade = 'Không đạt';
+      // Cập nhật trạng thái bài nộp và tiến trình tham gia
+      await Submission.findByIdAndUpdate(submissionId, { status: 'Evaluated' });
+      await ChallengeParticipation.findByIdAndUpdate(submission.participation._id, { status: 'COMPLETED' });
 
-      // Tránh duplicate
+      // Tính Final Grade theo chuẩn K-12
+      let finalGrade = 'Đạt';
+      if (evaluation.teacherTotalScore >= 8.5) finalGrade = 'Xuất sắc';
+      else if (evaluation.teacherTotalScore >= 6.5) finalGrade = 'Khá';
+      else if (evaluation.teacherTotalScore >= 5.0) finalGrade = 'Đạt';
+      else finalGrade = 'Không đạt';
+
+      // Tránh duplicate LearningResult
       let lr = await LearningResult.findOne({ student: submission.student, challenge: challenge._id });
       if (!lr) {
         lr = new LearningResult({
@@ -67,19 +92,22 @@ exports.evaluateSubmission = async (req, res) => {
           finalGrade
         });
         await lr.save();
-      // Step 4.2: T?o Achievement off-chain (ti?n d? cho Web3 credential)
-      const Achievement = require('../models/Achievement');
-      let ach = await Achievement.findOne({ student: submission.student, challenge: challenge._id, achievementType: 'Challenge Completed' });
-      if (!ach) {
-        ach = new Achievement({
-          learningResult: lr._id,
-          student: submission.student,
-          challenge: challenge._id,
-          issuer: teacherId,
-          achievementType: 'Challenge Completed'
-        });
-        await ach.save();
       }
+
+      // Step 4.2: Tạo Achievement off-chain (tiền đề cho Web3 credential) khi đạt kết quả Đạt trở lên (>= 5.0)
+      if (evaluation.teacherTotalScore >= 5.0) {
+        const Achievement = require('../models/Achievement');
+        let ach = await Achievement.findOne({ student: submission.student, challenge: challenge._id, achievementType: 'Challenge Completed' });
+        if (!ach) {
+          ach = new Achievement({
+            learningResult: lr._id,
+            student: submission.student,
+            challenge: challenge._id,
+            issuer: challenge.createdBy || teacherId,
+            achievementType: 'Challenge Completed'
+          });
+          await ach.save();
+        }
       }
     }
 
@@ -104,10 +132,26 @@ exports.getEvaluation = async (req, res) => {
     if (!submission) return res.status(404).json({ success: false, message: 'Không tìm thấy bài nộp' });
 
     // Auth
-    const isOwnerStudent = submission.student.toString() === userId && role === 'STUDENT_ROLE';
-    const isOwnerTeacher = submission.participation.challenge.createdBy.toString() === userId && role === 'TEACHER_ROLE';
+    let isOwnerStudent = submission.student.toString() === userId && role === 'STUDENT_ROLE';
+    let isOwnerTeacher = submission.participation.challenge.createdBy.toString() === userId && role === 'TEACHER_ROLE';
 
-    if (!isOwnerStudent && !isOwnerTeacher) {
+    if (!isOwnerTeacher && role === 'TEACHER_ROLE' && req.user?.walletAddress) {
+      const creator = await GiaoVien.findById(submission.participation.challenge.createdBy);
+      if (creator) {
+        const cw = (creator.WalletAddress || '').toLowerCase();
+        if (cw && cw === req.user.walletAddress.toLowerCase()) isOwnerTeacher = true;
+      }
+    }
+
+    if (!isOwnerStudent && role === 'STUDENT_ROLE' && req.user?.walletAddress) {
+      const subStudent = await HocSinh.findById(submission.student);
+      if (subStudent) {
+        const sw = (subStudent.WalletAddress || '').toLowerCase();
+        if (sw && sw === req.user.walletAddress.toLowerCase()) isOwnerStudent = true;
+      }
+    }
+
+    if (!isOwnerStudent && !isOwnerTeacher && role !== 'ADMIN_ROLE') {
       return res.status(403).json({ success: false, message: 'Không có quyền xem đánh giá này' });
     }
 

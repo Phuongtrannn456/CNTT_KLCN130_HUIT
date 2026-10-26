@@ -43,7 +43,7 @@ exports.getByGiaoVien = async (req, res) => {
   }
 };
 
-// Lấy chi tiết lớp học: danh sách SV + nhóm + đề tài đã đăng ký
+// Lấy chi tiết lớp học: danh sách HS + nhóm + đề tài đã đăng ký
 exports.getDetail = async (req, res) => {
   try {
     const { id } = req.params;
@@ -56,14 +56,17 @@ exports.getDetail = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    // MỚI: Query trực tiếp theo LopHoc, fallback MonHoc cho data cũ
+    // Query trực tiếp theo LopHoc, fallback chỉ lấy đề tài legacy chưa gán LopHoc nào của cùng môn học
     let deTais = await DeTai.find({ LopHoc: id }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
     if (deTais.length === 0) {
-      deTais = await DeTai.find({ MonHoc: lopHoc.MonHoc._id }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
+      deTais = await DeTai.find({
+        MonHoc: lopHoc.MonHoc._id,
+        $or: [{ LopHoc: id }, { LopHoc: null }, { LopHoc: { $exists: false } }]
+      }).select('_id MaDeTai TenDeTai TrangThai SoLuongHocSinh');
     }
 
-    // Lấy danh sách đăng ký đề tài của các SV trong lớp
-    const hsIds = lopHoc.HocSinh.map(sv => sv._id);
+    // Lấy danh sách đăng ký đề tài của các HS trong lớp
+    const hsIds = lopHoc.HocSinh.map(hs => hs._id);
     const dangKys = await DangKyDeTai.find({
       DeTai: { $in: deTais.map(dt => dt._id) }
     })
@@ -73,7 +76,7 @@ exports.getDetail = async (req, res) => {
       .populate('HocSinh', 'MaHS HoTen')
       .populate('ThanhVien.HocSinh', 'MaHS HoTen');
 
-    // Lọc ra chỉ những đăng ký có liên quan đến SV trong lớp
+    // Lọc ra chỉ những đăng ký có liên quan đến HS trong lớp
     const filteredDangKys = dangKys.filter(dk => {
       // Kiểm tra trưởng nhóm có thuộc lớp không
       if (dk.TruongNhom && hsIds.some(id => id.equals(dk.TruongNhom._id))) return true;
@@ -160,30 +163,31 @@ exports.update = async (req, res) => {
 exports.addHocSinh = async (req, res) => {
   try {
     const { id } = req.params;
-    let { hocSinhId, maSV } = req.body;
+    let { hocSinhId, maHS } = req.body;
+    const studentCode = maHS;
 
-    if (!hocSinhId && !maSV) {
-      return res.status(400).json({ success: false, message: 'Thiếu hocSinhId hoặc maSV' });
+    if (!hocSinhId && !studentCode) {
+      return res.status(400).json({ success: false, message: 'Thiếu hocSinhId hoặc maHS' });
     }
 
-    // Kiểm tra SV tồn tại
-    let sv;
+    // Kiểm tra học sinh tồn tại
+    let hs;
     if (hocSinhId) {
-      sv = await HocSinh.findById(hocSinhId);
+      hs = await HocSinh.findById(hocSinhId);
     } else {
-      sv = await HocSinh.findOne({ MaHS: maSV });
+      hs = await HocSinh.findOne({ MaHS: studentCode });
     }
-    if (!sv) {
+    if (!hs) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy học sinh' });
     }
-    hocSinhId = sv._id;
+    hocSinhId = hs._id;
 
     const lopHoc = await LopHoc.findById(id);
     if (!lopHoc) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    // Kiểm tra SV đã có trong lớp chưa
+    // Kiểm tra học sinh đã có trong lớp chưa
     if (lopHoc.HocSinh.some(hsId => hsId.equals(hocSinhId))) {
       return res.status(409).json({ success: false, message: 'Học sinh đã có trong lớp này' });
     }
@@ -194,7 +198,7 @@ exports.addHocSinh = async (req, res) => {
     const updated = await LopHoc.findById(id)
       .populate('HocSinh', 'MaHS HoTen Email GPA ChuyenNganh');
 
-    logger.info(`[LopHoc] Added SV ${sv.MaHS} to class ${lopHoc.MaLopHoc}`);
+    logger.info(`[LopHoc] Added HS ${hs.MaHS} to class ${lopHoc.MaLopHoc}`);
     invalidateLopHocCache();
     res.json({ success: true, data: updated });
   } catch (error) {
@@ -216,7 +220,7 @@ exports.removeHocSinh = async (req, res) => {
     lopHoc.HocSinh = lopHoc.HocSinh.filter(s => !s.equals(hsId));
     await lopHoc.save();
 
-    logger.info(`[LopHoc] Removed SV ${hsId} from class ${lopHoc.MaLopHoc}`);
+    logger.info(`[LopHoc] Removed HS ${hsId} from class ${lopHoc.MaLopHoc}`);
     invalidateLopHocCache();
     res.json({ success: true, message: 'Đã xóa học sinh khỏi lớp' });
   } catch (error) {
@@ -230,14 +234,34 @@ exports.delete = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const lopHoc = await LopHoc.findByIdAndDelete(id);
+    const lopHoc = await LopHoc.findById(id);
     if (!lopHoc) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
+    // Kiểm tra nếu lớp vẫn còn học sinh
+    if (lopHoc.HocSinh && lopHoc.HocSinh.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Không thể xóa lớp học vì vẫn còn ${lopHoc.HocSinh.length} học sinh trong danh sách lớp.`
+      });
+    }
+
+    // Kiểm tra nếu có đề tài đang gắn với lớp học này
+    const DeTai = require('../models/DeTai');
+    const existingDeTai = await DeTai.findOne({ LopHoc: id });
+    if (existingDeTai) {
+      return res.status(400).json({
+        success: false,
+        message: 'Không thể xóa lớp học vì vẫn còn đề tài thuộc lớp học này.'
+      });
+    }
+
+    await LopHoc.findByIdAndDelete(id);
+
     logger.info(`[LopHoc] Deleted: ${lopHoc.MaLopHoc}`);
     invalidateLopHocCache();
-    res.json({ success: true, message: 'Đã xóa lớp học' });
+    res.json({ success: true, message: 'Đã xóa lớp học thành công' });
   } catch (error) {
     logger.error(`[LopHoc] delete error: ${error.message}`);
     res.status(500).json({ success: false, message: 'Lỗi xóa lớp học' });
@@ -259,24 +283,24 @@ exports.importHocSinh = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Không tìm thấy lớp học' });
     }
 
-    const svList = await HocSinh.find({ MaHS: { $in: danhSachMaHS } });
+    const hsList = await HocSinh.find({ MaHS: { $in: danhSachMaHS } });
     
     let addedCount = 0;
-    const duplicateSV = [];
+    const duplicateHS = [];
     const notFoundMaHS = [...danhSachMaHS];
 
-    svList.forEach(sv => {
-      const index = notFoundMaHS.indexOf(sv.MaHS);
+    hsList.forEach(hs => {
+      const index = notFoundMaHS.indexOf(hs.MaHS);
       if (index > -1) {
         notFoundMaHS.splice(index, 1);
       }
 
-      const exists = lopHoc.HocSinh.some(hsId => hsId.equals(sv._id));
+      const exists = lopHoc.HocSinh.some(hsId => hsId.equals(hs._id));
       if (!exists) {
-        lopHoc.HocSinh.push(sv._id);
+        lopHoc.HocSinh.push(hs._id);
         addedCount++;
       } else {
-        duplicateSV.push(sv.MaHS);
+        duplicateHS.push(hs.MaHS);
       }
     });
 
@@ -286,10 +310,10 @@ exports.importHocSinh = async (req, res) => {
 
     res.json({
       success: true,
-      message: `Import thành công. Thêm mới: ${addedCount}, trùng lặp: ${duplicateSV.length}, không tìm thấy: ${notFoundMaHS.length}`,
+      message: `Import thành công. Thêm mới: ${addedCount}, trùng lặp: ${duplicateHS.length}, không tìm thấy: ${notFoundMaHS.length}`,
       data: {
         addedCount,
-        duplicateSV,
+        duplicateHS,
         notFoundMaHS
       }
     });
@@ -332,9 +356,9 @@ exports.getHocSinhByGiaoVien = async (req, res) => {
     // Flatten: mỗi item = { hocSinh, lopHoc info }
     const flatList = [];
     for (const lh of lopHocs) {
-      for (const sv of (lh.HocSinh || [])) {
+      for (const hs of (lh.HocSinh || [])) {
         flatList.push({
-          hocSinh: sv,
+          hocSinh: hs,
           lopHoc: {
             _id: lh._id,
             MaLopHoc: lh.MaLopHoc,

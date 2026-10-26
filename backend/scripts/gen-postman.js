@@ -10,10 +10,10 @@
  *
  * Cách dùng:
  *   1. Lấy token GV:  node scripts/get-token.js 0xPK_GiaoVien  → token + User ID (gvId)
- *   2. Lấy token SV:  node scripts/get-token.js 0xPK_HocSinh   → token + User ID (hsId)
+ *   2. Lấy token HS:  node scripts/get-token.js 0xPK_HocSinh   → token + User ID (hsId)
  *   3. Postman: Import 2 collection + environment
  *   4. Chạy Lecturer: dán token GV vào "token", gvId vào "gvId" → Run
- *   5. Chạy Student:  dán token SV vào "token", hsId vào "hsId" → Run
+ *   5. Chạy Student:  dán token HS vào "token", hsId vào "hsId" → Run
  *
  * FIX cốt lõi: event (test script) đặt ở CẤP ITEM → assertion mới chạy.
  */
@@ -50,7 +50,7 @@ try {
 } catch (e) { console.log("⚠️ ${varName}:", e.message); }`;
 }
 
-// Lưu nhiều field từ 1 object response (vd hồ sơ SV: HoTen/MaHS/Email)
+// Lưu nhiều field từ 1 object response (vd hồ sơ HS: HoTen/MaHS/Email)
 function fieldSaver(mapping) {
   const lines = Object.entries(mapping)
     .map(([envKey, jsonKey]) => `  if (j.${jsonKey} != null) pm.environment.set("${envKey}", j.${jsonKey});`)
@@ -166,7 +166,7 @@ const lecturerRequests = [
 ];
 
 // ── COLLECTION HỌC SINH ───────────────────────────────────────────────
-// Không cần dán hsId: lấy hsId từ response POST /api/nhom (TruongNhom = chính SV này).
+// Không cần dán hsId: lấy hsId từ response POST /api/nhom (TruongNhom = chính HS này).
 // Lưu hsId + nhomId từ create-nhom response
 const nhomBootstrapSaver = `${assertOk}
 try {
@@ -174,8 +174,8 @@ try {
   var d = j.data || j;
   if (d._id) { pm.environment.set("nhomId", d._id); console.log("✅ nhomId =", d._id); }
   var tn = d.TruongNhom;
-  var sv = tn && (tn._id || tn);
-  if (sv) { pm.environment.set("hsId", sv); console.log("✅ hsId =", sv); }
+  var hs = tn && (tn._id || tn);
+  if (hs) { pm.environment.set("hsId", hs); console.log("✅ hsId =", hs); }
 } catch (e) { console.log("⚠️ nhomBootstrap:", e.message); }`;
 
 const studentRequests = [
@@ -187,7 +187,7 @@ const studentRequests = [
   }),
   S('0_bootstrap', 'GET', '/api/hocsinh/:id', {
     params: { id: 'hsId' },
-    test: fieldSaver({ svHoTen: 'HoTen', svMaHS: 'MaHS', svEmail: 'Email' }),
+    test: fieldSaver({ hsHoTen: 'HoTen', hsMaHS: 'MaHS', hsEmail: 'Email' }),
   }),
 
   // 1 — đọc dữ liệu của chính mình (hsId đã có)
@@ -214,13 +214,13 @@ const studentRequests = [
     }),
   }),
 
-  // 3 — cập nhật hồ sơ (GIỮ NGUYÊN tên/MSSV/email gốc, chỉ thêm GPA + kỹ năng)
+  // 3 — cập nhật hồ sơ (GIỮ NGUYÊN tên/MaHS/email gốc, chỉ thêm GPA + kỹ năng)
   S('3_profile', 'PUT', '/api/hocsinh/:id/profile', {
     params: { id: 'hsId' },
     body: json({
-      HoTen: '{{svHoTen}}',
-      MaHS: '{{svMaHS}}',
-      Email: '{{svEmail}}',
+      HoTen: '{{hsHoTen}}',
+      MaHS: '{{hsMaHS}}',
+      Email: '{{hsEmail}}',
       GPA: 3.5,
       ChuyenNganh: 'Công nghệ thông tin',
       BangDiemKyNang: [
@@ -310,7 +310,7 @@ const lecturer = buildCollection(
 const student = buildCollection(
   studentRequests,
   'Web3GiaoVien SmokeTest - Student',
-  `${studentRequests.length} request (token HỌC SINH). Chỉ cần dán token SV → hsId tự lấy từ JWT. Profile PUT giữ nguyên tên/MSSV/email gốc.`,
+  `${studentRequests.length} request (token HỌC SINH). Chỉ cần dán token HS → hsId tự lấy từ JWT. Profile PUT giữ nguyên tên/MaHS/email gốc.`,
   'hsId'
 );
 
@@ -325,9 +325,9 @@ const environment = {
     { key: 'rubricsId', value: '', enabled: true, type: 'string' },
     { key: 'baiTestId', value: '', enabled: true, type: 'string' },
     { key: 'nhomId', value: '', enabled: true, type: 'string' },
-    { key: 'svHoTen', value: '', enabled: true, type: 'string' },
-    { key: 'svMaHS', value: '', enabled: true, type: 'string' },
-    { key: 'svEmail', value: '', enabled: true, type: 'string' },
+    { key: 'hsHoTen', value: '', enabled: true, type: 'string' },
+    { key: 'hsMaHS', value: '', enabled: true, type: 'string' },
+    { key: 'hsEmail', value: '', enabled: true, type: 'string' },
   ],
   _postman_variable_scope: 'environment',
 };
@@ -350,4 +350,4 @@ console.log('✅ Sinh 2 collection smoke test:');
 console.log(`   📄 Lecturer (${lecturerRequests.length} req): Web3GiaoVien_SmokeTest_Lecturer.postman_collection.json`);
 console.log(`   📄 Student  (${studentRequests.length} req): Web3GiaoVien_SmokeTest_Student.postman_collection.json`);
 console.log('   📄 Web3GiaoVien.postman_environment.json (dùng chung)');
-console.log('\n🚀 Student: lấy token SV (get-token.js với ví SV), dán token + hsId → Run.');
+console.log('\n🚀 Student: lấy token HS (get-token.js với ví HS), dán token + hsId → Run.');

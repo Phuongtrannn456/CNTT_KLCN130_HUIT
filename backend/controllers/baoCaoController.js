@@ -35,7 +35,7 @@ const getAcceptedMembers = (dangKy) => {
     }];
 };
 
-// SV nộp báo cáo
+// HS nộp báo cáo
 exports.uploadBaoCao = async (req, res) => {
     try {
         const { deTaiId, hocSinhId, tieuDe } = req.body;
@@ -71,7 +71,7 @@ exports.uploadBaoCao = async (req, res) => {
 
         const acceptedMembers = getAcceptedMembers(dangKy);
         const acceptedMemberIds = acceptedMembers.map(tv => tv.HocSinh.toString());
-        const leaderId = dangKy.HocSinh.toString();
+        const leaderId = (dangKy.TruongNhom || dangKy.HocSinh).toString();
         const isGroupTopic = (deTai.SoLuongHocSinh || 1) > 1;
 
         if (isGroupTopic && requesterId !== leaderId) {
@@ -118,7 +118,7 @@ exports.uploadBaoCao = async (req, res) => {
         let extractionResult = { text: '', page_count: 0, method: 'failed', warnings: [] };
         try {
             const aiService = require('../services/aiService');
-            extractionResult = await aiService.extractPdf(req.file.path);
+            extractionResult = await aiService.extractPdf(req.file.path, req.ip);
             logger.info(`[REPORT] PDF extracted | method=${extractionResult.method} | pages=${extractionResult.page_count} | textLen=${extractionResult.text ? extractionResult.text.length : 0}`);
             if (extractionResult.warnings && extractionResult.warnings.length > 0) {
                 logger.warn(`[REPORT] PDF warnings: ${extractionResult.warnings.join('; ')}`);
@@ -195,7 +195,7 @@ exports.uploadBaoCao = async (req, res) => {
     }
 };
 
-// SV lấy báo cáo của mình
+// HS lấy báo cáo của mình
 exports.getMyBaoCao = async (req, res) => {
     try {
         const hsId = req.params.hsId;
@@ -211,7 +211,7 @@ exports.getMyBaoCao = async (req, res) => {
     }
 };
 
-// SV hủy nộp (xóa báo cáo)
+// HS hủy nộp (xóa báo cáo)
 exports.deleteBaoCao = async (req, res) => {
     try {
         const { id } = req.params;
@@ -285,6 +285,21 @@ exports.getBaoCaoByLecturer = async (req, res) => {
     try {
         const gvId = req.params.gvId;
         const mongoose = require('mongoose');
+        const LopHoc = require('../models/LopHoc');
+
+        let myClassIds = [];
+        try {
+            const myClasses = await LopHoc.find({
+                $or: [
+                    { GiaoVien: gvId },
+                    { GiaoVien: new mongoose.Types.ObjectId(gvId) }
+                ]
+            }).select('_id');
+            myClassIds = myClasses.map(c => c._id);
+        } catch (e) {
+            const myClasses = await LopHoc.find({ GiaoVien: gvId }).select('_id');
+            myClassIds = myClasses.map(c => c._id);
+        }
 
         let myTopics;
         try {
@@ -292,11 +307,17 @@ exports.getBaoCaoByLecturer = async (req, res) => {
             myTopics = await DeTai.find({
                 $or: [
                     { GiaoVienHuongDan: objectId },
-                    { GiaoVienHuongDan: gvId }
+                    { GiaoVienHuongDan: gvId },
+                    { LopHoc: { $in: myClassIds } }
                 ]
             });
         } catch (e) {
-            myTopics = await DeTai.find({ GiaoVienHuongDan: gvId });
+            myTopics = await DeTai.find({
+                $or: [
+                    { GiaoVienHuongDan: gvId },
+                    { LopHoc: { $in: myClassIds } }
+                ]
+            });
         }
 
         const topicIds = myTopics.map(t => t._id);
@@ -395,8 +416,24 @@ exports.getExtractedText = async (req, res) => {
         }
 
         const giaoVienId = req.user?.id;
-        if (giaoVienId && String(bc.DeTai?.GiaoVienHuongDan) !== String(giaoVienId)) {
-            return res.status(403).json({ error: 'Khong co quyen xem bao cao nay', code: 'KHONG_CO_QUYEN' });
+        const userWallet = (req.user?.walletAddress || req.user?.WalletAddress || '').toLowerCase();
+        const isAdmin = req.user?.role === 'ADMIN_ROLE' || req.user?.role_id === 'ADMIN_ROLE';
+        let isAuthorized = false;
+
+        if (isAdmin) {
+            isAuthorized = true;
+        } else if (giaoVienId && String(bc.DeTai?.GiaoVienHuongDan) === String(giaoVienId)) {
+            isAuthorized = true;
+        } else if (userWallet) {
+            const GiaoVien = require('../models/GiaoVien');
+            const gv = await GiaoVien.findById(bc.DeTai?.GiaoVienHuongDan);
+            if (gv && (gv.WalletAddress || '').toLowerCase() === userWallet) {
+                isAuthorized = true;
+            }
+        }
+
+        if (!isAuthorized) {
+            return res.status(403).json({ error: 'Không có quyền xem báo cáo này', code: 'KHONG_CO_QUYEN' });
         }
 
         res.json({

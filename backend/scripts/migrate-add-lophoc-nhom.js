@@ -14,7 +14,8 @@ const dryRun = process.argv.includes('--dry-run');
 
 async function migrate() {
   console.log(`Starting migration... Dry-run mode: ${dryRun}`);
-  const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://nguyenhuy4435:nhathuy812@clusterweb3.5tqfgfq.mongodb.net/web3';
+  const mongoUri = process.env.MONGODB_URI;
+  if (!mongoUri) throw new Error('Thiếu MONGODB_URI');
   
   try {
     await mongoose.connect(mongoUri);
@@ -198,7 +199,7 @@ async function migrate() {
       }
       
       if (matchedNhomId) {
-        console.log(`DiemSo (SV ${ds.HocSinh}) (${ds._id}): Associating with Nhom ${matchedNhomId}`);
+        console.log(`DiemSo (HS ${ds.HocSinh}) (${ds._id}): Associating with Nhom ${matchedNhomId}`);
         if (!dryRun) {
           ds.Nhom = matchedNhomId;
           if (ds.DiemGoc === undefined) {
@@ -207,7 +208,7 @@ async function migrate() {
           await ds.save();
         }
       } else {
-        console.log(`DiemSo (SV ${ds.HocSinh}) (${ds._id}): No Nhom found for HocSinh ${ds.HocSinh}`);
+        console.log(`DiemSo (HS ${ds.HocSinh}) (${ds._id}): No Nhom found for HocSinh ${ds.HocSinh}`);
       }
     }
     

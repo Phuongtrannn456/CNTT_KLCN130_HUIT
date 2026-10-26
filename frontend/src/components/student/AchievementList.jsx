@@ -90,12 +90,14 @@ const AchievementList = () => {
       ) : (
         <Row gutter={[24, 24]}>
           {achievements.map((ach) => {
-            const credential = credentials.find(c => c.achievement === achievementId || (c.achievement && c.achievement._id === achievementId));
+            const credential = credentials.find(c => 
+              String(c.achievement?._id || c.achievement || '') === String(ach._id)
+            );
             const isAnchored = credential && credential.status === 'ANCHORED';
             const isPending = credential && credential.status === 'PENDING_CHAIN';
 
             return (
-              <Col xs={24} sm={12} lg={8} key={achievementId}>
+              <Col xs={24} sm={12} lg={8} key={ach._id}>
                 <Card
                   hoverable
                   style={{ height: '100%', borderTop: '4px solid #faad14' }}
@@ -107,7 +109,7 @@ const AchievementList = () => {
                   </div>
                   <div style={{ marginBottom: 8 }}>
                     <Text type="secondary">Cấp bởi: </Text>
-                    <Text>{ach.issuer?.fullName || 'N/A'}</Text>
+                    <Text>{ach.issuer?.fullName || ach.issuer?.HoTen || 'N/A'}</Text>
                   </div>
                   <div style={{ marginBottom: 16 }}>
                     <Text type="secondary">Ngày cấp: </Text>
@@ -124,13 +126,15 @@ const AchievementList = () => {
                           <Button 
                             type="primary" 
                             ghost 
-                            onClick={() => window.open(`/verify/${ach.credentialId}`, '_blank')}
+                            onClick={() => window.open(`/verify/${credential?.credentialId}`, '_blank')}
                           >
                             Xác minh (Verify)
                           </Button>
                           <Button icon={<ShareAltOutlined />} onClick={() => {
-                            navigator.clipboard.writeText(`${window.location.origin}/verify/${ach.credentialId}`);
-                            message.success('Đã copy link xác minh!');
+                            if (credential?.credentialId) {
+                              navigator.clipboard.writeText(`${window.location.origin}/verify/${credential.credentialId}`);
+                              message.success('Đã copy link xác minh!');
+                            }
                           }}>Chia sẻ</Button>
                         </Space>
                       </div>
@@ -141,7 +145,7 @@ const AchievementList = () => {
                     <Button 
                       type="primary" 
                       loading={claiming} 
-                      onClick={() => handleClaim(achievementId)}
+                      onClick={() => handleClaim(ach._id)}
                       block
                     >
                       Nhận Web3 Credential

@@ -13,13 +13,13 @@ const qrCodeSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['LECTURER_ROLE', 'STUDENT_ROLE', 'TEACHER_ROLE', 'ADMIN_ROLE', 'GUEST_ROLE'],
+    enum: ['TEACHER_ROLE', 'LECTURER_ROLE', 'STUDENT_ROLE', 'ADMIN_ROLE'],
     required: true
   },
   role_model: {
     type: String,
     required: true,
-    enum: ['GiaoVien', 'HocSinh', 'Teacher', 'Student', 'User']
+    enum: ['GiaoVien', 'HocSinh', 'Admin']
   },
   qr_hash: {
     type: String,
@@ -36,11 +36,10 @@ const qrCodeSchema = new mongoose.Schema({
 });
 
 // Chú ý: Đảm bảo wallet_address luôn lưu dạng lowercase để dễ so sánh
-qrCodeSchema.pre('save', function(next) {
+qrCodeSchema.pre('save', function() {
   if (this.wallet_address) {
     this.wallet_address = this.wallet_address.toLowerCase();
   }
-  next();
 });
 
 module.exports = mongoose.model('QrCode', qrCodeSchema);

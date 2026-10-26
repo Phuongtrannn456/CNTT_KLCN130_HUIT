@@ -66,10 +66,8 @@ const ReportUpload = () => {
   const isApproved = registration?.TrangThai === 'DaDuyet';
   const hasSubmission = !!existingBaoCao;
 
-  const isLeader = registration ? (
-    (registration.HocSinh && registration.HocSinh._id === user.id) ||
-    registration.HocSinh === user.id
-  ) : false;
+  const leaderId = registration?.TruongNhom?._id || registration?.TruongNhom || registration?.HocSinh?._id || registration?.HocSinh;
+  const isLeader = leaderId ? leaderId.toString() === user?.id?.toString() : false;
   const isGroupTopic = registration?.DeTai?.SoLuongHocSinh > 1;
 
   const props = {

@@ -1,9 +1,8 @@
-import apiService from "../../services/apiService";
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Card, Result, Spin, Tag, Descriptions, Typography, Button, Space, Alert } from 'antd';
 import { CheckCircleOutlined, CloseCircleOutlined, SafetyCertificateOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-
+import apiService from '../../services/apiService';
 import dayjs from 'dayjs';
 
 const { Title, Text, Paragraph } = Typography;

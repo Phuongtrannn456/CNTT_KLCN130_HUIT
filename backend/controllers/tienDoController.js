@@ -55,17 +55,29 @@ const validateRubricsTuan = (rubricsTuan) => {
     return { ok: true };
 };
 
-const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId) => {
+const assertGiaoVienOwnsDeTai = async (deTaiId, giaoVienId, user) => {
     const deTai = await DeTai.findById(deTaiId);
     if (!deTai) {
         return { ok: false, error: 'Không tìm thấy đề tài', code: 'DETAI_KHONG_TON_TAI' };
     }
 
-    if (String(deTai.GiaoVienHuongDan) !== String(giaoVienId)) {
-        return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
+    if (String(deTai.GiaoVienHuongDan) === String(giaoVienId)) {
+        return { ok: true, deTai };
     }
 
-    return { ok: true, deTai };
+    if (user?.role_id === 'ADMIN_ROLE') {
+        return { ok: true, deTai };
+    }
+
+    if (user?.walletAddress) {
+        const GiaoVien = require('../models/GiaoVien');
+        const gv = await GiaoVien.findById(deTai.GiaoVienHuongDan);
+        if (gv && (gv.WalletAddress || '').toLowerCase() === user.walletAddress.toLowerCase()) {
+            return { ok: true, deTai };
+        }
+    }
+
+    return { ok: false, error: 'Không phải giáo viên hướng dẫn', code: 'KHONG_PHAI_GV_HUONG_DAN' };
 };
 
 const assertHocSinhBelongsToDangKy = async (deTaiId, hocSinhId) => {
@@ -171,7 +183,7 @@ const defaultRubricsTuan = [
     { MaTieuChi: 'KE_HOACH', TenTieuChi: 'Kế hoạch tuần sau', TrongSo: 15, DiemToiDa: 10 }
 ];
 
-// 1. Tạo entry tiến độ mới (SV)
+// 1. Tạo entry tiến độ mới (HS)
 exports.createProgressEntry = async (req, res) => {
     try {
         const {
@@ -196,6 +208,14 @@ exports.createProgressEntry = async (req, res) => {
         if (!registrationCheck.ok) {
             return res.status(403).json({ error: registrationCheck.error, code: registrationCheck.code });
         }
+        
+        if (process.env.HARD_DEADLINE === 'true') {
+            const deTai = await DeTai.findById(deTaiId);
+            if (deTai && deTai.Deadline && new Date() > deTai.Deadline) {
+                return res.status(403).json({ error: 'Đã quá hạn nộp tiến độ cho đề tài này', code: 'QUA_HAN_NOP_TIEN_DO' });
+            }
+        }
+
         const nhomId = registrationCheck.dangKy?.Nhom;
 
         const queryExisting = { DeTai: deTaiId };
@@ -264,7 +284,7 @@ exports.createProgressEntry = async (req, res) => {
             await tienDo.save();
         } catch (saveErr) {
             if (saveErr && saveErr.code === 11000) {
-                return res.status(409).json({ error: 'Trùng tuần đã tồn tại', code: 'TRUNG_TUAN_DA_TON_TAI' });
+                return res.status(409).json({ error: 'Tiến độ tuần này đã được nộp hoặc đang xử lý.', code: 'TRUNG_TUAN_DA_TON_TAI' });
             }
             throw saveErr;
         }
@@ -274,7 +294,7 @@ exports.createProgressEntry = async (req, res) => {
     }
 };
 
-// 2. Lấy tiến độ của 1 SV theo Đề tài (SV xem của mình)
+// 2. Lấy tiến độ của 1 HS theo Đề tài (HS xem của mình)
 exports.getProgressByHocSinh = async (req, res) => {
     try {
         const { hsId } = req.params;
@@ -342,7 +362,7 @@ exports.getProgressByTopic = async (req, res) => {
     }
 };
 
-// 3.1. Lấy chi tiết tiến độ theo ID (GV/SV)
+// 3.1. Lấy chi tiết tiến độ theo ID (GV/HS)
 exports.getProgressDetail = async (req, res) => {
     try {
         const { id } = req.params;
@@ -373,7 +393,7 @@ exports.getProgressDetail = async (req, res) => {
         }
 
         if (requesterId && !isOwner && !isMemberOfGroup) {
-            const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai._id || progress.DeTai, requesterId);
+            const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai._id || progress.DeTai, requesterId, req.user);
             if (!ownerCheck.ok) {
                 return res.status(403).json({ error: ownerCheck.error, code: ownerCheck.code });
             }
@@ -425,7 +445,7 @@ exports.getProgressDetail = async (req, res) => {
     }
 };
 
-// 3.2. SV cập nhật tiến độ khi được phép
+// 3.2. HS cập nhật tiến độ khi được phép
 exports.updateProgressEntry = async (req, res) => {
     try {
         const { id } = req.params;
@@ -571,7 +591,7 @@ exports.evaluateProgress = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId, req.user);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -651,7 +671,7 @@ exports.commentProgress = async (req, res) => {
 
         const requesterId = req.user?.id || req.user?._id;
         if (requesterId) {
-            const ownerCheck = await assertGiaoVienOwnsDeTai(updated.DeTai, requesterId);
+            const ownerCheck = await assertGiaoVienOwnsDeTai(updated.DeTai, requesterId, req.user);
             if (!ownerCheck.ok) {
                 return res.status(403).json({ error: ownerCheck.error, code: ownerCheck.code });
             }
@@ -677,7 +697,7 @@ exports.aiSuggestProgress = async (req, res) => {
             return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
         }
 
-        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId);
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId, req.user);
         if (!ownerCheck.ok) {
             const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
             return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
@@ -708,7 +728,7 @@ exports.aiSuggestProgress = async (req, res) => {
             GoiYChoAI: Array.isArray(tc.GoiYChoAI) ? tc.GoiYChoAI : []
         }));
 
-        const aiResult = await aiService.analyzeWithRubrics(text, rubrics);
+        const aiResult = await aiService.analyzeWithRubrics(text, rubrics, req.ip);
 
         res.json({
             message: 'AI đã gợi ý điểm tiến độ (chỉ tham khảo)',
@@ -719,6 +739,120 @@ exports.aiSuggestProgress = async (req, res) => {
         });
     } catch (err) {
         logger.error(`[TIENDO] AI suggest failed: ${err.message}`);
+        if (err.message && err.message.includes('timeout')) {
+            return res.status(504).json({ error: "AI server timeout", code: "AI_TIMEOUT" });
+        }
         res.status(500).json({ error: err.message || 'Lỗi khi gọi AI gợi ý điểm tiến độ' });
+    }
+};
+
+const parseBlockchainError = (error, walletAddress = '0xD6aB1D7521A6cd96317bd2d04d89d431b888a7F0') => {
+    const errorStr = String(error.message || error);
+    if (errorStr.includes('insufficient funds') || error.code === 'INSUFFICIENT_FUNDS') {
+        return `Tài khoản ví hệ thống không đủ phí gas Sepolia để thực hiện giao dịch ghi tiến độ. Địa chỉ ví hệ thống: ${walletAddress}. Vui lòng nạp thêm ETH Sepolia để tiếp tục.`;
+    }
+    if (errorStr.includes('already recorded') || errorStr.includes('Progress already recorded')) {
+        return 'Tiến độ này đã được khóa và ghi nhận an toàn trên Smart Contract Blockchain từ trước.';
+    }
+    if (errorStr.includes('user rejected action') || errorStr.includes('ACTION_REJECTED')) {
+        return 'Giao dịch bị từ chối ký trên ví MetaMask.';
+    }
+    
+    const match = errorStr.match(/execution reverted: "([^"]+)"/) || errorStr.match(/reason="([^"]+)"/);
+    if (match && match[1]) {
+        return `Lỗi Smart Contract: ${match[1]}`;
+    }
+    if (errorStr.length > 200) {
+        return errorStr.split('\n')[0].substring(0, 200) + '...';
+    }
+    return errorStr;
+};
+
+exports.retryBlockchain = async (req, res) => {
+    try {
+        const giaoVienId = req.user?.id || req.body.giaoVienId;
+        const progressId = req.params.id;
+
+        const progress = await TienDo.findById(progressId);
+        if (!progress) {
+            return res.status(404).json({ error: 'Không tìm thấy nhật ký tiến độ' });
+        }
+
+        const ownerCheck = await assertGiaoVienOwnsDeTai(progress.DeTai, giaoVienId, req.user);
+        if (!ownerCheck.ok) {
+            const status = ownerCheck.code === 'DETAI_KHONG_TON_TAI' ? 404 : 403;
+            return res.status(status).json({ error: ownerCheck.error, code: ownerCheck.code });
+        }
+
+        if (progress.TrangThaiBlockchain === 'DaGhi' && progress.TxHash) {
+            return res.json({
+                message: 'Dữ liệu đã được ghi Blockchain',
+                data: progress,
+                blockchain: { status: progress.TrangThaiBlockchain, txHash: progress.TxHash }
+            });
+        }
+
+        // Chống mint trùng: cập nhật nguyên tử chỉ những bản ghi LoiGhi
+        const updatedProgress = await TienDo.findOneAndUpdate(
+            { _id: progress._id, TrangThaiBlockchain: 'LoiGhi' },
+            { TrangThaiBlockchain: 'Pending', LoiBlockchain: undefined },
+            { new: true }
+        );
+
+        if (!updatedProgress) {
+            return res.status(409).json({ error: 'Tiến độ không ở trạng thái lỗi ghi hoặc đang được xử lý', code: 'KHONG_LOI_GHI' });
+        }
+
+        try {
+            const contractService = require('../services/thesisContractService');
+            const txHash = await contractService.submitProgressOnChain(
+                String(updatedProgress.DeTai), String(updatedProgress.HocSinh),
+                updatedProgress.TuanSo || 0, updatedProgress.DiemTienDo || 0
+            );
+
+            updatedProgress.TxHash = txHash;
+            updatedProgress.TrangThaiBlockchain = 'DaGhi';
+            updatedProgress.LoiBlockchain = undefined;
+            await updatedProgress.save();
+
+            res.json({
+                message: 'Ghi lại Blockchain thành công',
+                data: updatedProgress,
+                blockchain: { status: 'DaGhi', txHash }
+            });
+        } catch (error) {
+            const contractService = require('../services/thesisContractService');
+            const walletAddress = contractService.getWalletAddress ? contractService.getWalletAddress() : '0xD6aB1D7521A6cd96317bd2d04d89d431b888a7F0';
+            const cleanError = parseBlockchainError(error, walletAddress);
+
+            // Self-healing: Khác với DiemSo (sử dụng getSubmissionHistory), ở đây chỉ check error message nếu contract báo already recorded.
+            if (cleanError.includes('đã được khóa và ghi nhận')) {
+                updatedProgress.TrangThaiBlockchain = 'DaGhi';
+                updatedProgress.LoiBlockchain = undefined;
+                updatedProgress.TxHash = '0xMockSyncedOnChain';
+                await updatedProgress.save();
+                
+                return res.json({
+                    message: 'Dữ liệu đã được cập nhật lại theo bản ghi đã có trên Blockchain để đồng nhất dữ liệu.',
+                    data: updatedProgress,
+                    blockchain: { status: 'DaGhi', txHash: updatedProgress.TxHash }
+                });
+            }
+
+            updatedProgress.TrangThaiBlockchain = 'LoiGhi';
+            updatedProgress.LoiBlockchain = cleanError;
+            await updatedProgress.save();
+            logger.error(`[TIENDO] Retry blockchain failed for progress ${updatedProgress._id}: ${error.message}`);
+
+            res.status(400).json({
+                error: cleanError,
+                code: 'RETRY_BLOCKCHAIN_FAILED',
+                data: updatedProgress,
+                blockchain: { status: 'LoiGhi', txHash: null }
+            });
+        }
+    } catch (err) {
+        logger.error(`[TIENDO] Retry blockchain failed: ${err.message}`);
+        res.status(500).json({ error: err.message });
     }
 };

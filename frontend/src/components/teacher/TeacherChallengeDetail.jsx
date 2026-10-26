@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Card, Table, Typography, Tag, Button, Spin, message, Modal, Input, InputNumber, Form, Alert, Select, Divider, Space, Row, Col } from 'antd';
-import { EyeOutlined, CheckCircleOutlined, RobotOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Card, Table, Typography, Tag, Button, Spin, message, Modal, Input, InputNumber, Form, Alert, Select, Divider, Row, Col } from 'antd';
+import { EyeOutlined, CheckCircleOutlined, RobotOutlined } from '@ant-design/icons';
 import challengeService from '../../services/challengeService';
 import dayjs from 'dayjs';
 
@@ -119,7 +119,7 @@ const TeacherChallengeDetail = () => {
       const res = await challengeService.suggestEvaluation(studentSubmissions[0]._id);
       if (res.success && res.aiAvailable) {
         setAiSuggestionResult(res.suggestion);
-        // Tự động điền điểm gợi ý vào form (nhưng teacher vẫn có thể sửa)
+        // Tự động điền điểm gợi ý vào form (nhưng giáo viên vẫn có thể sửa)
         form.setFieldsValue({
           teacherTotalScore: res.suggestion.aiTotalScore,
           teacherFeedback: res.suggestion.aiFeedback
@@ -158,14 +158,6 @@ const TeacherChallengeDetail = () => {
     
     try {
       await challengeService.evaluateSubmission(latestSub._id, payload);
-      if (aiSuggestionResult && values.teacherTotalScore !== undefined) {
-        try {
-          await challengeService.saveTrainingData(latestSub._id, {
-            aiScore: aiSuggestionResult.aiTotalScore,
-            teacherScore: values.teacherTotalScore
-          });
-        } catch (e) { console.warn("Training data save failed", e); }
-      }
       message.success('Lưu đánh giá thành công');
       setIsEvalModalVisible(false);
       fetchData(); // Refresh to show if finalized
@@ -175,8 +167,16 @@ const TeacherChallengeDetail = () => {
   };
 
   const columns = [
-    { title: 'Học sinh', dataIndex: ['student', 'fullName'], key: 'name' },
-    { title: 'Khối lớp', dataIndex: ['student', 'gradeLevel'], key: 'grade' },
+    { 
+      title: 'Học sinh', 
+      key: 'name',
+      render: (_, record) => record.student?.fullName || record.student?.HoTen || 'N/A'
+    },
+    { 
+      title: 'Khối lớp', 
+      key: 'grade',
+      render: (_, record) => record.student?.gradeLevel || record.student?.KhoiLop || 'N/A'
+    },
     { 
       title: 'Ngày tham gia', 
       key: 'joinedAt', 
@@ -199,21 +199,19 @@ const TeacherChallengeDetail = () => {
 
   return (
     <div style={{ padding: '24px' }}>
-      <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/teacher/challenges')} style={{ marginBottom: '16px' }}>
-        Quay lại Quản lý Challenge
-      </Button>
+      <Button onClick={() => navigate(-1)} style={{ marginBottom: '16px' }}>Quay lại Quản lý Challenge</Button>
       
       <Card title={<Title level={3} style={{ margin: 0 }}>Danh sách Tham gia: {challenge?.title}</Title>}>
         <Table 
           columns={columns} 
           dataSource={participants} 
           rowKey="_id" 
-          pagination={false}
+          pagination={false} 
         />
       </Card>
 
       <Modal
-        title={`Đánh giá bài nộp: ${selectedParticipation?.student?.fullName || ""}`}
+        title={`Đánh giá bài nộp: ${selectedParticipation?.student?.fullName || selectedParticipation?.student?.HoTen || ""}`}
         open={isEvalModalVisible}
         onCancel={() => setIsEvalModalVisible(false)}
         footer={null}
@@ -298,11 +296,11 @@ const TeacherChallengeDetail = () => {
               <Col span={12}>
                 <Card title="Quyết định của Giáo viên" size="small" style={{ height: '100%' }}>
                   <Form form={form} layout="vertical" onFinish={onEvalSubmit} initialValues={{ status: 'DRAFT' }}>
-                    <Form.Item name="teacherTotalScore" label="Điểm số chính thức" rules={[{ required: true, message: 'Nhập điểm' }]}>
-                      <InputNumber min={0} max={100} step={0.5} disabled={isFinalized} style={{ width: '100%' }} />
+                    <Form.Item name="teacherTotalScore" label="Điểm số chính thức (Thang 10 chuẩn K-12)" rules={[{ required: true, message: 'Vui lòng nhập điểm (0 - 10)' }]}>
+                      <InputNumber min={0} max={10} step={0.25} placeholder="0 - 10" disabled={isFinalized} style={{ width: '100%' }} />
                     </Form.Item>
                     
-                    <Form.Item name="teacherFeedback" label="Nhận xét chính thức" rules={[{ required: true, message: 'Nhập nhận xét' }]}>
+                    <Form.Item name="teacherFeedback" label="Nhận xét chính thức" rules={[{ required: true, message: 'Vui lòng nhập nhận xét' }]}>
                       <Input.TextArea rows={6} disabled={isFinalized} />
                     </Form.Item>
 

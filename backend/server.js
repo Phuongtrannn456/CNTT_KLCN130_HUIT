@@ -1,13 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const cspHeader = require('./middleware/cspHeader');
 const bodyParser = require('body-parser');
 const http = require('http');
 const socketIo = require('socket.io');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const logger = require('./config/logger');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 const app = express();
 const allowedOrigins = (process.env.FRONTEND_URL || 'https://web3.giaovien.ifanit.io.vn/')
@@ -23,7 +23,17 @@ const io = socketIo(server, {
 });
 
 // Connect to MongoDB
-connectDB();
+connectDB().then(() => {
+    // Quét dọn định kỳ (mỗi 10 phút) để loại bỏ đăng ký bị kẹt, nếu không phải môi trường test
+    const { sweepClosedTopics } = require('./utils/registrationUtil');
+    if (process.env.NODE_ENV !== 'test') {
+        setInterval(() => {
+            sweepClosedTopics().then(count => {
+                if (count > 0) logger.info(`[SWEEP] Đã quét và loại bỏ ${count} đăng ký thừa.`);
+            }).catch(err => logger.error(`[SWEEP] Lỗi khi quét: ${err.message}`));
+        }, 10 * 60 * 1000); // 10 minutes
+    }
+});
 
 // Middleware
 app.use(cors({
@@ -38,14 +48,21 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
-app.use(cspHeader);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // HTTP Request Logging (Morgan → Winston)
 const morganStream = { write: (message) => logger.info(`[HTTP] ${message.trim()}`) };
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms', { stream: morganStream }));
 
-const rateLimit = require('express-rate-limit');
+const { rateLimit } = require('express-rate-limit');
+
+// Bật trust proxy để Rate Limit lấy đúng IP thật qua X-Forwarded-For
+let hops = parseInt(process.env.TRUST_PROXY_HOPS, 10);
+if (isNaN(hops) || hops < 0) {
+    logger.warn(`[SERVER] Invalid or missing TRUST_PROXY_HOPS: ${process.env.TRUST_PROXY_HOPS}. Using default 0 (no proxy).`);
+    hops = 0;
+}
+app.set('trust proxy', hops);
 
 // Rate limiter cho upload báo cáo (ngăn spam file)
 const uploadLimiter = rateLimit({
@@ -54,6 +71,8 @@ const uploadLimiter = rateLimit({
   message: { error: 'Quá nhiều lần upload. Vui lòng thử lại sau 1 phút.' },
   standardHeaders: true,
   legacyHeaders: false,
+  keyGenerator: (req) => req.user?.id || req.ip,
+  validate: false
 });
 
 // Rate limiter cho AI scoring
@@ -63,6 +82,8 @@ const aiLimiter = rateLimit({
   message: { error: 'Quá nhiều yêu cầu chấm điểm. Vui lòng thử lại sau.' },
   standardHeaders: true,
   legacyHeaders: false,
+  keyGenerator: (req) => req.user?.id || req.ip,
+  validate: false
 });
 
 // Rate limiter cho login (chống brute force)
@@ -72,6 +93,7 @@ const loginLimiter = rateLimit({
   message: { error: 'Quá nhiều lần đăng nhập thất bại. Vui lòng thử lại sau 15 phút.' },
   standardHeaders: true,
   legacyHeaders: false,
+  validate: false
 });
 
 // Socket.IO
@@ -115,7 +137,6 @@ app.set('io', io);
 
 // Multer config for IPFS / File Uploads
 const multer = require('multer');
-const path = require('path');
 const fs = require('fs');
 
 const uploadDir = path.join(__dirname, 'uploads', 'reports');
@@ -179,23 +200,21 @@ app.get('/', (req, res) => {
 
 // 2. Auth routes
 // --- API K-12 Mới ---
-app.post('/api/auth/login', loginLimiter, authController.verifySignature);
-// app.post('/api/auth/link-wallet', ...); // Sẽ xử lý sau nếu cần logic tách biệt
 app.use('/api/challenges', require('./routes/challengeRoutes'));
 app.use('/api/participations', require('./routes/participationRoutes'));
 app.use('/api/submissions', require('./routes/submissionRoutes'));
 app.use('/api/achievements', require('./routes/achievementRoutes'));
 app.use('/api/ai', require('./routes/aiRoutes'));
+app.use('/api/ai/assistant', require('./routes/aiAssistantRoutes'));
 app.use('/api/credentials', require('./routes/credentialRoutes'));
 
 // --- Legacy Auth Routes ---
 app.post('/api/auth/challenge', loginLimiter, authController.generateChallenge);
 app.post('/api/auth/verify', loginLimiter, authController.verifySignature);
-// Removed register-role as users are auto-created
+app.post('/api/auth/register-role', loginLimiter, authController.registerWithRole);
+app.get('/api/auth/profile', ...requireAuth, authController.getProfile);
+app.put('/api/auth/profile', ...requireAuth, authController.updateProfile);
 app.post('/api/auth/logout', authController.authenticateToken, authController.logout);
-app.get("/api/auth/profile", authController.authenticateToken, authController.getProfile);
-app.put("/api/auth/profile", authController.authenticateToken, authController.updateProfile);
-
 app.get('/api/auth/qr-session', loginLimiter, authController.generateQrSession);
 app.post('/api/auth/qr-submit', loginLimiter, authController.verifyQrSignature);
 
@@ -204,26 +223,37 @@ app.get('/api/qr/me', ...requireAuth, qrController.getQrCode);
 app.post('/api/qr/generate', ...requireAuth, qrController.generateQrCode);
 
 // 2c. Admin Routes
-app.get("/api/admin/users", ...requireAdmin, adminController.getAllUsers);
-app.put("/api/admin/users/:id/role", ...requireAdmin, adminController.updateUserRole);
-app.put("/api/admin/users/:id/toggle-active", ...requireAdmin, adminController.toggleUserActive);
-app.get("/api/admin/requests", ...requireAdmin, adminController.getPendingRequests);
-app.get("/api/admin/requests/history", ...requireAdmin, adminController.getRequestHistory);
-app.get("/api/admin/requests/:id", ...requireAdmin, adminController.getRequestDetail);
-app.post("/api/admin/requests/:id/approve", ...requireAdmin, adminController.approveRequest);
-app.post("/api/admin/requests/:id/reject", ...requireAdmin, adminController.rejectRequest);
-app.post("/api/admin/approve/:id", ...requireAdmin, adminController.approveRequest);
-app.post("/api/admin/reject/:id", ...requireAdmin, adminController.rejectRequest);
-app.get("/api/admin/lecturers", ...requireAdmin, adminController.getLecturers);
+app.get('/api/admin/requests', ...requireAdmin, adminController.getPendingRequests);
+app.get('/api/admin/requests/history', ...requireAdmin, adminController.getProcessedRequests);
+app.get('/api/admin/requests/:id', ...requireAdmin, adminController.getRequestDetail);
+app.post('/api/admin/approve/:id', ...requireAdmin, adminController.approveRequest);
+app.post('/api/admin/reject/:id', ...requireAdmin, adminController.rejectRequest);
+app.get('/api/admin/lecturers', ...requireAdmin, adminController.getAllLecturers);
+app.get('/api/admin/giaovien', ...requireAdmin, adminController.getAllLecturers);
+app.get('/api/admin/teachers', ...requireAdmin, adminController.getAllLecturers);
 
+// Admin Student Management (K-12 Roster & Bulk Import)
+app.get('/api/admin/students', ...requireAdmin, adminController.getAllStudents);
+app.post('/api/admin/students', ...requireAdmin, adminController.createStudent);
+app.post('/api/admin/students/bulk-import', ...requireAdmin, adminController.bulkImportStudents);
+app.post('/api/admin/students/:id/reset-pin', ...requireAdmin, adminController.resetStudentPin);
+app.delete('/api/admin/students/:id', ...requireAdmin, adminController.deleteStudent);
+
+// Admin Teacher Management
+app.post('/api/admin/teachers', ...requireAdmin, adminController.createTeacher);
+app.post('/api/admin/teachers/bulk-import', ...requireAdmin, adminController.bulkImportTeachers);
+app.post('/api/admin/teachers/:id/reset-pin', ...requireAdmin, adminController.resetTeacherPin);
+app.delete('/api/admin/teachers/:id', ...requireAdmin, adminController.deleteTeacher);
 
 // 3. Học Sinh
+app.get('/api/hocsinh/me/bang-diem', ...requireAuth, hocSinhController.getBangDiem);
+app.get('/api/hocsinh/:hsId/bang-diem', ...requireAuth, hocSinhController.getBangDiem);
 app.get('/api/hocsinh', ...requireAuth, hocSinhController.getAll);
 app.get('/api/hocsinh/:id', ...requireAuth, hocSinhController.getById);
 app.post('/api/hocsinh', ...requireAdmin, hocSinhController.create);
 app.put('/api/hocsinh/:id', ...requireAuth, hocSinhController.update);
 app.put('/api/hocsinh/:id/profile', ...requireAuth, hocSinhController.updateProfile);
-app.get('/api/hocsinh/masv/:maSV', ...requireAuth, hocSinhController.findByMaHS);
+app.get('/api/hocsinh/mahs/:maHS', ...requireAuth, hocSinhController.findByMaHS);
 app.delete('/api/hocsinh/:id', ...requireAdmin, hocSinhController.delete);
 
 // 4. Giáo Viên
@@ -286,13 +316,14 @@ app.post('/api/blockchain/backfill-tx', ...requireTeacher, blockchainController.
 // 8. Tiến Độ
 app.post('/api/tiendo', ...requireStudent, tienDoController.createProgressEntry);
 app.get('/api/tiendo/hocsinh/:hsId', ...requireAuth, tienDoController.getProgressByHocSinh);
-app.get('/api/tiendo/detail/:id', ...requireAuth, tienDoController.getProgressDetail);
-app.put('/api/tiendo/:id', ...requireStudent, tienDoController.updateProgressEntry);
-app.put('/api/tiendo/:id/danhgia', ...requireTeacher, tienDoController.evaluateProgress);
-app.get('/api/tiendo/:id/ai-suggest', ...requireTeacher, tienDoController.aiSuggestProgress);
-app.get('/api/tiendo/:hsId', ...requireAuth, tienDoController.getProgressBySV);
 app.get('/api/tiendo/detai/:deTaiId', ...requireAuth, tienDoController.getProgressByTopic);
+app.get('/api/tiendo/detail/:id', ...requireAuth, tienDoController.getProgressDetail);
+app.put('/api/tiendo/:id/danhgia', ...requireTeacher, tienDoController.evaluateProgress);
+app.put('/api/tiendo/:id/retry-blockchain', ...requireTeacher, tienDoController.retryBlockchain);
+app.get('/api/tiendo/:id/ai-suggest', ...requireTeacher, tienDoController.aiSuggestProgress);
 app.put('/api/tiendo/:id/nhanxet', ...requireTeacher, tienDoController.commentProgress);
+app.put('/api/tiendo/:id', ...requireStudent, tienDoController.updateProgressEntry);
+app.get('/api/tiendo/:hsId', ...requireAuth, tienDoController.getProgressByHocSinh);
 
 // 9. AI / ML Services
 app.post('/api/ai/analyze-report', ...requireTeacher, aiLimiter, aiController.analyzeReport);
@@ -317,6 +348,7 @@ app.get('/api/baitest/:id/results', ...requireTeacher, baiTestController.getTest
 app.post('/api/baitest/:id/select-winner', ...requireTeacher, baiTestController.selectWinner);
 app.delete('/api/baitest/:id', ...requireTeacher, baiTestController.deleteTest);
 app.get('/api/baitest/check/:deTaiId/:hocSinhId', ...requireAuth, baiTestController.checkSubmitted);
+app.post('/api/baitest/:deTaiId/reset-student-test', ...requireAuth, baiTestController.resetStudentTest);
 
 // 12. Quản Lý Nhóm
 app.post('/api/nhom', ...requireStudent, nhomController.createNhom);
@@ -332,7 +364,33 @@ app.post('/api/nhom/:id/transfer-leader', ...requireStudent, nhomController.tran
 app.post('/api/nhom/:id/chot', ...requireStudent, nhomController.chotNhom);
 app.delete('/api/nhom/:id', ...requireStudent, nhomController.deleteNhom);
 
-// Multer error handler
+// 13. Quản Lý Môn Học
+app.get('/api/monhoc/giaovien/:gvId', ...requireTeacher, monHocController.getByGiaoVien);
+app.post('/api/monhoc', ...requireTeacher, monHocController.create);
+app.put('/api/monhoc/:id', ...requireTeacher, monHocController.update);
+app.delete('/api/monhoc/:id', ...requireTeacher, monHocController.delete);
+
+// 14. Quản Lý Lớp Học
+app.get('/api/lophoc/giaovien/:gvId', ...requireTeacher, lopHocController.getByGiaoVien);
+app.get('/api/lophoc/hocsinh/:hsId', ...requireAuth, lopHocController.getByHocSinh);
+app.get('/api/lophoc/:id/detail', ...requireAuth, lopHocController.getDetail);
+app.post('/api/lophoc', ...requireTeacher, lopHocController.create);
+app.put('/api/lophoc/:id', ...requireTeacher, lopHocController.update);
+app.post('/api/lophoc/:id/hocsinh', ...requireTeacher, lopHocController.addHocSinh);
+app.post('/api/lophoc/:id/import-hocsinh', ...requireTeacher, lopHocController.importHocSinh);
+app.delete('/api/lophoc/:id/hocsinh/:hsId', ...requireTeacher, lopHocController.removeHocSinh);
+app.delete('/api/lophoc/:id', ...requireTeacher, lopHocController.delete);
+app.get('/api/lophoc/giaovien/:gvId/hocsinh', ...requireTeacher, lopHocController.getHocSinhByGiaoVien);
+
+// 15. Lời Mời Lớp Học
+app.post('/api/loimoi-lophoc/:lopId/invite', ...requireTeacher, loiMoiLopHocController.inviteHocSinh);
+app.post('/api/loimoi-lophoc/:lopId/invite-batch', ...requireTeacher, loiMoiLopHocController.inviteBatch);
+app.get('/api/loimoi-lophoc/lophoc/:lopId', ...requireTeacher, loiMoiLopHocController.getInvitesByLopHoc);
+app.get('/api/loimoi-lophoc/hocsinh/:hsId', ...requireAuth, loiMoiLopHocController.getMyClassInvites);
+app.post('/api/loimoi-lophoc/:id/respond', ...requireStudent, loiMoiLopHocController.respondToInvite);
+app.delete('/api/loimoi-lophoc/:id', ...requireTeacher, loiMoiLopHocController.cancelInvite);
+
+// Global & Multer error handler (phải đặt sau tất cả các routes)
 app.use((err, req, res, next) => {
   if (err.code === 'LIMIT_FILE_SIZE') {
     return res.status(400).json({
@@ -365,32 +423,6 @@ app.use((err, req, res, next) => {
       : err.message
   });
 });
-
-// 13. Quản Lý Môn Học
-app.get('/api/monhoc/giaovien/:gvId', ...requireTeacher, monHocController.getByGiaoVien);
-app.post('/api/monhoc', ...requireTeacher, monHocController.create);
-app.put('/api/monhoc/:id', ...requireTeacher, monHocController.update);
-app.delete('/api/monhoc/:id', ...requireTeacher, monHocController.delete);
-
-// 14. Quản Lý Lớp Học
-app.get('/api/lophoc/giaovien/:gvId', ...requireTeacher, lopHocController.getByGiaoVien);
-app.get('/api/lophoc/hocsinh/:hsId', ...requireAuth, lopHocController.getByHocSinh);
-app.get('/api/lophoc/:id/detail', ...requireAuth, lopHocController.getDetail);
-app.post('/api/lophoc', ...requireTeacher, lopHocController.create);
-app.put('/api/lophoc/:id', ...requireTeacher, lopHocController.update);
-app.post('/api/lophoc/:id/hocsinh', ...requireTeacher, lopHocController.addHocSinh);
-app.post('/api/lophoc/:id/import-hocsinh', ...requireTeacher, lopHocController.importHocSinh);
-app.delete('/api/lophoc/:id/hocsinh/:hsId', ...requireTeacher, lopHocController.removeHocSinh);
-app.delete('/api/lophoc/:id', ...requireTeacher, lopHocController.delete);
-app.get('/api/lophoc/giaovien/:gvId/hocsinh', ...requireTeacher, lopHocController.getHocSinhByGiaoVien);
-
-// 15. Lời Mời Lớp Học
-app.post('/api/loimoi-lophoc/:lopId/invite', ...requireTeacher, loiMoiLopHocController.inviteHocSinh);
-app.post('/api/loimoi-lophoc/:lopId/invite-batch', ...requireTeacher, loiMoiLopHocController.inviteBatch);
-app.get('/api/loimoi-lophoc/lophoc/:lopId', ...requireTeacher, loiMoiLopHocController.getInvitesByLopHoc);
-app.get('/api/loimoi-lophoc/hocsinh/:hsId', ...requireAuth, loiMoiLopHocController.getMyClassInvites);
-app.post('/api/loimoi-lophoc/:id/respond', ...requireStudent, loiMoiLopHocController.respondToInvite);
-app.delete('/api/loimoi-lophoc/:id', ...requireTeacher, loiMoiLopHocController.cancelInvite);
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

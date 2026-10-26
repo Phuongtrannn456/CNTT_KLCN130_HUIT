@@ -25,7 +25,7 @@ class SbertMatcher:
         
         # Determine student profile text based on strong skills
         strong_skills = [major for major, score in major_scores.items() if float(score) >= 7.0]
-        skill_text = "Thế mạnh của sinh viên: " + ", ".join(strong_skills) if strong_skills else "Chưa phân hóa kỹ năng chuyên môn."
+        skill_text = "Thế mạnh của học sinh: " + ", ".join(strong_skills) if strong_skills else "Chưa phân hóa kỹ năng chuyên môn."
         
         # Pre-compute student vector
         student_vector = self.model.encode(skill_text, convert_to_tensor=True)

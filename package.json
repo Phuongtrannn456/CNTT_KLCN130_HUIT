@@ -1,14 +1,26 @@
 {
-  "name": "cntt-klcn130-huit-web3-giao-duc-pho-thong",
+  "name": "cntt_klcn130_huit",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "./start.sh",
-    "dev": "./start.sh",
+    "postinstall": "npm --prefix backend install",
+    "build": "npm --prefix frontend install && npm --prefix frontend run build",
+    "start": "node backend/server.js",
+    "dev": "npm --prefix backend run dev",
+    "start:sh": "./start.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["web3", "education", "blockchain", "ai", "huit"],
+  "keywords": [
+    "web3",
+    "education",
+    "blockchain",
+    "ai",
+    "huit"
+  ],
   "author": "Phuongtrannn456",
   "license": "ISC",
-  "description": "Nền tảng Web3 & AI cho Giáo dục Phổ thông - Khóa luận cử nhân CNTT130 HUIT"
+  "description": "Nền tảng Web3 & AI cho Giáo dục Phổ thông - Khóa luận cử nhân CNTT130 HUIT",
+  "dependencies": {
+    "@metamask/connect-evm": "^2.1.1"
+  }
 }

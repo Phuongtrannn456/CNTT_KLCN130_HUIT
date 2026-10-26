@@ -68,7 +68,7 @@ const aiApiService = {
         return response.data;
     },
 
-    // SV đăng ký đề tài (theo nhóm)
+    // HS đăng ký đề tài (theo nhóm)
     registerTopic: async (topicId, hocSinhId, nhomId) => {
         const response = await axios.post(`${API_URL}/detai/${topicId}/register`, {
             hocSinhId,
@@ -116,7 +116,7 @@ const aiApiService = {
 
     // === BÁO CÁO / SUBMISSION ===
 
-    // SV nộp báo cáo (với FormData)
+    // HS nộp báo cáo (với FormData)
     uploadBaoCao: async (formData) => {
         const response = await axios.post(`${API_URL}/baocao/upload`, formData, {
             headers: { ...getAuthHeaders(), 'Content-Type': 'multipart/form-data' }
@@ -124,14 +124,14 @@ const aiApiService = {
         return response.data;
     },
 
-    // SV lấy báo cáo đã nộp
+    // HS lấy báo cáo đã nộp
     getMyBaoCao: async (hsId, deTaiId) => {
         const query = deTaiId ? `?deTaiId=${deTaiId}` : '';
         const response = await axios.get(`${API_URL}/baocao/hocsinh/${hsId}${query}`, { headers: getAuthHeaders() });
         return response.data;
     },
 
-    // SV hủy nộp
+    // HS hủy nộp
     deleteBaoCao: async (baocaoId) => {
         const response = await axios.delete(`${API_URL}/baocao/${baocaoId}`, { headers: getAuthHeaders() });
         return response.data;
@@ -154,7 +154,7 @@ const aiApiService = {
         return response.data;
     },
 
-    // SV xem điểm
+    // HS xem điểm
     retryGradeBlockchain: async (gradeId, giaoVienId) => {
         const response = await axios.put(`${API_URL}/diemso/${gradeId}/retry-blockchain`, {
             giaoVienId
@@ -177,8 +177,8 @@ const aiApiService = {
 
     // Tìm HS theo MaHS (cho chức năng mời vào nhóm)
     // Nhóm Học Sinh
-    inviteMember: async (deTaiId, maSV) => {
-        const response = await axios.post(`${API_URL}/detai/${deTaiId}/invite`, { maSV }, { headers: getAuthHeaders() });
+    inviteMember: async (deTaiId, maHS) => {
+        const response = await axios.post(`${API_URL}/detai/${deTaiId}/invite`, { maHS }, { headers: getAuthHeaders() });
         return response.data;
     },
     respondToInvitation: async (deTaiId, accept) => {
@@ -193,6 +193,10 @@ const aiApiService = {
     // Nhật ký Tiến độ
     createProgressEntry: async (data) => {
         const response = await axios.post(`${API_URL}/tiendo`, data, { headers: getAuthHeaders() });
+        return response.data;
+    },
+    getProgressByHS: async (hsId) => {
+        const response = await axios.get(`${API_URL}/tiendo/${hsId}`, { headers: getAuthHeaders() });
         return response.data;
     },
     getProgressBySV: async (hsId) => {
@@ -293,7 +297,7 @@ const aiApiService = {
         return response.data;
     },
 
-    // SV (trưởng nhóm) bắt đầu làm bài → chuyển ChoTest sang DangLamTest
+    // HS (trưởng nhóm) bắt đầu làm bài → chuyển ChoTest sang DangLamTest
     startBaiTest: async (testId, nhomId) => {
         const response = await axios.post(`${API_URL}/baitest/${testId}/start`, { nhomId }, { headers: getAuthHeaders() });
         return response.data;
@@ -328,6 +332,12 @@ const aiApiService = {
         const response = await axios.put(`${API_URL}/diemso/${gradeId}/adjust`, {
             diem, nhanXet
         }, { headers: getAuthHeaders() });
+        return response.data;
+    },
+
+    getBangDiemHocSinh: async (hsId) => {
+        const id = hsId || 'me';
+        const response = await axios.get(`${API_URL}/hocsinh/${id}/bang-diem`, { headers: getAuthHeaders() });
         return response.data;
     }
 };

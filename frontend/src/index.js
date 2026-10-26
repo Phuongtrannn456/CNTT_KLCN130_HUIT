@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 5 * 60 * 1000, // 5 minutes
       refetchOnWindowFocus: false, // Không tự refetch khi chuyển tab
-      retry: 1, // Chá»‰ retry 1 láº§n náº¿u lá»—i
+      retry: 1, // Chỉ retry 1 lần nếu lỗi
     },
   },
 });
@@ -32,7 +32,7 @@ window.addEventListener('unhandledrejection', (event) => {
 
 window.addEventListener('load', () => {
   if (typeof window.ethereum !== 'undefined') {
-
+    console.log('MetaMask is installed!');
   }
 });
 
@@ -63,8 +63,8 @@ const web3Theme = createTheme({
       dark: '#89229B',
     },
     background: {
-      default: '#0A1929', // Ná»n xanh navy Ä‘áº­m, khÃ´ng pháº£i mÃ u Ä‘en tuyá»n
-      paper: 'rgba(17, 34, 51, 0.6)', // Hiá»‡u á»©ng trong má» (glassmorphism)
+      default: '#0A1929', // Nền xanh navy đậm, không phải màu đen tuyền
+      paper: 'rgba(17, 34, 51, 0.6)', // Hiệu ứng trong mờ (glassmorphism)
     },
     text: {
       primary: '#E0E0E0', // Màu chữ trắng ngà, dễ chịu cho mắt
@@ -150,7 +150,7 @@ const web3Theme = createTheme({
     borderRadius: 16, // Bo góc mềm mại hơn
   },
   components: {
-    // ThÃªm hiá»‡u á»©ng ná»n Aurora cho toÃ n bá»™ trang
+    // Thêm hiệu ứng nền Aurora cho toàn bộ trang
     MuiCssBaseline: {
       styleOverrides: {
         body: {
@@ -209,7 +209,7 @@ const web3Theme = createTheme({
       styleOverrides: {
         root: {
           border: '1px solid rgba(255, 255, 255, 0.12)',
-          backdropFilter: 'blur(12px)', // Hiá»‡u á»©ng má» ná»n
+          backdropFilter: 'blur(12px)', // Hiệu ứng mờ nền
           boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
           '@media (max-width:600px)': {
             borderRadius: '12px',
@@ -269,4 +269,4 @@ root.render(
 );
 
 // Test render
-
+console.log('React app rendered successfully');

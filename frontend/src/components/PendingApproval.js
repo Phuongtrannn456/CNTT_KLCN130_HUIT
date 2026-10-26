@@ -38,7 +38,7 @@ const PendingApproval = () => {
             authService.user = data.user;
             
             setTimeout(() => {
-              navigate('/teacher');
+              navigate('/teacher/challenges');
             }, 2000);
           } else if (data.status === 'rejected') {
             setStatus('rejected');

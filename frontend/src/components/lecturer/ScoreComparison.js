@@ -101,7 +101,7 @@ const ScoreComparison = () => {
     return filteredData.map((c, idx) => ({
       name: c.student?.HoTen?.split(' ').pop() || `HS${idx + 1}`,
       fullName: c.student?.HoTen || 'N/A',
-      maSV: c.student?.MaHS || 'N/A',
+      maHS: c.student?.MaHS || 'N/A',
       topicName: c.topic?.TenDeTai || 'N/A',
       'Điểm GV': c.gvScore,
       'Điểm AI': c.aiScore,
@@ -252,7 +252,7 @@ const ScoreComparison = () => {
       return (
         <Card size="small" style={{ border: '1px solid #d9d9d9', boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
           <div style={{ fontWeight: 'bold', marginBottom: 4 }}>{data.fullName}</div>
-          <div style={{ fontSize: 12, color: '#666', marginBottom: 8 }}>Mã HS: {data.maSV}</div>
+          <div style={{ fontSize: 12, color: '#666', marginBottom: 8 }}>Mã HS: {data.maHS}</div>
           <div style={{ fontSize: 12, marginBottom: 4 }}>
             Dự án: <span style={{ color: '#555' }}>{data.topicName}</span>
           </div>

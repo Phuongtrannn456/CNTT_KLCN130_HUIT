@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const submissionSchema = new mongoose.Schema({
   participation: { type: mongoose.Schema.Types.ObjectId, ref: 'ChallengeParticipation', required: true },
-  student: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  student: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   challenge: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge', required: true },
   
   content: { type: String, default: '' },
@@ -17,5 +17,7 @@ const submissionSchema = new mongoose.Schema({
   
   status: { type: String, enum: ['Submitted', 'Evaluated'], default: 'Submitted' }
 }, { timestamps: true });
+
+submissionSchema.index({ participation: 1, version: 1 }, { unique: true });
 
 module.exports = mongoose.model('Submission', submissionSchema);

@@ -1,7 +1,7 @@
 /**
- * Script để debug payment issues
- * 
- * Usage: node scripts/debug-payment.js [employee_did]
+ * [DEPRECATED / UNUSED]
+ * Script này thuộc hệ thống Payroll cũ, không nằm trong luồng nghiệp vụ Web3 K-12 Giáo Dục.
+ * Vui lòng không sử dụng script này.
  */
 
 require('dotenv').config();

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giaovien';
 
 // Require models to register in Mongoose
 const HocSinh = require('../models/HocSinh');
@@ -23,8 +23,8 @@ async function run() {
   await mongoose.connect(MONGODB_URI);
   console.log('Connected!');
 
-  const svCodes = ['SVEDA301', 'SV4C2231', 'SV0A9E53'];
-  const students = await HocSinh.find({ MaHS: { $in: svCodes } });
+  const hsCodes = ['SVEDA301', 'SV4C2231', 'SV0A9E53', 'HS_10A1_01', 'HS_10A1_02'];
+  const students = await HocSinh.find({ MaHS: { $in: hsCodes } });
   const hsIds = students.map(s => s._id);
 
   console.log('\n--- 1. Deleting Groups containing test students ---');

@@ -3,7 +3,7 @@ import {
   Container, Box, Typography, Button, Paper, Alert,
   CircularProgress, Fade, Grow, Avatar, Chip, Link,
   useTheme, useMediaQuery, Tabs, Tab, Dialog,
-  DialogTitle, DialogContent, DialogActions
+  DialogTitle, DialogContent, DialogActions, Divider, TextField
 } from '@mui/material';
 import {
   AccountBalanceWallet as WalletIcon,
@@ -11,7 +11,8 @@ import {
   ChevronRight as ChevronRightIcon,
   Language as LanguageIcon,
   HelpOutline as HelpIcon,
-  QrCodeScanner as QrCodeScannerIcon
+  QrCodeScanner as QrCodeScannerIcon,
+  SupervisorAccount as TeacherIcon
 } from '@mui/icons-material';
 import MetaMaskGuideModal from './MetaMaskGuideModal';
 import QrScanner from './QrScanner';
@@ -20,8 +21,19 @@ import authService from '../services/authService';
 
 // Role constants
 const STUDENT_ROLE = 'STUDENT_ROLE';
+const TEACHER_ROLE = 'TEACHER_ROLE';
 const LECTURER_ROLE = 'LECTURER_ROLE';
 const ADMIN_ROLE = 'ADMIN_ROLE';
+
+const redirectUserByRole = (role_id) => {
+  if (role_id === ADMIN_ROLE) {
+    window.location.href = '/admin';
+  } else if (role_id === TEACHER_ROLE || role_id === LECTURER_ROLE) {
+    window.location.href = '/teacher/challenges';
+  } else {
+    window.location.href = '/student/challenges';
+  }
+};
 
 // --- Animated Gradient Text Component ---
 function AnimatedGradientText({ children, sx }) {
@@ -48,6 +60,7 @@ function AnimatedGradientText({ children, sx }) {
 
 // --- Main LoginPage Component ---
 function LoginPage() {
+  console.log('LoginPage component rendered');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isVerySmall = useMediaQuery(theme.breakpoints.down(400));
@@ -61,14 +74,13 @@ function LoginPage() {
   const [connectedWallet, setConnectedWallet] = useState(null);
   const [tabValue, setTabValue] = useState(0);
 
+  // Role Selection State for new/unregistered wallets
+  const [needsRoleSelection, setNeedsRoleSelection] = useState(false);
+  const [pendingWallet, setPendingWallet] = useState('');
+
   // QR Login State
   const [qrScannerOpen, setQrScannerOpen] = useState(false);
   const [scanningQr, setScanningQr] = useState(false);
-
-  // Role Selection State
-  const [needsRoleSelection, setNeedsRoleSelection] = useState(false);
-  const [tempWallet, setTempWallet] = useState(null);
-  const [rejectedCountToday, setRejectedCountToday] = useState(0);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -93,7 +105,16 @@ function LoginPage() {
     authService.onChainChange(() => window.location.reload());
   }, []);
 
-  // QR Scan handler — quét QR trên PC, rồi xác thực MetaMask trên PC (giống frontend cũ)
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const timer = setTimeout(() => {
+        redirectUserByRole(user.role_id);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthenticated, user]);
+
+  // QR Scan handler — quét QR trên PC, rồi xác thực MetaMask trên PC
   const handleQrScan = async (qrData) => {
     setScanningQr(true);
     setError('');
@@ -118,6 +139,7 @@ function LoginPage() {
       }
 
       const qrWallet = (qrInfo.walletAddress || qrInfo.wallet_address).toLowerCase();
+      console.log('QR scanned wallet:', qrWallet);
 
       // Kiểm tra MetaMask
       if (!authService.isMetaMaskInstalled()) {
@@ -127,8 +149,10 @@ function LoginPage() {
       }
 
       // Kết nối MetaMask trên PC
+      console.log('Connecting MetaMask...');
       await authService.initializeProvider();
       const walletAddress = await authService.getWalletAddress();
+      console.log('MetaMask wallet:', walletAddress);
       setConnectedWallet(walletAddress);
 
       // Kiểm tra ví MetaMask khớp với QR
@@ -141,23 +165,20 @@ function LoginPage() {
       }
 
       // Xác thực MetaMask (ký challenge)
+      console.log('Authenticating...');
       const result = await authService.authenticate();
-      
-      /* DISABLED: Admin approval flow
+
       if (result.isPending) {
-        setSuccess('Bạn đang có yêu cầu chờ duyệt. Đang chuyển hướng...');
+        setSuccess('Yêu cầu cấp quyền Giáo viên của bạn đang chờ Admin phê duyệt. Đang chuyển hướng...');
         setTimeout(() => {
           window.location.href = '/pending-approval';
-        }, 1500);
+        }, 1000);
         return;
       }
-      */
 
       if (result.needsRoleSelection) {
+        setPendingWallet(result.walletAddress || qrWallet);
         setNeedsRoleSelection(true);
-        setTempWallet(result.walletAddress);
-        setRejectedCountToday(result.rejectedCountToday || 0);
-        setSuccess('Vui lòng chọn vai trò để tiếp tục.');
         return;
       }
 
@@ -166,8 +187,8 @@ function LoginPage() {
       setUser(result.user);
 
       setTimeout(() => {
-        window.location.href = '/dashboard';
-      }, 2000);
+        redirectUserByRole(result.user?.role_id);
+      }, 1000);
     } catch (err) {
       const message = err.message || 'Có lỗi xảy ra khi quét QR.';
       if (err.code === 4001) {
@@ -197,33 +218,28 @@ function LoginPage() {
       setConnectedWallet(walletAddress);
 
       const result = await authService.authenticate();
-      
-      /* DISABLED: Admin approval flow
+
       if (result.isPending) {
-        setSuccess('Bạn đang có yêu cầu chờ duyệt. Đang chuyển hướng...');
+        setSuccess('Yêu cầu cấp quyền Giáo viên của bạn đang chờ Admin phê duyệt. Đang chuyển hướng...');
         setTimeout(() => {
           window.location.href = '/pending-approval';
-        }, 1500);
+        }, 1000);
         return;
       }
-      */
 
       if (result.needsRoleSelection) {
+        setPendingWallet(result.walletAddress || walletAddress);
         setNeedsRoleSelection(true);
-        setTempWallet(result.walletAddress);
-        setRejectedCountToday(result.rejectedCountToday || 0);
-        setSuccess('Vui lòng chọn vai trò để tiếp tục.');
         return;
       }
 
-      setSuccess('Đăng nhập thành công! Đang chuyển hướng đến dashboard...');
+      setSuccess('Đăng nhập thành công! Đang chuyển hướng...');
       setIsAuthenticated(true);
       setUser(result.user);
 
-      // Redirect to dashboard after success message
       setTimeout(() => {
-        window.location.href = '/dashboard';
-      }, 2000);
+        redirectUserByRole(result.user?.role_id);
+      }, 1000);
     } catch (err) {
       const message = err.message || 'Có lỗi xảy ra, vui lòng thử lại.';
       if (message.includes('user rejected')) {
@@ -238,40 +254,110 @@ function LoginPage() {
     }
   };
 
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
+  const handleSelectStudent = async (studentData) => {
+    setLoading(true);
+    setError('');
+    try {
+      const regResult = await authService.registerWithRole(pendingWallet, STUDENT_ROLE, studentData);
+      if (regResult?.token) {
+        setSuccess('Đăng ký tài khoản học sinh thành công! Đang chuyển hướng...');
+        setIsAuthenticated(true);
+        setUser(regResult.user);
+        setTimeout(() => {
+          redirectUserByRole(STUDENT_ROLE);
+        }, 1000);
+      }
+    } catch (err) {
+      setError(err.message || 'Lỗi khi đăng ký tài khoản học sinh.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSelectTeacher = async (teacherData) => {
+    setLoading(true);
+    setError('');
+    try {
+      const regResult = await authService.registerWithRole(pendingWallet, TEACHER_ROLE, {
+        hoTen: teacherData.hoTen,
+        email: teacherData.email,
+        toBoMon: teacherData.chuyenNganh || teacherData.toBoMon,
+        chuyenNganh: teacherData.chuyenNganh || teacherData.toBoMon,
+        maGV: teacherData.maGV,
+        pin: teacherData.pin
+      });
+
+      if (regResult?.token) {
+        setSuccess(regResult.message || 'Kích hoạt tài khoản Giáo viên thành công! Đang chuyển hướng...');
+        setIsAuthenticated(true);
+        setUser(regResult.user);
+        setTimeout(() => {
+          redirectUserByRole(TEACHER_ROLE);
+        }, 1000);
+      } else {
+        setSuccess('Yêu cầu cấp quyền Giáo viên đã được gửi. Đang chuyển hướng...');
+        setTimeout(() => {
+          window.location.href = '/pending-approval';
+        }, 1000);
+      }
+    } catch (err) {
+      setError(err.message || 'Lỗi khi kích hoạt tài khoản giáo viên.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancelRoleSelection = () => {
+    setNeedsRoleSelection(false);
+    setPendingWallet('');
     setError('');
     setSuccess('');
   };
 
-  const handleSelectStudent = async () => {
-    setLoading(true);
-    setError('');
+  // Teacher Role Request State
+  const [teacherModalOpen, setTeacherModalOpen] = useState(false);
+  const [teacherFormData, setTeacherFormData] = useState({ hoTen: '', email: '', chuyenNganh: '' });
+  const [teacherSubmitting, setTeacherSubmitting] = useState(false);
+  const [teacherError, setTeacherError] = useState('');
+
+  const handleTeacherRequestSubmit = async (e) => {
+    e?.preventDefault();
+    if (!teacherFormData.hoTen.trim() || !teacherFormData.email.trim()) {
+      setTeacherError('Vui lòng điền đầy đủ họ tên và email.');
+      return;
+    }
+    setTeacherSubmitting(true);
+    setTeacherError('');
     try {
-      await authService.registerWithRole(tempWallet, STUDENT_ROLE);
-      window.location.href = '/dashboard';
+      if (!authService.isMetaMaskInstalled()) {
+        setGuideModalOpen(true);
+        throw new Error('Vui lòng cài đặt tiện ích MetaMask để liên kết ví của bạn.');
+      }
+      await authService.initializeProvider();
+      const walletAddress = await authService.getWalletAddress();
+      
+      await authService.registerWithRole(walletAddress, 'TEACHER_ROLE', {
+        hoTen: teacherFormData.hoTen.trim(),
+        email: teacherFormData.email.trim(),
+        chuyenNganh: teacherFormData.chuyenNganh.trim() || 'Giáo Dục Phổ Thông'
+      });
+
+      setTeacherModalOpen(false);
+      setSuccess('Gửi yêu cầu thành công! Đang chuyển đến trang theo dõi phê duyệt...');
+      setTimeout(() => {
+        window.location.href = '/pending-approval';
+      }, 1000);
     } catch (err) {
-      setError(err.message || 'Lỗi khi đăng ký Học sinh');
+      setTeacherError(err.message || 'Lỗi gửi yêu cầu.');
     } finally {
-      setLoading(false);
+      setTeacherSubmitting(false);
     }
   };
 
-  const handleSelectLecturer = async (formData) => {
-    setLoading(true);
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
     setError('');
-    try {
-      const res = await authService.registerWithRole(tempWallet, LECTURER_ROLE, formData);
-      if (res && res.isPending) {
-        window.location.href = '/pending-approval?wallet=' + tempWallet;
-      } else {
-        window.location.href = '/dashboard';
-      }
-    } catch (err) {
-      setError(err.message || 'Lỗi khi đăng ký Giáo viên');
-    } finally {
-      setLoading(false);
-    }
+    setSuccess('');
   };
 
   // --- Responsive styles ---
@@ -311,7 +397,7 @@ function LoginPage() {
 
   // --- Logged In View ---
   if (isAuthenticated && user) {
-    const isLecturer = user.role_id === LECTURER_ROLE;
+    const isLecturer = user.role_id === TEACHER_ROLE || user.role_id === LECTURER_ROLE;
     const isAdmin = user.role_id === ADMIN_ROLE;
     
     const roleDisplayName = isAdmin ? 'Ban Quản Trị' : (isLecturer ? 'Giáo viên' : 'Học sinh');
@@ -409,17 +495,25 @@ function LoginPage() {
                   />
                 )}
 
-                {isLecturer && user.MaGV && (
+                {isLecturer && (user.MaGV || user.teacherId) && (
                   <Chip
-                    label={`Mã GV: ${user.MaGV}`}
+                    label={`Mã GV: ${user.MaGV || user.teacherId}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
                 )}
 
-                {user.ChuyenNganh && (
+                {isLecturer && (user.ToBoMon || user.ChuyenNganh) && (
                   <Chip
-                    label={`Chuyên ngành: ${user.ChuyenNganh}`}
+                    label={`Tổ bộ môn: ${user.ToBoMon || user.ChuyenNganh}`}
+                    variant="outlined"
+                    size={styles.chipSize}
+                  />
+                )}
+
+                {!isLecturer && !isAdmin && (user.KhoiLop || user.ChuyenNganh) && (
+                  <Chip
+                    label={user.KhoiLop ? `Khối lớp: ${user.KhoiLop}` : `Lĩnh vực: ${user.ChuyenNganh}`}
                     variant="outlined"
                     size={styles.chipSize}
                   />
@@ -478,7 +572,7 @@ function LoginPage() {
 
   // --- Login View ---
   return (
-    <Container maxWidth={needsRoleSelection ? "md" : "sm"}>
+    <Container maxWidth="sm">
       <Box
         display="flex"
         flexDirection="column"
@@ -536,29 +630,17 @@ function LoginPage() {
         </Fade>
 
         {needsRoleSelection ? (
-          <Grow in={true} timeout={1500}>
-            <Box width="100%">
-              {error && (
-                <Alert severity="error" sx={{ mb: 2.5, textAlign: 'left', maxWidth: 800, mx: 'auto' }}>
-                  {error}
-                </Alert>
-              )}
-              {success && (
-                <Alert severity="success" sx={{ mb: 2.5, textAlign: 'left', maxWidth: 800, mx: 'auto' }}>
-                  {success}
-                </Alert>
-              )}
-              <RoleSelection
-                walletAddress={tempWallet}
-                rejectedCountToday={rejectedCountToday}
-                onSelectStudent={handleSelectStudent}
-                onSelectLecturer={handleSelectLecturer}
-                loading={loading}
-              />
-            </Box>
-          </Grow>
+          <RoleSelection
+            walletAddress={pendingWallet}
+            onSelectStudent={handleSelectStudent}
+            onSelectLecturer={handleSelectTeacher}
+            onCancel={handleCancelRoleSelection}
+            loading={loading}
+            errorMessage={error}
+            successMessage={success}
+          />
         ) : (
-          <Grow in={true} timeout={1500}>
+        <Grow in={true} timeout={1500}>
           <Paper
             elevation={3}
             sx={{
@@ -572,7 +654,7 @@ function LoginPage() {
             <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
               <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
                 <Tab label="Ví MetaMask" />
-                <Tab label="Quét QR Code" />
+                <Tab label="Quét QR" />
               </Tabs>
             </Box>
 
@@ -687,9 +769,75 @@ function LoginPage() {
                 </Typography>
               </>
             )}
+
+            {/* Anti-spam: Đã ẩn nút đăng ký giáo viên tự do ngoài trang chủ để tránh spam. Giáo viên kích hoạt tài khoản chính thức qua mã GV khi kết nối ví. */}
           </Paper>
         </Grow>
         )}
+
+        {/* Teacher Request Dialog */}
+        <Dialog
+          open={teacherModalOpen}
+          onClose={() => !teacherSubmitting && setTeacherModalOpen(false)}
+          maxWidth="xs"
+          fullWidth
+        >
+          <DialogTitle sx={{ fontWeight: 'bold' }}>
+            Đăng Ký Quyền Giáo Viên
+          </DialogTitle>
+          <form onSubmit={handleTeacherRequestSubmit}>
+            <DialogContent>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Điền thông tin và kết nối ví MetaMask để gửi đơn cấp quyền tới Ban Quản Trị phê duyệt.
+              </Typography>
+              {teacherError && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {teacherError}
+                </Alert>
+              )}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <TextField
+                  label="Họ và tên Giáo viên"
+                  required
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.hoTen}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, hoTen: e.target.value })}
+                />
+                <TextField
+                  label="Email trường học / cá nhân"
+                  type="email"
+                  required
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.email}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, email: e.target.value })}
+                />
+                <TextField
+                  label="Tổ bộ môn / Chuyên môn"
+                  placeholder="Ví dụ: STEM, Tin học, Toán học"
+                  fullWidth
+                  size="small"
+                  value={teacherFormData.chuyenNganh}
+                  onChange={(e) => setTeacherFormData({ ...teacherFormData, chuyenNganh: e.target.value })}
+                />
+              </Box>
+            </DialogContent>
+            <DialogActions sx={{ px: 3, pb: 2.5 }}>
+              <Button onClick={() => setTeacherModalOpen(false)} disabled={teacherSubmitting}>
+                Hủy
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={teacherSubmitting}
+                startIcon={teacherSubmitting ? <CircularProgress size={18} color="inherit" /> : <TeacherIcon />}
+              >
+                {teacherSubmitting ? 'Đang gửi...' : 'Gửi Yêu Cầu'}
+              </Button>
+            </DialogActions>
+          </form>
+        </Dialog>
 
         {/* QR Scanner Dialog */}
         <Dialog

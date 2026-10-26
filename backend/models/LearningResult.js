@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const learningResultSchema = new mongoose.Schema({
-  student: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  student: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   challenge: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge', required: true },
   evaluation: { type: mongoose.Schema.Types.ObjectId, ref: 'Evaluation', required: true },
   

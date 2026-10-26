@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 async function fixIndexes() {
   try {
-    const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/web3';
+    const uri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/web3giaovien';
     console.log('🔗 Connecting to MongoDB...');
     await mongoose.connect(uri);
     console.log('✅ Connected!\n');

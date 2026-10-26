@@ -8,10 +8,10 @@ const educationalCredentialSchema = new mongoose.Schema({
     unique: true, 
     default: () => uuidv4() 
   },
-  student: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  student: { type: mongoose.Schema.Types.ObjectId, ref: 'HocSinh', required: true },
   achievement: { type: mongoose.Schema.Types.ObjectId, ref: 'Achievement', required: true, unique: true }, // 1 Achievement -> 1 Credential
   challenge: { type: mongoose.Schema.Types.ObjectId, ref: 'Challenge', required: true },
-  issuer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  issuer: { type: mongoose.Schema.Types.ObjectId, ref: 'GiaoVien', required: true },
   
   metadata: {
     achievementType: { type: String, required: true },
@@ -21,7 +21,7 @@ const educationalCredentialSchema = new mongoose.Schema({
 
   status: { 
     type: String, 
-    enum: ['DRAFT', 'PENDING_CLAIM', 'PENDING_CHAIN', 'ANCHORED', 'REVOKED', 'SUPERSEDED'], 
+    enum: ['DRAFT', 'PENDING_CLAIM', 'PENDING_CHAIN', 'ANCHORED', 'REVOKED', 'SUPERSEDED', 'FAILED'], 
     default: 'PENDING_CLAIM' 
   },
   
@@ -31,12 +31,12 @@ const educationalCredentialSchema = new mongoose.Schema({
     network: { type: String },
     contractAddress: { type: String },
     transactionHash: { type: String },
-    blockNumber: { type: String }
+    blockNumber: { type: Number }
   },
 
   nonce: {
-    type: String,
-    default: () => require('crypto').randomBytes(16).toString('hex') // Simple nonce for signature
+    type: Number,
+    default: () => Math.floor(Math.random() * 1000000) // Simple nonce for signature
   }
 
 }, { timestamps: true });

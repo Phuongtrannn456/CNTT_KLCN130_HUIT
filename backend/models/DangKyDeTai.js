@@ -22,14 +22,15 @@ const dangKyDeTaiSchema = new mongoose.Schema({
     enum: ['ChoDuyet', 'ChoTest', 'DangLamTest', 'DaSubmit', 'ChoDoi', 'DaDuyet', 'TuChoi', 'Thua'], 
     default: 'ChoDuyet' 
   },
+  ThoiGianBatDau: { type: Date },   // Ghi nhận chính xác khi HS gọi API start test trên server
   ThoiGianSubmit: { type: Date },  // Ghi ngay khi nhận submit (Phase 3)
 }, { timestamps: true });
 
-// Một nhóm chỉ đăng ký 1 đề tài 1 lần
-dangKyDeTaiSchema.index({ DeTai: 1, Nhom: 1 }, { unique: true, sparse: true });
+// Một nhóm chỉ đăng ký 1 đề tài 1 lần (dùng partialFilterExpression tránh lỗi null khi HS đăng ký cá nhân)
+dangKyDeTaiSchema.index({ DeTai: 1, Nhom: 1 }, { unique: true, partialFilterExpression: { Nhom: { $type: 'objectId' } } });
 // Backward compat: HocSinh index
 dangKyDeTaiSchema.index({ DeTai: 1, HocSinh: 1 }, { unique: true, sparse: true });
-// Index cho query getAll: lọc trạng thái active rồi nhóm theo đề tài
-dangKyDeTaiSchema.index({ TrangThai: 1, DeTai: 1 });
+// Index cho query getAll và sweepClosedTopics: lọc trạng thái active rồi nhóm theo đề tài
+dangKyDeTaiSchema.index({ DeTai: 1, TrangThai: 1 });
 
 module.exports = mongoose.model('DangKyDeTai', dangKyDeTaiSchema);

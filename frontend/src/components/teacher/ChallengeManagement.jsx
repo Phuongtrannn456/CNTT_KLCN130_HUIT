@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Table, Button, Space, Modal, Form, Input, Select, DatePicker, message, Card, Typography, Tag, Popconfirm } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import challengeService from '../../services/challengeService';
@@ -9,6 +10,7 @@ const { Title } = Typography;
 const { Option } = Select;
 
 const ChallengeManagement = () => {
+  const navigate = useNavigate();
   const [challenges, setChallenges] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -134,18 +136,22 @@ const ChallengeManagement = () => {
     {
       title: 'Người tạo',
       key: 'createdBy',
-      render: (_, record) => record.createdBy?.fullName || 'N/A'
+      render: (_, record) => record.createdBy?.fullName || record.createdBy?.HoTen || 'N/A'
     },
     {
       title: 'Thao tác',
       key: 'action',
       render: (_, record) => {
-        const isOwner = record.createdBy?._id === currentUser?.id;
+        const creatorWallet = (record.createdBy?.walletAddress || record.createdBy?.WalletAddress || '').toLowerCase();
+        const userWallet = (currentUser?.walletAddress || '').toLowerCase();
+        const isOwner = record.createdBy?._id === currentUser?.id || 
+          (creatorWallet && userWallet && creatorWallet === userWallet) ||
+          currentUser?.role_id === 'ADMIN_ROLE';
         return (
           <Space size="middle">
             <Button 
               type="primary" 
-              onClick={() => { window.location.href = `/teacher/challenges/${record._id}/participants`; }} 
+              onClick={() => navigate(`/teacher/challenges/${record._id}/participants`)} 
               disabled={!isOwner}
             >
               Chấm bài
