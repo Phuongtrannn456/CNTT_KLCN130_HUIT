@@ -187,7 +187,7 @@ const loiMoiLopHocController = require('./controllers/loiMoiLopHocController');
 // Middleware xác thực & phân quyền
 const { authenticateToken } = authController;
 const { requireRole } = require('./middleware/authz');
-const requireTeacher = [authenticateToken, requireRole('TEACHER_ROLE')];
+const requireTeacher = [authenticateToken, requireRole('TEACHER_ROLE', 'ADMIN_ROLE')];
 const requireStudent = [authenticateToken, requireRole('STUDENT_ROLE')];
 const requireAdmin = [authenticateToken, requireRole('ADMIN_ROLE')];
 const requireAuth = [authenticateToken];
@@ -223,6 +223,7 @@ app.get('/api/qr/me', ...requireAuth, qrController.getQrCode);
 app.post('/api/qr/generate', ...requireAuth, qrController.generateQrCode);
 
 // 2c. Admin Routes
+app.get('/api/admin/kpi-stats', ...requireAdmin, adminController.getKpiStats);
 app.get('/api/admin/requests', ...requireAdmin, adminController.getPendingRequests);
 app.get('/api/admin/requests/history', ...requireAdmin, adminController.getProcessedRequests);
 app.get('/api/admin/requests/:id', ...requireAdmin, adminController.getRequestDetail);

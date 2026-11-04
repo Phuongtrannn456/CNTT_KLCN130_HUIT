@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Card, Typography, Table, Input, Tag, Space, Spin, message } from 'antd';
+import { Card, Typography, Table, Input, Tag, Space, Spin, message, Button } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons';
 import { Search } from 'lucide-react';
 import authService from '../../services/authService';
 import managementService from '../../services/managementService';
 import { useQuery } from '@tanstack/react-query';
+import DigitalTranscriptModal from '../shared/DigitalTranscriptModal';
 
 const { Title, Text } = Typography;
 
 const StudentManagement = () => {
   const [searchText, setSearchText] = useState('');
+  const [selectedStudentForTranscript, setSelectedStudentForTranscript] = useState(null);
+  const [transcriptModalVisible, setTranscriptModalVisible] = useState(false);
 
   const currentUser = authService.getCurrentUser();
 
@@ -214,6 +218,26 @@ const StudentManagement = () => {
         </Text>
       ) : '—',
     },
+    {
+      title: 'Thao tác',
+      key: 'actions',
+      width: 130,
+      fixed: 'right',
+      render: (_, record) => (
+        <Button
+          size="small"
+          icon={<PrinterOutlined />}
+          type="primary"
+          ghost
+          onClick={() => {
+            setSelectedStudentForTranscript(record);
+            setTranscriptModalVisible(true);
+          }}
+        >
+          In học bạ
+        </Button>
+      ),
+    },
   ];
 
   if (loading) {
@@ -249,6 +273,14 @@ const StudentManagement = () => {
           scroll={{ x: 1400 }}
         />
       </Card>
+
+      {/* Modal In Học Bạ Điện Tử K-12 */}
+      <DigitalTranscriptModal
+        visible={transcriptModalVisible}
+        onClose={() => setTranscriptModalVisible(false)}
+        studentData={selectedStudentForTranscript}
+        studentId={selectedStudentForTranscript?._id}
+      />
     </div>
   );
 };

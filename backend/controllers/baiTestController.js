@@ -38,11 +38,22 @@ exports.createTest = async (req, res) => {
             return res.status(403).json({ error: 'Chỉ giáo viên hướng dẫn của đề tài hoặc Ban Giám Hiệu mới có quyền tạo bài test.' });
         }
 
-        // Kiểm tra đã có bài test chưa
-        const existing = await BaiTest.findOne({ DeTai: deTaiId });
-        if (existing) return res.status(400).json({ error: 'Đề tài này đã có bài test. Vui lòng xóa bài cũ trước.' });
+        // Kiểm tra đã có bài test chưa - nếu có thì cập nhật thông tin
+        let baiTest = await BaiTest.findOne({ DeTai: deTaiId });
+        if (baiTest) {
+            baiTest.TieuDe = tieuDe || baiTest.TieuDe;
+            if (moTa !== undefined) baiTest.MoTa = moTa;
+            if (cauHoi) baiTest.CauHoi = cauHoi;
+            if (thoiGianLam) baiTest.ThoiGianLam = thoiGianLam;
+            if (nguongDat != null) baiTest.NguongDat = nguongDat;
+            if (req.body.BaiTapCode) baiTest.BaiTapCode = req.body.BaiTapCode;
+            await baiTest.save();
+            await DeTai.findByIdAndUpdate(deTaiId, { CoBaiTest: true });
+            logger.info(`[TEST] Updated existing test for topic ${deTaiId}`);
+            return res.status(200).json({ message: 'Cập nhật bài test thành công', data: baiTest });
+        }
 
-        const baiTest = await BaiTest.create({
+        baiTest = await BaiTest.create({
             DeTai: deTaiId,
             TieuDe: tieuDe || `Bài test: ${deTai.TenDeTai}`,
             MoTa: moTa || '',

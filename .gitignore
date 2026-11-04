@@ -129,9 +129,22 @@ dist
 .yarn/build-state.yml
 .pnp.*
 
-# Build output
+# Build output & caches
 frontend/build/
-ml-service/__pycache__/
+build/
+.vercel/
+frontend/.vercel/
+backend/artifacts/
+backend/cache/
+
+# OS files
+.DS_Store
+*/.DS_Store
+**/.DS_Store
+
+# Python cache
+**/__pycache__/
+*.pyc
 ml-service/venv/
 ml-service/.venv/
 
@@ -149,4 +162,3 @@ diff_*.txt
 *_out.txt
 test_out.txt
 pytest_out.txt
-.vercel

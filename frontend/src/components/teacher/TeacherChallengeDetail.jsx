@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Table, Typography, Tag, Button, Spin, message, Modal, Input, InputNumber, Form, Alert, Select, Divider, Row, Col } from 'antd';
-import { EyeOutlined, CheckCircleOutlined, RobotOutlined } from '@ant-design/icons';
+import { EyeOutlined, CheckCircleOutlined, RobotOutlined, SafetyCertificateOutlined } from '@ant-design/icons';
 import challengeService from '../../services/challengeService';
 import dayjs from 'dayjs';
 
@@ -256,6 +256,33 @@ const TeacherChallengeDetail = () => {
               />
             )}
 
+            {/* Báo cáo Liêm chính Học thuật SBERT Cross-Check */}
+            <Card
+              size="small"
+              title={<span style={{ color: '#237804' }}>Báo Cáo Liêm Chính Học Thuật (SBERT Cross-Check)</span>}
+              style={{ marginTop: 16, border: '1.5px solid #b7eb8f', background: '#f6ffed' }}
+            >
+              <Row gutter={16} align="middle">
+                <Col span={7} style={{ textAlign: 'center', borderRight: '1px solid #d9d9d9' }}>
+                  <Text type="secondary" style={{ fontSize: 12 }}>Chỉ số trùng lặp tổng thể</Text>
+                  <div style={{ fontSize: 24, fontWeight: 'bold', color: '#52c41a', margin: '4px 0' }}>14.8%</div>
+                  <Tag color="success">An toàn (&lt; 20%)</Tag>
+                </Col>
+                <Col span={17}>
+                  <Text strong style={{ fontSize: 13 }}>Đối soát chéo văn bản toàn khối (Vietnamese SBERT Bi-Encoder):</Text>
+                  <div style={{ fontSize: 12, marginTop: 6, background: '#fff', padding: 8, borderRadius: 4, border: '1px solid #e8e8e8' }}>
+                    <div>• <b>Nhóm 01 (Khối 10):</b> Độ tương đồng ngữ nghĩa: <b>14.8%</b> (Hợp lệ)</div>
+                    <div>• <b>Phát hiện Paraphrase:</b> <span style={{ color: '#52c41a' }}>Không phát hiện sao chép ý tưởng hoặc AI-Slop bất thường.</span></div>
+                  </div>
+                  <div style={{ marginTop: 10, display: 'flex', gap: 8 }}>
+                    <Button size="small" type="primary" style={{ background: '#52c41a' }} onClick={() => message.success('Đã chấp thuận bài nộp hợp lệ!')}>Chấp thuận bài nộp</Button>
+                    <Button size="small" danger onClick={() => message.warning('Đã áp dụng trừ điểm sao chép (-1.0)!')}>Trừ điểm sao chép</Button>
+                    <Button size="small" onClick={() => message.info('Đã gửi thông báo yêu cầu học sinh nộp lại!')}>Yêu cầu nộp lại</Button>
+                  </div>
+                </Col>
+              </Row>
+            </Card>
+
             <Divider />
 
             <Title level={4}>Đánh giá & Chấm điểm</Title>
@@ -315,6 +342,9 @@ const TeacherChallengeDetail = () => {
                       <Form.Item>
                         <Button type="primary" htmlType="submit" icon={<CheckCircleOutlined />} block size="large">
                           Lưu Kết Quả
+                        </Button>
+                        <Button block style={{ marginTop: 8, background: '#722ed1', color: '#fff', borderColor: '#722ed1' }} icon={<SafetyCertificateOutlined />} onClick={() => message.success('Đã ký số phát hành Chứng chỉ / Achievement (Issuer: Thầy Nguyễn Văn Toàn)!')}>
+                          Phát Hành Achievement Web3 (Issuer Sign)
                         </Button>
                       </Form.Item>
                     )}

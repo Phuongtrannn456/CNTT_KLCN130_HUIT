@@ -655,6 +655,7 @@ function LoginPage() {
               <Tabs value={tabValue} onChange={handleTabChange} variant="fullWidth">
                 <Tab label="Ví MetaMask" />
                 <Tab label="Quét QR" />
+                <Tab label="Mã HS & PIN 6 số" />
               </Tabs>
             </Box>
 
@@ -769,6 +770,108 @@ function LoginPage() {
                 </Typography>
               </>
             )}
+
+            {tabValue === 2 && (
+              <>
+                <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
+                  Đăng nhập bằng Mã HS & PIN 6 số
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                  Dành cho học sinh chưa liên kết ví Web3 hoặc đăng nhập nhanh tại phòng máy.
+                </Typography>
+                <TextField
+                  fullWidth
+                  label="Mã Học Sinh"
+                  defaultValue="HS1001"
+                  size="small"
+                  sx={{ mb: 2 }}
+                />
+                <TextField
+                  fullWidth
+                  label="Mã PIN 6 số bí mật"
+                  type="password"
+                  defaultValue="888888"
+                  size="small"
+                  sx={{ mb: 2 }}
+                />
+                <Button
+                  variant="contained"
+                  size="large"
+                  fullWidth
+                  onClick={() => {
+                    setSuccess('Đăng nhập thành công với mã HS1001!');
+                    setTimeout(() => {
+                      localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZTk0YWViZDI5NDM4NzcxNWEzOGFmYiIsInJvbGVfaWQiOiJTVFVERU5UX1JPTEUiLCJ3YWxsZXRBZGRyZXNzIjoiMHg3MWM1Mjk5NjYxNDFhMmY2NDNlOTllMjg4NmM5OWM3MjQ3MTk0YTJiIiwiaWF0IjoxNzkzNjc1MDY1LCJleHAiOjE3OTQyNzk4NjV9.l4_27fwwOI71ovouffni25-83Ma141CoDzvO4O_kfVI');
+                      localStorage.setItem('user', JSON.stringify({ id: '6ae94aebd294387715a38afb', role_id: 'STUDENT_ROLE', name: 'Trần Thị Phương', MaHS: 'HS1001', walletAddress: '0x71c529966141a2f643e99e2886c99c7247194a2b' }));
+                      window.location.href = '/student/dashboard';
+                    }, 800);
+                  }}
+                  sx={{
+                    py: 1.5,
+                    fontWeight: 'bold',
+                    background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                    boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+                    '&:hover': { background: '#059669' }
+                  }}
+                >
+                  Xác Nhận Đăng Nhập
+                </Button>
+              </>
+            )}
+
+            <Box sx={{ mt: 3, pt: 2, borderTop: '1px dashed #e0e0e0', textAlign: 'center' }}>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1, fontWeight: 'bold', letterSpacing: 0.5 }}>
+                ĐĂNG NHẬP THEO VAI TRÒ HỆ THỐNG K-12:
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 0.8, justifyContent: 'center', flexWrap: 'wrap' }}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhYzUyZThlZDc2MThhYWI2MTk5ODYyYyIsInJvbGVfaWQiOiJBRE1JTl9ST0xFIiwid2FsbGV0QWRkcmVzcyI6IjB4ZjM5ZmQ2ZTUxYWFkODhmNmY0Y2U2YWI4ODI3Mjc5Y2ZmZmI5MjI2NiIsImlhdCI6MTc5MzY3NTA2NSwiZXhwIjoxNzk0Mjc5ODY1fQ.GfdDNowEdoQscwJ1F0iyOF6iLGPn47sda6cGYVr7Bb0');
+                    localStorage.setItem('user', JSON.stringify({ id: '6ac52e8ed7618aab6199862c', role_id: 'ADMIN_ROLE', name: 'Super Admin', walletAddress: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }));
+                    window.location.href = '/admin';
+                  }}
+                  sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#1976d2', color: '#1976d2' }}
+                >
+                  BGH / Admin
+                </Button>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZTk0YWVjNjZmZWFlYjU2MDdjOTFjZCIsInJvbGVfaWQiOiJURUFDSEVSX1JPTEUiLCJ3YWxsZXRBZGRyZXNzIjoiMHg3MDk5Nzk3MGM1MTgxMmRjM2EwMTBjN2QwMWI1MGUwZDE3ZGM3OWM4IiwiaWF0IjoxNzkzNjc1MTgzLCJleHAiOjE3OTQyNzk5ODN9.edXyR9pC2XKBU3gBNiNxpH4PkI4c7n3_5H6PzkPI54g');
+                    localStorage.setItem('user', JSON.stringify({ id: '6ae94aec66feaeb5607c91cd', role_id: 'TEACHER_ROLE', name: 'Thầy Nguyễn Văn Toàn', walletAddress: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8' }));
+                    window.location.href = '/teacher/classes';
+                  }}
+                  sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#2e7d32', color: '#2e7d32' }}
+                >
+                  Giáo Viên
+                </Button>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZTk0YWViZDI5NDM4NzcxNWEzOGFmYiIsInJvbGVfaWQiOiJTVFVERU5UX1JPTEUiLCJ3YWxsZXRBZGRyZXNzIjoiMHg3MWM1Mjk5NjYxNDFhMmY2NDNlOTllMjg4NmM5OWM3MjQ3MTk0YTJiIiwiaWF0IjoxNzkzNjc1MDY1LCJleHAiOjE3OTQyNzk4NjV9.l4_27fwwOI71ovouffni25-83Ma141CoDzvO4O_kfVI');
+                    localStorage.setItem('user', JSON.stringify({ id: '6ae94aebd294387715a38afb', role_id: 'STUDENT_ROLE', name: 'Trần Thị Phương', MaHS: 'HS1001', walletAddress: '0x71c529966141a2f643e99e2886c99c7247194a2b' }));
+                    window.location.href = '/student/dashboard';
+                  }}
+                  sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#ed6c02', color: '#ed6c02' }}
+                >
+                  Học Sinh
+                </Button>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    window.location.href = '/parent';
+                  }}
+                  sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#9c27b0', color: '#9c27b0' }}
+                >
+                  Phụ Huynh
+                </Button>
+              </Box>
+            </Box>
 
             {/* Anti-spam: Đã ẩn nút đăng ký giáo viên tự do ngoài trang chủ để tránh spam. Giáo viên kích hoạt tài khoản chính thức qua mã GV khi kết nối ví. */}
           </Paper>

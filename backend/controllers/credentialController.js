@@ -165,7 +165,8 @@ exports.claimCredential = async (req, res) => {
         uuidToBytes32(credential.credentialId),
         hashData.hash,
         studentWallet,
-        issuerWallet
+        issuerWallet,
+        { gasLimit: 500000 }
       );
       
       const receipt = await tx.wait();
@@ -198,12 +199,31 @@ exports.verifyCredential = async (req, res) => {
     const { credentialId } = req.params;
     
     // Privacy Fix: Only populate what is strictly non-PII
-    const credential = await EducationalCredential.findOne({ credentialId })
+    let credential = await EducationalCredential.findOne({ credentialId })
       .populate('challenge', 'title') 
       .populate('issuer', 'WalletAddress walletAddress')
-      .populate('student', 'WalletAddress walletAddress'); 
+      .populate('student', 'WalletAddress walletAddress MaHS'); 
 
-    if (!credential) return res.status(404).json({ success: false, message: 'Credential không tồn tại' });
+    if (!credential) {
+      // Hỗ trợ tra cứu theo Mã Học Sinh (MaHS) nếu người dùng nhập MaHS (VD: HS1001)
+      const hs = await HocSinh.findOne({ MaHS: { $regex: new RegExp(`^${credentialId.toString().trim()}$`, 'i') } });
+      if (hs) {
+        credential = await EducationalCredential.findOne({ student: hs._id, status: 'ANCHORED' })
+          .sort({ createdAt: -1 })
+          .populate('challenge', 'title')
+          .populate('issuer', 'WalletAddress walletAddress')
+          .populate('student', 'WalletAddress walletAddress MaHS');
+        if (!credential) {
+          credential = await EducationalCredential.findOne({ student: hs._id })
+            .sort({ createdAt: -1 })
+            .populate('challenge', 'title')
+            .populate('issuer', 'WalletAddress walletAddress')
+            .populate('student', 'WalletAddress walletAddress MaHS');
+        }
+      }
+    }
+
+    if (!credential) return res.status(404).json({ success: false, message: 'Chứng chỉ số hoặc Mã Học Sinh không tồn tại trong hệ thống' });
     
     let challengeTitle = credential.challenge?.title;
     if (!challengeTitle && credential.challenge) {
@@ -244,7 +264,7 @@ exports.verifyCredential = async (req, res) => {
     if (!contract) return res.status(200).json({ success: true, verified: false, data: publicData, reason: 'Blockchain không kết nối được' });
 
     try {
-      const onChainData = await contract.verifyCredential(uuidToBytes32(credentialId));
+      const onChainData = await contract.verifyCredential(uuidToBytes32(credential.credentialId));
       const hashMatch = onChainData.metadataHash === credential.canonicalHash;
       const ownershipMatch = onChainData.studentWallet.toLowerCase() === (studentWallet || '').toLowerCase();
       const isValid = onChainData.isValid;
@@ -255,6 +275,7 @@ exports.verifyCredential = async (req, res) => {
       return res.status(200).json({
         success: true,
         verified,
+        reason: !hashMatch ? 'Phát hiện sai lệch mã băm RFC 8785 Keccak256: Dữ liệu học bạ đã bị sửa trộm trái phép!' : undefined,
         data: publicData,
         details: {
           hashMatch,

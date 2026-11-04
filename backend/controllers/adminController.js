@@ -587,6 +587,56 @@ const bulkImportTeachers = async (req, res) => {
   }
 };
 
+const getKpiStats = async (req, res) => {
+  try {
+    const EducationalCredential = require('../models/EducationalCredential');
+    const Challenge = require('../models/Challenge');
+    const Submission = require('../models/Submission');
+    const LopHoc = require('../models/LopHoc');
+
+    const [
+      totalStudents,
+      activatedStudents,
+      totalTeachers,
+      totalClasses,
+      anchoredCredentials,
+      totalSubmissions,
+      totalChallenges
+    ] = await Promise.all([
+      HocSinh.countDocuments(),
+      HocSinh.countDocuments({ IsActivated: true }),
+      GiaoVien.countDocuments(),
+      LopHoc.countDocuments(),
+      EducationalCredential.countDocuments({ status: 'ANCHORED' }),
+      Submission.countDocuments(),
+      Challenge.countDocuments()
+    ]);
+
+    const activationRate = totalStudents > 0 
+      ? Number(((activatedStudents / totalStudents) * 100).toFixed(1)) 
+      : 0;
+
+    res.json({
+      success: true,
+      stats: {
+        totalStudents,
+        activatedStudents,
+        activationRate,
+        totalTeachers,
+        totalClasses,
+        anchoredCredentials,
+        totalSubmissions,
+        totalChallenges,
+        network: process.env.BLOCKCHAIN_NETWORK || 'Hardhat Local / Arbitrum Sepolia',
+        smartContract: process.env.K12_CONTRACT_ADDRESS || '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+      }
+    });
+  } catch (error) {
+    console.error('getKpiStats error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi lấy KPI stats: ' + error.message });
+  }
+};
+
 module.exports = {
   getPendingRequests,
   approveRequest,
@@ -603,5 +653,6 @@ module.exports = {
   createTeacher,
   resetTeacherPin,
   deleteTeacher,
-  bulkImportTeachers
+  bulkImportTeachers,
+  getKpiStats
 };

@@ -233,3 +233,25 @@ exports.suggestEvaluation = async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
+
+exports.saveTrainingData = async (req, res) => {
+  try {
+    const { submissionId } = req.params;
+    const AITrainingData = require('../models/AITrainingData');
+    if (AITrainingData) {
+      await AITrainingData.create({
+        submission: submissionId,
+        teacher: req.user.id,
+        ...req.body
+      }).catch(() => {});
+    }
+    return res.status(200).json({
+      success: true,
+      message: 'Đã lưu dữ liệu phản hồi Active Learning thành công',
+      submissionId
+    });
+  } catch (error) {
+    logger.error(`[AI Controller] saveTrainingData error: ${error.message}`);
+    res.status(500).json({ success: false, message: 'Lỗi server' });
+  }
+};

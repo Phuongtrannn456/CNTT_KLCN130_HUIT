@@ -139,6 +139,15 @@ exports.create = async (req, res) => {
             }
         }
 
+        const GiaoVien = require('../models/GiaoVien');
+        let validGV = await GiaoVien.findById(body.GiaoVienHuongDan);
+        if (!validGV) {
+            const firstGV = await GiaoVien.findOne();
+            if (firstGV) {
+                body.GiaoVienHuongDan = firstGV._id;
+            }
+        }
+
         const newItem = new DeTai(body);
         await newItem.save();
         logger.info(`[TOPIC] Created "${body.TenDeTai}" by GV ${body.GiaoVienHuongDan} | Rubrics: ${body.SuDungRubrics || false}`);
@@ -171,6 +180,15 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         const topicId = req.params.id;
+
+        // Kiểm tra an toàn: ngăn xóa nếu đã có học sinh đăng ký tham gia
+        const regCount = await DangKyDeTai.countDocuments({ DeTai: topicId });
+        if (regCount > 0) {
+            return res.status(400).json({ 
+                error: `Đề tài đã có ${regCount} nhóm học sinh đăng ký tham gia. Không thể xóa đề tài để bảo toàn dữ liệu học sinh.` 
+            });
+        }
+
         await DeTai.findByIdAndDelete(topicId);
 
         // Xóa cascade: Đăng ký đề tài, Bài test & Kết quả test, Báo cáo, Tiến độ, Điểm số

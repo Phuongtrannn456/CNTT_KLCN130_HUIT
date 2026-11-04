@@ -1,2 +1,0 @@
-sed -i '' 's/const HocSinh = require('"'"'..\/models\/HocSinh'"'"');/const HocSinh = require('"'"'..\/models\/HocSinh'"'"');\nconst Student = require('"'"'..\/models\/Student'"'"');/' /Volumes/Hybridd06/KLTN/CNTT_KLCN130_HUIT/backend/controllers/hocSinhController.js
-sed -i '' 's/const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang } = req.body;/const { HoTen, MaHS, Email, GPA, ChuyenNganh, BangDiemKyNang, KhoiLop } = req.body;/' /Volumes/Hybridd06/KLTN/CNTT_KLCN130_HUIT/backend/controllers/hocSinhController.js

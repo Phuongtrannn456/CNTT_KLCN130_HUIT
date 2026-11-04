@@ -35,6 +35,7 @@ import AdminRequests from './components/admin/AdminRequests';
 import AdminStudentManagement from './components/admin/AdminStudentManagement';
 import PendingApproval from './components/PendingApproval';
 import UserProfile from './components/UserProfile';
+import ParentDashboard from './components/parent/ParentDashboard';
 // Contexts
 import { ClassProvider } from './contexts/ClassContext';
 import { LecturerClassProvider } from './contexts/LecturerClassContext';
@@ -100,7 +101,10 @@ function App() {
         }>
           <Route index element={<UserProfile />} />
         </Route>
+        <Route path="/verify" element={<CredentialVerify />} />
         <Route path="/verify/:credentialId" element={<CredentialVerify />} />
+        <Route path="/parent" element={<ParentDashboard />} />
+        <Route path="/parent/dashboard" element={<ParentDashboard />} />
         <Route path="/pending-approval" element={<PendingApproval />} />
 
         {/* Nested User Routes under MainLayout */}
@@ -115,7 +119,7 @@ function App() {
         </Route>
 
         <Route path="/teacher" element={
-          <ProtectedRoute allowedRoles={['TEACHER_ROLE']}>
+          <ProtectedRoute allowedRoles={['TEACHER_ROLE', 'ADMIN_ROLE']}>
             <LecturerClassProvider>
               <MainLayout />
             </LecturerClassProvider>
