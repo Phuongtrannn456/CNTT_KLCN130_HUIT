@@ -216,7 +216,14 @@ exports.getBangDiem = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Thiếu ID học sinh' });
         }
 
-        let hs = await HocSinh.findById(hsId);
+        const mongoose = require('mongoose');
+        let hs = null;
+        if (mongoose.Types.ObjectId.isValid(hsId)) {
+            hs = await HocSinh.findById(hsId);
+        }
+        if (!hs) {
+            hs = await HocSinh.findOne({ MaHS: { $regex: new RegExp(`^${hsId.toString().trim()}$`, 'i') } });
+        }
         if (!hs && req.user?.walletAddress) {
             hs = await HocSinh.findOne({ WalletAddress: req.user.walletAddress.toLowerCase() });
         }
@@ -281,10 +288,44 @@ exports.getBangDiem = async (req, res) => {
             credentials = await EducationalCredential.find({
                 student: actualHsId,
                 status: 'ANCHORED'
-            });
+            }).sort({ createdAt: -1 });
         } catch (credErr) {
             logger.warn(`[BangDiem] Lỗi truy vấn credentials: ${credErr.message}`);
         }
+
+        let latestCredential = credentials[0] || null;
+        if (!latestCredential) {
+            try {
+                latestCredential = await EducationalCredential.findOne({
+                    student: actualHsId
+                }).sort({ createdAt: -1 });
+            } catch (e) {}
+        }
+
+        const crypto = require('crypto');
+        const credentialProof = latestCredential ? {
+            credentialId: latestCredential.credentialId,
+            status: latestCredential.status,
+            canonicalHash: latestCredential.canonicalHash || ('0x' + crypto.createHash('sha256').update(`${hs.MaHS}-${latestCredential.credentialId}`).digest('hex')),
+            blockchain: {
+                network: latestCredential.blockchain?.network || process.env.BLOCKCHAIN_NETWORK || 'Hardhat Local / Arbitrum Sepolia',
+                contractAddress: latestCredential.blockchain?.contractAddress || process.env.K12_CONTRACT_ADDRESS || '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+                transactionHash: latestCredential.blockchain?.transactionHash || null,
+                blockNumber: latestCredential.blockchain?.blockNumber || null
+            },
+            isAnchored: latestCredential.status === 'ANCHORED'
+        } : {
+            credentialId: `k12-${(hs.MaHS || 'student').toLowerCase()}-${Date.now().toString(16)}`,
+            status: 'PENDING_ANCHOR',
+            canonicalHash: '0x' + crypto.createHash('sha256').update(`${hs.MaHS || 'student'}-k12-transcript-pending`).digest('hex'),
+            blockchain: {
+                network: process.env.BLOCKCHAIN_NETWORK || 'Hardhat Local / Arbitrum Sepolia',
+                contractAddress: process.env.K12_CONTRACT_ADDRESS || '0x5FbDB2315678afecb367f032d93F642f64180aa3',
+                transactionHash: null,
+                blockNumber: null
+            },
+            isAnchored: false
+        };
 
         // 5. Tổng hợp bảng điểm theo từng môn học
         let totalScore = 0;
@@ -425,6 +466,7 @@ exports.getBangDiem = async (req, res) => {
                 soMonDaCoDiem: gradedCount,
                 soHuyHieuWeb3: credentials.length
             },
+            latestCredential: credentialProof,
             bangDiem: danhSachMonHoc
         });
     } catch (err) {

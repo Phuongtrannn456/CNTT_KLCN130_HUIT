@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, Typography, Row, Col, Statistic, Alert, Spin, Tag, Tooltip, Form, Input, InputNumber, Select, Button, Modal, message, Divider, Space } from 'antd';
+import { PrinterOutlined } from '@ant-design/icons';
 import { Target, Award, BookOpen, ShieldCheck, BrainCircuit, ExternalLink, Edit2, User, Save, School, GraduationCap } from 'lucide-react';
 import authService from '../../services/authService';
 import aiApiService from '../../services/aiService';
@@ -9,6 +10,7 @@ import { useIsMobile } from '../../hooks/useResponsive';
 import QrAuthentication from '../QrAuthentication';
 import { useClassContext } from '../../contexts/ClassContext';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import DigitalTranscriptModal from '../shared/DigitalTranscriptModal';
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -17,6 +19,7 @@ const StudentDashboard = () => {
   const { myClasses, selectedClassId } = useClassContext();
   const [editingProfile, setEditingProfile] = useState(false);
   const [savingProfile, setSavingProfile] = useState(false);
+  const [transcriptModalVisible, setTranscriptModalVisible] = useState(false);
   const [form] = Form.useForm();
   const user = authService.getCurrentUser();
   const queryClient = useQueryClient();
@@ -190,8 +193,20 @@ const StudentDashboard = () => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-        <Title level={2} style={{ margin: 0 }}>Dashboard Học Sinh</Title>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <Title level={2} style={{ margin: 0 }}>Dashboard Học Sinh</Title>
+          <Text type="secondary">Quản lý quá trình học tập, thử thách STEM và học bạ điện tử Web3</Text>
+        </div>
+        <Button
+          type="primary"
+          size="large"
+          icon={<PrinterOutlined />}
+          style={{ backgroundColor: '#1890ff', fontWeight: 600 }}
+          onClick={() => setTranscriptModalVisible(true)}
+        >
+          In / Xuất Học Bạ A4
+        </Button>
       </div>
 
       {/* Cảnh báo cập nhật hồ sơ lần đầu */}
@@ -333,6 +348,7 @@ const StudentDashboard = () => {
           <Card
             title={<div style={{ display: 'flex', alignItems: 'center', gap: 8 }}><Award size={18} style={{ color: '#eb2f96' }} /><span>Tiến Độ & Điểm</span></div>}
             bordered={false}
+            extra={<Button type="link" size="small" icon={<PrinterOutlined />} onClick={() => setTranscriptModalVisible(true)}>Học bạ A4</Button>}
           >
             {grade ? (
               <div>
@@ -549,6 +565,14 @@ const StudentDashboard = () => {
           </Space>
         </Form>
       </Modal>
+
+      {/* Modal Học bạ điện tử K-12 */}
+      <DigitalTranscriptModal
+        visible={transcriptModalVisible}
+        onClose={() => setTranscriptModalVisible(false)}
+        studentData={studentProfile}
+        studentId={user?.id}
+      />
     </div>
   );
 };

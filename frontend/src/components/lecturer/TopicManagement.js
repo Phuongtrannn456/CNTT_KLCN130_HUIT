@@ -55,6 +55,7 @@ const TopicManagement = () => {
   });
 
   const topics = React.useMemo(() => {
+    if (user?.role_id === 'ADMIN_ROLE') return rawTopics;
     const myClassIds = new Set(lopHocList.map(lh => (lh._id || lh).toString()));
     return rawTopics.filter(t => {
       const gvHD = t.GiaoVienHuongDan;
@@ -70,7 +71,7 @@ const TopicManagement = () => {
       if (gvId === user.id) return true;
       return (t.LopHoc || []).some(lh => myClassIds.has((lh._id || lh).toString()));
     });
-  }, [rawTopics, lopHocList, user?.id, selectedClassId]);
+  }, [rawTopics, lopHocList, user?.id, user?.role_id, selectedClassId]);
 
   const { data: registrations = [], isLoading: isLoadingRegs } = useQuery({
     queryKey: ['registrations', user?.id, selectedClassId],
@@ -306,7 +307,7 @@ const TopicManagement = () => {
           <strong style={{ color: '#1677ff', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis', lineHeight: '1.4' }}>{text}</strong>
           <Space size={2} wrap={false} style={{ marginTop: 2 }}>
             {record.SuDungRubrics && <Tag color="purple" style={{ fontSize: 10, margin: 0, lineHeight: '16px', padding: '0 4px' }}>Rubrics</Tag>}
-            {record.CoBaiTest && <Tag color="volcano" style={{ fontSize: 10, margin: 0, lineHeight: '16px', padding: '0 4px' }}>🏆 Test</Tag>}
+            {record.CoBaiTest && <Tag color="volcano" style={{ fontSize: 10, margin: 0, lineHeight: '16px', padding: '0 4px' }}>Bài Test</Tag>}
           </Space>
         </div>
       ),
@@ -609,9 +610,9 @@ const TopicManagement = () => {
                           'DaSubmit': 'cyan', 'ChoDoi': 'blue', 'DaDuyet': 'success', 'TuChoi': 'error', 'Thua': 'default'
                         };
                         const trangThaiLabel = {
-                          'ChoDuyet': '⏳ Chờ Duyệt', 'ChoTest': '📝 Chờ Test', 'DangLamTest': '✍️ Đang Làm',
-                          'DaSubmit': '📤 Đã Submit', 'ChoDoi': '⏳ Chờ Kết Quả', 'DaDuyet': '✅ Đã Duyệt (Thắng)',
-                          'TuChoi': '❌ Từ Chối', 'Thua': '😞 Thua'
+                          'ChoDuyet': 'Chờ Duyệt', 'ChoTest': 'Chờ Test', 'DangLamTest': 'Đang Làm',
+                          'DaSubmit': 'Đã Submit', 'ChoDoi': 'Chờ Kết Quả', 'DaDuyet': 'Đã Duyệt (Thắng)',
+                          'TuChoi': 'Từ Chối', 'Thua': 'Thua'
                         };
                         const nhomName = reg.Nhom?.TenNhom || `Nhóm của ${reg.TruongNhom?.HoTen || reg.HocSinh?.HoTen || 'N/A'}`;
                         const gvId = record.GiaoVienHuongDan ? (record.GiaoVienHuongDan._id || record.GiaoVienHuongDan).toString() : '';
@@ -638,7 +639,7 @@ const TopicManagement = () => {
                             }
                           >
                             <List.Item.Meta
-                              avatar={<div style={{ fontSize: 24 }}>{reg.TrangThai === 'DaDuyet' ? '🏆' : '👥'}</div>}
+                              avatar={<Users size={20} style={{ color: reg.TrangThai === 'DaDuyet' ? '#faad14' : '#8c8c8c' }} />}
                               title={
                                 <Space>
                                   <Text strong>{nhomName}</Text>
@@ -655,7 +656,7 @@ const TopicManagement = () => {
                                       <List.Item style={{ padding: '2px 0', borderBottom: 'none' }}>
                                         <Space>
                                           <Tag color={tv.VaiTro === 'TruongNhom' ? 'gold' : 'blue'} style={{ fontSize: 10, lineHeight: '14px', padding: '0 4px' }}>
-                                            {tv.VaiTro === 'TruongNhom' ? '👑' : '👤'}
+                                            {tv.VaiTro === 'TruongNhom' ? 'Trưởng nhóm' : 'Thành viên'}
                                           </Tag>
                                           <Text style={{ fontSize: 13 }}>{tv.HocSinh?.HoTen || 'N/A'} ({tv.HocSinh?.MaHS || ''})</Text>
                                         </Space>

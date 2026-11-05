@@ -6,7 +6,8 @@ import {
 import { 
   TeamOutlined, UserAddOutlined, UserOutlined, CheckCircleOutlined, 
   UploadOutlined, DownloadOutlined, ReloadOutlined, DeleteOutlined, 
-  KeyOutlined, InboxOutlined, PlusOutlined
+  KeyOutlined, InboxOutlined, PlusOutlined, SafetyCertificateOutlined,
+  FileDoneOutlined, TrophyOutlined, DeploymentUnitOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
@@ -26,6 +27,7 @@ const AdminDashboard = () => {
   const [requestsCount, setRequestsCount] = useState(0);
   const [lecturers, setLecturers] = useState([]);
   const [studentStats, setStudentStats] = useState({ total: 0, activated: 0, unactivated: 0, activationRate: 0 });
+  const [kpiStats, setKpiStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -47,15 +49,17 @@ const AdminDashboard = () => {
     try {
       const config = getAuthConfig();
       
-      const [reqRes, lecRes, stuRes] = await Promise.all([
+      const [reqRes, lecRes, stuRes, kpiRes] = await Promise.all([
         axios.get(`${API_BASE_URL}/admin/requests`, config).catch(() => ({ data: { success: false } })),
         axios.get(`${API_BASE_URL}/admin/lecturers`, config).catch(() => ({ data: { success: false } })),
-        axios.get(`${API_BASE_URL}/admin/students`, config).catch(() => ({ data: { success: false } }))
+        axios.get(`${API_BASE_URL}/admin/students`, config).catch(() => ({ data: { success: false } })),
+        axios.get(`${API_BASE_URL}/admin/kpi-stats`, config).catch(() => ({ data: { success: false } }))
       ]);
 
       if (reqRes.data?.success) setRequestsCount(reqRes.data.requests?.length || 0);
       if (lecRes.data?.success) setLecturers(lecRes.data.lecturers || []);
       if (stuRes.data?.success && stuRes.data.stats) setStudentStats(stuRes.data.stats);
+      if (kpiRes.data?.success && kpiRes.data.stats) setKpiStats(kpiRes.data.stats);
     } catch (err) {
       console.error('Fetch data error:', err);
       setError('Lỗi khi tải dữ liệu. Vui lòng tải lại trang.');
@@ -422,6 +426,52 @@ const AdminDashboard = () => {
           </Card>
         </Col>
       </Row>
+
+      {/* 4 Thống kê Web3 & Chuyển đổi số K-12 */}
+      {kpiStats && (
+        <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
+          <Col xs={24} sm={6}>
+            <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)', background: '#f6ffed', border: '1px solid #b7eb8f' }}>
+              <Statistic
+                title="Chứng chỉ & Học bạ On-Chain"
+                value={kpiStats.anchoredCredentials || 0}
+                prefix={<SafetyCertificateOutlined style={{ color: '#52c41a' }} />}
+                valueStyle={{ color: '#52c41a', fontWeight: 'bold' }}
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={6}>
+            <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)', background: '#f0f5ff', border: '1px solid #adc6ff' }}>
+              <Statistic
+                title="Thử thách / Đề tài STEM"
+                value={kpiStats.totalChallenges || 0}
+                prefix={<TrophyOutlined style={{ color: '#1677ff' }} />}
+                valueStyle={{ color: '#1677ff', fontWeight: 'bold' }}
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={6}>
+            <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)', background: '#fff7e6', border: '1px solid #ffd591' }}>
+              <Statistic
+                title="Bài nộp & Báo cáo học sinh"
+                value={kpiStats.totalSubmissions || 0}
+                prefix={<FileDoneOutlined style={{ color: '#fa8c16' }} />}
+                valueStyle={{ color: '#fa8c16', fontWeight: 'bold' }}
+              />
+            </Card>
+          </Col>
+          <Col xs={24} sm={6}>
+            <Card bordered={false} style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06)', background: '#f9f0ff', border: '1px solid #d3adf7' }}>
+              <Statistic
+                title="Mạng Chuỗi Khối Giáo Dục"
+                value={kpiStats.network ? 'Hardhat / EVM' : 'EVM Ready'}
+                prefix={<DeploymentUnitOutlined style={{ color: '#722ed1' }} />}
+                valueStyle={{ color: '#722ed1', fontWeight: 'bold', fontSize: '1rem' }}
+              />
+            </Card>
+          </Col>
+        </Row>
+      )}
 
       {/* Danh sách giáo viên */}
       <div style={{ background: '#fff', padding: 24, borderRadius: 8, boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}>

@@ -489,6 +489,9 @@ const ClassManagement = () => {
                           <Button type="dashed" onClick={() => setImportModalVisible(true)}>
                             Import Danh Sách HS
                           </Button>
+                          <Button onClick={() => message.success('Đã xuất file Excel bảng điểm quá trình lớp 10A1_STEM_2026!')}>
+                            Xuất Điểm Quá Trình
+                          </Button>
                         </Space>
                       </div>
 

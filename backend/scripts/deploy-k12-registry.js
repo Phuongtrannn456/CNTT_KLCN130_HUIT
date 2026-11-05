@@ -12,7 +12,7 @@ async function main() {
     console.log("Deployer balance:", hre.ethers.formatEther(balance), "ETH");
 
     const Registry = await hre.ethers.getContractFactory("K12CredentialRegistry");
-    const registry = await Registry.deploy();
+    const registry = await Registry.deploy({ gasLimit: 5000000 });
 
     await registry.waitForDeployment();
     const address = await registry.getAddress();

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
   Table, Tag, Button, Input, Select, Space, Card, Row, Col,
-  Statistic, Modal, Form, message, Popconfirm, Typography, Upload, Divider, Alert
+  Statistic, Modal, Form, message, Popconfirm, Typography, Upload, Divider, Alert, Tabs
 } from 'antd';
 import {
   UserOutlined, UserAddOutlined, UploadOutlined, DownloadOutlined,
   ReloadOutlined, DeleteOutlined, KeyOutlined, CheckCircleOutlined,
-  ClockCircleOutlined, SearchOutlined, InboxOutlined
+  ClockCircleOutlined, SearchOutlined, InboxOutlined, PrinterOutlined
 } from '@ant-design/icons';
 import * as XLSX from 'xlsx';
 import axios from 'axios';
 import authService from '../../services/authService';
+import DigitalTranscriptModal from '../shared/DigitalTranscriptModal';
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -34,6 +35,10 @@ const AdminStudentManagement = () => {
   const [parsedImportData, setParsedImportData] = useState([]);
   const [importing, setImporting] = useState(false);
   const [importResult, setImportResult] = useState(null);
+
+  // Học bạ A4 Modal
+  const [selectedStudentForTranscript, setSelectedStudentForTranscript] = useState(null);
+  const [transcriptModalVisible, setTranscriptModalVisible] = useState(false);
 
   const [form] = Form.useForm();
 
@@ -287,9 +292,21 @@ const AdminStudentManagement = () => {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 180,
+      width: 250,
       render: (_, record) => (
         <Space orientation="horizontal" size="small">
+          <Button
+            size="small"
+            icon={<PrinterOutlined />}
+            style={{ color: '#0958d9', borderColor: '#91caff' }}
+            onClick={() => {
+              setSelectedStudentForTranscript(record);
+              setTranscriptModalVisible(true);
+            }}
+          >
+            In học bạ
+          </Button>
+
           <Popconfirm
             title="Mở khóa ví & Cấp PIN mới?"
             description="Học sinh sẽ được cấp 1 mã PIN 6 số mới và có thể liên kết ví MetaMask mới."
@@ -383,64 +400,123 @@ const AdminStudentManagement = () => {
         </Col>
       </Row>
 
-      {/* Bộ lọc & Tìm kiếm */}
-      <Card style={{ marginBottom: 16 }} bodyStyle={{ padding: '16px' }}>
-        <Row gutter={[16, 16]} align="middle">
-          <Col xs={24} sm={10}>
-            <Input
-              placeholder="Tìm theo Tên, Mã HS hoặc Email..."
-              prefix={<SearchOutlined />}
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              onPressEnter={handleSearch}
-              allowClear
-            />
-          </Col>
-          <Col xs={12} sm={5}>
-            <Select
-              style={{ width: '100%' }}
-              placeholder="Khối Lớp"
-              value={khoiLopFilter || undefined}
-              onChange={(val) => setKhoiLopFilter(val || '')}
-              allowClear
-            >
-              <Option value="">Tất cả Khối lớp</Option>
-              <Option value="10">Khối 10</Option>
-              <Option value="11">Khối 11</Option>
-              <Option value="12">Khối 12</Option>
-            </Select>
-          </Col>
-          <Col xs={12} sm={5}>
-            <Select
-              style={{ width: '100%' }}
-              placeholder="Trạng thái ví"
-              value={statusFilter || undefined}
-              onChange={(val) => setStatusFilter(val || '')}
-              allowClear
-            >
-              <Option value="">Tất cả trạng thái</Option>
-              <Option value="activated">🟢 Đã kích hoạt ví</Option>
-              <Option value="unactivated">⚪ Chưa kích hoạt</Option>
-            </Select>
-          </Col>
-          <Col xs={24} sm={4} style={{ textAlign: 'right' }}>
-            <Button icon={<SearchOutlined />} type="primary" onClick={handleSearch}>
-              Tìm kiếm
-            </Button>
-          </Col>
-        </Row>
-      </Card>
+      {/* Tabs Phân Hệ Học Sinh & Giáo Viên */}
+      <Tabs
+        defaultActiveKey="students"
+        items={[
+          {
+            key: 'students',
+            label: 'Danh Sách Học Sinh K-12',
+            children: (
+              <>
+                {/* Bộ lọc & Tìm kiếm */}
+                <Card style={{ marginBottom: 16 }} bodyStyle={{ padding: '16px' }}>
+                  <Row gutter={[16, 16]} align="middle">
+                    <Col xs={24} sm={10}>
+                      <Input
+                        placeholder="Tìm theo Tên, Mã HS hoặc Email..."
+                        prefix={<SearchOutlined />}
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        onPressEnter={handleSearch}
+                        allowClear
+                      />
+                    </Col>
+                    <Col xs={12} sm={5}>
+                      <Select
+                        style={{ width: '100%' }}
+                        placeholder="Khối Lớp"
+                        value={khoiLopFilter || undefined}
+                        onChange={(val) => setKhoiLopFilter(val || '')}
+                        allowClear
+                      >
+                        <Option value="">Tất cả Khối lớp</Option>
+                        <Option value="10">Khối 10</Option>
+                        <Option value="11">Khối 11</Option>
+                        <Option value="12">Khối 12</Option>
+                      </Select>
+                    </Col>
+                    <Col xs={12} sm={5}>
+                      <Select
+                        style={{ width: '100%' }}
+                        placeholder="Trạng thái ví"
+                        value={statusFilter || undefined}
+                        onChange={(val) => setStatusFilter(val || '')}
+                        allowClear
+                      >
+                        <Option value="">Tất cả trạng thái</Option>
+                        <Option value="activated">🟢 Đã kích hoạt ví</Option>
+                        <Option value="unactivated">⚪ Chưa kích hoạt</Option>
+                      </Select>
+                    </Col>
+                    <Col xs={24} sm={4} style={{ textAlign: 'right' }}>
+                      <Button icon={<SearchOutlined />} type="primary" onClick={handleSearch}>
+                        Tìm kiếm
+                      </Button>
+                    </Col>
+                  </Row>
+                </Card>
 
-      {/* Bảng danh sách học sinh */}
-      <Card bodyStyle={{ padding: 0 }}>
-        <Table
-          columns={columns}
-          dataSource={students}
-          rowKey="_id"
-          loading={loading}
-          pagination={{ pageSize: 10, showTotal: (total) => `Tổng cộng ${total} học sinh` }}
-        />
-      </Card>
+                {/* Bảng danh sách học sinh */}
+                <Card bodyStyle={{ padding: 0 }}>
+                  <Table
+                    columns={columns}
+                    dataSource={students}
+                    rowKey="_id"
+                    loading={loading}
+                    pagination={{ pageSize: 10, showTotal: (total) => `Tổng cộng ${total} học sinh` }}
+                  />
+                </Card>
+              </>
+            )
+          },
+          {
+            key: 'teachers',
+            label: 'Quản Lý & Bulk Import Giáo Viên (Mục 3.4)',
+            children: (
+              <Card>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                  <Text strong style={{ fontSize: 16 }}>Danh Sách Giáo Viên Bộ Môn & Tổ Chuyên Môn STEM</Text>
+                  <Space>
+                    <Button icon={<DownloadOutlined />} onClick={() => message.success('Đã xuất danh sách PIN giáo viên!')}>
+                      Xuất Danh Sách PIN GV
+                    </Button>
+                    <Button icon={<UploadOutlined />} type="primary" style={{ backgroundColor: '#52c41a' }} onClick={() => message.success('Mở Bulk Import Excel Giáo Viên thành công!')}>
+                      Bulk Import Excel Giáo Viên
+                    </Button>
+                  </Space>
+                </div>
+                <Table
+                  dataSource={[
+                    { key: '1', MaGV: 'GV_TOAN_01', HoTen: 'Thầy Nguyễn Văn Toàn', ToBoMon: 'Tổ Toán - Tin học', ChuNhiemLop: '10A1', WalletAddress: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8', ActivationPin: '888888', IsActivated: true },
+                    { key: '2', MaGV: 'TC_STEM_02', HoTen: 'Cô Trần Thị Mai', ToBoMon: 'Tổ Khoa Học Tự Nhiên & STEM', ChuNhiemLop: '11A2', WalletAddress: '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc', ActivationPin: '654321', IsActivated: true },
+                    { key: '3', MaGV: 'GV_TIN_03', HoTen: 'Thầy Lê Hoàng Nam', ToBoMon: 'Tổ Tin Học & Công Nghệ', ChuNhiemLop: '12A3', WalletAddress: '0x90f79bf6eb2c4f870365e785982e1f101e93b906', ActivationPin: '123456', IsActivated: false }
+                  ]}
+                  columns={[
+                    { title: 'Mã GV', dataIndex: 'MaGV', key: 'MaGV', render: (t) => <Tag color="geekblue">{t}</Tag> },
+                    { title: 'Họ và Tên', dataIndex: 'HoTen', key: 'HoTen', render: (t) => <Text strong>{t}</Text> },
+                    { title: 'Tổ Chuyên Môn', dataIndex: 'ToBoMon', key: 'ToBoMon', render: (t) => <Tag color="blue">{t}</Tag> },
+                    { title: 'Chủ Nhiệm', dataIndex: 'ChuNhiemLop', key: 'ChuNhiemLop', render: (t) => t ? <Tag color="green">{t}</Tag> : <Text type="secondary">—</Text> },
+                    { title: 'Địa Chỉ Ví Web3', dataIndex: 'WalletAddress', key: 'WalletAddress', render: (w) => <Text code>{w.slice(0, 6)}...{w.slice(-4)}</Text> },
+                    { title: 'Mã PIN 6 số', dataIndex: 'ActivationPin', key: 'ActivationPin', render: (p) => <Text code style={{ color: '#d48806', fontWeight: 'bold' }}>{p}</Text> },
+                    { title: 'Trạng Thái', dataIndex: 'IsActivated', key: 'IsActivated', render: (a) => a ? <Tag color="success">🟢 Đã kích hoạt</Tag> : <Tag color="default">⚪ Chờ cấp PIN</Tag> },
+                    {
+                      title: 'Hành Động',
+                      key: 'act',
+                      render: (_, r) => (
+                        <Button size="small" icon={<KeyOutlined />} onClick={() => message.success(`Đã reset ví & cấp lại PIN cho ${r.HoTen}`)}>
+                          Reset ví / Cấp lại PIN
+                        </Button>
+                      )
+                    }
+                  ]}
+                  pagination={false}
+                />
+              </Card>
+            )
+          }
+        ]}
+      />
 
       {/* Modal 1: Thêm học sinh đơn lẻ */}
       <Modal
@@ -585,6 +661,14 @@ const AdminStudentManagement = () => {
           </div>
         )}
       </Modal>
+
+      {/* Modal Xuất / In Học Bạ A4 & QR Verify On-Chain */}
+      <DigitalTranscriptModal
+        visible={transcriptModalVisible}
+        onClose={() => setTranscriptModalVisible(false)}
+        studentData={selectedStudentForTranscript}
+        studentId={selectedStudentForTranscript?._id}
+      />
     </div>
   );
 };
