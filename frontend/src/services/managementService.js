@@ -79,6 +79,21 @@ const managementService = {
     return res.data;
   },
 
+  async createHocSinh(data) {
+    const res = await apiService.post('/hocsinh', data);
+    return res.data;
+  },
+
+  async updateHocSinh(id, data) {
+    const res = await apiService.put(`/hocsinh/${id}`, data);
+    return res.data;
+  },
+
+  async deleteHocSinh(id) {
+    const res = await apiService.delete(`/hocsinh/${id}`);
+    return res.data;
+  },
+
   // ===== LỜI MỜI LỚP HỌC =====
   async inviteHocSinhToLop(lopId, hocSinhId) {
     const res = await apiService.post(`/loimoi-lophoc/${lopId}/invite`, { hocSinhId });

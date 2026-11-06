@@ -158,7 +158,13 @@ const TeacherChallengeDetail = () => {
     
     try {
       await challengeService.evaluateSubmission(latestSub._id, payload);
-      message.success('Lưu đánh giá thành công');
+      if (values.status === 'FINAL') {
+        const realName = selectedParticipation?.student?.fullName || selectedParticipation?.student?.HoTen || 'Học sinh';
+        const maHS = selectedParticipation?.student?.MaHS ? ` (${selectedParticipation.student.MaHS})` : '';
+        message.success(`Đã chốt điểm (FINAL) và khớp phách thành công: ${realName}${maHS}!`);
+      } else {
+        message.success('Đã lưu bản nháp đánh giá (vẫn giữ chế độ rọc phách ẩn danh)');
+      }
       setIsEvalModalVisible(false);
       fetchData(); // Refresh to show if finalized
     } catch (error) {
@@ -166,11 +172,34 @@ const TeacherChallengeDetail = () => {
     }
   };
 
+  const getStudentDid = (student) => {
+    const addr = (student?.WalletAddress || student?.walletAddress || '').replace(/^0x/i, '');
+    const suffix = addr ? addr.slice(-6).toLowerCase() : String(student?._id || 'anon').slice(-6);
+    return `Student_DID#${suffix}`;
+  };
+
   const columns = [
     { 
-      title: 'Học sinh', 
+      title: 'Học sinh / Định danh DID (Rọc phách Web3)', 
       key: 'name',
-      render: (_, record) => record.student?.fullName || record.student?.HoTen || 'N/A'
+      render: (_, record) => {
+        const isCompleted = record.status === 'COMPLETED';
+        if (!isCompleted) {
+          return (
+            <span>
+              <Text strong style={{ color: '#722ed1' }}>{getStudentDid(record.student)}</Text>
+              <Tag color="purple" style={{ marginLeft: 8 }}>Đang rọc phách Zero-PII</Tag>
+            </span>
+          );
+        }
+        return (
+          <span>
+            <Text strong>{record.student?.fullName || record.student?.HoTen || 'N/A'}</Text>
+            {record.student?.MaHS ? <Text type="secondary"> ({record.student.MaHS})</Text> : null}
+            <Tag color="green" style={{ marginLeft: 8 }}>Đã khớp phách</Tag>
+          </span>
+        );
+      }
     },
     { 
       title: 'Khối lớp', 
@@ -187,7 +216,7 @@ const TeacherChallengeDetail = () => {
       key: 'action',
       render: (_, record) => (
         <Button type="primary" icon={<EyeOutlined />} onClick={() => handleReview(record)}>
-          Xem & Chấm bài
+          {record.status === 'COMPLETED' ? 'Xem Điểm (Đã Khớp Phách)' : 'Chấm Bài (Rọc Phách)'}
         </Button>
       )
     }
@@ -195,7 +224,7 @@ const TeacherChallengeDetail = () => {
 
   if (loading) return <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>;
 
-  const isFinalized = currentEvaluation?.status === 'FINAL';
+  const isFinalized = currentEvaluation?.status === 'FINAL' || selectedParticipation?.status === 'COMPLETED';
 
   return (
     <div style={{ padding: '24px' }}>
@@ -211,7 +240,11 @@ const TeacherChallengeDetail = () => {
       </Card>
 
       <Modal
-        title={`Đánh giá bài nộp: ${selectedParticipation?.student?.fullName || selectedParticipation?.student?.HoTen || ""}`}
+        title={
+          isFinalized
+            ? `Đánh giá bài nộp (Đã khớp phách): ${selectedParticipation?.student?.fullName || selectedParticipation?.student?.HoTen || ''} (${selectedParticipation?.student?.MaHS || ''})`
+            : `Chấm bài rọc phách Web3: ${getStudentDid(selectedParticipation?.student)} (Ẩn danh Zero-PII)`
+        }
         open={isEvalModalVisible}
         onCancel={() => setIsEvalModalVisible(false)}
         footer={null}
@@ -223,6 +256,15 @@ const TeacherChallengeDetail = () => {
           <Alert message="Học sinh chưa nộp bài" type="info" showIcon />
         ) : (
           <div>
+            {!isFinalized && (
+              <Alert
+                type="info"
+                showIcon
+                style={{ marginBottom: 16, borderColor: '#d3adf7', background: '#f9f0ff' }}
+                message={`Chế độ Chấm thi Rọc phách Tự động Web3: ${getStudentDid(selectedParticipation?.student)}`}
+                description="Danh tính học sinh được mã hóa bằng định danh DID ví điện tử nhằm đảm bảo tính công bằng. Khi Giáo viên chọn trạng thái Chốt Điểm (FINAL) và lưu kết quả, hệ thống sẽ tự động mở niêm phong khớp phách họ tên thật."
+              />
+            )}
             <Card type="inner" title={`Bài nộp mới nhất (Version ${studentSubmissions[0].version})`}>
               <Text type="secondary">Thời gian nộp: {dayjs(studentSubmissions[0].createdAt).format('DD/MM/YYYY HH:mm')}</Text>
               {studentSubmissions[0].isLate && <Tag color="red" style={{ marginLeft: 8 }}>Nộp muộn</Tag>}

@@ -349,7 +349,7 @@ exports.getHocSinhByGiaoVien = async (req, res) => {
   try {
     const { gvId } = req.params;
     const lopHocs = await LopHoc.find({ GiaoVien: gvId })
-      .populate('HocSinh', 'MaHS HoTen Email GPA ChuyenNganh KyNang WalletAddress DaCapNhatHoSo')
+      .populate('HocSinh', 'MaHS HoTen Email GPA KhoiLop HanhKiem TruongHoc ChuyenNganh KyNang WalletAddress DaCapNhatHoSo')
       .populate('MonHoc', 'MaMonHoc TenMonHoc')
       .populate('GiaoVien', 'HoTen MaGV');
 

@@ -8,8 +8,10 @@ import {
   FileDoneOutlined,
   TrophyOutlined,
   UserOutlined,
-  CheckOutlined
+  CheckOutlined,
+  PrinterOutlined
 } from '@ant-design/icons';
+import DigitalTranscriptModal from '../shared/DigitalTranscriptModal';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -17,6 +19,7 @@ const ParentDashboard = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [parentSigned, setParentSigned] = useState(false);
   const [signing, setSigning] = useState(false);
+  const [transcriptOpen, setTranscriptOpen] = useState(false);
 
   const handleSignConsent = () => {
     setSigning(true);
@@ -101,7 +104,7 @@ const ParentDashboard = () => {
             </Col>
             <Col xs={24} sm={6}>
               <Text type="secondary">GVCN: </Text>
-              <Text strong>ThS. Hoàng Minh Tuấn</Text>
+              <Text strong>Thầy Nguyễn Văn Toàn</Text>
             </Col>
           </Row>
         </div>
@@ -216,15 +219,37 @@ const ParentDashboard = () => {
 
           {/* Nút ký số */}
           {parentSigned ? (
-            <Alert
-              type="success"
-              showIcon
-              icon={<SafetyCertificateOutlined />}
-              message="ĐÃ KHÓA BẤT BIẾN CHỮ KÝ ĐỒNG THUẬN 3 BÊN LÊN BLOCKCHAIN"
-              description="Toàn bộ chữ ký (Trường - Trò - Phụ huynh) đã được gói vào Canonical JSON và neo thành công lên Smart Contract K12CredentialRegistry.sol (Mã giao dịch: 0x7c38ba19f408223698ea45731b87a8291f09c2a7e189871bb55627192a40e19f)."
-            />
+            <div>
+              <Alert
+                type="success"
+                showIcon
+                icon={<SafetyCertificateOutlined />}
+                message="ĐÃ KHÓA BẤT BIẾN CHỮ KÝ ĐỒNG THUẬN 3 BÊN LÊN BLOCKCHAIN"
+                description="Toàn bộ chữ ký (Trường - Trò - Phụ huynh) đã được gói vào Canonical JSON và neo thành công lên Smart Contract K12CredentialRegistry.sol (Mã giao dịch: 0x7c38ba19f408223698ea45731b87a8291f09c2a7e189871bb55627192a40e19f)."
+                style={{ marginBottom: 16 }}
+              />
+              <div style={{ textAlign: 'center', display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+                <Button
+                  type="primary"
+                  size="large"
+                  icon={<PrinterOutlined />}
+                  onClick={() => setTranscriptOpen(true)}
+                  style={{ background: '#1677ff', fontWeight: 600 }}
+                >
+                  Xem & In Học Bạ Điện Tử A4 (7 Môn K-12)
+                </Button>
+                <Button
+                  size="large"
+                  icon={<SafetyCertificateOutlined />}
+                  onClick={() => window.open('/verify/HS1001', '_blank')}
+                  style={{ fontWeight: 600, borderColor: '#52c41a', color: '#389e0d' }}
+                >
+                  Tra Cứu Xác Thực On-Chain (Public Verify)
+                </Button>
+              </div>
+            </div>
           ) : (
-            <div style={{ textAlign: 'center' }}>
+            <div style={{ textAlign: 'center', display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               <Button
                 type="primary"
                 size="large"
@@ -233,7 +258,7 @@ const ParentDashboard = () => {
                 onClick={handleSignConsent}
                 style={{
                   height: 48,
-                  padding: '0 32px',
+                  padding: '0 28px',
                   fontSize: 15,
                   fontWeight: 'bold',
                   background: '#52c41a',
@@ -242,10 +267,23 @@ const ParentDashboard = () => {
               >
                 BẤM VÀO ĐÂY ĐỂ KÝ SỐ ĐỒNG THUẬN HỌC BẠ (PIN PHỤ HUYNH)
               </Button>
+              <Button
+                size="large"
+                icon={<PrinterOutlined />}
+                onClick={() => setTranscriptOpen(true)}
+                style={{ height: 48, fontWeight: 600 }}
+              >
+                Xem Chi Tiết Học Bạ A4
+              </Button>
             </div>
           )}
         </div>
       </Card>
+      <DigitalTranscriptModal
+        visible={transcriptOpen}
+        onClose={() => setTranscriptOpen(false)}
+        studentId="6ae94aebd294387715a38afb"
+      />
     </div>
   );
 };

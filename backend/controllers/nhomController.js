@@ -3,6 +3,10 @@ const HocSinh = require('../models/HocSinh');
 const DangKyDeTai = require('../models/DangKyDeTai');
 const logger = require('../config/logger');
 
+const STEM_PROJECT_TYPES = ['DU_AN_STEM', 'STEM_KHKT', 'KhoaLuan'];
+const isStemProject = (lopHocId, loaiDeTai) =>
+  lopHocId === 'KHOA_LUAN' || lopHocId === 'DU_AN_STEM' || STEM_PROJECT_TYPES.includes(loaiDeTai);
+
 // Tạo nhóm mới (HS tự động làm trưởng nhóm)
 exports.createNhom = async (req, res) => {
   try {
@@ -13,7 +17,7 @@ exports.createNhom = async (req, res) => {
       return res.status(400).json({ error: 'Thiếu thông tin hocSinhId hoặc soLuong.' });
     }
 
-    const isKhoaLuan = lopHocId === 'KHOA_LUAN' || req.body.loaiDeTai === 'KhoaLuan';
+    const isKhoaLuan = isStemProject(lopHocId, req.body.loaiDeTai);
 
     if (lopHocId && !isKhoaLuan) {
       const LopHoc = require('../models/LopHoc');
@@ -79,7 +83,7 @@ exports.getNhomByHocSinh = async (req, res) => {
       'ThanhVien.HocSinh': hsId,
       'ThanhVien.TrangThai': { $in: ['DaMoi', 'DaChapNhan'] }
     };
-    if (lopHocId === 'KHOA_LUAN' || loaiDeTai === 'KhoaLuan') {
+    if (isStemProject(lopHocId, loaiDeTai)) {
       query.LopHoc = null;
     } else if (lopHocId) {
       query.LopHoc = lopHocId;
@@ -180,7 +184,7 @@ exports.inviteMember = async (req, res) => {
       // Với dự án STEM: chỉ chặn nếu HS được mời đã sở hữu (được duyệt) một đề tài dự án STEM rồi
       const DeTai = require('../models/DeTai');
       const DangKyDeTai = require('../models/DangKyDeTai');
-      const khoaLuanTopics = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).select('_id');
+      const khoaLuanTopics = await DeTai.find({ LoaiDeTai: { $in: STEM_PROJECT_TYPES } }).select('_id');
       const khoaLuanTopicIds = khoaLuanTopics.map(dt => dt._id);
 
       const wonReg = await DangKyDeTai.findOne({

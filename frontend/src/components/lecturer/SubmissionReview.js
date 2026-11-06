@@ -397,7 +397,7 @@ const SubmissionReview = () => {
       });
 
       message.success({
-        content: `Đã ký Smart Contract và Ghi điểm (${score}) cho ${selectedSubmission?.student?.HoTen} thành công!`,
+        content: `Đã ký Smart Contract, ghi điểm (${score}) và khớp phách thành công cho ${selectedSubmission?.student?.HoTen} (${selectedSubmission?.student?.MaHS || ''})!`,
         duration: 4,
         icon: <ShieldCheck color="#52c41a" />,
       });
@@ -595,28 +595,62 @@ const SubmissionReview = () => {
     return { weekly, legacy };
   }, [progressLogs]);
 
+  const getStudentDid = (student) => {
+    const addr = (student?.WalletAddress || student?.walletAddress || '').replace(/^0x/i, '');
+    const suffix = addr ? addr.slice(-6).toLowerCase() : String(student?._id || 'anon').slice(-6);
+    return `Student_DID#${suffix}`;
+  };
+
+  const getGroupDid = (record) => {
+    const idStr = String(record?.registration?.Nhom?._id || record?.registration?._id || record?._id || '').slice(-6).toUpperCase();
+    return `Group_DID#${idStr}`;
+  };
+
   const columns = [
     {
-      title: 'Nhóm / Học Sinh',
+      title: 'Nhóm / Học Sinh (Rọc Phách Web3)',
       key: 'group',
-      width: 220,
+      width: 250,
       render: (_, record) => {
         const isGroup = record.members && record.members.length > 1;
+        const isGraded = record.groupStatus === 'DaCham';
         const groupName = record.registration?.Nhom?.TenNhom || record.submission?.Nhom?.TenNhom;
-        
+
+        if (!isGraded) {
+          return (
+            <div>
+              {isGroup ? (
+                <Space direction="vertical" size={2}>
+                  <Text strong style={{ color: '#722ed1' }}>{getGroupDid(record)}</Text>
+                  <Text type="secondary" style={{ fontSize: 12 }}>
+                    Trưởng nhóm: {getStudentDid(record.student)}
+                  </Text>
+                  <Tag color="purple" style={{ fontSize: 10, margin: 0 }}>Đang rọc phách Zero-PII</Tag>
+                </Space>
+              ) : (
+                <Space direction="vertical" size={2}>
+                  <Text strong style={{ color: '#722ed1' }}>{getStudentDid(record.student)}</Text>
+                  <Tag color="purple" style={{ fontSize: 10, margin: 0 }}>Cá nhân - Đang rọc phách</Tag>
+                </Space>
+              )}
+            </div>
+          );
+        }
+
         return (
           <div>
             {isGroup ? (
               <Space direction="vertical" size={2}>
                 <Text strong style={{ color: '#1677ff' }}>{groupName || 'Nhóm học tập'}</Text>
                 <Text type="secondary" style={{ fontSize: 12 }}>
-                  Trưởng nhóm: {record.student?.HoTen || 'N/A'}
+                  Trưởng nhóm: {record.student?.HoTen || 'N/A'} ({record.student?.MaHS || ''})
                 </Text>
+                <Tag color="green" style={{ fontSize: 10, margin: 0 }}>Đã khớp phách</Tag>
               </Space>
             ) : (
               <Space direction="vertical" size={2}>
-                <Text strong>{record.student?.HoTen || 'N/A'}</Text>
-                <Tag color="default" style={{ fontSize: 10, margin: 0 }}>👤 Cá nhân</Tag>
+                <Text strong>{record.student?.HoTen || 'N/A'} ({record.student?.MaHS || ''})</Text>
+                <Tag color="green" style={{ fontSize: 10, margin: 0 }}>Cá nhân - Đã khớp phách</Tag>
               </Space>
             )}
           </div>
@@ -628,10 +662,10 @@ const SubmissionReview = () => {
       key: 'context',
       width: 280,
       render: (_, record) => {
-        const isKL = record.topic?.LoaiDeTai === 'KhoaLuan';
+        const isKL = ['KhoaLuan', 'DU_AN_STEM', 'STEM_KHKT'].includes(record.topic?.LoaiDeTai);
         const classes = record.topic?.LopHoc || [];
-        const classNameStr = isKL ? '📝 Dự Án STEM' : (classes.map(c => c.TenLopHoc || c.MaLopHoc).join(', ') || 'N/A');
-        const subjectName = isKL ? '—' : (record.topic?.MonHoc?.TenMonHoc || 'N/A');
+        const classNameStr = classes.map(c => c.TenLopHoc || c.MaLopHoc).join(', ') || (isKL ? 'Dự Án STEM' : 'N/A');
+        const subjectName = record.topic?.MonHoc?.TenMonHoc || (isKL ? 'Hoạt Động Giáo Dục STEM' : 'N/A');
         const lecturerName = record.topic?.GiaoVienHuongDan?.HoTen || 'N/A';
         
         return (
@@ -740,19 +774,29 @@ const SubmissionReview = () => {
 
   const memberColumns = [
     {
-      title: 'Họ và Tên',
+      title: 'Họ và Tên / Định Danh DID',
       dataIndex: ['student', 'HoTen'],
       key: 'name',
-      render: (text, member) => (
-        <Text strong>
-          {text} {member.isLeader && <Tag color="gold" style={{ marginLeft: 8 }}>Trưởng Nhóm</Tag>}
-        </Text>
-      )
+      render: (text, member) => {
+        const isGraded = member.status === 'DaCham';
+        return (
+          <Text strong style={{ color: isGraded ? 'inherit' : '#722ed1' }}>
+            {isGraded ? text : getStudentDid(member.student)}
+            {member.isLeader && <Tag color="gold" style={{ marginLeft: 8 }}>Trưởng Nhóm</Tag>}
+            {!isGraded && <Tag color="purple" style={{ marginLeft: 6 }}>Đang rọc phách</Tag>}
+          </Text>
+        );
+      }
     },
     {
-      title: 'Mã HS',
+      title: 'Mã HS / Mã Phách',
       dataIndex: ['student', 'MaHS'],
-      key: 'maHS'
+      key: 'maHS',
+      render: (maHS, member) => (
+        member.status === 'DaCham'
+          ? maHS
+          : <Tag color="default">DID#{String(member.student?._id || '').slice(-4).toUpperCase()}</Tag>
+      )
     },
     {
       title: 'Trạng Thái Nộp',
@@ -785,12 +829,13 @@ const SubmissionReview = () => {
   ];
 
   const filteredSubmissions = submissions.filter(record => {
-    if (selectedClassId === 'KHOA_LUAN') {
-      return record.topic?.LoaiDeTai === 'KhoaLuan';
-    }
-    if (record.topic?.LoaiDeTai === 'KhoaLuan') return false;
-    if (!selectedClassId || selectedClassId === 'ALL') return true;
+    const isStemProject = ['KhoaLuan', 'DU_AN_STEM', 'STEM_KHKT'].includes(record.topic?.LoaiDeTai);
     const topicLopHocs = record.topic?.LopHoc || [];
+    if (selectedClassId === 'KHOA_LUAN') {
+      return isStemProject;
+    }
+    if (isStemProject && topicLopHocs.length === 0) return false;
+    if (!selectedClassId || selectedClassId === 'ALL') return true;
     return topicLopHocs.some(lh => (lh._id || lh).toString() === selectedClassId.toString());
   });
 
@@ -874,7 +919,7 @@ const SubmissionReview = () => {
         expandable={{
           expandedRowRender: (record) => (
             <div style={{ padding: '8px 16px', background: '#fafafa', borderRadius: 8, border: '1px solid #f0f0f0' }}>
-              <Title level={5} style={{ marginBottom: 12, color: '#1677ff' }}>👥 Danh Sách Thành Viên Nhóm</Title>
+              <Title level={5} style={{ marginBottom: 12, color: '#1677ff' }}>Danh Sách Thành Viên Nhóm</Title>
               <Table
                 columns={memberColumns}
                 dataSource={record.members}
@@ -909,9 +954,22 @@ const SubmissionReview = () => {
         {selectedSubmission && (
           <div>
             <Title level={4}>{selectedSubmission.topic?.TenDeTai}</Title>
-            <Text type="secondary" style={{ display: 'block', marginBottom: 8 }}>
-              Học sinh: {selectedSubmission.student?.HoTen} ({selectedSubmission.student?.MaHS})
-            </Text>
+            {selectedSubmission.status === 'DaCham' ? (
+              <div style={{ marginBottom: 12 }}>
+                <Text type="secondary" style={{ display: 'block', marginBottom: 4 }}>
+                  Học sinh: <Text strong>{selectedSubmission.student?.HoTen}</Text> ({selectedSubmission.student?.MaHS})
+                  <Tag color="green" style={{ marginLeft: 8 }}>Đã khớp phách</Tag>
+                </Text>
+              </div>
+            ) : (
+              <Alert
+                type="info"
+                showIcon
+                style={{ marginBottom: 12, borderColor: '#d3adf7', background: '#f9f0ff' }}
+                message={`Chế độ Rọc phách Tự động Web3: ${getStudentDid(selectedSubmission.student)}`}
+                description="Danh tính học sinh và tên nhóm được ẩn dưới định danh DID (Zero-PII) để đảm bảo chấm điểm khách quan. Họ tên thật sẽ tự động khớp phách sau khi Giáo viên ký số ghi điểm lên Blockchain."
+              />
+            )}
             <Text type="secondary" style={{ display: 'block', marginBottom: 24 }}>
               Nộp lúc: {new Date(selectedSubmission.submission?.NgayNop || selectedSubmission.submission?.createdAt).toLocaleString('vi-VN')}
             </Text>

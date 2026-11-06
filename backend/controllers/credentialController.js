@@ -20,10 +20,11 @@ const abi = [
 ];
 
 const getContract = () => {
-  if (!CONTRACT_ADDRESS) return null;
+  const addr = process.env.K12_CREDENTIAL_CONTRACT_ADDRESS || CONTRACT_ADDRESS;
+  if (!addr) return null;
   const provider = new ethers.JsonRpcProvider(RPC_URL);
   const relayer = new ethers.Wallet(RELAYER_PK, provider);
-  return new ethers.Contract(CONTRACT_ADDRESS, abi, relayer);
+  return new ethers.Contract(addr, abi, relayer);
 };
 
 const uuidToBytes32 = (uuid) => ethers.keccak256(ethers.toUtf8Bytes(uuid));

@@ -1,0 +1,76 @@
+{
+  "network": "localhost",
+  "timestamp": "2026-11-06T16:06:17.635Z",
+  "contracts": {
+    "K12CredentialRegistry": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+    "ThesisManagementV2": "0x9A676e781A523b5d0C0e43731313A708CB607508"
+  },
+  "transactions": [
+    {
+      "label": "TX 1: Giáo viên đăng ký Dự án STEM 1 (Robotics AI)",
+      "txHash": "0x02f17592cb8e4a6d02be19f098756cb08506df412c7a8899da64cce7a0acd730",
+      "blockNumber": 16,
+      "etherscanUrl": "0x02f17592cb8e4a6d02be19f098756cb08506df412c7a8899da64cce7a0acd730"
+    },
+    {
+      "label": "TX 2: Giáo viên đăng ký Dự án STEM 2 (IoT quan trắc nước)",
+      "txHash": "0x932ff16d1d31070ec15a216fde15e37354e398e9ec04fe45d108d29f14d626ad",
+      "blockNumber": 17,
+      "etherscanUrl": "0x932ff16d1d31070ec15a216fde15e37354e398e9ec04fe45d108d29f14d626ad"
+    },
+    {
+      "label": "TX 3: Học sinh nộp báo cáo dự án (IPFS CID)",
+      "txHash": "0x5c7d95aaa2c4c6932f5350801b2772e798b9f768138bf1eb2f8b25b26a96b52b",
+      "blockNumber": 18,
+      "etherscanUrl": "0x5c7d95aaa2c4c6932f5350801b2772e798b9f768138bf1eb2f8b25b26a96b52b"
+    },
+    {
+      "label": "TX 4: Học sinh 2 nộp báo cáo dự án (IPFS CID)",
+      "txHash": "0xe01ce237a810c8c13ca2a6edeffa6f6095d57ce781428d0988e4975e0c425875",
+      "blockNumber": 19,
+      "etherscanUrl": "0xe01ce237a810c8c13ca2a6edeffa6f6095d57ce781428d0988e4975e0c425875"
+    },
+    {
+      "label": "TX 5: Ghi nhận đánh giá tiến độ Tuần 1 (Điểm: 8.0/10)",
+      "txHash": "0xc9bd994952217fc1aae2a8f3dedf3cbc75dbf019264384292da713da6f379c96",
+      "blockNumber": 20,
+      "etherscanUrl": "0xc9bd994952217fc1aae2a8f3dedf3cbc75dbf019264384292da713da6f379c96"
+    },
+    {
+      "label": "TX 6: Ghi nhận đánh giá tiến độ Tuần 2 (Điểm: 8.5/10)",
+      "txHash": "0x327e1d7ef9ad5cb3d070576c82156e2859c27e9b6df0bb6accd7a6dcb8bbde56",
+      "blockNumber": 21,
+      "etherscanUrl": "0x327e1d7ef9ad5cb3d070576c82156e2859c27e9b6df0bb6accd7a6dcb8bbde56"
+    },
+    {
+      "label": "TX 7: Ghi kết quả bài thi trắc nghiệm năng lực STEM (Điểm: 9.0/10)",
+      "txHash": "0xa6ea10b739409caa64fe6b8affc1efba9e5fd1efce78fdabd8ba7e52c904add2",
+      "blockNumber": 22,
+      "etherscanUrl": "0xa6ea10b739409caa64fe6b8affc1efba9e5fd1efce78fdabd8ba7e52c904add2"
+    },
+    {
+      "label": "TX 8: Giáo viên chốt điểm chung cuộc (Điểm: 8.8 >= KPI 7.0)",
+      "txHash": "0x5bad8dd505f64c3117461dc8805c30388261b5d68a9631564d9ff671221ef1d3",
+      "blockNumber": 23,
+      "etherscanUrl": "0x5bad8dd505f64c3117461dc8805c30388261b5d68a9631564d9ff671221ef1d3"
+    },
+    {
+      "label": "TX 9: Phát hành Chứng chỉ K-12 Web3 Credential (Học sinh 1, KPI 8.8)",
+      "txHash": "0x8257719c52b22e5b1d52459d9c4f520688ffc79f1c29be0209415e894727db95",
+      "blockNumber": 24,
+      "etherscanUrl": "0x8257719c52b22e5b1d52459d9c4f520688ffc79f1c29be0209415e894727db95"
+    },
+    {
+      "label": "TX 10: Phát hành Chứng chỉ K-12 Web3 Credential (Học sinh 2, KPI 9.2)",
+      "txHash": "0x5fd1026010c7fdfcd5b91cc3b27c5909935ef803be0ebc38c51f2a60d2d38533",
+      "blockNumber": 25,
+      "etherscanUrl": "0x5fd1026010c7fdfcd5b91cc3b27c5909935ef803be0ebc38c51f2a60d2d38533"
+    },
+    {
+      "label": "TX 11: Phát hành Học bạ điện tử K-12 cho HS1001 (KPI 8.9)",
+      "txHash": "0xb8612b0776ff5dd18fcd9471ce1476a4ac5cc38e8d7e0f7c58f387f00c51c9f9",
+      "blockNumber": 26,
+      "etherscanUrl": "0xb8612b0776ff5dd18fcd9471ce1476a4ac5cc38e8d7e0f7c58f387f00c51c9f9"
+    }
+  ]
+}

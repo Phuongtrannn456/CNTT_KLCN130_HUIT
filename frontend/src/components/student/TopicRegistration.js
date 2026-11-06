@@ -47,7 +47,7 @@ const TopicRegistration = () => {
       // 1. Kiểm tra HS đã đăng ký đề tài nào chưa
       if (selectedClassId === 'KHOA_LUAN') {
         const regsRes = await aiApiService.getMyRegistrations(user.id);
-        const klRegs = (regsRes.registrations || []).filter(r => r.DeTai?.LoaiDeTai === 'KhoaLuan');
+        const klRegs = (regsRes.registrations || []).filter(r => ['KhoaLuan', 'DU_AN_STEM', 'STEM_KHKT'].includes(r.DeTai?.LoaiDeTai));
         result.activeRegistrations = klRegs;
         
         // Kiểm tra xem có cái nào đã DaDuyet (thắng) không
@@ -525,10 +525,11 @@ const TopicRegistration = () => {
           <Row gutter={[24, 24]} className="topic-row">
             {topics.filter(topic => {
               if (!selectedClassId) return false;
+              const isStemProject = ['KhoaLuan', 'DU_AN_STEM', 'STEM_KHKT'].includes(topic.LoaiDeTai);
               if (selectedClassId === 'KHOA_LUAN') {
-                return topic.LoaiDeTai === 'KhoaLuan';
+                return isStemProject;
               }
-              if (topic.LoaiDeTai === 'KhoaLuan') return false; // Không hiện đề tài KL ở luồng lớp học
+              if (isStemProject && (!topic.LopHoc || topic.LopHoc.length === 0)) return false;
               if (!topic.LopHoc || topic.LopHoc.length === 0) return true;
               return topic.LopHoc.some(lh => (lh._id || lh).toString() === selectedClassId.toString());
             }).map(topic => {
@@ -594,10 +595,10 @@ const TopicRegistration = () => {
                   <Text type="secondary">Học sinh tối đa:</Text>
                   <Tag color="geekblue" style={{ marginLeft: 8, marginTop: 4 }}>{topic.SoLuongHocSinh || 1} HS</Tag>
                   <br />
-                  {topic.LoaiDeTai === 'KhoaLuan' ? (
+                  {['KhoaLuan', 'DU_AN_STEM', 'STEM_KHKT'].includes(topic.LoaiDeTai) && (!topic.LopHoc || topic.LopHoc.length === 0) ? (
                     <>
                       <Text type="secondary">Loại dự án:</Text>
-                      <Tag color="gold" style={{ marginLeft: 8, marginTop: 4 }}>📝 Dự Án STEM</Tag>
+                      <Tag color="gold" style={{ marginLeft: 8, marginTop: 4 }}>Dự Án STEM</Tag>
                     </>
                   ) : (
                     <>

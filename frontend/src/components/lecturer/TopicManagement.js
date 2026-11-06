@@ -62,11 +62,12 @@ const TopicManagement = () => {
       if (!gvHD) return false;
       const gvId = typeof gvHD === 'object' ? (gvHD._id || gvHD).toString() : gvHD.toString();
       
+      const isStemProject = ['KhoaLuan', 'DU_AN_STEM', 'STEM_KHKT'].includes(t.LoaiDeTai);
       if (selectedClassId === 'KHOA_LUAN') {
-        return t.LoaiDeTai === 'KhoaLuan' && gvId === user.id;
+        return isStemProject && gvId === user.id;
       }
       
-      if (t.LoaiDeTai === 'KhoaLuan') return false;
+      if (isStemProject && (!t.LopHoc || t.LopHoc.length === 0)) return false;
 
       if (gvId === user.id) return true;
       return (t.LopHoc || []).some(lh => myClassIds.has((lh._id || lh).toString()));

@@ -1,20 +1,26 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Card, Typography, Table, Input, Tag, Space, Spin, message, Button } from 'antd';
-import { PrinterOutlined } from '@ant-design/icons';
+import React, { useState, useMemo } from 'react';
+import { Card, Typography, Table, Input, Tag, Space, Spin, message, Button, Modal, Form, Select, InputNumber, Popconfirm } from 'antd';
+import { PrinterOutlined, PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Search } from 'lucide-react';
 import authService from '../../services/authService';
 import managementService from '../../services/managementService';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import DigitalTranscriptModal from '../shared/DigitalTranscriptModal';
 
 const { Title, Text } = Typography;
+const { Option } = Select;
 
 const StudentManagement = () => {
   const [searchText, setSearchText] = useState('');
   const [selectedStudentForTranscript, setSelectedStudentForTranscript] = useState(null);
   const [transcriptModalVisible, setTranscriptModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [editingStudent, setEditingStudent] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [form] = Form.useForm();
 
   const currentUser = authService.getCurrentUser();
+  const queryClient = useQueryClient();
 
   const { data: rawData = [], isLoading: loading } = useQuery({
     queryKey: ['students-by-gv', currentUser?.id],
@@ -29,6 +35,87 @@ const StudentManagement = () => {
     },
     enabled: !!currentUser?.id,
   });
+
+  const { data: teacherClasses = [] } = useQuery({
+    queryKey: ['classes-by-gv', currentUser?.id],
+    queryFn: async () => {
+      try {
+        const res = await managementService.getLopHocByGV(currentUser.id);
+        return res?.data || [];
+      } catch {
+        return [];
+      }
+    },
+    enabled: !!currentUser?.id,
+  });
+
+  const openAddModal = () => {
+    setEditingStudent(null);
+    form.resetFields();
+    form.setFieldsValue({
+      KhoiLop: 10,
+      GPA: 8.5,
+      HanhKiem: 'Tốt',
+      ChuyenNganh: 'Tổ hợp Tự nhiên (Toán - Lý - Tin)',
+      lopHocId: teacherClasses[0]?._id || undefined,
+      KyNang: 'Python, Giải toán thực tiễn, Làm việc nhóm'
+    });
+    setModalVisible(true);
+  };
+
+  const openEditModal = (record) => {
+    setEditingStudent(record);
+    form.setFieldsValue({
+      MaHS: record.MaHS,
+      HoTen: record.HoTen,
+      Email: record.Email,
+      KhoiLop: record.KhoiLop || 10,
+      GPA: record.GPA ?? 8.0,
+      HanhKiem: record.HanhKiem || 'Tốt',
+      ChuyenNganh: record.ChuyenNganh || 'Tổ hợp Tự nhiên (Toán - Lý - Tin)',
+      KyNang: Array.isArray(record.KyNang) ? record.KyNang.join(', ') : (record.KyNang || '')
+    });
+    setModalVisible(true);
+  };
+
+  const handleSaveStudent = async (values) => {
+    setSubmitting(true);
+    try {
+      const payload = {
+        ...values,
+        MaHS: values.MaHS.trim().toUpperCase(),
+        HoTen: values.HoTen.trim(),
+        Email: values.Email?.trim() || `${values.MaHS.trim().toLowerCase()}@thucnghiemhuit.edu.vn`,
+        KyNang: typeof values.KyNang === 'string'
+          ? values.KyNang.split(',').map(s => s.trim()).filter(Boolean)
+          : (values.KyNang || [])
+      };
+      if (editingStudent) {
+        await managementService.updateHocSinh(editingStudent._id, payload);
+        message.success(`Đã cập nhật thông tin học sinh ${payload.HoTen} (${payload.MaHS})`);
+      } else {
+        await managementService.createHocSinh(payload);
+        message.success(`Đã thêm học sinh ${payload.HoTen} (${payload.MaHS}) vào lớp thành công`);
+      }
+      setModalVisible(false);
+      form.resetFields();
+      queryClient.invalidateQueries({ queryKey: ['students-by-gv'] });
+    } catch (err) {
+      message.error(err.response?.data?.error || err.response?.data?.message || 'Lỗi khi lưu thông tin học sinh');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteStudent = async (record) => {
+    try {
+      await managementService.deleteHocSinh(record._id);
+      message.success(`Đã xóa học sinh ${record.HoTen} (${record.MaHS})`);
+      queryClient.invalidateQueries({ queryKey: ['students-by-gv'] });
+    } catch (err) {
+      message.error(err.response?.data?.error || 'Lỗi khi xóa học sinh');
+    }
+  };
 
   // Gộp theo học sinh: 1 dòng per HS, gom nhiều lớp/môn/GV thành arrays
   const groupedData = useMemo(() => {
@@ -176,7 +263,7 @@ const StudentManagement = () => {
       },
     },
     {
-      title: 'Chuyên Ngành',
+      title: 'Tổ Hợp Môn',
       dataIndex: 'ChuyenNganh',
       key: 'ChuyenNganh',
       render: (text) => text ? <Tag>{text}</Tag> : <Text type="secondary">—</Text>,
@@ -221,21 +308,40 @@ const StudentManagement = () => {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 130,
+      width: 240,
       fixed: 'right',
       render: (_, record) => (
-        <Button
-          size="small"
-          icon={<PrinterOutlined />}
-          type="primary"
-          ghost
-          onClick={() => {
-            setSelectedStudentForTranscript(record);
-            setTranscriptModalVisible(true);
-          }}
-        >
-          In học bạ
-        </Button>
+        <Space size="small">
+          <Button
+            size="small"
+            icon={<PrinterOutlined />}
+            type="primary"
+            ghost
+            onClick={() => {
+              setSelectedStudentForTranscript(record);
+              setTranscriptModalVisible(true);
+            }}
+          >
+            In học bạ
+          </Button>
+          <Button
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => openEditModal(record)}
+          >
+            Sửa
+          </Button>
+          <Popconfirm
+            title="Xác nhận xóa học sinh?"
+            description={`Bạn có chắc muốn xóa học sinh ${record.HoTen} (${record.MaHS})?`}
+            onConfirm={() => handleDeleteStudent(record)}
+            okText="Xóa"
+            cancelText="Hủy"
+            okButtonProps={{ danger: true }}
+          >
+            <Button size="small" icon={<DeleteOutlined />} danger />
+          </Popconfirm>
+        </Space>
       ),
     },
   ];
@@ -247,10 +353,15 @@ const StudentManagement = () => {
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <Title level={2} style={{ margin: 0 }}>
-          Quản Lý Học Sinh
-        </Title>
-        <Text type="secondary">Tổng cộng: {groupedData.length} học sinh (trong {rawData.length > 0 ? [...new Set(rawData.map(d => d.lopHoc?._id))].length : 0} lớp)</Text>
+        <div>
+          <Title level={2} style={{ margin: 0 }}>
+            Quản Lý Học Sinh
+          </Title>
+          <Text type="secondary">Tổng cộng: {groupedData.length} học sinh (trong {rawData.length > 0 ? [...new Set(rawData.map(d => d.lopHoc?._id))].length : 0} lớp)</Text>
+        </div>
+        <Button type="primary" icon={<PlusOutlined />} onClick={openAddModal}>
+          Thêm Học Sinh
+        </Button>
       </div>
 
       <Card bordered={false}>
@@ -270,9 +381,98 @@ const StudentManagement = () => {
           rowKey="_id"
           pagination={{ pageSize: 15, showSizeChanger: true, pageSizeOptions: ['10', '15', '30', '50'] }}
           locale={{ emptyText: searchText ? 'Không tìm thấy học sinh nào' : 'Chưa có học sinh nào trong các lớp của bạn' }}
-          scroll={{ x: 1400 }}
+          scroll={{ x: 1500 }}
         />
       </Card>
+
+      {/* Modal Thêm / Sửa Học Sinh */}
+      <Modal
+        title={editingStudent ? `Chỉnh sửa thông tin: ${editingStudent.HoTen} (${editingStudent.MaHS})` : 'Thêm Học Sinh Mới'}
+        open={modalVisible}
+        onCancel={() => setModalVisible(false)}
+        footer={null}
+        width={560}
+      >
+        <Form form={form} layout="vertical" onFinish={handleSaveStudent}>
+          <Space style={{ display: 'flex' }} align="start">
+            <Form.Item
+              name="MaHS"
+              label="Mã Học Sinh"
+              style={{ width: 170 }}
+              rules={[{ required: true, message: 'Nhập Mã HS' }]}
+            >
+              <Input placeholder="VD: HS1006" style={{ textTransform: 'uppercase' }} />
+            </Form.Item>
+            <Form.Item
+              name="HoTen"
+              label="Họ và Tên Học Sinh"
+              style={{ width: 320 }}
+              rules={[{ required: true, message: 'Nhập Họ và Tên' }]}
+            >
+              <Input placeholder="VD: Nguyễn Minh Khôi" />
+            </Form.Item>
+          </Space>
+
+          <Space style={{ display: 'flex' }} align="start">
+            <Form.Item name="KhoiLop" label="Khối Lớp" style={{ width: 150 }} rules={[{ required: true }]}>
+              <Select>
+                <Option value={10}>Khối 10</Option>
+                <Option value={11}>Khối 11</Option>
+                <Option value={12}>Khối 12</Option>
+              </Select>
+            </Form.Item>
+            <Form.Item name="GPA" label="Điểm Trung Bình (ĐTB)" style={{ width: 180 }}>
+              <InputNumber min={0} max={10} step={0.1} style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item name="HanhKiem" label="Hạnh Kiểm" style={{ width: 150 }}>
+              <Select>
+                <Option value="Tốt">Tốt</Option>
+                <Option value="Khá">Khá</Option>
+                <Option value="Đạt">Đạt</Option>
+              </Select>
+            </Form.Item>
+          </Space>
+
+          {!editingStudent && teacherClasses.length > 0 && (
+            <Form.Item name="lopHocId" label="Xếp vào Lớp học bộ môn">
+              <Select placeholder="Chọn lớp học">
+                {teacherClasses.map(cls => (
+                  <Option key={cls._id} value={cls._id}>
+                    {cls.MaLopHoc} - {cls.TenLopHoc}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+          )}
+
+          <Form.Item name="ChuyenNganh" label="Tổ Hợp Môn">
+            <Select>
+              <Option value="Tổ hợp Tự nhiên (Toán - Lý - Tin)">Tổ hợp Tự nhiên (Toán - Lý - Tin)</Option>
+              <Option value="Tổ hợp Tự nhiên (Toán - Lý - Hóa)">Tổ hợp Tự nhiên (Toán - Lý - Hóa)</Option>
+              <Option value="Tổ hợp Tự nhiên (Toán - Hóa - Sinh)">Tổ hợp Tự nhiên (Toán - Hóa - Sinh)</Option>
+              <Option value="Tổ hợp Xã hội (Văn - Sử - Địa)">Tổ hợp Xã hội (Văn - Sử - Địa)</Option>
+              <Option value="Tổ hợp Công nghệ & STEM">Tổ hợp Công nghệ & STEM</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item name="Email" label="Email học tập">
+            <Input placeholder="khoi.nm.hs1006@thucnghiemhuit.edu.vn" />
+          </Form.Item>
+
+          <Form.Item name="KyNang" label="Kỹ năng & Năng lực (cách nhau bởi dấu phẩy)">
+            <Input placeholder="Python, Giải toán thực tiễn, Thuyết trình" />
+          </Form.Item>
+
+          <div style={{ textAlign: 'right', marginTop: 16 }}>
+            <Space>
+              <Button onClick={() => setModalVisible(false)}>Hủy</Button>
+              <Button type="primary" htmlType="submit" loading={submitting}>
+                {editingStudent ? 'Lưu cập nhật' : 'Thêm học sinh'}
+              </Button>
+            </Space>
+          </div>
+        </Form>
+      </Modal>
 
       {/* Modal In Học Bạ Điện Tử K-12 */}
       <DigitalTranscriptModal

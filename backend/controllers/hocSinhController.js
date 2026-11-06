@@ -38,8 +38,53 @@ exports.getById = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const newHS = new HocSinh(req.body);
+        const crypto = require('crypto');
+        const LopHoc = require('../models/LopHoc');
+        const payload = { ...req.body };
+        const cleanMaHS = String(payload.MaHS || payload.maHS || '').trim().toUpperCase();
+        if (!cleanMaHS || !(payload.HoTen || payload.hoTen)) {
+            return res.status(400).json({ error: 'Mã học sinh và Họ tên là bắt buộc.' });
+        }
+        const exist = await HocSinh.findOne({ MaHS: { $regex: new RegExp(`^${cleanMaHS}$`, 'i') } });
+        if (exist) {
+            return res.status(400).json({ error: `Mã học sinh ${cleanMaHS} đã tồn tại trong hệ thống.` });
+        }
+
+        const pin = payload.ActivationPin || Math.floor(100000 + Math.random() * 900000).toString();
+        const walletAddr = payload.WalletAddress || ('0x' + crypto.createHash('sha256').update(`k12-wallet:${cleanMaHS}:${Date.now()}`).digest('hex').slice(0, 40));
+
+        const newHS = new HocSinh({
+            MaHS: cleanMaHS,
+            HoTen: String(payload.HoTen || payload.hoTen).trim(),
+            Email: String(payload.Email || payload.email || `${cleanMaHS.toLowerCase()}@thucnghiemhuit.edu.vn`).trim(),
+            KhoiLop: payload.KhoiLop ? Number(payload.KhoiLop) : 10,
+            ChuyenNganh: payload.ChuyenNganh || 'Tổ hợp Tự nhiên (Toán - Lý - Tin)',
+            GPA: payload.GPA !== undefined && payload.GPA !== '' ? Number(payload.GPA) : 8.0,
+            HanhKiem: payload.HanhKiem || 'Tốt',
+            TruongHoc: payload.TruongHoc || 'Trường THPT Thực hành Sư phạm',
+            KyNang: Array.isArray(payload.KyNang)
+                ? payload.KyNang
+                : (typeof payload.KyNang === 'string' && payload.KyNang.trim()
+                    ? payload.KyNang.split(',').map(s => s.trim()).filter(Boolean)
+                    : ['Tư duy giải quyết vấn đề', 'Làm việc nhóm']),
+            WalletAddress: walletAddr,
+            ActivationPin: pin,
+            IsActivated: false,
+            DaCapNhatHoSo: true
+        });
         await newHS.save();
+
+        // Neu giao vien tao hoac truyen lopHocId thi gan hoc sinh vao lop hoc ngay
+        const targetLopId = payload.lopHocId;
+        if (targetLopId) {
+            await LopHoc.updateOne({ _id: targetLopId }, { $addToSet: { HocSinh: newHS._id } });
+        } else if (req.user?.id && (req.user.role_id === 'TEACHER_ROLE' || req.user.role_id === 'LECTURER_ROLE')) {
+            const firstLop = await LopHoc.findOne({ GiaoVien: req.user.id }).sort({ createdAt: 1 });
+            if (firstLop) {
+                await LopHoc.updateOne({ _id: firstLop._id }, { $addToSet: { HocSinh: newHS._id } });
+            }
+        }
+
         invalidateHsCache();
         res.status(201).json(newHS);
     } catch (err) {
@@ -53,8 +98,12 @@ exports.update = async (req, res) => {
         const requesterId = req.user?.id;
         const requesterRole = req.user?.role_id;
 
-        // Chỉ chính học sinh đó hoặc ADMIN mới có quyền sửa
-        let isAllowed = requesterRole === 'ADMIN_ROLE' || String(requesterId) === String(targetId);
+        // Cho phép ADMIN, GIÁO VIÊN hoặc chính học sinh đó sửa thông tin
+        let isAllowed =
+            requesterRole === 'ADMIN_ROLE' ||
+            requesterRole === 'TEACHER_ROLE' ||
+            requesterRole === 'LECTURER_ROLE' ||
+            String(requesterId) === String(targetId);
         if (!isAllowed && req.user?.walletAddress) {
             const hs = await HocSinh.findById(targetId);
             if (hs && hs.WalletAddress?.toLowerCase() === req.user.walletAddress.toLowerCase()) {
@@ -65,7 +114,11 @@ exports.update = async (req, res) => {
             return res.status(403).json({ error: 'Bạn không có quyền sửa thông tin của học sinh này.' });
         }
 
-        const updated = await HocSinh.findByIdAndUpdate(targetId, req.body, { new: true });
+        const updatePayload = { ...req.body };
+        if (typeof updatePayload.KyNang === 'string') {
+            updatePayload.KyNang = updatePayload.KyNang.split(',').map(s => s.trim()).filter(Boolean);
+        }
+        const updated = await HocSinh.findByIdAndUpdate(targetId, updatePayload, { new: true });
         invalidateHsCache();
         res.json(updated);
     } catch (err) {
@@ -75,7 +128,9 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
+        const LopHoc = require('../models/LopHoc');
         await HocSinh.findByIdAndDelete(req.params.id);
+        await LopHoc.updateMany({ HocSinh: req.params.id }, { $pull: { HocSinh: req.params.id } });
         invalidateHsCache();
         res.json({ message: 'Deleted successfully' });
     } catch (err) {
