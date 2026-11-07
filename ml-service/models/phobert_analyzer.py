@@ -94,12 +94,15 @@ class PhoBertAnalyzer:
 
         score = round(min(10.0, max(0.0, base_score + semantic_bonus)), 2)
 
-        if len(clean_text) < 300:
+        if len(clean_text) < 120:
             issues.append("Nội dung báo cáo quá ngắn, cần bổ sung thêm chi tiết kỹ thuật.")
 
         feedback = "Nội dung đạt yêu cầu."
         if issues:
             feedback = "Cần cải thiện: " + "; ".join(issues)
+
+        strengths = f"Độ tương đồng ngữ nghĩa PhoBERT đạt {score}/10; cấu trúc trình bày bám sát yêu cầu chuyên môn của đề bài."
+        weaknesses = "; ".join(issues) if issues else "Cần bổ sung thêm phân tích trường hợp biên và đánh giá chi phí tài nguyên khi mở rộng quy mô dữ liệu."
 
         elapsed = int((time.time() - start_time) * 1000)
         logger.info(f"[AI] Report analysis completed | score={score} | requirements={len(topic_requirements)} | repetition={repetition_ratio:.2f} | textLength={len(clean_text)} | time={elapsed}ms")
@@ -107,6 +110,9 @@ class PhoBertAnalyzer:
         return {
             "score": score,
             "feedback": feedback,
+            "strengths": strengths,
+            "weaknesses": weaknesses,
+            "repetition_rate": round(repetition_ratio, 4),
             "issues": issues,
             "model": self.model_name,
         }

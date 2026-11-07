@@ -4,7 +4,6 @@ const giaoVienSchema = new mongoose.Schema({
   MaGV: { type: String, required: true, unique: true, uppercase: true, trim: true },
   HoTen: { type: String, required: true, trim: true },
   Email: { type: String, default: '', trim: true },
-  ChuyenNganh: { type: String },
   WalletAddress: { type: String, required: true, unique: true, lowercase: true, trim: true },
   // === Mở rộng cho hệ thống K-12 (Giáo dục phổ thông) ===
   ToBoMon: { type: String, default: '' },
@@ -17,6 +16,10 @@ const giaoVienSchema = new mongoose.Schema({
   IsActivated: { type: Boolean, default: false },
   ActivatedAt: { type: Date, default: null }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+giaoVienSchema.virtual('ChuyenNganh')
+  .get(function() { return this.ToBoMon; })
+  .set(function(val) { this.ToBoMon = val; });
 
 // Bidirectional virtuals (Getters & Setters)
 giaoVienSchema.virtual('walletAddress')

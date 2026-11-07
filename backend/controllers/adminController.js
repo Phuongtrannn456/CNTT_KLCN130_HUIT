@@ -270,7 +270,7 @@ const getAllStudents = async (req, res) => {
 
 const createStudent = async (req, res) => {
   try {
-    const { maHS, hoTen, khoiLop, email } = req.body;
+    const { maHS, hoTen, khoiLop, email, chuyenNganh, gpa, hanhKiem } = req.body;
     if (!maHS || !hoTen) {
       return res.status(400).json({ success: false, message: 'Mã học sinh và Họ tên là bắt buộc.' });
     }
@@ -282,18 +282,23 @@ const createStudent = async (req, res) => {
     }
 
     const pin = generate6DigitPin();
-    const cleanEmail = (email && email.trim()) ? email.trim() : `${cleanMaHS.toLowerCase()}@school.edu.vn`;
-    const dummyWallet = `0x0000000000000000000000000000000000000000_${cleanMaHS.toLowerCase()}`;
+    const cleanEmail = (email && email.trim()) ? email.trim() : `${cleanMaHS.toLowerCase()}@thucnghiemhuit.edu.vn`;
+    const crypto = require('crypto');
+    const walletAddr = '0x' + crypto.createHash('sha256').update(`k12-wallet:${cleanMaHS}:${Date.now()}`).digest('hex').slice(0, 40);
 
     const newStudent = new HocSinh({
       MaHS: cleanMaHS,
       HoTen: hoTen.trim(),
       KhoiLop: khoiLop ? Number(khoiLop) : 10,
       Email: cleanEmail,
-      WalletAddress: dummyWallet,
+      ChuyenNganh: chuyenNganh ? chuyenNganh.trim() : 'Tổ hợp Tự nhiên (Toán - Lý - Tin)',
+      GPA: gpa !== undefined && gpa !== '' ? Number(gpa) : 8.0,
+      HanhKiem: hanhKiem || 'Tốt',
+      TruongHoc: 'Trường THPT Thực hành Sư phạm',
+      WalletAddress: walletAddr,
       ActivationPin: pin,
       IsActivated: false,
-      DaCapNhatHoSo: false
+      DaCapNhatHoSo: true
     });
 
     await newStudent.save();
@@ -305,6 +310,42 @@ const createStudent = async (req, res) => {
   } catch (error) {
     console.error('createStudent error:', error);
     res.status(500).json({ success: false, message: 'Lỗi khi thêm học sinh: ' + error.message });
+  }
+};
+
+const updateStudent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { maHS, hoTen, khoiLop, email, chuyenNganh, gpa, hanhKiem } = req.body;
+    const student = await HocSinh.findById(id);
+    if (!student) {
+      return res.status(404).json({ success: false, message: 'Không tìm thấy học sinh.' });
+    }
+
+    if (maHS && maHS.trim()) {
+      const cleanMaHS = maHS.trim().toUpperCase();
+      const dup = await HocSinh.findOne({ MaHS: { $regex: new RegExp(`^${cleanMaHS}$`, 'i') }, _id: { $ne: id } });
+      if (dup) {
+        return res.status(400).json({ success: false, message: `Mã học sinh ${cleanMaHS} đã tồn tại.` });
+      }
+      student.MaHS = cleanMaHS;
+    }
+    if (hoTen && hoTen.trim()) student.HoTen = hoTen.trim();
+    if (khoiLop !== undefined && khoiLop !== '') student.KhoiLop = Number(khoiLop);
+    if (email && email.trim()) student.Email = email.trim();
+    if (chuyenNganh !== undefined) student.ChuyenNganh = chuyenNganh.trim();
+    if (gpa !== undefined && gpa !== '') student.GPA = Number(gpa);
+    if (hanhKiem) student.HanhKiem = hanhKiem;
+
+    await student.save();
+    res.json({
+      success: true,
+      message: `Đã cập nhật thông tin học sinh ${student.HoTen} (${student.MaHS}) thành công.`,
+      student
+    });
+  } catch (error) {
+    console.error('updateStudent error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi cập nhật học sinh: ' + error.message });
   }
 };
 
@@ -422,6 +463,8 @@ const deleteStudent = async (req, res) => {
     if (!student) {
       return res.status(404).json({ success: false, message: 'Không tìm thấy học sinh.' });
     }
+    const LopHoc = require('../models/LopHoc');
+    await LopHoc.updateMany({ HocSinh: id }, { $pull: { HocSinh: id } });
     res.json({ success: true, message: `Đã xóa học sinh ${student.HoTen} (${student.MaHS}) khỏi hệ thống.` });
   } catch (error) {
     console.error('deleteStudent error:', error);
@@ -647,6 +690,7 @@ module.exports = {
   getAllGiaoVien: getAllLecturers,
   getAllStudents,
   createStudent,
+  updateStudent,
   bulkImportStudents,
   resetStudentPin,
   deleteStudent,

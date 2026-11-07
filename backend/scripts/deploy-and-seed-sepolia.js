@@ -27,7 +27,7 @@ async function main() {
     // 1. Deploy K12CredentialRegistry
     console.log("\n1️⃣  Đang triển khai K12CredentialRegistry...");
     const K12Factory = await hre.ethers.getContractFactory("K12CredentialRegistry");
-    const k12Registry = await K12Factory.deploy();
+    const k12Registry = await K12Factory.deploy({ gasLimit: 5000000 });
     await k12Registry.waitForDeployment();
     const k12Address = await k12Registry.getAddress();
     console.log(`   ✅ K12CredentialRegistry: ${k12Address}`);
@@ -38,7 +38,7 @@ async function main() {
     // 2. Deploy ThesisManagementV2
     console.log("\n2️⃣  Đang triển khai ThesisManagementV2...");
     const ThesisV2Factory = await hre.ethers.getContractFactory("ThesisManagementV2");
-    const thesisV2 = await ThesisV2Factory.deploy();
+    const thesisV2 = await ThesisV2Factory.deploy({ gasLimit: 5000000 });
     await thesisV2.waitForDeployment();
     const thesisAddress = await thesisV2.getAddress();
     console.log(`   ✅ ThesisManagementV2: ${thesisAddress}`);
@@ -180,6 +180,22 @@ async function main() {
             student2Wallet,
             deployerAddress,
             92 // KPI: 92 >= minKpiScore (70)
+        )
+    );
+
+    // TX 11: Neo chính xác học bạ HS1001 (K12_DIGITAL_TRANSCRIPT) để demo verify thành công
+    const hs1001CredId = hre.ethers.keccak256(hre.ethers.toUtf8Bytes("8f9b41a2-63bc-4882-b7e3-0c4a86f1e291"));
+    const hs1001MetaHash = "0xa9f4e2870198c6143b5932c1e87850021bdf94205bb01859c03b12384a29910c";
+    const hs1001Wallet = "0x71c529966141a2f643e99e2886c99c7247194a2b";
+    const hs1001Issuer = "0x70997970c51812dc3a010c7d01b50e0d17dc79c8";
+    await logTx(
+        "TX 11: Phát hành Học bạ điện tử K-12 cho HS1001 (KPI 8.9)",
+        k12Registry.issueCredentialWithKPI(
+            hs1001CredId,
+            hs1001MetaHash,
+            hs1001Wallet,
+            hs1001Issuer,
+            89
         )
     );
 

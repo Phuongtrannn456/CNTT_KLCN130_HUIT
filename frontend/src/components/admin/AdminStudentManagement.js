@@ -6,7 +6,7 @@ import {
 import {
   UserOutlined, UserAddOutlined, UploadOutlined, DownloadOutlined,
   ReloadOutlined, DeleteOutlined, KeyOutlined, CheckCircleOutlined,
-  ClockCircleOutlined, SearchOutlined, InboxOutlined, PrinterOutlined
+  ClockCircleOutlined, SearchOutlined, InboxOutlined, PrinterOutlined, EditOutlined
 } from '@ant-design/icons';
 import * as XLSX from 'xlsx';
 import axios from 'axios';
@@ -17,7 +17,7 @@ const { Title, Text } = Typography;
 const { Option } = Select;
 const { Dragger } = Upload;
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
 
 const AdminStudentManagement = () => {
   const [students, setStudents] = useState([]);
@@ -31,6 +31,7 @@ const AdminStudentManagement = () => {
 
   // Modals
   const [addModalVisible, setAddModalVisible] = useState(false);
+  const [editingStudent, setEditingStudent] = useState(null);
   const [importModalVisible, setImportModalVisible] = useState(false);
   const [parsedImportData, setParsedImportData] = useState([]);
   const [importing, setImporting] = useState(false);
@@ -80,25 +81,50 @@ const AdminStudentManagement = () => {
     fetchStudents();
   };
 
-  // 1. Thêm học sinh đơn lẻ
+  // 1. Thêm hoặc cập nhật học sinh đơn lẻ
   const handleAddStudent = async (values) => {
     try {
-      const res = await axios.post(`${API_BASE_URL}/admin/students`, {
+      const payload = {
         maHS: values.maHS.trim().toUpperCase(),
         hoTen: values.hoTen.trim(),
         khoiLop: values.khoiLop,
-        email: values.email?.trim()
-      }, getAuthConfig());
+        email: values.email?.trim(),
+        chuyenNganh: values.chuyenNganh
+      };
+
+      const res = editingStudent
+        ? await axios.put(`${API_BASE_URL}/admin/students/${editingStudent._id}`, payload, getAuthConfig())
+        : await axios.post(`${API_BASE_URL}/admin/students`, payload, getAuthConfig());
 
       if (res.data.success) {
-        message.success(res.data.message || 'Thêm học sinh thành công!');
+        message.success(res.data.message || (editingStudent ? 'Cập nhật học sinh thành công!' : 'Thêm học sinh thành công!'));
         setAddModalVisible(false);
+        setEditingStudent(null);
         form.resetFields();
         fetchStudents();
       }
     } catch (err) {
-      message.error(err.response?.data?.message || 'Lỗi khi thêm học sinh.');
+      message.error(err.response?.data?.message || 'Lỗi khi lưu thông tin học sinh.');
     }
+  };
+
+  const openCreateModal = () => {
+    setEditingStudent(null);
+    form.resetFields();
+    form.setFieldsValue({ khoiLop: 10, chuyenNganh: 'Tổ hợp Tự nhiên (Toán - Lý - Tin)' });
+    setAddModalVisible(true);
+  };
+
+  const openEditStudentModal = (record) => {
+    setEditingStudent(record);
+    form.setFieldsValue({
+      maHS: record.MaHS,
+      hoTen: record.HoTen,
+      khoiLop: record.KhoiLop || 10,
+      email: record.Email,
+      chuyenNganh: record.ChuyenNganh || 'Tổ hợp Tự nhiên (Toán - Lý - Tin)'
+    });
+    setAddModalVisible(true);
   };
 
   // 2. Mở khóa ví / Cấp lại mã PIN mới
@@ -292,7 +318,7 @@ const AdminStudentManagement = () => {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 250,
+      width: 310,
       render: (_, record) => (
         <Space orientation="horizontal" size="small">
           <Button
@@ -305,6 +331,14 @@ const AdminStudentManagement = () => {
             }}
           >
             In học bạ
+          </Button>
+
+          <Button
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => openEditStudentModal(record)}
+          >
+            Sửa
           </Button>
 
           <Popconfirm
@@ -351,7 +385,7 @@ const AdminStudentManagement = () => {
           <Button icon={<UploadOutlined />} type="primary" onClick={() => setImportModalVisible(true)} style={{ backgroundColor: '#52c41a' }}>
             Import Excel / CSV
           </Button>
-          <Button icon={<UserAddOutlined />} type="primary" onClick={() => setAddModalVisible(true)}>
+          <Button icon={<UserAddOutlined />} type="primary" onClick={openCreateModal}>
             + Thêm Học Sinh
           </Button>
         </Space>
@@ -445,8 +479,8 @@ const AdminStudentManagement = () => {
                         allowClear
                       >
                         <Option value="">Tất cả trạng thái</Option>
-                        <Option value="activated">🟢 Đã kích hoạt ví</Option>
-                        <Option value="unactivated">⚪ Chưa kích hoạt</Option>
+                        <Option value="activated">Đã kích hoạt ví</Option>
+                        <Option value="unactivated">Chưa kích hoạt</Option>
                       </Select>
                     </Col>
                     <Col xs={24} sm={4} style={{ textAlign: 'right' }}>
@@ -499,7 +533,7 @@ const AdminStudentManagement = () => {
                     { title: 'Chủ Nhiệm', dataIndex: 'ChuNhiemLop', key: 'ChuNhiemLop', render: (t) => t ? <Tag color="green">{t}</Tag> : <Text type="secondary">—</Text> },
                     { title: 'Địa Chỉ Ví Web3', dataIndex: 'WalletAddress', key: 'WalletAddress', render: (w) => <Text code>{w.slice(0, 6)}...{w.slice(-4)}</Text> },
                     { title: 'Mã PIN 6 số', dataIndex: 'ActivationPin', key: 'ActivationPin', render: (p) => <Text code style={{ color: '#d48806', fontWeight: 'bold' }}>{p}</Text> },
-                    { title: 'Trạng Thái', dataIndex: 'IsActivated', key: 'IsActivated', render: (a) => a ? <Tag color="success">🟢 Đã kích hoạt</Tag> : <Tag color="default">⚪ Chờ cấp PIN</Tag> },
+                    { title: 'Trạng Thái', dataIndex: 'IsActivated', key: 'IsActivated', render: (a) => a ? <Tag color="success">Đã kích hoạt</Tag> : <Tag color="default">Chờ cấp PIN</Tag> },
                     {
                       title: 'Hành Động',
                       key: 'act',
@@ -518,11 +552,14 @@ const AdminStudentManagement = () => {
         ]}
       />
 
-      {/* Modal 1: Thêm học sinh đơn lẻ */}
+      {/* Modal 1: Thêm / Sửa học sinh đơn lẻ */}
       <Modal
-        title="Thêm Học Sinh Mới Vào Danh Sách Trường"
+        title={editingStudent ? `Chỉnh Sửa Học Sinh: ${editingStudent.HoTen} (${editingStudent.MaHS})` : 'Thêm Học Sinh Mới Vào Danh Sách Trường'}
         open={addModalVisible}
-        onCancel={() => setAddModalVisible(false)}
+        onCancel={() => {
+          setAddModalVisible(false);
+          setEditingStudent(null);
+        }}
         footer={null}
       >
         <Form form={form} layout="vertical" onFinish={handleAddStudent}>
@@ -531,7 +568,7 @@ const AdminStudentManagement = () => {
             label="Mã Học Sinh (Mã HS)"
             rules={[{ required: true, message: 'Vui lòng nhập Mã Học Sinh!' }]}
           >
-            <Input placeholder="Ví dụ: HS1005" style={{ textTransform: 'uppercase' }} />
+            <Input placeholder="Ví dụ: HS1006" style={{ textTransform: 'uppercase' }} />
           </Form.Item>
 
           <Form.Item
@@ -555,25 +592,37 @@ const AdminStudentManagement = () => {
             </Select>
           </Form.Item>
 
+          <Form.Item name="chuyenNganh" label="Tổ Hợp Môn">
+            <Select>
+              <Option value="Tổ hợp Tự nhiên (Toán - Lý - Tin)">Tổ hợp Tự nhiên (Toán - Lý - Tin)</Option>
+              <Option value="Tổ hợp Tự nhiên (Toán - Lý - Hóa)">Tổ hợp Tự nhiên (Toán - Lý - Hóa)</Option>
+              <Option value="Tổ hợp Tự nhiên (Toán - Hóa - Sinh)">Tổ hợp Tự nhiên (Toán - Hóa - Sinh)</Option>
+              <Option value="Tổ hợp Xã hội (Văn - Sử - Địa)">Tổ hợp Xã hội (Văn - Sử - Địa)</Option>
+              <Option value="Tổ hợp Công nghệ & STEM">Tổ hợp Công nghệ & STEM</Option>
+            </Select>
+          </Form.Item>
+
           <Form.Item
             name="email"
             label="Email Học sinh / Phụ huynh (Tùy chọn)"
           >
-            <Input placeholder="minh.lb@school.edu.vn" />
+            <Input placeholder="minh.lb.hs1006@thucnghiemhuit.edu.vn" />
           </Form.Item>
 
-          <Alert
-            type="info"
-            showIcon
-            message="Hệ thống sẽ tự động sinh Mã PIN bảo mật 6 số ngẫu nhiên để học sinh kích hoạt ví Web3."
-            style={{ marginBottom: 16 }}
-          />
+          {!editingStudent && (
+            <Alert
+              type="info"
+              showIcon
+              message="Hệ thống sẽ tự động sinh Mã PIN bảo mật 6 số ngẫu nhiên để học sinh kích hoạt ví Web3."
+              style={{ marginBottom: 16 }}
+            />
+          )}
 
           <div style={{ textAlign: 'right' }}>
             <Space>
-              <Button onClick={() => setAddModalVisible(false)}>Hủy</Button>
+              <Button onClick={() => { setAddModalVisible(false); setEditingStudent(null); }}>Hủy</Button>
               <Button type="primary" htmlType="submit">
-                Thêm & Cấp Mã PIN
+                {editingStudent ? 'Lưu cập nhật' : 'Thêm & Cấp Mã PIN'}
               </Button>
             </Space>
           </div>

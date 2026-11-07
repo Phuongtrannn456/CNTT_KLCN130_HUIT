@@ -14,19 +14,23 @@ function invalidateDeTaiCache() {
 }
 exports.invalidateDeTaiCache = invalidateDeTaiCache;
 
+const STEM_PROJECT_TYPES = ['DU_AN_STEM', 'STEM_KHKT', 'KhoaLuan'];
+const isStemProjectType = (type) => STEM_PROJECT_TYPES.includes(type) || type === 'KHOA_LUAN';
+
 exports.getAll = async (req, res) => {
     try {
         const { lopHocId, loaiDeTai } = req.query;
-        const cacheKey = loaiDeTai === 'KhoaLuan' ? 'khoaluan' : (lopHocId || '__all__');
+        const isStem = isStemProjectType(loaiDeTai);
+        const cacheKey = isStem ? 'du_an_stem' : (lopHocId || '__all__');
         if (_deTaiCache[cacheKey] && Date.now() - _deTaiCache[cacheKey].ts < DETAI_CACHE_TTL) {
             return res.json(_deTaiCache[cacheKey].data);
         }
 
         const filter = {};
-        if (loaiDeTai === 'KhoaLuan') {
-            filter.LoaiDeTai = 'KhoaLuan';
+        if (isStem) {
+            filter.LoaiDeTai = { $in: STEM_PROJECT_TYPES };
         } else {
-            filter.LoaiDeTai = { $ne: 'KhoaLuan' };
+            filter.LoaiDeTai = { $nin: STEM_PROJECT_TYPES };
             if (lopHocId && lopHocId !== 'ALL') {
                 filter.LopHoc = lopHocId;
             }
@@ -128,7 +132,8 @@ exports.create = async (req, res) => {
             delete body._templateId; // Không lưu vào DeTai
         }
 
-        if (body.LoaiDeTai === 'KhoaLuan') {
+        if (isStemProjectType(body.LoaiDeTai)) {
+            body.LoaiDeTai = body.LoaiDeTai === 'STEM_KHKT' ? 'STEM_KHKT' : 'DU_AN_STEM';
             body.MonHoc = null;
             body.LopHoc = [];
         } else if (!body.MonHoc && body.LopHoc && body.LopHoc.length > 0) {
@@ -296,8 +301,8 @@ exports.registerTopic = async (req, res) => {
         }
 
         // 4. Kiểm tra nhóm đã đăng ký đề tài khác chưa
-        if (deTai.LoaiDeTai === 'KhoaLuan') {
-            const khoaLuanTopics = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).select('_id');
+        if (isStemProjectType(deTai.LoaiDeTai)) {
+            const khoaLuanTopics = await DeTai.find({ LoaiDeTai: { $in: STEM_PROJECT_TYPES } }).select('_id');
             const khoaLuanTopicIds = khoaLuanTopics.map(dt => dt._id);
             const memberIds = [nhom.TruongNhom, ...nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan').map(tv => tv.HocSinh)].filter(Boolean);
 
@@ -378,8 +383,8 @@ exports.getMyRegistration = async (req, res) => {
         };
 
         let registration = null;
-        if (lopHocId === 'KHOA_LUAN' || req.query.loaiDeTai === 'KhoaLuan') {
-            const deTais = await DeTai.find({ LoaiDeTai: 'KhoaLuan' }).select('_id');
+        if (lopHocId === 'KHOA_LUAN' || lopHocId === 'DU_AN_STEM' || isStemProjectType(req.query.loaiDeTai)) {
+            const deTais = await DeTai.find({ LoaiDeTai: { $in: STEM_PROJECT_TYPES } }).select('_id');
             const deTaiIds = deTais.map(dt => dt._id);
             query.DeTai = { $in: deTaiIds };
 
@@ -468,11 +473,11 @@ exports.getRegistrationsByLecturer = async (req, res) => {
         } catch (e) {}
 
         let filterQuery = {};
-        if (loaiDeTai === 'KhoaLuan') {
+        if (isStemProjectType(loaiDeTai)) {
             try {
                 const objectId = new mongoose.Types.ObjectId(gvId);
                 filterQuery = {
-                    LoaiDeTai: 'KhoaLuan',
+                    LoaiDeTai: { $in: STEM_PROJECT_TYPES },
                     $or: [
                         { GiaoVienHuongDan: objectId },
                         { GiaoVienHuongDan: gvId }
@@ -480,14 +485,14 @@ exports.getRegistrationsByLecturer = async (req, res) => {
                 };
             } catch (e) {
                 filterQuery = {
-                    LoaiDeTai: 'KhoaLuan',
+                    LoaiDeTai: { $in: STEM_PROJECT_TYPES },
                     GiaoVienHuongDan: gvId
                 };
             }
         } else if (lopHocId) {
             filterQuery = {
                 LopHoc: lopHocId,
-                LoaiDeTai: { $ne: 'KhoaLuan' }
+                LoaiDeTai: { $nin: STEM_PROJECT_TYPES }
             };
         } else {
             filterQuery = { $or: filterOr };

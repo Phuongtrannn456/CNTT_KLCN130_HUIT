@@ -236,6 +236,7 @@ app.get('/api/admin/teachers', ...requireAdmin, adminController.getAllLecturers)
 // Admin Student Management (K-12 Roster & Bulk Import)
 app.get('/api/admin/students', ...requireAdmin, adminController.getAllStudents);
 app.post('/api/admin/students', ...requireAdmin, adminController.createStudent);
+app.put('/api/admin/students/:id', ...requireAdmin, adminController.updateStudent);
 app.post('/api/admin/students/bulk-import', ...requireAdmin, adminController.bulkImportStudents);
 app.post('/api/admin/students/:id/reset-pin', ...requireAdmin, adminController.resetStudentPin);
 app.delete('/api/admin/students/:id', ...requireAdmin, adminController.deleteStudent);
@@ -251,11 +252,11 @@ app.get('/api/hocsinh/me/bang-diem', ...requireAuth, hocSinhController.getBangDi
 app.get('/api/hocsinh/:hsId/bang-diem', ...requireAuth, hocSinhController.getBangDiem);
 app.get('/api/hocsinh', ...requireAuth, hocSinhController.getAll);
 app.get('/api/hocsinh/:id', ...requireAuth, hocSinhController.getById);
-app.post('/api/hocsinh', ...requireAdmin, hocSinhController.create);
+app.post('/api/hocsinh', ...requireTeacher, hocSinhController.create);
 app.put('/api/hocsinh/:id', ...requireAuth, hocSinhController.update);
 app.put('/api/hocsinh/:id/profile', ...requireAuth, hocSinhController.updateProfile);
 app.get('/api/hocsinh/mahs/:maHS', ...requireAuth, hocSinhController.findByMaHS);
-app.delete('/api/hocsinh/:id', ...requireAdmin, hocSinhController.delete);
+app.delete('/api/hocsinh/:id', ...requireTeacher, hocSinhController.delete);
 
 // 4. Giáo Viên
 app.get('/api/giaovien', ...requireAuth, giaoVienController.getAll);

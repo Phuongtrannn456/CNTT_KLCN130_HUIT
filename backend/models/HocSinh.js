@@ -4,8 +4,7 @@ const hocSinhSchema = new mongoose.Schema({
   MaHS: { type: String, required: true, unique: true, uppercase: true, trim: true },
   HoTen: { type: String, required: true, trim: true },
   Email: { type: String, default: '', trim: true },
-  GPA: { type: Number, default: 0 },
-  ChuyenNganh: { type: String, default: '' },
+  ToHopMon: { type: String, default: 'Khoa Học Tự Nhiên & STEM' },
   KyNang: [{ type: String }],
   BangDiemKyNang: [{
     TenKyNang: { type: String, required: true },
@@ -25,6 +24,14 @@ const hocSinhSchema = new mongoose.Schema({
   IsActivated: { type: Boolean, default: false },
   ActivatedAt: { type: Date, default: null }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+hocSinhSchema.virtual('GPA')
+  .get(function() { return this.DiemTongKet; })
+  .set(function(val) { this.DiemTongKet = val; });
+
+hocSinhSchema.virtual('ChuyenNganh')
+  .get(function() { return this.ToHopMon; })
+  .set(function(val) { this.ToHopMon = val; });
 
 // Bidirectional virtuals (Getters & Setters)
 hocSinhSchema.virtual('walletAddress')
