@@ -128,7 +128,7 @@ const MainLayout = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} theme="light">
+      <Sider width={250} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} theme="light">
         <div style={{ height: 64, margin: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: collapsed ? 12 : 16, color: '#1677ff' }}>
           {collapsed ? 'W3PT' : 'Web3 Phổ Thông'}
         </div>

@@ -19,7 +19,7 @@ fi
 
 # 2. Khoi dong ML Service (FastAPI / PhoBERT / SBERT)
 echo "[2/4] Dang bat ML Service (Port 8001)..."
-(cd ml-service && ./venv/bin/uvicorn app:app --host 127.0.0.1 --port 8001) &
+(cd ml-service && ./venv/bin/python3 -m uvicorn app:app --host 127.0.0.1 --port 8001) &
 
 # Cho 2 giay de ML Service nap model vao RAM
 sleep 2

@@ -21,6 +21,7 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api
 
 const AdminStudentManagement = () => {
   const [students, setStudents] = useState([]);
+  const [teachers, setTeachers] = useState([]);
   const [stats, setStats] = useState({ total: 0, activated: 0, unactivated: 0, activationRate: 0 });
   const [loading, setLoading] = useState(true);
 
@@ -32,6 +33,8 @@ const AdminStudentManagement = () => {
   // Modals
   const [addModalVisible, setAddModalVisible] = useState(false);
   const [editingStudent, setEditingStudent] = useState(null);
+  const [teacherModalVisible, setTeacherModalVisible] = useState(false);
+  const [editingTeacher, setEditingTeacher] = useState(null);
   const [importModalVisible, setImportModalVisible] = useState(false);
   const [parsedImportData, setParsedImportData] = useState([]);
   const [importing, setImporting] = useState(false);
@@ -42,6 +45,7 @@ const AdminStudentManagement = () => {
   const [transcriptModalVisible, setTranscriptModalVisible] = useState(false);
 
   const [form] = Form.useForm();
+  const [formTeacher] = Form.useForm();
 
   const getAuthConfig = () => {
     const token = authService.getToken();
@@ -64,6 +68,11 @@ const AdminStudentManagement = () => {
       if (res.data.success) {
         setStudents(res.data.students || []);
         if (res.data.stats) setStats(res.data.stats);
+      }
+
+      const lecRes = await axios.get(`${API_BASE_URL}/admin/lecturers`, getAuthConfig()).catch(() => ({ data: { success: false } }));
+      if (lecRes.data?.success) {
+        setTeachers(lecRes.data.lecturers || []);
       }
     } catch (err) {
       console.error('fetchStudents error:', err);
@@ -150,6 +159,73 @@ const AdminStudentManagement = () => {
       }
     } catch (err) {
       message.error(err.response?.data?.message || 'Lỗi khi xóa học sinh.');
+    }
+  };
+
+  // 3b. Thêm / Sửa / Reset PIN / Xóa Giáo viên ngay tại Tab 2
+  const openCreateTeacherModal = () => {
+    setEditingTeacher(null);
+    formTeacher.resetFields();
+    formTeacher.setFieldsValue({ toBoMon: 'Tổ Khoa Học Tự Nhiên & STEM' });
+    setTeacherModalVisible(true);
+  };
+
+  const openEditTeacherModal = (record) => {
+    setEditingTeacher(record);
+    formTeacher.setFieldsValue({
+      maGV: record.MaGV,
+      hoTen: record.HoTen,
+      toBoMon: record.ToBoMon || record.ChuyenNganh || 'Tổ Khoa Học Tự Nhiên & STEM',
+      email: record.Email || ''
+    });
+    setTeacherModalVisible(true);
+  };
+
+  const handleSaveTeacher = async (values) => {
+    try {
+      const payload = {
+        maGV: values.maGV?.trim().toUpperCase(),
+        hoTen: values.hoTen?.trim(),
+        toBoMon: values.toBoMon,
+        email: values.email?.trim()
+      };
+      const res = editingTeacher
+        ? await axios.put(`${API_BASE_URL}/admin/teachers/${editingTeacher._id}`, payload, getAuthConfig())
+        : await axios.post(`${API_BASE_URL}/admin/teachers`, payload, getAuthConfig());
+
+      if (res.data.success) {
+        message.success(res.data.message || (editingTeacher ? 'Đã cập nhật thông tin giáo viên!' : 'Đã thêm giáo viên mới!'));
+        setTeacherModalVisible(false);
+        setEditingTeacher(null);
+        formTeacher.resetFields();
+        fetchStudents();
+      }
+    } catch (err) {
+      message.error(err.response?.data?.message || 'Lỗi khi lưu thông tin giáo viên.');
+    }
+  };
+
+  const handleResetTeacherPin = async (teacherId, teacherName) => {
+    try {
+      const res = await axios.post(`${API_BASE_URL}/admin/teachers/${teacherId}/reset-pin`, {}, getAuthConfig());
+      if (res.data.success) {
+        message.success(`Đã cấp lại mã PIN mới cho Thầy/Cô ${teacherName}: ${res.data.newPin}`);
+        fetchStudents();
+      }
+    } catch (err) {
+      message.error(err.response?.data?.message || 'Lỗi khi cấp lại mã PIN giáo viên.');
+    }
+  };
+
+  const handleDeleteTeacher = async (teacherId, teacherName) => {
+    try {
+      const res = await axios.delete(`${API_BASE_URL}/admin/teachers/${teacherId}`, getAuthConfig());
+      if (res.data.success) {
+        message.success(`Đã xóa Thầy/Cô ${teacherName} khỏi hệ thống.`);
+        fetchStudents();
+      }
+    } catch (err) {
+      message.error(err.response?.data?.message || 'Lỗi khi xóa giáo viên.');
     }
   };
 
@@ -510,41 +586,60 @@ const AdminStudentManagement = () => {
             children: (
               <Card>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <Text strong style={{ fontSize: 16 }}>Danh Sách Giáo Viên Bộ Môn & Tổ Chuyên Môn STEM</Text>
+                  <Text strong style={{ fontSize: 16 }}>Danh Sách Giáo Viên Bộ Môn & Tổ Chuyên Môn STEM ({teachers.length})</Text>
                   <Space>
                     <Button icon={<DownloadOutlined />} onClick={() => message.success('Đã xuất danh sách PIN giáo viên!')}>
                       Xuất Danh Sách PIN GV
                     </Button>
-                    <Button icon={<UploadOutlined />} type="primary" style={{ backgroundColor: '#52c41a' }} onClick={() => message.success('Mở Bulk Import Excel Giáo Viên thành công!')}>
-                      Bulk Import Excel Giáo Viên
+                    <Button icon={<UserAddOutlined />} type="primary" onClick={openCreateTeacherModal}>
+                      + Thêm Giáo Viên
                     </Button>
                   </Space>
                 </div>
                 <Table
-                  dataSource={[
-                    { key: '1', MaGV: 'GV_TOAN_01', HoTen: 'Thầy Nguyễn Văn Toàn', ToBoMon: 'Tổ Toán - Tin học', ChuNhiemLop: '10A1', WalletAddress: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8', ActivationPin: '888888', IsActivated: true },
-                    { key: '2', MaGV: 'TC_STEM_02', HoTen: 'Cô Trần Thị Mai', ToBoMon: 'Tổ Khoa Học Tự Nhiên & STEM', ChuNhiemLop: '11A2', WalletAddress: '0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc', ActivationPin: '654321', IsActivated: true },
-                    { key: '3', MaGV: 'GV_TIN_03', HoTen: 'Thầy Lê Hoàng Nam', ToBoMon: 'Tổ Tin Học & Công Nghệ', ChuNhiemLop: '12A3', WalletAddress: '0x90f79bf6eb2c4f870365e785982e1f101e93b906', ActivationPin: '123456', IsActivated: false }
-                  ]}
+                  rowKey="_id"
+                  dataSource={teachers}
                   columns={[
                     { title: 'Mã GV', dataIndex: 'MaGV', key: 'MaGV', render: (t) => <Tag color="geekblue">{t}</Tag> },
                     { title: 'Họ và Tên', dataIndex: 'HoTen', key: 'HoTen', render: (t) => <Text strong>{t}</Text> },
-                    { title: 'Tổ Chuyên Môn', dataIndex: 'ToBoMon', key: 'ToBoMon', render: (t) => <Tag color="blue">{t}</Tag> },
-                    { title: 'Chủ Nhiệm', dataIndex: 'ChuNhiemLop', key: 'ChuNhiemLop', render: (t) => t ? <Tag color="green">{t}</Tag> : <Text type="secondary">—</Text> },
-                    { title: 'Địa Chỉ Ví Web3', dataIndex: 'WalletAddress', key: 'WalletAddress', render: (w) => <Text code>{w.slice(0, 6)}...{w.slice(-4)}</Text> },
-                    { title: 'Mã PIN 6 số', dataIndex: 'ActivationPin', key: 'ActivationPin', render: (p) => <Text code style={{ color: '#d48806', fontWeight: 'bold' }}>{p}</Text> },
-                    { title: 'Trạng Thái', dataIndex: 'IsActivated', key: 'IsActivated', render: (a) => a ? <Tag color="success">Đã kích hoạt</Tag> : <Tag color="default">Chờ cấp PIN</Tag> },
+                    { title: 'Tổ Chuyên Môn', dataIndex: 'ToBoMon', key: 'ToBoMon', render: (t) => <Tag color="blue">{t || 'Bộ Môn K-12'}</Tag> },
+                    { title: 'Email', dataIndex: 'Email', key: 'Email', render: (t) => <Text type="secondary">{t}</Text> },
+                    { title: 'Địa Chỉ Ví Web3', dataIndex: 'WalletAddress', key: 'WalletAddress', render: (w) => w ? <Text code>{w.slice(0, 6)}...{w.slice(-4)}</Text> : <Text type="secondary">—</Text> },
+                    { title: 'Mã PIN 6 số', dataIndex: 'ActivationPin', key: 'ActivationPin', render: (p, r) => r.IsActivated ? <Tag color="success">Đã kích hoạt ví</Tag> : <Text code style={{ color: '#d48806', fontWeight: 'bold' }}>{p || '888888'}</Text> },
                     {
-                      title: 'Hành Động',
+                      title: 'Thao Tác',
                       key: 'act',
+                      width: 240,
                       render: (_, r) => (
-                        <Button size="small" icon={<KeyOutlined />} onClick={() => message.success(`Đã reset ví & cấp lại PIN cho ${r.HoTen}`)}>
-                          Reset ví / Cấp lại PIN
-                        </Button>
+                        <Space size="small">
+                          <Button size="small" icon={<EditOutlined />} onClick={() => openEditTeacherModal(r)}>
+                            Sửa
+                          </Button>
+                          <Popconfirm
+                            title="Mở khóa ví & Cấp PIN mới?"
+                            onConfirm={() => handleResetTeacherPin(r._id, r.HoTen)}
+                            okText="Đồng ý"
+                            cancelText="Hủy"
+                          >
+                            <Button size="small" icon={<ReloadOutlined />} type="dashed" danger={r.IsActivated}>
+                              {r.IsActivated ? 'Reset ví' : 'Cấp lại PIN'}
+                            </Button>
+                          </Popconfirm>
+                          <Popconfirm
+                            title="Xác nhận xóa Giáo viên?"
+                            description={`Bạn có chắc muốn xóa Thầy/Cô ${r.HoTen} (${r.MaGV})?`}
+                            onConfirm={() => handleDeleteTeacher(r._id, r.HoTen)}
+                            okText="Xóa"
+                            cancelText="Hủy"
+                            okButtonProps={{ danger: true }}
+                          >
+                            <Button size="small" icon={<DeleteOutlined />} danger type="text" />
+                          </Popconfirm>
+                        </Space>
                       )
                     }
                   ]}
-                  pagination={false}
+                  pagination={{ pageSize: 10 }}
                 />
               </Card>
             )
@@ -718,6 +813,59 @@ const AdminStudentManagement = () => {
         studentData={selectedStudentForTranscript}
         studentId={selectedStudentForTranscript?._id}
       />
+
+      {/* Modal Thêm / Sửa Giáo Viên */}
+      <Modal
+        title={editingTeacher ? `Chỉnh Sửa Giáo Viên: ${editingTeacher.HoTen} (${editingTeacher.MaGV})` : 'Thêm Giáo Viên Mới'}
+        open={teacherModalVisible}
+        onCancel={() => {
+          setTeacherModalVisible(false);
+          setEditingTeacher(null);
+        }}
+        footer={null}
+      >
+        <Form form={formTeacher} layout="vertical" onFinish={handleSaveTeacher}>
+          <Form.Item
+            name="maGV"
+            label="Mã Giáo Viên (Mã GV)"
+            rules={[{ required: true, message: 'Vui lòng nhập Mã Giáo Viên!' }]}
+          >
+            <Input placeholder="Ví dụ: GV_HOA_01" style={{ textTransform: 'uppercase' }} />
+          </Form.Item>
+          <Form.Item
+            name="hoTen"
+            label="Họ và Tên Giáo Viên"
+            rules={[{ required: true, message: 'Vui lòng nhập Họ và Tên!' }]}
+          >
+            <Input placeholder="Ví dụ: Thầy Lê Văn Hóa" />
+          </Form.Item>
+          <Form.Item
+            name="toBoMon"
+            label="Tổ Bộ Môn / Môn Giảng Dạy"
+            rules={[{ required: true, message: 'Vui lòng chọn Tổ Bộ Môn!' }]}
+          >
+            <Select>
+              <Option value="Tổ Toán - Tin học">Tổ Toán - Tin học</Option>
+              <Option value="Tổ Khoa Học Tự Nhiên & STEM">Tổ Khoa Học Tự Nhiên & STEM</Option>
+              <Option value="Tổ Vật Lý & Công Nghệ">Tổ Vật Lý & Công Nghệ</Option>
+              <Option value="Tổ Hóa Học & Sinh Học">Tổ Hóa Học & Sinh Học</Option>
+              <Option value="Tổ Ngữ Văn - Xã Hội">Tổ Ngữ Văn - Xã Hội</Option>
+              <Option value="Tổ Ngoại Ngữ">Tổ Ngoại Ngữ</Option>
+            </Select>
+          </Form.Item>
+          <Form.Item name="email" label="Email Công Tác">
+            <Input placeholder="hoa.lv@thucnghiemhuit.edu.vn" />
+          </Form.Item>
+          <div style={{ textAlign: 'right' }}>
+            <Space>
+              <Button onClick={() => { setTeacherModalVisible(false); setEditingTeacher(null); }}>Hủy</Button>
+              <Button type="primary" htmlType="submit">
+                {editingTeacher ? 'Lưu Thay Đổi' : 'Thêm & Cấp Mã PIN'}
+              </Button>
+            </Space>
+          </div>
+        </Form>
+      </Modal>
     </div>
   );
 };

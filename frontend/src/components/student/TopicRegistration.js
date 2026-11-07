@@ -479,7 +479,6 @@ const TopicRegistration = () => {
                   renderItem={item => (
                     <List.Item>
                       <List.Item.Meta
-                        avatar={<div style={{ fontSize: 24 }}>{item.VaiTro === 'TruongNhom' ? '👑' : '👤'}</div>}
                         title={<Text strong>{item.HocSinh?.HoTen || 'Đang tải...'} ({item.HocSinh?.MaHS})</Text>}
                         description={
                           <Tag color={

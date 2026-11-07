@@ -515,6 +515,44 @@ const createTeacher = async (req, res) => {
   }
 };
 
+const updateTeacher = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { maGV, hoTen, toBoMon, chuyenNganh, email } = req.body;
+    const teacher = await GiaoVien.findById(id);
+    if (!teacher) {
+      return res.status(404).json({ success: false, message: 'Không tìm thấy giáo viên.' });
+    }
+
+    if (maGV && maGV.trim()) {
+      const cleanMaGV = maGV.trim().toUpperCase();
+      const dup = await GiaoVien.findOne({ MaGV: { $regex: new RegExp(`^${cleanMaGV}$`, 'i') }, _id: { $ne: id } });
+      if (dup) {
+        return res.status(400).json({ success: false, message: `Mã giáo viên ${cleanMaGV} đã tồn tại.` });
+      }
+      teacher.MaGV = cleanMaGV;
+    }
+    if (hoTen && hoTen.trim()) teacher.HoTen = hoTen.trim();
+    if (toBoMon && toBoMon.trim()) {
+      teacher.ToBoMon = toBoMon.trim();
+      teacher.ChuyenNganh = (chuyenNganh && chuyenNganh.trim()) ? chuyenNganh.trim() : toBoMon.trim();
+    } else if (chuyenNganh && chuyenNganh.trim()) {
+      teacher.ChuyenNganh = chuyenNganh.trim();
+    }
+    if (email && email.trim()) teacher.Email = email.trim();
+
+    await teacher.save();
+    res.json({
+      success: true,
+      message: `Đã cập nhật thông tin giáo viên ${teacher.HoTen} (${teacher.MaGV}) thành công.`,
+      teacher
+    });
+  } catch (error) {
+    console.error('updateTeacher error:', error);
+    res.status(500).json({ success: false, message: 'Lỗi khi cập nhật giáo viên: ' + error.message });
+  }
+};
+
 const resetTeacherPin = async (req, res) => {
   try {
     const { id } = req.params;
@@ -695,6 +733,7 @@ module.exports = {
   resetStudentPin,
   deleteStudent,
   createTeacher,
+  updateTeacher,
   resetTeacherPin,
   deleteTeacher,
   bulkImportTeachers,

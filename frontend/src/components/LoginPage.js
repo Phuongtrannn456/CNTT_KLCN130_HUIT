@@ -803,6 +803,7 @@ function LoginPage() {
                     setTimeout(() => {
                       localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZTk0YWViZDI5NDM4NzcxNWEzOGFmYiIsInJvbGVfaWQiOiJTVFVERU5UX1JPTEUiLCJ3YWxsZXRBZGRyZXNzIjoiMHg3MWM1Mjk5NjYxNDFhMmY2NDNlOTllMjg4NmM5OWM3MjQ3MTk0YTJiIiwiaWF0IjoxNzkzNjc1MDY1LCJleHAiOjE3OTQyNzk4NjV9.l4_27fwwOI71ovouffni25-83Ma141CoDzvO4O_kfVI');
                       localStorage.setItem('user', JSON.stringify({ id: '6ae94aebd294387715a38afb', role_id: 'STUDENT_ROLE', name: 'Trần Thị Phương', MaHS: 'HS1001', walletAddress: '0x71c529966141a2f643e99e2886c99c7247194a2b' }));
+                      localStorage.setItem('selectedClassId_6ae94aebd294387715a38afb', '6abdc9014fe364197052fd2e');
                       window.location.href = '/student/dashboard';
                     }, 800);
                   }}
@@ -829,7 +830,7 @@ function LoginPage() {
                   variant="outlined"
                   onClick={() => {
                     localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhYzUyZThlZDc2MThhYWI2MTk5ODYyYyIsInJvbGVfaWQiOiJBRE1JTl9ST0xFIiwid2FsbGV0QWRkcmVzcyI6IjB4ZjM5ZmQ2ZTUxYWFkODhmNmY0Y2U2YWI4ODI3Mjc5Y2ZmZmI5MjI2NiIsImlhdCI6MTc5MzY3NTA2NSwiZXhwIjoxNzk0Mjc5ODY1fQ.GfdDNowEdoQscwJ1F0iyOF6iLGPn47sda6cGYVr7Bb0');
-                    localStorage.setItem('user', JSON.stringify({ id: '6ac52e8ed7618aab6199862c', role_id: 'ADMIN_ROLE', name: 'Super Admin', walletAddress: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }));
+                    localStorage.setItem('user', JSON.stringify({ id: '6ac52e8ed7618aab6199862c', role_id: 'ADMIN_ROLE', name: 'Ban Giám Hiệu - Thầy Lê Văn Minh', walletAddress: '0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266' }));
                     window.location.href = '/admin';
                   }}
                   sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#1976d2', color: '#1976d2' }}
@@ -842,6 +843,7 @@ function LoginPage() {
                   onClick={() => {
                     localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZTk0YWVjNjZmZWFlYjU2MDdjOTFjZCIsInJvbGVfaWQiOiJURUFDSEVSX1JPTEUiLCJ3YWxsZXRBZGRyZXNzIjoiMHg3MDk5Nzk3MGM1MTgxMmRjM2EwMTBjN2QwMWI1MGUwZDE3ZGM3OWM4IiwiaWF0IjoxNzkzNjc1MTgzLCJleHAiOjE3OTQyNzk5ODN9.edXyR9pC2XKBU3gBNiNxpH4PkI4c7n3_5H6PzkPI54g');
                     localStorage.setItem('user', JSON.stringify({ id: '6ae94aec66feaeb5607c91cd', role_id: 'TEACHER_ROLE', name: 'Thầy Nguyễn Văn Toàn', walletAddress: '0x70997970c51812dc3a010c7d01b50e0d17dc79c8' }));
+                    localStorage.setItem('selectedLecturerClassId_6ae94aec66feaeb5607c91cd', 'ALL');
                     window.location.href = '/teacher/classes';
                   }}
                   sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#2e7d32', color: '#2e7d32' }}
@@ -854,11 +856,25 @@ function LoginPage() {
                   onClick={() => {
                     localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZTk0YWViZDI5NDM4NzcxNWEzOGFmYiIsInJvbGVfaWQiOiJTVFVERU5UX1JPTEUiLCJ3YWxsZXRBZGRyZXNzIjoiMHg3MWM1Mjk5NjYxNDFhMmY2NDNlOTllMjg4NmM5OWM3MjQ3MTk0YTJiIiwiaWF0IjoxNzkzNjc1MDY1LCJleHAiOjE3OTQyNzk4NjV9.l4_27fwwOI71ovouffni25-83Ma141CoDzvO4O_kfVI');
                     localStorage.setItem('user', JSON.stringify({ id: '6ae94aebd294387715a38afb', role_id: 'STUDENT_ROLE', name: 'Trần Thị Phương', MaHS: 'HS1001', walletAddress: '0x71c529966141a2f643e99e2886c99c7247194a2b' }));
+                    localStorage.setItem('selectedClassId_6ae94aebd294387715a38afb', '6abdc9014fe364197052fd2e');
                     window.location.href = '/student/dashboard';
                   }}
                   sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#ed6c02', color: '#ed6c02' }}
                 >
-                  Học Sinh
+                  Học Sinh 1 (HS1001)
+                </Button>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  onClick={() => {
+                    localStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhZWRmNzkwOGMzNDljNzA5YWNhMGZiMCIsInJvbGVfaWQiOiJTVFVERU5UX1JPTEUiLCJ3YWxsZXRBZGRyZXNzIjoiMHg3MWM1Mjk5NjYxNDFhMmY2NDNlOTllMjg4NmM5OWM3MjQ3MTkxMDA3IiwiaWF0IjoxNzkzNjc1MDY1LCJleHAiOjE3OTQyNzk4NjV9.posX2JZqbBOlnpQVlqYuJSIAjUVbMrcNLf8c4dfvSSs');
+                    localStorage.setItem('user', JSON.stringify({ id: '6aedf7908c349c709aca0fb0', role_id: 'STUDENT_ROLE', name: 'Bùi Thanh Tâm', MaHS: 'HS1007', walletAddress: '0x71c529966141a2f643e99e2886c99c7247191007' }));
+                    localStorage.setItem('selectedClassId_6aedf7908c349c709aca0fb0', '6abdc9014fe364197052fd2e');
+                    window.location.href = '/student/dashboard';
+                  }}
+                  sx={{ fontSize: '0.75rem', textTransform: 'none', borderColor: '#d97706', color: '#b45309' }}
+                >
+                  Học Sinh 2 (HS1007)
                 </Button>
                 <Button
                   size="small"

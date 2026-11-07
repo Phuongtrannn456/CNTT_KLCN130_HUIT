@@ -222,7 +222,7 @@ const GroupManagement = () => {
 
       {/* === LỜI MỜI ĐANG CHỜ === */}
       {pendingInvites.length > 0 && !nhom && (
-        <Card title="📩 Lời mời gia nhập nhóm" style={{ marginBottom: 24, border: '1px solid #faad14' }}>
+        <Card title="Lời mời gia nhập nhóm" style={{ marginBottom: 24, border: '1px solid #faad14' }}>
           <List
             dataSource={pendingInvites}
             renderItem={invite => {
@@ -239,7 +239,6 @@ const GroupManagement = () => {
                   ]}
                 >
                   <List.Item.Meta
-                    avatar={<div style={{ fontSize: 28 }}>👥</div>}
                     title={<Text strong>{invite.TenNhom || `Nhóm của ${leader?.HoTen || 'N/A'}`}</Text>}
                     description={`Trưởng nhóm: ${leader?.HoTen || 'N/A'} (${leader?.MaHS || ''}) • ${invite.SoLuong} thành viên`}
                   />
@@ -344,7 +343,6 @@ const GroupManagement = () => {
                   }
                 >
                   <List.Item.Meta
-                    avatar={<div style={{ fontSize: 24 }}>{isTVLeader ? '👑' : '👤'}</div>}
                     title={
                       <Space>
                         <Text strong>{hs?.HoTen || 'Đang tải...'}</Text>
@@ -358,8 +356,8 @@ const GroupManagement = () => {
                         tv.TrangThai === 'DaChapNhan' ? 'green' :
                           tv.TrangThai === 'DaMoi' ? 'orange' : 'red'
                       }>
-                        {tv.TrangThai === 'DaChapNhan' ? '✅ Đã tham gia' :
-                          tv.TrangThai === 'DaMoi' ? '⏳ Chờ xác nhận' : '❌ Từ chối'}
+                        {tv.TrangThai === 'DaChapNhan' ? 'Đã tham gia' :
+                          tv.TrangThai === 'DaMoi' ? 'Chờ xác nhận' : 'Từ chối'}
                       </Tag>
                     }
                   />

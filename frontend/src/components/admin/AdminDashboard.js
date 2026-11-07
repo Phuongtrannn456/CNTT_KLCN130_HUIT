@@ -7,7 +7,7 @@ import {
   TeamOutlined, UserAddOutlined, UserOutlined, CheckCircleOutlined, 
   UploadOutlined, DownloadOutlined, ReloadOutlined, DeleteOutlined, 
   KeyOutlined, InboxOutlined, PlusOutlined, SafetyCertificateOutlined,
-  FileDoneOutlined, TrophyOutlined, DeploymentUnitOutlined
+  FileDoneOutlined, TrophyOutlined, DeploymentUnitOutlined, EditOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
@@ -33,12 +33,15 @@ const AdminDashboard = () => {
 
   // Modals for Teachers
   const [addTeacherModalVisible, setAddTeacherModalVisible] = useState(false);
+  const [editTeacherModalVisible, setEditTeacherModalVisible] = useState(false);
+  const [editingTeacher, setEditingTeacher] = useState(null);
   const [importTeacherModalVisible, setImportTeacherModalVisible] = useState(false);
   const [parsedTeacherImportData, setParsedTeacherImportData] = useState([]);
   const [importingTeachers, setImportingTeachers] = useState(false);
   const [importTeacherResult, setImportTeacherResult] = useState(null);
 
   const [formTeacher] = Form.useForm();
+  const [formEditTeacher] = Form.useForm();
 
   const getAuthConfig = () => {
     const token = authService.getToken();
@@ -107,6 +110,39 @@ const AdminDashboard = () => {
       }
     } catch (err) {
       message.error(err.response?.data?.message || 'Lỗi khi thêm giáo viên.');
+    }
+  };
+
+  // 1b. Mở modal sửa giáo viên & Cập nhật giáo viên
+  const openEditTeacherModal = (record) => {
+    setEditingTeacher(record);
+    formEditTeacher.setFieldsValue({
+      maGV: record.MaGV,
+      hoTen: record.HoTen,
+      toBoMon: record.ToBoMon || record.ChuyenNganh || 'Tổ Khoa Học Tự Nhiên & STEM',
+      email: record.Email || ''
+    });
+    setEditTeacherModalVisible(true);
+  };
+
+  const handleUpdateTeacher = async (values) => {
+    if (!editingTeacher) return;
+    try {
+      const res = await axios.put(`${API_BASE_URL}/admin/teachers/${editingTeacher._id}`, {
+        maGV: values.maGV?.trim().toUpperCase(),
+        hoTen: values.hoTen?.trim(),
+        toBoMon: values.toBoMon,
+        email: values.email?.trim()
+      }, getAuthConfig());
+
+      if (res.data.success) {
+        message.success(res.data.message || 'Đã cập nhật thông tin giáo viên!');
+        setEditTeacherModalVisible(false);
+        setEditingTeacher(null);
+        fetchData();
+      }
+    } catch (err) {
+      message.error(err.response?.data?.message || 'Lỗi khi cập nhật giáo viên.');
     }
   };
 
@@ -304,9 +340,17 @@ const AdminDashboard = () => {
     {
       title: 'Thao tác',
       key: 'actions',
-      width: 170,
+      width: 240,
       render: (_, record) => (
         <Space orientation="horizontal" size="small">
+          <Button
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => openEditTeacherModal(record)}
+          >
+            Sửa
+          </Button>
+
           <Popconfirm
             title="Mở khóa ví & Cấp PIN mới?"
             description="Thầy/Cô sẽ được cấp mã PIN mới và có thể liên kết ví MetaMask mới."
@@ -569,6 +613,66 @@ const AdminDashboard = () => {
               <Button onClick={() => setAddTeacherModalVisible(false)}>Hủy</Button>
               <Button type="primary" htmlType="submit">
                 Thêm & Cấp Mã PIN
+              </Button>
+            </Space>
+          </div>
+        </Form>
+      </Modal>
+
+      {/* Modal: Sửa thông tin giáo viên */}
+      <Modal
+        title={`Chỉnh Sửa Thông Tin Giáo Viên${editingTeacher ? ` (${editingTeacher.MaGV})` : ''}`}
+        open={editTeacherModalVisible}
+        onCancel={() => {
+          setEditTeacherModalVisible(false);
+          setEditingTeacher(null);
+        }}
+        footer={null}
+      >
+        <Form form={formEditTeacher} layout="vertical" onFinish={handleUpdateTeacher}>
+          <Form.Item
+            name="maGV"
+            label="Mã Cán Bộ / Giáo Viên (Mã GV)"
+            rules={[{ required: true, message: 'Vui lòng nhập Mã Giáo Viên!' }]}
+          >
+            <Input placeholder="Ví dụ: GV_HOA_01" style={{ textTransform: 'uppercase' }} />
+          </Form.Item>
+
+          <Form.Item
+            name="hoTen"
+            label="Họ và Tên Giáo Viên"
+            rules={[{ required: true, message: 'Vui lòng nhập Họ và Tên!' }]}
+          >
+            <Input placeholder="Ví dụ: Thầy Lê Văn Hóa" />
+          </Form.Item>
+
+          <Form.Item
+            name="toBoMon"
+            label="Tổ Bộ Môn / Môn Giảng Dạy"
+            rules={[{ required: true, message: 'Vui lòng chọn hoặc nhập Tổ Bộ Môn!' }]}
+          >
+            <Select>
+              <Option value="Tổ Toán - Tin học">Tổ Toán - Tin học</Option>
+              <Option value="Tổ Khoa Học Tự Nhiên & STEM">Tổ Khoa Học Tự Nhiên & STEM</Option>
+              <Option value="Tổ Vật Lý & Công Nghệ">Tổ Vật Lý & Công Nghệ</Option>
+              <Option value="Tổ Hóa Học & Sinh Học">Tổ Hóa Học & Sinh Học</Option>
+              <Option value="Tổ Ngữ Văn - Xã Hội">Tổ Ngữ Văn - Xã Hội</Option>
+              <Option value="Tổ Ngoại Ngữ">Tổ Ngoại Ngữ</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item
+            name="email"
+            label="Email Công Tác"
+          >
+            <Input placeholder="hoa.lv@thpt.edu.vn" />
+          </Form.Item>
+
+          <div style={{ textAlign: 'right' }}>
+            <Space>
+              <Button onClick={() => setEditTeacherModalVisible(false)}>Hủy</Button>
+              <Button type="primary" htmlType="submit">
+                Lưu Thay Đổi
               </Button>
             </Space>
           </div>

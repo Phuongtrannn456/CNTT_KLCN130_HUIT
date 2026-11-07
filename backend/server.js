@@ -243,6 +243,7 @@ app.delete('/api/admin/students/:id', ...requireAdmin, adminController.deleteStu
 
 // Admin Teacher Management
 app.post('/api/admin/teachers', ...requireAdmin, adminController.createTeacher);
+app.put('/api/admin/teachers/:id', ...requireAdmin, adminController.updateTeacher);
 app.post('/api/admin/teachers/bulk-import', ...requireAdmin, adminController.bulkImportTeachers);
 app.post('/api/admin/teachers/:id/reset-pin', ...requireAdmin, adminController.resetTeacherPin);
 app.delete('/api/admin/teachers/:id', ...requireAdmin, adminController.deleteTeacher);

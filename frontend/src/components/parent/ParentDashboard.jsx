@@ -144,24 +144,24 @@ const ParentDashboard = () => {
           <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, overflow: 'hidden' }}>
             <div style={{ padding: '10px 16px', background: '#fafafa', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f0f0f0' }}>
               <div>
-                <Text strong>Môn Tin Học & STEM: </Text>
-                <Text>Thiết kế DApp Web3 tra cứu chứng chỉ số K-12</Text>
+                <Text strong>Hoạt Động Giáo Dục STEM: </Text>
+                <Text>Hệ thống tưới cây thông minh cho vườn trường sử dụng ESP32 và cảm biến độ ẩm đất</Text>
               </div>
-              <Tag color="green" style={{ fontWeight: 'bold', fontSize: 13 }}>9.8 / 10 (Xuất sắc)</Tag>
+              <Tag color="green" style={{ fontWeight: 'bold', fontSize: 13 }}>9.4 / 10 (Xuất sắc)</Tag>
             </div>
             <div style={{ padding: '10px 16px', background: '#fff', display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #f0f0f0' }}>
               <div>
-                <Text strong>Môn Toán Học: </Text>
-                <Text>Mô hình hoá tăng trưởng đa giác số và ứng dụng thực tiễn</Text>
+                <Text strong>Môn Toán Học Phổ Thông: </Text>
+                <Text>Mô hình hóa quỹ đạo ném bóng rổ bằng hàm số bậc hai</Text>
               </div>
               <Tag color="blue" style={{ fontWeight: 'bold', fontSize: 13 }}>9.0 / 10 (Giỏi)</Tag>
             </div>
             <div style={{ padding: '10px 16px', background: '#fafafa', display: 'flex', justifyContent: 'space-between' }}>
               <div>
-                <Text strong>Môn Ngữ Văn: </Text>
-                <Text>Báo cáo số hoá di sản văn hoá dân gian trong kỷ nguyên số</Text>
+                <Text strong>Môn Sinh Học: </Text>
+                <Text>Mô hình thủy canh rau mầm tuần hoàn trong lớp học</Text>
               </div>
-              <Tag color="blue" style={{ fontWeight: 'bold', fontSize: 13 }}>8.5 / 10 (Giỏi)</Tag>
+              <Tag color="green" style={{ fontWeight: 'bold', fontSize: 13 }}>9.2 / 10 (Xuất sắc)</Tag>
             </div>
           </div>
         </div>

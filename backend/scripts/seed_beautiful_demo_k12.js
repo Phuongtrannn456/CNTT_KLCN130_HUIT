@@ -41,6 +41,7 @@ const LoiMoiLopHoc = require('../models/LoiMoiLopHoc');
 const { ObjectId } = mongoose.Types;
 const ID = {
   HS1001: new ObjectId('6ae94aebd294387715a38afb'),
+  HS1007: new ObjectId('6aedf7908c349c709aca0fb0'), // tai khoan nut demo "Hoc Sinh 2 (Con khuyet)"
   GV_TOAN: new ObjectId('6ae94aec66feaeb5607c91cd'), // tai khoan nut demo "Giao Vien"
   GV_MAI: new ObjectId('6ae94aec66feaeb5607c91ce'),
   LOP_10A1_STEM: new ObjectId('6abdc9014fe364197052fd2e'),
@@ -154,7 +155,7 @@ async function run() {
         ],
         WalletAddress: `0x71c529966141a2f643e99e2886c99c724719100${idx + 1}`
       });
-      hs[ma] = await up(HocSinh, { MaHS: ma }, base);
+      hs[ma] = await up(HocSinh, ma === 'HS1007' ? { _id: ID.HS1007 } : { MaHS: ma }, { ...base, MaHS: ma });
     }
   }
   const hs1101 = await up(HocSinh, { MaHS: 'HS1101' }, {
@@ -177,7 +178,7 @@ async function run() {
   const allIds = STUDENTS.map(([ma]) => hs[ma]._id);
   const groupA = ['HS1001', 'HS1002', 'HS1003'].map(m => hs[m]._id);
   const groupB = ['HS1004', 'HS1005', 'HS1006'].map(m => hs[m]._id);
-  const groupC = ['HS1007', 'HS1008', 'HS1009'].map(m => hs[m]._id);
+  const groupC = ['HS1007', 'HS1008'].map(m => hs[m]._id); // Khuyet 1 thanh vien (2/3), de HS1009 tu do cho demo moi nhom
 
   // 3. Giao vien (4 giao vien chuan K-12, khong trung lap)
   await up(GiaoVien, { _id: ID.GV_TOAN }, {
@@ -227,20 +228,23 @@ async function run() {
   await MonHoc.updateOne({ MaMonHoc: 'MH_TIN' }, { $set: { GiaoVien: ID.GV_TOAN } });
 
   const lop = {};
-  lop.MH_STEM = await up(LopHoc, { _id: ID.LOP_10A1_STEM }, { MaLopHoc: 'LOP_10A1', TenLopHoc: 'Lớp 10A1 - STEM KHTN', MonHoc: mh.MH_STEM._id, GiaoVien: ID.GV_TOAN, HocSinh: allIds });
   for (const [ma, ten, gv] of SUBJECTS.slice(1))
-    lop[ma] = await up(LopHoc, { MaLopHoc: 'LOP_10A1', MonHoc: mh[ma]._id }, { TenLopHoc: `Lớp 10A1 - ${ten}`, GiaoVien: gv, HocSinh: allIds });
+    lop[ma] = await up(LopHoc, { MaLopHoc: 'LOP_10A1', MonHoc: mh[ma]._id }, { TenLopHoc: `Lớp 10A1 - ${ten}`, GiaoVien: gv, HocSinh: allIds, createdAt: daysAgo(10) });
+  lop.MH_STEM = await up(LopHoc, { _id: ID.LOP_10A1_STEM }, { MaLopHoc: 'LOP_10A1', TenLopHoc: 'Lớp 10A1 - STEM KHTN', MonHoc: mh.MH_STEM._id, GiaoVien: ID.GV_TOAN, HocSinh: allIds, createdAt: new Date() });
   await LopHoc.updateOne({ _id: ID.LOP_11A2 }, { $set: { GiaoVien: ID.GV_MAI, HocSinh: [hs1101._id, hs1201._id] } });
 
-  // 5. Nhom hoc sinh (chi giu 3 nhom chuan cua lop 10A1)
-  const mkNhom = (ten, ids) => up(Nhom, { TenNhom: ten }, {
+  // 5. Nhom hoc sinh (nhom A & B da chot 3/3; nhom C cua HS1007 CHUA CHOT 2/3 de demo khuyet du lieu & moi thanh vien; nhom 11A2 cho duyet de tai)
+  const mkNhom = (ten, ids, extra = {}) => up(Nhom, { TenNhom: ten }, {
     LopHoc: ID.LOP_10A1_STEM, TruongNhom: ids[0], SoLuong: 3, DaChot: true,
-    ThanhVien: ids.map((id, i) => ({ HocSinh: id, VaiTro: i ? 'ThanhVien' : 'TruongNhom', TrangThai: 'DaChapNhan', NgayThamGia: daysAgo(40) }))
+    ThanhVien: ids.map((id, i) => ({ HocSinh: id, VaiTro: i ? 'ThanhVien' : 'TruongNhom', TrangThai: 'DaChapNhan', NgayThamGia: daysAgo(40) })),
+    ...extra
   });
   const nhomA = await mkNhom('Nhóm Sáng Tạo STEM 10A1', groupA);
   const nhomB = await mkNhom('Nhóm Eco-Tech 10A1', groupB);
-  const nhomC = await mkNhom('Nhóm Green Future 10A1', groupC);
-  await Nhom.deleteMany({ _id: { $nin: [nhomA._id, nhomB._id, nhomC._id] } });
+  const nhomC = await mkNhom('Nhóm Green Future 10A1', groupC, { SoLuong: 3, DaChot: false });
+  const group11 = [hs1101._id, hs1201._id];
+  const nhom11 = await mkNhom('Nhóm AI Robotics 11A2', group11, { LopHoc: ID.LOP_11A2, SoLuong: 2, DaChot: true });
+  await Nhom.deleteMany({ _id: { $nin: [nhomA._id, nhomB._id, nhomC._id, nhom11._id] } });
 
   // 6. De tai STEM lop 10A1 (GV Toan huong dan)
   const stemTopic = (ma, ten, moTa, yeuCau, extra = {}) => up(DeTai, { MaDeTai: ma }, {
@@ -257,24 +261,40 @@ async function run() {
     ['ESP32', 'Cảm biến PMS7003', 'Phân tích dữ liệu môi trường']);
   const dt3 = await stemTopic('DEMO_STEM_03', 'Ứng dụng AI nhận diện và phân loại rác thải tái chế tại căng tin trường',
     'Huấn luyện mô hình nhận diện ảnh để phân loại chai nhựa, lon nhôm và giấy tại thùng rác thông minh.',
-    ['Python', 'Học máy cơ bản', 'Camera và xử lý ảnh']);
-  await stemTopic('DEMO_STEM_04', 'Robot dò line phân loại bưu kiện mini theo màu sắc',
+    ['Python', 'Học máy cơ bản', 'Camera và xử lý ảnh'],
+    { SoLuongHocSinh: 2, LopHoc: [ID.LOP_10A1_STEM, ID.LOP_11A2] });
+  const dt4 = await stemTopic('DEMO_STEM_04', 'Robot dò line phân loại bưu kiện mini theo màu sắc',
     'Lắp ráp robot dò line dùng cảm biến hồng ngoại và cảm biến màu TCS3200 để phân loại hộp theo màu.',
-    ['Arduino', 'Cảm biến màu', 'Cơ khí lắp ráp']);
+    ['Arduino', 'Cảm biến màu', 'Cơ khí lắp ráp'],
+    { CoBaiTest: true });
   await stemTopic('DEMO_STEM_05', 'Hệ thống điểm danh học sinh bằng thẻ RFID kết hợp bảng tin điện tử',
     'Điểm danh đầu giờ bằng thẻ RFID, tự động tổng hợp chuyên cần gửi giáo viên chủ nhiệm.',
     ['RFID RC522', 'ESP32', 'Google Sheets API']);
 
-  // 7. Dang ky de tai
+  // Gan ngan hang cau hoi BaiTest dau vao cho dt4 (DEMO_STEM_04)
+  await up(BaiTest, { DeTai: dt4._id }, {
+    GiaoVien: ID.GV_TOAN, ThoiGianLamBai: 15, DiemDatToiThieu: 6.0,
+    CauHoi: [
+      { NoiDung: 'Cảm biến hồng ngoại TCRT5000 trên robot dò line hoạt động dựa trên nguyên lý nào?', LuaChon: ['Phản xạ tia hồng ngoại khác nhau giữa vạch đen và nền trắng', 'Đo sóng siêu âm phản xạ từ vật cản', 'Đo cường độ từ trường Trái Đất', 'Đo nhiệt độ bề mặt đường chạy'], DapAnDung: 0, Diem: 2 },
+      { NoiDung: 'Cảm biến TCS3200 dùng để phân loại bưu kiện theo màu sắc sử dụng bộ lọc quang học gồm các màu cơ bản nào?', LuaChon: ['Đỏ (Red), Lục (Green), Lam (Blue) và Không lọc (Clear)', 'Đỏ, Vàng, Tím', 'Đen và Trắng', 'Tia cực tím và tia hồng ngoại'], DapAnDung: 0, Diem: 2 },
+      { NoiDung: 'Để điều chỉnh tốc độ động cơ DC trên robot dò line bằng vi điều khiển Arduino, kỹ thuật nào được sử dụng?', LuaChon: ['Điều chế độ rộng xung (PWM - Pulse Width Modulation)', 'Thay đổi tần số thạch anh của vi điều khiển', 'Nối trực tiếp động cơ vào chân tín hiệu số Digital', 'Sử dụng cổng giao tiếp I2C'], DapAnDung: 0, Diem: 2 },
+      { NoiDung: 'Mạch cầu H (như module L298N) trong robot tự hành có vai trò chính là gì?', LuaChon: ['Khuếch đại dòng điện và đảo chiều quay của động cơ DC', 'Đọc tín hiệu màu sắc từ bưu kiện', 'Kết nối Wi-Fi để gửi dữ liệu lên đám mây', 'Biến đổi điện áp xoay chiều thành một chiều'], DapAnDung: 0, Diem: 2 },
+      { NoiDung: 'Khi cả 2 mắt cảm biến dò line bên trái và bên phải đều đọc được vạch đen tại ngã tư, robot nên xử lý thế nào theo thuật toán cơ bản?', LuaChon: ['Đi thẳng hoặc dừng tại vị trí phân loại theo kịch bản lập trình sẵn', 'Tăng tốc tối đa để vượt qua', 'Ngắt nguồn toàn bộ vi điều khiển', 'Xóa bộ nhớ chương trình'], DapAnDung: 0, Diem: 2 }
+    ]
+  });
+
+  // 7. Dang ky de tai (nhomC cua HS1007 KHONG dang ky de tai o lop 10A1 STEM de demo trang thai khuyet)
+  await DangKyDeTai.deleteMany({ $or: [{ Nhom: nhomC._id }, { HocSinh: ID.HS1007 }, { TruongNhom: ID.HS1007 }] });
   const mkReg = (dt, nhom, ids, trangThai) => up(DangKyDeTai, { DeTai: dt._id, Nhom: nhom._id }, {
     TruongNhom: ids[0], HocSinh: ids[0], TrangThai: trangThai,
     ThanhVien: ids.map((id, i) => ({ HocSinh: id, VaiTro: i ? 'ThanhVien' : 'TruongNhom', TrangThaiTV: 'DaChapNhan', NgayThamGia: daysAgo(35) }))
   });
   const regA = await mkReg(dt1, nhomA, groupA, 'DaDuyet');
   const regB = await mkReg(dt2, nhomB, groupB, 'DaDuyet');
-  await mkReg(dt3, nhomC, groupC, 'ChoDuyet'); // giao vien bam duyet truc tiep khi demo
+  await mkReg(dt3, nhom11, group11, 'ChoDuyet'); // giao vien bam duyet truc tiep khi demo
   await DeTai.updateOne({ _id: dt1._id }, { $set: { TrangThai: 'DaChot', NhomThang: nhomA._id, DangKyThang: regA._id } });
   await DeTai.updateOne({ _id: dt2._id }, { $set: { TrangThai: 'DaChot', NhomThang: nhomB._id, DangKyThang: regB._id } });
+  await DeTai.updateOne({ _id: dt3._id }, { $set: { TrangThai: 'MoDangKy', NhomThang: null, DangKyThang: null } });
 
   // 8. Bao cao + diem du an STEM chinh (nhom A da cham, nhom B cho cham)
   const CID_A = 'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi';
@@ -365,6 +385,29 @@ async function run() {
     });
   }
 
+  // 10b. Bang diem KHUYET (chi co 3/7 mon, thieu STEM + Ly + Hoa + Sinh, 0 chung chi SBT) cho HS1007 (Bui Thanh Tam)
+  await BaoCao.deleteMany({ HocSinh: ID.HS1007 });
+  await DiemSo.deleteMany({ HocSinh: ID.HS1007 });
+  await Achievement.deleteMany({ student: ID.HS1007 });
+  await EducationalCredential.deleteMany({ student: ID.HS1007 });
+  const PARTIAL_WORK_HS1007 = [
+    ['MH_TOAN', 'DEMO_TOAN_01', 7.8, 7.6, ID.GV_TOAN, 'Nắm được công thức hàm số bậc hai, cần trình bày bước lập bảng giá trị rõ hơn.'],
+    ['MH_VAN', 'DEMO_VAN_01', 7.5, 7.4, gvVan._id, 'Bố cục bài viết đầy đủ, cần bổ sung thêm dẫn chứng văn học dân gian.'],
+    ['MH_ANH', 'DEMO_ANH_01', 7.6, 7.5, gvAnh._id, 'Từ vựng khá, cần luyện thêm ngữ điệu khi thuyết trình.']
+  ];
+  for (const [maMh, maDt, diem, ai, gv, nx] of PARTIAL_WORK_HS1007) {
+    const dt = await DeTai.findOne({ MaDeTai: maDt });
+    if (!dt) continue;
+    const bc = await up(BaoCao, { DeTai: dt._id, HocSinh: ID.HS1007 }, {
+      TieuDe: `Bài nộp môn ${mh[maMh].TenMonHoc}`, IPFS_CID: CID_A, NgayNop: daysAgo(5),
+      ExtractedText: `Báo cáo cá nhân môn ${mh[maMh].TenMonHoc} của học sinh Bùi Thanh Tâm (HS1007), lớp 10A1.`, ExtractionMethod: 'native', PageCount: 3
+    });
+    await up(DiemSo, { BaoCao: bc._id }, {
+      GiaoVienCham: gv, GiaoVienCam: gv, HocSinh: ID.HS1007, DeTai: dt._id, Diem: diem, DiemGoc: diem,
+      AI_Score: ai, AI_Feedback: 'Bài làm đạt yêu cầu cơ bản.', NhanXet: nx, TrangThaiBlockchain: 'ChuaGhi'
+    });
+  }
+
   // 11. Thu thach "Giai toan bang lap trinh Python": 4 bai nop, HS1001 da chot diem
   await Challenge.updateOne({ _id: ID.CHL_PYTHON }, { $set: { deadline: daysLater(20), status: 'Open', eligibleGrades: [10], subject: 'Tin học', challengeType: 'STEM' } });
   const CONTENT = {
@@ -398,6 +441,18 @@ async function run() {
   if (!(await ChallengeParticipation.findById(ID.PART_AIR_HS1001)) && !(await ChallengeParticipation.findOne({ student: ID.HS1001, challenge: ID.CHL_AIR }))) {
     await ChallengeParticipation.create({ _id: ID.PART_AIR_HS1001, student: ID.HS1001, challenge: ID.CHL_AIR, status: 'JOINED', joinedAt: daysAgo(20) });
   }
+  await Challenge.updateOne(
+    { _id: ID.CHL_AIR },
+    {
+      $set: {
+        evaluationRubrics: [
+          { criteriaName: 'Tính sáng tạo & giải pháp thực tiễn', maxScore: 10, description: 'Báo cáo khảo sát chất lượng không khí cảm biến PM2.5 CO2 giải pháp cây xanh phân luồng trường học' },
+          { criteriaName: 'Kỹ thuật đo đạc & số liệu thực nghiệm', maxScore: 10, description: 'Khảo sát 7 ngày liên tiếp cảm biến bụi mịn PM2.5 CO2 3 khung giờ cổng trường vườn thực nghiệm ug/m3' },
+          { criteriaName: 'Trình bày báo cáo khoa học', maxScore: 10, description: 'Báo cáo khảo sát kết quả đo đối chiếu đề xuất giải pháp rõ ràng chuẩn K-12' }
+        ]
+      }
+    }
+  );
   await Submission.updateMany(
     { challenge: ID.CHL_AIR },
     {
@@ -439,14 +494,24 @@ async function run() {
     await RoleRequest.updateOne({ _id: r._id }, { $set: { hoTen, email, toBoMon: to, chuyenNganh: to } });
   }
 
-  // 13. Loi moi lop hoc cho HS1001 (hien tren Dashboard hoc sinh)
+  // 13. Loi moi lop hoc cho HS1001 va HS1007 (hien tren Dashboard hoc sinh)
   await up(LoiMoiLopHoc, { LopHoc: ID.LOP_11A2, HocSinh: ID.HS1001 }, { GiaoVien: ID.GV_TOAN, TrangThai: 'ChoChapNhan' });
+  await up(LoiMoiLopHoc, { LopHoc: ID.LOP_11A2, HocSinh: ID.HS1007 }, { GiaoVien: ID.GV_MAI, TrangThai: 'ChoChapNhan' });
+
+  // 13b. Dang ky ChoTest cho HS1007 tren de tai KHKT chung (LopHoc: []) de khi chon "Du an STEM / De tai KHKT" co nut "Lam bai test"
+  const dtSbert = await DeTai.findOne({ MaDeTai: 'DEMO_HD_SBERT_01' });
+  if (dtSbert) {
+    await up(DangKyDeTai, { DeTai: dtSbert._id, Nhom: nhomC._id }, {
+      HocSinh: ID.HS1007, TruongNhom: ID.HS1007, TrangThai: 'ChoTest',
+      ThanhVien: [{ HocSinh: ID.HS1007, VaiTro: 'TruongNhom', TrangThaiTV: 'DaChapNhan', NgayThamGia: daysAgo(2) }]
+    });
+  }
 
   // 14. Chuan hoa toan ven tham chieu (Foreign Keys) & xoa sach ten gia DID# tren toan bo 27 collections
   const validHsIds = await HocSinh.distinct('_id');
   const validGvIds = await GiaoVien.distinct('_id');
   const validDtIds = await DeTai.distinct('_id');
-  const validNhomIds = [nhomA._id, nhomB._id, nhomC._id];
+  const validNhomIds = [nhomA._id, nhomB._id, nhomC._id, nhom11._id];
   const validHsSet = new Set(validHsIds.map(String));
   const validGvSet = new Set(validGvIds.map(String));
   const validNhomSet = new Set(validNhomIds.map(String));

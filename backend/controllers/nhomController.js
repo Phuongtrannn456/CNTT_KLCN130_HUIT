@@ -149,9 +149,9 @@ exports.inviteMember = async (req, res) => {
     }
     if (nhom.DaChot) return res.status(400).json({ error: 'Nhóm đã chốt, không thể mời thêm.' });
 
-    // Kiểm tra số lượng
-    const activeMembers = nhom.ThanhVien.filter(tv => tv.TrangThai !== 'TuChoi');
-    if (activeMembers.length >= nhom.SoLuong) {
+    // Kiểm tra số lượng thành viên đã chấp nhận
+    const acceptedMembers = nhom.ThanhVien.filter(tv => tv.TrangThai === 'DaChapNhan');
+    if (acceptedMembers.length >= nhom.SoLuong) {
       return res.status(400).json({ error: `Nhóm đã đủ ${nhom.SoLuong} thành viên.` });
     }
 
@@ -165,7 +165,7 @@ exports.inviteMember = async (req, res) => {
       const lop = await LopHoc.findById(nhom.LopHoc);
       if (lop) {
         if (!lop.HocSinh.some(hsId => hsId.toString() === hsMoi._id.toString())) {
-          return res.status(400).json({ error: 'Học sinh được mời không thuộc lớp học của nhóm.' });
+          return res.status(400).json({ error: `Học sinh ${hsMoi.HoTen} (${hsMoi.MaHS}) không thuộc lớp học của nhóm.` });
         }
       }
 
@@ -178,7 +178,9 @@ exports.inviteMember = async (req, res) => {
       };
       const existingNhom = await Nhom.findOne(existingNhomQuery);
       if (existingNhom) {
-        return res.status(400).json({ error: 'Học sinh này đã ở trong nhóm khác của lớp này.' });
+        return res.status(400).json({
+          error: `Học sinh ${hsMoi.HoTen} (${hsMoi.MaHS}) đã ở trong nhóm "${existingNhom.TenNhom || 'nhóm khác'}" của lớp này, không thể tham gia nhóm mới.`
+        });
       }
     } else {
       // Với dự án STEM: chỉ chặn nếu HS được mời đã sở hữu (được duyệt) một đề tài dự án STEM rồi
