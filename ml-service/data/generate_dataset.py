@@ -4,10 +4,11 @@ import random
 
 random.seed(42)
 
-def generate_super_realistic_dataset(num_samples=500):
+def generate_super_realistic_dataset(num_samples=1000):
     # Cac chu de du an STEM K-12 dong bo giua de bai va noi dung bao cao
     topic_specs = [
         {
+            "domain": "Vật lý - IoT (ESP32)",
             "topic": "Dự án STEM Vật Lý - IoT: Thiết kế trạm quan trắc bụi mịn PM2.5 và nồng độ khí CO2 tại khuôn viên trường THPT bằng vi điều khiển ESP32.",
             "keywords": ["ESP32", "PM2.5", "CO2", "cảm biến", "sai số", "quan trắc", "đối chứng"],
             "khia_canh": "nguyên lý đo nồng độ bụi mịn PM2.5 bằng cảm biến quang học kết hợp vi điều khiển ESP32",
@@ -16,6 +17,7 @@ def generate_super_realistic_dataset(num_samples=500):
             "tinh_nang_them": "biểu đồ đối chứng nồng độ bụi mịn theo 3 khung giờ cao điểm học sinh tan trường"
         },
         {
+            "domain": "Tin học (Thuật toán Python)",
             "topic": "Môn Tin Học K-12: Cài đặt và đánh giá hiệu năng thuật toán Sàng nguyên tố Eratosthenes và Quy hoạch động trên ngôn ngữ Python.",
             "keywords": ["Eratosthenes", "quy hoạch động", "Python", "độ phức tạp", "thời gian chạy", "kiểm thử biên"],
             "khia_canh": "cài đặt thuật toán Sàng nguyên tố Eratosthenes O(n log log n) và tối ưu mảng Quy hoạch động",
@@ -24,6 +26,7 @@ def generate_super_realistic_dataset(num_samples=500):
             "tinh_nang_them": "bảng đối chiếu tốc độ chạy giữa vét cạn căn bậc hai và sàng Eratosthenes"
         },
         {
+            "domain": "Hóa - Sinh (Lọc nước học đường)",
             "topic": "Dự án STEM Hóa - Sinh: Nghiên cứu hệ thống lọc nước sinh hoạt học đường đa tầng sử dụng vật liệu sinh học than hoạt tính và sỏi thạch anh.",
             "keywords": ["lọc nước", "pH", "than hoạt tính", "độ đục", "thực nghiệm", "đối chứng", "mẫu nước"],
             "khia_canh": "quy trình bố trí 4 tầng vật liệu lọc gồm sỏi thạch anh, cát mangan và than hoạt tính gáo dừa",
@@ -32,6 +35,7 @@ def generate_super_realistic_dataset(num_samples=500):
             "tinh_nang_them": "bảng phân tích chi phí vật liệu để lắp đặt thử nghiệm tại khu rửa tay học sinh"
         },
         {
+            "domain": "Công nghệ - Robotics (Arduino)",
             "topic": "Dự án STEM Công Nghệ - Robotics: Chế tạo mô hình xe tự hành dò line và tránh vật cản bằng cảm biến siêu âm HC-SR04 trên mạch Arduino.",
             "keywords": ["Arduino", "xe tự hành", "HC-SR04", "cảm biến hồng ngoại", "PWM", "mạch cầu H", "thực nghiệm"],
             "khia_canh": "sơ đồ đấu nối mạch cầu H L298N điều khiển động cơ DC và thuật toán đọc cảm biến siêu âm HC-SR04",
@@ -40,6 +44,7 @@ def generate_super_realistic_dataset(num_samples=500):
             "tinh_nang_them": "thử nghiệm thực tế 20 vòng liên tục trên sa bàn và thống kê tỷ lệ vượt chướng ngại vật"
         },
         {
+            "domain": "Vật lý thực hành (Cơ học)",
             "topic": "Môn Vật Lý K-12: Báo cáo thực hành xác định gia tốc rơi tự do g bằng cổng quang điện và đánh giá sai số phép đo.",
             "keywords": ["gia tốc rơi tự do", "cổng quang điện", "sai số", "đồ thị", "thực nghiệm", "trung bình"],
             "khia_canh": "phương pháp bố trí trụ thép và 2 cổng quang điện nối với đồng hồ hiện số đo thời gian rơi",
@@ -48,6 +53,7 @@ def generate_super_realistic_dataset(num_samples=500):
             "tinh_nang_them": "vẽ đường hồi quy tuyến tính trên Excel để suy ra gia tốc g = 9,78 m/s2"
         },
         {
+            "domain": "Sinh học - Nông nghiệp số",
             "topic": "Môn Sinh Học - Nông nghiệp số: Theo dõi sinh trưởng cây đậu xanh dưới các bước sóng ánh sáng đèn LED khác nhau trong 14 ngày.",
             "keywords": ["sinh trưởng", "quang hợp", "đèn LED", "chiều cao", "nhật ký", "đối chứng", "sinh khối"],
             "khia_canh": "thiết kế 3 lô thí nghiệm chiếu sáng bằng đèn LED đỏ, LED xanh lam và ánh sáng tự nhiên đối chứng",
@@ -110,7 +116,8 @@ def generate_super_realistic_dataset(num_samples=500):
         final_human_score = round(0.40 * kithuat + 0.35 * thucnghiem + 0.25 * trinhbay, 1)
 
         dataset.append({
-            "id": f"SAMPLE_{i+1:03d}",
+            "id": f"SAMPLE_{i+1:04d}",
+            "domain": spec["domain"],
             "quality_tier": quality_type,
             "report_text": report,
             "topic_requirements": spec["topic"],
@@ -131,4 +138,4 @@ def generate_super_realistic_dataset(num_samples=500):
     print(f"Saved {len(dataset)} clean K-12 STEM grading samples to {out_path}")
 
 if __name__ == "__main__":
-    generate_super_realistic_dataset(500)
+    generate_super_realistic_dataset(1000)
