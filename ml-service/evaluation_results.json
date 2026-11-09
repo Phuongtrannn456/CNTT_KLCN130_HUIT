@@ -1,0 +1,93 @@
+{
+  "benchmark_version": "2.0-K12-Hybrid",
+  "dataset_size": 500,
+  "tolerance_threshold": "Sai lệch <= 0.8 điểm trên thang 10 so với Giáo viên chấm",
+  "grading_benchmark": {
+    "PhoBERT-base (Fine-tuned + Chunking)": {
+      "agreement_rate_pct": 73.6,
+      "pearson_r": 0.8986,
+      "mae": 0.619,
+      "rmse": 0.8228,
+      "r2_score": 0.7705,
+      "latency_sec": 0.42,
+      "cost": "Miễn phí (Chạy cục bộ CPU/GPU)"
+    },
+    "Qwen-2.5-7B-Instruct": {
+      "agreement_rate_pct": 71.0,
+      "pearson_r": 0.9297,
+      "mae": 0.5818,
+      "rmse": 0.7136,
+      "r2_score": 0.8274,
+      "latency_sec": 2.15,
+      "cost": "Trung bình (Cần GPU VRAM >= 16GB)"
+    },
+    "Jev AI (Structured Rubric Judge)": {
+      "agreement_rate_pct": 85.8,
+      "pearson_r": 0.953,
+      "mae": 0.4475,
+      "rmse": 0.5545,
+      "r2_score": 0.8958,
+      "latency_sec": 0.58,
+      "cost": "Rất rẻ / Miễn phí (Structured Decision API)"
+    },
+    "Google Gemini Flash (LLM Judge)": {
+      "agreement_rate_pct": 88.2,
+      "pearson_r": 0.9597,
+      "mae": 0.4175,
+      "rmse": 0.518,
+      "r2_score": 0.9091,
+      "latency_sec": 1.24,
+      "cost": "Miễn phí (Google AI Studio Free Tier)"
+    },
+    "Hybrid 2-Tier (PhoBERT + Jev AI / Gemini)": {
+      "agreement_rate_pct": 94.8,
+      "pearson_r": 0.9759,
+      "mae": 0.3071,
+      "rmse": 0.3894,
+      "r2_score": 0.9486,
+      "latency_sec": 0.95,
+      "cost": "Tối ưu (Lọc cục bộ PhoBERT + Chấm tinh Jev AI/Gemini)"
+    }
+  },
+  "chatbot_benchmark": {
+    "total_test_cases": 100,
+    "categories": {
+      "RAG_MongoDB_LiveContext": {
+        "total": 40,
+        "jev_pass": 35,
+        "gemini_pass": 36,
+        "qwen_pass": 31
+      },
+      "Teacher_FunctionCalling_5Tools": {
+        "total": 30,
+        "jev_pass": 26,
+        "gemini_pass": 27,
+        "qwen_pass": 22
+      },
+      "ExamLock_Safety_Guardrails": {
+        "total": 30,
+        "jev_pass": 28,
+        "gemini_pass": 29,
+        "qwen_pass": 24
+      }
+    },
+    "summary": {
+      "Jev_AI": {
+        "accuracy_pct": 89.0,
+        "avg_latency_sec": 0.65,
+        "cost_tier": "Miễn phí / Rất thấp (~$0.0001/lượt)"
+      },
+      "Google_Gemini_Flash": {
+        "accuracy_pct": 92.0,
+        "avg_latency_sec": 1.15,
+        "cost_tier": "Free Tier / Thấp"
+      },
+      "Qwen_2_5_7B": {
+        "accuracy_pct": 77.0,
+        "avg_latency_sec": 1.92,
+        "cost_tier": "Tự host GPU / Trung bình"
+      }
+    }
+  },
+  "timestamp": "2026-11-09T09:30:59.816083"
+}

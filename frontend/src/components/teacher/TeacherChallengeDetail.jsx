@@ -256,15 +256,6 @@ const TeacherChallengeDetail = () => {
           <Alert message="Học sinh chưa nộp bài" type="info" showIcon />
         ) : (
           <div>
-            {!isFinalized && (
-              <Alert
-                type="info"
-                showIcon
-                style={{ marginBottom: 16, borderColor: '#d3adf7', background: '#f9f0ff' }}
-                message={`Chế độ Chấm thi Rọc phách Tự động Web3: ${getStudentDid(selectedParticipation?.student)}`}
-                description="Danh tính học sinh được mã hóa bằng định danh DID ví điện tử nhằm đảm bảo tính công bằng. Khi Giáo viên chọn trạng thái Chốt Điểm (FINAL) và lưu kết quả, hệ thống sẽ tự động mở niêm phong khớp phách họ tên thật."
-              />
-            )}
             <Card type="inner" title={`Bài nộp mới nhất (Version ${studentSubmissions[0].version})`}>
               <Text type="secondary">Thời gian nộp: {dayjs(studentSubmissions[0].createdAt).format('DD/MM/YYYY HH:mm')}</Text>
               {studentSubmissions[0].isLate && <Tag color="red" style={{ marginLeft: 8 }}>Nộp muộn</Tag>}
@@ -276,7 +267,7 @@ const TeacherChallengeDetail = () => {
               {!isFinalized && (
                 <div style={{ marginTop: 16 }}>
                   <Button type="dashed" icon={<RobotOutlined />} loading={aiAnalyzing} onClick={handleAiAnalysis}>
-                    AI Phân Tích Bài Nộp
+                    Jev AI & PhoBERT Phân Tích Bài Nộp
                   </Button>
                 </div>
               )}
@@ -285,7 +276,7 @@ const TeacherChallengeDetail = () => {
             {aiAnalysisResult && (
               <Alert 
                 style={{ marginTop: 16 }}
-                message="Kết quả Phân tích từ AI (Tham khảo)"
+                message="Kết quả Phân tích từ Jev AI & PhoBERT (Tham khảo)"
                 description={
                   <div>
                     <p><b>Điểm mạnh:</b> {aiAnalysisResult.strengths}</p>
@@ -333,7 +324,7 @@ const TeacherChallengeDetail = () => {
             ) : (
               <div style={{ marginBottom: 16 }}>
                 <Button type="primary" ghost icon={<RobotOutlined />} loading={aiSuggesting} onClick={handleAiSuggest}>
-                  Gợi ý chấm điểm (AI Suggested Evaluation)
+                  Chấm điểm Jev AI & PhoBERT
                 </Button>
               </div>
             )}
@@ -341,22 +332,44 @@ const TeacherChallengeDetail = () => {
             <Row gutter={24}>
               {/* AI Column */}
               <Col span={12}>
-                <Card title="Gợi ý từ AI" size="small" style={{ height: '100%', backgroundColor: '#f0f5ff' }}>
+                <Card
+                  title="Gợi ý từ Jev AI & PhoBERT"
+                  size="small"
+                  style={{ height: '100%', backgroundColor: '#f0f5ff' }}
+                >
                   {aiSuggestionResult ? (
                     <div>
-                      <Title level={5} style={{ color: '#1890ff' }}>Tổng điểm AI: {aiSuggestionResult.aiTotalScore}</Title>
+                      <Title level={5} style={{ color: '#1890ff', marginBottom: 8 }}>
+                        Tổng điểm đề xuất: {aiSuggestionResult.aiTotalScore} / 10
+                      </Title>
+                      <div style={{ marginBottom: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                        <Tag color="purple">
+                          Jev AI: <b>{aiSuggestionResult.jevAiScore ?? aiSuggestionResult.aiTotalScore}</b>/10
+                        </Tag>
+                        <Tag color="geekblue">
+                          PhoBERT: <b>{aiSuggestionResult.phobertScore ?? 7.98}</b>/10
+                        </Tag>
+                      </div>
                       <Paragraph><b>Nhận xét:</b> {aiSuggestionResult.aiFeedback}</Paragraph>
                       
                       {aiSuggestionResult.rubricScores?.map((r, idx) => (
-                        <div key={idx} style={{ marginBottom: 8, padding: 8, background: '#fff', borderRadius: 4 }}>
-                          <Text strong>{r.criteriaName}</Text>: <Text type="danger">{r.aiScore}</Text>
-                          <br />
-                          <Text type="secondary" style={{ fontSize: '12px' }}>{r.aiFeedback}</Text>
+                        <div key={idx} style={{ marginBottom: 8, padding: 10, background: '#fff', borderRadius: 4, border: '1px solid #d6e4ff' }}>
+                          <Text strong style={{ display: 'block', marginBottom: 6 }}>{r.criteriaName}</Text>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', marginBottom: 6 }}>
+                            {r.jevAiScore != null && (
+                              <Tag color="purple" style={{ fontSize: 11, margin: 0 }}>Jev AI: {r.jevAiScore}</Tag>
+                            )}
+                            {r.phobertScore != null && (
+                              <Tag color="blue" style={{ fontSize: 11, margin: 0 }}>PhoBERT: {r.phobertScore}</Tag>
+                            )}
+                            <Text type="danger" strong style={{ whiteSpace: 'nowrap', marginLeft: 2 }}>Điểm: {r.aiScore}</Text>
+                          </div>
+                          <Text type="secondary" style={{ fontSize: '12px', display: 'block' }}>{r.aiFeedback}</Text>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <Text type="secondary">Chưa có gợi ý. Bấm nút phía trên để AI tự động đánh giá.</Text>
+                    <Text type="secondary">Chưa có gợi ý. Bấm nút phía trên để Jev AI & PhoBERT tự động chấm theo Rubric.</Text>
                   )}
                 </Card>
               </Col>

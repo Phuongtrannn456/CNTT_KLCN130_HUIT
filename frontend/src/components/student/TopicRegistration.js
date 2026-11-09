@@ -94,9 +94,10 @@ const TopicRegistration = () => {
       try {
         const hsProfile = await aiApiService.getStudentProfile(user.id);
         studentProfile = {
-          chuyen_nganh: hsProfile.ChuyenNganh || '',
+          chuyen_nganh: hsProfile.ChuyenNganh || hsProfile.ToHopMon || '',
           ky_nang: hsProfile.KyNang || [],
-          gpa: hsProfile.GPA || 0
+          bang_diem_ky_nang: hsProfile.BangDiemKyNang || [],
+          gpa: hsProfile.GPA || hsProfile.DiemTongKet || 8.5
         };
       } catch (e) {
         console.warn('Không lấy được profile HS, dùng default');

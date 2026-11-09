@@ -170,6 +170,10 @@ async function executeTeacherTool(toolName, args, user) {
       if (firstGv) gvId = firstGv._id;
     }
 
+    const teacherClasses = await LopHoc.find({ GiaoVien: gvId }).select('_id MonHoc');
+    const lopHocIds = teacherClasses.map(c => c._id);
+    const defaultMonHoc = teacherClasses.find(c => c.MonHoc)?.MonHoc || undefined;
+
     const newTopic = await DeTai.create({
       MaDeTai: maDeTai,
       TenDeTai: tenDeTai.trim(),
@@ -180,10 +184,16 @@ async function executeTeacherTool(toolName, args, user) {
       Deadline: deadline,
       HanDangKy: deadline,
       GiaoVienHuongDan: gvId,
+      LopHoc: lopHocIds,
+      ...(defaultMonHoc && { MonHoc: defaultMonHoc }),
       TrangThai: 'MoDangKy',
       LoaiDeTai: 'DU_AN_STEM',
       KhoiLopYeuCau: grades
     });
+
+    if (deTaiController.invalidateDeTaiCache) {
+      deTaiController.invalidateDeTaiCache();
+    }
 
     return `**Đã tạo thành công đề tài STEM mới!**\n\n` +
       `* **Tên đề tài:** **${newTopic.TenDeTai}**\n` +
@@ -384,7 +394,7 @@ exports.chatWithAssistant = async (req, res) => {
       if (inTest) {
         return res.status(403).json({
           success: false,
-          reply: '⚠️ CẢNH BÁO BẢO MẬT: Bạn đang trong thời gian làm bài thi kiểm tra. Trợ lý AI bị khóa hoàn toàn nhằm đảm bảo tính công bằng và chống gian lận.',
+          reply: '[CANH BAO BAO MAT]: Ban dang trong thoi gian lam bai thi kiem tra. Tro ly AI bi khoa hoan toan nham dam bao tinh cong bang va chong gian lan.',
           inExam: true
         });
       }
@@ -472,7 +482,7 @@ exports.chatWithAssistant = async (req, res) => {
     return res.status(200).json({
       success: true,
       reply: aiResult.reply,
-      provider: 'GEMINI_AI',
+      provider: aiResult.provider || 'GEMINI_AI',
       model: aiResult.model,
       toolCall: aiResult.toolCall || null,
       userRole: role,
@@ -489,12 +499,13 @@ exports.chatWithAssistant = async (req, res) => {
 };
 
 /**
- * Gọi Google Gemini API với hệ thống Prompt phân quyền theo Role & Function Calling
+ * Gọi Jev AI hoặc Google Gemini API với hệ thống Prompt phân quyền theo Role & Function Calling
  */
 async function callGeminiApi({ prompt, user, liveContext, history, isTeacher }) {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || !apiKey.trim() || apiKey.trim() === 'YOUR_GEMINI_API_KEY_HERE') {
-    throw new Error('Chưa cấu hình GEMINI_API_KEY trong file backend/.env. Vui lòng thêm API Key để sử dụng tính năng Chatbox AI.');
+  const jevApiKey = process.env.JEV_AI_API_KEY;
+  if ((!apiKey || !apiKey.trim() || apiKey.trim() === 'YOUR_GEMINI_API_KEY_HERE') && (!jevApiKey || !jevApiKey.trim())) {
+    throw new Error('Chưa cấu hình JEV_AI_API_KEY hoặc GEMINI_API_KEY trong file backend/.env. Vui lòng thêm API Key để sử dụng tính năng Chatbox AI.');
   }
 
   // Danh sách candidate models tự động fallback khi gặp tải cao 503
@@ -611,6 +622,42 @@ GIỚI HẠN PHẠM VI (GUARDRAILS BẮT BUỘC CHO HỌC SINH):
   // Nếu là Giáo viên, cấp quyền Function Calling
   if (isTeacher) {
     payload.tools = [{ functionDeclarations: TEACHER_TOOLS }];
+  }
+
+  // Ưu tiên gọi Jev AI nếu có cấu hình JEV_AI_API_KEY
+  if (jevApiKey && jevApiKey.trim()) {
+    try {
+      const jevBaseUrl = process.env.JEV_AI_BASE_URL || 'https://api.jev.ai/v1/chat/completions';
+      const jevModel = process.env.JEV_AI_MODEL || 'jev-chat-v1';
+      const oaMessages = [
+        { role: 'system', content: systemInstructionText },
+        ...contents.map(c => ({
+          role: c.role === 'model' ? 'assistant' : 'user',
+          content: c.parts?.[0]?.text || ''
+        }))
+      ];
+      const jevRes = await axios.post(
+        jevBaseUrl,
+        { model: jevModel, messages: oaMessages, temperature: 0.3, max_tokens: 2048 },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${jevApiKey.trim()}`
+          },
+          timeout: 20000
+        }
+      );
+      const replyText = jevRes.data?.choices?.[0]?.message?.content;
+      if (replyText && replyText.trim()) {
+        return {
+          reply: replyText.trim(),
+          provider: 'JEV_AI',
+          model: jevModel
+        };
+      }
+    } catch (jevErr) {
+      logger.warn(`[AI Assistant] Jev AI fallback to Gemini: ${jevErr.message}`);
+    }
   }
 
   let lastError = null;

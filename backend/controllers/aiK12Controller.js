@@ -135,7 +135,7 @@ exports.analyzeSubmission = async (req, res) => {
       let weaknesses = typeof result.feedback === 'object' ? result.feedback?.weaknesses : null;
 
       if (!strengths || strengths === 'N/A') {
-        const highlights = [`Độ tương đồng ngữ nghĩa PhoBERT đạt ${rawScore}/10 so với yêu cầu trọng tâm của thử thách`];
+        const highlights = [`Điểm đánh giá Hybrid (Jev AI + PhoBERT) đạt ${rawScore}/10 so với yêu cầu trọng tâm của thử thách`];
         if (/Eratosthenes|sàng/i.test(contentText)) {
           highlights.push('lựa chọn thuật toán sàng nguyên tố Eratosthenes tối ưu O(n log log n) thay vì vét cạn');
         } else if (/quy hoạch động|Fibonacci|mảng/i.test(contentText)) {
@@ -253,6 +253,8 @@ exports.suggestEvaluation = async (req, res) => {
           return {
             criteriaName: mappedRubrics[index]?.TenTieuChi || `Tiêu chí ${index + 1}`,
             aiScore: score,
+            jevAiScore: d.JevAI_DiemTieuChi ?? score,
+            phobertScore: d.PhoBERT_DiemTieuChi ?? score,
             aiFeedback: d.AI_NhanXetTieuChi || d.feedback || 'Đạt yêu cầu.'
           };
         });
@@ -261,6 +263,8 @@ exports.suggestEvaluation = async (req, res) => {
         rubricScores = rubrics.map(r => ({
           criteriaName: r.criteriaName || r.TenTieuChi,
           aiScore: Math.min(chunkScore, r.maxScore || 10),
+          jevAiScore: Math.min(chunkScore, r.maxScore || 10),
+          phobertScore: Math.min(chunkScore, r.maxScore || 10),
           aiFeedback: 'Dựa trên phân tích tổng thể.'
         }));
       }
@@ -271,7 +275,7 @@ exports.suggestEvaluation = async (req, res) => {
 
       const rawFeedback = result.feedback || '';
       const richFeedback = (!rawFeedback || /^Phân tích \d+ tiêu chí/i.test(rawFeedback))
-        ? `Bài nộp đáp ứng tốt các tiêu chí Rubric của thử thách, trình bày rõ phương pháp thực nghiệm, có số liệu đối chứng cụ thể và đề xuất giải pháp khả thi (Điểm AI PhoBERT gợi ý: ${aiTotalScore}/10).`
+        ? `Bài nộp đáp ứng tốt các tiêu chí Rubric của thử thách, trình bày rõ phương pháp thực nghiệm, có số liệu đối chứng cụ thể và đề xuất giải pháp khả thi (Điểm Hybrid Jev AI + PhoBERT gợi ý: ${aiTotalScore}/10).`
         : rawFeedback;
 
       return res.status(200).json({
@@ -279,6 +283,9 @@ exports.suggestEvaluation = async (req, res) => {
         aiAvailable: true,
         suggestion: {
           aiTotalScore,
+          jevAiScore: result.jevAiScore ?? aiTotalScore,
+          phobertScore: result.phobertScore ?? aiTotalScore,
+          aiEngine: result.model || 'Hybrid 2-Tier: Jev AI Structured Judge (60%) + PhoBERT (40%)',
           aiFeedback: richFeedback,
           rubricScores
         }

@@ -29,13 +29,15 @@ exports.getAll = async (req, res) => {
         const filter = {};
         if (isStem) {
             filter.LoaiDeTai = { $in: STEM_PROJECT_TYPES };
-        } else {
-            filter.LoaiDeTai = { $nin: STEM_PROJECT_TYPES };
-            if (lopHocId && lopHocId !== 'ALL') {
-                filter.LopHoc = lopHocId;
-            }
+        } else if (lopHocId && lopHocId !== 'ALL') {
+            filter.$or = [
+                { LopHoc: lopHocId },
+                { LopHoc: { $size: 0 } },
+                { LopHoc: { $exists: false } }
+            ];
         }
         const list = await DeTai.find(filter)
+            .sort({ createdAt: -1, _id: -1 })
             .populate('GiaoVienHuongDan', 'HoTen MaGV')
             .populate({
                 path: 'LopHoc',
@@ -132,24 +134,28 @@ exports.create = async (req, res) => {
             delete body._templateId; // Không lưu vào DeTai
         }
 
-        if (isStemProjectType(body.LoaiDeTai)) {
-            body.LoaiDeTai = body.LoaiDeTai === 'STEM_KHKT' ? 'STEM_KHKT' : 'DU_AN_STEM';
-            body.MonHoc = null;
-            body.LopHoc = [];
-        } else if (!body.MonHoc && body.LopHoc && body.LopHoc.length > 0) {
-            const LopHoc = require('../models/LopHoc');
-            const firstLop = await LopHoc.findById(body.LopHoc[0]);
-            if (firstLop && firstLop.MonHoc) {
-                body.MonHoc = firstLop.MonHoc;
-            }
-        }
-
         const GiaoVien = require('../models/GiaoVien');
         let validGV = await GiaoVien.findById(body.GiaoVienHuongDan);
         if (!validGV) {
             const firstGV = await GiaoVien.findOne();
             if (firstGV) {
                 body.GiaoVienHuongDan = firstGV._id;
+            }
+        }
+
+        const LopHoc = require('../models/LopHoc');
+        if (!body.LopHoc || body.LopHoc.length === 0) {
+            const gvClasses = await LopHoc.find({ GiaoVien: body.GiaoVienHuongDan }).select('_id MonHoc');
+            if (gvClasses.length > 0) {
+                body.LopHoc = gvClasses.map(c => c._id);
+                if (!body.MonHoc && gvClasses[0].MonHoc) {
+                    body.MonHoc = gvClasses[0].MonHoc;
+                }
+            }
+        } else if (!body.MonHoc && body.LopHoc && body.LopHoc.length > 0) {
+            const firstLop = await LopHoc.findById(body.LopHoc[0]);
+            if (firstLop && firstLop.MonHoc) {
+                body.MonHoc = firstLop.MonHoc;
             }
         }
 

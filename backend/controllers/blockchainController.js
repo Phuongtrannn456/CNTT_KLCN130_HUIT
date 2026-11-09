@@ -17,7 +17,7 @@ const readABI = (version) => {
 const toBytes32 = (value) => ethers.keccak256(ethers.toUtf8Bytes(String(value)));
 
 const getProvider = () => {
-    const rpcUrl = process.env.SEPOLIA_RPC_URL || `https://sepolia.infura.io/v3/${process.env.INFURA || ''}`;
+    const rpcUrl = process.env.BLOCKCHAIN_RPC_URL || process.env.SEPOLIA_RPC_URL || process.env.RPC_URL || 'http://127.0.0.1:8545';
     return new ethers.JsonRpcProvider(rpcUrl);
 };
 
@@ -86,10 +86,15 @@ exports.getContracts = async (req, res) => {
         const network = await provider.getNetwork();
         const code = await provider.getCode(address);
 
+        const chainId = Number(network.chainId);
+        const netName = (network.name && network.name !== 'unknown')
+            ? network.name
+            : (chainId === 31337 ? 'Hardhat Localhost' : `Chain ${chainId}`);
+
         res.json({
             network: {
-                name: network.name,
-                chainId: Number(network.chainId)
+                name: netName,
+                chainId
             },
             contracts: {
                 thesis: {
@@ -97,8 +102,11 @@ exports.getContracts = async (req, res) => {
                     version,
                     hasCode: code !== '0x'
                 },
+                k12Registry: {
+                    address: process.env.K12_CREDENTIAL_CONTRACT_ADDRESS || null
+                },
                 hrPayroll: {
-                    address: process.env.HR_PAYROLL_ADDRESS || null
+                    address: process.env.HR_PAYROLL_ADDRESS || process.env.K12_CREDENTIAL_CONTRACT_ADDRESS || null
                 },
                 token: {
                     address: process.env.TOKEN_ADDRESS || null

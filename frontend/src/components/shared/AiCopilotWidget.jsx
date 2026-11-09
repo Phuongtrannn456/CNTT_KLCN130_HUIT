@@ -20,6 +20,7 @@ import {
 } from 'antd';
 import { Bot, Send, Trash2, User } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import authService from '../../services/authService';
 import apiService from '../../services/apiService';
@@ -33,6 +34,7 @@ const AiCopilotWidget = () => {
   const isMobile = useIsMobile();
   const location = useLocation();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const isExamMode = location.pathname.includes('/entrance-test') || location.pathname.includes('/exam-room');
 
   const currentUser = authService.getCurrentUser();
@@ -192,6 +194,8 @@ const AiCopilotWidget = () => {
           text: res.data.reply,
           time: new Date()
         }]);
+        queryClient.invalidateQueries({ queryKey: ['topics'] });
+        if (canManage) loadTeacherTopics();
       } else {
         setMessages(prev => [...prev, {
           sender: 'ai',
@@ -275,6 +279,7 @@ const AiCopilotWidget = () => {
         const updated = res.data;
         setTopicSuccess({ ...updated, isEdit: true });
         loadTeacherTopics();
+        queryClient.invalidateQueries({ queryKey: ['topics'] });
 
         const msgText = `Đã cập nhật thành công đề tài STEM: **${updated.TenDeTai}** (Mã: \`${updated.MaDeTai}\`). [Xem trang Quản lý đề tài](/teacher/topics)`;
         setMessages(prev => [...prev, { sender: 'ai', text: msgText, time: new Date() }]);
@@ -284,6 +289,7 @@ const AiCopilotWidget = () => {
         const created = res.data;
         setTopicSuccess(created);
         loadTeacherTopics();
+        queryClient.invalidateQueries({ queryKey: ['topics'] });
 
         const msgText = `Đã tạo thành công đề tài STEM: **${created.TenDeTai}** (Mã: \`${created.MaDeTai}\`). [Xem trang Quản lý đề tài](/teacher/topics)`;
         setMessages(prev => [...prev, { sender: 'ai', text: msgText, time: new Date() }]);
@@ -309,6 +315,7 @@ const AiCopilotWidget = () => {
       setSelectedTopicToEdit(null);
       setTopicSuccess(null);
       loadTeacherTopics();
+      queryClient.invalidateQueries({ queryKey: ['topics'] });
 
       const msgText = `Đã xóa thành công đề tài STEM: **${topicToDelete?.TenDeTai || 'Đề tài'}** (\`${topicToDelete?.MaDeTai || ''}\`).`;
       setMessages(prev => [...prev, { sender: 'ai', text: msgText, time: new Date() }]);
@@ -462,9 +469,6 @@ const AiCopilotWidget = () => {
               <div>
                 <div style={{ fontWeight: 700, fontSize: 16 }}>
                   {isStudent ? 'AI STEM Mentor' : 'AI Trợ Giảng Chuyên Môn'}
-                </div>
-                <div style={{ fontSize: 11, color: '#8c8c8c' }}>
-                  {activeSideForm ? 'Chế độ làm việc song song (Chat + Form)' : 'Hỗ trợ học tập K-12 & Web3 Credentials'}
                 </div>
               </div>
             </div>
@@ -688,9 +692,6 @@ const AiCopilotWidget = () => {
                     {activeSideForm === 'topic' 
                       ? (topicMode === 'edit' ? 'Chỉnh Sửa & Xóa Đề Tài STEM' : 'Tạo Đề Tài STEM K-12')
                       : (existingTest ? 'Chỉnh Sửa & Xóa Bài Test Đầu Vào' : 'Tạo Bài Test Đầu Vào')}
-                  </div>
-                  <div style={{ fontSize: 12, color: '#8c8c8c' }}>
-                    Trao đổi với AI bên trái, sao chép và dán trực tiếp vào các ô dưới đây.
                   </div>
                 </div>
                 <Button size="small" onClick={() => setActiveSideForm(null)}>

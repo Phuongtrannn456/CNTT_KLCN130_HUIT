@@ -380,11 +380,8 @@ const BlockchainDebugPage = () => {
                         </Tag>
                       </Space>
                     </Descriptions.Item>
-                    <Descriptions.Item label="HR Payroll">
-                      {renderAddress(contracts.contracts?.hrPayroll?.address)}
-                    </Descriptions.Item>
-                    <Descriptions.Item label="Token">
-                      {renderAddress(contracts.contracts?.token?.address)}
+                    <Descriptions.Item label="K-12 Credential Registry">
+                      {renderAddress(contracts.contracts?.k12Registry?.address || contracts.contracts?.hrPayroll?.address)}
                     </Descriptions.Item>
                   </Descriptions>
                 </Space>

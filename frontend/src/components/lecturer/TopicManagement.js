@@ -66,8 +66,6 @@ const TopicManagement = () => {
       if (selectedClassId === 'KHOA_LUAN') {
         return isStemProject && gvId === user.id;
       }
-      
-      if (isStemProject && (!t.LopHoc || t.LopHoc.length === 0)) return false;
 
       if (gvId === user.id) return true;
       return (t.LopHoc || []).some(lh => myClassIds.has((lh._id || lh).toString()));
@@ -461,6 +459,7 @@ const TopicManagement = () => {
 
       const filteredTopics = topics.filter(topic => {
         if (!selectedClassId || selectedClassId === 'ALL' || selectedClassId === 'KHOA_LUAN') return true;
+        if (!topic.LopHoc || topic.LopHoc.length === 0) return true;
         return (topic.LopHoc || []).some(lh => (lh._id || lh).toString() === selectedClassId.toString());
       });
 

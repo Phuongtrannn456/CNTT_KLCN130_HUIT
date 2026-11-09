@@ -954,21 +954,13 @@ const SubmissionReview = () => {
         {selectedSubmission && (
           <div>
             <Title level={4}>{selectedSubmission.topic?.TenDeTai}</Title>
-            {selectedSubmission.status === 'DaCham' ? (
+            {selectedSubmission.status === 'DaCham' && (
               <div style={{ marginBottom: 12 }}>
                 <Text type="secondary" style={{ display: 'block', marginBottom: 4 }}>
                   Học sinh: <Text strong>{selectedSubmission.student?.HoTen}</Text> ({selectedSubmission.student?.MaHS})
                   <Tag color="green" style={{ marginLeft: 8 }}>Đã khớp phách</Tag>
                 </Text>
               </div>
-            ) : (
-              <Alert
-                type="info"
-                showIcon
-                style={{ marginBottom: 12, borderColor: '#d3adf7', background: '#f9f0ff' }}
-                message={`Chế độ Rọc phách Tự động Web3: ${getStudentDid(selectedSubmission.student)}`}
-                description="Danh tính học sinh và tên nhóm được ẩn dưới định danh DID (Zero-PII) để đảm bảo chấm điểm khách quan. Họ tên thật sẽ tự động khớp phách sau khi Giáo viên ký số ghi điểm lên Blockchain."
-              />
             )}
             <Text type="secondary" style={{ display: 'block', marginBottom: 24 }}>
               Nộp lúc: {new Date(selectedSubmission.submission?.NgayNop || selectedSubmission.submission?.createdAt).toLocaleString('vi-VN')}
@@ -1036,13 +1028,14 @@ const SubmissionReview = () => {
               })()
             )}
 
-            {/* === PHOBERT AI ANALYTICS === */}
+            {/* === HYBRID JEV AI + PHOBERT ANALYTICS === */}
             <Card
               size="small"
               title={
                 <Space>
                   <BrainCircuit size={16} color="#1677ff" />
-                  <Text strong>PhoBERT AI Phân Tích</Text>
+                  <Text strong>Jev AI & PhoBERT Hybrid Phân Tích</Text>
+                  <Tag color="purple">Hybrid 2-Tier</Tag>
                 </Space>
               }
               style={{ marginBottom: 20, borderLeft: '3px solid #1677ff' }}
@@ -1126,10 +1119,6 @@ const SubmissionReview = () => {
                     style={{ marginBottom: 12 }}
                   />
                 )}
-                
-                <Text type="secondary" italic style={{ display: 'block', fontSize: 12 }}>
-                  * Điểm quá trình chỉ mang tính tham khảo - KHÔNG tự cộng vào điểm cuối kỳ.
-                </Text>
               </Card>
             )}
 
@@ -1140,7 +1129,7 @@ const SubmissionReview = () => {
                 title={
                   <Space>
                     <ListChecks size={16} color="#722ed1" />
-                    <Text strong>Chấm Điểm Theo Rubrics ({rubricsResult.length} tiêu chí)</Text>
+                    <Text strong>Chấm Điểm Theo Rubrics - Jev AI & PhoBERT ({rubricsResult.length} tiêu chí)</Text>
                   </Space>
                 }
                 style={{ marginBottom: 20, borderLeft: '3px solid #722ed1' }}

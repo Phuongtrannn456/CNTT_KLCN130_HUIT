@@ -23,9 +23,15 @@ const aiApiService = {
 
     // Gọi SBERT matching
     matchTopicsAI: async (studentProfile, topics) => {
+        const slimTopics = (topics || []).map(t => ({
+            _id: t._id,
+            TenDeTai: t.TenDeTai,
+            MoTa: t.MoTa,
+            YeuCau: t.YeuCau
+        }));
         const response = await axios.post(`${API_URL}/ai/match-student`, {
             studentProfile,
-            topics
+            topics: slimTopics
         }, { headers: getAuthHeaders() });
         return response.data;
     },

@@ -210,9 +210,9 @@ const StudentDashboard = () => {
       </div>
 
       {/* Cảnh báo cập nhật hồ sơ lần đầu */}
-      {needsProfileUpdate ? (
+      {needsProfileUpdate && (
         <Alert
-          message="⚠️ Vui lòng cập nhật hồ sơ trước khi sử dụng hệ thống"
+          message="Vui lòng cập nhật hồ sơ trước khi sử dụng hệ thống"
           description="Bạn cần hoàn tất hồ sơ cá nhân (Họ tên, Mã HS, Email, Kỹ năng) trước khi được phép đăng ký đề tài."
           type="warning"
           showIcon
@@ -222,14 +222,6 @@ const StudentDashboard = () => {
               Cập Nhật Ngay
             </Button>
           }
-        />
-      ) : (
-        <Alert
-          message="Hệ Thống Đã Sẵn Sàng"
-          description="Chào mừng bạn đến với mạng Web3 Giáo Dục Phổ Thông. Dữ liệu dự án học tập của bạn được đồng bộ trực tiếp với Blockchain."
-          type="info"
-          showIcon
-          style={{ marginBottom: 24 }}
         />
       )}
 

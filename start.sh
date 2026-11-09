@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+cd "$(dirname "$0")"
 
 # Thoat va tat toan bo service con khi nhan Ctrl+C
 trap 'echo -e "\nDang dung toan bo cac service..."; kill $(jobs -p) 2>/dev/null; exit 0' EXIT SIGINT SIGTERM

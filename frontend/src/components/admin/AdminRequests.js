@@ -446,14 +446,6 @@ const AdminRequests = () => {
   return (
     <div style={{ padding: 24 }}>
       <Title level={3} style={{ marginBottom: 16 }}>Quản lý Yêu cầu Phê duyệt</Title>
-      
-      <Alert
-        type="info"
-        showIcon
-        style={{ marginBottom: 20, borderRadius: 8 }}
-        message="Quản trị Bảo mật Zero-PII (Pure Pseudonymity)"
-        description="Toàn bộ Giáo viên và Học sinh được định danh bằng mã DID và Địa chỉ ví Web3. Ban quản trị phê duyệt quyền hạn dựa trên Mã xác thực trường cấp và Tổ chuyên môn STEM, tuyệt đối không lưu trữ hay yêu cầu danh tính đời thực."
-      />
 
       {error && <Alert type="error" message={error} showIcon style={{ marginBottom: 16 }} />}
 
